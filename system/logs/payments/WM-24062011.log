@@ -1,0 +1,43 @@
+########### 24-06-2011 14:17 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 4028.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 432100
+LMI_PAYER_WM		=> 375704528010
+LMI_PAYER_PURSE		=> R899916055357
+LMI_SYS_INVS_NO		=> 218689371
+LMI_SYS_TRANS_NO		=> 567387784
+LMI_SYS_TRANS_DATE		=> 20110624 16:17:32
+LMI_HASH		=> DE02E052538398F6F9E86825C6446222
+LMI_PAYMENT_DESC		=> Пополнение счета пользователем №43 на сумму 139 у.е.
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 139
+User_id		=> 43
+User_comment		=> 
+User_tax		=> 2.502
+########################################
+
+
+########### 24-06-2011 14:17 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 4028.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 432100
+LMI_PAYER_WM		=> 375704528010
+LMI_PAYER_PURSE		=> R899916055357
+LMI_SYS_INVS_NO		=> 218689371
+LMI_SYS_TRANS_NO		=> 567387784
+LMI_SYS_TRANS_DATE		=> 20110624 16:17:32
+LMI_HASH		=> DE02E052538398F6F9E86825C6446222
+LMI_PAYMENT_DESC		=> Пополнение счета пользователем №43 на сумму 139 у.е.
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 139
+User_id		=> 43
+User_comment		=> 
+User_tax		=> 2.502
+Status: OK! [payment_id=15]
+########################################
+
+

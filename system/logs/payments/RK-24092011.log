@@ -1,0 +1,18 @@
+########### 24-09-2011 10:55 ###########
+out_summ		=> 1001.000000
+inv_id		=> 1022156
+crc		=> FEDAC1D9AEF4ECE09D442EAA6E61D24E
+OutSum		=> 1001.000000
+InvId		=> 1022156
+SignatureValue		=> FEDAC1D9AEF4ECE09D442EAA6E61D24E
+PaymentMethod		=> OceanBank
+IncSum		=> 1064.900000
+IncCurrLabel		=> BANKOCEANMR
+ShpAmount		=> 30
+ShpComment		=> 
+ShpTax		=> 0.54
+ShpUser		=> 102
+Status:OK1022156
+########################################
+
+

@@ -1,0 +1,43 @@
+########### 27-07-2011 16:47 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 1116.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 1192151
+LMI_PAYER_WM		=> 166128035848
+LMI_PAYER_PURSE		=> R292909142857
+LMI_SYS_INVS_NO		=> 224777284
+LMI_SYS_TRANS_NO		=> 578051979
+LMI_SYS_TRANS_DATE		=> 20110727 18:47:38
+LMI_HASH		=> F440812C0071A383F95B7F3F4D5DDF7B
+LMI_PAYMENT_DESC		=> Пополнение счета пользователем №119 на сумму 39 у.е.
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 39
+User_id		=> 119
+User_comment		=> 
+User_tax		=> 0.702
+########################################
+
+
+########### 27-07-2011 16:47 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 1116.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 1192151
+LMI_PAYER_WM		=> 166128035848
+LMI_PAYER_PURSE		=> R292909142857
+LMI_SYS_INVS_NO		=> 224777284
+LMI_SYS_TRANS_NO		=> 578051979
+LMI_SYS_TRANS_DATE		=> 20110727 18:47:38
+LMI_HASH		=> F440812C0071A383F95B7F3F4D5DDF7B
+LMI_PAYMENT_DESC		=> Пополнение счета пользователем №119 на сумму 39 у.е.
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 39
+User_id		=> 119
+User_comment		=> 
+User_tax		=> 0.702
+Status: OK! [payment_id=139]
+########################################
+
+

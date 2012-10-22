@@ -1,0 +1,18 @@
+########### 14-07-2011 22:19 ###########
+out_summ		=> 1968.000000
+inv_id		=> 1022047
+crc		=> 2716673366A41ECDBA43B483B966B9A4
+OutSum		=> 1968.000000
+InvId		=> 1022047
+SignatureValue		=> 2716673366A41ECDBA43B483B966B9A4
+PaymentMethod		=> UFS
+IncSum		=> 2105.760000
+IncCurrLabel		=> BANKR
+ShpAmount		=> 68
+ShpComment		=> 
+ShpTax		=> 1.224
+ShpUser		=> 102
+Status:OK1022047
+########################################
+
+

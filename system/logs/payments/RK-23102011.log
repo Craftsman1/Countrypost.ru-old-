@@ -1,0 +1,18 @@
+########### 23-10-2011 18:52 ###########
+out_summ		=> 3255.000000
+inv_id		=> 2952100
+crc		=> ACBB0B97227BD81905B1B002E482832B
+OutSum		=> 3255.000000
+InvId		=> 2952100
+SignatureValue		=> ACBB0B97227BD81905B1B002E482832B
+PaymentMethod		=> Qiwi
+IncSum		=> 3492.490000
+IncCurrLabel		=> QiwiR
+ShpAmount		=> 100
+ShpComment		=> 
+ShpTax		=> 1.8
+ShpUser		=> 295
+Status:OK2952100
+########################################
+
+

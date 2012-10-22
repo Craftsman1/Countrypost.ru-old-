@@ -1,0 +1,18 @@
+########### 19-07-2011 16:57 ###########
+out_summ		=> 3191.000000
+inv_id		=> 1082101
+crc		=> A283A303FD7790E8DB8410942D17BDB2
+OutSum		=> 3191.000000
+InvId		=> 1082101
+SignatureValue		=> A283A303FD7790E8DB8410942D17BDB2
+PaymentMethod		=> UFS
+IncSum		=> 3414.370000
+IncCurrLabel		=> BANKR
+ShpAmount		=> 109
+ShpComment		=> 
+ShpTax		=> 1.962
+ShpUser		=> 108
+Status:OK1082101
+########################################
+
+

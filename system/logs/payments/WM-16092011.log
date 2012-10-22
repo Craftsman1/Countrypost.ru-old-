@@ -1,0 +1,43 @@
+########### 16-09-2011 06:22 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 1136.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 1862081
+LMI_PAYER_WM		=> 757303666558
+LMI_PAYER_PURSE		=> R121369668244
+LMI_SYS_INVS_NO		=> 234567161
+LMI_SYS_TRANS_NO		=> 595395241
+LMI_SYS_TRANS_DATE		=> 20110916 08:22:05
+LMI_HASH		=> 4D2F5122F6B55526B21C379253F9F57F
+LMI_PAYMENT_DESC		=> Charge for user 186 (on sum: 36)
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 36
+User_id		=> 186
+User_comment		=> 
+User_tax		=> 0.648
+########################################
+
+
+########### 16-09-2011 06:22 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 1136.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 1862081
+LMI_PAYER_WM		=> 757303666558
+LMI_PAYER_PURSE		=> R121369668244
+LMI_SYS_INVS_NO		=> 234567161
+LMI_SYS_TRANS_NO		=> 595395241
+LMI_SYS_TRANS_DATE		=> 20110916 08:22:05
+LMI_HASH		=> 4D2F5122F6B55526B21C379253F9F57F
+LMI_PAYMENT_DESC		=> Charge for user 186 (on sum: 36)
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 36
+User_id		=> 186
+User_comment		=> 
+User_tax		=> 0.648
+Status: OK! [payment_id=499]
+########################################
+
+

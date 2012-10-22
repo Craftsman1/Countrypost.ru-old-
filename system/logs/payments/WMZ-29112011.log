@@ -1,0 +1,53 @@
+########### 29-11-2011 22:35 ###########
+########################################
+
+
+########### 29-11-2011 22:35 ###########
+Status: FAIL! Не верная цифровая подпись!
+SignStr:Z735510829657XFgw
+CalcSign:C133C0EDE71FFEA502BC1A9D1AE21E40
+RespSign:
+########################################
+
+
+########### 29-11-2011 22:35 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 36.00
+LMI_PAYEE_PURSE		=> Z735510829657
+LMI_PAYMENT_NO		=> 1322602885
+LMI_PAYER_WM		=> 286070674492
+LMI_PAYER_PURSE		=> Z691245518706
+LMI_SYS_INVS_NO		=> 251100622
+LMI_SYS_TRANS_NO		=> 624226071
+LMI_SYS_TRANS_DATE		=> 20111130 01:35:33
+LMI_HASH		=> 7BBA3C1CE650638EFFC21990D4B45A3B
+LMI_PAYMENT_DESC		=> Refill balance for client 391 on $33
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 33
+User_id		=> 391
+User_tax		=> 2.792
+########################################
+
+
+########### 29-11-2011 22:35 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 36.00
+LMI_PAYEE_PURSE		=> Z735510829657
+LMI_PAYMENT_NO		=> 1322602885
+LMI_PAYER_WM		=> 286070674492
+LMI_PAYER_PURSE		=> Z691245518706
+LMI_SYS_INVS_NO		=> 251100622
+LMI_SYS_TRANS_NO		=> 624226071
+LMI_SYS_TRANS_DATE		=> 20111130 01:35:33
+LMI_HASH		=> 7BBA3C1CE650638EFFC21990D4B45A3B
+LMI_PAYMENT_DESC		=> Refill balance for client 391 on $33
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 33
+User_id		=> 391
+User_tax		=> 2.792
+Status: OK! [payment_id=1990]
+########################################
+
+

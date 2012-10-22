@@ -1,0 +1,146 @@
+########### 01-06-2011 20:13 ###########
+########################################
+
+
+########### 01-06-2011 20:13 ###########
+Status: FAIL! Не верная цифровая подпись!
+SignStr:R335456041886XFgw
+CalcSign:50395C41851C4674D54A83DE6B31EFD4
+RespSign:
+########################################
+
+
+########### 01-06-2011 20:24 ###########
+########################################
+
+
+########### 01-06-2011 20:24 ###########
+Status: FAIL! Не верная цифровая подпись!
+SignStr:R335456041886XFgw
+CalcSign:50395C41851C4674D54A83DE6B31EFD4
+RespSign:
+########################################
+
+
+########### 01-06-2011 20:46 ###########
+LMI_MODE		=> 1
+LMI_PAYMENT_AMOUNT		=> 2907.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 2212128
+LMI_PAYER_WM		=> 249785998467
+LMI_PAYER_PURSE		=> R335456041886
+LMI_SYS_INVS_NO		=> 354
+LMI_SYS_TRANS_NO		=> 454
+LMI_SYS_TRANS_DATE		=> 20110601 22:46:33
+LMI_HASH		=> DF0DE7CA8C9A623A246B156057EB199F
+LMI_PAYMENT_DESC		=> Пополнение счета пользователем №221 на сумму 100 у.е.
+LMI_LANG		=> ru-RU
+User_id		=> 221
+########################################
+
+
+########### 01-06-2011 20:46 ###########
+LMI_MODE		=> 1
+LMI_PAYMENT_AMOUNT		=> 2907.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 2212128
+LMI_PAYER_WM		=> 249785998467
+LMI_PAYER_PURSE		=> R335456041886
+LMI_SYS_INVS_NO		=> 354
+LMI_SYS_TRANS_NO		=> 454
+LMI_SYS_TRANS_DATE		=> 20110601 22:46:33
+LMI_HASH		=> DF0DE7CA8C9A623A246B156057EB199F
+LMI_PAYMENT_DESC		=> Пополнение счета пользователем №221 на сумму 100 у.е.
+LMI_LANG		=> ru-RU
+User_id		=> 221
+Status: OK! [payment_id=200]
+########################################
+
+
+########### 01-06-2011 20:47 ###########
+LMI_MODE		=> 1
+LMI_PAYMENT_AMOUNT		=> 2907.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 2212128
+LMI_PAYER_WM		=> 249785998467
+LMI_PAYER_PURSE		=> R335456041886
+LMI_SYS_INVS_NO		=> 395
+LMI_SYS_TRANS_NO		=> 752
+LMI_SYS_TRANS_DATE		=> 20110601 22:47:15
+LMI_HASH		=> F91D98433908F82B615E662665325CB5
+LMI_PAYMENT_DESC		=> Пополнение счета пользователем №221 на сумму 100 у.е.
+LMI_LANG		=> ru-RU
+User_id		=> 221
+########################################
+
+
+########### 01-06-2011 20:48 ###########
+LMI_MODE		=> 1
+LMI_PAYMENT_AMOUNT		=> 2907.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 2212075
+LMI_PAYER_WM		=> 249785998467
+LMI_PAYER_PURSE		=> R335456041886
+LMI_SYS_INVS_NO		=> 380
+LMI_SYS_TRANS_NO		=> 317
+LMI_SYS_TRANS_DATE		=> 20110601 22:48:17
+LMI_HASH		=> 72F317042FA682518B99EA6858412053
+LMI_PAYMENT_DESC		=> Пополнение счета пользователем №221 на сумму 100 у.е.
+LMI_LANG		=> ru-RU
+User_id		=> 221
+########################################
+
+
+########### 01-06-2011 20:48 ###########
+LMI_MODE		=> 1
+LMI_PAYMENT_AMOUNT		=> 2907.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 2212075
+LMI_PAYER_WM		=> 249785998467
+LMI_PAYER_PURSE		=> R335456041886
+LMI_SYS_INVS_NO		=> 380
+LMI_SYS_TRANS_NO		=> 317
+LMI_SYS_TRANS_DATE		=> 20110601 22:48:17
+LMI_HASH		=> 72F317042FA682518B99EA6858412053
+LMI_PAYMENT_DESC		=> Пополнение счета пользователем №221 на сумму 100 у.е.
+LMI_LANG		=> ru-RU
+User_id		=> 221
+Status: OK! [payment_id=201]
+########################################
+
+
+########### 01-06-2011 20:49 ###########
+LMI_MODE		=> 1
+LMI_PAYMENT_AMOUNT		=> 2907.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 2212090
+LMI_PAYER_WM		=> 249785998467
+LMI_PAYER_PURSE		=> R335456041886
+LMI_SYS_INVS_NO		=> 206
+LMI_SYS_TRANS_NO		=> 68
+LMI_SYS_TRANS_DATE		=> 20110601 22:49:27
+LMI_HASH		=> 6EDF303AE048586980771A2094F5BCD3
+LMI_PAYMENT_DESC		=> Пополнение счета пользователем №221 на сумму 100 у.е.
+LMI_LANG		=> ru-RU
+User_id		=> 221
+########################################
+
+
+########### 01-06-2011 20:49 ###########
+LMI_MODE		=> 1
+LMI_PAYMENT_AMOUNT		=> 2907.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 2212090
+LMI_PAYER_WM		=> 249785998467
+LMI_PAYER_PURSE		=> R335456041886
+LMI_SYS_INVS_NO		=> 206
+LMI_SYS_TRANS_NO		=> 68
+LMI_SYS_TRANS_DATE		=> 20110601 22:49:27
+LMI_HASH		=> 6EDF303AE048586980771A2094F5BCD3
+LMI_PAYMENT_DESC		=> Пополнение счета пользователем №221 на сумму 100 у.е.
+LMI_LANG		=> ru-RU
+User_id		=> 221
+Status: OK! [payment_id=202]
+########################################
+
+

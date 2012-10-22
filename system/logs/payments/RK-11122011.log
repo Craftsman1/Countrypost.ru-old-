@@ -1,0 +1,18 @@
+########### 11-12-2011 14:40 ###########
+out_summ		=> 2912.000000
+inv_id		=> 1323610629
+crc		=> 61ADC11AAACEA19A165DEEEA0914EC08
+OutSum		=> 2912.000000
+InvId		=> 1323610629
+SignatureValue		=> 61ADC11AAACEA19A165DEEEA0914EC08
+PaymentMethod		=> UFS
+IncSum		=> 3115.840000
+IncCurrLabel		=> BANKR
+ShpAmount		=> 90
+ShpComment		=> 
+ShpTax		=> 1.62
+ShpUser		=> 46
+Status:OK1323610629
+########################################
+
+

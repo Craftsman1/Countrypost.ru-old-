@@ -1,0 +1,1 @@
+ALTER TABLE  `taxes` ADD  `package_disconnected` FLOAT NOT NULL DEFAULT  '14' AFTER  `package`;

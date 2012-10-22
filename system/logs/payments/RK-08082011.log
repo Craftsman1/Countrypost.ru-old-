@@ -1,0 +1,36 @@
+########### 08-08-2011 16:45 ###########
+out_summ		=> 1972.000000
+inv_id		=> 762090
+crc		=> 39EFE399BE77F8D08EB47C59970FC270
+OutSum		=> 1972.000000
+InvId		=> 762090
+SignatureValue		=> 39EFE399BE77F8D08EB47C59970FC270
+PaymentMethod		=> EMoney
+IncSum		=> 612.420000
+IncCurrLabel		=> WMUM
+ShpAmount		=> 67
+ShpComment		=> 
+ShpTax		=> 1.206
+ShpUser		=> 76
+Status:OK762090
+########################################
+
+
+########### 08-08-2011 16:50 ###########
+out_summ		=> 4180.000000
+inv_id		=> 762108
+crc		=> 2452904EE6A48AE4FAF19D82D81F88B2
+OutSum		=> 4180.000000
+InvId		=> 762108
+SignatureValue		=> 2452904EE6A48AE4FAF19D82D81F88B2
+PaymentMethod		=> EMoney
+IncSum		=> 1298.090000
+IncCurrLabel		=> WMUM
+ShpAmount		=> 142
+ShpComment		=> 
+ShpTax		=> 2.556
+ShpUser		=> 76
+Status:OK762108
+########################################
+
+

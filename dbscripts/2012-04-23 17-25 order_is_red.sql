@@ -1,0 +1,1 @@
+ALTER TABLE  `orders` ADD  `order_is_red` TINYINT( 1 ) NOT NULL DEFAULT  '0'

@@ -1,0 +1,340 @@
+########### 06-06-2011 01:49 ###########
+User_amount		=> 1
+User_comment		=> BASE64:
+User_id		=> 221
+User_tax		=> 0.03
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-06-02 21:50:26
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №221 на сумму 1 у.е.
+WMI_EXPIRED_DATE		=> 2011-09-02 21:50:26
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-06-05 23:48:58
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 77
+WMI_ORDER_ID		=> 343042149029
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 30.00
+WMI_PAYMENT_NO		=> 2212096
+WMI_PAYMENT_TYPE		=> LiqPayRUB
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 164349817986
+WMI_UPDATE_DATE		=> 2011-06-02 21:54:36
+WMI_SIGNATURE		=> Y3OJXrjZhZ3vhBpSdycNtXv9oCA=
+########################################
+
+
+########### 06-06-2011 03:51 ###########
+User_amount		=> 1
+User_comment		=> BASE64:
+User_id		=> 221
+User_tax		=> 0.03
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-06-02 19:53:12
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №221 на сумму 1 у.е.
+WMI_EXPIRED_DATE		=> 2011-09-02 19:53:12
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-06-06 01:51:35
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 78
+WMI_ORDER_ID		=> 343042069805
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 30.00
+WMI_PAYMENT_NO		=> 2212083
+WMI_PAYMENT_TYPE		=> WalletOneRUB
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 164349817986
+WMI_UPDATE_DATE		=> 2011-06-02 19:53:28
+WMI_SIGNATURE		=> TPsGIzOyG5bkdDyWHZ/U3AKF554=
+########################################
+
+
+########### 06-06-2011 05:49 ###########
+User_amount		=> 1
+User_comment		=> BASE64:
+User_id		=> 221
+User_tax		=> 0.03
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-06-02 21:50:26
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №221 на сумму 1 у.е.
+WMI_EXPIRED_DATE		=> 2011-09-02 21:50:26
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-06-06 03:49:13
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 78
+WMI_ORDER_ID		=> 343042149029
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 30.00
+WMI_PAYMENT_NO		=> 2212096
+WMI_PAYMENT_TYPE		=> LiqPayRUB
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 164349817986
+WMI_UPDATE_DATE		=> 2011-06-02 21:54:36
+WMI_SIGNATURE		=> dSAtZcZxWyfM+vCGZHot3F6IMq8=
+########################################
+
+
+########### 06-06-2011 07:52 ###########
+User_amount		=> 1
+User_comment		=> BASE64:
+User_id		=> 221
+User_tax		=> 0.03
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-06-02 19:53:12
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №221 на сумму 1 у.е.
+WMI_EXPIRED_DATE		=> 2011-09-02 19:53:12
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-06-06 05:52:36
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 79
+WMI_ORDER_ID		=> 343042069805
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 30.00
+WMI_PAYMENT_NO		=> 2212083
+WMI_PAYMENT_TYPE		=> WalletOneRUB
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 164349817986
+WMI_UPDATE_DATE		=> 2011-06-02 19:53:28
+WMI_SIGNATURE		=> TYNsxlZpv50Mwhcf4nQ5S0LMaiw=
+########################################
+
+
+########### 06-06-2011 09:50 ###########
+User_amount		=> 1
+User_comment		=> BASE64:
+User_id		=> 221
+User_tax		=> 0.03
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-06-02 21:50:26
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №221 на сумму 1 у.е.
+WMI_EXPIRED_DATE		=> 2011-09-02 21:50:26
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-06-06 07:50:05
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 79
+WMI_ORDER_ID		=> 343042149029
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 30.00
+WMI_PAYMENT_NO		=> 2212096
+WMI_PAYMENT_TYPE		=> LiqPayRUB
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 164349817986
+WMI_UPDATE_DATE		=> 2011-06-02 21:54:36
+WMI_SIGNATURE		=> 5EPHKPkx+o5kMdstLV0x9T+CTTM=
+########################################
+
+
+########### 06-06-2011 11:52 ###########
+User_amount		=> 1
+User_comment		=> BASE64:
+User_id		=> 221
+User_tax		=> 0.03
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-06-02 19:53:12
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №221 на сумму 1 у.е.
+WMI_EXPIRED_DATE		=> 2011-09-02 19:53:12
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-06-06 09:52:42
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 80
+WMI_ORDER_ID		=> 343042069805
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 30.00
+WMI_PAYMENT_NO		=> 2212083
+WMI_PAYMENT_TYPE		=> WalletOneRUB
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 164349817986
+WMI_UPDATE_DATE		=> 2011-06-02 19:53:28
+WMI_SIGNATURE		=> Gpi2IpnKtW9cmeb0N6EDr1z4OQA=
+########################################
+
+
+########### 06-06-2011 13:51 ###########
+User_amount		=> 1
+User_comment		=> BASE64:
+User_id		=> 221
+User_tax		=> 0.03
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-06-02 21:50:26
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №221 на сумму 1 у.е.
+WMI_EXPIRED_DATE		=> 2011-09-02 21:50:26
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-06-06 11:50:59
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 80
+WMI_ORDER_ID		=> 343042149029
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 30.00
+WMI_PAYMENT_NO		=> 2212096
+WMI_PAYMENT_TYPE		=> LiqPayRUB
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 164349817986
+WMI_UPDATE_DATE		=> 2011-06-02 21:54:36
+WMI_SIGNATURE		=> QnPf45W2vcRSg7T1Lz7Q645QMxQ=
+########################################
+
+
+########### 06-06-2011 15:53 ###########
+User_amount		=> 1
+User_comment		=> BASE64:
+User_id		=> 221
+User_tax		=> 0.03
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-06-02 19:53:12
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №221 на сумму 1 у.е.
+WMI_EXPIRED_DATE		=> 2011-09-02 19:53:12
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-06-06 13:53:37
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 81
+WMI_ORDER_ID		=> 343042069805
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 30.00
+WMI_PAYMENT_NO		=> 2212083
+WMI_PAYMENT_TYPE		=> WalletOneRUB
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 164349817986
+WMI_UPDATE_DATE		=> 2011-06-02 19:53:28
+WMI_SIGNATURE		=> dHBRLxVa80cc6CkWhz8ENfVQVjw=
+########################################
+
+
+########### 06-06-2011 18:49 ###########
+User_amount		=> 1
+User_comment		=> BASE64:
+User_id		=> 221
+User_tax		=> 0.03
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-06-02 21:50:26
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №221 на сумму 1 у.е.
+WMI_EXPIRED_DATE		=> 2011-09-02 21:50:26
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-06-06 16:48:53
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 81
+WMI_ORDER_ID		=> 343042149029
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 30.00
+WMI_PAYMENT_NO		=> 2212096
+WMI_PAYMENT_TYPE		=> LiqPayRUB
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 164349817986
+WMI_UPDATE_DATE		=> 2011-06-02 21:54:36
+WMI_SIGNATURE		=> fqkcW9oGmYnuaNdZrFowNxeH5wc=
+########################################
+
+
+########### 06-06-2011 19:54 ###########
+User_amount		=> 1
+User_comment		=> BASE64:
+User_id		=> 221
+User_tax		=> 0.03
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-06-02 19:53:12
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №221 на сумму 1 у.е.
+WMI_EXPIRED_DATE		=> 2011-09-02 19:53:12
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-06-06 17:54:38
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 82
+WMI_ORDER_ID		=> 343042069805
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 30.00
+WMI_PAYMENT_NO		=> 2212083
+WMI_PAYMENT_TYPE		=> WalletOneRUB
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 164349817986
+WMI_UPDATE_DATE		=> 2011-06-02 19:53:28
+WMI_SIGNATURE		=> htdUhmjDSH/H6QNfkayCfSNVbpE=
+########################################
+
+
+########### 06-06-2011 22:49 ###########
+User_amount		=> 1
+User_comment		=> BASE64:
+User_id		=> 221
+User_tax		=> 0.03
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-06-02 21:50:26
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №221 на сумму 1 у.е.
+WMI_EXPIRED_DATE		=> 2011-09-02 21:50:26
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-06-06 20:49:07
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 82
+WMI_ORDER_ID		=> 343042149029
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 30.00
+WMI_PAYMENT_NO		=> 2212096
+WMI_PAYMENT_TYPE		=> LiqPayRUB
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 164349817986
+WMI_UPDATE_DATE		=> 2011-06-02 21:54:36
+WMI_SIGNATURE		=> 4JattJJuzqVeY156mk2Sc9dHhkY=
+########################################
+
+
+########### 06-06-2011 23:55 ###########
+User_amount		=> 1
+User_comment		=> BASE64:
+User_id		=> 221
+User_tax		=> 0.03
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-06-02 19:53:12
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №221 на сумму 1 у.е.
+WMI_EXPIRED_DATE		=> 2011-09-02 19:53:12
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-06-06 21:55:16
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 83
+WMI_ORDER_ID		=> 343042069805
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 30.00
+WMI_PAYMENT_NO		=> 2212083
+WMI_PAYMENT_TYPE		=> WalletOneRUB
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 164349817986
+WMI_UPDATE_DATE		=> 2011-06-02 19:53:28
+WMI_SIGNATURE		=> j5BTI4R0WWbIgA6yFFJTqI9Hx8s=
+########################################
+
+
+########### 06-06-2011 23:55 ###########
+User_amount		=> 1
+User_comment		=> BASE64:
+User_id		=> 221
+User_tax		=> 0.03
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-06-02 19:53:12
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №221 на сумму 1 у.е.
+WMI_EXPIRED_DATE		=> 2011-09-02 19:53:12
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-06-06 21:55:16
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 83
+WMI_ORDER_ID		=> 343042069805
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 30.00
+WMI_PAYMENT_NO		=> 2212083
+WMI_PAYMENT_TYPE		=> WalletOneRUB
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 164349817986
+WMI_UPDATE_DATE		=> 2011-06-02 19:53:28
+WMI_SIGNATURE		=> j5BTI4R0WWbIgA6yFFJTqI9Hx8s=
+Answer:"WMI_RESULT=OK&WMI_DESCRIPTION=%C7%E0%EA%E0%E7+%232212083+%EE%EF%EB%E0%F7%E5%ED%21"
+Decoded Desc:"Заказ #2212083 оплачен!"
+########################################
+
+

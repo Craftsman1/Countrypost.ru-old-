@@ -1,0 +1,41 @@
+########### 21-09-2011 16:36 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 463.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 2222125
+LMI_PAYER_WM		=> 633249159047
+LMI_PAYER_PURSE		=> R673456859930
+LMI_SYS_INVS_NO		=> 235702982
+LMI_SYS_TRANS_NO		=> 597372767
+LMI_SYS_TRANS_DATE		=> 20110921 18:36:54
+LMI_HASH		=> ABBC672FE60FB87423C43C2922254BAD
+LMI_PAYMENT_DESC		=> Charge for user 222 (on sum: 14)
+LMI_LANG		=> ru-RU
+User_amount		=> 14
+User_id		=> 222
+User_comment		=> 
+User_tax		=> 0.252
+########################################
+
+
+########### 21-09-2011 16:36 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 463.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 2222125
+LMI_PAYER_WM		=> 633249159047
+LMI_PAYER_PURSE		=> R673456859930
+LMI_SYS_INVS_NO		=> 235702982
+LMI_SYS_TRANS_NO		=> 597372767
+LMI_SYS_TRANS_DATE		=> 20110921 18:36:54
+LMI_HASH		=> ABBC672FE60FB87423C43C2922254BAD
+LMI_PAYMENT_DESC		=> Charge for user 222 (on sum: 14)
+LMI_LANG		=> ru-RU
+User_amount		=> 14
+User_id		=> 222
+User_comment		=> 
+User_tax		=> 0.252
+Status: OK! [payment_id=594]
+########################################
+
+

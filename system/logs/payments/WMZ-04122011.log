@@ -1,0 +1,77 @@
+########### 04-12-2011 19:43 ###########
+########################################
+
+
+########### 04-12-2011 19:43 ###########
+Status: FAIL! Не верная цифровая подпись!
+SignStr:Z735510829657XFgw
+CalcSign:C133C0EDE71FFEA502BC1A9D1AE21E40
+RespSign:
+########################################
+
+
+########### 04-12-2011 19:44 ###########
+########################################
+
+
+########### 04-12-2011 19:44 ###########
+Status: FAIL! Не верная цифровая подпись!
+SignStr:Z735510829657XFgw
+CalcSign:C133C0EDE71FFEA502BC1A9D1AE21E40
+RespSign:
+########################################
+
+
+########### 04-12-2011 19:45 ###########
+########################################
+
+
+########### 04-12-2011 19:45 ###########
+Status: FAIL! Не верная цифровая подпись!
+SignStr:Z735510829657XFgw
+CalcSign:C133C0EDE71FFEA502BC1A9D1AE21E40
+RespSign:
+########################################
+
+
+########### 04-12-2011 19:45 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 96.00
+LMI_PAYEE_PURSE		=> Z735510829657
+LMI_PAYMENT_NO		=> 1323024692
+LMI_PAYER_WM		=> 286070674492
+LMI_PAYER_PURSE		=> Z691245518706
+LMI_SYS_INVS_NO		=> 252239054
+LMI_SYS_TRANS_NO		=> 626253942
+LMI_SYS_TRANS_DATE		=> 20111204 22:45:40
+LMI_HASH		=> 27E7EC3AECC5C98AF42E2D599B6DAE53
+LMI_PAYMENT_DESC		=> Refill balance for client 391 on $91
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 91
+User_id		=> 391
+User_tax		=> 4.184
+########################################
+
+
+########### 04-12-2011 19:45 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 96.00
+LMI_PAYEE_PURSE		=> Z735510829657
+LMI_PAYMENT_NO		=> 1323024692
+LMI_PAYER_WM		=> 286070674492
+LMI_PAYER_PURSE		=> Z691245518706
+LMI_SYS_INVS_NO		=> 252239054
+LMI_SYS_TRANS_NO		=> 626253942
+LMI_SYS_TRANS_DATE		=> 20111204 22:45:40
+LMI_HASH		=> 27E7EC3AECC5C98AF42E2D599B6DAE53
+LMI_PAYMENT_DESC		=> Refill balance for client 391 on $91
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 91
+User_id		=> 391
+User_tax		=> 4.184
+Status: OK! [payment_id=2110]
+########################################
+
+

@@ -1,0 +1,18 @@
+########### 26-10-2011 10:16 ###########
+out_summ		=> 286.000000
+inv_id		=> 3072097
+crc		=> 7FF1E4A988607E8EA3CF61481C1B044B
+OutSum		=> 286.000000
+InvId		=> 3072097
+SignatureValue		=> 7FF1E4A988607E8EA3CF61481C1B044B
+PaymentMethod		=> UFS
+IncSum		=> 306.020000
+IncCurrLabel		=> BANKR
+ShpAmount		=> 9
+ShpComment		=> 
+ShpTax		=> 0.162
+ShpUser		=> 307
+Status:OK3072097
+########################################
+
+

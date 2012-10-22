@@ -1,0 +1,18 @@
+########### 30-08-2011 11:58 ###########
+out_summ		=> 298.000000
+inv_id		=> 2012119
+crc		=> 3810D8D9E233498CF05DC7054E4A3D30
+OutSum		=> 298.000000
+InvId		=> 2012119
+SignatureValue		=> 3810D8D9E233498CF05DC7054E4A3D30
+PaymentMethod		=> Terminals
+IncSum		=> 319.750000
+IncCurrLabel		=> QiwiR
+ShpAmount		=> 10
+ShpComment		=> 
+ShpTax		=> 0.18
+ShpUser		=> 201
+Status:OK2012119
+########################################
+
+

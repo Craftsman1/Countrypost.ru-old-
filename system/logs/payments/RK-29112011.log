@@ -1,0 +1,36 @@
+########### 29-11-2011 22:03 ###########
+out_summ		=> 1860.000000
+inv_id		=> 1322599775
+crc		=> 2834FFEF83B2A1A2261FDC08D39E08A4
+OutSum		=> 1860.000000
+InvId		=> 1322599775
+SignatureValue		=> 2834FFEF83B2A1A2261FDC08D39E08A4
+PaymentMethod		=> eBank
+IncSum		=> 1990.200000
+IncCurrLabel		=> AlfaBankR
+ShpAmount		=> 57
+ShpComment		=> 
+ShpTax		=> 1.026
+ShpUser		=> 345
+Status:OK1322599775
+########################################
+
+
+########### 29-11-2011 22:30 ###########
+out_summ		=> 979.000000
+inv_id		=> 1322602285
+crc		=> 6985C62A4BC817A90F118C1899B02ECE
+OutSum		=> 979.000000
+InvId		=> 1322602285
+SignatureValue		=> 6985C62A4BC817A90F118C1899B02ECE
+PaymentMethod		=> PlatezhRu
+IncSum		=> 1006.420000
+IncCurrLabel		=> OceanBankR
+ShpAmount		=> 30
+ShpComment		=> 
+ShpTax		=> 0.54
+ShpUser		=> 149
+Status:OK1322602285
+########################################
+
+

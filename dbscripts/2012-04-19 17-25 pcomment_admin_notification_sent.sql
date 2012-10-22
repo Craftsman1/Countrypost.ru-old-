@@ -1,0 +1,1 @@
+ALTER TABLE  `ocomments` ADD  `ocomment_admin_notification_sent` TINYINT( 1 ) UNSIGNED NOT NULL

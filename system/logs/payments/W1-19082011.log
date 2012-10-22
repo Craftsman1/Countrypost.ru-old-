@@ -1,0 +1,1406 @@
+########### 19-08-2011 00:15 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 22:14:14
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 1
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> H85J7FtIUyo///M2xRLbsoIYMCc=
+########################################
+
+
+########### 19-08-2011 00:15 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 22:14:14
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 1
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> H85J7FtIUyo///M2xRLbsoIYMCc=
+Answer:"WMI_RESULT=OK&WMI_DESCRIPTION=%D0%97%D0%B0%D0%BA%D0%B0%D0%B7+%231292162+%D0%BE%D0%BF%D0%BB%D0%B0%D1%87%D0%B5%D0%BD%21"
+Decoded Desc:"Р—Р°РєР°Р· #1292162 РѕРїР»Р°С‡РµРЅ!"
+########################################
+
+
+########### 19-08-2011 00:16 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 22:15:05
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 2
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> P5B9ALvJX5CTzXpJZDKeAVPEahs=
+########################################
+
+
+########### 19-08-2011 00:18 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 22:16:28
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 3
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> p7NN+nUGNM40I+U35rHFthticf4=
+########################################
+
+
+########### 19-08-2011 00:20 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 22:18:55
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 4
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> 0NNJYF1p+6rzah6266nGRyoweHQ=
+########################################
+
+
+########### 19-08-2011 00:22 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 22:21:01
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 5
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> GQ+QUWFY9NPfUas6b4ICWv6AYIc=
+########################################
+
+
+########### 19-08-2011 00:24 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 22:23:11
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 6
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> NZTUHDLTAYkMes1JQ6/u9M2G6B4=
+########################################
+
+
+########### 19-08-2011 00:26 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 22:25:14
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 7
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> sD4nHaZp+Y60cSs82Kq8Ikp+yL0=
+########################################
+
+
+########### 19-08-2011 00:28 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 22:27:18
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 8
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> 46ttt+/MhZJIx6U7jcMxian/lKg=
+########################################
+
+
+########### 19-08-2011 00:31 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 22:29:45
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 9
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> 8D97HORbZLBZo8qThYAj8S/dUtw=
+########################################
+
+
+########### 19-08-2011 00:33 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 22:31:49
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 10
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> SE3tp7Lsx57JUEDM051XHCbTJoY=
+########################################
+
+
+########### 19-08-2011 00:43 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 22:41:51
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 11
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> o14Fpc33tE8dz/hT5oWZSoDhDRo=
+########################################
+
+
+########### 19-08-2011 00:53 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 22:51:57
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 12
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> LXhG2vvCEM7O7YHEBCvHPSO5RGk=
+########################################
+
+
+########### 19-08-2011 01:04 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 23:02:38
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 13
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> 9wadSlw7jBdRLF+PQhzz84ZEb3E=
+########################################
+
+
+########### 19-08-2011 01:14 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 23:12:46
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 14
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> CiuYqNbdgz0kwzMI9ogmW7iKUoA=
+########################################
+
+
+########### 19-08-2011 01:25 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 23:23:41
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 15
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> hC+3jt7sx7vhdnthIgQbhqT3Sn8=
+########################################
+
+
+########### 19-08-2011 01:35 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 23:34:04
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 16
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> 6VFI+1eC3ojTQbR5zrHrx2KA7Es=
+########################################
+
+
+########### 19-08-2011 01:46 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 23:44:25
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 17
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> XgDiG++4SDf2tsG8tbDDThC9erA=
+########################################
+
+
+########### 19-08-2011 01:56 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-18 23:54:54
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 18
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> GJHfrKNBRZvdBTcBGkX47iK6HCE=
+########################################
+
+
+########### 19-08-2011 02:06 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 00:05:18
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 19
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> 6CEBeRF4AhF0jsVf9/UYB7dLFRg=
+########################################
+
+
+########### 19-08-2011 02:28 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 00:26:21
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 21
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> enxZH3dfe7XJmbgW1t9blEV+3SA=
+########################################
+
+
+########### 19-08-2011 02:38 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 00:36:48
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 22
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> nGd7ekHykOXxt0OlP7K/TCdE37s=
+########################################
+
+
+########### 19-08-2011 02:49 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 00:47:39
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 23
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> 7F276zv1ORQj+9z9hq/T6e5Pyy0=
+########################################
+
+
+########### 19-08-2011 02:59 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 00:58:10
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 24
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> eC9vc9d+gaxw3opOOfWervZqFto=
+########################################
+
+
+########### 19-08-2011 03:10 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 01:08:33
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 25
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> SsW75X4gklDlIPNvsDnBddjNAGE=
+########################################
+
+
+########### 19-08-2011 03:40 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 01:38:52
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 26
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> vLfTLN3UAUY5MOBQrMvAlwzPfcc=
+########################################
+
+
+########### 19-08-2011 04:10 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 02:09:03
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 27
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> FHptPvaPCSNwlx+cAOrqu1G5ESo=
+########################################
+
+
+########### 19-08-2011 04:40 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 02:39:11
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 28
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> kW/pr4MAjQSWjSJiRTIlMfYhUc4=
+########################################
+
+
+########### 19-08-2011 05:10 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 03:09:13
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 29
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> AR4rMs6+rM7Z8KYlhMDhyDDExNM=
+########################################
+
+
+########### 19-08-2011 05:41 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 03:39:16
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 30
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> YqLCq0/19t0nIXc7YhJjQSzAmwo=
+########################################
+
+
+########### 19-08-2011 06:12 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 04:10:18
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 31
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> p6bBr/vgOMrFJzVrizIV+LlK9J4=
+########################################
+
+
+########### 19-08-2011 06:42 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 04:40:20
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 32
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> 6dH4ijnGHVdHoMuBPa6yQrN2CCs=
+########################################
+
+
+########### 19-08-2011 07:13 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 05:11:22
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 33
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> Gdr/EexHRqrEPnF+FHiDbGWCvYI=
+########################################
+
+
+########### 19-08-2011 07:44 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 05:42:20
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 34
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> otkY1SiAtDtq5a38HFbUBWH9isA=
+########################################
+
+
+########### 19-08-2011 08:14 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 06:12:27
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 35
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> orBty8VOKH+TrqAxhy5+b8ptrxY=
+########################################
+
+
+########### 19-08-2011 08:44 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 06:42:32
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 36
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> EobuqG9ETuCXLKx9xUnyi+n/Np0=
+########################################
+
+
+########### 19-08-2011 09:15 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 07:13:34
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 37
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> ke5mXMnMCDfL9tQ0RowFXewQZms=
+########################################
+
+
+########### 19-08-2011 09:45 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 07:43:42
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 38
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> SNO2PbX+tUywqyL4H2/WjDwIzZk=
+########################################
+
+
+########### 19-08-2011 10:16 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 08:14:25
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 39
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> pjF3cpn5Vhj5UDTyqimQr+BTPbk=
+########################################
+
+
+########### 19-08-2011 10:46 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 08:44:44
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 40
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> PFUnPasEbXJYiE1QB7p4rEfmsf8=
+########################################
+
+
+########### 19-08-2011 11:16 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 09:14:51
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 41
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> gfT5KeI5Krs3239PXrZq4nZprGQ=
+########################################
+
+
+########### 19-08-2011 11:46 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 09:44:58
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 42
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> 0CBnyU25oUtfOmmH49b2JdnZ7Lo=
+########################################
+
+
+########### 19-08-2011 12:16 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 10:15:02
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 43
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> I+h1P4D/5bawKi4CUPXp6gOm8bw=
+########################################
+
+
+########### 19-08-2011 12:47 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 10:45:44
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 44
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> aaiaQIHx5J5nimL8X0VhfjT9HX8=
+########################################
+
+
+########### 19-08-2011 13:18 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 11:16:06
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 45
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> FAb+E5x1dbe1SVDumXUtUmeT8Po=
+########################################
+
+
+########### 19-08-2011 13:48 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 11:46:35
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 46
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> GpPzHlzjj327w8OI/g8ya+idauI=
+########################################
+
+
+########### 19-08-2011 14:19 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 12:17:04
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 47
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> vGdORlaSUUFufNZKju/uF0k0JMs=
+########################################
+
+
+########### 19-08-2011 14:49 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 12:47:43
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 48
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> w6q+QNSuR2AGJL3NgTgzhF0yNss=
+########################################
+
+
+########### 19-08-2011 15:20 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 13:18:03
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 49
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> BpqsZrvcps/lEVD6tjVG2UIBLmA=
+########################################
+
+
+########### 19-08-2011 15:50 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 13:48:10
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 50
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> uRGpPfVKBOMFzOruUiDDyvG3VL4=
+########################################
+
+
+########### 19-08-2011 17:50 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 15:48:47
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 51
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> 1xdOandTHQxWEw9TeqFewW1mD8I=
+########################################
+
+
+########### 19-08-2011 19:51 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 17:49:23
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 52
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> quPcUVCrv4uahHsXdHRtq2Z5nqk=
+########################################
+
+
+########### 19-08-2011 21:51 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 19:49:33
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 53
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> tivR3xebQa/HtXnO5bOevNeunnc=
+########################################
+
+
+########### 19-08-2011 23:52 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-19 21:50:39
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 54
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-18 22:14:10
+WMI_SIGNATURE		=> 5hEACG9NtAClMrhL+mbVUxhDcO8=
+########################################
+
+

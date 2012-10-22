@@ -1,0 +1,18 @@
+########### 15-06-2011 18:38 ###########
+out_summ		=> 12295.000000
+inv_id		=> 222078
+crc		=> 6EF703DA66963EDB66B105FCF48F2348
+OutSum		=> 12295.000000
+InvId		=> 222078
+SignatureValue		=> 6EF703DA66963EDB66B105FCF48F2348
+PaymentMethod		=> Qiwi
+IncSum		=> 13192.070000
+IncCurrLabel		=> QiwiR
+ShpAmount		=> 426
+ShpComment		=> 
+ShpTax		=> 7.668
+ShpUser		=> 22
+Status:OK222078
+########################################
+
+

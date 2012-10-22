@@ -1,0 +1,55 @@
+########### 03-11-2011 05:35 ###########
+########################################
+
+
+########### 03-11-2011 05:35 ###########
+Status: FAIL! Не верная цифровая подпись!
+SignStr:R335456041886XFgw
+CalcSign:50395C41851C4674D54A83DE6B31EFD4
+RespSign:
+########################################
+
+
+########### 03-11-2011 14:44 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 9878.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 1292074
+LMI_PAYER_WM		=> 119057210631
+LMI_PAYER_PURSE		=> R174114494476
+LMI_SYS_INVS_NO		=> 245152231
+LMI_SYS_TRANS_NO		=> 613792294
+LMI_SYS_TRANS_DATE		=> 20111103 17:44:18
+LMI_HASH		=> 448119BA90FD7CE321E919AF7B364655
+LMI_PAYMENT_DESC		=> Charge for user 129 (on sum: 310)
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 310
+User_id		=> 129
+User_comment		=> 
+User_tax		=> 5.58
+########################################
+
+
+########### 03-11-2011 14:44 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 9878.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 1292074
+LMI_PAYER_WM		=> 119057210631
+LMI_PAYER_PURSE		=> R174114494476
+LMI_SYS_INVS_NO		=> 245152231
+LMI_SYS_TRANS_NO		=> 613792294
+LMI_SYS_TRANS_DATE		=> 20111103 17:44:18
+LMI_HASH		=> 448119BA90FD7CE321E919AF7B364655
+LMI_PAYMENT_DESC		=> Charge for user 129 (on sum: 310)
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 310
+User_id		=> 129
+User_comment		=> 
+User_tax		=> 5.58
+Status: OK! [payment_id=1259]
+########################################
+
+

@@ -1,0 +1,1 @@
+ALTER TABLE  `managers` ADD  `manager_max_orders` INT( 11 ) NULL DEFAULT NULL AFTER  `manager_max_clients`

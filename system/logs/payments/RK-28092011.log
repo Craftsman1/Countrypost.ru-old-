@@ -1,0 +1,36 @@
+########### 28-09-2011 01:40 ###########
+out_summ		=> 34.000000
+inv_id		=> 2012122
+crc		=> DB7D989B8672CEC777CAA2138F2F3B58
+OutSum		=> 34.000000
+InvId		=> 2012122
+SignatureValue		=> DB7D989B8672CEC777CAA2138F2F3B58
+PaymentMethod		=> OceanBank
+IncSum		=> 36.180000
+IncCurrLabel		=> BANKOCEANMR
+ShpAmount		=> 1
+ShpComment		=> 
+ShpTax		=> 0.018
+ShpUser		=> 201
+Status:OK2012122
+########################################
+
+
+########### 28-09-2011 20:00 ###########
+out_summ		=> 2677.000000
+inv_id		=> 1022129
+crc		=> 803C8A69042EA4D1FFB18B52BC2C99E7
+OutSum		=> 2677.000000
+InvId		=> 1022129
+SignatureValue		=> 803C8A69042EA4D1FFB18B52BC2C99E7
+PaymentMethod		=> OceanBank
+IncSum		=> 2847.880000
+IncCurrLabel		=> BANKOCEANMR
+ShpAmount		=> 80
+ShpComment		=> 
+ShpTax		=> 1.44
+ShpUser		=> 102
+Status:OK1022129
+########################################
+
+

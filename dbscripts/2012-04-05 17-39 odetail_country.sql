@@ -1,0 +1,1 @@
+ALTER TABLE  `odetails` ADD  `odetail_country` INT NOT NULL DEFAULT  '0' AFTER  `odetail_order`

@@ -1,0 +1,18 @@
+########### 08-11-2011 17:24 ###########
+out_summ		=> 794.000000
+inv_id		=> 2952057
+crc		=> 2D1D49E565BEC49278241E65AE286401
+OutSum		=> 794.000000
+InvId		=> 2952057
+SignatureValue		=> 2D1D49E565BEC49278241E65AE286401
+PaymentMethod		=> EMoney
+IncSum		=> 851.940000
+IncCurrLabel		=> QiwiR
+ShpAmount		=> 25
+ShpComment		=> 
+ShpTax		=> 0.45
+ShpUser		=> 295
+Status:OK2952057
+########################################
+
+

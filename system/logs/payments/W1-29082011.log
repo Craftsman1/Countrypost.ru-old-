@@ -1,0 +1,182 @@
+########### 29-08-2011 01:32 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-28 23:30:53
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 74
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-26 07:40:49
+WMI_SIGNATURE		=> d9PzfSRvKrXCLpRXlokXSmZTojY=
+########################################
+
+
+########### 29-08-2011 03:32 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-29 01:31:08
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 75
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-26 07:40:49
+WMI_SIGNATURE		=> kUYMM+9hPoMGTRJmN2A4Car+Seg=
+########################################
+
+
+########### 29-08-2011 07:35 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-29 05:33:10
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 76
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-26 07:40:49
+WMI_SIGNATURE		=> zo/EZYr9ZDljocK5e/fFeKErMPg=
+########################################
+
+
+########### 29-08-2011 11:35 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-29 09:33:37
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 77
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-26 07:40:49
+WMI_SIGNATURE		=> o1K2widoi92I/o3I7V5j761zs+4=
+########################################
+
+
+########### 29-08-2011 15:36 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-29 13:34:22
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 78
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-26 07:40:49
+WMI_SIGNATURE		=> E3mThf8WmJ8J1E8ScxO4MvpqVJ4=
+########################################
+
+
+########### 29-08-2011 19:36 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-29 17:34:28
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 79
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-26 07:40:49
+WMI_SIGNATURE		=> 44nHudnj5MQCVU+JlUp3Ry95AA4=
+########################################
+
+
+########### 29-08-2011 23:37 ###########
+User_amount		=> 160
+User_comment		=> BASE64:
+User_id		=> 129
+User_tax		=> 4.8
+WMI_AUTO_ACCEPT		=> 0
+WMI_CREATE_DATE		=> 2011-08-18 21:56:24
+WMI_CURRENCY_ID		=> 643
+WMI_DESCRIPTION		=> Пополнение счета пользователем №129 на сумму 160 у.е.
+WMI_EXPIRED_DATE		=> 2011-11-18 21:56:24
+WMI_FAIL_URL		=> http://countrypost.ru/syspay/showFail
+WMI_LAST_NOTIFY_DATE		=> 2011-08-29 21:35:11
+WMI_MERCHANT_ID		=> 103853778255
+WMI_NOTIFY_COUNT		=> 80
+WMI_ORDER_ID		=> 343082267865
+WMI_ORDER_STATE		=> Processing
+WMI_PAYMENT_AMOUNT		=> 4755.00
+WMI_PAYMENT_NO		=> 1292162
+WMI_PAYMENT_TYPE		=> LiqPayUSD
+WMI_SUCCESS_URL		=> http://countrypost.ru/syspay/showSuccess
+WMI_TO_USER_ID		=> 111018776570
+WMI_UPDATE_DATE		=> 2011-08-26 07:40:49
+WMI_SIGNATURE		=> +UvvgTVEsHYpKbGCp6Aro07lqoU=
+########################################
+
+

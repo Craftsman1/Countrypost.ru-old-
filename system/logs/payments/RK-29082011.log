@@ -1,0 +1,18 @@
+########### 29-08-2011 12:07 ###########
+out_summ		=> 1703.000000
+inv_id		=> 762112
+crc		=> 8658263127F483D87F215A1E4C20E451
+OutSum		=> 1703.000000
+InvId		=> 762112
+SignatureValue		=> 8658263127F483D87F215A1E4C20E451
+PaymentMethod		=> EMoney
+IncSum		=> 1792.640000
+IncCurrLabel		=> W1R
+ShpAmount		=> 57
+ShpComment		=> 
+ShpTax		=> 1.026
+ShpUser		=> 76
+Status:OK762112
+########################################
+
+

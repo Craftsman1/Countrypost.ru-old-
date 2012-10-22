@@ -1,0 +1,1 @@
+ALTER TABLE  `managers` ADD  `manager_address_description` VARCHAR( 4096 ) NULL DEFAULT  'K (%1$s)' AFTER  `manager_address_local`

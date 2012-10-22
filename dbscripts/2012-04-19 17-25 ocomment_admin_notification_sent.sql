@@ -1,0 +1,1 @@
+ALTER TABLE  `pcomments` ADD  `pcomment_admin_notification_sent` TINYINT( 1 ) UNSIGNED NOT NULL

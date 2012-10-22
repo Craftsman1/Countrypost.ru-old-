@@ -1,0 +1,1 @@
+ALTER TABLE  `managers` ADD  `manager_skype` VARCHAR( 255 ) NULL AFTER  `manager_phone`

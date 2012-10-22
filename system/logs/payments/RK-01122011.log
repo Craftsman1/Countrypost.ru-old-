@@ -1,0 +1,36 @@
+########### 01-12-2011 06:28 ###########
+out_summ		=> 9042.000000
+inv_id		=> 1322717207
+crc		=> 6E334BA914F358843F26E4B0C8375A6D
+OutSum		=> 9042.000000
+InvId		=> 1322717207
+SignatureValue		=> 6E334BA914F358843F26E4B0C8375A6D
+PaymentMethod		=> UFS
+IncSum		=> 9674.940000
+IncCurrLabel		=> BANKR
+ShpAmount		=> 278
+ShpComment		=> 
+ShpTax		=> 5.004
+ShpUser		=> 410
+Status:OK1322717207
+########################################
+
+
+########### 01-12-2011 17:17 ###########
+out_summ		=> 4565.000000
+inv_id		=> 1322756232
+crc		=> E5FFA9E7379D4FB8D12F2F6566FD1749
+OutSum		=> 4565.000000
+InvId		=> 1322756232
+SignatureValue		=> E5FFA9E7379D4FB8D12F2F6566FD1749
+PaymentMethod		=> PlatezhRu
+IncSum		=> 4692.820000
+IncCurrLabel		=> OceanBankR
+ShpAmount		=> 140
+ShpComment		=> 
+ShpTax		=> 2.52
+ShpUser		=> 149
+Status:OK1322756232
+########################################
+
+

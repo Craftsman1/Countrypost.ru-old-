@@ -1,0 +1,43 @@
+########### 18-11-2011 08:45 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 24340.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 0
+LMI_PAYER_WM		=> 264122600150
+LMI_PAYER_PURSE		=> R931815874022
+LMI_SYS_INVS_NO		=> 248397142
+LMI_SYS_TRANS_NO		=> 619530738
+LMI_SYS_TRANS_DATE		=> 20111118 11:45:49
+LMI_HASH		=> A0A990FCA2F835E20CA4B38F01D79527
+LMI_PAYMENT_DESC		=> Refill balance for client 208 on 24340 RUR ($760)
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 760
+User_id		=> 208
+User_comment		=> 
+User_tax		=> 13.68
+########################################
+
+
+########### 18-11-2011 08:45 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 24340.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 0
+LMI_PAYER_WM		=> 264122600150
+LMI_PAYER_PURSE		=> R931815874022
+LMI_SYS_INVS_NO		=> 248397142
+LMI_SYS_TRANS_NO		=> 619530738
+LMI_SYS_TRANS_DATE		=> 20111118 11:45:49
+LMI_HASH		=> A0A990FCA2F835E20CA4B38F01D79527
+LMI_PAYMENT_DESC		=> Refill balance for client 208 on 24340 RUR ($760)
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 760
+User_id		=> 208
+User_comment		=> 
+User_tax		=> 13.68
+Status: OK! [payment_id=1674]
+########################################
+
+

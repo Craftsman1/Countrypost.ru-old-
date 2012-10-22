@@ -1,0 +1,43 @@
+########### 28-11-2011 14:10 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 2788.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 1322485825
+LMI_PAYER_WM		=> 377025606911
+LMI_PAYER_PURSE		=> R177835891682
+LMI_SYS_INVS_NO		=> 250742372
+LMI_SYS_TRANS_NO		=> 623594940
+LMI_SYS_TRANS_DATE		=> 20111128 17:10:04
+LMI_HASH		=> 4E8D85FEFDEADE8F8C4BD6510618BA37
+LMI_PAYMENT_DESC		=> Refill balance for client 76 on 2788 RUR ($85)
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 85
+User_id		=> 76
+User_comment		=> 
+User_tax		=> 1.53
+########################################
+
+
+########### 28-11-2011 14:10 ###########
+LMI_MODE		=> 0
+LMI_PAYMENT_AMOUNT		=> 2788.00
+LMI_PAYEE_PURSE		=> R335456041886
+LMI_PAYMENT_NO		=> 1322485825
+LMI_PAYER_WM		=> 377025606911
+LMI_PAYER_PURSE		=> R177835891682
+LMI_SYS_INVS_NO		=> 250742372
+LMI_SYS_TRANS_NO		=> 623594940
+LMI_SYS_TRANS_DATE		=> 20111128 17:10:04
+LMI_HASH		=> 4E8D85FEFDEADE8F8C4BD6510618BA37
+LMI_PAYMENT_DESC		=> Refill balance for client 76 on 2788 RUR ($85)
+LMI_LANG		=> ru-RU
+LMI_DBLCHK		=> SMS
+User_amount		=> 85
+User_id		=> 76
+User_comment		=> 
+User_tax		=> 1.53
+Status: OK! [payment_id=1941]
+########################################
+
+
