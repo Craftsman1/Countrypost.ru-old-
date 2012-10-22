@@ -1,0 +1,2 @@
+ALTER TABLE  `countries` ADD  `country_name_en` VARCHAR( 1024 ) NULL AFTER  `country_name`;
+ALTER TABLE  `orders` ADD  `order_type` ENUM(  'online',  'offline',  'service',  'delivery' ) NOT NULL DEFAULT  'online' AFTER  `order_manager`;

@@ -1,0 +1,23 @@
+# Customized error messages.
+#ErrorDocument 404 /index.php
+
+# Set the default handler.
+DirectoryIndex index.php
+
+# Various rewrite rules.
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  RewriteCond %{QUERY_STRING} !^$
+  RewriteRule ^user/vkontakte.*$	/user/vkontakte/%{QUERY_STRING}?	[R=303,L]
+  RewriteCond %{QUERY_STRING} !^$
+  RewriteRule ^user/facebook.*$		/user/facebook/%{QUERY_STRING}?		[R=301,L]
+  RewriteCond $1 !^(checkemail\.php|myadmin|static|index\.php|kio\.php|CBR\.php|gmodel\.php|html|mods|upload|user_guide|proxy|sitemap\.xml|robots\.txt)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+</IfModule> 
+
+php_value upload_max_filesize 3M
+php_value post_max_size 15M
+
+AddDefaultCharset UTF-8
