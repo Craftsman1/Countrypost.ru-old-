@@ -11,7 +11,7 @@ time, mark, audio, video {
   font-size:100%;
   vertical-align:baseline;
   background:transparent;
-}
+}                  
 article, aside, figure, footer, header, hgroup, nav, section { display:block; }
 nav ul { list-style:none; }
 blockquote, q { quotes:none; }
@@ -33,7 +33,7 @@ table { font-size:inherit; font:100%; }
 select, input, textarea { font:99% sans-serif; }
 textarea{resize: none;}
 pre, code, kbd, samp { font-family: monospace, sans-serif; }
-
+ 
 body, select, input, textarea { color:#444; }
 h1,h2,h3,h4,h5,h6 { font-weight: bold; text-rendering: optimizeLegibility; }
 html { -webkit-font-smoothing: antialiased; }
@@ -44,7 +44,7 @@ ul { margin-left:13px; }
 ol { margin-left:13px; list-style-type: decimal; }
 small { font-size:85%; }
 strong, th { font-weight: bold; }
-td, td img { vertical-align:top; }
+td, td img { vertical-align:top; } 
 sub { vertical-align: sub; font-size: smaller; }
 sup { vertical-align: super; font-size: smaller; }
 
@@ -58,9 +58,9 @@ label, input[type=button], input[type=submit], button { cursor: pointer; }
 h1, h2, h3, h4, h5, h6 {font-weight:normal;}
 h2 {font:bold 20px Calibri;color:#000;text-transform:uppercase;}
 ::-moz-selection{ background: #8097BB; color:#fff; text-shadow: none; }
-::selection { background:#8097BB; color:#fff; text-shadow: none; }
+::selection { background:#8097BB; color:#fff; text-shadow: none; } 
 div.home h2 {font:bold 30px Arial;margin-bottom:0;}
-a:link { -webkit-tap-highlight-color: #FF5E99; }
+a:link { -webkit-tap-highlight-color: #FF5E99; } 
 
 
 
@@ -68,7 +68,7 @@ button {  width: auto; overflow: visible; }
 .ie7 img { -ms-interpolation-mode: bicubic; }
 
 .ir { display:block; text-indent:-999em; overflow:hidden; background-repeat: no-repeat; }
-.hidden { display:none; visibility:hidden; }
+.hidden { display:none; visibility:hidden; } 
 .visuallyhidden { position:absolute !important; clip: rect(1px 1px 1px 1px); clip: rect(1px, 1px, 1px, 1px); }
 .invisible { visibility: hidden; }
 .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
@@ -76,14 +76,12 @@ button {  width: auto; overflow: visible; }
 * html .clearfix { height: 1%; }
 .clearfix { display: block; }
 
-.clear{clear: both; height: 0}
-
 
  /* Primary Styles
     Author: Bulgakov Evgeniy
  */
 
-.submit {
+.submit {	
 	display:block;
 	max-height:32px;
 	overflow:hidden;
@@ -100,9 +98,9 @@ button {  width: auto; overflow: visible; }
 		border:none;
 		color:#fff;
 		}
-
-
-.text-field {
+		
+		
+.text-field {	
 	display:block;
 	max-height:25px;
 	background:url(../images/textfield.png) 100% 0px no-repeat;
@@ -118,8 +116,8 @@ button {  width: auto; overflow: visible; }
 		border:none;
 		color:#000;
 		}
-
-
+		
+	
 .select {
 	display:block;
 	padding:4px 0 3px;
@@ -163,13 +161,8 @@ div.filter-box .textbox {
 	font: 13px sans-serif;
 	}
 
-<<<<<<< HEAD
 			
 			
-=======
-
-
->>>>>>> bc2bcab0f72ebd534bef12a4a976648a6b77cf10
 .angle {
 	width:20px;
 	height:20px;
@@ -198,9 +191,9 @@ div.filter-box .textbox {
 		bottom:0;
 		background-position:-20px -20px;
 		}
-
-
-
+		
+		
+		
 .anthracite-color {
 	color:#363636;
 	}
@@ -229,7 +222,7 @@ body {
 	margin:0 auto;
 	position:relative;
 	}
-
+	
 .header {
 	padding:44px 0 0;
 	overflow:hidden;
@@ -264,7 +257,7 @@ body {
 			.header .menu li:hover a {
 				color:#B5A590;
 				}
-
+	
 .top-block {
 	margin:9px 0 0 0;
 	min-height:283px;
@@ -280,7 +273,7 @@ body {
 		.step-by-step p {
 			font:13px sans-serif;
 			}
-
+			
 	.top-block .autorization {
 		display:block;
 		float:right;
@@ -323,17 +316,13 @@ body {
 			right:26px;
 			text-decoration:none;
 			}
-<<<<<<< HEAD
 		.autorization .submit {	
-=======
-		.autorization .submit {
->>>>>>> bc2bcab0f72ebd534bef12a4a976648a6b77cf10
 			width:169px;
 			margin:-3px 0 0 17px;
 			}.autorization .submit div input {
 				width:153px;
 				}
-
+		
 	.top-block .autorization-ok {
 		min-height:246px;
 		background:url(../images/autorization-ok.png) 0 0px no-repeat;
@@ -342,15 +331,15 @@ body {
 			padding:5px 0 7px;
 			text-align:center;
 			}
-
+			
 		.top-block .autorization-ok .links {
 			padding:16px 0;
 			}
 			.top-block .autorization-ok .links em {
 				padding:0 4px;
 				}
-
-
+	
+		
 	.top-block .registration {
 		display:block;
 		float:right;
@@ -360,8 +349,8 @@ body {
 		background:url(../images/registration.png) 0 0px no-repeat;
 		text-indent:-5000px;
 		}
-
-
+		
+		
 .main-block {
 	margin-bottom:29px;
 	overflow:hidden;
@@ -402,11 +391,7 @@ body {
 				/*left:163px;*/
 				right:19px;
 				}
-<<<<<<< HEAD
 								
-=======
-
->>>>>>> bc2bcab0f72ebd534bef12a4a976648a6b77cf10
 	.main-block .main-content {
 		overflow:hidden;
 		}
@@ -444,7 +429,7 @@ body {
 			clear:both;
 			padding:10px 0;
 			}
-
+		
 		.services {
 			overflow:hidden;
 			}
@@ -563,8 +548,8 @@ body {
 			.shop_10{
 				background-position: -688px -50px;
 				}
-
-
+			
+			
 			.shop_11{
 				background-position: 0 -100px;
 				}
@@ -607,7 +592,7 @@ body {
 			.shop_24{
 				background-position: -732px -136px;
 				}
-
+				
 			.shop_25{
 				background-position: 0 -172px;
 				}
@@ -629,9 +614,9 @@ body {
 			.shop_31{
 				background-position: -732px -172px;
 				}
-
-
-
+				
+				
+			
 		.magazine a{
 			width:172px;
 			height:50px;
@@ -641,7 +626,7 @@ body {
 			width:122px;
 			height:36px;
 			margin:0 11px 11px 0;
-
+			
 			}
 .footer{
 	background:#000;
@@ -674,7 +659,7 @@ body {
 			.footer .menu li a {
 				color:#fff;
 				}
-
+			
 /**************************************Inner************************************/
 
 
@@ -736,8 +721,8 @@ body {
 				font:bold 12px Arial;
 				text-transform:uppercase;
 				}
-
-
+				
+				
 .content {
 	margin-top:42px;
 	padding:0 20px 49px;
@@ -796,7 +781,7 @@ body {
 			.content .forward span {
 				text-decoration:underline;
 				}
-
+	
 	.table {
 		margin:0 -20px;
 		padding:20px 20px 20px;
@@ -818,7 +803,7 @@ body {
 					text-align:left;
 					vertical-align:middle;
 					}
-
+	
 .filling-declaration{
 	display:block;
 	margin-top:41px;
@@ -839,7 +824,7 @@ body {
 		font-style:normal;
 		color:#000;
 		}
-
+		
 .card table {
 	margin:37px 0 0;
 	color:#000;
@@ -893,7 +878,7 @@ body {
 		.card .total-price .submit input {
 			width:87px;
 			}
-
+			
 .news {
 	margin:38px -38px 40px -2px;
 	overflow:hidden;
@@ -903,7 +888,7 @@ body {
 		width:304px;
 		margin-right:16px;
 		}
-	.news .date {
+	.news .date {	
 		display:block;
 		padding:3px 0 5px 28px;
 		margin-bottom:6px;
@@ -913,7 +898,7 @@ body {
 		display:block;
 		margin-left:2px;
 		}
-
+		
 .status-packet {
 	margin:0px 0px 46px;
 	height:189px;
@@ -982,7 +967,7 @@ body {
 		cursor: pointer;
 		background: url(../images/plus.png) 0 0 no-repeat;
 		}
-
+		
 .autorization-inner {
 	height:98px;
 	position:relative;
@@ -990,12 +975,12 @@ body {
 	}
 	.autorization-inner .text-field {
 		float:left;
-		margin:15px 20px 0 0;
+		margin:15px 20px 0 0;		
 		}
 		.autorization-inner .text-field input {
 			width:206px;
 			}
-
+			
 	.autorization-inner .password  {
 			background:url(../images/textfield.png) 0 -50px repeat-x;
 			margin:0 4px;
@@ -1022,11 +1007,11 @@ body {
 		top:58px;
 		text-decoration:none;
 		}
-
+		
 	.top-block .autorization-inner .registration {
 		margin: -24px -8px 0 0;
 		}
-
+		
 .steps {
 	margin:40px -35px 38px -26px;
 	overflow:hidden;
@@ -1087,7 +1072,7 @@ body {
 		.sorting .first-input input {
 			width:169px;
 			}
-
+			
 .tabs {
 	margin:6px 0 0 0;
 	overflow:hidden;
@@ -1116,13 +1101,13 @@ body {
 		.tabs .active div {
 			background:url(../images/tabs.png) 0 -108px no-repeat;
 			}
-			.tabs .active div a {
+			.tabs .active div a {		
 				background:url(../images/tabs.png) 0 -135px repeat-x;
 				color:#000;
 				}
 
 
-
+				
 .admin-inside table a {
 	/*display:block;*/
 	}
@@ -1167,7 +1152,7 @@ body {
 		float:left;
 		margin:15px 5px 0 0;
 		}
-
+		
 .pages {
 	margin-top:46px;
 	overflow:hidden;
@@ -1191,7 +1176,7 @@ body {
 	.pages .endpoints {
 		color:#D581C0;
 		}
-
+		
 .table td .img {
 	float:left;
 	margin:3px 0 2px;
@@ -1207,7 +1192,7 @@ body {
 			padding:1px;
 			border:1px solid #F9F9F9;
 			}
-
+	
 .partner-inside-1 {
 	margin-bottom:47px;
 	}
@@ -1228,7 +1213,7 @@ body {
 		.partner-inside-1 .table .text-field input {
 			width:221px;
 			}
-
+			
 .partner-inside-2 {
 	}
 	.partner-inside-2 .table {
@@ -1248,7 +1233,7 @@ body {
 	.partner-inside-2 .back {
 		margin:25px 0 0;
 		}
-
+		
 .comment {
 	margin-bottom:14px;
 	border-bottom:1px solid #CECECE;
@@ -1336,7 +1321,7 @@ body {
 	}
 .registration p {
 	margin:-3px 0 47px 326px;
-	color:#BF0090;
+	color:#BF0090;	
 	}
 .registration .hr {
 	height:1px;
@@ -1397,13 +1382,13 @@ body {
 	.registration .submit input {
 		width:88px;
 		}
-/*
+/* 
  * print styles
  */
 @media print {
   * { background: transparent !important; color: #444 !important; text-shadow: none; }
   a, a:visited { color: #444 !important; text-decoration: underline; }
-  a:after { content: " (" attr(href) ")"; }
+  a:after { content: " (" attr(href) ")"; } 
   abbr:after { content: " (" attr(title) ")"; }
   .ir a:after { content: ""; }  /* Don't show links for images */
   pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
@@ -1415,17 +1400,17 @@ body {
 
 
 
-@media all and (orientation:portrait) {
-
+@media all and (orientation:portrait) { 
+  
 }
 
-@media all and (orientation:landscape) {
-
+@media all and (orientation:landscape) { 
+  
 }
 
 /* Grade-A Mobile Browsers */
 @media screen and (max-device-width: 480px) {
-  html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; }
+  html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; } 
 
 }
 
@@ -1512,7 +1497,7 @@ div.contacts .registration .done {
 	}
 .manual p {
 	margin:-3px 0 47px 326px;
-	color:#BF0090;
+	color:#BF0090;	
 	}
 .manual .hr {
 	height:1px;
@@ -1635,7 +1620,7 @@ select.extra_payment
 	height: 22px;
 }
 
-input.extra_payment
+input.extra_payment  
 {
 	width: 102px!important;
 }
@@ -1753,12 +1738,12 @@ div.syspay div.total>div
 	margin:7px 20px 7px 0px;
 }
 
-div.syspay div.total .submit
+div.syspay div.total .submit 
 {
 	float:left;
 }
 
-div.syspay div.total .submit input
+div.syspay div.total .submit input 
 {
 	width:91px;margin:0 8px;
 }
@@ -1853,13 +1838,10 @@ div.banner-block {
 	width: 262px;
 }
 
-<<<<<<< HEAD
 div.banner-block img:nth-child(1) {
 	margin-top: 0;
 }
 
-=======
->>>>>>> bc2bcab0f72ebd534bef12a4a976648a6b77cf10
 div.banner-block img {
 	margin-top: 25px;
 }
@@ -1908,16 +1890,12 @@ div.add_order_box span.total {
 	background:transparent url(/static/images/icon-arrow.gif) no-repeat 0 0; float:right; display:inline-block;width:27px; height:27px; cursor:pointer; top:-4px; position:relative; right:0px;
 }
 
-<<<<<<< HEAD
 .idd .ddTitle span.ddTitleText,
 .idd span.ddTitleText
 {
 	text-indent:1px; overflow:hidden; line-height:25px; font-family:sans-serif; font-size:13px; color:#000;margin-left: 1px;
 }
 
-=======
-.idd .ddTitle span.ddTitleText {text-indent:1px; overflow:hidden; line-height:20px; font-family:sans-serif; font-size:13px; color:#000;}
->>>>>>> bc2bcab0f72ebd534bef12a4a976648a6b77cf10
 .idd .ddTitle span.ddTitleText img{text-align:left; padding:0 2px 0 2px;float:left;}
 .idd .ddTitle img.selected {
 	padding:0 2px 0 0;
@@ -1929,11 +1907,7 @@ div.add_order_box span.total {
 	border-top:none;
 	display:none;
 	margin:0;
-<<<<<<< HEAD
 	width: 188px;
-=======
-	width:auto;
->>>>>>> bc2bcab0f72ebd534bef12a4a976648a6b77cf10
 	overflow:auto;
 	overflow-x:hidden !important;
 	background-color:#ffffff;
@@ -1959,7 +1933,6 @@ div.add_order_box span.total {
 	float: left;
 }
 .idd .ddChild a.selected {
-<<<<<<< HEAD
 	background-color:#66CCFF;	
 }
 /*******************************/
@@ -2176,37 +2149,3 @@ div.clientOrderInfo  .order_totals div
 {
 	display:none;
 }
-=======
-	background-color:#66CCFF;
-}
-/*******************************/
-
-.pokypatel_reg, .posrednik_reg{
-    position: relative;
-    width: 420px;
-    height: 230;
-    background: white;
-    padding: 20px;
-}
-
-.pokypatel_reg{
-    float: left;
-    margin: 0 0 0 -20px;
-}
-.posrednik_reg{
-    margin: 0 -20px 0 0;
-    float: right;
-}
-
-div.button{
-    float: left;
-}
-div.button .submit{
-    float: left;
-}
-div.button span{
-    float: left;
-    display: block;
-    margin: 7px 0 0 5px;
-}
->>>>>>> bc2bcab0f72ebd534bef12a4a976648a6b77cf10
