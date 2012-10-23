@@ -35,6 +35,22 @@ class User extends BaseController {
 	
 	public function login ($l=null, $p=null, $redirect = true, $vk = false)
 	{
+		// Дорефакторить этот огрызок
+		if ($this->loginInternal())
+		{
+			return TRUE;
+		}
+		else
+		{
+			echo 'Wrong password or login';
+			die();		
+			
+			return false;
+		}
+	}
+	
+	private function loginInternal($l=null, $p=null, $redirect = true, $vk = false)
+	{
 		$login		= $l ? Check::var_str($l,32,1) : Check::str('login',	32,1);
 		$password	= $p ? Check::var_str($p,32,1) : Check::str('password',	32,1);
 		$password	= md5($password);
@@ -42,7 +58,7 @@ class User extends BaseController {
 		
 		if ($login && $password)
 		{
-			$user = $this->User->getUserForLogin($login,$password,$vk);
+			$user = $this->User->getUserForLogin($login, $password, $vk);
 
 			if ($user)
 			{
@@ -83,14 +99,30 @@ class User extends BaseController {
 					header('Location: '.BASEURL.$user->user_group);
 				}
 					
-				return true;
+				return TRUE;
 			}
 		}
 		
-		echo 'Wrong password or login';
-		die();		
+		return FALSE;
+	}
+	
+	public function loginManagerAjax()
+	{
+		$view['logged_in'] = 0;
+		$view['is_manager'] = 0;
 		
-		return false;
+		if ($this->loginInternal(NULL, NULL, FALSE))
+		{
+			$view['logged_in'] = 1;
+			$view['user'] = $this->user;
+
+			if ($this->user->user_group == 'manager')
+			{
+				$view['is_manager'] = 1;
+			}
+		}
+		
+		$this->load->view("/manager/elements/div_header", $view);
 	}
 	
 	public function logout(){
@@ -991,6 +1023,3 @@ class User extends BaseController {
 	}
 	
 }
-
-/* End of file user.php */
-/* Location: ./system/application/controllers/user.php */

@@ -1,3 +1,6 @@
+<? if (isset($this->user->user_group)) :
+	if ($this->user->user_group == 'manager') :
+?>
 <div class='top-block'>
 	<div class='block-user'>
 		<div class='left-block'>
@@ -26,3 +29,12 @@
 		</div>
 	</div>
 </div>
+<? else : ?>
+<div style='display:none;'>
+	<script>
+		$(function() {
+			window.location = '/';
+		});
+	</script>
+</div>
+<? endif; endif; ?>

@@ -1,5 +1,5 @@
-<div style="display:block!important;margin:0;" class='top-block order_auth'>
-	<form class='autorization new_order_auth' method="post" action='<?= BASEURL ?>user/login' style="float:left;">
+<div style="display:block;margin:0;" class='top-block order_auth'>
+	<form class='autorization new_order_auth' method="post" action='<?= BASEURL ?>user/loginManagerAjax' style="float:left;">
 		<h2>Авторизация</h2>
 		<div class='text-field'><div><input type='text' name="login" value='Логин' onfocus='javascript: if (this.value == "Логин") this.value = "";' onblur='javascript: if (this.value == "") this.value = "Логин";' /></div></div>
 		<div class='text-field'><div><div class='password'><input type='password' name="password" id="password" value='Пароль' onfocus='javascript: if (this.value == "Пароль") this.value = "";' onblur='javascript: if (this.value == "") this.value = "Пароль";' /></div></div></div>
@@ -19,7 +19,7 @@
 <script type="text/javascript">
 	$(function() {
 		$('form.new_order_auth').ajaxForm({
-			target: '<?= BASEURL ?>user/login',
+			target: '<?= BASEURL ?>user/loginManagerAjax',
 			type: 'POST',
 			dataType: 'html',
 			iframe: true,
@@ -38,6 +38,12 @@
 				if (response)
 				{
 					success('top', 'Вы успешно залогинились в Countrypost.ru.');
+					
+					$('div.top-block:first')
+						.hide('slow')
+						.after(response);
+						
+					$('div.order_auth').hide('fast');
 				}
 				else
 				{
