@@ -37,8 +37,8 @@ foreach($pageNumbers as $n)
   if (($c == 0) || ($c == count($pageNumbers) - 1)) $class = 'endpoints';
   if ($n == $curPage)
   {
-	if (count($pageNumbers) > 7 AND
-		$this->user->user_group == 'admin') :
+	if (count($pageNumbers) > 7/* AND
+		$this->user->user_group == 'admin'*/) :
 ?>
 <span>
 <select id='pager_page_selector' style='margin-top:-2px;background:#E2E2E2;color:#BF0090;border-color:#bbb;'>

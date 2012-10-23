@@ -4292,6 +4292,10 @@ abstract class BaseController extends Controller
 		{
 			$this->paging_base_url = '/syspay/'.$this->uri->segment(2);
 		}
+		else if ($this->uri->segment(1) == 'dealers')
+		{
+			$this->paging_base_url = '/dealers/index';
+		}
 		else if ($segment_count == 1)
 		{
 			$this->paging_base_url = '/admin/showNewPackages';
@@ -6035,7 +6039,7 @@ abstract class BaseController extends Controller
 		}
 		else if (isset($personal_data->$id_field_name))
 		{
-			if ($user_group == 'manager')//($personal_data->$id_field_name == $user_id)
+			if ($user_group == 'manager')
 			{
 				$personal_data->statistics = $this->Managers->getStatistics($personal_data->$id_field_name);
 			}
