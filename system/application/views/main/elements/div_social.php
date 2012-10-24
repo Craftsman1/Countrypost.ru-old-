@@ -12,12 +12,6 @@
 	<a class="addthis_button_preferred_10"></a>
 	<a class="addthis_button_preferred_15"></a>
 	<a class="addthis_button_preferred_14"></a>
-	<a class="addthis_button_preferred_15"></a>
-	<a class="addthis_button_preferred_16"></a>
-	<a class="addthis_button_preferred_17"></a>
-	<a class="addthis_button_preferred_18"></a>
-	<a class="addthis_button_preferred_19"></a>
-	<a class="addthis_button_preferred_20"></a>
 	<a class="addthis_button_compact"></a>
 	<a class="addthis_counter addthis_bubble_style"></a>
 	</div>

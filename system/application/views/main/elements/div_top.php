@@ -6,5 +6,7 @@
 		<li><a href='<?= BASEURL ?>dealers'>Посредники (1234)</a></li>
 		<li><a href='<?= BASEURL ?>clients'>Клиенты (5678)</a></li>
 		<li><a href='<?= BASEURL ?>main/showFAQ'>FAQ</a></li>
+		<li><a href='<?= BASEURL ?>'>Магазин</a></li>
+		<li><a href='<?= BASEURL ?>'>Рассылка</a></li>
 	</ul>
 </div>

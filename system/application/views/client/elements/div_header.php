@@ -39,10 +39,9 @@
 				<p><a href='/<?=$user->user_group?>/showOutMoney'>Заявка на вывод денег</a></p>
 			</div>
 		</div>
-	</div>
-	
+	</div>	
 <? else : ?>
-	<div class='top-block'>
+<!--	<div class='top-block'>
 		<form class='block-user autorization-inner' action='<?=BASEURL?>user/login' method="POST">
 			<h2>Авторизация</h2>
 			<div class='text-field'><div><input name="login" type='text' value='Логин' onfocus='javascript: if (this.value == "Логин") this.value = "";' onblur='javascript: if (this.value == "") this.value = "Логин";' /></div></div>
@@ -52,4 +51,5 @@
 			<a href='<?=BASEURL?>user/showPasswordRecovery' class='remember-password'>Напомнить</a>
 		</form>
 	</div>
+-->
 <? endif; ?>

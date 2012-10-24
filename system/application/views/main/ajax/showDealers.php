@@ -9,9 +9,7 @@
 			<col width='auto' />
 			<col width='auto' />
 			<col width='auto' />
-			<col width='200' />
 			<col width='auto' />
-			<col width='80' />
 			<col width='auto' />
 			<col width='auto' />
 			<col width='auto' />
@@ -21,27 +19,42 @@
 				<th>Посредник</th>
 				<th>Отзывы</th>
 				<th>Сайт</th>
-				<th>Выполненных заказов</th>
-				<th></th>
+				<th>Выполненных&nbsp;заказов</th>
+				<th>Профиль</th>
 			</tr>
+			<style>
+				#partnersForm td,#partnersForm th
+				{
+					text-align:center;
+					vertical-align:middle;
+					text-wrap: nowrap;
+				}
+			</style>
 			<?if ($managers): foreach ($managers as $manager):?>
 				<tr>
-					<td align='center'>
-						<b><?=$manager->rating ?></b>
+					<td>
+						<b style=""><?=$manager->rating ?></b>
 						<br>
-						<b>№ <?=$manager->manager_user?></b>
+						<b style="color:#D7D7D7;">№ <?=$manager->manager_user?></b>
 					</td>
 					<td>
-						<img src="/static/images/flags/<?= $countries_en[$manager->manager_country] ?>.png" style="float:left;margin-right:10px;" />
-						<b style="position:relative;top:5px;"><?=$countries[$manager->manager_country]?></b>
+						<img src="/static/images/flags/big/<?= $countries_en[$manager->manager_country] ?>.png" style="float:left;margin-right:10px;" />
+						<b style="position:relative;top:17px;"><?=$countries[$manager->manager_country]?></b>
 					</td>
-					<td><?=$manager->statistics->fullname?></td>
+					<td style="text-align:left;">
+						<?=$manager->statistics->fullname?>
+						<br>
+						<b style="color: orange;">100% CASHBACK</b>
+						<b style="color: #BF0090;">MF</b>
+					</td>
 					<td>
 						<? View::show('main/elements/dealers/rating', array('manager' => $manager)); ?>
 					</td>
-					<td><?=$manager->website?></td>
+					<td>
+						<a target="_blank" href="<?= empty($manager->website) ? BASEURL."/dealers/profile/{$manager->manager_user}" : $manager->website ?>"><?= empty($manager->website) ? BASEURL."/dealers/profile/{$manager->manager_user}" : $manager->website ?></a>
+					</td>
 					<td><?=$manager->statistics->completed_orders?></td>
-					<td align="center">
+					<td>
 						<a href='/dealers/profile/<?=$manager->manager_user?>'>посмотреть</a>
 					</td>
 				</tr>

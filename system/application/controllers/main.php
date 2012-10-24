@@ -8,6 +8,8 @@ class Main extends BaseController {
 	function __construct()
 	{
 		parent::__construct();	
+
+		$this->paging_base_url = '/main/showUnassignedOrders';	 
 	}
 	
 	function index()

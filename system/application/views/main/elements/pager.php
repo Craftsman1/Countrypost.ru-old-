@@ -87,7 +87,7 @@ function goto_page(pager_url)
 		url: pager_url,
 		success: function (response){
 			$('.pages').remove();
-			$('#pagerForm,#packagesForm,#ordersForm,#partnersForm,#clientsForm').before(response).remove();
+			$('#pagerForm,#packagesForm,#ordersForm,#partnersForm,#clientsForm,#unassignedOrders').before(response).remove();
 		}});
 }
 </script>

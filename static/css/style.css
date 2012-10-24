@@ -231,7 +231,7 @@ body {
 		float:left;
 		width:210px;
 		height:34px;
-		margin:0 53px 0 27px;
+		margin:0 38px 0 0px;
 		overflow:hidden;
 		background: url(../images/logo.png) 0 0px no-repeat;
 		}
@@ -268,7 +268,7 @@ body {
 		position:relative;
 		}
 		.step-by-step div.table {
-			margin: 25px 10px 10px 0;
+			margin: 20px 10px 10px 0;
 			}
 		.step-by-step p {
 			font:13px sans-serif;
@@ -324,6 +324,7 @@ body {
 				}
 		
 	.top-block .autorization-ok {
+		margin-top: 11px;
 		min-height:246px;
 		background:url(../images/autorization-ok.png) 0 0px no-repeat;
 		}
@@ -664,7 +665,7 @@ body {
 
 
 .inner .top-block {
-	margin:48px 0 0;
+	/*margin:48px 0 0;*/
 	min-height:0;
 	}
 	.block-user {

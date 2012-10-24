@@ -1,1 +1,1 @@
-<div class='rating'>	<a>+ 1</a> / <?= $manager->rating ?> / <a>- 1</a></div>
+<div class='rating'>	<a style="color:green;">+ 1</a> / <?= $manager->rating ?> / <a style="color:red;">- 1</a></div>

@@ -2,8 +2,6 @@
 require_once BASE_CONTROLLERS_PATH.'BaseController'.EXT;
 
 class Dealers extends BaseController {
-	var $paging_base_url = '/dealers/index';	 
-
 	function __construct()
 	{
 		parent::__construct();	

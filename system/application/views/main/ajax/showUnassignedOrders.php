@@ -45,12 +45,12 @@ else
 				<? endif; ?>
 			</td>
 			<td nowrap>
-				<img src="/static/images/flags/<?= $order->order_country_from_en ?>.png" style="float:left;margin-right:10px;" />
-				<b style="position:relative;top:5px;"><?=$order->order_country_from ?></b>
+				<img src="/static/images/flags/big/<?= $order->order_country_from_en ?>.png" style="float:left;margin-right:10px;" />
+				<b style="position:relative;top:17px;"><?=$order->order_country_from ?></b>
 			</td>
 			<td nowrap>
-				<img src="/static/images/flags/<?= $order->order_country_to_en ?>.png" style="float:left;margin-right:10px;" />
-				<b style="position:relative;top:5px;"><?= $order->order_country_to ?></b>
+				<img src="/static/images/flags/big/<?= $order->order_country_to_en ?>.png" style="float:left;margin-right:10px;" />
+				<b style="position:relative;top:17px;"><?= $order->order_country_to ?></b>
 			</td>
 			<td>
 				<?= $order->order_cost ?> <?= $order->currency ?>
@@ -60,7 +60,7 @@ else
 			</td>
 			<td align="center">
 				<? if (empty($order->request_count)) : ?>
-				нет предложений
+				нет&nbsp;предложений
 				<? else : ?>
 				<a href="<?=$order_link?><?=$order->order_id?>"><?=$order->request_count?></a>
 				<? endif; ?>
@@ -73,7 +73,7 @@ else
 				<? if (empty($order->request_sent)) : ?>
 				<a href="<?=$order_link?><?=$order->order_id?>">Добавить предложение</a>
 				<? else : ?>
-				Вы уже добавили предложение
+				Вы&nbsp;уже&nbsp;добавили предложение
 				<? endif; ?>
 				<? endif; ?>
 			</td>
