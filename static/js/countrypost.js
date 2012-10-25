@@ -43,3 +43,9 @@ function error(layout, message)
 {
 	noty_generic(layout, message, 'alert');
 }
+
+function updatePerPage(dropdown, handler)
+{
+	var id = $(dropdown).find('option:selected').val();
+	window.location.href = '/' + handler + '/updatePerPage/' + id;
+}

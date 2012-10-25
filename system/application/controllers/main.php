@@ -10,6 +10,7 @@ class Main extends BaseController {
 		parent::__construct();	
 
 		$this->paging_base_url = '/main/showUnassignedOrders';	 
+		View::$main_view	= '/main/index';
 	}
 	
 	function index()
@@ -944,6 +945,10 @@ Email: {$this->user->user_email}";
 			// типы заказов
 		    $this->load->model('OrderModel', 'Orders');
 			$view['order_types'] = $this->Orders->getOrderTypes();
+
+			// крошки
+			Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
+			Breadcrumb::setCrumb(array('http::://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => 'Добавление нового заказа'), 1);
 
 			View::showChild($this->viewpath.'/pages/createorder', $view);
 		}

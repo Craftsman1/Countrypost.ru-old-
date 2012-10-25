@@ -1,5 +1,23 @@
-<a name="pagerScroll"></a>
 <form id="partnersForm" class='admin-inside' action='#'>
+	<a name="pagerScroll"></a>
+	<div class="search_results">
+		<span class="total" style="float: none;">
+			Найдено посредников: <b id="managers_count"><?= $this->paging_count ?></b>
+		</span>
+		<span class="total" style="margin:0 0 0px 0;">
+			<label>посредников на странице:</label>
+			<select class="per_page" name="per_page" onchange="javascript:updatePerPage(this, 'dealers');">
+				<option value="10" <?= $per_page == 10 ? 'selected' : ''?>>10</option>
+				<option value="50" <?= $per_page == 50 ? 'selected' : ''?>>50</option>
+				<option value="100" <?= $per_page == 100 ? 'selected' : ''?>>100</option>
+				<option value="200" <?= $per_page == 200 ? 'selected' : ''?>>200</option>
+				<option value="350" <?= $per_page == 350 ? 'selected' : ''?>>350</option>
+				<option value="500" <?= $per_page == 500 ? 'selected' : ''?>>500</option>
+			</select>
+		</span>
+	</div>
+	<br>
+	<br>
 	<div class='table'>
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>
@@ -15,7 +33,7 @@
 			<col width='auto' />
 			<tr>
 				<th>Рейтинг / №</th>
-				<th>Страна</th>
+				<th>Страна</th>	
 				<th>Посредник</th>
 				<th>Отзывы</th>
 				<th>Сайт</th>
@@ -44,8 +62,8 @@
 					<td style="text-align:left;">
 						<?=$manager->statistics->fullname?>
 						<br>
-						<b style="color: orange;">100% CASHBACK</b>
-						<b style="color: #BF0090;">MF</b>
+						<b class="cashback">100% CASHBACK</b>
+						<b class="mf">MF</b>
 					</td>
 					<td>
 						<? View::show('main/elements/dealers/rating', array('manager' => $manager)); ?>
@@ -73,5 +91,21 @@
 			</tr>
 		</table>
 	</div>
+	<div class="search_results">
+		<span class="total" style="float: none;">
+			Найдено посредников: <b id="managers_count"><?= $this->paging_count ?></b>
+		</span>
+		<span class="total" style="margin:0;">
+			<label>посредников на странице:</label>
+			<select class="per_page" name="per_page" onchange="javascript:updatePerPage(this, 'dealers');">
+				<option value="10" <?= $per_page == 10 ? 'selected' : ''?>>10</option>
+				<option value="50" <?= $per_page == 50 ? 'selected' : ''?>>50</option>
+				<option value="100" <?= $per_page == 100 ? 'selected' : ''?>>100</option>
+				<option value="200" <?= $per_page == 200 ? 'selected' : ''?>>200</option>
+				<option value="350" <?= $per_page == 350 ? 'selected' : ''?>>350</option>
+				<option value="500" <?= $per_page == 500 ? 'selected' : ''?>>500</option>
+			</select>
+		</span>
+	</div>
+	<?php if (isset($pager)) echo $pager ?>
 </form>
-<?php if (isset($pager)) echo $pager ?>

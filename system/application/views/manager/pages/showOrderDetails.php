@@ -1,4 +1,7 @@
 <div class='content'>
+	<? Breadcrumb::showCrumbs(); ?>
+	<br>
+	<br>
 	<h2><?=$order->order_type?> Заказ №<?=$order->order_id?> <?=$order->order_country_from?> - <?=$order->order_country_to?> (<?=$order->order_city_to?>)</h2>
 	<? if ($order->order_manager == $this->user->user_id) : ?>
 	Клиент: <a href="/main/profile/<?=$order->order_client?>"><?=$client->statistics->fullname?></a> (№<?=$order->order_client?>)

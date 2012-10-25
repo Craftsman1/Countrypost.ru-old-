@@ -725,7 +725,7 @@ body {
 				
 				
 .content {
-	margin-top:42px;
+	margin-top:10px;
 	padding:0 20px 49px;
 	}
 	.content .order_result{
@@ -782,7 +782,11 @@ body {
 			.content .forward span {
 				text-decoration:underline;
 				}
-	
+		img.forward {
+			top: 4px;
+			position: relative;
+			margin: 0 0 0 3px!important;
+		}
 	.table {
 		margin:0 -20px;
 		padding:20px 20px 20px;
@@ -1847,18 +1851,18 @@ div.banner-block img {
 	margin-top: 25px;
 }
 
-div.add_order_box div.admin-inside {
+div.search_results div.admin-inside,div.add_order_box div.admin-inside {
 	height:50px;
 	float:left;
 }
 
-div.add_order_box span {
+div.add_order_box span,div.search_results span {
 	top: 15px;
 	position: relative;
 	font: 13px sans-serif;
 }
 
-div.add_order_box span.total {
+div.add_order_box span.total ,div.search_results span.total {
 	float:right;
 	margin-right: 10px;
 	top: 15px;
@@ -2149,4 +2153,25 @@ div.clientOrderInfo  .order_totals
 div.clientOrderInfo  .order_totals div
 {
 	display:none;
+}
+
+input.order_check
+{
+	float:left;
+	margin-left:0;
+	margin-top:5px;
+}
+
+.mf {
+	color: #BF0090;
+}
+
+.cashback {
+	color: orange;
+	text-transform: uppercase;
+}
+
+.filter-box span.checkwrap
+{
+	width: 300px;
 }

@@ -665,6 +665,10 @@ abstract class BaseController extends Controller
 				
 				$view['new_bid'] = $new_bid;
 			}
+			
+			// крошки
+			Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
+			Breadcrumb::setCrumb(array('http::://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => 'Заказ №' . $view['order']->order_id), 1);
 		}
 		catch (Exception $e) 
 		{

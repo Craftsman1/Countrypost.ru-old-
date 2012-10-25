@@ -1,4 +1,8 @@
 <div class='content'>
+	<? Breadcrumb::showCrumbs(); ?>
+	<br>
+	<br>
+	<br>
 	<h2><?=$order->order_type?> Заказ №<?=$order->order_id?> <?=$order->order_country_from?> - <?=$order->order_country_to?> (<?=$order->order_city_to?>)</h2>
 	<? View::show('client/ajax/showOrderInfo'); ?>
 	<h3 class='clientOrderInfo' <? if (empty($order->order_manager)) : ?>style="display:none;"<? endif; ?>>Товары в заказе</h3>

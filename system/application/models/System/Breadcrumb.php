@@ -50,7 +50,7 @@ class Breadcrumb {
 		foreach ($_SESSION['breadcrumb'] as $crumb)		{
 			list($method, $pagename) = each($crumb);
 			if (!$cState){
-				$crumbs[]	= '<a href="/'.$method.'">'.$pagename.'</a>';	
+				$crumbs[]	= '<a href="'.$method.'">'.$pagename.'</a>';	
 				$cState = $method;
 			}else{
 				$crumbs[]	= '<a href="/'.$cState.'/'.$method.'">'.$pagename.'</a>';
@@ -58,7 +58,7 @@ class Breadcrumb {
 			
 		}
 		
-		return join('->', $crumbs);
+		return join('<img class="forward" src="' . IMG_PATH . '/forward.png">', $crumbs);
 	}
 	
 	static public function showCrumbs($segment = null){
