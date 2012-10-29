@@ -69,11 +69,11 @@
 						<? View::show('main/elements/dealers/rating', array('manager' => $manager)); ?>
 					</td>
 					<td>
-						<a target="_blank" href="<?= empty($manager->website) ? BASEURL."/dealers/profile/{$manager->manager_user}" : $manager->website ?>"><?= empty($manager->website) ? BASEURL."/dealers/profile/{$manager->manager_user}" : $manager->website ?></a>
+						<a target="_blank" href="<?= empty($manager->website) ? BASEURL.$manager->statistics->login : $manager->website ?>"><?= empty($manager->website) ? BASEURL.$manager->statistics->login : $manager->website ?></a>
 					</td>
 					<td><?=$manager->statistics->completed_orders?></td>
 					<td>
-						<a href='/dealers/profile/<?=$manager->manager_user?>'>посмотреть</a>
+						<a href='<?= BASEURL.$manager->statistics->login ?>'>посмотреть</a>
 					</td>
 				</tr>
 				<?endforeach;?>	

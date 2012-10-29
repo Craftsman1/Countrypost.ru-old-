@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Language" content="ru">
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
-<title>Технические работы</title>
+<title>РўРµС…РЅРёС‡РµСЃРєРёРµ СЂР°Р±РѕС‚С‹</title>
 </head>
 
 <body>
 
-<p align="center"><b>Технические работы</b></p>
+<p align="center"><b>РўРµС…РЅРёС‡РµСЃРєРёРµ СЂР°Р±РѕС‚С‹</b></p>
 
 </body>
 

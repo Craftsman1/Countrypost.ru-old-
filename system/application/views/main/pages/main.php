@@ -5,6 +5,14 @@
 			'handler' => 'filterUnassignedOrders',
 		)); ?>
 	</div>
+	<style>
+		#unassignedOrders td,#unassignedOrders th
+		{
+			text-align:center;
+			vertical-align:middle;
+			text-wrap: nowrap;
+		}
+	</style>
 	<div class='main-content'>
 		<? if (isset($showBannerBox)) : ?>
 		<div class="banner-block">

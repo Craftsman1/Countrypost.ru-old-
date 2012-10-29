@@ -53,12 +53,12 @@ class Breadcrumb {
 				$crumbs[]	= '<a href="'.$method.'">'.$pagename.'</a>';	
 				$cState = $method;
 			}else{
-				$crumbs[]	= '<a href="/'.$cState.'/'.$method.'">'.$pagename.'</a>';
+				$crumbs[]	= '<a href="'.$method.'">'.$pagename.'</a>';
 			}
 			
 		}
 		
-		return join('<img class="forward" src="' . IMG_PATH . '/forward.png">', $crumbs);
+		return join('<img class="forward" src="' . IMG_PATH . '/forward.png">', $crumbs) . '<br><br>';
 	}
 	
 	static public function showCrumbs($segment = null){

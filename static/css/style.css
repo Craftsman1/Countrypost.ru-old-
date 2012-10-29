@@ -738,6 +738,7 @@ body {
 	.content h2 {
 		font: bold 20px Arial;
 		margin-bottom: 20px;
+		margin-top: 20px;
 		}
 	.content h3 {
 		margin:45px 0 11px;
@@ -2082,10 +2083,11 @@ div.managerinfo  img
 	margin-bottom:10px;
 }
 
-div.managerinfo  div.rating
+div.rating
 {
 	float:left;
 	margin-top:0;
+	margin-bottom:0!important;
 	margin-right: 10px;
 }
 
@@ -2174,4 +2176,70 @@ input.order_check
 .filter-box span.checkwrap
 {
 	width: 300px;
+}
+
+div.personal,div.ratings
+{
+	padding-top: 0;
+	font-size: 14px;
+	float:left;
+	width:50%;
+}
+
+div.personal div,div.ratings div
+{
+	margin-bottom: 14px;
+}
+
+div.ratings div
+{
+	margin-bottom: 0;
+	position: relative;
+	height: 59px;
+}
+
+div.personal span,div.ratings span
+{
+	display: inline-block;
+}
+
+span.ratings_description
+{
+	margin-left:100px;
+}
+
+span.ratings
+{
+	top: 0;
+	position: absolute;
+	width: 200px;
+}
+
+div.personal span
+{
+	width: 200px;
+}
+
+div.personal div span:nth-child(odd),div.ratings div span:nth-child(odd)
+{
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+div.personal div span:nth-child(odd)
+{
+	text-align: right;
+}
+
+div.personal span img, div.ratings span img
+{
+	top: -2px;
+	text-align: right;
+	margin-right: 0px;
+	position: relative; 
+}
+
+div.personal span img
+{
+	top: 6px; 
 }

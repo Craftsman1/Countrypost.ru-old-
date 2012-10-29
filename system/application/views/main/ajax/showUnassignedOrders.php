@@ -45,12 +45,12 @@ else
 				<? endif; ?>
 			</td>
 			<td nowrap>
-				<img src="/static/images/flags/big/<?= $order->order_country_from_en ?>.png" style="float:left;margin-right:10px;" />
-				<b style="position:relative;top:17px;"><?=$order->order_country_from ?></b>
+				<img src="/static/images/flags/<?= $order->order_country_from_en ?>.png" style="float:left;margin-right:10px;" />
+				<b style="position:relative;top:6px;"><?=$order->order_country_from ?></b>
 			</td>
 			<td nowrap>
-				<img src="/static/images/flags/big/<?= $order->order_country_to_en ?>.png" style="float:left;margin-right:10px;" />
-				<b style="position:relative;top:17px;"><?= $order->order_country_to ?></b>
+				<img src="/static/images/flags/<?= $order->order_country_to_en ?>.png" style="float:left;margin-right:10px;" />
+				<b style="position:relative;top:6px;"><?= $order->order_country_to ?></b>
 			</td>
 			<td>
 				<?= $order->order_cost ?> <?= $order->currency ?>

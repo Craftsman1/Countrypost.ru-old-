@@ -40,7 +40,21 @@
 |
 */
 
+//$route['^(dealers|user|manager|admin|client|main|profile).*'] = '$1';
+//$route['main/(:any)/(:any)/(:any)'] = "main/$1/$2/$3";
+//$route['dealers/(:any)/(:any)/(:any)'] = "dealers/$1/$2/$3";
 $route['default_controller'] = "main";
+//$route['dealers'] = "dealers";
+//$route[':any'] = "profile/index/3";
+//$route['dealers/.?'] = "dealers/$1";
+/*$route['(:any)'] = "profile";
+$route['default_controller'] = "main";
+
+$route['dealers/.?'] = "dealers/$1";
+$route['client'] = "client";
+$route['main'] = "main";
+$route['admin'] = "admin";
+$route['profile'] = "profile";*/
 $route['scaffolding_trigger'] = "";
 
 

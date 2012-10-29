@@ -235,8 +235,18 @@ class CI_Router {
 			return $segments;
 		}
 
-		// Can't find the requested controller...
-		show_404($segments[0]);
+		//show_404($segments[0]); 
+		// вместо ошибки редиректим в профиль, возможно это урл вида http://countrypost.ru/funky_user_name
+		// это костыль который не получилось заменить роутингом и .htaccess
+		else
+		{
+			$login = $segments[0];
+			$segments[0] = 'profile';
+			$segments[1] = 'router';
+			$segments[2] = $login;
+
+			return $this->_validate_request($segments);
+		}
 	}
 
 	// --------------------------------------------------------------------

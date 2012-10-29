@@ -47,7 +47,7 @@ class ManagerModel extends BaseModel implements IModel{
     	$this->properties->manager_status			='';
     	$this->properties->user_login				='';
     	$this->properties->country_name				='';
-    	$this->properties->last_client_added		='';
+    	$this->properties->created					='';
 		$this->properties->manager_credit           =0;
  		$this->properties->manager_credit_date      ='';
 		$this->properties->manager_credit_local     =0;
@@ -61,7 +61,9 @@ class ManagerModel extends BaseModel implements IModel{
 		$this->properties->package_foto_system_tax	='';
 		$this->properties->rating	='';
 		$this->properties->website	='';
+		$this->properties->skype	='';
 		$this->properties->status	='';
+		$this->properties->created	='';
 		
 		parent::__construct();
     }
@@ -469,20 +471,28 @@ class ManagerModel extends BaseModel implements IModel{
 		$statistics = $this->getById($manager_id);
 		
 		$result = $this->db->query(
-			"SELECT COUNT(orders.order_id) completed_orders
+			"SELECT 
+				COUNT(orders.order_id) completed_orders, 
+				user_login login, 
+				user_email email
 			FROM `{$this->table}`
 				LEFT JOIN `orders` ON `orders`.`order_manager` = `{$this->table}`.`manager_user`
+				LEFT JOIN `users` ON `users`.`user_id` = `{$this->table}`.`manager_user`
 			WHERE 
 				`{$this->table}`.`manager_user` = {$manager_id}
 				AND `orders`.`order_status` IN ('sended')"
 		)->result();
 		
 		$completed_orders = ($result) ? $result[0] : FALSE;
+		$statistics->completed_orders = FALSE;
+		
 		if ($completed_orders)
 		{
-			$completed_orders = $completed_orders->completed_orders;
+			$statistics->login = $completed_orders->login;
+			$statistics->email = $completed_orders->email;
+			$statistics->completed_orders = $completed_orders->completed_orders;
 		}
-		$statistics->completed_orders = $completed_orders;
+		
 		$statistics->fullname = $this->getFullName($statistics);
 		
 		return $statistics;

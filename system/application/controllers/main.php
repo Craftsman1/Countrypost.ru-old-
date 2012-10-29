@@ -11,6 +11,7 @@ class Main extends BaseController {
 
 		$this->paging_base_url = '/main/showUnassignedOrders';	 
 		View::$main_view	= '/main/index';
+		Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
 	}
 	
 	function index()
@@ -934,21 +935,13 @@ Email: {$this->user->user_email}";
 
 			// валюты
 			$view['currencies'] = array();
-			
-			foreach ($view['countries'] as $country)
-			{/*
-				$view['currencies'][] = array(
-					''
-				);*/
-			}
 
 			// типы заказов
 		    $this->load->model('OrderModel', 'Orders');
 			$view['order_types'] = $this->Orders->getOrderTypes();
 
 			// крошки
-			Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
-			Breadcrumb::setCrumb(array('http::://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => 'Добавление нового заказа'), 1);
+			Breadcrumb::setCrumb(array('http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => 'Добавление нового заказа'), 1, TRUE);
 
 			View::showChild($this->viewpath.'/pages/createorder', $view);
 		}

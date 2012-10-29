@@ -9,7 +9,7 @@
 	<meta name="author" content="">
 	<meta name="w1-verification" content="135670173257" />
 	<link rel="apple-touch-icon" href="<?= IMG_PATH ?>apple-touch-icon.png">
-	<link rel="stylesheet" type="text/css" media="all" href="<?= CSS_PATH ?>style.css?v=20121007">
+	<link rel="stylesheet" type="text/css" media="all" href="<?= CSS_PATH ?>style.css?v=20121025">
 	<link rel="stylesheet" type="text/css" media="handheld" href="<?= CSS_PATH ?>handheld.css?v=1">
 	<link rel="stylesheet" type="text/css" href="<?= CSS_PATH ?>jquery.lightbox-0.5.css" media="screen" />
 	<script type="text/javascript" src="<?= JS_PATH ?>jquery-1.8.2.js"></script>
