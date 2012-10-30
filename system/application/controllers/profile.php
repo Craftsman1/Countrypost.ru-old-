@@ -89,6 +89,13 @@ class Profile extends BaseController {
 			$view['countries_en'] = $countries_en;
 
 			$this->processStatistics($manager, array(), 'manager_user', $manager->manager_user, 'manager');
+			
+			// блог
+			$this->load->model('BlogModel', 'Blogs');
+			$view['blogs']	= $this->Blogs->getBlogsByUserId($manager->manager_user);
+			
+			
+			
 			Breadcrumb::setCrumb(array('/' . $manager->statistics->login => $manager->statistics->fullname), 2);
 
 			View::showChild('main/pages/dealer', $view);

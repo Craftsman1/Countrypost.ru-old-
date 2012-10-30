@@ -170,6 +170,7 @@ div.filter-box .textbox {
 	background-color:#E2E2E2;
 	background-image:url(../images/angle.png);
 	background-repeat:no-repeat;
+	margin:0!important;
 	}
 	.angle-lt{
 		left:0;
@@ -2186,7 +2187,13 @@ div.personal,div.ratings
 	width:50%;
 }
 
-div.personal div,div.ratings div
+div.pricelist_main div
+{
+	padding-top: 0;
+	font-size: 14px;
+}
+
+div.personal div,div.ratings div,div.pricelist div
 {
 	margin-bottom: 14px;
 }

@@ -58,7 +58,7 @@ class Breadcrumb {
 			
 		}
 		
-		return join('<img class="forward" src="' . IMG_PATH . '/forward.png">', $crumbs) . '<br><br>';
+		return join('<img class="forward" src="' . IMG_PATH . 'forward.png">', $crumbs) . '<br><br>';
 	}
 	
 	static public function showCrumbs($segment = null){

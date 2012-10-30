@@ -5,6 +5,7 @@
 	<div class='angle angle-lb'></div>
 	<div class='angle angle-rb'></div>
 	<p>
-		текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст  текст текст текст текст
+		<? if (empty($blogs)) : echo('Нет новостей.'); else : foreach ($blogs as $blog) :  ?>
+		<? endforeach; endif; ?>
 	</p>
 </div>

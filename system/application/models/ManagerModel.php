@@ -55,10 +55,16 @@ class ManagerModel extends BaseModel implements IModel{
 		$this->properties->manager_balance_local	=0;
 		$this->properties->manager_description		='';
 		$this->properties->order_tax				='';
+		$this->properties->min_order_tax			='';
+		$this->properties->join_tax					='';
+		$this->properties->foto_tax					='';
+		$this->properties->insurance_tax			='';
 		$this->properties->package_tax				='';
 		$this->properties->package_disconnected_tax	='';
 		$this->properties->package_foto_tax			='';
 		$this->properties->package_foto_system_tax	='';
+		$this->properties->pricelist_description	='';
+		$this->properties->payments_description		='';
 		$this->properties->rating	='';
 		$this->properties->website	='';
 		$this->properties->skype	='';
@@ -494,6 +500,21 @@ class ManagerModel extends BaseModel implements IModel{
 		}
 		
 		$statistics->fullname = $this->getFullName($statistics);
+		
+		$result = $this->db->query(
+			"SELECT 
+				countries.*
+			FROM countries
+			WHERE 
+				countries.country_id = {$statistics->manager_country}"
+		)->result();
+		
+		$country = ($result) ? $result[0] : FALSE;
+		
+		if ($country)
+		{
+			$statistics->currency = $country->country_currency;
+		}
 		
 		return $statistics;
 	}

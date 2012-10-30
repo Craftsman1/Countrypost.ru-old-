@@ -21,7 +21,7 @@
 			Заказов в работе:
 		</span>
 		<span>
-			<?= $manager->statistics->completed_orders ?>
+			12345678
 		</span>
 	</div>
 	<div>
