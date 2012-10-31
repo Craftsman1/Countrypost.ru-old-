@@ -189,6 +189,9 @@ class OrderModel extends BaseModel implements IModel{
 		
 		$new_id = $this->save(true);
 		
+		// TODO : На этом этапе можно смело удалять все заказы с `orders`.order_client = $_SESSION['temporary_user_id'] 
+		//        если не предусмотрен иной сборщик мусора 
+		
 		if ($new_id){
 			return $this->getInfo(array($new_id));
 		}
@@ -629,9 +632,16 @@ class OrderModel extends BaseModel implements IModel{
 	public function getClientOrderById($order_id, $client_id){
 		$order = $this->getById($order_id);
 		
-		if ($order &&
-			$order->order_client == $client_id)
+		// Если пользователь создавший заказ совпадает с авторизованным пользователем в рамках текущей сессии
+		if ($order AND
+			($order->order_client == $client_id OR
+			 $order->order_client == $_SESSION['temporary_user_id']))
 		{
+			// Заменяем временное значение ID клиента на ID реального клиента 
+			// если пользователь авторизовался в процессе оформления заказа
+			if ($order->order_client == $_SESSION['temporary_user_id'])
+				$order->order_client = $client_id;
+			
 			return $order;
 		}
 

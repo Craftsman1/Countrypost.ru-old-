@@ -835,7 +835,7 @@ class Main extends BaseController {
 			$user->email			= Check::str('email',128,0);
 			$user->phone			= Check::str('phone',20,0);
 			$details				= "
-ФИО: {$user->fio}
+Ф�?О: {$user->fio}
 Email: {$user->email}
 Телефон: {$user->phone}";
 		}
@@ -962,8 +962,20 @@ Email: {$this->user->user_email}";
 		    $this->load->model('OrderModel', 'Orders');
 			
 			if (empty($this->user))
-			{
-				$user_id = session_id();
+			{	
+				// Эта фишка не прокатывает, значение сессии не может быть типа INT
+				//$user_id = session_id();
+				
+				// Записываем в сессию случайное отрицательное число сгенерированное на базе session_id
+				if (! isset($_SESSION['temporary_user_id']))
+				{
+					$int_session_value = preg_replace("[A-Za-z]", "0", session_id());
+					$int_session_value = (int) $int_session_value;
+					$left_bound = -(time()+$int_session_value);			
+					$_SESSION['temporary_user_id'] = rand($left_bound,-1);
+				}
+				
+				$user_id = $_SESSION['temporary_user_id'];
 			}
 			else
 			{

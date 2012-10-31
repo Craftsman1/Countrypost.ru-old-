@@ -1466,7 +1466,8 @@ abstract class BaseController extends Controller
 			$this->result->e = $e->getCode();			
 			$this->result->m = $e->getMessage();
 			
-			Stack::push('result', $this->result);
+			Stack::push('result', $this->result);
+
 			// открываем новые заказы
 			//Func::redirect(BASEURL.$this->cname.'/showNewOrders');
 			return;
@@ -4138,7 +4139,7 @@ abstract class BaseController extends Controller
 
 	
 	/**
-	 * Достаем фото посылки по имени файла и ИД посылки, последний нужен для секурности и поиска нужного каталога
+	 * Достаем фото посылки по имени файла и �?Д посылки, последний нужен для секурности и поиска нужного каталога
 	 *
 	 * @param (int)		$pid
 	 * @param (string)	$filename

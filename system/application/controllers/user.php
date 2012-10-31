@@ -106,10 +106,13 @@ class User extends BaseController {
 		return FALSE;
 	}
 	
-	public function loginManagerAjax()
+	public function loginAjax()
 	{
 		$view['logged_in'] = 0;
 		$view['is_manager'] = 0;
+		$view['is_client'] = 0;
+		$view['allowed_segments'] = array();
+		$view['segment'] = Check::str('segment', 32, 1);
 		
 		if ($this->loginInternal(NULL, NULL, FALSE))
 		{
@@ -119,10 +122,24 @@ class User extends BaseController {
 			if ($this->user->user_group == 'manager')
 			{
 				$view['is_manager'] = 1;
+				$view['allowed_segments'][] = 'order';
+			}
+			elseif ($this->user->user_group == 'client')
+			{
+				$view['is_client'] = 1;
+				$view['allowed_segments'][] = 'createorder';
 			}
 		}
 		
-		$this->load->view("/manager/elements/div_header", $view);
+		// Выбираем соответствующее представление
+		if ($view['is_manager'] == 1)
+		{
+			$this->load->view("/manager/elements/div_header", $view);
+		}
+		elseif ($view['is_client'] == 1)
+		{
+			$this->load->view("/client/elements/div_header", $view);
+		}
 	}
 	
 	public function logout(){
