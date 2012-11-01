@@ -1466,7 +1466,8 @@ abstract class BaseController extends Controller
 			$this->result->e = $e->getCode();			
 			$this->result->m = $e->getMessage();
 			
-			Stack::push('result', $this->result);
+			Stack::push('result', $this->result);
+
 			// открываем новые заказы
 			//Func::redirect(BASEURL.$this->cname.'/showNewOrders');
 			return;
