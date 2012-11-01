@@ -103,7 +103,7 @@ class ManagerModel extends BaseModel implements IModel{
 	public function getList()
 	{
 		$sql = $this->select();
-		return ($sql)?($sql):(false);
+		return ($sql)?($sql):(FALSE);
 	}
 	
 	/**
@@ -137,7 +137,7 @@ class ManagerModel extends BaseModel implements IModel{
 		
 		/**
 		 * if primary key of table is not AI,
-		 * insert_id will return false
+		 * insert_id will return FALSE
 		 */
 		$this->save(true);
 		
@@ -145,7 +145,7 @@ class ManagerModel extends BaseModel implements IModel{
 			return $this->getInfo(array($user_id));
 		}
 		
-		return false;
+		return FALSE;
 	}	
 	
 	public function getManagersData() {
@@ -175,7 +175,7 @@ class ManagerModel extends BaseModel implements IModel{
 			GROUP BY `'.$this->table.'`.`manager_user`
 		')->result();
 		
-		return ((count($result==1) &&  $result) ? array_shift($result) : false);
+		return ((count($result==1) &&  $result) ? array_shift($result) : FALSE);
 	}
 	
 	public function getById($id){
@@ -183,7 +183,7 @@ class ManagerModel extends BaseModel implements IModel{
 			$this->getPK()	=> (int) $id,
 		));					
 		
-		return ((count($r==1) &&  $r) ? array_shift($r) : false);
+		return ((count($r==1) &&  $r) ? array_shift($r) : FALSE);
 	}
 	
 	public function updateManager($manager_obj) {
@@ -206,7 +206,7 @@ class ManagerModel extends BaseModel implements IModel{
 			return $this->getInfo(array($manager_obj->manager_user));
 		}
 		
-		return false;
+		return FALSE;
 	}
 	
 	/**
@@ -315,7 +315,7 @@ class ManagerModel extends BaseModel implements IModel{
 	public function getActiveManagers() {		
 		$result = $this->select(array('manager_status' => '1'));
 		
-		return ((count($result) > 0 &&  $result) ? $result : false);		
+		return ((count($result) > 0 &&  $result) ? $result : FALSE);		
 	}
 	
 	public function makePaymentLocal($manager, $amount) 
@@ -339,7 +339,7 @@ class ManagerModel extends BaseModel implements IModel{
 			WHERE `users`.`user_deleted` = 0
 				AND `c2m`.`client_id` = \''.$client_id.'\'
 		')->result();
-		return ($result) ? $result : false;		
+		return ($result) ? $result : FALSE;		
 	}
 	
 	public function fixMaxClientsCount($manager_id)
@@ -366,7 +366,7 @@ class ManagerModel extends BaseModel implements IModel{
 			return $manager;
 		}
 		
-		return false;		
+		return FALSE;		
 	}
 
 	public function isOrdersAllowed($manager)
@@ -412,7 +412,30 @@ class ManagerModel extends BaseModel implements IModel{
 				AND `{$this->table}`.`manager_status` = 1"
 		)->result();
 		
-		return ($result) ? $result : false;		
+		return ($result) ? $result : FALSE;		
+	}
+	
+	public function getManagerDeliveries($manager_id)
+	{
+		$result = $this->db->query(
+			"SELECT description, country_id
+			FROM manager_pricelists
+			WHERE 
+				manager_id = $manager_id
+			ORDER BY country_id"
+		)->result();
+		
+		if ($result)
+		{
+			$ordered_result = array();
+			
+			foreach ($result as $delivery)
+			{
+				$ordered_result[$delivery->country_id] = $delivery->description;
+			}			
+		}
+		
+		return ($result) ? $ordered_result : FALSE;		
 	}
 	
 	public function isOrdersLimitReached($manager_id)
@@ -476,17 +499,17 @@ class ManagerModel extends BaseModel implements IModel{
 	{
 		$statistics = $this->getById($manager_id);
 		
+		// counters
 		$result = $this->db->query(
 			"SELECT 
-				COUNT(orders.order_id) completed_orders, 
-				user_login login, 
-				user_email email
+				COUNT(orders.order_id) completed_orders
 			FROM `{$this->table}`
 				LEFT JOIN `orders` ON `orders`.`order_manager` = `{$this->table}`.`manager_user`
-				LEFT JOIN `users` ON `users`.`user_id` = `{$this->table}`.`manager_user`
 			WHERE 
 				`{$this->table}`.`manager_user` = {$manager_id}
-				AND `orders`.`order_status` IN ('sended')"
+				AND `orders`.`order_status` IN ('sended')
+			GROUP BY
+				`{$this->table}`.`manager_user`"
 		)->result();
 		
 		$completed_orders = ($result) ? $result[0] : FALSE;
@@ -494,9 +517,26 @@ class ManagerModel extends BaseModel implements IModel{
 		
 		if ($completed_orders)
 		{
-			$statistics->login = $completed_orders->login;
-			$statistics->email = $completed_orders->email;
 			$statistics->completed_orders = $completed_orders->completed_orders;
+		}
+		
+		// login
+		$result = $this->db->query(
+			"SELECT 
+				user_login login, 
+				user_email email
+			FROM `{$this->table}`
+				LEFT JOIN `users` ON `users`.`user_id` = `{$this->table}`.`manager_user`
+			WHERE 
+				`{$this->table}`.`manager_user` = {$manager_id}"
+		)->result();
+		
+		$user = ($result) ? $result[0] : FALSE;
+		
+		if ($user)
+		{
+			$statistics->login = $user->login;
+			$statistics->email = $user->email;
 		}
 		
 		$statistics->fullname = $this->getFullName($statistics);

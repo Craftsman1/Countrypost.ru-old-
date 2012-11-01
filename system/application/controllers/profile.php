@@ -94,7 +94,8 @@ class Profile extends BaseController {
 			$this->load->model('BlogModel', 'Blogs');
 			$view['blogs']	= $this->Blogs->getBlogsByUserId($manager->manager_user);
 			
-			
+			// доставка
+			$view['deliveries']	= $this->Managers->getManagerDeliveries($manager->manager_user);			
 			
 			Breadcrumb::setCrumb(array('/' . $manager->statistics->login => $manager->statistics->fullname), 2);
 

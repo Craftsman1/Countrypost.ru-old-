@@ -2187,13 +2187,13 @@ div.personal,div.ratings
 	width:50%;
 }
 
-div.pricelist_main div
+div.pricelist_main div,div.mail_forwarding_main div
 {
 	padding-top: 0;
 	font-size: 14px;
 }
 
-div.personal div,div.ratings div,div.pricelist div
+div.personal div,div.ratings div,div.pricelist div,div.mail_forwarding_main div
 {
 	margin-bottom: 14px;
 }
@@ -2222,9 +2222,19 @@ span.ratings
 	width: 200px;
 }
 
-div.personal span
+div.personal span,div.mail_forwarding_main span
 {
 	width: 200px;
+}
+
+div.mail_forwarding_main span:nth-child(2n+1)
+{
+	float: left;
+}
+
+div.mail_forwarding_main div:last-child
+{
+	margin: 0;
 }
 
 div.personal div span:nth-child(odd),div.ratings div span:nth-child(odd)
