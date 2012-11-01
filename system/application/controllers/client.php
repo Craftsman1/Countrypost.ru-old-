@@ -802,7 +802,7 @@ class Client extends ClientBaseController {
 					}
 					else if (!$bm_surname)
 					{
-						throw new Exception('Имя не заполнено.');
+						throw new Exception('�?мя не заполнено.');
 					}
 					else if (!$bm_otc)
 					{
@@ -814,7 +814,7 @@ class Client extends ClientBaseController {
 					}
 					else if (!$bm_bik)
 					{
-						throw new Exception('БИК банка имеет неправильный формат.');
+						throw new Exception('Б�?К банка имеет неправильный формат.');
 					}
 					else if (!$bm_target)
 					{
@@ -830,9 +830,9 @@ class Client extends ClientBaseController {
 			if ($service == 'bm')
 			{
 				$order2out->order2out_details = 
-					'ФИО: '.$bm_surname.' '.$bm_name.' '.$bm_otc.'<br />'.
+					'Ф�?О: '.$bm_surname.' '.$bm_name.' '.$bm_otc.'<br />'.
 					'Счет: '.$bm_number.'<br />'.
-					'БИК: '.$bm_bik.'<br />'.
+					'Б�?К: '.$bm_bik.'<br />'.
 					'Назначение: '.$bm_target;
 			}
 			
@@ -2012,7 +2012,7 @@ class Client extends ClientBaseController {
 						else
 						{
 							$new_package->package_special_comment .= 
-								"(Из посылки №{$package->package_id}) {$package->package_special_comment} ";
+								"(�?з посылки №{$package->package_id}) {$package->package_special_comment} ";
 						}
 					}
 					
@@ -3077,7 +3077,7 @@ class Client extends ClientBaseController {
 
 			if ( ! empty($order->order_manager))
 			{				
-				throw new Exception('Извините, посредник уже выбран.');
+				throw new Exception('�?звините, посредник уже выбран.');
 			}
 			
 			$order->order_manager = $bid->manager_id;

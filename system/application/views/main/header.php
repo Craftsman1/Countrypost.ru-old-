@@ -12,11 +12,13 @@
 	<link rel="stylesheet" type="text/css" media="all" href="<?= CSS_PATH ?>style.css?v=20121025">
 	<link rel="stylesheet" type="text/css" media="handheld" href="<?= CSS_PATH ?>handheld.css?v=1">
 	<link rel="stylesheet" type="text/css" href="<?= CSS_PATH ?>jquery.lightbox-0.5.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="<?= CSS_PATH ?>jquery.validate.css" media="screen" />
 	<script type="text/javascript" src="<?= JS_PATH ?>jquery-1.8.2.js"></script>
 	<script type="text/javascript" src="<?= JS_PATH ?>jquery.lightbox-0.5.js"></script>
 	<script type="text/javascript" src="<?= JS_PATH ?>easyTooltip.js"></script>
 	<script type="text/javascript" src="<?= JS_PATH ?>jquery.dd.js"></script>
 	<script type="text/javascript" src="<?= JS_PATH ?>jquery.form.js"></script>
+	<script type="text/javascript" src="<?= JS_PATH ?>jquery.validate.js"></script>
 	<script type="text/javascript" src="<?= JS_PATH ?>countrypost.js"></script>
 	<script type="text/javascript" src="<?= JS_PATH ?>noty/jquery.noty.js"></script>
 	<script type="text/javascript" src="<?= JS_PATH ?>noty/promise.js"></script>

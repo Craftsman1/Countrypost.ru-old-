@@ -1,5 +1,6 @@
 <div style="display:block;margin:0;" class='top-block order_auth'>
-	<form class='autorization new_order_auth' method="post" action='<?= BASEURL ?>user/loginManagerAjax' style="float:left;">
+	<form class='autorization new_order_auth' method="post" action='<?= BASEURL ?>user/loginAjax' style="float:left;">
+    	<input type="hidden" name="segment" value="<?=$this->uri->segment(2)?>" />
 		<h2>Авторизация</h2>
 		<div class='text-field'><div><input type='text' name="login" value='Логин' onfocus='javascript: if (this.value == "Логин") this.value = "";' onblur='javascript: if (this.value == "") this.value = "Логин";' /></div></div>
 		<div class='text-field'><div><div class='password'><input type='password' name="password" id="password" value='Пароль' onfocus='javascript: if (this.value == "Пароль") this.value = "";' onblur='javascript: if (this.value == "") this.value = "Пароль";' /></div></div></div>
@@ -19,7 +20,7 @@
 <script type="text/javascript">
 	$(function() {
 		$('form.new_order_auth').ajaxForm({
-			target: '<?= BASEURL ?>user/loginManagerAjax',
+			target: '<?= BASEURL ?>user/loginAjax',
 			type: 'POST',
 			dataType: 'html',
 			iframe: true,

@@ -103,7 +103,7 @@
 				<td style="text-align: right;" colspan='3'>
 					<br />
 					<b>
-						Итого: <b class="order_totals"></b>
+						�?того: <b class="order_totals"></b>
 						<br />
 						Доставка в <span class='countryTo' style="float:none; display:inline; margin:0;"></span><span class='cityTo' style="float:none; display:inline; margin:0;"></span>: <b class="weight_total"></b>
 					</b>
@@ -114,12 +114,18 @@
 	<div style="height: 50px;" class="admin-inside">
 		<div class="submit">
 			<div>
-				<input type="button" value="Готово" onclick="checkout();">
+				<input type="button" value="Готово" name="checkout" onclick="/*checkout();*/">
 			</div>
 		</div>
 	</div>
 </form>
+
+<? if (empty($this->user->user_group)) : ?>
+<? View::show('main/elements/auth/new_order'); ?>
+<? endif; ?>
+    
 <script>
+/*
 	function deleteItem(item) {
 		if (confirm("Вы уверены, что хотите удалить товар №" + item + "?"))
 		{
@@ -169,6 +175,7 @@
 			cancelItem(id);
 		}
 	}
+*/
 
 	function cancelItem(id) {
 		if ($('#odetail_product_name' + id + ' textarea').length)
@@ -184,7 +191,7 @@
 			$('#odetail_img' + id + ' a[rel]').hide();
 						
 			$('#odetail_action' + id)			
-				.html('<a href="javascript:editItem(' + id + ')" id="odetail_edit' + id + '"><img border="0" src="/static/images/comment-edit.png" title="Изменить"></a><br /><a href="javascript:deleteItem(' + id + ')"><img border="0" src="/static/images/delete.png" title="Удалить"></a>');
+				.html('<a href="javascript:editItem(' + id + ')" id="odetail_edit' + id + '"><img border="0" src="/static/images/comment-edit.png" title="�?зменить"></a><br /><a href="javascript:deleteItem(' + id + ')"><img border="0" src="/static/images/delete.png" title="Удалить"></a>');
 		}
 	}
 
@@ -203,7 +210,8 @@
 		var aa = $("a[rel*='lightbox_"+id+"']");
 		$(aa[0]).click();
 	}
-	
+
+/*	
 	function addItem()
 	{
 		// читаем введенные данные
@@ -232,8 +240,34 @@
 			isNaN(parseInt(odetail['oweight'])))
 		{
 			isValid = false;
+			// Выводим сообщения и отмечаем поля с ошибками
+			if (odetail['oname'] == '' && ! $('input#oname').hasClass('ErrorField')) 
+			{
+				$('input#oname').after('<span class="ValidationErrors">Необходимо указать название товара</span>');
+				$('input#oname').addClass('ErrorField');
+			}
+			if (odetail['olink'] == '' && ! $('input#olink').hasClass('ErrorField')) 
+			{
+				$('input#olink').after('<span class="ValidationErrors">Необходимо указать ссылку на товар</span>');
+				$('input#olink').addClass('ErrorField');
+			}
+			if (isNaN(parseInt(odetail['oprice'])) && ! $('input#oprice').hasClass('ErrorField')) 
+			{
+				$('input#oprice').after('<span class="ValidationErrors">Необходимо указать цену товара</span>');
+				$('input#oprice').addClass('ErrorField');
+			}
+			if (isNaN(parseInt(odetail['odeliveryprice'])) && ! $('input#odeliveryprice').hasClass('ErrorField')) 
+			{
+				$('input#odeliveryprice').after('<span class="ValidationErrors">Необходимо указать цену местной доставки</span>');
+				$('input#odeliveryprice').addClass('ErrorField');
+			}
+			if (isNaN(parseInt(odetail['oweight'])) && ! $('input#oweight').hasClass('ErrorField')) 
+			{
+				$('input#oweight').after('<span class="ValidationErrors">Необходимо указать примерный вес</span>');
+				$('input#oweight').addClass('ErrorField');
+			}
 		}
-		
+								
 		if ( ! isValid)
 		{
 			error('top', 'Товар не добавлен. Заполните все поля и попробуйте еще раз.');
@@ -258,7 +292,7 @@
 			"<td class='oprice'>" + odetail['oprice'] + " <span class='label currency'>" + getSelectedCurrency() + "</span></td>" +
 			"<td class='odeliveryprice'>" + odetail['odeliveryprice'] + " <span class='label currency'>" + getSelectedCurrency() + "</span></td>" +
 			"<td class='oweight'>" + odetail['oweight'] + " г</td>" +
-			"<td class='oedit'><a href='javascript:editItem()'><img border='0' src='/static/images/comment-edit.png' title='Изменить'></a><br /><a class='delete_icon'><img border='0' src='/static/images/delete.png' style='cursor: pointer;' title='Удалить'></a></td>" +
+			"<td class='oedit'><a href='javascript:editItem()'><img border='0' src='/static/images/comment-edit.png' title='�?зменить'></a><br /><a class='delete_icon'><img border='0' src='/static/images/delete.png' style='cursor: pointer;' title='Удалить'></a></td>" +
 			"</tr>";
 		
 		$('#new_products tr:first').after(snippet);
@@ -267,9 +301,12 @@
 		updateTotals();
 		$('#detailsForm').show();
 	}
+*/
+	
+	
 	
 	$(function() {
-		$('#onlineOrderForm').ajaxForm({
+		$('#onlineItemForm, #offlineItemForm').ajaxForm({
 			target: $('#onlineOrderForm').attr('action'),
 			type: 'POST',
 			dataType: 'html',
@@ -278,69 +315,53 @@
 			{
 			},
 			success: function(response)
-			{
-				$progress = $('img.product_progress_bar:last');
-				$progress.hide();
+			{				
+				window.order.removeItemProgress();
 				
 				if (response)
-				{
+				{		
+					// Ответ не является числовым значением			
 					if (isNaN(response))
 					{
 						error('top', response);
 					}
+					// Все в порядке, добавляем товар
 					else
 					{
-						var $screenshot_code = "<a href='javascript:void(0)' onclick='setRel(" + response + ");'>Просмотреть <a rel='lightbox_" + response + "' href='/client/showScreen/" + response + "' style='display:none;'>Посмотреть</a></a>";						
-						
-						$progress
-							.after(response)
-							.parent()
-							.attr('id', 'odetail' + response)
-							.parent()
-							.find('a.delete_icon')
-							.click(function() {
-								deleteItem(response);
-							})
-							.parent()
-							.parent()
-							.find('.userfile:last')
-							.html($screenshot_code)
-							.removeClass('userfile')
-							;
-						
-						$progress.remove();
+						window.order.addItemRow(response);	
 						
 						success('top', 'Товар №' + response + ' успешно добавлен в корзину.');
 		
 						// чистим форму
 						if (true) //debug only
 						{
-							$('input#oname').val('');
-							$('input#olink').val('');
-							$('input#ocolor').val('');
-							$('input#osize').val('');
-							$('input#oamount').val('1');
-							$('input#oprice').val('');
-							$('input#odeliveryprice').val('');
-							$('input#oweight').val('');
-							$('input#oimg').val('ссылка на скриншот');
-							$('input#ofile').val('');
-							$('textarea#ocomment').val('');
-							$('input[name="foto_requested"]').removeAttr('checked');
+							window.order.itemFormFieldsClear();
 						}//debug only
+							
 					}
 				}
-				else
-				{
+				// Ответ не был получен
+				else 
+				{	
 					error('top', 'Товар не добавлен. Заполните все поля и попробуйте еще раз.');
 				}
 			},
 			error: function(response)
 			{
-				$progress = $('img.product_progress_bar:last');
-				$progress.hide();
-
-				error('top', 'Товар не добавлен. Заполните все поля и попробуйте еще раз.');
+				window.order.removeItemProgress();
+				
+				if (response.status == 0)
+				{
+					error('top', 'Товар не добавлен. Отсутствует подключение к интернету.');
+				}
+				else
+				{
+					error('top', 'Товар не добавлен. Заполните все поля и попробуйте еще раз.');
+				}
+			}, // End error
+			complete : function()
+			{
+				window.order.bindAddItem();
 			}
 		});
 	});
