@@ -1909,16 +1909,18 @@ div.add_order_box span.total ,div.search_results span.total {
 	vertical-align:top;
 }
 .idd .ddChild {
-	position:absolute;
+	position:relative;
 	border:1px solid #c3c3c3;
 	border-top:none;
 	display:none;
 	margin:0;
-	width: 188px;
+	width: 188px !important;
 	overflow:auto;
 	overflow-x:hidden !important;
 	background-color:#ffffff;
 	font-size:14px;
+	top: 0px !important;
+	left:-1px !important;
 }
 .idd .ddChild .opta a, .idd .ddChild .opta a:visited {padding-left:10px}
 .idd .ddChild a {
@@ -1971,9 +1973,7 @@ div.order_type_selector div.order div {
 	position: relative;
 }
 
-div.order_type_selector div.order:hover {
-	background: #dedede;
-}
+div.order_type_selector div.order:hover {}
 
 div.order_type_selector div.order div:last-child {
 	left:180px;
@@ -1987,6 +1987,13 @@ div.order_type_selector div.order div:last-child {
 
 div.new_order_box span.label {
 	float: left;
+	}
+
+div.new_order_box span.label.currency {
+    left: 378px;
+    margin: 5px 0;
+    position: absolute;
+    width: auto;
 	}
 
 div.new_order_box .textbox {

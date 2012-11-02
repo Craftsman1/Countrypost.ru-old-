@@ -103,7 +103,7 @@
 				<td style="text-align: right;" colspan='3'>
 					<br />
 					<b>
-						�?того: <b class="order_totals"></b>
+						Итого: <b class="order_totals"></b>
 						<br />
 						Доставка в <span class='countryTo' style="float:none; display:inline; margin:0;"></span><span class='cityTo' style="float:none; display:inline; margin:0;"></span>: <b class="weight_total"></b>
 					</b>
@@ -191,7 +191,7 @@
 			$('#odetail_img' + id + ' a[rel]').hide();
 						
 			$('#odetail_action' + id)			
-				.html('<a href="javascript:editItem(' + id + ')" id="odetail_edit' + id + '"><img border="0" src="/static/images/comment-edit.png" title="�?зменить"></a><br /><a href="javascript:deleteItem(' + id + ')"><img border="0" src="/static/images/delete.png" title="Удалить"></a>');
+				.html('<a href="javascript:editItem(' + id + ')" id="odetail_edit' + id + '"><img border="0" src="/static/images/comment-edit.png" title="Изменить"></a><br /><a href="javascript:deleteItem(' + id + ')"><img border="0" src="/static/images/delete.png" title="Удалить"></a>');
 		}
 	}
 
@@ -292,7 +292,7 @@
 			"<td class='oprice'>" + odetail['oprice'] + " <span class='label currency'>" + getSelectedCurrency() + "</span></td>" +
 			"<td class='odeliveryprice'>" + odetail['odeliveryprice'] + " <span class='label currency'>" + getSelectedCurrency() + "</span></td>" +
 			"<td class='oweight'>" + odetail['oweight'] + " г</td>" +
-			"<td class='oedit'><a href='javascript:editItem()'><img border='0' src='/static/images/comment-edit.png' title='�?зменить'></a><br /><a class='delete_icon'><img border='0' src='/static/images/delete.png' style='cursor: pointer;' title='Удалить'></a></td>" +
+			"<td class='oedit'><a href='javascript:editItem()'><img border='0' src='/static/images/comment-edit.png' title='Изменить'></a><br /><a class='delete_icon'><img border='0' src='/static/images/delete.png' style='cursor: pointer;' title='Удалить'></a></td>" +
 			"</tr>";
 		
 		$('#new_products tr:first').after(snippet);
@@ -329,6 +329,11 @@
 					else
 					{
 						window.order.addItemRow(response);	
+						
+						$('#odetail')
+							.attr({'id' : '#odetail'+response})
+							.find('.itemId')
+							.text(response);
 						
 						success('top', 'Товар №' + response + ' успешно добавлен в корзину.');
 		

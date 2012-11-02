@@ -1,4 +1,4 @@
-﻿<div class='content'>
+<div class='content'>
 	<? Breadcrumb::showCrumbs(); ?>
 	<br>
 	<br>
@@ -190,16 +190,18 @@
 				this.params.show();
 			}, // End onAfterCreate
 			showOrderProgress : function()
-			{
+			{		
 				// Отображаем прогресс по выбору типа заказа
 				if(obj = $('.'+this.params.orderType+'_order div:first b'))
-				{
+				{							
 					var img = $("<div class='orderProgress'><img src='/static/images/lightbox-ico-loading.gif'/></div>");
 					img.css({
-						float : 'nonr',
-						top : '20px',
-						left : '0px'
-					});
+							float: 'left',
+							left: '110px',
+							position: 'absolute',
+							top: '-8px',
+							width: '32px'
+						});
 					obj.append(img);
 				}
 			}, // End showOrderProgress
@@ -262,18 +264,7 @@
 						obj.addClass('ErrorField');
 					}
 					errorFields[$(errorFields).size()] = obj[0];
-				}
-					
-				/*if (fields.requested_delivery == "")
-				{
-					obj = $('#requested_delivery');
-					if(!obj.next().hasClass('ValidationErrors')) 
-					{
-						obj.after('<span class="ValidationErrors">'+this.validationMessages["requested_delivery"]+'</span>');
-						obj.addClass('ErrorField');
-					}
-					errorFields[$(errorFields).size()] = obj[0];
-				}*/
+				}					
 					
 				if ($(errorFields).size() > 0)
 				{
@@ -496,7 +487,7 @@
 			}, // End unbindAddItem
 			addItemProgress : function()
 			{
-				var button = $('.'+this.params.orderType+'_order_form input[name="add"]');
+				var parent = $('#odetail');
 				var progress = $("<div class='progress'> " +
 				"<img class='float product_progress_bar' src='/static/images/lightbox-ico-loading.gif'/> " +
 				"</div>");
@@ -508,32 +499,17 @@
 					float : 'left'					
 				});
 				
-				button.parent().parent().after(progress);
+				parent.append(progress);
 			}, // End addItemProgress
 			removeItemProgress : function()
 			{
-				$('.product_progress_bar').remove();
+				$('div.progress').remove();
 			}, // End addItemProgress
 			addItemRow : function(itemId)
-			{					
-				var iFields = this.itemFields,
-				screenshot_code = "<a href='javascript:void(0)' onclick='setRel(" + itemId + ");'>Просмотреть</a> <a rel='lightbox_" + itemId + "' href='/client/showScreen/" + itemId + "' style='display:none;'>Посмотреть</a>",
-				// Рисуем новый товар
-				snippet = $("<tr>" +
-					"<td id='odetail"+itemId+"' class=''><input type='checkbox' value='1' /><br /><span class='itemId'>"+itemId+"</span></td>" +
-					"<td class='oname'><a target='_blank' href='" + iFields.olink + "'>" + iFields.oname + "</a>" +
-					(iFields.foto_requested == 1 ? " (требуется фото товара)" : "") +
-					"<br/><b>Количество</b>: " + iFields.oamount + 
-					((iFields.osize) ? " <b>Размер</b>: " + iFields.osize : "") + 
-					((iFields.ocolor != "") ? " <b>Цвет</b>: " + iFields.ocolor : "") + 
-					((iFields.ocomment != "") ? "<br/><b>Комментарий</b>: " + iFields.ocomment + "</td>" : "") +
-					"<td class='oimg" + (iFields.ofile ? " userfile" : "") + "'>" + iFields.oimg + "</td>" +
-					"<td class='oprice'>" + iFields.oprice + " <span class='label currency'>" + getSelectedCurrency() + "</span></td>" +
-					"<td class='odeliveryprice'>" + iFields.odeliveryprice + " <span class='label currency'>" + getSelectedCurrency() + "</span></td>" +
-					"<td class='oweight'>" + iFields.oweight + " г</td>" +
-					"<td class='oedit'><a class='edit_icon' style='cursor: pointer;'><img border='0' src='/static/images/comment-edit.png' title='Изменить'></a><br /><a class='delete_icon'><img border='0' src='/static/images/delete.png' style='cursor: pointer;' title='Удалить'></a></td>" +
-					"</tr>");
-				
+			{		
+				var screenshot_code = "<a href='javascript:void(0)' onclick='setRel(" + itemId + ");'>Просмотреть</a> <a rel='lightbox_" + itemId + "' href='/client/showScreen/" + itemId + "' style='display:none;'>Посмотреть</a>",
+				snippet = $('.snippet');		
+
 				// Прикручиваем обработчики к кнопкам
 				snippet.find('a.delete_icon')
 					.click(function() {
@@ -549,7 +525,7 @@
 					.html(screenshot_code)
 					.removeClass('userfile');
 				
-				$('#new_products tr:first').after(snippet);
+				snippet.removeClass('snippet');
 				// пересчитываем заказ
 				updateTotals();
 			}, // End addItemRow
@@ -582,6 +558,24 @@
 				// Если все заполнено правильно отправляем запрос
 				if (o.itemFieldsValidate())
 				{
+					var iFields = o.itemFields,
+					// Рисуем новый товар
+					snippet = $("<tr class='snippet'>" +
+						"<td id='odetail' class=''><input type='checkbox' value='1' /><br /><span class='itemId'></span></td>" +
+						"<td class='oname'><a target='_blank' href='" + iFields.olink + "'>" + iFields.oname + "</a>" +
+						(iFields.foto_requested == 1 ? " (требуется фото товара)" : "") +
+						"<br/><b>Количество</b>: " + iFields.oamount + 
+						((iFields.osize) ? " <b>Размер</b>: " + iFields.osize : "") + 
+						((iFields.ocolor != "") ? " <b>Цвет</b>: " + iFields.ocolor : "") + 
+						((iFields.ocomment != "") ? "<br/><b>Комментарий</b>: " + iFields.ocomment + "</td>" : "") +
+						"<td class='oimg" + (iFields.ofile ? " userfile" : "") + "'>" + iFields.oimg + "</td>" +
+						"<td class='oprice'>" + iFields.oprice + " <span class='label currency'>" + getSelectedCurrency() + "</span></td>" +
+						"<td class='odeliveryprice'>" + iFields.odeliveryprice + " <span class='label currency'>" + getSelectedCurrency() + "</span></td>" +
+						"<td class='oweight'>" + iFields.oweight + " г</td>" +
+						"<td class='oedit'><a class='edit_icon' style='cursor: pointer;'><img border='0' src='/static/images/comment-edit.png' title='Изменить'></a><br /><a class='delete_icon'><img border='0' src='/static/images/delete.png' style='cursor: pointer;' title='Удалить'></a></td>" +
+						"</tr>");					
+					$('#new_products tr:first').after(snippet);
+					
 					o.addItemProgress();
 					$(o.params.forms.item).submit();
 				  

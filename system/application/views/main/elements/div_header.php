@@ -10,7 +10,7 @@
 		<p><b>Ваш номер на сайте:</b> <?=$user->user_id;?></p>
 		<p><b>Общий баланс:</b><br /><span class='big-text'><?=$user->user_coints;?> $</span></p>
 		<? if ($user->user_group == 'client') : ?>
-			<p><a href='<?= BASEURL ?>user/showProfile'>�?зменить личные данные</a></p><br />
+			<p><a href='<?= BASEURL ?>user/showProfile'>Изменить личные данные</a></p><br />
 		<? endif; ?>
 		<div class='submit' style="width: 227px!important;"><div><input style="width: 211px!important;" type='submit' value='Выйти'  onclick="javascript:window.location='<?= BASEURL ?>user/logout';" /></div></div>
 	</div>
