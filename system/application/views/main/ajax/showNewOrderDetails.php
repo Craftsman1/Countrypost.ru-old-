@@ -330,6 +330,11 @@
 					{
 						window.order.addItemRow(response);	
 						
+						$('#odetail')
+							.attr({'id' : '#odetail'+response})
+							.find('.itemId')
+							.text(response);
+						
 						success('top', 'Товар №' + response + ' успешно добавлен в корзину.');
 		
 						// чистим форму

@@ -1973,9 +1973,7 @@ div.order_type_selector div.order div {
 	position: relative;
 }
 
-div.order_type_selector div.order:hover {
-	background: #dedede;
-}
+div.order_type_selector div.order:hover {}
 
 div.order_type_selector div.order div:last-child {
 	left:180px;
@@ -1990,9 +1988,11 @@ div.order_type_selector div.order div:last-child {
 div.new_order_box span.label {
 	float: left;
 	}
-	
+
 div.new_order_box span.label.currency {
-	margin: 3px 0;
+    left: 378px;
+    margin: 5px 0;
+    position: absolute;
     width: auto;
 	}
 
@@ -2005,7 +2005,6 @@ div.new_order_box .textbox {
 	color:#000;
 	font: 13px sans-serif;
 	margin-bottom: 15px;
-	margin-right: 10px;
 	}
 
 div.new_order_box span {
