@@ -82,13 +82,13 @@
 				<br style="clear:both;" />
 				<div>
 					<span class="label">Цена товара*:</span>
-					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='oprice' name="oprice" />
+					<input style="width:180px;" class="textbox" maxlength="11" type='text' id='oprice' name="oprice" />
 					<span class="label currency"></span>
 				</div>
 				<br style="clear:both;" />
 				<div>
 					<span class="label">Местная доставка*:</span>
-					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='odeliveryprice' name="odeliveryprice" />
+					<input style="width:180px;" class="textbox" maxlength="11" type='text' id='odeliveryprice' name="odeliveryprice" />
 					<span class="label currency"></span>
 				</div>
 				<br style="clear:both;" />

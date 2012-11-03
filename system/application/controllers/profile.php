@@ -14,6 +14,23 @@ class Profile extends BaseController {
 	
 	public function index() 
 	{
+		switch ($this->user->user_group)
+		{
+			case 'user' : 
+			{
+				Func::redirect(BASEURL);
+				break;
+			}
+			case 'manager' : 
+			{
+				$this->editDealerProfile();
+				break;
+			}
+			default : 
+			{
+				Func::redirect(BASEURL);
+			}
+		}		
 	}
 	
 	public function router($login) 
@@ -54,6 +71,27 @@ class Profile extends BaseController {
 	}
 	
 	private function showDealerProfile($manager, $login)
+	{
+		$this->dealerProfileGeneric($manager, $login, 'main/pages/dealer');
+	}
+
+	private function editDealerProfile()
+	{
+		try
+		{
+			// находим партнера
+			$this->load->model('ManagerModel', 'Managers');
+			$manager = $this->Managers->getById($this->user->user_id);
+			
+			$this->dealerProfileGeneric($manager, $this->session->userdata('manager_login'), 'manager/pages/editProfile');
+		}
+		catch (Exception $e) 
+		{
+			//Func::redirect(BASEURL);
+		}		
+	}
+
+	private function dealerProfileGeneric($manager, $login, $view_name)
 	{
 		try
 		{
@@ -99,15 +137,11 @@ class Profile extends BaseController {
 			
 			Breadcrumb::setCrumb(array('/' . $manager->statistics->login => $manager->statistics->fullname), 2);
 
-			View::showChild('main/pages/dealer', $view);
+			View::showChild($view_name, $view);
 		}
 		catch (Exception $e) 
 		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
-		}		
+			//Func::redirect(BASEURL.$this->cname);
+		}
 	}
 }

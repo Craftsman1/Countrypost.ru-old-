@@ -1,4 +1,4 @@
-<? View::show('main/elements/div_top'); ?><? if (isset($user) && $user && ($pageinfo['mname'] != 'index' OR $this->uri->segment(1) == 'dealers')) :
+<? View::show('main/elements/div_top'); ?><? if (isset($user) && $user && ($pageinfo['mname'] != 'index' OR $this->uri->segment(1) == 'dealers' OR $this->uri->segment(1) == 'profile')) :
 	View::show($user->user_group.'/elements/div_header');
 	elseif (isset($user) AND
 		$user AND

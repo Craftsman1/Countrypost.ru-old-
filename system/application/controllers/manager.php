@@ -10,7 +10,7 @@ class Manager extends ManagerBaseController {
 	
 	function index()
 	{
-		Func::redirect(BASEURL.$this->cname.'/showNewPackages');
+		Func::redirect(BASEURL.'profile');
 	}
 
 	public function autocompleteClient($query)

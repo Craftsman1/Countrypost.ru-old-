@@ -1991,7 +1991,7 @@ div.new_order_box span.label {
 
 div.new_order_box span.label.currency {
     left: 378px;
-    margin: 5px 0;
+    margin: 7px 0;
     position: absolute;
     width: auto;
 	}
@@ -2194,7 +2194,7 @@ div.personal,div.ratings
 	width:50%;
 }
 
-div.pricelist_main div,div.mail_forwarding_main div
+div.pricelist_main div,div.mail_forwarding_main div,div.delivery>div
 {
 	padding-top: 0;
 	font-size: 14px;
@@ -2203,6 +2203,16 @@ div.pricelist_main div,div.mail_forwarding_main div
 div.personal div,div.ratings div,div.pricelist div,div.mail_forwarding_main div
 {
 	margin-bottom: 14px;
+}
+
+div.delivery_box
+{
+	height: 26px;
+}
+
+div.delivery_description
+{
+	font-size: 11px!important;
 }
 
 div.ratings div
@@ -2266,4 +2276,12 @@ div.personal span img, div.ratings span img
 div.personal span img
 {
 	top: 6px; 
+}
+
+div.managerinfo ul.tabs div {
+	margin: 0;
+}
+			
+div.managerinfo .tabs {
+	margin: 16px 0 0 0;
 }

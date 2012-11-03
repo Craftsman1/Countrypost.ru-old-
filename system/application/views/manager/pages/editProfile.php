@@ -1,9 +1,9 @@
 <div class='content'>
 	<? Breadcrumb::showCrumbs(); ?>
-	<? View::show('/main/elements/dealers/profile_header'); ?>	
-	<? View::show('/main/elements/dealers/profile'); ?>	
+	<? View::show('/manager/elements/profile_header'); ?>	
+	<? View::show('/manager/elements/profile'); ?>	
+	<? View::show('/manager/elements/blog'); ?>	
 	<? View::show('/main/elements/dealers/pricelist'); ?>	
 	<? View::show('/main/elements/dealers/payments'); ?>	
 	<? View::show('/main/elements/dealers/delivery'); ?>
-	<? View::show('/main/elements/dealers/mail_forwarding'); ?>
 </div>

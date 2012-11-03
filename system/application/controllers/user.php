@@ -92,6 +92,7 @@ class User extends BaseController {
 					$this->session->set_userdata('manager_rating', $manager_summary->rating);
 					$this->session->set_userdata('manager_status', $manager_summary->website);
 					$this->session->set_userdata('manager_name', $this->Managers->getFullName($manager_summary, $user));
+					$this->session->set_userdata('manager_login', $login);
 				}
 				
 				if ($redirect)
