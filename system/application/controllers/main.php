@@ -64,6 +64,8 @@ class Main extends BaseController {
 				}
 			}
 			
+			// Принудительно проставляем ссылку для паджинатора 
+			$this->paging_base_url = "/main/showUnassignedOrders";
 			$view['pager'] = $this->get_paging();
 			
 			// страны для фильтра
@@ -127,6 +129,19 @@ class Main extends BaseController {
 				$view['orders'] = array_slice($view['orders'], $this->paging_offset, $this->per_page);
 			}
 			
+			// детали заказа  
+			$this->load->model('OdetailModel', 'Odetails');
+			foreach($view['orders'] as $key=>$order)
+			{					
+				$odetails = $this->Odetails->getOrderDetails($order->order_id);
+				if (!empty($odetails))
+				{
+					$view['orders'][$key]->odetails = $this->Odetails->getOrderDetailsTotals($odetails);					
+				}
+			}
+			
+			// Принудительно проставляем ссылку для паджинатора 
+			$this->paging_base_url = "/main/showUnassignedOrders";
 			$view['pager'] = $this->get_paging();
 			
 			// страны для фильтра
