@@ -87,6 +87,8 @@ abstract class BaseController extends Controller
 			'selfurl'	=> BASEURL.$this->cname.'/',
 			// postback
 			'result'	=> $this->result,
+			// добавляем информацию для счётчиков в меню
+			'user_count' => $this->User->getUserCount(),
 		);
 		
 		//подгружаем доп данные для клиента

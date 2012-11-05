@@ -383,5 +383,21 @@ abstract class BaseModel extends Model implements IBaseModel {
 		return	(empty($result) ? false : $result );
     }
 	
+	// Счётчики клиентов и посредников в меню
+	public function getUserCount()
+	{
+		$result = $this->db->query("
+			SELECT DISTINCT `user_group`, COUNT(*) as user_count
+			FROM `users`
+			WHERE user_group = 'client' 
+			UNION ALL
+			SELECT DISTINCT `user_group`, COUNT(*) as user_count
+			FROM `users`
+			WHERE user_group = 'manager'
+		")->result();
+		
+		return $result;
+	}
+	
 }
 ?>
