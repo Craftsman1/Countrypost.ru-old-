@@ -14,3 +14,8 @@ ALTER TABLE  `manager_pricelists` ADD  `country_id` INT( 11 ) NOT NULL AFTER  `m
 ALTER TABLE  `manager_pricelists` CHANGE  `description`  `description` TEXT CHARACTER SET utf32 COLLATE utf32_general_ci NOT NULL;
 
 DROP TABLE  `admins`;
+
+ALTER TABLE  `managers` CHANGE  `status`  `is_cashback` TINYINT( 1 ) NOT NULL DEFAULT  '0';
+ALTER TABLE  `managers` ADD  `about_me` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+ALTER TABLE  `managers` ADD  `is_mail_forwarding` TINYINT( 1 ) NOT NULL DEFAULT  '0' AFTER  `is_cashback`;
+ALTER TABLE  `managers` ADD  `is_internal_payments` TINYINT( 1 ) NOT NULL DEFAULT  '0' AFTER  `is_mail_forwarding`;

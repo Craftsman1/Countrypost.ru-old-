@@ -72,6 +72,10 @@ class Profile extends BaseController {
 	
 	private function showDealerProfile($manager, $login)
 	{
+		$this->processStatistics($manager, array(), 'manager_user', $manager->manager_user, 'manager');
+			
+		Breadcrumb::setCrumb(array('/' . $login => $manager->statistics->fullname), 2);
+
 		$this->dealerProfileGeneric($manager, $login, 'main/pages/dealer');
 	}
 
@@ -82,6 +86,10 @@ class Profile extends BaseController {
 			// находим партнера
 			$this->load->model('ManagerModel', 'Managers');
 			$manager = $this->Managers->getById($this->user->user_id);
+			
+			$this->processStatistics($manager, array(), 'manager_user', $manager->manager_user, 'manager');
+		
+			Breadcrumb::setCrumb(array('/profile' => 'Мой профиль'), 1, TRUE);
 			
 			$this->dealerProfileGeneric($manager, $this->session->userdata('manager_login'), 'manager/pages/editProfile');
 		}
@@ -126,8 +134,6 @@ class Profile extends BaseController {
 			$view['countries'] = $countries;
 			$view['countries_en'] = $countries_en;
 
-			$this->processStatistics($manager, array(), 'manager_user', $manager->manager_user, 'manager');
-			
 			// блог
 			$this->load->model('BlogModel', 'Blogs');
 			$view['blogs']	= $this->Blogs->getBlogsByUserId($manager->manager_user);
@@ -135,8 +141,6 @@ class Profile extends BaseController {
 			// доставка
 			$view['deliveries']	= $this->Managers->getManagerDeliveries($manager->manager_user);			
 			
-			Breadcrumb::setCrumb(array('/' . $manager->statistics->login => $manager->statistics->fullname), 2);
-
 			View::showChild($view_name, $view);
 		}
 		catch (Exception $e) 

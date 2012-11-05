@@ -2285,3 +2285,54 @@ div.managerinfo ul.tabs div {
 div.managerinfo .tabs {
 	margin: 16px 0 0 0;
 }
+
+div.dealer_profile_left {
+	width: 200px;
+	float: left;
+	text-align: center;
+	margin-right: 50px;
+}
+
+div.profile_box span.label {
+	float: left;
+	padding-top: 4px;
+	}
+
+div.profile_box input[type="checkbox"] {
+	margin-top: 10px;
+	}
+
+div.profile_box  {
+	float: left;
+	}
+
+div.profile_box  div.cashback_box {
+	border: 1px solid #AFAFAF;
+	height: 75px;
+	padding: 20px;
+	margin-left: 10px;
+}
+
+div.profile_box  div.cashback_box span.cashback_span {
+	margin: 0px;
+	font-weight: bold;
+}
+
+div.profile_box .textbox {
+	width: 188px;
+	float: left;
+	padding:4px 4px 3px;
+	background:#f7f7f7;
+	border: 1px solid #afafaf;
+	color:#000;
+	font: 13px sans-serif;
+	margin-bottom: 15px;
+	}
+
+div.profile_box span {
+	width: 190px;
+	margin-left: 10px;
+	font: 13px sans-serif;
+	margin-top:3px;
+	margin-bottom: 20px;
+	}

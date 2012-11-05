@@ -70,6 +70,10 @@ class ManagerModel extends BaseModel implements IModel{
 		$this->properties->skype	='';
 		$this->properties->status	='';
 		$this->properties->created	='';
+		$this->properties->about_me	='';
+		$this->properties->is_cashback	='';
+		$this->properties->is_mail_forwarding ='';
+		$this->properties->is_internal_payments ='';
 		
 		parent::__construct();
     }

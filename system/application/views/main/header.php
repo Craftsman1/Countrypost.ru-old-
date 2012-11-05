@@ -24,6 +24,7 @@
 	<script type="text/javascript" src="<?= JS_PATH ?>noty/promise.js"></script>
 	<script type="text/javascript" src="<?= JS_PATH ?>noty/layouts/top.js"></script>
 	<script type="text/javascript" src="<?= JS_PATH ?>noty/themes/default.js"></script>
+	<script type='text/javascript' src='/system/plugins/fckeditor/fckeditor.js'></script>
   	<!--[if IE]>
 		<link rel="stylesheet" type="text/css" href="<?= CSS_PATH ?>/ie.css">
 	<![endif]-->

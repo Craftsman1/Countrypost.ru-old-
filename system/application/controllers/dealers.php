@@ -9,7 +9,7 @@ class Dealers extends BaseController {
 		$this->paging_base_url = '/dealers/index';	 
 		View::$main_view	= '/main/index';
 		Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
-		Breadcrumb::setCrumb(array('http://'.$_SERVER['SERVER_NAME'].'/dealers' => 'Посредники'), 1, TRUE);
+		Breadcrumb::setCrumb(array('/dealers' => 'Посредники'), 1, TRUE);
 	}
 	
 	function index() 
