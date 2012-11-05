@@ -280,6 +280,32 @@ class OdetailModel extends BaseModel implements IModel{
 		
 		return ((count($result) > 0 &&  $result) ? $result : false);		
 	}
+	
+	public function getOrderDetailsTotals($order_details_array)
+	{    
+		$totals = new stdClass();
+		$totals->order_products_cost = 0; 
+		$totals->order_delivery_cost = 0;
+		$totals->order_product_weight = 0;
+		$totals->odetail_joint_id = 0;
+		$totals->odetail_joint_count = 0;
+		
+		foreach($order_details_array as $odetail) :			
+			$totals->order_products_cost += $odetail->odetail_price;
+			$totals->order_product_weight += $odetail->odetail_weight;
+			
+			if (!$odetail->odetail_joint_id) : 
+				$totals->order_delivery_cost += $odetail->odetail_pricedelivery;
+			elseif ($odetail_joint_id != $odetail->odetail_joint_id) :
+				$totals->odetail_joint_id = $odetail->odetail_joint_id;
+				$totals->odetail_joint_count = $odetail->odetail_joint_count;
+				$totals->order_delivery_cost += $odetail->odetail_joint_cost;
+			endif;
+			
+		endforeach; //foreach($odetails as $odetail) :
+		
+		return $totals;
+	}
 
 	public function clearJoints($id)
 	{

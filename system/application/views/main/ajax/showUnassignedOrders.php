@@ -53,10 +53,10 @@ else
 				<b style="position:relative;top:6px;"><?= $order->order_country_to ?></b>
 			</td>
 			<td>
-				<?= $order->order_cost ?> <?= $order->currency ?>
+				<?=($order->odetails->order_products_cost+$order->odetails->order_delivery_cost)?> <?= $order->currency ?>
 			</td>
 			<td>
-				<?=$order->order_weight?>кг<br />
+				<?=round($order->odetails->order_product_weight/1000, 3, PHP_ROUND_HALF_UP)?>кг<br />
 			</td>
 			<td align="center">
 				<? if (empty($order->request_count)) : ?>

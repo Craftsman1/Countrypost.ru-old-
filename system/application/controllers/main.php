@@ -19,7 +19,7 @@ class Main extends BaseController {
 		try
 		{
 		    $this->load->model('OrderModel', 'Orders');
-		    
+						
 			// обработка фильтра
 			$view['filter'] = $this->initFilter('UnassignedOrders');
 			$view['filter']->order_types = $this->Orders->getOrderTypes();
@@ -51,6 +51,17 @@ class Main extends BaseController {
 			if ($view['orders'])
 			{
 				$view['orders'] = array_slice($view['orders'], $this->paging_offset, $this->per_page);
+			}
+			
+			// детали заказа  
+			$this->load->model('OdetailModel', 'Odetails');
+			foreach($view['orders'] as $key=>$order)
+			{					
+				$odetails = $this->Odetails->getOrderDetails($order->order_id);
+				if (!empty($odetails))
+				{
+					$view['orders'][$key]->odetails = $this->Odetails->getOrderDetailsTotals($odetails);					
+				}
 			}
 			
 			$view['pager'] = $this->get_paging();
@@ -835,7 +846,7 @@ class Main extends BaseController {
 			$user->email			= Check::str('email',128,0);
 			$user->phone			= Check::str('phone',20,0);
 			$details				= "
-Ф�?О: {$user->fio}
+ФИО: {$user->fio}
 Email: {$user->email}
 Телефон: {$user->phone}";
 		}
