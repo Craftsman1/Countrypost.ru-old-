@@ -635,11 +635,11 @@ class OrderModel extends BaseModel implements IModel{
 		// Если пользователь создавший заказ совпадает с авторизованным пользователем в рамках текущей сессии
 		if ($order AND
 			($order->order_client == $client_id OR
-			 $order->order_client == $_SESSION['temporary_user_id']))
+			 (isset($_SESSION['temporary_user_id']) AND $order->order_client == $_SESSION['temporary_user_id'])))
 		{
 			// Заменяем временное значение ID клиента на ID реального клиента 
 			// если пользователь авторизовался в процессе оформления заказа
-			if ($order->order_client == $_SESSION['temporary_user_id'])
+			if (isset($_SESSION['temporary_user_id']) AND $order->order_client == $_SESSION['temporary_user_id'])
 				$order->order_client = $client_id;
 			
 			return $order;
