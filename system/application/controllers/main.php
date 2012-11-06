@@ -53,17 +53,6 @@ class Main extends BaseController {
 				$view['orders'] = array_slice($view['orders'], $this->paging_offset, $this->per_page);
 			}
 			
-			// детали заказа  
-			$this->load->model('OdetailModel', 'Odetails');
-			foreach($view['orders'] as $key=>$order)
-			{					
-				$odetails = $this->Odetails->getOrderDetails($order->order_id);
-				if (!empty($odetails))
-				{
-					$view['orders'][$key]->odetails = $this->Odetails->getOrderDetailsTotals($odetails);					
-				}
-			}
-			
 			// Принудительно проставляем ссылку для паджинатора 
 			$this->paging_base_url = "/main/showUnassignedOrders";
 			$view['pager'] = $this->get_paging();
@@ -129,17 +118,7 @@ class Main extends BaseController {
 				$view['orders'] = array_slice($view['orders'], $this->paging_offset, $this->per_page);
 			}
 			
-			// детали заказа  
-			$this->load->model('OdetailModel', 'Odetails');
-			foreach($view['orders'] as $key=>$order)
-			{					
-				$odetails = $this->Odetails->getOrderDetails($order->order_id);
-				if (!empty($odetails))
-				{
-					$view['orders'][$key]->odetails = $this->Odetails->getOrderDetailsTotals($odetails);					
-				}
-			}
-			
+						
 			// Принудительно проставляем ссылку для паджинатора 
 			$this->paging_base_url = "/main/showUnassignedOrders";
 			$view['pager'] = $this->get_paging();
@@ -1074,6 +1053,20 @@ Email: {$this->user->user_email}";
 			if ($empties) 
 			{
 				throw new Exception('Некоторые поля не заполнены. Попробуйте еще раз.');
+			}
+						
+			// детали заказа  
+			$this->load->model('OdetailModel', 'Odetails');						
+			$odetails = $this->Odetails->getOrderDetails($order->order_id);
+			if (!empty($odetails))
+			{
+				$odetails_total = $this->Odetails->getOrderDetailsTotals($odetails);
+				
+				$order->order_products_cost = $odetails_total->order_products_cost;
+				$order->order_delivery_cost = $odetails_total->order_delivery_cost;
+				$order->order_weight = $odetails_total->order_product_weight;
+				//$odetails_total->odetail_joint_id;
+				//$odetails_total->odetail_joint_count;			
 			}
 
 			if (!($Order = $this->OrderModel->addOrder($order))) 
