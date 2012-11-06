@@ -42,6 +42,7 @@ class ManagerModel extends BaseModel implements IModel{
     	$this->properties->manager_addres			='';
     	$this->properties->manager_address_local	='';
     	$this->properties->manager_address_description ='';
+    	$this->properties->city ='';
     	$this->properties->manager_phone			='';
     	$this->properties->manager_skype			='';
     	$this->properties->manager_status			='';
@@ -68,10 +69,10 @@ class ManagerModel extends BaseModel implements IModel{
 		$this->properties->rating	='';
 		$this->properties->website	='';
 		$this->properties->skype	='';
-		$this->properties->status	='';
 		$this->properties->created	='';
 		$this->properties->about_me	='';
 		$this->properties->is_cashback	='';
+		$this->properties->cashback_limit	='';
 		$this->properties->is_mail_forwarding ='';
 		$this->properties->is_internal_payments ='';
 		

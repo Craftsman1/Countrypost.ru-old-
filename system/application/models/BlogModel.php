@@ -25,6 +25,7 @@ class BlogModel extends BaseModel implements IModel{
     	$this->properties = new stdClass();
     	$this->properties->blog_id = '';
     	$this->properties->user_id = '';
+    	$this->properties->title = '';
     	$this->properties->message = '';
     	$this->properties->created = '';
     	$this->properties->status = 'active';
@@ -97,7 +98,6 @@ class BlogModel extends BaseModel implements IModel{
 	public function deleteBlog($blog_id)
 	{		
 	}
-		
 	
 	/**
 	 * Get comment by id
@@ -120,7 +120,7 @@ class BlogModel extends BaseModel implements IModel{
 			SELECT `blogs`.*
 			FROM `blogs`
 			WHERE 
-				`blogs`.`blog_id` = '$user_id' AND 
+				`blogs`.`user_id` = '$user_id' AND 
 				status <> 'deleted'
 			ORDER BY 
 				created DESC")->result();

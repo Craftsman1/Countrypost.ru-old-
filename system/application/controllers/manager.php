@@ -1226,4 +1226,120 @@ class Manager extends ManagerBaseController {
 		{
 		}
 	}
+
+	public function saveProfile()
+	{
+		try
+		{
+			// находим пользователя
+			$this->load->model('UserModel', 'User');
+			$user = $this->User->getById($this->user->user_id);
+
+			// находим партнера
+			$this->load->model('ManagerModel', 'Manager');
+			$manager = $this->Manager->getById($this->user->user_id);
+
+			// валидация пользовательского ввода
+			$manager->cashback_limit = Check::int('limit');
+
+			Check::reset_empties();
+			$user->user_email = Check::email(Check::str('email', 128, 4));
+			
+			if (isset($_POST['password']) &&
+				$_POST['password'])
+			{
+				$user->user_password = Check::str('password', 32, 1);
+			
+				if (isset($user->user_password))
+				{
+					$user->user_password = md5($user->user_password);
+				}
+			}
+			
+			$manager->manager_name			= Check::str('fio', 255, 0);
+			$manager->manager_surname		= NULL;
+			$manager->manager_otc			= NULL;
+			$manager->manager_country		= Check::int('country');
+			$manager->skype					= Check::str('skype', 255, 0);
+			$manager->website				= Check::str('website', 4096, 0);
+			$manager->about_me				= Check::str('about', 65535, 0);
+			$manager->city					= Check::str('city', 255, 1);
+			$manager->is_mail_forwarding 	= Check::chkbox('mf');
+			$manager->is_internal_payments 	= Check::chkbox('payments');
+			
+			$empties = Check::get_empties();			
+			
+			if ($empties)
+			{
+				throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
+			}
+			
+			$this->db->trans_begin();
+					
+			// наконец, все сохраняем
+			$user = $this->User->updateUser($user);
+			$manager = $this->Manager->updateManager($manager);
+			
+			if ( ! $user || ! $manager)
+			{
+				throw new Exception('Партнер не сохранен. Попробуйте еще раз.');
+			}
+			
+			// коммитим транзакцию
+			if ($this->db->trans_status() === FALSE) 
+			{
+				throw new Exception('Невозможно сохранить данные партнера. Попробуйте еще раз.');
+			}
+					
+			$this->db->trans_commit();
+		}
+		catch (Exception $e) 
+		{
+			$this->db->trans_rollback();
+		}
+	}
+
+	public function saveBlog()
+	{
+		try
+		{
+			// находим новость
+			$blog_id = Check::int('blog_id');
+			$this->load->model('BlogModel', 'Blogs');
+			
+			if ($blog_id)
+			{
+				$blog = $this->Blogs->getById($blog_id);
+			}
+			else
+			{
+				$blog = new stdClass();
+			}
+
+			// валидация пользовательского ввода
+			Check::reset_empties();
+			$blog->title = Check::str('title', 255, 1);
+			$blog->message = Check::str('message', 65535, 1);
+			$blog->user_id = $this->user->user_id;
+			
+			$empties = Check::get_empties();			
+			
+			if ($empties)
+			{
+				throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
+			}
+			
+			// сохраняем
+			$blog = $this->Blogs->addBlog($blog);
+			
+			if (empty($blog))
+			{
+				throw new Exception('Новость не сохранена. Попробуйте еще раз.');
+			}
+		}
+		catch (Exception $e) 
+		{
+			print_r($e);
+		}
+	}
 }
