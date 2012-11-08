@@ -56,7 +56,7 @@ else
 				<?=($order->order_products_cost+$order->order_delivery_cost)?> <?= $order->currency ?>
 			</td>
 			<td>
-				<?=round($order->order_weight/1000, 3, PHP_ROUND_HALF_UP)?>кг<br />
+				<?=round($order->order_weight/1000, 3, 1)?>кг<br />
 			</td>
 			<td align="center">
 				<? if (empty($order->request_count)) : ?>

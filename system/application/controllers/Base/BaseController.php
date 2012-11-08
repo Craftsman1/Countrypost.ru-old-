@@ -1977,6 +1977,11 @@ abstract class BaseController extends Controller
 			{
 				$filter = $this->initUnassignedOrdersFilter($filter);
 			}
+			
+			if ($filterType == 'Dealers')
+			{
+				$filter = $this->initDealersFilter($filter);
+			}
 		
 			$_SESSION[$filterType.'Filter'] = $filter;
 		}
