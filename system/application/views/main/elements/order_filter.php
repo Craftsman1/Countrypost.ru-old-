@@ -74,8 +74,6 @@
 		</span>
 	</div>
 </div>
-<script type="text/javascript" src="/static/js/jquery.dd.js"></script>
-<script type="text/javascript" src="/static/js/jquery.form.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#country_from").msDropDown({mainCSS:'idd'});

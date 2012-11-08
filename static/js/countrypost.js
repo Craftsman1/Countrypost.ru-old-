@@ -49,3 +49,34 @@ function updatePerPage(dropdown, handler)
 	var id = $(dropdown).find('option:selected').val();
 	window.location.href = '/' + handler + '/updatePerPage/' + id;
 }
+
+function getNowDate()
+{
+	var date = new Date();
+	var day = date.getDate();
+	var month = date.getMonth();
+	var hours = date.getHours();
+	var minutes = date.getMinutes();
+	
+	if (month < 10)
+	{
+		month = '0' + month;
+	}
+
+	if (day < 10)
+	{
+		day = '0' + day;
+	}
+
+	if (hours < 10)
+	{
+		hours = '0' + hours;
+	}
+
+	if (minutes < 10)
+	{
+		minutes = '0' + minutes;
+	}
+	
+	return (day + "." + month + "." + date.getFullYear() + ' ' + hours + ':' + minutes);	
+}

@@ -19,3 +19,9 @@ ALTER TABLE  `managers` CHANGE  `status`  `is_cashback` TINYINT( 1 ) NOT NULL DE
 ALTER TABLE  `managers` ADD  `about_me` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 ALTER TABLE  `managers` ADD  `is_mail_forwarding` TINYINT( 1 ) NOT NULL DEFAULT  '0' AFTER  `is_cashback`;
 ALTER TABLE  `managers` ADD  `is_internal_payments` TINYINT( 1 ) NOT NULL DEFAULT  '0' AFTER  `is_mail_forwarding`;
+ALTER TABLE  `managers` ADD  `city` VARCHAR( 255 ) NOT NULL AFTER  `manager_address_description`;
+ALTER TABLE  `managers` CHANGE  `website`  `website` VARCHAR( 4096 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;
+ALTER TABLE  `managers` CHANGE  `manager_name`  `manager_name` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+ALTER TABLE  `managers` ADD  `cashback_limit` INT( 11 ) NOT NULL AFTER  `is_cashback`;
+ALTER TABLE  `blogs` ADD  `title` VARCHAR( 255 ) NOT NULL AFTER  `user_id`;
+ALTER TABLE  `blogs` CHANGE  `created`  `created` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP;

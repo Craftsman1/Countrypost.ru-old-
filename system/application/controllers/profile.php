@@ -121,23 +121,12 @@ class Profile extends BaseController {
 			$view['manager']->currency_symbol = $this->Currencies->getCurrencyByCountry($view['manager']->manager_country)->currency_symbol;
 			
 			$this->load->model('CountryModel', 'Country');
-			$Countries	= $this->Country->getList();
-			$countries = array();
-			$countries_en = array();
+			$view['countries'] = $this->Country->getList();
 			
-			foreach ($Countries as $Country)
-			{
-				$countries[$Country->country_id] = $Country->country_name;
-				$countries_en[$Country->country_id] = $Country->country_name_en;
-			}
-			
-			$view['countries'] = $countries;
-			$view['countries_en'] = $countries_en;
-
 			// блог
 			$this->load->model('BlogModel', 'Blogs');
 			$view['blogs']	= $this->Blogs->getBlogsByUserId($manager->manager_user);
-			
+			//print_r($view['blogs']);die();
 			// доставка
 			$view['deliveries']	= $this->Managers->getManagerDeliveries($manager->manager_user);			
 			

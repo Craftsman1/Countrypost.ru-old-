@@ -13,7 +13,7 @@
 			Зарегистрирован:
 		</span>
 		<span>
-			<?= isset($manager->created) ? date('d.m.Y h:i', strtotime($manager->created)) : date('d.m.Y h:i')?>
+			<?= isset($manager->created) ? date('d.m.Y H:i', strtotime($manager->created)) : date('d.m.Y H:i')?>
 		</span>
 	</div>
 	<div>
