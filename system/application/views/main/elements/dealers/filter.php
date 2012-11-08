@@ -1,5 +1,5 @@
-<div>
-	<form class='admin-inside' action="<?= $selfurl ?>filterUnassignedOrders" id="filterForm" method="POST">
+<div id="filterFormContainer">
+	<form class='admin-inside' action="<?= $selfurl ?>filterDealers" id="filterForm" method="POST">
 		<div class='table' style="position:relative;background:#fff;">
 			<div class='angle angle-lt'></div>
 			<div class='angle angle-rt'></div>
@@ -19,7 +19,7 @@
 				<br />
 				<div>
 					<span class="label">Mail Forwarding:</span>
-					<input style="" class="order_check" maxlength="6" type='checkbox' id='order_number' name="order_number" value="<?= empty($filter->order_id) ? '' : $filter->order_id ?>"/>
+					<input style="" class="order_check" maxlength="6" type='checkbox' id='is_mail_forwarding' name="is_mail_forwarding" value="1"/>
 					<span class="label">
 						<b class="mf">MF</b>
 					</span>
@@ -28,7 +28,7 @@
 				<br />
 				<div>
 					<span class="label">Cashback:</span>
-					<input style="" class="order_check" maxlength="6" type='checkbox' id='order_number' name="order_number" value="<?= empty($filter->order_id) ? '' : $filter->order_id ?>"/>
+					<input style="" class="order_check" maxlength="6" type='checkbox' id='is_cashback' name="is_cashback" value="1"/>
 					<span class="label checkwrap">
 						<b class="cashback">100% cashback</b>
 					</span>
@@ -60,7 +60,7 @@
 		$("#filterForm").show();
 
 		$('#filterForm').ajaxForm({
-			target: '<?= $selfurl ?>filterUnassignedOrders',
+			target: '<?= $selfurl ?>filterDealers',
 			type: 'POST',
 			dataType: 'html',
 			iframe: true,
@@ -70,11 +70,11 @@
 			},
 			success: function(response)
 			{
-				$('#filterForm').append($(response));
+				//$('#filterForm').append($(response));
 				$("#filterProgress").hide();
 				
-				$("div#unassignedOrders,a.pagerScroll,div.pages").remove();					
-				$("div.adittional-block").html(response);
+				$("div#partnersFormContainer").replaceWith(response);					
+				//$("div#partnersFormContainer").html(response);
 			},
 			error: function(response)
 			{

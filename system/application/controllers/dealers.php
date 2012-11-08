@@ -17,7 +17,11 @@ class Dealers extends BaseController {
 		try
 		{
 			$this->load->model('ManagerModel', 'Managers');
-			$managers = $this->Managers->getManagersData();
+			
+			// обработка фильтра
+			$view['filter'] = $this->initFilter('Dealers');
+			
+			$managers = $this->Managers->getManagersData($view['filter']);
 			
 			// пейджинг
 			$per_page = isset($this->session->userdata['dealers_per_page']) ? $this->session->userdata['dealers_per_page'] : NULL;
@@ -89,5 +93,94 @@ class Dealers extends BaseController {
 	
 		$this->session->set_userdata(array('dealers_per_page' => $per_page));
 		Func::redirect($_SERVER['HTTP_REFERER']);
+	}
+	
+	public function filterDealers()
+	{
+		$this->filter('Dealers', 'showDealers');
+	}
+	
+	public function initDealersFilter(&$filter)
+	{
+		$filter->country_from = '';
+		$filter->is_mail_forwarding = 0;
+		$filter->is_cashback = 0;
+		
+		// сброс фильтра
+		if (isset($_POST['resetFilter']) && $_POST['resetFilter'] == '1')
+		{
+			return $filter;
+		}
+		
+		$filter->country_from = Check::int('country_from');
+		$filter->is_mail_forwarding = Check::int('is_mail_forwarding');
+		$filter->is_cashback = Check::int('is_cashback');
+		
+		return $filter;
+	}
+	
+	public function showDealers()
+	{
+		try
+		{
+			$this->load->model('ManagerModel', 'Managers');
+			
+			// обработка фильтра
+			$view['filter'] = $this->initFilter('Dealers');
+			
+			$managers = $this->Managers->getManagersData($view['filter']);
+			
+			// пейджинг
+			$per_page = isset($this->session->userdata['dealers_per_page']) ? $this->session->userdata['dealers_per_page'] : NULL;
+			$per_page = isset($per_page) ? $per_page : $this->per_page;
+			$this->per_page = $per_page;
+			
+			$this->init_paging();		
+			$this->paging_count = count($managers);
+		
+			if ($managers)
+			{
+				$managers = array_slice($managers, $this->paging_offset, $this->per_page);
+			}
+			
+			$statistics = array();
+			foreach ($managers as $manager)
+			{
+				$this->processStatistics($manager, $statistics, 'manager_user', 0, 'manager');
+			}
+			
+			$this->load->model('CountryModel', 'Country');
+			$Countries	= $this->Country->getList();
+			$countries = array();
+			$countries_en = array();
+			
+			foreach ($Countries as $Country)
+			{
+				$countries[$Country->country_id] = $Country->country_name;
+				$countries_en[$Country->country_id] = $Country->country_name_en;
+			}
+			
+			$view = array(
+				'managers' 	=> $managers,
+				'countries'	=> $countries,
+				'countries_en'	=> $countries_en,
+				'statuses'	=> $this->Managers->getStatuses(),
+				'per_page'	=> $per_page,
+				'pager'		=> $this->get_paging()
+			);
+		
+		}
+		catch (Exception $e) 
+		{
+			$this->result->e = $e->getCode();			
+			$this->result->m = $e->getMessage();
+			
+			Stack::push('result', $this->result);
+			Func::redirect(BASEURL.$this->cname);
+		}	
+		
+		$view['selfurl'] = BASEURL.$this->cname.'/';
+		$view['viewpath'] = $this->viewpath;
+		$this->load->view("main/ajax/showDealers", $view);
 	}
 }

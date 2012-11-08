@@ -40,7 +40,6 @@ class ManagerModel extends BaseModel implements IModel{
     	$this->properties->manager_surname			='';
     	$this->properties->manager_otc				='';
     	$this->properties->manager_addres			='';
-    	$this->properties->manager_address			='';
     	$this->properties->manager_address_local	='';
     	$this->properties->manager_address_description ='';
     	$this->properties->city ='';
@@ -154,18 +153,7 @@ class ManagerModel extends BaseModel implements IModel{
 		return FALSE;
 	}	
 	
-	public function getManagersData($filters = null)
-	{
-		$where = '';
-
-		if (!empty($filters->country_from) OR
-			!empty($filters->is_mail_forwarding) OR
-			!empty($filters->is_cashback)) :
-			$where = ((!empty($filters->country_from)) ? ' AND `'.$this->table.'`.manager_country = '.$filters->country_from.' ' : '').
-				((!empty($filters->is_mail_forwarding)) ? ' AND `'.$this->table.'`.is_mail_forwarding = 1 ' : '').
-				((!empty($filters->is_cashback)) ? ' AND `'.$this->table.'`.is_cashback = 1 ' : '');
-		endif;
-
+	public function getManagersData() {
 		return $this->db->query('
 			SELECT `'.$this->table.'`.*, 
 				`users`.`user_login`, 
@@ -177,7 +165,7 @@ class ManagerModel extends BaseModel implements IModel{
 				INNER JOIN `users` ON `users`.`user_id` = `'.$this->table.'`.`manager_user`				
 				INNER JOIN `countries` ON `countries`.`country_id` = `'.$this->table.'`.`manager_country`				
 				INNER JOIN `currencies` ON `currencies`.`currency_name` = `countries`.`country_currency`
-			WHERE `users`.`user_deleted` = 0 '.$where.'
+			WHERE `users`.`user_deleted` = 0
 			GROUP BY `'.$this->table.'`.`manager_user`
 		')->result();
 	}
@@ -574,44 +562,6 @@ class ManagerModel extends BaseModel implements IModel{
 		}
 		
 		return $statistics;
-	}
-
-	public function saveManagerDelivery($manager_id, $country_id, $payments_description)
-	{
-		$result = $this->db->query(
-			"SELECT 1
-			FROM manager_pricelists
-			WHERE
-				manager_id = $manager_id AND
-				country_id = $country_id"
-		)->result();
-
-		if ($result)
-		{
-			$this->db->query(
-				"UPDATE manager_pricelists
-				SET
-					description = '$payments_description'
-				WHERE
-					manager_id = $manager_id AND
-					country_id = $country_id"
-				);
-		}
-		else
-		{
-			$this->db->query(
-				"INSERT  INTO manager_pricelists (
-					manager_id,
-					country_id,
-					description
-				)
-				VALUES (
-					$manager_id,
-					$country_id,
-					'$payments_description'
-				)"
-			);
-		}
 	}
 }
 ?>
