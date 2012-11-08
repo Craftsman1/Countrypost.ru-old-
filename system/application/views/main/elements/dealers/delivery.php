@@ -17,11 +17,11 @@
 	<div class="delivery_description"></div>
 </div>
 <script type="text/javascript">
-	<? if ($deliveries AND count($deliveries)) : ?>
-	var deliveries = <?= json_encode($deliveries) ?>;
-	<? else : ?>
-	var deliveries = false;
-	<? endif; ?>
+	var deliveries = [];
+
+	<? if ($deliveries AND count($deliveries)) : foreach ($deliveries as $key => $value) : ?>
+	deliveries['<?= $key ?>'] = '<?= html_entity_decode($value) ?>';
+		<? endforeach; endif; ?>
 
 	$(function() {
 		$("#delivery_country").msDropDown({mainCSS:'idd'});

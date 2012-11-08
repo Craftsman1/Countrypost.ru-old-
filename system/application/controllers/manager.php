@@ -1339,7 +1339,136 @@ class Manager extends ManagerBaseController {
 		}
 		catch (Exception $e) 
 		{
-			print_r($e);
+		}
+	}
+
+	public function savePricelist()
+	{
+		try
+		{
+			// находим партнера
+			$this->load->model('ManagerModel', 'Managers');
+			$manager = $this->Managers->getById($this->user->user_id);
+
+			// валидация пользовательского ввода
+			Check::reset_empties();
+			$manager->order_tax = Check::int('order_tax');
+			$manager->min_order_tax = Check::int('min_order_tax');
+			$manager->join_tax = Check::int('join_tax');
+			$manager->foto_tax = Check::int('foto_tax');
+			$manager->insurance_tax = Check::int('insurance_tax');
+			$manager->pricelist_description = Check::str('pricelist_message', 65535, 1);
+
+			$empties = Check::get_empties();
+
+			if ($empties)
+			{
+				throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
+			}
+
+			// сохраняем
+			$manager = $this->Managers->updateManager($manager);
+
+			if (empty($manager))
+			{
+				throw new Exception('Тарифы не сохранены. Попробуйте еще раз.');
+			}
+		}
+		catch (Exception $e)
+		{
+		}
+	}
+
+	public function savePaymentTypes()
+	{
+		try
+		{
+			// находим партнера
+			$this->load->model('ManagerModel', 'Managers');
+			$manager = $this->Managers->getById($this->user->user_id);
+
+			// валидация пользовательского ввода
+			Check::reset_empties();
+			$manager->payments_description = Check::str('payment_types', 65535, 0);
+
+			$empties = Check::get_empties();
+
+			if ($empties)
+			{
+				throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
+			}
+
+			// сохраняем
+			$manager = $this->Managers->updateManager($manager);
+
+			if (empty($manager))
+			{
+				throw new Exception('Способы оплаты не сохранены. Попробуйте еще раз.');
+			}
+		}
+		catch (Exception $e)
+		{
+		}
+	}
+
+	public function saveDelivery()
+	{
+		try
+		{
+			// валидация пользовательского ввода
+			Check::reset_empties();
+			$payments_description = Check::str('delivery_description', 65535, 0);
+			$country_id	= Check::int('delivery_country');
+
+			$empties = Check::get_empties();
+
+			if ($empties)
+			{
+				throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
+			}
+
+			// сохраняем
+			$this->load->model('ManagerModel', 'Managers');
+			$this->Managers->saveManagerDelivery($this->user->user_id, $country_id, strval($payments_description));
+		}
+		catch (Exception $e)
+		{
+		}
+	}
+
+	public function saveAddress()
+	{
+		try
+		{
+			// находим партнера
+			$this->load->model('ManagerModel', 'Managers');
+			$manager = $this->Managers->getById($this->user->user_id);
+
+			// валидация пользовательского ввода
+			Check::reset_empties();
+			$manager->manager_address = Check::str('address_en', 1024, 1);
+			$manager->manager_address_local = Check::str('address', 1024, 1);
+			$manager->manager_phone = Check::str('phone', 255, 1);
+			$manager->manager_address_description = Check::str('address_description', 65535, 1);
+
+			$empties = Check::get_empties();
+
+			if ($empties)
+			{
+				throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
+			}
+
+			// сохраняем
+			$manager = $this->Managers->updateManager($manager);
+
+			if (empty($manager))
+			{
+				throw new Exception('Адреса не сохранены. Попробуйте еще раз.');
+			}print_r('!!!fds');
+		}
+		catch (Exception $e)
+		{
+			print_r($manager);
 		}
 	}
 }

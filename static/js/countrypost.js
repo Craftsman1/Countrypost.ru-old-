@@ -78,5 +78,5 @@ function getNowDate()
 		minutes = '0' + minutes;
 	}
 	
-	return (day + "." + month + "." + date.getFullYear() + ' ' + hours + ':' + minutes);	
+	return (day + "." + month + "." + date.getFullYear() + ' ' + hours + ':' + minutes);
 }

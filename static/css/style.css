@@ -2318,7 +2318,7 @@ div.profile_box  div.cashback_box span.cashback_span {
 	font-weight: bold;
 }
 
-div.profile_box .textbox,div.blog_box .textbox {
+div.profile_box .textbox,div.blog_box .textbox,div.mail_forwarding .textbox {
 	width: 188px;
 	float: left;
 	padding:4px 4px 3px;
@@ -2328,6 +2328,18 @@ div.profile_box .textbox,div.blog_box .textbox {
 	font: 13px sans-serif;
 	margin-bottom: 15px;
 	}
+
+div.mail_forwarding .textbox {
+	width: 910px;
+}
+
+div.mail_forwarding .label {
+	width: 910px;
+}
+
+div.mail_forwarding .hint {
+	font-style: italic;
+}
 
 div.profile_box span,div.blog_box span {
 	width: 190px;
@@ -2339,3 +2351,8 @@ div.profile_box span,div.blog_box span {
 div.profile_box span {
 	margin-left: 10px;
 	}
+
+div.pricelist_main div span:nth-child(odd) {
+	width: 300px;
+	display: inline-block;
+}
