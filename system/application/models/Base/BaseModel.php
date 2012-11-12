@@ -391,10 +391,12 @@ abstract class BaseModel extends Model implements IBaseModel {
 			SELECT DISTINCT `user_group`, COUNT(*) as user_count
 			FROM `users`
 			WHERE user_group = 'client'
+			GROUP BY user_group
 			UNION ALL
 			SELECT DISTINCT `user_group`, COUNT(*) as user_count
 			FROM `users`
 			WHERE user_group = 'manager'
+			GROUP BY user_group
 		")->result();
 		
 		return $result;
