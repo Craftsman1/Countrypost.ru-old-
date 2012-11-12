@@ -5,7 +5,7 @@
 	<div class='angle angle-lb'></div>
 	<div class='angle angle-rb'></div>
 	<p>
-		<?= empty($manager->manager_description) ? 'Нет описания.' : html_entity_decode($manager->manager_description) ?>
+		<?= empty($manager->about_me) ? 'Нет описания.' : html_entity_decode($manager->about_me) ?>
 	</p>
 </div>
 	

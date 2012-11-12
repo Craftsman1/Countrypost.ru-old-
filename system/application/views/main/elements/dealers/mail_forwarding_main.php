@@ -16,7 +16,7 @@
 			&nbsp;
 		</span>
 		<span>
-			<?= $manager->manager_addres ?>
+			<?= $manager->manager_address ?>
 		</span>
 	</div>
 	<div>

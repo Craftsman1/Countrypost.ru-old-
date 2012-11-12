@@ -1,11 +1,11 @@
 <div class="blog dealer_tab" style="display:none;">
-	<div class="table" style="height: 363px;">
-		<div class='angle angle-lt'></div>
-		<div class='angle angle-rt'></div>
-		<div class='angle angle-lb'></div>
-		<div class='angle angle-rb'></div>
-		<div class="blog_box admin-inside">
-			<form action="/manager/saveBlog" id="blogForm" method="POST">
+	<form action="/manager/saveBlog" id="blogForm" method="POST">
+		<div class="table" style="height: 303px;">
+			<div class='angle angle-lt'></div>
+			<div class='angle angle-rt'></div>
+			<div class='angle angle-lb'></div>
+			<div class='angle angle-rb'></div>
+			<div class="blog_box admin-inside">
 				<input type="hidden" name="blog_id" />
 				<div>
 					<span class="label">Заголовок*:</span>
@@ -22,16 +22,17 @@
 				<div>
 					<textarea maxlength="65535" id='message' name="message"></textarea>
 				</div>
-				<br style="clear:both;" />
-				<div class="submit">
-					<div>
-						<input type="submit" value="Сохранить">
-					</div>
-				</div>
-				<img class="float" id="blogProgress" style="display:none;margin:0px;margin-top:4px;" src="/static/images/lightbox-ico-loading.gif"/>
-			</form>
+			</div>
 		</div>
-	</div>
+		<br style="clear:both;" />
+		<div class="submit floatleft">
+			<div>
+				<input type="submit" value="Сохранить">
+			</div>
+		</div>
+		<img class="float" id="blogProgress" style="display:none;margin:0px;margin-top:4px;" src="/static/images/lightbox-ico-loading.gif"/>
+	</form>
+	<br style="clear:both;" />
 	<h3 id="news_header">Все новости</h3>
 	<? if ($blogs) : foreach ($blogs as $blog) : ?>
 	<div class="table">

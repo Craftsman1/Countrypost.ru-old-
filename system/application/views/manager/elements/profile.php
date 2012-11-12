@@ -63,7 +63,7 @@
 				<span class="label">Страна*:</span>
 				<select id="country" name="country" class="textbox">
 					<option value="0">выберите страну...</option>
-					<? foreach ($countries as $country) : ?>
+					<? foreach ($Countries as $country) : ?>
 					<option value="<?= $country->country_id ?>"  title="/static/images/flags/<?= $country->country_name_en ?>.png" <? if ($manager->manager_country == $country->country_id) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
 					<? endforeach; ?>
 				</select>

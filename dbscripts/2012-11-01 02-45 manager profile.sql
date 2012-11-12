@@ -25,3 +25,6 @@ ALTER TABLE  `managers` CHANGE  `manager_name`  `manager_name` VARCHAR( 255 ) CH
 ALTER TABLE  `managers` ADD  `cashback_limit` INT( 11 ) NOT NULL AFTER  `is_cashback`;
 ALTER TABLE  `blogs` ADD  `title` VARCHAR( 255 ) NOT NULL AFTER  `user_id`;
 ALTER TABLE  `blogs` CHANGE  `created`  `created` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE  `managers` ADD  `manager_address` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER
+`manager_addres`;
+UPDATE  `managers` SET manager_address = manager_addres;

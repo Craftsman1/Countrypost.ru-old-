@@ -7,7 +7,7 @@
 		<div class='angle angle-lb'></div>
 		<div class='angle angle-rb'></div>
 		<p>
-			<?= html_entity_decode($manager->manager_description) ?>
+			<?= html_entity_decode($manager->manager_address_description) ?>
 		</p>
 	</div>
 </div>

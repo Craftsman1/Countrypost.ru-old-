@@ -164,7 +164,7 @@ class ManagerModel extends BaseModel implements IModel{
 				((!empty($filters->is_mail_forwarding)) ? ' AND `'.$this->table.'`.is_mail_forwarding = 1 ' : '').
 				((!empty($filters->is_cashback)) ? ' AND `'.$this->table.'`.is_cashback = 1 ' : '');
 		endif;
-		
+
 		return $this->db->query('
 			SELECT `'.$this->table.'`.*, 
 				`users`.`user_login`, 
