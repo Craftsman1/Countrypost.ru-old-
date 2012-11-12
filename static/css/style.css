@@ -2329,6 +2329,10 @@ div.profile_box .textbox,div.blog_box .textbox,div.mail_forwarding .textbox {
 	margin-bottom: 15px;
 	}
 
+div.client_ratings label {
+	font: 13px sans-serif;
+	}
+
 div.mail_forwarding .textbox {
 	width: 910px;
 }
