@@ -16,9 +16,9 @@ class Profile extends BaseController {
 	{
 		switch ($this->user->user_group)
 		{
-			case 'user' : 
+			case 'client' : 
 			{
-				Func::redirect(BASEURL);
+				$this->editClientProfile();
 				break;
 			}
 			case 'manager' : 
@@ -99,6 +99,27 @@ class Profile extends BaseController {
 		}		
 	}
 
+	private function editClientProfile()
+	{
+		try
+		{
+			// находим партнера
+			$this->load->model('ClientModel', 'Clients');
+			$client = $this->Clients->getById($this->user->user_id);
+						
+			$this->processStatistics($client, array(), 'client_user', $client->client_user, 'client');
+		
+			Breadcrumb::setCrumb(array('/profile' => 'Мой профиль'), 1, TRUE);
+			
+			$this->clientProfileGeneric($client, $this->session->userdata('client_login'), 'client/pages/editProfile');
+			
+		}
+		catch (Exception $e) 
+		{
+			//Func::redirect(BASEURL);
+		}		
+	}
+
 	private function dealerProfileGeneric($manager, $login, $view_name)
 	{
 		try
@@ -129,6 +150,53 @@ class Profile extends BaseController {
 			//print_r($view['blogs']);die();
 			// доставка
 			$view['deliveries']	= $this->Managers->getManagerDeliveries($manager->manager_user);			
+			
+			View::showChild($view_name, $view);
+		}
+		catch (Exception $e) 
+		{
+			//Func::redirect(BASEURL.$this->cname);
+		}
+	}
+
+	private function clientProfileGeneric($client, $login, $view_name)
+	{	
+		try
+		{
+			// находим страны
+			$this->load->model('CountryModel', 'Country');		
+			
+			// находим статусы
+			$view['statuses'] = $this->Clients->getStatuses();
+				
+			if ( ! $view['statuses'])
+			{
+				throw new Exception('Статусы не найдены. Попробуйте еще раз.');
+			}
+			
+			$this->load->model('CurrencyModel', 'Currencies');		
+				
+			$view['client_user'] = $client->client_user;
+			$view['client'] = $client;
+			
+			if ($currency = $this->Currencies->getCurrencyByCountry($view['client']->client_country))
+			{
+				$view['client']->currency_symbol = $currency->currency_symbol;
+			}
+			else
+			{
+				$view['client']->currency_symbol = '';
+			}
+			
+			$this->load->model('CountryModel', 'Country');
+			$view['countries'] = $this->Country->getList();
+			
+			// блог
+			$this->load->model('BlogModel', 'Blogs');
+			$view['blogs']	= $this->Blogs->getBlogsByUserId($client->client_user);
+			//print_r($view['blogs']);die();
+			// доставка
+			//$view['deliveries']	= $this->Clients->getManagerDeliveries($manager->client_user);			
 			
 			View::showChild($view_name, $view);
 		}

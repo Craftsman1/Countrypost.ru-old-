@@ -16,6 +16,15 @@ class ClientModel extends BaseModel implements IModel{
 	protected	$table				= 'clients';		// table name
 	protected	$PK					= 'client_user';	// primary key name	
 	
+	private $statuses = array(
+		1	=> 'В работе',
+		2	=> 'Приостановлен'
+	);
+	
+	public function getStatuses() {
+		return $this->statuses;
+	}
+		
 	/**
 	 * конструктор
 	 *
@@ -23,7 +32,25 @@ class ClientModel extends BaseModel implements IModel{
 	function __construct()
     {
     	$this->properties	= new stdClass();
+
+ 		$this->properties->client_name			='';
     	$this->properties->client_user			='';
+    	$this->properties->client_surname		='';
+    	$this->properties->client_otc			='';
+    	$this->properties->client_country		='';
+    	$this->properties->client_town			='';
+    	$this->properties->client_index			='';
+    	$this->properties->client_address		='';
+    	$this->properties->client_phone_country ='';
+    	$this->properties->client_phone_city	='';
+    	$this->properties->client_phone_value	='';
+    	$this->properties->client_phone			='';
+    	$this->properties->website			    ='';
+    	$this->properties->skype			    ='';
+    	$this->properties->notifications_on		='';
+    	$this->properties->about_me			    ='';
+    	
+    	/*$this->properties->client_user			='';
     	$this->properties->client_name			='';
     	$this->properties->client_otc			='';
     	$this->properties->client_surname		='';
@@ -35,13 +62,15 @@ class ClientModel extends BaseModel implements IModel{
     	$this->properties->client_phone_country	='';
     	$this->properties->client_phone_value	='';
     	$this->properties->client_phone			='';
+    	$this->properties->website  			='';
+    	$this->properties->skype    			='';
     	$this->properties->client_country		='';
     	$this->properties->manager_login		='';
     	$this->properties->manager_country		='';
     	$this->properties->user_coints			='';
     	$this->properties->package_count		='';
     	$this->properties->order_count			='';
-    	$this->properties->notifications_on		='';
+    	$this->properties->notifications_on		='';*/
     	
         parent::__construct();
     }
@@ -322,7 +351,7 @@ class ClientModel extends BaseModel implements IModel{
 				$this->_set($prop, $user_obj->$prop);
 			}
 		}
-		
+			
 		$new_id = $this->save();
 		
 		if (!$new_id) return false;
@@ -398,6 +427,26 @@ class ClientModel extends BaseModel implements IModel{
 	public function getStatistics($client_id)
 	{
 		$statistics = $this->getById($client_id);
+				
+		// login
+		$result = $this->db->query(
+			"SELECT 
+				user_login login, 
+				user_email email
+			FROM `{$this->table}`
+				LEFT JOIN `users` ON `users`.`user_id` = `{$this->table}`.`client_user`
+			WHERE 
+				`{$this->table}`.`client_user` = {$client_id}"
+		)->result();
+		
+		$user = ($result) ? $result[0] : FALSE;
+		
+		if ($user)
+		{
+			$statistics->login = $user->login;
+			$statistics->email = $user->email;
+		}
+		
 		$statistics->fullname = $this->getFullName($statistics);
 		return $statistics;
 	}
