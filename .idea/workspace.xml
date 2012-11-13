@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/images/rating_star.png" afterPath="$PROJECT_DIR$/static/images/rating_star.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbscripts/2012-11-08 22-40 client profile.sql" afterPath="$PROJECT_DIR$/dbscripts/2012-11-08 22-40 client profile.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/pages/dealer.php" afterPath="$PROJECT_DIR$/system/application/views/main/pages/dealer.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/countrypost.js" afterPath="$PROJECT_DIR$/static/js/countrypost.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/plugins.js" afterPath="$PROJECT_DIR$/static/js/plugins.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings_plugin.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings_plugin.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,26 +29,6 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="2012-11-08 22-40 client profile.sql" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dbscripts/2012-11-08 22-40 client profile.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="32" selection-start="1095" selection-end="1095" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="profile.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="profile_header.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -68,7 +50,7 @@
       <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2053" column="12" selection-start="38950" selection-end="38950" vertical-scroll-proportion="0.0">
+            <state line="2392" column="30" selection-start="43321" selection-end="43321" vertical-scroll-proportion="-19.76">
               <folding />
             </state>
           </provider>
@@ -86,7 +68,7 @@
       <file leaf-file-name="client_ratings.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="38" selection-start="2172" selection-end="2172" vertical-scroll-proportion="0.4296875">
+            <state line="54" column="49" selection-start="1928" selection-end="1928" vertical-scroll-proportion="0.6728972">
               <folding>
                 <element signature="n#style#0;n#label#0;n#span#0;n#div#0;n#div#4;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#label#0;n#span#2;n#div#0;n#div#4;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
@@ -100,14 +82,26 @@
       <file leaf-file-name="ratings_plugin.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings_plugin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="465" selection-end="465" vertical-scroll-proportion="-2.9761906">
-              <folding>
-                <element signature="n#style#0;n#img#0;n#span#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#1;n#span#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#2;n#span#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#3;n#span#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#4;n#span#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="1" column="72" selection-start="88" selection-end="99" vertical-scroll-proportion="-0.29761904">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plugins.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/plugins.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="24" selection-start="251" selection-end="251" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="countrypost.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="48" selection-start="537" selection-end="537" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -116,7 +110,19 @@
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_rating.php">
           <provider selected="true" editor-type-id="text-editor">
             <state line="37" column="6" selection-start="0" selection-end="887" vertical-scroll-proportion="-27.205883">
-              <folding />
+              <folding>
+                <marker date="1351541072000" expanded="true" signature="26:886" placeholder="..." />
+                <marker date="1351541072000" expanded="false" signature="41:54" placeholder="..." />
+                <marker date="1351541072000" expanded="true" signature="55:178" placeholder="..." />
+                <marker date="1351541072000" expanded="false" signature="72:89" placeholder="..." />
+                <marker date="1351541072000" expanded="true" signature="90:112" placeholder="..." />
+                <marker date="1351541072000" expanded="true" signature="121:170" placeholder="..." />
+                <marker date="1351541072000" expanded="true" signature="185:361" placeholder="..." />
+                <marker date="1351541072000" expanded="true" signature="368:519" placeholder="..." />
+                <marker date="1351541072000" expanded="true" signature="526:696" placeholder="..." />
+                <marker date="1351541072000" expanded="false" signature="711:723" placeholder="..." />
+                <marker date="1351541072000" expanded="true" signature="724:879" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -146,10 +152,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/views/manager/elements/delivery.php" />
-        <option value="$PROJECT_DIR$/system/application/views/manager/elements/mail_forwarding.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/mail_forwarding_main.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/mail_forwarding_description.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/delivery.php" />
         <option value="$PROJECT_DIR$/system/application/models/Base/BaseModel.php" />
@@ -159,7 +161,11 @@
         <option value="$PROJECT_DIR$/dbscripts/2012-11-08 22-40 client profile.sql" />
         <option value="$PROJECT_DIR$/system/application/views/main/pages/dealer.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php" />
+        <option value="$PROJECT_DIR$/../countrypost.todo/proto/index.html" />
+        <option value="$PROJECT_DIR$/../countrypost.todo/prototype/start.html" />
+        <option value="$PROJECT_DIR$/static/js/plugins.js" />
         <option value="$PROJECT_DIR$/static/css/style.css" />
+        <option value="$PROJECT_DIR$/static/js/countrypost.js" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings_plugin.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" />
       </list>
@@ -490,6 +496,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -580,11 +604,11 @@
     <editor active="true" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15984654" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1936937" sideWeight="0.6700767" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1936937" sideWeight="0.84015346" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -653,20 +677,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/delivery.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="28" selection-start="1562" selection-end="1766" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/delivery.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="32" selection-start="1118" selection-end="1118" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/models/Base/BaseModel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="399" column="0" selection-start="10166" selection-end="10166" vertical-scroll-proportion="0.0">
@@ -691,13 +701,6 @@
     <entry file="file://$PROJECT_DIR$/dbscripts/12.11.2012 21-57 manager ratings.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="24" selection-start="336" selection-end="336" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dbscripts/2012-11-08 22-40 client profile.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="32" selection-start="1095" selection-end="1095" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -739,36 +742,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/style.css">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_rating.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2053" column="12" selection-start="38950" selection-end="38950" vertical-scroll-proportion="0.0">
+        <state line="37" column="6" selection-start="0" selection-end="887" vertical-scroll-proportion="-27.205883">
+          <folding>
+            <marker date="1351541072000" expanded="true" signature="26:886" placeholder="..." />
+            <marker date="1351541072000" expanded="false" signature="41:54" placeholder="..." />
+            <marker date="1351541072000" expanded="true" signature="55:178" placeholder="..." />
+            <marker date="1351541072000" expanded="false" signature="72:89" placeholder="..." />
+            <marker date="1351541072000" expanded="true" signature="90:112" placeholder="..." />
+            <marker date="1351541072000" expanded="true" signature="121:170" placeholder="..." />
+            <marker date="1351541072000" expanded="true" signature="185:361" placeholder="..." />
+            <marker date="1351541072000" expanded="true" signature="368:519" placeholder="..." />
+            <marker date="1351541072000" expanded="true" signature="526:696" placeholder="..." />
+            <marker date="1351541072000" expanded="false" signature="711:723" placeholder="..." />
+            <marker date="1351541072000" expanded="true" signature="724:879" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../countrypost.todo/prototype/start.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="8" selection-start="2120" selection-end="2120" vertical-scroll-proportion="0.7863248">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_rating.php">
+    <entry file="file://$PROJECT_DIR$/static/js/plugins.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="6" selection-start="0" selection-end="887" vertical-scroll-proportion="-27.205883">
+        <state line="11" column="24" selection-start="251" selection-end="251" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2392" column="30" selection-start="43321" selection-end="43321" vertical-scroll-proportion="-19.76">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="48" selection-start="537" selection-end="537" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings_plugin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="465" selection-end="465" vertical-scroll-proportion="-2.9761906">
-          <folding>
-            <element signature="n#style#0;n#img#0;n#span#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#1;n#span#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#2;n#span#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#3;n#span#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#4;n#span#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="1" column="72" selection-start="88" selection-end="99" vertical-scroll-proportion="-0.29761904">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="38" selection-start="2172" selection-end="2172" vertical-scroll-proportion="0.4296875">
+        <state line="54" column="49" selection-start="1928" selection-end="1928" vertical-scroll-proportion="0.6728972">
           <folding>
             <element signature="n#style#0;n#label#0;n#span#0;n#div#0;n#div#4;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#label#0;n#span#2;n#div#0;n#div#4;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />

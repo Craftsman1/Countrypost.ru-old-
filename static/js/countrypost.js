@@ -1,4 +1,60 @@
-function validate_float(evt) 
+$(function() {
+	$('span.ratings_plugin').each(function() {
+		$(this).find('div').each(function(index, star) {
+			$(this).click(function() {
+				processStarClick(index, star);
+			});
+
+			$(this).hover(function() {
+				processStarHover(index, star);
+			}, function() {
+				processStarUnhover(index, star);
+			});
+		});
+	});
+});
+
+function processStarClick(index, star)
+{
+	var star_on = $(star).hasClass('on');
+
+	$(star).parent().find('div').removeClass('on').removeClass('half');
+
+	if (star_on)
+	{
+		$(star).parent().find('input').val('none');
+		return;
+	}
+
+	$(star).parent().find('input').val(index);
+
+	for (var i = 0; i <= index; i++)
+	{
+		$(star).parent().find('.star' + i).addClass('on');
+	}
+
+}
+
+function processStarHover(index, star)
+{
+	var star_on = $(star).parent().find('div').hasClass('on');
+
+	if (star_on) return;
+
+	$(star).parent().find('div').removeClass('half');
+
+	for (var i = 0; i <= index; i++)
+	{
+		$(star).parent().find('.star' + i).addClass('half');
+	}
+}
+
+function processStarUnhover(index, star)
+{
+	$(star).parent().find('div').removeClass('half');
+}
+
+function validate_float(evt)
 {
 	validate_generic(evt, /[0-9]|\./);
 }
@@ -80,3 +136,4 @@ function getNowDate()
 	
 	return (day + "." + month + "." + date.getFullYear() + ' ' + hours + ':' + minutes);
 }
+

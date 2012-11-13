@@ -1,6 +1,6 @@
 <div class="client_ratings dealer_tab" style="display:none;">
 	<form action="/manager/saveRating" id="ratingForm" method="POST">
-		<div class="table" style="height: 303px;">
+		<div class="table">
 			<div class='angle angle-lt'></div>
 			<div class='angle angle-rt'></div>
 			<div class='angle angle-lb'></div>
@@ -30,25 +30,29 @@
 				<div>
 					<? View::show('/main/elements/dealers/ratings_plugin', array(
 					'rating' => 5,
-					'description' => 'Консультация (ответы в скайпе, почте)'
+					'description' => 'Консультация (ответы в скайпе, почте)',
+					'rating_type' => 'communication_rating'
 				)); ?>
 				</div>
 				<div>
 					<? View::show('/main/elements/dealers/ratings_plugin', array(
 					'rating' => 4,
-					'description' => 'Выкуп товара'
+					'description' => 'Выкуп товара',
+					'rating_type' => 'buy_rating'
 				)); ?>
 				</div>
 				<div>
 					<? View::show('/main/elements/dealers/ratings_plugin', array(
 					'rating' => 3,
-					'description' => 'Консолидация и отправка посылок'
+					'description' => 'Консолидация и отправка посылок',
+					'rating_type' => 'consolidation_rating'
 				)); ?>
 				</div>
 				<div style="height:auto;">
 					<? View::show('/main/elements/dealers/ratings_plugin', array(
 					'rating' => 2,
-					'description' => 'Упаковка посылок'
+					'description' => 'Упаковка посылок',
+					'rating_type' => 'pack_rating'
 				)); ?>
 				</div>
 			</div>
