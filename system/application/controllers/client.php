@@ -8,7 +8,9 @@ class Client extends ClientBaseController {
 	}
 	
 	function index()
-	{		
+	{	
+		Func::redirect(BASEURL.'profile');
+			
 		$this->load->model('NewsModel', 'News');
 		$this->load->model('PackageModel', 'Packages');
 		

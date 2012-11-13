@@ -1982,6 +1982,11 @@ abstract class BaseController extends Controller
 			{
 				$filter = $this->initDealersFilter($filter);
 			}
+			
+			if ($filterType == 'Clients')
+			{
+				$filter = $this->initClientsFilter($filter);
+			}
 		
 			$_SESSION[$filterType.'Filter'] = $filter;
 		}
@@ -4306,6 +4311,10 @@ abstract class BaseController extends Controller
 		else if ($this->uri->segment(1) == 'dealers')
 		{
 			$this->paging_base_url = '/dealers/index';
+		}
+		else if ($this->uri->segment(1) == 'clients')
+		{
+			$this->paging_base_url = '/clients/index';
 		}
 		else if ($segment_count == 1)
 		{

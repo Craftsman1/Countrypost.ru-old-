@@ -15,21 +15,6 @@
 		<form id="profileForm" action="/client/saveProfile">           
 			<br style="clear:both;" />
 			<div>
-				<span class="label">Фамилия*:</span>
-				<input style="width:180px;" class="textbox" maxlength="255" type='text' id='client_surname' name="client_surname" value="<?= $client->statistics->client_surname ?>" />
-			</div>
-			<br style="clear:both;" />
-			<div>
-				<span class="label">Имя*:</span>
-				<input style="width:180px;" class="textbox" maxlength="255" type='text' id='client_name' name="client_name" value="<?= $client->statistics->client_name ?>" />
-			</div>
-			<br style="clear:both;" />
-			<div>
-				<span class="label">Отчество*:</span>
-				<input style="width:180px;" class="textbox" maxlength="255" type='text' id='client_otc' name="client_otc" value="<?= $client->statistics->client_otc ?>" />
-			</div>
-			<br style="clear:both;" />
-			<div>
 				<span class="label">Логин*:</span>
 				<input style="width:180px;" class="textbox" maxlength="32" type='text' id='login' name="login" value="<?= $client->statistics->login ?>" />
 			</div>
@@ -42,11 +27,7 @@
 			<div>
 				<span class="label">Email*:</span>
 				<input style="width:180px;" class="textbox" maxlength="128" type='text' id='email' name="email" value="<?= $client->statistics->email ?>" />
-			</div>
-			<br style="clear:both;" />
-			<div>
-				<span class="label">Сайт или тема на форуме:</span>
-				<input style="width:180px;" class="textbox" maxlength="4096" type='text' id='website' name="website" value="<?= $client->website ?>" />
+                <input type="checkbox" class="checkbox" name="not_show_email" id="not_show_email" <?= ($client->not_show_email == 1) ? 'checked="checked"' : '' ?> /><span class="label2">не показывать</span>
 			</div>
 			<br style="clear:both;" />
 			<div>
@@ -55,36 +36,7 @@
 			</div>
 			<br style="clear:both;" />
 			<div>
-				<span class="label">Страна*:</span>
-				<select id="country" name="country" class="textbox">
-					<option value="0">выберите страну...</option>
-					<? foreach ($countries as $country) : ?>
-					<option value="<?= $country->country_id ?>"  title="/static/images/flags/<?= $country->country_name_en ?>.png" <? if ($client->client_country == $country->country_id) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
-					<? endforeach; ?>
-				</select>
-			</div>
-			<br style="clear:both;" />
-			<div>
-				<span class="label">Город*:</span>
-				<input style="width:180px;" class="textbox" maxlength="255" type='text' id='city' name="city" value="<?= $client->client_town ?>"/>
-			</div>
-			<br style="clear:both;" />
-			<div>
-				<span class="label">Индекс*:</span>
-				<input style="width:180px;" class="textbox" maxlength="255" type='text' id='client_index' name="client_index" value="<?= $client->client_index ?>"/>
-			</div>
-			<br style="clear:both;" />
-			<div>
-				<span class="label">Адрес*:</span>
-				<input style="width:180px;" class="textbox" maxlength="255" type='text' id='client_address' name="client_address" value="<?= $client->client_address ?>"/>
-			</div>            
-			<br style="clear:both;" />
-			<div>
-				<span class="label">О себе:</span>
-			</div>
-			<br style="clear:both;" />
-			<div style="padding-left:10px;">
-				<textarea maxlength="65535" id='about' name="about"><?= $client->about_me ?></textarea>
+                <span class="label"></span><input type="checkbox" class="checkbox" name="notifications_on" id="notifications_on"  <?= ($client->notifications_on == 1) ? 'checked="checked"' : '' ?> /><span class="label">Получать уведомления на email</span>
 			</div>
 			<br style="clear:both;" />
 			<div class="submit" style="margin-left: 8px;">
@@ -100,6 +52,69 @@
 	$(function() {
 		$("#country").msDropDown({mainCSS:'idd'});
 		
+		var validateProfile = function() {
+			var addError = function(field, message) {
+				$("#profileProgress").hide();
+				if (!field.hasClass('ErrorField')) 
+				{
+					errorMsg = $('<span class="ValidationErrors">'+message+'</span>');
+					field.addClass('ErrorField').after(errorMsg);
+				}
+			},
+			removeError = function(field) {
+				var nextElement = field.next();
+				if (field.hasClass('ErrorField'))
+				{
+					field.removeClass('ErrorField');
+				}
+				if(nextElement.hasClass('ValidationErrors'))
+				{
+					nextElement.remove();
+				}
+			},
+			field = null,
+			errorCount = 0;
+			
+			field = $('#login');
+			if(field.val() == '')
+			{
+				addError(field, 'Введите ваш логин.');
+				errorCount++;				
+			}
+			else
+			{
+				removeError(field);
+			}
+			
+			field = $('#password');
+			if(field.val() != '' && field.val().length < 6)
+			{
+				addError(field, 'Пароль должен состоять из не менее 6-ти символов.');
+				errorCount++;				
+			}
+			else
+			{
+				removeError(field);
+			}
+			
+			field = $('#email');
+			if(!field.val().match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/))
+			{
+				addError(field, 'Введите правильный email.');
+				errorCount++;				
+			}
+			else
+			{
+				removeError(field);
+			}
+			
+			return (errorCount > 0) ? false : true;
+			
+		}
+		
+		// Валидация при заполнении
+		$('#login, #password, #email').bind('blur', validateProfile);
+		
 		$('#profileForm').ajaxForm({
 			target: '/client/saveProfile',
 			type: 'POST',
@@ -108,6 +123,8 @@
 			beforeSubmit: function(formData, jqForm, options)
 			{
 				$("#profileProgress").show();
+				// Валидация перед отправкой
+				return validateProfile();
 			},
 			success: function(response)
 			{
