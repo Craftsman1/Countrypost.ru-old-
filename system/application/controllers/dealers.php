@@ -59,7 +59,8 @@ class Dealers extends BaseController {
 				'countries_en'	=> $countries_en,
 				'statuses'	=> $this->Managers->getStatuses(),
 				'per_page'	=> $per_page,
-				'pager'		=> $this->get_paging()
+				'pager'		=> $this->get_paging(),
+				'dealers_filter' => $view['filter']
 			);
 		
 			// парсим шаблон
@@ -166,7 +167,8 @@ class Dealers extends BaseController {
 				'countries_en'	=> $countries_en,
 				'statuses'	=> $this->Managers->getStatuses(),
 				'per_page'	=> $per_page,
-				'pager'		=> $this->get_paging()
+				'pager'		=> $this->get_paging(),
+				'dealers_filter' => $view['filter']
 			);
 		
 		}

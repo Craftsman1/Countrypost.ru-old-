@@ -19,7 +19,7 @@
 				<br />
 				<div>
 					<span class="label">Mail Forwarding:</span>
-					<input style="" class="order_check" maxlength="6" type='checkbox' id='is_mail_forwarding' name="is_mail_forwarding" value="1"/>
+					<input style="" class="order_check" maxlength="6" type='checkbox' id='is_mail_forwarding' name="is_mail_forwarding" value="1" <? if (isset($filter->is_mail_forwarding) AND $filter->is_mail_forwarding == 1) : ?>checked="checked"<? endif; ?>/>
 					<span class="label">
 						<b class="mf">MF</b>
 					</span>
@@ -28,7 +28,7 @@
 				<br />
 				<div>
 					<span class="label">Cashback:</span>
-					<input style="" class="order_check" maxlength="6" type='checkbox' id='is_cashback' name="is_cashback" value="1"/>
+					<input style="" class="order_check" maxlength="6" type='checkbox' id='is_cashback' name="is_cashback" value="1" <? if (isset($filter->is_cashback) AND $filter->is_cashback == 1) : ?>checked="checked"<? endif; ?>/>
 					<span class="label checkwrap">
 						<b class="cashback">100% cashback</b>
 					</span>

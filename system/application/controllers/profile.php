@@ -44,8 +44,7 @@ class Profile extends BaseController {
 			{
 				Func::redirect(BASEURL);
 			}
-			
-			
+						
 			$this->load->model('ManagerModel', 'Managers');
 			$manager = $this->Managers->getById($user->user_id);
 			
@@ -61,8 +60,10 @@ class Profile extends BaseController {
 				
 				$this->showClientProfile($client);
 			}
-			
-			$this->showDealerProfile($manager, $login);
+			else
+			{
+				$this->showDealerProfile($manager, $login);
+			}
 		}
 		catch (Exception $e) 
 		{
@@ -78,7 +79,16 @@ class Profile extends BaseController {
 
 		$this->dealerProfileGeneric($manager, $login, 'main/pages/dealer');
 	}
+	
+	private function showClientProfile($client, $login = '')
+	{
+		$this->processStatistics($client, array(), 'client_user', $client->client_user, 'client');
+			
+		Breadcrumb::setCrumb(array('/' . $login => $client->statistics->fullname), 2);
 
+		$this->clientProfileGeneric($client, $login, 'main/pages/client');
+	}
+	
 	private function editDealerProfile()
 	{
 		try
@@ -201,15 +211,17 @@ class Profile extends BaseController {
 			}
 			
 			$this->load->model('CountryModel', 'Country');
-			$view['countries'] = $this->Country->getList();
+			$view['countries'] = $this->Country->getList();			
 			
-			// блог
-			$this->load->model('BlogModel', 'Blogs');
-			$view['blogs']	= $this->Blogs->getBlogsByUserId($client->client_user);
-			//print_r($view['blogs']);die();
-			// доставка
-			//$view['deliveries']	= $this->Clients->getManagerDeliveries($manager->client_user);			
+			foreach ($view['countries'] as $Country)
+			{
+				$countries[$Country->country_id] = $Country->country_name;
+				$countries_en[$Country->country_id] = $Country->country_name_en;
+			}
 			
+			$view['countries'] = $countries;
+			$view['countries_en'] = $countries_en;
+						
 			View::showChild($view_name, $view);
 		}
 		catch (Exception $e) 
