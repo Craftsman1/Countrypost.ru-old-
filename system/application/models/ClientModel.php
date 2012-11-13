@@ -449,5 +449,33 @@ class ClientModel extends BaseModel implements IModel{
 		$statistics->fullname = $this->getFullName($statistics);
 		return $statistics;
 	}
+	
+	public function getClientsData($filters = null) 
+	{
+		$where = '';
+		
+		if (!empty($filters->country_from) OR
+			!empty($filters->client_id) OR
+			!empty($filters->login)) :
+			$where = ((!empty($filters->country_from)) ? ' AND `'.$this->table.'`.client_country = '.$this->db->escape($filters->country_from).' ' : '').
+				((!empty($filters->client_id)) ? ' AND `'.$this->table.'`.client_user = '.$this->db->escape($filters->client_id).' ' : '').
+				((!empty($filters->login)) ? ' AND `users`.user_login LIKE '."'%".$filters->login."%'".' ' : '');
+		endif;
+		
+		return $this->db->query('
+			SELECT `'.$this->table.'`.*, 
+				`users`.`user_login`, 
+				`users`.`user_coints`, 
+				COUNT(c2m.manager_id) AS `clients_count`,
+				`currencies`.`currency_symbol`
+			FROM `'.$this->table.'`
+				LEFT JOIN `c2m` ON `c2m`.`client_id` = `'.$this->table.'`.`client_user`
+				INNER JOIN `users` ON `users`.`user_id` = `'.$this->table.'`.`client_user`				
+				INNER JOIN `countries` ON `countries`.`country_id` = `'.$this->table.'`.`client_country`				
+				INNER JOIN `currencies` ON `currencies`.`currency_name` = `countries`.`country_currency`
+			WHERE `users`.`user_deleted` = 0 '.$where.'
+			GROUP BY `'.$this->table.'`.`client_user`
+		')->result();
+	}
 }
 ?>

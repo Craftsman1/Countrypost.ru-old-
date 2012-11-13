@@ -139,5 +139,4 @@
 		});
 	});
 
-	<?= editor('about', 150, 380, 'PackageComment') ?>
 </script>
