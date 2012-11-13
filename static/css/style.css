@@ -2329,6 +2329,10 @@ div.profile_box .textbox,div.blog_box .textbox,div.mail_forwarding .textbox {
 	margin-bottom: 15px;
 	}
 
+div.client_ratings label {
+	font: 13px sans-serif;
+	}
+
 div.mail_forwarding .textbox {
 	width: 910px;
 }
@@ -2355,4 +2359,36 @@ div.profile_box span {
 div.pricelist_main div span:nth-child(odd) {
 	width: 300px;
 	display: inline-block;
+}
+
+div.rating_group {
+	line-height: 26px;
+	font: 13px sans-serif;
+	padding-bottom: 0;
+}
+
+div.rating_group > div {
+	height: 26px;
+}
+
+div.rating_group img {
+	margin-top: 2px;
+	float: left;
+	cursor: pointer;
+}
+
+span.ratings_plugin div {
+	float: left;
+	cursor: pointer;
+	height: 16px;
+	width: 16px;
+	background:url(../images/rating_star.png) 100% 0 no-repeat;
+}
+
+span.ratings_plugin div.on {
+	background-position-x: 0;
+}
+
+span.ratings_plugin div.half {
+	background-position-x: 50%;
 }
