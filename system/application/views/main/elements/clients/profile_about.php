@@ -26,18 +26,10 @@
 	</div>
 	<div>
 		<span>
-			Выполненных заказов:
+			Всего заказов:
 		</span>
 		<span>
 			12
-		</span>
-	</div>
-	<div>
-		<span>
-			Отправленных посылок:
-		</span>
-		<span>
-			120
 		</span>
 	</div>
 	<div>
@@ -48,20 +40,24 @@
 			<? View::show('main/elements/clients/rating', array('client' => $client)); ?>
 		</span>
 	</div>
-	<div>
-		<span>
-			Skype:
-		</span>
-		<span>
-			<?= $client->statistics->skype ?>
-		</span>
-	</div>
-	<div>
-		<span>
-			Email:
-		</span>
-		<span>
-			<a href="mailto:<?= $client->statistics->email ?>"><?= $client->statistics->email ?></a>
-		</span>
-	</div>
+    <?php if (isset($client->statistics->skype) AND $client->statistics->skype != '') : ?>
+        <div>
+            <span>
+                Skype:
+            </span>
+            <span>
+                <?= $client->statistics->skype ?>
+            </span>
+        </div>
+    <?php endif; ?>
+    <?php if (isset($this->user->user_group) AND ($this->user->user_group == 'manager' OR ($this->user->user_group == 'client' AND $this->user->user_id == $client->client_user))) : ?>
+        <div>
+            <span>
+                Email:
+            </span>
+            <span>
+                <a href="mailto:<?= $client->statistics->email ?>"><?= $client->statistics->email ?></a>
+            </span>
+        </div>
+    <?php endif; ?>
 </div>

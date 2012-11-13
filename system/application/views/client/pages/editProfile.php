@@ -2,5 +2,5 @@
 	<? Breadcrumb::showCrumbs(); ?>
 	<? View::show('/client/elements/profile_header'); ?>	
 	<? View::show('/client/elements/profile'); ?>	
-	<? View::show('/client/elements/reviews'); ?>	
+	<? View::show('/client/elements/delivery_address'); ?>	
 </div>

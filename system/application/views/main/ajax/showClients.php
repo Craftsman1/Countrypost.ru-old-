@@ -33,13 +33,13 @@
                 <col width='auto' />
                 <col width='auto' />
                 <tr>
-                    <th>Рейтинг / №</th>
+                    <th>№</th>
                     <th>Страна</th>	
                     <th>Клиент</th>
                     <th>Отзывы</th>
                     <th>Всего&nbsp;заказов</th>
                     <th>Всего&nbsp;посылок</th>
-                    <th>Подробнее</th>
+                    <th>&nbsp;</th>
                 </tr>
                 <style>
                     #partnersForm td,#partnersForm th
@@ -68,7 +68,7 @@
                         <td>100</td>
                         <td>200</td>
                         <td>
-                            <a href='<?= BASEURL.$client->statistics->login ?>'>посмотреть</a>
+                            <a href='<?= BASEURL.$client->statistics->login ?>'>подробнее</a>
                         </td>
                     </tr>
                     <?endforeach;?>	

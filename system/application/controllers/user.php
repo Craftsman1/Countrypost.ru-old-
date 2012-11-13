@@ -901,7 +901,7 @@ class User extends BaseController {
 
 	
 	
-	public function showProfile(){
+	public function showProfile(){ 
 		/**
 		 * load country list form stack, if it exists;
 		 * so, we dont touch models every time

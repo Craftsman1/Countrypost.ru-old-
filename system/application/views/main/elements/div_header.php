@@ -1,8 +1,8 @@
-<? View::show('main/elements/div_top'); ?><? if (isset($user) && $user && ($pageinfo['mname'] != 'index' OR $this->uri->segment(1) == 'dealers' OR $this->uri->segment(1) == 'profile')) :
+<? View::show('main/elements/div_top'); ?><? if (isset($user) && $user && ($pageinfo['mname'] != 'index' OR $this->uri->segment(1) == 'dealers' OR $this->uri->segment(1) == 'clients' OR $this->uri->segment(1) == 'profile')) :
 	View::show($user->user_group.'/elements/div_header');
 	elseif (isset($user) AND
 		$user AND
-		$pageinfo['mname'] == 'index' AND $this->uri->segment(1) != 'dealers') : ?><div class='top-block'>
+		$pageinfo['mname'] == 'index' AND $this->uri->segment(1) != 'dealers' AND $this->uri->segment(1) != 'clients') : ?><div class='top-block'>
 	<? if (isset($filter)) View::show('main/elements/order_filter'); ?>
 	<div class='autorization autorization-ok'>
 		<h2>Авторизация</h2>
@@ -15,7 +15,7 @@
 		<div class='submit' style="width: 227px!important;"><div><input style="width: 211px!important;" type='submit' value='Выйти'  onclick="javascript:window.location='<?= BASEURL ?>user/logout';" /></div></div>
 	</div>
 	<? View::show('main/elements/div_social'); ?>
-</div><? elseif ($pageinfo['mname'] == 'index' AND $this->uri->segment(1) != 'dealers') : ?><div class='top-block'>
+</div><? elseif ($pageinfo['mname'] == 'index' AND $this->uri->segment(1) != 'dealers' AND $this->uri->segment(1) != 'clients') : ?><div class='top-block'>
 	<? if (isset($filter)) View::show('main/elements/order_filter'); ?>
 	<form class='autorization' method="post" action='<?= BASEURL ?>user/login'>
 		<h2>Авторизация</h2>

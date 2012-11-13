@@ -27,7 +27,6 @@
 			<div>
 				<span class="label">Email*:</span>
 				<input style="width:180px;" class="textbox" maxlength="128" type='text' id='email' name="email" value="<?= $client->statistics->email ?>" />
-                <input type="checkbox" class="checkbox" name="not_show_email" id="not_show_email" <?= ($client->not_show_email == 1) ? 'checked="checked"' : '' ?> /><span class="label2">не показывать</span>
 			</div>
 			<br style="clear:both;" />
 			<div>

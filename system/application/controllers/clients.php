@@ -94,7 +94,7 @@ class Clients extends BaseController {
 			throw new Exception('Доступ запрещен.');
 		}
 	
-		$this->session->set_userdata(array('dealers_per_page' => $per_page));
+		$this->session->set_userdata(array('clients_per_page' => $per_page));
 		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
 	

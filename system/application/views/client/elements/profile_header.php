@@ -7,7 +7,7 @@
 			}
 		</style>
 		<li class='active profile'><div><a class='profile' href="javascript:void();">Персональные данные</a></div></li>
-		<li class='reviews'><div><a class='reviews' href="javascript:void();">Отзывы</a></div></li>
+		<li class='reviews'><div><a class='delivery_address' href="javascript:void();">Адреса&nbsp;доставки</a></div></li>
 	</ul>
 </div>
 <script>
