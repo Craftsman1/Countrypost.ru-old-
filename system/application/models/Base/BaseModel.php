@@ -390,12 +390,12 @@ abstract class BaseModel extends Model implements IBaseModel {
 		$result = $this->db->query("
 			SELECT DISTINCT `user_group`, COUNT(*) as user_count
 			FROM `users`
-			WHERE user_group = 'client'
+			WHERE user_group = 'client' AND user_deleted = 0
 			GROUP BY user_group
 			UNION ALL
 			SELECT DISTINCT `user_group`, COUNT(*) as user_count
 			FROM `users`
-			WHERE user_group = 'manager'
+			WHERE user_group = 'manager' AND user_deleted = 0
 			GROUP BY user_group
 		")->result();
 		
