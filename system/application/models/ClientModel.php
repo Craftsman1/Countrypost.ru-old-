@@ -47,7 +47,6 @@ class ClientModel extends BaseModel implements IModel{
     	$this->properties->client_phone			='';
     	$this->properties->skype			    ='';
     	$this->properties->notifications_on		='';
-    	$this->properties->not_show_email		='';
     	
     	/*$this->properties->client_user			='';
     	$this->properties->client_name			='';

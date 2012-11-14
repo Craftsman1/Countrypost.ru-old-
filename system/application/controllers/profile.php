@@ -58,7 +58,7 @@ class Profile extends BaseController {
 					Func::redirect(BASEURL);
 				}
 				
-				$this->showClientProfile($client);
+				$this->showClientProfile($client, $login);
 			}
 			else
 			{
@@ -80,10 +80,11 @@ class Profile extends BaseController {
 		$this->dealerProfileGeneric($manager, $login, 'main/pages/dealer');
 	}
 	
-	private function showClientProfile($client, $login = '')
+	private function showClientProfile($client, $login)
 	{
 		$this->processStatistics($client, array(), 'client_user', $client->client_user, 'client');
-			
+		
+		Breadcrumb::setCrumb(array('/' . 'clients' => 'Клиенты'), 1);
 		Breadcrumb::setCrumb(array('/' . $login => $client->statistics->fullname), 2);
 
 		$this->clientProfileGeneric($client, $login, 'main/pages/client');

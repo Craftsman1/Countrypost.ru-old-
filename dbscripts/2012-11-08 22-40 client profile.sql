@@ -1,5 +1,4 @@
-ALTER TABLE `clients` ADD `website` VARCHAR( 4096 ) NOT NULL AFTER `client_phone` ,
-ADD `skype` VARCHAR( 255 ) NOT NULL AFTER `website`;
+ALTER TABLE `clients` ADD `skype` VARCHAR( 255 ) NOT NULL AFTER `client_phone`;
 
 ALTER TABLE  `manager_ratings` CHANGE  `rating`  `communication_rating` ENUM(  '0',  '0.25',  '0.5',  '0.75',
 '1' ) NOT NULL DEFAULT  '0';
@@ -20,3 +19,9 @@ PRIMARY KEY (  `comment_id` )
 ) ENGINE = MYISAM DEFAULT CHARSET = utf8;
 
 ALTER TABLE  `rating_comments` CHANGE  `bid_id`  `rating_id` INT( 11 ) NOT NULL;
+
+ALTER TABLE `clients`
+  DROP `website`,
+  DROP `about_me`;
+
+ALTER TABLE `clients` DROP `not_show_email`;
