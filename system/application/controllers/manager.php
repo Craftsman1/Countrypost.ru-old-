@@ -1464,7 +1464,7 @@ class Manager extends ManagerBaseController {
 			if (empty($manager))
 			{
 				throw new Exception('Адреса не сохранены. Попробуйте еще раз.');
-			}print_r('!!!fds');
+			}
 		}
 		catch (Exception $e)
 		{
