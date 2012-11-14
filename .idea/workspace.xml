@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dbscripts/2012-11-13 23-32 rating.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/models/ManagerRatingsModel.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/profile.php" afterPath="$PROJECT_DIR$/system/application/controllers/profile.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,29 +30,41 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2392" column="30" selection-start="43321" selection-end="43321" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="client_ratings.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="110" column="0" selection-start="3452" selection-end="3452" vertical-scroll-proportion="-0.46413502">
-              <folding />
+            <state line="69" column="22" selection-start="2401" selection-end="2401" vertical-scroll-proportion="1.6724739">
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#span#0;n#div#0;n#div#4;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#span#2;n#div#0;n#div#4;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#br#0;n#div#4;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#3;n#div#5;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#br#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#br#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#h3#0;n#div#0;n#!!top" expanded="true" />
+                <marker date="1352907749415" expanded="true" signature="2610:2624" placeholder="..." />
+                <marker date="1352907749415" expanded="true" signature="2766:2830" placeholder="..." />
+                <marker date="1352907749415" expanded="true" signature="2790:2830" placeholder="..." />
+                <marker date="1352907749415" expanded="true" signature="2914:2958" placeholder="..." />
+                <marker date="1352907749415" expanded="true" signature="3093:3114" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2012-11-13 23-32 rating.sql" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dbscripts/2012-11-13 23-32 rating.sql">
+      <file leaf-file-name="dealers.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/dealers.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="34" selection-start="902" selection-end="902" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="99" column="0" selection-start="2575" selection-end="2575" vertical-scroll-proportion="-14.4827585">
+              <folding>
+                <element signature="n#index#0;n#Dealers#0;n#!!top" expanded="false" />
+                <element signature="n#updatePerPage#0;n#Dealers#0;n#!!top" expanded="false" />
+                <element signature="n#filterDealers#0;n#Dealers#0;n#!!top" expanded="false" />
+                <element signature="n#initDealersFilter#0;n#Dealers#0;n#!!top" expanded="false" />
+                <element signature="n#showDealers#0;n#Dealers#0;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -53,34 +72,7 @@
       <file leaf-file-name="manager.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1435" column="9" selection-start="38405" selection-end="38405" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="client.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/client.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="client.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3275" column="47" selection-start="95429" selection-end="95429" vertical-scroll-proportion="-15.735294">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ManagerRatingsModel.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/models/ManagerRatingsModel.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="11.029411">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -89,28 +81,64 @@
       <file leaf-file-name="profile.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="0" selection-start="595" selection-end="595" vertical-scroll-proportion="-0.7352941">
+            <state line="175" column="65" selection-start="4482" selection-end="4492" vertical-scroll-proportion="-14.068966">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ratings_plugin.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings_plugin.php">
+      <file leaf-file-name="ManagerRatingsModel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/models/ManagerRatingsModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="0" selection-start="321" selection-end="321" vertical-scroll-proportion="-8.088235">
+            <state line="24" column="33" selection-start="768" selection-end="768" vertical-scroll-proportion="43.86207">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ManagerModel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/models/ManagerModel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="360" column="0" selection-start="10773" selection-end="11584" vertical-scroll-proportion="-22.586206">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rating_list.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/rating_list.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="74" selection-start="74" selection-end="74" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manager_rating.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="75" column="110" selection-start="3948" selection-end="3948" vertical-scroll-proportion="-22.586206">
               <folding>
-                <marker date="1352887501461" expanded="true" signature="28:255" placeholder="..." />
-                <marker date="1352887501461" expanded="true" signature="290:319" placeholder="..." />
+                <element signature="e#467#513#0" expanded="true" />
+                <element signature="e#548#605#0" expanded="true" />
+                <element signature="e#717#738#0" expanded="true" />
+                <element signature="e#1253#1274#0" expanded="true" />
+                <element signature="e#1562#1581#0" expanded="true" />
+                <element signature="e#1890#1911#0" expanded="true" />
+                <element signature="e#2970#2991#0" expanded="true" />
+                <element signature="e#3151#3172#0" expanded="true" />
+                <element signature="e#3332#3390#0" expanded="true" />
+                <element signature="e#3570#3591#0" expanded="true" />
+                <element signature="e#4125#4172#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="countrypost.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
+      <file leaf-file-name="ratinginfo.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratinginfo.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="71" selection-start="409" selection-end="476" vertical-scroll-proportion="0.0">
+            <state line="1" column="4" selection-start="27" selection-end="27" vertical-scroll-proportion="-0.6896552">
               <folding />
             </state>
           </provider>
@@ -124,6 +152,7 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitLogSettings">
@@ -132,22 +161,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/dbscripts/12.11.2012 21:55 manager_ratings" />
-        <option value="$PROJECT_DIR$/dbscripts/12.11.2012 21-57 manager ratings.sql" />
-        <option value="$PROJECT_DIR$/dbscripts/2012-11-08 22-40 client profile.sql" />
-        <option value="$PROJECT_DIR$/system/application/views/main/pages/dealer.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php" />
-        <option value="$PROJECT_DIR$/../countrypost.todo/proto/index.html" />
-        <option value="$PROJECT_DIR$/../countrypost.todo/prototype/start.html" />
         <option value="$PROJECT_DIR$/static/js/plugins.js" />
-        <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
-        <option value="$PROJECT_DIR$/dbscripts/2012-11-13 23-32 rating.sql" />
-        <option value="$PROJECT_DIR$/system/application/models/ManagerRatingsModel.php" />
         <option value="$PROJECT_DIR$/static/js/countrypost.js" />
         <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings_plugin.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/reviews.php" />
+        <option value="$PROJECT_DIR$/static/css/style.css" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/rating_list.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/profile.php" />
+        <option value="$PROJECT_DIR$/system/application/models/ManagerRatingsModel.php" />
+        <option value="$PROJECT_DIR$/dbscripts/2012-11-13 23-32 rating.sql" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/ratinginfo.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" />
       </list>
     </option>
   </component>
@@ -279,7 +308,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="manager" />
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -305,37 +334,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manager" />
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -368,64 +367,12 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="orders" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -463,28 +410,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -499,9 +424,13 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\models" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\dealers" />
+      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements" />
+      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\models" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\manager\elements" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\orders" />
     </key>
   </component>
   <component name="RunManager">
@@ -555,7 +484,11 @@
       <created>1352891567290</created>
       <updated>1352891567291</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="ratings next 3">
+      <created>1352895932670</created>
+      <updated>1352895932670</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -637,7 +570,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="ratings next 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="ratings next 3" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -653,113 +586,159 @@
     <MESSAGE value="merged with master version" />
     <MESSAGE value="ratings next" />
     <MESSAGE value="ratings next 2" />
+    <MESSAGE value="ratings next 3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="64" selection-start="486" selection-end="486" vertical-scroll-proportion="-5.882353" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/dealer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="49" selection-start="216" selection-end="216" vertical-scroll-proportion="-2.9411764" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_rating.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="6" selection-start="0" selection-end="887" vertical-scroll-proportion="-27.205883" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../countrypost.todo/prototype/start.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="8" selection-start="2120" selection-end="2120" vertical-scroll-proportion="0.7863248" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/plugins.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="24" selection-start="251" selection-end="251" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2392" column="30" selection-start="43321" selection-end="43321" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1435" column="9" selection-start="38405" selection-end="38405" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/client.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dbscripts/2012-11-13 23-32 rating.sql">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="34" selection-start="902" selection-end="902" vertical-scroll-proportion="0.0">
+        <state line="20" column="22" selection-start="1147" selection-end="1147" vertical-scroll-proportion="-11.764706">
+          <folding>
+            <element signature="n#style#0;n#h2#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#b#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/showOrderDetails.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="50" selection-start="330" selection-end="376" vertical-scroll-proportion="-2.9411764">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/reviews.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="28" selection-start="13" selection-end="25" vertical-scroll-proportion="-0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/dealers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="99" column="0" selection-start="2575" selection-end="2575" vertical-scroll-proportion="-14.4827585">
+          <folding>
+            <element signature="n#index#0;n#Dealers#0;n#!!top" expanded="false" />
+            <element signature="n#updatePerPage#0;n#Dealers#0;n#!!top" expanded="false" />
+            <element signature="n#filterDealers#0;n#Dealers#0;n#!!top" expanded="false" />
+            <element signature="n#initDealersFilter#0;n#Dealers#0;n#!!top" expanded="false" />
+            <element signature="n#showDealers#0;n#Dealers#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/models/ManagerModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="360" column="0" selection-start="10773" selection-end="11584" vertical-scroll-proportion="-22.586206">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="0" selection-start="595" selection-end="595" vertical-scroll-proportion="-0.7352941">
+        <state line="175" column="65" selection-start="4482" selection-end="4492" vertical-scroll-proportion="-14.068966">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbscripts/2012-11-13 23-32 rating.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="16" selection-start="1038" selection-end="1038" vertical-scroll-proportion="0.3038674">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/models/ManagerRatingsModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="11.029411">
+        <state line="24" column="33" selection-start="768" selection-end="768" vertical-scroll-proportion="43.86207">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/rating.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3275" column="47" selection-start="95429" selection-end="95429" vertical-scroll-proportion="-15.735294">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/rating_list.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="71" selection-start="409" selection-end="476" vertical-scroll-proportion="0.0">
+        <state line="0" column="74" selection-start="74" selection-end="74" vertical-scroll-proportion="-0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings_plugin.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratinginfo.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="321" selection-end="321" vertical-scroll-proportion="-8.088235">
+        <state line="1" column="4" selection-start="27" selection-end="27" vertical-scroll-proportion="-0.6896552">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="110" selection-start="3948" selection-end="3948" vertical-scroll-proportion="-22.586206">
           <folding>
-            <marker date="1352887501461" expanded="true" signature="28:255" placeholder="..." />
-            <marker date="1352887501461" expanded="true" signature="290:319" placeholder="..." />
+            <element signature="e#467#513#0" expanded="true" />
+            <element signature="e#548#605#0" expanded="true" />
+            <element signature="e#717#738#0" expanded="true" />
+            <element signature="e#1253#1274#0" expanded="true" />
+            <element signature="e#1562#1581#0" expanded="true" />
+            <element signature="e#1890#1911#0" expanded="true" />
+            <element signature="e#2970#2991#0" expanded="true" />
+            <element signature="e#3151#3172#0" expanded="true" />
+            <element signature="e#3332#3390#0" expanded="true" />
+            <element signature="e#3570#3591#0" expanded="true" />
+            <element signature="e#4125#4172#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="0" selection-start="3452" selection-end="3452" vertical-scroll-proportion="-0.46413502">
-          <folding />
+        <state line="69" column="22" selection-start="2401" selection-end="2401" vertical-scroll-proportion="1.6724739">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#span#0;n#div#0;n#div#4;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#span#2;n#div#0;n#div#4;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#br#0;n#div#4;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#5;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#br#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#br#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h3#0;n#div#0;n#!!top" expanded="true" />
+            <marker date="1352907749415" expanded="true" signature="2610:2624" placeholder="..." />
+            <marker date="1352907749415" expanded="true" signature="2766:2830" placeholder="..." />
+            <marker date="1352907749415" expanded="true" signature="2790:2830" placeholder="..." />
+            <marker date="1352907749415" expanded="true" signature="2914:2958" placeholder="..." />
+            <marker date="1352907749415" expanded="true" signature="3093:3114" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -135,9 +135,6 @@ class Profile extends BaseController {
 	{
 		try
 		{
-			// находим страны
-			$this->load->model('CountryModel', 'Country');		
-			
 			// находим статусы
 			$view['statuses'] = $this->Managers->getStatuses();
 				
@@ -174,6 +171,10 @@ class Profile extends BaseController {
 			// доставка
 			$view['deliveries']	= $this->Managers->getManagerDeliveries($manager->manager_user);			
 			
+			// отзывы
+			$this->load->model('ManagerRatingsModel', 'Ratings');
+			$view['manager_ratings'] = $this->Ratings->getRatings($manager->manager_user);
+
 			View::showChild($view_name, $view);
 		}
 		catch (Exception $e) 

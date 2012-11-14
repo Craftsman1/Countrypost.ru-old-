@@ -66,6 +66,9 @@
 		<img class="float" id="ratingProgress" style="display:none;margin:0px;margin-top:4px;" src="/static/images/lightbox-ico-loading.gif"/>
 	</form>
 	<br style="clear:both;" />
+	<? View::show('main/elements/dealers/rating_list', array(
+		'ratings' => $manager_ratings
+	)); ?>
 	<h3 id="ratings_header" <? if (empty($ratings)) : ?>style="display: none;"<? endif; ?>>Все отзывы</h3>
 	<? if (isset($ratings)) : foreach ($ratings as $rating) : ?>
 	<div class="table">
