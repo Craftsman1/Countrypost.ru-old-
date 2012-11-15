@@ -937,6 +937,9 @@ abstract class BaseController extends Controller
 			{
 				$old = umask(0);
 				// загрузка файла
+				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/orders")){
+					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/orders",0777);
+				}
 				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id")){
 					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id",0777);
 				}

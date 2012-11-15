@@ -2058,33 +2058,33 @@ div#requestForm textarea
 	margin-top: 2px;
 }
 
-div.managerinfo  span.status
+div.managerinfo  span.status, div.clientinfo  span.status
 {
 	font-weight: bold;
 	color:orange;
 }
 
-div.managerinfo  div.status
+div.managerinfo  div.status, div.clientinfo  div.status
 {
 	margin-top: 0;
 }
 
-div.managerinfo  div
+div.managerinfo  div, div.clientinfo  div
 {
 	margin-top: 25px;
 }
 
-div.managerinfo  center
+div.managerinfo  center, div.clientinfo center
 {
 	display: inline-block;
 }
 
-div.managerinfo  
+div.managerinfo, div.clientinfo  
 {
 	_height:116px;
 }
 
-div.managerinfo  img
+div.managerinfo img, div.clientinfo img
 {
 	float:left;
 	margin-right:10px;
@@ -2104,7 +2104,7 @@ div.managerinfo  a.manager_url
 	margin-right: 10px;
 }
 
-div.managerinfo  span.total
+div.managerinfo  span.total, div.clientinfo span.total
 {
 	float:right;
 	font-size: 20px;
@@ -2278,11 +2278,11 @@ div.personal span img
 	top: 6px; 
 }
 
-div.managerinfo ul.tabs div {
+div.managerinfo ul.tabs div, div.clientinfo ul.tabs div {
 	margin: 0;
 }
 			
-div.managerinfo .tabs {
+div.managerinfo .tabs, div.clientinfo .tabs {
 	margin: 16px 0 0 0;
 }
 
@@ -2293,16 +2293,16 @@ div.dealer_profile_left {
 	margin-right: 50px;
 }
 
-div.profile_box span.label {
+div.profile_box span.label, div.delivery_address_box span.label {
 	float: left;
 	padding-top: 4px;
 	}
 
-div.profile_box input[type="checkbox"] {
+div.profile_box input[type="checkbox"], div.delivery_address_box input[type="checkbox"] {
 	margin-top: 10px;
 	}
 
-div.profile_box, div.blog_box  {
+div.profile_box, div.blog_box, div.delivery_address_box, div.blog_box  {
 	float: left;
 	}
 
@@ -2318,7 +2318,7 @@ div.profile_box  div.cashback_box span.cashback_span {
 	font-weight: bold;
 }
 
-div.profile_box .textbox,div.blog_box .textbox,div.mail_forwarding .textbox {
+div.profile_box .textbox,div.blog_box .textbox,div.mail_forwarding .textbox, div.delivery_address_box .textbox {
 	width: 188px;
 	float: left;
 	padding:4px 4px 3px;
@@ -2328,6 +2328,14 @@ div.profile_box .textbox,div.blog_box .textbox,div.mail_forwarding .textbox {
 	font: 13px sans-serif;
 	margin-bottom: 15px;
 	}
+
+div.delivery_address_box .profile-address-list {
+    width: 920px;
+}
+
+    div.delivery_address_box table.profile-address-list td, div.delivery_address_box table.profile-address-list th {
+
+    }
 
 div.client_ratings label {
 	font: 13px sans-serif;
@@ -2345,14 +2353,14 @@ div.mail_forwarding .hint {
 	font-style: italic;
 }
 
-div.profile_box span,div.blog_box span {
+div.profile_box span,div.blog_box span, div.delivery_address_box span {
 	width: 190px;
 	font: 13px sans-serif;
 	margin-top:3px;
 	margin-bottom: 20px;
 	}
 
-div.profile_box span {
+div.profile_box span.textbox, div.delivery_address_box span.textbox {
 	margin-left: 10px;
 	}
 
