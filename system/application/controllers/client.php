@@ -3152,75 +3152,75 @@ class Client extends ClientBaseController {
 		}
 	}
 
-    public function saveProfile()
-    {
-        try
-        {
-            // находим пользователя
-            $this->load->model('UserModel', 'User');
-            $user = $this->User->getById($this->user->user_id);
+	public function saveProfile()
+	{
+		try
+		{
+			// находим пользователя
+			$this->load->model('UserModel', 'User');
+			$user = $this->User->getById($this->user->user_id);
 
-            // находим партнера
-            $this->load->model('ClientModel', 'Client');
-            $client = $this->Client->getById($this->user->user_id);
+			// находим партнера
+			$this->load->model('ClientModel', 'Client');
+			$client = $this->Client->getById($this->user->user_id);
 
-            // валидация пользовательского ввода
-            Check::reset_empties();
-            $user->user_email = Check::email(Check::str('email', 128, 4));
-
-            if (isset($_POST['password']) &&
-                $_POST['password'])
-            {
-                $user->user_password = Check::str('password', 32, 1);
-
-                if (isset($user->user_password))
-                {
-                    $user->user_password = md5($user->user_password);
-                }
-            }
-
-            $client->client_name			= Check::str('client_name', 255, 0);
-            $client->client_surname 		= Check::str('client_surname', 255, 0);
-            $client->client_otc			    = Check::str('client_otc', 255, 0);
-            $client->client_country		    = Check::int('country');
-            $client->skype					= Check::str('skype', 255, 0);
-            $client->website				= Check::str('website', 4096, 0);
-            $client->about_me				= Check::str('about', 65535, 0);
-            $client->client_town			= Check::str('city', 255, 1);
-            $client->client_index			= Check::str('client_index', 255, 1);
-            $client->client_address         = Check::str('client_address', 255, 1);
-
-            $empties = Check::get_empties();
-
-            if ($empties)
-            {
-                throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
-            }
-
-            $this->db->trans_begin();
-
-            // наконец, все сохраняем
-            $user = $this->User->updateUser($user);
-            $client = $this->Client->updateClient($client);
-
-            if ( ! $user || ! $client)
-            {
-                throw new Exception('Клиент не сохранен. Попробуйте еще раз.');
-            }
-
-            // коммитим транзакцию
-            if ($this->db->trans_status() === FALSE)
-            {
-                throw new Exception('Невозможно сохранить данные партнера. Попробуйте еще раз.');
-            }
-
-            $this->db->trans_commit();
-        }
-        catch (Exception $e)
-        {
-            $this->db->trans_rollback();
-        }
-    }
+			// валидация пользовательского ввода
+			Check::reset_empties();
+			$user->user_email = Check::email(Check::str('email', 128, 4));
+			
+			if (isset($_POST['password']) &&
+				$_POST['password'])
+			{
+				$user->user_password = Check::str('password', 32, 1);
+			
+				if (isset($user->user_password))
+				{
+					$user->user_password = md5($user->user_password);
+				}
+			}
+			
+			$client->client_name			= Check::str('client_name', 255, 0);
+			$client->client_surname 		= Check::str('client_surname', 255, 0);
+			$client->client_otc			    = Check::str('client_otc', 255, 0);
+			$client->client_country		    = Check::int('country');
+			$client->skype					= Check::str('skype', 255, 0);
+			$client->website				= Check::str('website', 4096, 0);
+			$client->about_me				= Check::str('about', 65535, 0);
+			$client->client_town			= Check::str('city', 255, 1);
+			$client->client_index			= Check::str('client_index', 255, 1);
+			$client->client_address         = Check::str('client_address', 255, 1);
+			
+			$empties = Check::get_empties();			
+			
+			if ($empties)
+			{
+				throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
+			}
+			
+			$this->db->trans_begin();
+					
+			// наконец, все сохраняем
+			$user = $this->User->updateUser($user);
+			$client = $this->Client->updateClient($client);
+						
+			if ( ! $user || ! $client)
+			{
+				throw new Exception('Клиент не сохранен. Попробуйте еще раз.');
+			}
+			
+			// коммитим транзакцию
+			if ($this->db->trans_status() === FALSE) 
+			{
+				throw new Exception('Невозможно сохранить данные партнера. Попробуйте еще раз.');
+			}
+					
+			$this->db->trans_commit();
+		}
+		catch (Exception $e) 
+		{
+			$this->db->trans_rollback();
+		}
+	}
 
     public function saveAddress()
     {
@@ -3303,4 +3303,80 @@ class Client extends ClientBaseController {
         }
         echo 0; die();
     }
+
+	public function saveRating()
+	{
+		try
+		{
+			$rating = new stdClass();
+
+			$rating->client_id = $this->user->user_id;
+			$rating->communication_rating = Check::float('communication_rating', -1);
+			$rating->buy_rating = Check::float('buy_rating', -1);
+			$rating->consolidation_rating = Check::float('consolidation_rating', -1);
+			$rating->pack_rating = Check::float('pack_rating', -1);
+
+			// валидация пользовательского ввода
+			Check::reset_empties();
+			$rating->manager_id = Check::int('manager_id');
+			$rating_type = Check::str('rating_type', 8, 7);
+
+			$empties = Check::get_empties();
+
+			if ($empties)
+			{
+				throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
+			}
+
+			// подготовка данных к сохранению
+			switch ($rating_type)
+			{
+				case "positive" :
+					$rating->rating_type = '1';
+					break;
+				case "negative" :
+					$rating->rating_type = '-1';
+					break;
+				case "neutral" :
+					$rating->rating_type = '0';
+					break;
+			}
+
+			$rating->communication_rating = (isset($rating->communication_rating) AND
+					$rating->communication_rating >= 0 AND
+					$rating->communication_rating < 5) ?
+				strval($rating->communication_rating / 4)
+				: NULL;
+			$rating->buy_rating = (isset($rating->buy_rating) AND
+					$rating->buy_rating >= 0 AND
+					$rating->buy_rating < 5) ?
+				strval($rating->buy_rating / 4)
+				: NULL;
+			$rating->consolidation_rating = (isset($rating->consolidation_rating) AND
+					$rating->consolidation_rating >= 0 AND
+					$rating->consolidation_rating < 5) ?
+				strval($rating->consolidation_rating / 4)
+				: NULL;
+			$rating->pack_rating = (isset($rating->pack_rating) AND
+					$rating->pack_rating >= 0 AND
+					$rating->pack_rating < 5) ?
+				strval($rating->pack_rating / 4)
+				: NULL;
+			print_r($rating);
+
+			// сохраняем
+			$this->load->model('ManagerRatingsModel', 'Ratings');
+
+			$rating = $this->Ratings->addRating($rating);
+
+			if (empty($manager))
+			{
+				throw new Exception('Отзыв не сохранен. Попробуйте еще раз.');
+			}
+		}
+		catch (Exception $e)
+		{
+			print_r($empties);
+		}
+	}
 }

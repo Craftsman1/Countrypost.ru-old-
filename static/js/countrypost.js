@@ -22,7 +22,7 @@ function processStarClick(index, star)
 
 	if (star_on)
 	{
-		$(star).parent().find('input').val('none');
+		$(star).parent().find('input').val('');
 		return;
 	}
 

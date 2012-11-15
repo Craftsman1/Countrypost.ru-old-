@@ -2400,3 +2400,8 @@ span.ratings_plugin div.on {
 span.ratings_plugin div.half {
 	background-position-x: 50%;
 }
+
+div.review_count {
+	margin: 0 10px 0 0!important;
+	float: left;
+}

@@ -1,23 +1,23 @@
 <div class="client_ratings dealer_tab" style="display:none;">
-	<form action="/manager/saveRating" id="ratingForm" method="POST">
+	<form action="/client/saveRating" id="ratingForm" method="POST">
 		<div class="table">
 			<div class='angle angle-lt'></div>
 			<div class='angle angle-rt'></div>
 			<div class='angle angle-lb'></div>
 			<div class='angle angle-rb'></div>
 			<div class="rating_box admin-inside">
-				<input type="hidden" name="rating_id" />
+				<input type="hidden" name="manager_id" value='<?= $manager->manager_user ?>' />
 				<div>
 					<span class="label">
-						<input type='radio' id='positive' name="rating_type" />
+						<input type='radio' value='positive' name="rating_type" />
 						<label for="positive" style="color: green;">Положительный</label>
 					</span>
 					<span class="label">
-						<input type='radio' id='neutral' name="rating_type" checked />
+						<input type='radio' value='neutral' name="rating_type" checked />
 						<label for="neutral">Нейтральный</label>
 					</span>
 					<span class="label">
-						<input type='radio' id='negative' name="rating_type" />
+						<input type='radio' value='negative' name="rating_type" />
 						<label for="negative" style="color: red;">Отрицательный</label>
 					</span>
 				</div>
@@ -66,7 +66,10 @@
 		<img class="float" id="ratingProgress" style="display:none;margin:0px;margin-top:4px;" src="/static/images/lightbox-ico-loading.gif"/>
 	</form>
 	<br style="clear:both;" />
-	<h3 id="ratings_header">Все отзывы</h3>
+	<? View::show('main/elements/dealers/rating_list', array(
+		'ratings' => $manager_ratings
+	)); ?>
+	<h3 id="ratings_header" <? if (empty($ratings)) : ?>style="display: none;"<? endif; ?>>Все отзывы</h3>
 	<? if (isset($ratings)) : foreach ($ratings as $rating) : ?>
 	<div class="table">
 		<div class='angle angle-lt'></div>
@@ -92,7 +95,7 @@
 <script>
 	$(function() {
 		$('#ratingForm').ajaxForm({
-			target: '/manager/saveRating',
+			target: '/client/saveRating',
 			type: 'POST',
 			dataType: 'html',
 			iframe: true,
@@ -103,9 +106,9 @@
 			success: function(response)
 			{
 				$("#ratingProgress").hide();
-				success('top', 'Новость успешно сохранена!');
+				success('top', 'Отзыв успешно сохранен!');
 
-				var oEditor = FCKeditorAPI.GetInstance('message');
+				var oEditor = FCKeditorAPI.GetInstance('rating_message');
 				var message = oEditor.GetHTML(true);
 				
 				var news_snippet = '<div class="table"><div class="angle angle-lt"></div><div class="angle angle-rt"></div><div class="angle angle-lb"></div><div class="angle angle-rb"></div><div><span class="label">' +
@@ -120,6 +123,9 @@
 				
 				$('.rating_box input#title').val('');
 				oEditor.SetHTML('');
+				$('#ratingForm .ratings_plugin div').removeClass('on').removeClass('half');
+				$('#ratingForm .ratings_plugin input').val('');
+				$('#ratingForm .rating_box input[name=rating_type][value=neutral]').attr('checked', true);
 			},
 			error: function(response)
 			{
