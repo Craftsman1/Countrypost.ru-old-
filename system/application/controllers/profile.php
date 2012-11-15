@@ -221,16 +221,21 @@ class Profile extends BaseController {
 			}
 			
 			$this->load->model('CountryModel', 'Country');
-			$view['countries'] = $this->Country->getList();			
+			$view['Countries'] = $this->Country->getList();
 			
-			foreach ($view['countries'] as $Country)
+			foreach ($view['Countries'] as $Country)
 			{
 				$countries[$Country->country_id] = $Country->country_name;
 				$countries_en[$Country->country_id] = $Country->country_name_en;
 			}
+
+            // находим адреса
+            $this->load->model('AddressModel', 'Addresses');
+            $addresses = $this->Addresses->getAddressesByUserId($this->user->user_id);
 			
 			$view['countries'] = $countries;
-			$view['countries_en'] = $countries_en;
+            $view['countries_en'] = $countries_en;
+            $view['addresses'] = $addresses;
 						
 			View::showChild($view_name, $view);
 		}

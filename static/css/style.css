@@ -2058,33 +2058,33 @@ div#requestForm textarea
 	margin-top: 2px;
 }
 
-div.managerinfo  span.status
+div.managerinfo  span.status, div.clientinfo  span.status
 {
 	font-weight: bold;
 	color:orange;
 }
 
-div.managerinfo  div.status
+div.managerinfo  div.status, div.clientinfo  div.status
 {
 	margin-top: 0;
 }
 
-div.managerinfo  div
+div.managerinfo  div, div.clientinfo  div
 {
 	margin-top: 25px;
 }
 
-div.managerinfo  center
+div.managerinfo  center, div.clientinfo center
 {
 	display: inline-block;
 }
 
-div.managerinfo
+div.managerinfo, div.clientinfo  
 {
 	_height:116px;
 }
 
-div.managerinfo  img
+div.managerinfo img, div.clientinfo img
 {
 	float:left;
 	margin-right:10px;
@@ -2104,7 +2104,7 @@ div.managerinfo  a.manager_url
 	margin-right: 10px;
 }
 
-div.managerinfo  span.total
+div.managerinfo  span.total, div.clientinfo span.total
 {
 	float:right;
 	font-size: 20px;

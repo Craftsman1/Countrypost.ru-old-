@@ -19,7 +19,7 @@
 				<br />
 				<div>
 					<span class="label">Номер:</span>
-					<input style="" class="textbox" type='text' id='client_id' name="client_id" value="<?php if (isset($filter->client_id)) echo $filter->client_id; ?>"/>
+					<input style="" class="textbox" type='text' id='client_id' name="client_id" maxlength="11" value="<?php if (isset($filter->client_id)) echo $filter->client_id; ?>"/>
 				</div>
 				<br />
 				<br />
@@ -45,7 +45,9 @@
 		$("#country_from").msDropDown({mainCSS:'idd'});
 		$("#country_to").msDropDown({mainCSS:'idd'});
 		$("#filterForm").show();
-
+		
+		$('#client_id').keypress(function(event){validate_number(event); if ($(this).val()=='0') {$(this).val('')}});
+		
 		$('#filterForm').ajaxForm({
 			target: '<?= $selfurl ?>filterClients',
 			type: 'POST',

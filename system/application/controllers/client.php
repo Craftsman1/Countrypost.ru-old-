@@ -3151,7 +3151,7 @@ class Client extends ClientBaseController {
 			echo $e->getMessage();
 		}
 	}
-	
+
 	public function saveProfile()
 	{
 		try
@@ -3221,6 +3221,88 @@ class Client extends ClientBaseController {
 			$this->db->trans_rollback();
 		}
 	}
+
+    public function saveAddress()
+    {
+        try
+        {
+            // находим пользователя
+            $this->load->model('UserModel', 'User');
+            $user = $this->User->getById($this->user->user_id);
+
+            // находим адрес
+            $this->load->model('AddressModel', 'Addresses');
+            $address = $this->Addresses->getById(0);
+
+            // валидация пользовательского ввода
+            /*Check::reset_empties();
+            $user->user_email = Check::email(Check::str('email', 128, 4));
+
+            if (isset($_POST['password']) &&
+                $_POST['password'])
+            {
+                $user->user_password = Check::str('password', 32, 1);
+
+                if (isset($user->user_password))
+                {
+                    $user->user_password = md5($user->user_password);
+                }
+            }*/
+
+
+            $address->address_user = $this->user->user_id;
+            $address->address_recipient = Check::str('recipient', 255, 1);
+            $address->address_country = Check::int('country');
+            $address->address_town = Check::str('city', 255, 1);
+            $address->address_zip = Check::str('index', 255, 1);
+            $address->address_address = Check::str('address', 4096, 1);
+            $address->address_phone = Check::str('phone', 255, 1);
+            $address->address_is_default = false;
+
+
+            $empties = Check::get_empties();
+
+            if ($empties)
+            {
+                throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
+            }
+
+            $this->db->trans_begin();
+
+            // наконец, все сохраняем
+            $address = $this->Addresses->updateAddress($address);
+
+            if ( ! $address)
+            {
+                throw new Exception('Адрес не сохранен. Попробуйте еще раз.');
+            }
+
+            // коммитим транзакцию
+            if ($this->db->trans_status() === FALSE)
+            {
+                throw new Exception('Невозможно сохранить данные партнера. Попробуйте еще раз.');
+            }
+
+            $this->db->trans_commit();
+
+            echo json_encode($this->Addresses->getAddressById($address->address_id));
+        }
+        catch (Exception $e)
+        {
+            $this->db->trans_rollback();
+        }
+    }
+
+    public function removeAddress()
+    {
+        $address_id = Check::int('address_id');
+        if ($address_id != 0)
+        {
+            $this->load->model('AddressModel', 'Addresses');
+            echo (int)$this->Addresses->deleteAddress($address_id); die();
+        }
+        echo 0; die();
+    }
 
 	public function saveRating()
 	{
