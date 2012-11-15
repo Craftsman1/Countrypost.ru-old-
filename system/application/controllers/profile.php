@@ -172,8 +172,16 @@ class Profile extends BaseController {
 			$view['deliveries']	= $this->Managers->getManagerDeliveries($manager->manager_user);			
 			
 			// отзывы
+			$statistics = array();
 			$this->load->model('ManagerRatingsModel', 'Ratings');
+			$this->load->model('ClientModel', 'Clients');
 			$view['manager_ratings'] = $this->Ratings->getRatings($manager->manager_user);
+
+			foreach ($view['manager_ratings'] as $rating)
+			{
+				$this->processStatistics($rating, $statistics, 'client_id', 0, 'client');
+				//print_r($rating);die();
+			}
 
 			View::showChild($view_name, $view);
 		}

@@ -115,5 +115,47 @@ class ManagerRatingsModel extends BaseModel implements IModel{
 	}
 
 
+	public function getStatistics($rating_id)
+	{
+		$statistics = $this->getById($rating_id);
+
+		// manager
+		$result = $this->db->query(
+			"SELECT
+				user_login login
+			FROM
+				`users`
+			WHERE
+				`users`.`user_id` = {$statistics->manager_id}"
+		)->result();
+
+		$user = ($result) ? $result[0] : FALSE;
+
+		if ($user)
+		{
+			$statistics->manager_fullname = $user->login;
+		}
+
+		$statistics = $this->getById($rating_id);
+
+		// client
+		$result = $this->db->query(
+			"SELECT
+				user_login login
+			FROM
+				`users`
+			WHERE
+				`users`.`user_id` = {$statistics->client_id}"
+		)->result();
+
+		$user = ($result) ? $result[0] : FALSE;
+
+		if ($user)
+		{
+			$statistics->client_fullname = $user->login;
+		}
+
+		return $statistics;
+	}
 }
 ?>

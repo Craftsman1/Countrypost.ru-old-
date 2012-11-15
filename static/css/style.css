@@ -2079,7 +2079,7 @@ div.managerinfo  center
 	display: inline-block;
 }
 
-div.managerinfo  
+div.managerinfo
 {
 	_height:116px;
 }
@@ -2230,6 +2230,11 @@ div.personal span,div.ratings span
 span.ratings_description
 {
 	margin-left:100px;
+}
+
+span.ratings_label
+{
+	margin-left:20px;
 }
 
 span.ratings
@@ -2396,4 +2401,32 @@ span.ratings_plugin div.half {
 div.review_count {
 	margin: 0 10px 0 0!important;
 	float: left;
+}
+
+div.ratinginfo  span.status
+{
+	font-weight: bold;
+	color:orange;
+}
+
+div.ratinginfo  div.status
+{
+	margin-top: 0;
+}
+
+div.ratinginfo  center
+{
+	display: inline-block;
+}
+
+div.ratinginfo img
+{
+	float:left;
+	margin-right:10px;
+	margin-bottom:10px;
+}
+
+div.ratinginfo div.reviews
+{
+	margin-top:25px;
 }

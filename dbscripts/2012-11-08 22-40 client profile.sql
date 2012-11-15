@@ -8,7 +8,7 @@ ADD  `consolidation_rating` ENUM(  '0',  '0.25',  '0.5',  '0.75',  '1' ) NOT NUL
 ADD  `pack_rating` ENUM(  '0',  '0.25',  '0.5',  '0.75',  '1' ) NOT NULL DEFAULT  '0' AFTER  `consolidation_rating`
 ;
 
-CREATE TABLE  `countrypost.service`.`rating_comments` (
+CREATE TABLE  `rating_comments` (
 `comment_id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
  `user_id` INT( 11 ) NOT NULL ,
  `bid_id` INT( 11 ) NOT NULL ,
