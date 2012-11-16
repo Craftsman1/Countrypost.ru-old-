@@ -14,3 +14,14 @@ ALTER TABLE  `manager_ratings` ADD  `status` ENUM(  'active',  'deleted',  '',  
 ALTER TABLE  `users` ADD  `positive_reviews` INT( 11 ) UNSIGNED NOT NULL DEFAULT  '0',
 ADD  `neutral_reviews` INT( 11 ) UNSIGNED NOT NULL DEFAULT  '0',
 ADD  `negative_reviews` INT( 11 ) UNSIGNED NOT NULL DEFAULT  '0';
+
+ALTER TABLE  `managers` ADD  `communication_rating` FLOAT NULL DEFAULT NULL AFTER  `rating` ,
+ADD  `buy_rating` FLOAT NULL DEFAULT NULL AFTER  `communication_rating` ,
+ADD  `consolidation_rating` FLOAT NULL DEFAULT NULL AFTER  `buy_rating` ,
+ADD  `pack_rating` FLOAT NULL DEFAULT NULL AFTER  `consolidation_rating`;
+
+ALTER TABLE  `managers` CHANGE  `rating`  `rating` FLOAT NOT NULL DEFAULT  '0';
+ALTER TABLE  `managers` ADD  `buy_rating_count` INT NOT NULL DEFAULT  '0' AFTER  `pack_rating` ,
+ADD  `pack_rating_count` INT NOT NULL DEFAULT  '0' AFTER  `buy_rating_count` ,
+ADD  `consolidation_rating_count` INT NOT NULL DEFAULT  '0' AFTER  `pack_rating_count` ,
+ADD  `communication_rating_count` INT NOT NULL DEFAULT  '0' AFTER  `consolidation_rating_count`;

@@ -7,14 +7,9 @@
             </span>
             <span class="total" style="margin:0 0 0px 0;">
                 <label>посредников на странице:</label>
-                <select class="per_page" name="per_page" onchange="javascript:updatePerPage(this, 'dealers');">
-                    <option value="10" <?= $per_page == 10 ? 'selected' : ''?>>10</option>
-                    <option value="50" <?= $per_page == 50 ? 'selected' : ''?>>50</option>
-                    <option value="100" <?= $per_page == 100 ? 'selected' : ''?>>100</option>
-                    <option value="200" <?= $per_page == 200 ? 'selected' : ''?>>200</option>
-                    <option value="350" <?= $per_page == 350 ? 'selected' : ''?>>350</option>
-                    <option value="500" <?= $per_page == 500 ? 'selected' : ''?>>500</option>
-                </select>
+				<? View::show('main/elements/per_page', array(
+					'handler' =>  'dealers'
+				)); ?>
             </span>
         </div>
         <br>
@@ -52,7 +47,7 @@
                 <?if ($managers): foreach ($managers as $manager):?>
                     <tr>
                         <td>
-                            <b style=""><?=$manager->rating ?></b>
+                            <b style=""><?= $manager->rating ?></b>
                             <br>
                             <b style="color:#D7D7D7;">№ <?=$manager->manager_user?></b>
                         </td>
@@ -67,7 +62,11 @@
                             <b class="mf">MF</b>
                         </td>
                         <td>
-                            <? View::show('main/elements/dealers/rating', array('manager' => $manager)); ?>
+							<? View::show('main/elements/dealers/reviews', array(
+								'positive' =>  $manager->statistics->positive_reviews,
+								'neutral' =>  $manager->statistics->neutral_reviews,
+								'negative' =>  $manager->statistics->negative_reviews));
+							?>
                         </td>
                         <td>
                             <a target="_blank" href="<?= empty($manager->website) ? BASEURL.$manager->statistics->login : $manager->website ?>"><?= empty($manager->website) ? BASEURL.$manager->statistics->login : $manager->website ?></a>
@@ -80,7 +79,7 @@
                     <?endforeach;?>	
                 <?else:?>
                     <tr>
-                        <td colspan=9>Партнеров нет!</td>
+                        <td colspan=9>Посредники не найдены.</td>
                     </tr>
                 <?endif;?>
                 <tr class='last-row'>
@@ -98,14 +97,9 @@
             </span>
             <span class="total" style="margin:0;">
                 <label>посредников на странице:</label>
-                <select class="per_page" name="per_page" onchange="javascript:updatePerPage(this, 'dealers');">
-                    <option value="10" <?= $per_page == 10 ? 'selected' : ''?>>10</option>
-                    <option value="50" <?= $per_page == 50 ? 'selected' : ''?>>50</option>
-                    <option value="100" <?= $per_page == 100 ? 'selected' : ''?>>100</option>
-                    <option value="200" <?= $per_page == 200 ? 'selected' : ''?>>200</option>
-                    <option value="350" <?= $per_page == 350 ? 'selected' : ''?>>350</option>
-                    <option value="500" <?= $per_page == 500 ? 'selected' : ''?>>500</option>
-                </select>
+				<? View::show('main/elements/per_page', array(
+					'handler' =>  'dealers'
+				)); ?>
             </span>
         </div>
         <?php if (isset($pager)) echo $pager ?>

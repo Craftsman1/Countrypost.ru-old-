@@ -177,17 +177,18 @@ class Profile extends BaseController {
 			$this->load->model('ClientModel', 'Clients');
 			$view['manager_ratings'] = $this->Ratings->getRatings($manager->manager_user);
 
-			foreach ($view['manager_ratings'] as $rating)
+			if ($view['manager_ratings'])
 			{
-				$this->processStatistics($rating, $statistics, 'client_id', 0, 'client');
-				//print_r($rating);die();
+				foreach ($view['manager_ratings'] as $rating)
+				{
+					$this->processStatistics($rating, $statistics, 'client_id', 0, 'client');
+				}
 			}
 
 			View::showChild($view_name, $view);
 		}
 		catch (Exception $e) 
 		{
-			//Func::redirect(BASEURL.$this->cname);
 		}
 	}
 
@@ -241,7 +242,6 @@ class Profile extends BaseController {
 		}
 		catch (Exception $e) 
 		{
-			//Func::redirect(BASEURL.$this->cname);
 		}
 	}
 }

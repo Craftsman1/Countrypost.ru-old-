@@ -67,6 +67,14 @@ class ManagerModel extends BaseModel implements IModel{
 		$this->properties->pricelist_description	='';
 		$this->properties->payments_description		='';
 		$this->properties->rating	='';
+		$this->properties->buy_rating	='';
+		$this->properties->pack_rating	='';
+		$this->properties->consolidation_rating	='';
+		$this->properties->communication_rating	='';
+		$this->properties->buy_rating_count	='';
+		$this->properties->pack_rating_count	='';
+		$this->properties->consolidation_rating_count	='';
+		$this->properties->communication_rating_count	='';
 		$this->properties->website	='';
 		$this->properties->skype	='';
 		$this->properties->created	='';

@@ -82,10 +82,12 @@ class ManagerRatingsModel extends BaseModel implements IModel{
 		
 		$new_id = $this->save(true);
 		
-		if ($new_id){
+		if ($new_id)
+		{
+			$this->updateManagerRating($com_obj->manager_id);
 			return $this->getInfo(array($new_id));
 		}
-		
+
 		return FALSE;
 	}
 
@@ -110,8 +112,178 @@ class ManagerRatingsModel extends BaseModel implements IModel{
 			FROM `{$this->table}`
 			WHERE `status` != 'deleted'
 				AND `manager_id` = $manager_id
+			ORDER BY
+				rating_id DESC
 		")->result();
 		return ($result) ? $result : FALSE;
+	}
+
+	public function updateManagerRating($manager_id)
+	{
+		// считаем отзывы
+		$result = $this->db->query("
+			SELECT
+				COUNT(*) positive_reviews
+			FROM
+				`manager_ratings`
+			WHERE
+				`status` <> 'deleted'
+				AND `manager_id` = $manager_id
+				AND `rating_type` = '1'
+			GROUP BY `manager_id`
+		")->result();
+
+		$positive_reviews = ($result) ? $result[0]->positive_reviews : 0;
+
+		$result = $this->db->query("
+			SELECT
+				COUNT(*) neutral_reviews
+			FROM
+				`manager_ratings`
+			WHERE
+				`status` <> 'deleted'
+				AND `manager_id` = $manager_id
+				AND `rating_type` = '0'
+			GROUP BY `manager_id`
+		")->result();
+
+		$neutral_reviews = ($result) ? $result[0]->neutral_reviews : 0;
+
+		$result = $this->db->query("
+			SELECT
+				COUNT(*) negative_reviews
+			FROM
+				`manager_ratings`
+			WHERE
+				`status` <> 'deleted'
+				AND `manager_id` = $manager_id
+				AND `rating_type` = '-1'
+			GROUP BY `manager_id`
+		")->result();
+
+		$negative_reviews = ($result) ? $result[0]->negative_reviews : 0;
+
+		$this->db->query("
+			UPDATE
+				users
+			SET
+				`positive_reviews` = $positive_reviews,
+				`neutral_reviews` = $neutral_reviews,
+				`negative_reviews` = $negative_reviews
+			WHERE
+				`user_id` = $manager_id
+		");
+
+		// считаем средние рейтинги
+		$result = $this->db->query("
+			SELECT
+				AVG(`buy_rating` - 1) buy_rating,
+				COUNT(*) count
+			FROM
+				`manager_ratings`
+			WHERE
+				`status` <> 'deleted'
+				AND `manager_id` = $manager_id
+				AND `buy_rating` IS NOT NULL
+			GROUP BY `manager_id`
+		")->result();
+
+		$buy_rating = $result ? ($result[0]->buy_rating * 0.25) : 'NULL';
+		$buy_rating_count = $result ? $result[0]->count : 0;
+
+		$result = $this->db->query("
+			SELECT
+				AVG(`communication_rating` - 1) communication_rating,
+				COUNT(*) count
+			FROM
+				`manager_ratings`
+			WHERE
+				`status` <> 'deleted'
+				AND `manager_id` = $manager_id
+				AND `communication_rating` IS NOT NULL
+			GROUP BY `manager_id`
+		")->result();
+
+		$communication_rating = $result ? ($result[0]->communication_rating * 0.25) : 'NULL';
+		$communication_rating_count = $result ? $result[0]->count : 0;
+
+		$result = $this->db->query("
+			SELECT
+				AVG(`consolidation_rating` - 1) consolidation_rating,
+				COUNT(*) count
+			FROM
+				`manager_ratings`
+			WHERE
+				`status` <> 'deleted'
+				AND `manager_id` = $manager_id
+				AND `consolidation_rating` IS NOT NULL
+			GROUP BY `manager_id`
+		")->result();
+
+		$consolidation_rating = $result ? ($result[0]->consolidation_rating * 0.25) : 'NULL';
+		$consolidation_rating_count = $result ? $result[0]->count : 0;
+
+		$result = $this->db->query("
+			SELECT
+				AVG(`pack_rating` - 1) pack_rating,
+				COUNT(*) count
+			FROM
+				`manager_ratings`
+			WHERE
+				`status` <> 'deleted'
+				AND `manager_id` = $manager_id
+				AND `pack_rating` IS NOT NULL
+			GROUP BY `manager_id`
+		")->result();
+
+		$pack_rating = $result ? ($result[0]->pack_rating * 0.25) : 'NULL';
+		$pack_rating_count = $result ? $result[0]->count : 0;
+
+		// суммарный рейтинг
+		// нет звезд - 0
+		// 1 звезда - -2
+		// 2 звезда - -1
+		// 3 звезда - 0
+		// 4 звезда - 1
+		// 5 звезда - 2
+
+		$result = $this->db->query("
+			SELECT
+				SUM(
+					IFNULL(pack_rating + 0, 3) +
+					IFNULL(buy_rating + 0, 3) +
+					IFNULL(consolidation_rating + 0, 3) +
+					IFNULL(communication_rating + 0, 3) -
+					12
+				) rating
+			FROM
+				`manager_ratings`
+			WHERE
+				`status` <> 'deleted'
+				AND `manager_id` = $manager_id
+			GROUP BY `manager_id`
+		")->result();
+
+		$rating = $result ? $result[0]->rating : 0;
+
+		// средние значения вычеслены по индексам ENUM, которые в 4 раза превышают строковые значения,
+		// поэтому предварительно делим их на 4
+		$this->db->query("
+			UPDATE
+				managers
+			SET
+				`buy_rating` = $buy_rating,
+				`pack_rating` = $pack_rating,
+				`consolidation_rating` = $consolidation_rating,
+				`communication_rating` = $communication_rating,
+				`buy_rating_count` = $buy_rating_count,
+				`pack_rating_count` = $pack_rating_count,
+				`consolidation_rating_count` = $consolidation_rating_count,
+				`communication_rating_count` = $communication_rating_count,
+				`rating` = $rating
+			WHERE
+				`manager_user` = $manager_id
+		");
 	}
 
 

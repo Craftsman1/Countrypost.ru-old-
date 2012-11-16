@@ -3,18 +3,13 @@
         <a name="pagerScroll"></a>
         <div class="search_results">
             <span class="total" style="float: none;">
-                Найдено клиентов: <b id="clients_count"><?= $this->paging_count ?></b>
+                Найдено клиентов: <b id='clients_count'><?= $this->paging_count ?></b>
             </span>
             <span class="total" style="margin:0 0 0px 0;">
                 <label>клиентов на странице:</label>
-                <select class="per_page" name="per_page" onchange="javascript:updatePerPage(this, 'clients');">
-                    <option value="10" <?= $per_page == 10 ? 'selected' : ''?>>10</option>
-                    <option value="50" <?= $per_page == 50 ? 'selected' : ''?>>50</option>
-                    <option value="100" <?= $per_page == 100 ? 'selected' : ''?>>100</option>
-                    <option value="200" <?= $per_page == 200 ? 'selected' : ''?>>200</option>
-                    <option value="350" <?= $per_page == 350 ? 'selected' : ''?>>350</option>
-                    <option value="500" <?= $per_page == 500 ? 'selected' : ''?>>500</option>
-                </select>
+				<? View::show('main/elements/per_page', array(
+					'handler' =>  'clients'
+				)); ?>
             </span>
         </div>
         <br>
@@ -63,7 +58,11 @@
                             <a target="_blank" href="<?= empty($client->website) ? BASEURL.$client->statistics->login : $client->website ?>"><?=$client->statistics->fullname?> (<?=$client->statistics->login?>)</a>
                         </td>
                         <td>
-                            <? View::show('main/elements/clients/rating', array('client' => $client)); ?>
+							<? View::show('main/elements/clients/reviews', array(
+								'positive' =>  $client->statistics->positive_reviews,
+								'neutral' =>  $client->statistics->neutral_reviews,
+								'negative' =>  $client->statistics->negative_reviews
+							)); ?>
                         </td>
                         <td>100</td>
                         <td>200</td>
@@ -74,7 +73,7 @@
                     <?endforeach;?>	
                 <?else:?>
                     <tr>
-                        <td colspan=9>Клиентов нет!</td>
+                        <td colspan=9>Клиенты не найдены.ы</td>
                     </tr>
                 <?endif;?>
                 <tr class='last-row'>
@@ -92,16 +91,11 @@
             </span>
             <span class="total" style="margin:0;">
                 <label>клиентов на странице:</label>
-                <select class="per_page" name="per_page" onchange="javascript:updatePerPage(this, 'clients');">
-                    <option value="10" <?= $per_page == 10 ? 'selected' : ''?>>10</option>
-                    <option value="50" <?= $per_page == 50 ? 'selected' : ''?>>50</option>
-                    <option value="100" <?= $per_page == 100 ? 'selected' : ''?>>100</option>
-                    <option value="200" <?= $per_page == 200 ? 'selected' : ''?>>200</option>
-                    <option value="350" <?= $per_page == 350 ? 'selected' : ''?>>350</option>
-                    <option value="500" <?= $per_page == 500 ? 'selected' : ''?>>500</option>
-                </select>
+				<? View::show('main/elements/per_page', array(
+					'handler' =>  'clients'
+				)); ?>
             </span>
         </div>
-        <?php if (isset($pager)) echo $pager ?>
+        <? if (isset($pager)) echo $pager ?>
     </form>
 </div>

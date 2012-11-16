@@ -3362,7 +3362,6 @@ class Client extends ClientBaseController {
 					$rating->pack_rating < 5) ?
 				strval($rating->pack_rating / 4)
 				: NULL;
-			print_r($rating);
 
 			// сохраняем
 			$this->load->model('ManagerRatingsModel', 'Ratings');
@@ -3376,7 +3375,7 @@ class Client extends ClientBaseController {
 		}
 		catch (Exception $e)
 		{
-			print_r($empties);
+
 		}
 	}
 }
