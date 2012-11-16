@@ -25,7 +25,10 @@ class UserModel extends BaseModel implements IModel {
     	$this->properties->user_email		='';
     	$this->properties->user_coints		='';
     	$this->properties->user_deleted		=0;
-    	
+    	$this->properties->positive_reviews	=0;
+    	$this->properties->neutral_reviews	=0;
+    	$this->properties->negative_reviews	=0;
+
         parent::__construct();
     }
     

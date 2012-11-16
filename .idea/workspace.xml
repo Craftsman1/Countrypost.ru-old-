@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="">
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\clients\profile_about.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\clients\rating.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\dealers\rating.php" afterPath="" />
+      <change type="MOVED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\dealers\ratings_plugin.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/ratings/ratings_plugin.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbscripts/2012-11-13 23-32 rating.sql" afterPath="$PROJECT_DIR$/dbscripts/2012-11-13 23-32 rating.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/ClientModel.php" afterPath="$PROJECT_DIR$/system/application/models/ClientModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/ManagerModel.php" afterPath="$PROJECT_DIR$/system/application/models/ManagerModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/ManagerRatingsModel.php" afterPath="$PROJECT_DIR$/system/application/models/ManagerRatingsModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/UserModel.php" afterPath="$PROJECT_DIR$/system/application/models/UserModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/clients/profile.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/clients/profile.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,83 +36,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="dealers.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/dealers.php">
+      <file leaf-file-name="manager_rating.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="149" column="94" selection-start="3823" selection-end="3901" vertical-scroll-proportion="0.0">
+            <state line="9" column="33" selection-start="391" selection-end="391" vertical-scroll-proportion="-4.137931">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="profile.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="182" column="18" selection-start="4732" selection-end="4732" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ManagerRatingsModel.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/models/ManagerRatingsModel.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="38" selection-start="720" selection-end="731" vertical-scroll-proportion="-15.379311">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ratinginfo.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratinginfo.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="27" selection-start="746" selection-end="746" vertical-scroll-proportion="-8.965517">
-              <folding>
-                <element signature="n#style#0;n#img#1;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="reviews.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/reviews.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="28" selection-start="13" selection-end="25" vertical-scroll-proportion="-0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ratings_plugin.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings_plugin.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="26" selection-start="283" selection-end="283" vertical-scroll-proportion="-5.5172415">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="client_ratings.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="57" column="18" selection-start="1108" selection-end="2008" vertical-scroll-proportion="-22.758621">
-              <folding>
-                <marker date="1352907749415" expanded="true" signature="2610:2624" placeholder="..." />
-                <marker date="1352907749415" expanded="true" signature="2766:2830" placeholder="..." />
-                <marker date="1352907749415" expanded="true" signature="2790:2830" placeholder="..." />
-                <marker date="1352907749415" expanded="true" signature="3093:3114" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rating_block.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_block.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="46" selection-start="950" selection-end="950" vertical-scroll-proportion="1.6">
-              <folding>
-                <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -107,16 +48,61 @@
       <file leaf-file-name="ratings_viewer.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/ratings_viewer.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="49" selection-start="198" selection-end="198" vertical-scroll-proportion="-3.4482758">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/style.css">
+      <file leaf-file-name="ratings.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2428" column="19" selection-start="43699" selection-end="43699" vertical-scroll-proportion="-23.16">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ratinginfo.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/ratinginfo.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="45" selection-start="643" selection-end="643" vertical-scroll-proportion="-6.206897">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reviews.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/reviews.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile_about.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="43" column="0" selection-start="671" selection-end="908" vertical-scroll-proportion="-11.034483">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="56" selection-start="56" selection-end="56" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile_header.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile_header.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -139,22 +125,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/reviews.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/rating_list.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_block.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/ratings_viewer.php" />
+        <option value="$PROJECT_DIR$/static/css/style.css" />
+        <option value="$PROJECT_DIR$/dbscripts/2012-11-13 23-32 rating.sql" />
+        <option value="$PROJECT_DIR$/system/application/models/UserModel.php" />
+        <option value="$PROJECT_DIR$/system/application/models/ManagerRatingsModel.php" />
+        <option value="$PROJECT_DIR$/system/application/models/ClientModel.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/reviews.php" />
+        <option value="$PROJECT_DIR$/system/application/models/ManagerModel.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/rating.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/ratinginfo.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" />
-        <option value="$PROJECT_DIR$/dbscripts/2012-11-08 22-40 client profile.sql" />
-        <option value="$PROJECT_DIR$/dbscripts/2012-11-13 23-32 rating.sql" />
-        <option value="$PROJECT_DIR$/system/application/controllers/profile.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings_plugin.php" />
-        <option value="$PROJECT_DIR$/static/css/style.css" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/ratinginfo.php" />
-        <option value="$PROJECT_DIR$/system/application/models/ManagerRatingsModel.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/ratings_viewer.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_block.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/clients/profile_about.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/clients/profile.php" />
       </list>
     </option>
   </component>
@@ -191,6 +177,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -413,45 +400,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="dealers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
+              <option name="myItemId" value="clients" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -459,8 +413,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -471,6 +425,8 @@
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\manager\elements" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\dealers" />
+      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\ratings" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\orders" />
     </key>
   </component>
@@ -545,7 +501,11 @@
       <created>1352993067278</created>
       <updated>1352993067278</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="ratings next portion">
+      <created>1352993187646</created>
+      <updated>1352993187646</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -572,12 +532,11 @@
     <frame x="-8" y="-8" width="1616" height="916" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5473146" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22329472" sideWeight="0.45268542" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22651222" sideWeight="0.45268542" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -587,6 +546,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -650,116 +610,112 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/system/application/models/ClientModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="450" column="68" selection-start="12035" selection-end="12213" vertical-scroll-proportion="-15.862069">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="18" selection-start="426" selection-end="428" vertical-scroll-proportion="0.28985506">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/models/ManagerModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="575" column="5" selection-start="15279" selection-end="16771" vertical-scroll-proportion="0.0">
+        <state line="560" column="68" selection-start="16627" selection-end="16627" vertical-scroll-proportion="-16.37931">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1183" column="36" selection-start="32075" selection-end="32085" vertical-scroll-proportion="0.0">
+        <state line="76" column="18" selection-start="1687" selection-end="1689" vertical-scroll-proportion="2.087912">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/dealers.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/ratings_plugin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="149" column="94" selection-start="3823" selection-end="3901" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dbscripts/2012-11-13 23-32 rating.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="16" selection-start="0" selection-end="1038" vertical-scroll-proportion="0.3038674" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dbscripts/2012-11-13 06-50 currencies update.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="1192" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dbscripts/2012-11-12 21-57 manager ratings.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="367" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dbscripts/2012-11-08 22-40 client profile.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="44" selection-start="1125" selection-end="1170" vertical-scroll-proportion="0.6989247" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="182" column="18" selection-start="4732" selection-end="4732" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/reviews.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="28" selection-start="13" selection-end="25" vertical-scroll-proportion="-0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings_plugin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="26" selection-start="283" selection-end="283" vertical-scroll-proportion="-5.5172415">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2428" column="19" selection-start="43699" selection-end="43699" vertical-scroll-proportion="-23.16">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="18" selection-start="1108" selection-end="2008" vertical-scroll-proportion="-22.758621">
+        <state line="44" column="81" selection-start="1636" selection-end="1636" vertical-scroll-proportion="0.18321678">
           <folding>
-            <marker date="1352907749415" expanded="true" signature="2610:2624" placeholder="..." />
-            <marker date="1352907749415" expanded="true" signature="2766:2830" placeholder="..." />
-            <marker date="1352907749415" expanded="true" signature="2790:2830" placeholder="..." />
-            <marker date="1352907749415" expanded="true" signature="3093:3114" placeholder="..." />
+            <element signature="n#style#0;n#label#0;n#span#0;n#div#0;n#div#4;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/ManagerRatingsModel.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/dealer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="38" selection-start="720" selection-end="731" vertical-scroll-proportion="-15.379311">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratinginfo.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/ratinginfo.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="27" selection-start="746" selection-end="746" vertical-scroll-proportion="-8.965517">
-          <folding>
-            <element signature="n#style#0;n#img#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="10" column="45" selection-start="643" selection-end="643" vertical-scroll-proportion="-6.206897">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="33" selection-start="391" selection-end="391" vertical-scroll-proportion="-4.137931">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/ratings_viewer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="49" selection-start="198" selection-end="198" vertical-scroll-proportion="-3.4482758">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_block.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="46" selection-start="950" selection-end="950" vertical-scroll-proportion="1.6">
-          <folding>
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/reviews.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="0" selection-start="671" selection-end="908" vertical-scroll-proportion="-11.034483">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile_header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="56" selection-start="56" selection-end="56" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>

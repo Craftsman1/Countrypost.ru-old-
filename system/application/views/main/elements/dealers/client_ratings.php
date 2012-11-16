@@ -28,28 +28,28 @@
 			</div>
 			<div class="rating_group table">
 				<div>
-					<? View::show('/main/elements/dealers/ratings_plugin', array(
+					<? View::show('/main/elements/ratings/ratings_plugin', array(
 					'rating' => 5,
 					'description' => 'Консультация (ответы в скайпе, почте)',
 					'rating_type' => 'communication_rating'
 				)); ?>
 				</div>
 				<div>
-					<? View::show('/main/elements/dealers/ratings_plugin', array(
+					<? View::show('/main/elements/ratings/ratings_plugin', array(
 					'rating' => 4,
 					'description' => 'Выкуп товара',
 					'rating_type' => 'buy_rating'
 				)); ?>
 				</div>
 				<div>
-					<? View::show('/main/elements/dealers/ratings_plugin', array(
+					<? View::show('/main/elements/ratings/ratings_plugin', array(
 					'rating' => 3,
 					'description' => 'Консолидация и отправка посылок',
 					'rating_type' => 'consolidation_rating'
 				)); ?>
 				</div>
 				<div style="height:auto;">
-					<? View::show('/main/elements/dealers/ratings_plugin', array(
+					<? View::show('/main/elements/ratings/ratings_plugin', array(
 					'rating' => 2,
 					'description' => 'Упаковка посылок',
 					'rating_type' => 'pack_rating'
@@ -66,7 +66,7 @@
 		<img class="float" id="ratingProgress" style="display:none;margin:0px;margin-top:4px;" src="/static/images/lightbox-ico-loading.gif"/>
 	</form>
 	<br style="clear:both;" />
-	<? View::show('main/elements/dealers/rating_list', array(
+	<? View::show('main/elements/ratings/rating_list', array(
 		'ratings' => $manager_ratings
 	)); ?>
 	<h3 id="ratings_header" <? if (empty($ratings)) : ?>style="display: none;"<? endif; ?>>Все отзывы</h3>

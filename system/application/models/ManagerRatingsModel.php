@@ -122,7 +122,10 @@ class ManagerRatingsModel extends BaseModel implements IModel{
 		// manager
 		$result = $this->db->query(
 			"SELECT
-				user_login login
+				user_login,
+				positive_rating,
+				neutral_rating,
+				negative_rating
 			FROM
 				`users`
 			WHERE
@@ -141,7 +144,10 @@ class ManagerRatingsModel extends BaseModel implements IModel{
 		// client
 		$result = $this->db->query(
 			"SELECT
-				user_login login
+				user_login,
+				positive_rating,
+				neutral_rating,
+				negative_rating
 			FROM
 				`users`
 			WHERE
@@ -152,7 +158,7 @@ class ManagerRatingsModel extends BaseModel implements IModel{
 
 		if ($user)
 		{
-			$statistics->client_fullname = $user->login;
+			$statistics->client_fullname = $user->user_login;
 		}
 
 		return $statistics;

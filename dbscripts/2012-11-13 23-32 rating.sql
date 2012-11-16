@@ -10,3 +10,7 @@ utf8_general_ci NULL DEFAULT NULL;
 
 ALTER TABLE  `manager_ratings` ADD  `status` ENUM(  'active',  'deleted',  '',  '' ) NOT NULL DEFAULT  'active' AFTER
   `pack_rating`;
+
+ALTER TABLE  `users` ADD  `positive_reviews` INT( 11 ) UNSIGNED NOT NULL DEFAULT  '0',
+ADD  `neutral_reviews` INT( 11 ) UNSIGNED NOT NULL DEFAULT  '0',
+ADD  `negative_reviews` INT( 11 ) UNSIGNED NOT NULL DEFAULT  '0';

@@ -2382,19 +2382,22 @@ div.rating_group img {
 	cursor: pointer;
 }
 
-span.ratings_plugin div {
+span.ratings_plugin div,span.ratings_viewer div {
 	float: left;
-	cursor: pointer;
 	height: 16px;
 	width: 16px;
 	background:url(../images/rating_star.png) 100% 0 no-repeat;
 }
 
-span.ratings_plugin div.on {
+span.ratings_plugin div {
+	cursor: pointer;
+}
+
+span.ratings_plugin div.on,span.ratings_viewer div.on {
 	background-position-x: 0;
 }
 
-span.ratings_plugin div.half {
+span.ratings_plugin div.half,span.ratings_viewer div.half {
 	background-position-x: 50%;
 }
 

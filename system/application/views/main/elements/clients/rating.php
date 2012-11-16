@@ -1,1 +1,0 @@
-<div class='rating'>	<a style="color:green;">+1</a> / 1 / <a style="color:red;">-1</a></div>

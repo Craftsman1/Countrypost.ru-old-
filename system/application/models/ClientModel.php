@@ -430,7 +430,10 @@ class ClientModel extends BaseModel implements IModel{
 		$result = $this->db->query(
 			"SELECT 
 				user_login login, 
-				user_email email
+				user_email email,
+				positive_reviews,
+				neutral_reviews,
+				negative_reviews
 			FROM `{$this->table}`
 				LEFT JOIN `users` ON `users`.`user_id` = `{$this->table}`.`client_user`
 			WHERE 
@@ -443,6 +446,9 @@ class ClientModel extends BaseModel implements IModel{
 		{
 			$statistics->login = $user->login;
 			$statistics->email = $user->email;
+			$statistics->positive_reviews = $user->positive_reviews;
+			$statistics->neutral_reviews = $user->neutral_reviews;
+			$statistics->negative_reviews = $user->negative_reviews;
 		}
 		
 		$statistics->fullname = $this->getFullName($statistics);
