@@ -73,7 +73,7 @@
                     <?endforeach;?>	
                 <?else:?>
                     <tr>
-                        <td colspan=9>Клиенты не найдены.ы</td>
+                        <td colspan=9>Клиенты не найдены.</td>
                     </tr>
                 <?endif;?>
                 <tr class='last-row'>

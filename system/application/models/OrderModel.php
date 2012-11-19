@@ -331,10 +331,16 @@ class OrderModel extends BaseModel implements IModel{
 					@package_day:=TIMESTAMPDIFF(DAY, `orders`.`order_date`, NOW()) as package_day,
 					''  as `order_manager_login`, 
 					`countries`.`country_name` as `order_manager_country`,
+					`countries`.`country_name` as `order_country_from`,
+					`countries`.`country_name_en` as `order_country_from_en`,
+					`countries`.`country_currency` as currency,
+					c2.`country_name` as `order_country_to`,
+					c2.`country_name_en` as `order_country_to_en`,
 					TIMESTAMPDIFF(HOUR, `orders`.`order_date`, NOW() - INTERVAL @package_day DAY) as `package_hour`
 				FROM `orders`
 				INNER JOIN `countries` on `orders`.`order_country` = `countries`.`country_id`
-				WHERE 
+				LEFT OUTER JOIN `countries` AS c2 on `orders`.`order_country_to` = c2.`country_id`
+				WHERE
 					$statusFilter
 					$periodFilter
 					$idFilter
@@ -358,13 +364,19 @@ class OrderModel extends BaseModel implements IModel{
 				@package_day:=TIMESTAMPDIFF(DAY, `orders`.`order_date`, NOW()) as package_day,
 				`users`.`user_login`  as `order_manager_login`, 
 				`countries`.`country_name` as `order_manager_country`,
+				`countries`.`country_name` as `order_country_from`,
+				`countries`.`country_name_en` as `order_country_from_en`,
+				`countries`.`country_currency` as currency,
+				c2.`country_name` as `order_country_to`,
+				c2.`country_name_en` as `order_country_to_en`,
 				TIMESTAMPDIFF(HOUR, `orders`.`order_date`, NOW() - INTERVAL @package_day DAY) as `package_hour`
 				$extra_fields
 			FROM `orders`
 			INNER JOIN `users` on `users`.`user_id` = `orders`.`order_manager`
 			INNER JOIN `managers` on `managers`.`manager_user` = `orders`.`order_manager`
 			INNER JOIN `countries` on `managers`.`manager_country` = `countries`.`country_id`
-			WHERE 
+			LEFT OUTER JOIN `countries` AS c2 on `orders`.`order_country_to` = c2.`country_id`
+			WHERE
 				$statusFilter
 				$managerFilter
 				$periodFilter
@@ -387,13 +399,19 @@ class OrderModel extends BaseModel implements IModel{
 				@package_day:=TIMESTAMPDIFF(DAY, `orders`.`order_date`, NOW()) as package_day,
 				`users`.`user_login`  as `order_manager_login`, 
 				`countries`.`country_name` as `order_manager_country`,
+				`countries`.`country_name` as `order_country_from`,
+				`countries`.`country_name_en` as `order_country_from_en`,
+				`countries`.`country_currency` as currency,
+				c2.`country_name` as `order_country_to`,
+				c2.`country_name_en` as `order_country_to_en`,
 				TIMESTAMPDIFF(HOUR, `orders`.`order_date`, NOW() - INTERVAL @package_day DAY) as `package_hour`
 				$extra_fields
 			FROM `orders`
 			INNER JOIN `users` on `users`.`user_id` = `orders`.`order_manager`
 			INNER JOIN `managers` on `managers`.`manager_user` = `orders`.`order_manager`
 			INNER JOIN `countries` on `managers`.`manager_country` = `countries`.`country_id`
-			WHERE 
+			LEFT OUTER JOIN `countries` AS c2 on `orders`.`order_country_to` = c2.`country_id`
+			WHERE
 				$statusFilter
 				$managerFilter
 				$periodFilter

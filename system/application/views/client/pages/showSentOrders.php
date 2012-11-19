@@ -1,6 +1,6 @@
 <a name="pagerScroll"></a>
 <div class='content'>
-	<h2 id='page_title'>Отправленные заказы</h2>
+	<h2 id='page_title'>Мои заказы</h2>
 	<? View::show($viewpath.'elements/orders/errors'); ?>
 	<? View::show($viewpath.'elements/div_float_help'); ?>
 	<? View::show($viewpath.'elements/div_float_manual'); ?>
@@ -10,7 +10,7 @@
 	<div class="admin-inside" style="height:50px;" id='add_order_button'>
 		<div class="submit">
 			<div>
-				<input type="button" onclick="<?= TRUE == $hasActiveOrdersOrPackages ? 'openWarningPopup' : 'lay2' ?>();" name="add" value="Добавить заказ">
+				<input type="button" onclick="window.location = '/main/createorder';" value="Добавить заказ">
 			</div>
 		</div>
 	</div>

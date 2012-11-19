@@ -1,35 +1,18 @@
 <form id="pagerForm" class='admin-inside' action='#'>
-	<? View::show($viewpath.'elements/orders/tabs'); ?>
-	<div class='table'>
+	<? View::show($viewpath.'elements/orders/tabs', array('selected_submenu' => 'sent_orders')); ?>
+	<div class='table centered_th centered_td'>
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>
 		<div class='angle angle-lb'></div>
 		<div class='angle angle-rb'></div>
 		<table>
-			<col width='auto' />
-			<col width='auto' />
-			<col width='auto' />
-			<col width='auto' />
-			<col width='auto' />
-			<col width='auto' />
-			<col width='auto' />
-			<col width='auto' />
-			<tr class='last-row'>
-				<td colspan='9'>
-					<div style="margin:0 0 10px 0;height:22px;">
-						<div class='floatleft'>
-							<? View::show($viewpath.'elements/orders/status_links', array('selected_submenu' => 'sent_orders')); ?>
-						</div>
-					</div>
-				</td>
-			</tr>
 			<tr>
-				<th>№ заказа</th>
-				<th>Кто выполняет заказ</th>
-				<th>Страна / Дата / Вес</th>
-				<th>Общая<br />стоимость<br />с местной<br />доставкой</th>
+				<th>Номер заказа</th>
+				<th>Заказать из</th>
+				<th>Доставить в</th>
+				<th>Общая стоимость</th>
 				<th>Статус</th>
-				<th>Посмотреть</th>
+				<th></th>
 			</tr>
 			<? if ($orders) : foreach($orders as $order) : ?>
 			<script>
@@ -37,78 +20,62 @@
 			</script>
 			<tr>
 				<td>
-					<b>№ <?= $order->order_id ?></b>
-				</td>
-				<td>
-					<b>
-						Менеджер:
-					</b>
+					<a href="<?= $selfurl . 'order/' . $order->order_id ?>"><b><?=$order->order_id?></b></a>
 					<br />
-					Имя: 
-					<?= $order->manager_fio ?>
+					<? if ($order->order_type == 'online' OR $order->order_type == 'offline') : ?>
+					<?= $order->order_type ?> заказ
+					<? elseif ($order->order_type == 'service') : ?>
+					Услуга
+					<? elseif ($order->order_type == 'delivery') : ?>
+					Доставка
+					<? endif;?>
 					<br />
-					<? if ( ! empty($order->manager_skype)) : ?>
-					Skype:
-					<?= $order->manager_skype ?>
-					<br />
+					<? if ($order->package_day == 0) : ?>
+					<?=$order->package_day == 0 ? "" : $order->package_day.' '.humanForm((int)$order->package_day, "день", "дня", "дней")?> <?=$order->package_hour == 0 ? "" : $order->package_hour.' '.humanForm((int)$order->package_hour, "час", "часа", "часов")?> назад
+					<? else : ?>
+					<?=$order->order_date?>
 					<? endif; ?>
-					E-mail:
-					<a href='mailto:<?= $order->manager_email ?>'><?= $order->manager_email ?></a>
 				</td>
-				<td>
-					<?= $order->order_manager_country ?>
-					<br />
-					<?= $order->order_date ?> 
-					<br />
-					<?= Func::round2half($order->order_weight)?>кг 
-					<?= Func::round2half($order->order_weight) != $order->order_weight ? '('.$order->order_weight.'кг)' : '' ?>
+				<td style="text-align:left;">
+					<img src="/static/images/flags/<?= $order->order_country_from_en ?>.png" style="float:left;margin-right:10px;" />
+					<b style="position:relative;top:6px;"><?=$order->order_country_from ?></b>
 				</td>
-				<td>
-					$<?= $order->order_cost ?>
+				<td style="text-align:left;">
+					<img src="/static/images/flags/<?= $order->order_country_to_en ?>.png" style="float:left;margin-right:10px;" />
+					<b style="position:relative;top:6px;"><?= $order->order_country_to ?></b>
+				</td>
+				<td style="vertical-align: top;">
+					<?= $order->order_cost ?> <?= $order->currency ?>
 					<a href="javascript:void(0)" onclick="$('#pre_<?= $order->order_id ?>').toggle()">Подробнее</a>
 					<pre class="pre-href" id="pre_<?= $order->order_id ?>">
-						$<?= $order->order_products_cost ?>
+						<?= $order->order_products_cost ?> <?= $order->currency ?>
 						<? if ($order->order_products_cost) : ?>
 						+
-						* $<?= $order->order_delivery_cost ?>
+						* <?= $order->order_delivery_cost ?> <?= $order->currency ?>
 						<? endif; if ($order->order_comission) : ?>
 						+
-						** $<?= $order->order_comission ?>
+						** <?= $order->order_comission ?> <?= $order->currency ?>
 						<? endif; ?>
 					</pre>
 				</td>
 				<td>Отправлен</td>
-				<td align="center">
-					<a href="<?= $selfurl ?>showOrderDetails/<?= $order->order_id ?>">Посмотреть</a>
-					<br />
-					<? if ($order->comment_for_client) : ?>
-					Добавлен новый комментарий
-					<br />
-					<? endif; ?>
-					<a href="<?= $selfurl ?>showOrderDetails/<?= $order->order_id ?>#comments">Комментарии</a>
-				</td>
-			</tr>
-			<? endforeach; endif; ?>
-			<tr class='last-row'>
-				<td colspan='9'>
-					<div id="tableComments" style="text-align:left;float:left;">
-						<br />
-						* стоимость местной доставки<br />
-						** комиссия за помощь в покупке<br />
-					</div>
-					<div class='float'>	
-						<div class='submit'><div></div></div>
-					</div>
-				</td>
 				<td>
+					<a href="<?=$selfurl?>showOrderDetails/<?=$order->order_id?>"><?= $order->comment_for_client ? "1234 комментариев" : "Посмотреть" ?></a>
 				</td>
 			</tr>
+			<? endforeach; else : ?>
+			<tr>
+				<td colspan="6">
+					Заказы не найдены.
+				</td>
+			</tr>
+			<? endif;?>
 		</table>
 	</div>
 </form>
 <?= $pager ?>
 <script>
 	$(function() {
-		$('#page_title').html('Отправленные заказы');
+//		$('#page_title').html('Отправленные заказы');
 	});
 </script>

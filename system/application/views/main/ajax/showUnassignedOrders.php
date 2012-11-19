@@ -1,7 +1,7 @@
 <?
 $order_link = BASEURL;
 
-if (empty($this->user)) 
+if (empty($this->user))
 {
 	$order_link .= 'main/order/';
 }
@@ -10,8 +10,7 @@ else
 	$order_link = $this->user->user_group . '/order/';
 }
 ?>
-<a name="pagerScroll" class="pagerScroll"></a>
-<div class='table' style="margin:0;" id="unassignedOrders">
+<div class='table centered_th centered_td' style="margin:0;" id="unassignedOrders">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
@@ -21,13 +20,13 @@ else
 			<th>Номер заказа</th>
 			<th>Заказать из</th>
 			<th>Доставить в</th>
-			<th>Примерная стоимость</th>
-			<th>Примерный вес</th>
-			<th>Предложений от посредников</th>
+			<th>Примерная<br>стоимость</th>
+			<th>Примерный<br>вес</th>
+			<th>Предложений<br>от посредников</th>
 		</tr>
-		<?if ($orders) : foreach($orders as $order) : ?>
+		<? if ($orders) : foreach($orders as $order) : ?>
 		<tr>
-			<td nowrap align="center">
+			<td>
 				<a href="<?=$order_link?><?=$order->order_id?>"><b><?=$order->order_id?></b></a>
 				<br />
 				<? if ($order->order_type == 'online' OR $order->order_type == 'offline') : ?>
@@ -44,21 +43,21 @@ else
 				<?=$order->order_date?>
 				<? endif; ?>
 			</td>
-			<td nowrap>
+			<td style="text-align:left;">
 				<img src="/static/images/flags/<?= $order->order_country_from_en ?>.png" style="float:left;margin-right:10px;" />
 				<b style="position:relative;top:6px;"><?=$order->order_country_from ?></b>
 			</td>
-			<td nowrap>
+			<td style="text-align:left;">
 				<img src="/static/images/flags/<?= $order->order_country_to_en ?>.png" style="float:left;margin-right:10px;" />
 				<b style="position:relative;top:6px;"><?= $order->order_country_to ?></b>
 			</td>
 			<td>
-				<?=($order->order_products_cost+$order->order_delivery_cost)?> <?= $order->currency ?>
+				<?= $order->order_products_cost + $order->order_delivery_cost ?> <?= $order->currency ?>
 			</td>
 			<td>
 				<?=round($order->order_weight/1000, 3)?>кг<br />
 			</td>
-			<td align="center">
+			<td>
 				<? if (empty($order->request_count)) : ?>
 				нет&nbsp;предложений
 				<? else : ?>

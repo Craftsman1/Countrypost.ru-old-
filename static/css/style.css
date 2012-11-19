@@ -2433,3 +2433,10 @@ div.ratinginfo div.reviews
 {
 	margin-top:25px;
 }
+
+div.centered_th th,div.centered_td td
+{
+	text-align:center;
+	vertical-align:middle;
+	white-space: nowrap;
+}
