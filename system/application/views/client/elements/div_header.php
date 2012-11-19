@@ -15,7 +15,7 @@
                 <div class='left-block'>
                 <h2>Авторизация</h2>
                 <p>Здравствуйте, <span class='big-text'><a href='<?=$user ? BASEURL.$user->user_group : BASEURL.'user/showRegistration';?>'><?=$user->user_login;?></a></span></p>
-                <p><a href='/user/showProfile'>Изменить личные данные</a></p>
+                <p><a href='/profile'>Изменить личные данные</a></p>
                 <div class='submit'><div><input type='submit' value='Выйти' onclick="javascript:window.location='<?=BASEURL?>user/logout';" /></div></div>
                 </div>
                 <? if ( ! empty($partners)) : ?>

@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/client.php" afterPath="$PROJECT_DIR$/system/application/controllers/client.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OrderModel.php" afterPath="$PROJECT_DIR$/system/application/models/OrderModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showPayedOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showPayedOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/orders/tabs.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/orders/tabs.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/pages/showOpenOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/pages/showOpenOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/pages/showSentOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/pages/showSentOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/order_filter.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/order_filter.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/pages/main.php" afterPath="$PROJECT_DIR$/system/application/views/main/pages/main.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/div_header.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/div_header.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,15 +25,6 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2440" column="24" selection-start="44109" selection-end="44109" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="showPayedOrders.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showPayedOrders.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -60,10 +41,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="client.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="66" selection-start="275" selection-end="275" vertical-scroll-proportion="0.2589928">
+            <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="div_header.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/div_header.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="103" selection-start="2603" selection-end="2603" vertical-scroll-proportion="0.30935252">
               <folding />
             </state>
           </provider>
@@ -157,7 +147,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" />
         <option value="$PROJECT_DIR$/system/application/views/client/elements/orders/status_links.php" />
         <option value="$PROJECT_DIR$/system/application/views/client/elements/orders/tabs.php" />
         <option value="$PROJECT_DIR$/system/application/models/OrderModel.php" />
@@ -173,6 +162,7 @@
         <option value="$PROJECT_DIR$/system/application/views/client/ajax/showPayedOrders.php" />
         <option value="$PROJECT_DIR$/system/application/views/client/pages/showOpenOrders.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/elements/div_header.php" />
       </list>
     </option>
   </component>
@@ -334,7 +324,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
+              <option name="myItemId" value="elements" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -554,13 +544,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="2" selection-start="149" selection-end="149" vertical-scroll-proportion="-7.586207">
@@ -688,7 +671,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="66" selection-start="275" selection-end="275" vertical-scroll-proportion="0.2589928">
+        <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/div_header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="103" selection-start="2603" selection-end="2603" vertical-scroll-proportion="0.30935252">
           <folding />
         </state>
       </provider>

@@ -1,5 +1,4 @@
-	<?php
-require_once BASE_CONTROLLERS_PATH.'ClientBaseController'.EXT;
+<?php require_once BASE_CONTROLLERS_PATH.'ClientBaseController'.EXT;
 
 class Client extends ClientBaseController {
 	function Client()
