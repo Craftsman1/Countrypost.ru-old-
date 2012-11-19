@@ -1131,18 +1131,38 @@ class Client extends ClientBaseController {
 	
 	public function orders()
 	{
+		$this->showOpenOrders();
+	}
+
+	public function showOpenOrders()
+	{
+		$this->showClientOrders('open', 'showOpenOrders');
+	}
+
+	public function showSentOrders()
+	{
+		$this->showClientOrders('sended', 'showSentOrders');
+	}
+
+	public function showPayedOrders()
+	{
+		$this->showClientOrders('payed', 'showPayedOrders');
+	}
+
+	private function showClientOrders($status, $page)
+	{
 		$this->load->model('OdetailModel', 'OdetailModel');
 		$basket = $this->OdetailModel->getNewDetails($this->user->user_id);
-	
+
 		if ( ! empty($basket))
 		{
 			Func::redirect(BASEURL.$this->cname.'/showBasket');
 			return;
 		}
-		
-		$this->showOrders('open', 'showOpenOrders');
+
+		$this->showOrders($status, $page);
 	}
-	
+
 	public function deleteOrder()
 	{
 		parent::deleteOrder();
