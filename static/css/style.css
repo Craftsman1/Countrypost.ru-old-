@@ -2074,6 +2074,11 @@ div.managerinfo  div, div.clientinfo  div
 	margin-top: 25px;
 }
 
+div.clientinfo ul.tabs div
+{
+    margin-top: 0;
+}
+
 div.managerinfo  center, div.clientinfo center
 {
 	display: inline-block;

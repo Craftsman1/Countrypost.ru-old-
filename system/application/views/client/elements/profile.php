@@ -1,4 +1,4 @@
-<div class="profile table client_tab" style="height: 300px;">
+<div class="profile table client_tab" style="height: 530px;">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
@@ -16,18 +16,29 @@
 			<br style="clear:both;" />
 			<div>
 				<span class="label">Логин*:</span>
-				<input style="width:180px;" class="textbox" maxlength="32" type='text' id='login' name="login" value="<?= $client->statistics->login ?>" />
+                <span class="label" style="margin-left: 0;"><b><?= $client->statistics->login ?></b></span>
 			</div>
 			<br style="clear:both;" />
 			<div>
 				<span class="label">Пароль*:</span>
 				<input style="width:180px;" class="textbox" maxlength="32" type='password' id='password' name="password" />
 			</div>
-			<br style="clear:both;" />
-			<div>
-				<span class="label">Email*:</span>
-				<input style="width:180px;" class="textbox" maxlength="128" type='text' id='email' name="email" value="<?= $client->statistics->email ?>" />
-			</div>
+            <br style="clear:both;" />
+            <div>
+                <span class="label">Страна*:</span>
+                <select id="client_country" class="textbox" name="client_country">
+                    <option value="0">Выбрать страну</option>
+                    <? if (!empty($Countries)) : foreach ($Countries as $country) : ?>
+                    <option title="/static/images/flags/<?= $country->country_name_en ?>.png" value="<?= $country->country_id ?>" <?= ($client->client_country == $country->country_id) ? ' selected="selected" ' : '' ?>><?= $country->country_name ?></option>
+                    <? endforeach; endif; ?>
+                </select>
+
+            </div>
+            <br style="clear:both;" />
+            <div>
+                <span class="label">Email*:</span>
+                <input style="width:180px;" class="textbox" maxlength="128" type='text' id='email' name="email" value="<?= $client->statistics->email ?>" />
+            </div>
 			<br style="clear:both;" />
 			<div>
 				<span class="label">Skype:</span>
@@ -35,9 +46,18 @@
 			</div>
 			<br style="clear:both;" />
 			<div>
-                <span class="label"></span><input type="checkbox" class="checkbox" name="notifications_on" id="notifications_on"  <?= ($client->notifications_on == 1) ? 'checked="checked"' : '' ?> /><span class="label">Получать уведомления на email</span>
+                <span class="label">Получать уведомления на email</span>
+                <input type="checkbox" class="checkbox" name="notifications_on" id="notifications_on"  <?= ($client->notifications_on == 1) ? 'checked="checked"' : '' ?> />
 			</div>
 			<br style="clear:both;" />
+            <div>
+                <span class="label">О себе:</span>
+            </div>
+            <br style="clear:both;">
+            <div style="padding-left:10px;">
+                <textarea id="about" name="about_me" maxlength="65535"><?= $client->about_me ?></textarea>
+            </div>
+            <br style="clear:both;">
 			<div class="submit" style="margin-left: 8px;">
 				<div>
 					<input type="submit" value="Сохранить">
@@ -49,7 +69,8 @@
 </div>
 <script>
 	$(function() {
-		$("#country").msDropDown({mainCSS:'idd'});
+        $("#country").msDropDown({mainCSS:'idd'});
+        $("#client_country").msDropDown({mainCSS:'idd'});
 		
 		var validateProfile = function() {
 			var addError = function(field, message) {
@@ -138,4 +159,5 @@
 		});
 	});
 
+    <?= editor('about', 150, 380, 'PackageComment') ?>
 </script>
