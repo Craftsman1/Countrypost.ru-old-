@@ -60,16 +60,21 @@
 	</form>
 	<a name="pagerScroll" class="pagerScroll"></a>
 	<div class="add_order_box">
-		<div class="admin-inside" id='add_package_button'>
-			<div class="submit">
-				<div>
-					<input style="font:13px sans-serif;" type="button" onclick="window.location = '/main/createorder';" value="Добавить заказ">
-				</div>
-			</div>
-		</div>
-		<span>
-			Бесплатно
-		</span>
+        <? if (!$this->user OR $this->user->user_group != 'manager') : ?>
+            <div class="admin-inside" id='add_package_button'>
+                <div class="submit">
+                    <div>
+                        <input style="font:13px sans-serif;" type="button" onclick="window.location = '/main/createorder';" value="Добавить заказ">
+                    </div>
+                </div>
+            </div>
+            <span>
+                Бесплатно
+            </span>
+        <? else : ?>
+            <div class="admin-inside" id='add_package_button'>
+            </div>
+        <? endif; ?>
 		<span class="total">
 			Найдено заказов: <b id="orders_count"><?= $orders_count ?></b>
 		</span>
