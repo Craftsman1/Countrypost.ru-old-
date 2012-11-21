@@ -2074,6 +2074,11 @@ div.managerinfo  div, div.clientinfo  div
 	margin-top: 25px;
 }
 
+div.clientinfo ul.tabs div
+{
+    margin-top: 0;
+}
+
 div.managerinfo  center, div.clientinfo center
 {
 	display: inline-block;
@@ -2192,6 +2197,12 @@ div.personal,div.ratings
 	font-size: 14px;
 	float:left;
 	width:50%;
+}
+
+div.personal
+{
+    background: none repeat scroll 0 0 transparent;
+    padding-bottom: 0;
 }
 
 div.pricelist_main div,div.mail_forwarding_main div,div.delivery>div

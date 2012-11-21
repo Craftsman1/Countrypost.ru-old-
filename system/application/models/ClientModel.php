@@ -46,7 +46,8 @@ class ClientModel extends BaseModel implements IModel{
     	$this->properties->client_phone_value	='';
     	$this->properties->client_phone			='';
     	$this->properties->skype			    ='';
-    	$this->properties->notifications_on		='';
+        $this->properties->notifications_on		='';
+        $this->properties->about_me     		='';
     	
     	/*$this->properties->client_user			='';
     	$this->properties->client_name			='';
@@ -354,7 +355,7 @@ class ClientModel extends BaseModel implements IModel{
 		
 		if (!$new_id) return false;
 		
-		return $this->getInfo(array($new_id));
+		return $this->getInfo(array($user_obj->client_user));
 	}
 
 	public function hasActiveOrdersOrPackages($client_id)

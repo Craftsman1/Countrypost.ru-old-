@@ -1,4 +1,4 @@
-<div class="profile table client_tab" style="height: 131px;">
+<div class="profile table client_tab" style="height: 140px;">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>

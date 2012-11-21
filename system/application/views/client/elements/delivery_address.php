@@ -52,7 +52,7 @@
         <img class="float" id="blogProgress" style="display:none;margin:0px;margin-top:4px;" src="/static/images/lightbox-ico-loading.gif"/>
     </form>
     <br style="clear:both;" />
-    <h3 id="news_header">Мои адреса</h3>
+    <h3 id="delivery_addressess_header" <? if (!$addresses) :  ?>style="display:none;"<? endif; ?>>Мои адреса</h3>
 
     <div class="table deliveryAddressTableContainer" <? if (!$addresses) :  ?>style="display: none"<? endif; ?>>
         <div class='angle angle-lt'></div>
@@ -100,20 +100,24 @@
 
             if (tkey != '' && !isNaN(tkey))
             {
-                addAddressItemProgress(iconContainer);
-                var ikey = parseInt(tkey, 10);
-                $.post('/client/removeAddress', {address_id : ikey}, function(data) {
-                    if(data == 1)
-                    {
-                        row.remove();
-                        rows = $('#deliveryAddressTable tr');
-                        if (rows.size() < 2)
+                if (confirm("Вы уверены, что хотите удалить адрес №" + tkey + "?"))
+                {
+                    addAddressItemProgress(iconContainer);
+                    var ikey = parseInt(tkey, 10);
+                    $.post('/client/removeAddress', {address_id : ikey}, function(data) {
+                        if(data == 1)
                         {
-                            $('.deliveryAddressTableContainer').hide();
+                            row.remove();
+                            rows = $('#deliveryAddressTable tr');
+                            if (rows.size() < 2)
+                            {
+                                $('.deliveryAddressTableContainer, #delivery_addressess_header').hide();
+                            }
+                            success('top', 'Адрес успешно удален!');
                         }
-                    }
-                    removeAddressItemProgress(iconContainer);
-                });
+                        removeAddressItemProgress(iconContainer);
+                    });
+                }
             }
 
         }
@@ -143,7 +147,7 @@
             success: function(response)
             {
                 $("#blogProgress").hide();
-                success('top', 'Новость успешно сохранена!');
+                success('top', 'Адрес успешно сохранен!');
                 var response_ = $.parseJSON(response);
                 var news_snippet = '<tr id="addressRow'+response_[0].address_id+'"><td class="address_id">' +
                         response_[0].address_id +
@@ -156,7 +160,7 @@
                         '</td><td><a class="edit_icon" style="cursor: pointer;"><img src="/static/images/comment-edit.png" title="Изменить" border="0"></a><a class="delete_icon"><img src="/static/images/delete.png" style="cursor: pointer;" title="Удалить" border="0"></a></td></tr>';
 
                 $('#deliveryAddressTable').find('tr:last').after(news_snippet);
-                $('.deliveryAddressTableContainer').show();
+                $('.deliveryAddressTableContainer, #delivery_addressess_header').show();
                 $('.delete_icon').unbind('click').bind('click', deleteAddress);
             },
             error: function(response)

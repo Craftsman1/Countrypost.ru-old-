@@ -2052,7 +2052,7 @@ class Client extends ClientBaseController {
 
 			// валидация пользовательского ввода
 			Check::reset_empties();
-			$user->user_email = Check::email(Check::str('email', 128, 4));
+            $user->user_email = Check::email(Check::str('email', 128, 4));
 			
 			if (isset($_POST['password']) &&
 				$_POST['password'])
@@ -2065,30 +2065,26 @@ class Client extends ClientBaseController {
 				}
 			}
 			
-			$client->client_name			= Check::str('client_name', 255, 0);
-			$client->client_surname 		= Check::str('client_surname', 255, 0);
-			$client->client_otc			    = Check::str('client_otc', 255, 0);
-			$client->client_country		    = Check::int('country');
+			//$client->client_name			= Check::str('client_name', 255, 0);
+			//$client->client_surname 		= Check::str('client_surname', 255, 0);
+			//$client->client_otc			    = Check::str('client_otc', 255, 0);
+			$client->client_country		    = Check::int('client_country');
 			$client->skype					= Check::str('skype', 255, 0);
-			$client->website				= Check::str('website', 4096, 0);
-			$client->about_me				= Check::str('about', 65535, 0);
-			$client->client_town			= Check::str('city', 255, 1);
-			$client->client_index			= Check::str('client_index', 255, 1);
-			$client->client_address         = Check::str('client_address', 255, 1);
-			
-			$empties = Check::get_empties();			
-			
+			$client->about_me				= Check::str('about_me', 65535, 0);
+            $client->notifications_on       = ((Check::str('notifications_on', 2, 0)=='on') ? 1 : 0);
+
+			$empties = Check::get_empties();
+
 			if ($empties)
 			{
 				throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
 			}
-			
 			$this->db->trans_begin();
-					
+
 			// наконец, все сохраняем
 			$user = $this->User->updateUser($user);
 			$client = $this->Client->updateClient($client);
-						
+
 			if ( ! $user || ! $client)
 			{
 				throw new Exception('Клиент не сохранен. Попробуйте еще раз.');
