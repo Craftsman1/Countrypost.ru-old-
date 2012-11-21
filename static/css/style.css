@@ -2199,6 +2199,12 @@ div.personal,div.ratings
 	width:50%;
 }
 
+div.personal
+{
+    background: none repeat scroll 0 0 transparent;
+    padding-bottom: 0;
+}
+
 div.pricelist_main div,div.mail_forwarding_main div,div.delivery>div
 {
 	padding-top: 0;
