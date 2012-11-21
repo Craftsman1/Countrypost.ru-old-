@@ -360,33 +360,8 @@ abstract class BaseController extends Controller
 				// обработка фильтра
 				$view['filter'] = $this->initFilter($orderStatus.'Orders');
 				$view['filter']->order_statuses = $this->Orders->getFilterStatuses();
-				
-				// доступ к выбору заказов
-				if ($orderStatus == 'not_payed')
-				{
-					$this->load->model('ManagerModel', 'Managers');
-					$manager = $this->Managers->getById($this->user->user_id);
-					$view['acceptOrderAllowed'] = $this->Managers->isOrdersAllowed($manager);
 
-					// отображаем заказы
-					$view['orders'] = $this->Orders->getOrders(
-						$view['filter'], 
-						$orderStatus, 
-						NULL, 
-						$this->user->user_id);
-						
-					$view['unassigned_orders'] = $this->Orders->getUnassignedOrders(
-						$view['filter'], 
-						$orderStatus, 
-						NULL, 
-						$this->user->user_id, 
-						$manager->manager_country);
-				}
-				else
-				{
-					// отображаем заказы
-					$view['orders'] = $this->Orders->getOrders($view['filter'], $orderStatus, NULL, $this->user->user_id);
-				}
+				$view['orders'] = $this->Orders->getOrders($view['filter'], $orderStatus, NULL, $this->user->user_id);
 			}
 			else if ($this->user->user_group == 'client')
 			{
@@ -562,7 +537,7 @@ abstract class BaseController extends Controller
 			$view['bids'] = $this->Bids->getBids($view['order']->order_id);
 			$chosen_bid = FALSE;
 			$statistics = array();
-				
+
 			// комментарии и статистика
 			if (empty($this->user->user_group) OR
 				$this->user->user_group == 'manager' OR 

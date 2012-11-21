@@ -917,7 +917,8 @@ Email: {$this->user->user_email}";
 				$filter->order_type != "online" AND
 				$filter->order_type != "offline" AND
 				$filter->order_type != "service" AND
-				$filter->order_type != "delivery")
+				$filter->order_type != "delivery" AND
+				$filter->order_type != "mail_forwarding")
 		{
 			$filter->order_type = NULL;
 		}
@@ -990,7 +991,7 @@ Email: {$this->user->user_email}";
 			$order = new stdClass();
 			$order->order_client = $user_id;
 			$order->order_type = $order_type;
-			$order = $this->Orders->addOrder($order);
+				$order = $this->Orders->addOrder($order);
 			
 			print($order->order_id);
 		}
@@ -1039,15 +1040,13 @@ Email: {$this->user->user_email}";
 			}
 			
 			Check::reset_empties();
-			$empties = Check::get_empties();
 			$order->order_country_from = Check::int('country_from');
-			$order->order_country = Check::int('country_from'); // legacy code, delete db field and this row
 			$order->order_country_to = Check::int('country_to');
 			$order->order_city_to = Check::str('city_to', 255, 1);
 			
 			$empties = Check::get_empties();
 			$order->order_manager = Check::int('dealer_id');
-			$order->order_status = 'proccessing';
+			$order->order_status = 'pending';
 			$order->order_date = date('Y-m-d H:i:s');			
 			
 			if ($empties) 
@@ -1058,7 +1057,8 @@ Email: {$this->user->user_email}";
 			// детали заказа  
 			$this->load->model('OdetailModel', 'Odetails');						
 			$odetails = $this->Odetails->getOrderDetails($order->order_id);
-			if (!empty($odetails))
+
+			if ( ! empty($odetails))
 			{
 				$odetails_total = $this->Odetails->getOrderDetailsTotals($odetails);
 				
@@ -1069,7 +1069,7 @@ Email: {$this->user->user_email}";
 				//$odetails_total->odetail_joint_count;			
 			}
 
-			if (!($Order = $this->OrderModel->addOrder($order))) 
+			if ( ! ($Order = $this->OrderModel->addOrder($order)))
 			{
 				throw new Exception('Ошибка создания заказа.');
 			}
