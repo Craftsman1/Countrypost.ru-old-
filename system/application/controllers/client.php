@@ -2116,22 +2116,6 @@ class Client extends ClientBaseController {
             $this->load->model('AddressModel', 'Addresses');
             $address = $this->Addresses->getById(0);
 
-            // валидация пользовательского ввода
-            /*Check::reset_empties();
-            $user->user_email = Check::email(Check::str('email', 128, 4));
-
-            if (isset($_POST['password']) &&
-                $_POST['password'])
-            {
-                $user->user_password = Check::str('password', 32, 1);
-
-                if (isset($user->user_password))
-                {
-                    $user->user_password = md5($user->user_password);
-                }
-            }*/
-
-
             $address->address_user = $this->user->user_id;
             $address->address_recipient = Check::str('recipient', 255, 1);
             $address->address_country = Check::int('country');
@@ -2142,8 +2126,8 @@ class Client extends ClientBaseController {
             $address->address_is_default = false;
 
 
+            // валидация пользовательского ввода
             $empties = Check::get_empties();
-
             if ($empties)
             {
                 throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
