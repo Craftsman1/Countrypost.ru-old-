@@ -10,7 +10,8 @@ class Manager extends ManagerBaseController {
 	
 	function index()
 	{
-		Func::redirect(BASEURL.'profile');
+		//Func::redirect(BASEURL.'profile');
+		Func::redirect(BASEURL.$this->cname.'/orders');
 	}
 
 	public function autocompleteClient($query)
@@ -235,26 +236,12 @@ class Manager extends ManagerBaseController {
 	{
 		parent::updateOrderDetails();
 	}
-	public function updatePackageDetails()
+
+	public function orders()
 	{
-		parent::updatePackageDetails();
+		$this->showOpenOrders();
 	}
-	
-	public function showNewPackages()
-	{
-		$this->showPackages('open', 'showNewPackages');
-	}
-	
-	public function showPayedPackages()
-	{
-		$this->showPackages('payed', 'showPayedPackages');
-	}
-	
-	public function showSentPackages()
-	{
-		$this->showPackages('sent', 'showSentPackages');
-	}
-	
+
 	public function showOpenOrders()
 	{
 		$this->showOrders('not_payed', 'showOpenOrders');

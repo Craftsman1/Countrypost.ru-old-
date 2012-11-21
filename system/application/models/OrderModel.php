@@ -1,32 +1,57 @@
-<?
-require_once(MODELS_PATH.'Base/BaseModel.php');
-/**
- * @author omni
- * 
- * моделька для магазина
- * 1. в модели не делаем проверок на валидность i\o это должно делаться в контролере
- * 2. допустимы только ошибки уровня БД
- * 3. разрешатся передавать списки параметров функции, только в случает отсутствия публичного 
- * атрибута соответствующего объекта
- *
- */
+<? require_once(MODELS_PATH.'Base/BaseModel.php');
+
 class OrderModel extends BaseModel implements IModel{
 
 	protected   $properties			= NULL;				// array of properties
 	protected   $table				= 'orders';			// table name
 	protected   $PK					= 'order_id';		// primary key name	
 	
-    private $_order_status_desc = array(
-		'proccessing'   => 'Обрабатывается', 
-		'not_available' => 'Нет в наличии', 
-		'not_available_color' => 'Нет данного цвета',
-		'not_available_size' => 'Нет данного размера',
-		'not_available_count' => 'Нет указанного кол-ва',
+    private $order_statuses = array(
+		'pending'   => 'Посредник не выбран',
+		'processing'   => 'Обрабатывается',
+		'not_payed' => 'Не оплачен',
+		'not_available' => 'Нет в наличии',
+		'payed' => 'Оплачен',
+		'waiting' => 'Ждем прибытия',
+		'bought' => 'Выкуплен',
+		'completed' => 'Выполнен',
+		'deleted' => 'Удален'
+	);
+
+	private $online_order_statuses = array(
+		'processing'   => 'Обрабатывается',
+		'not_payed' => 'Не оплачен',
+		'not_available' => 'Нет в наличии',
+		'payed' => 'Оплачен',
+		'bought' => 'Выкуплен',
+		'completed' => 'Выполнен',
+	);
+
+	private $offline_order_statuses = array(
+		'processing'   => 'Обрабатывается',
+		'not_payed' => 'Не оплачен',
+		'not_available' => 'Нет в наличии',
+		'payed' => 'Оплачен',
+		'bought' => 'Выкуплен',
+		'completed' => 'Выполнен',
+	);
+
+	private $service_order_statuses = array(
+		'processing'   => 'Обрабатывается',
 		'not_payed' => 'Не оплачен',
 		'payed' => 'Оплачен',
-		'sended' => 'Отправлен',
-		'not_delivered' => 'Не доставлен',
-		'deleted' => 'Удален'
+		'completed' => 'Выполнен',
+	);
+
+	private $delivery_order_statuses = array(
+		'processing'   => 'Обрабатывается',
+		'not_payed' => 'Не оплачен',
+		'payed' => 'Оплачен',
+		'waiting' => 'Ждем прибытия',
+		'completed' => 'Выкуплен',
+	);
+
+	private $mail_forwarding_order_statuses = array(
 	);
 
 	private $filter_statuses = array(
@@ -42,7 +67,8 @@ class OrderModel extends BaseModel implements IModel{
 		'offline'   => 'Offline заказ', 
 		'online' => 'Online заказ', 
 		'service' => 'Услуга',
-		'delivery' => 'Доставка'
+		'delivery' => 'Доставка',
+		'mail_forwarding' => 'Mail Forwarding'
 	);
 
 	public function getOrderTypes()
@@ -50,16 +76,31 @@ class OrderModel extends BaseModel implements IModel{
 	    return $this->order_types; 
     }
 
+	public function getAllStatuses()
+    {
+		$statuses = array();
+
+		foreach ($this->order_types as $key => $value)
+		{
+			$name = "{$key}_order_statuses";
+			$statuses[$key] = $this->$name;
+		}
+	    return $statuses;
+    }
+
 	public function getOrderStatusDescription($order_status)
     {
-		if($order_status != '')
-		    return $this->_order_status_desc[$order_status]; 
-		return '';
-    }
+		if (empty($order_status))
+		{
+			return '';
+		}
+
+		return $this->order_statuses[$order_status];
+	}
 	
 	public function getAvailableOrderStatuses()
     {
-	    return $this->_order_status_desc; 
+	    return $this->order_statuses;
     }
 
 	public function getFilterStatuses()
@@ -84,7 +125,7 @@ class OrderModel extends BaseModel implements IModel{
     	$this->properties->order_cost_payed			= '';
     	$this->properties->order_country			= '';
     	$this->properties->order_date				= '';    	
-    	$this->properties->order_status				= 'proccessing';
+    	$this->properties->order_status				= 'pending';
     	$this->properties->order_shop_name			= '';
     	$this->properties->comment_for_manager		= '';
     	$this->properties->comment_for_client		= '';
@@ -329,7 +370,7 @@ class OrderModel extends BaseModel implements IModel{
 				"SELECT 
 					`orders`.*, 
 					@package_day:=TIMESTAMPDIFF(DAY, `orders`.`order_date`, NOW()) as package_day,
-					''  as `order_manager_login`, 
+					''  as `client_login`,
 					`countries`.`country_name` as `order_manager_country`,
 					`countries`.`country_name` as `order_country_from`,
 					`countries`.`country_name_en` as `order_country_from_en`,
@@ -362,7 +403,7 @@ class OrderModel extends BaseModel implements IModel{
 			"SELECT 
 				`orders`.*, 
 				@package_day:=TIMESTAMPDIFF(DAY, `orders`.`order_date`, NOW()) as package_day,
-				`users`.`user_login`  as `order_manager_login`, 
+				`users`.`user_login`  as `client_login`,
 				`countries`.`country_name` as `order_manager_country`,
 				`countries`.`country_name` as `order_country_from`,
 				`countries`.`country_name_en` as `order_country_from_en`,
@@ -372,7 +413,7 @@ class OrderModel extends BaseModel implements IModel{
 				TIMESTAMPDIFF(HOUR, `orders`.`order_date`, NOW() - INTERVAL @package_day DAY) as `package_hour`
 				$extra_fields
 			FROM `orders`
-			INNER JOIN `users` on `users`.`user_id` = `orders`.`order_manager`
+			INNER JOIN `users` on `users`.`user_id` = `orders`.`order_client`
 			INNER JOIN `managers` on `managers`.`manager_user` = `orders`.`order_manager`
 			INNER JOIN `countries` on `managers`.`manager_country` = `countries`.`country_id`
 			LEFT OUTER JOIN `countries` AS c2 on `orders`.`order_country_to` = c2.`country_id`
@@ -397,7 +438,7 @@ class OrderModel extends BaseModel implements IModel{
 			"SELECT 
 				`orders`.*, 
 				@package_day:=TIMESTAMPDIFF(DAY, `orders`.`order_date`, NOW()) as package_day,
-				`users`.`user_login`  as `order_manager_login`, 
+				`users`.`user_login`  as `client_login`,
 				`countries`.`country_name` as `order_manager_country`,
 				`countries`.`country_name` as `order_country_from`,
 				`countries`.`country_name_en` as `order_country_from_en`,
@@ -407,7 +448,7 @@ class OrderModel extends BaseModel implements IModel{
 				TIMESTAMPDIFF(HOUR, `orders`.`order_date`, NOW() - INTERVAL @package_day DAY) as `package_hour`
 				$extra_fields
 			FROM `orders`
-			INNER JOIN `users` on `users`.`user_id` = `orders`.`order_manager`
+			INNER JOIN `users` on `users`.`user_id` = `orders`.`order_client`
 			INNER JOIN `managers` on `managers`.`manager_user` = `orders`.`order_manager`
 			INNER JOIN `countries` on `managers`.`manager_country` = `countries`.`country_id`
 			LEFT OUTER JOIN `countries` AS c2 on `orders`.`order_country_to` = c2.`country_id`

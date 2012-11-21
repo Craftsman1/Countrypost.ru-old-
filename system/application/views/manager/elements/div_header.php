@@ -15,7 +15,8 @@
             <div class='left-block'>
                 <h2>Авторизация</h2>
                 <p>Здравствуйте, <span class='big-text'><a href='<?=$user ? BASEURL.$user->user_group : BASEURL.'user/showRegistration';?>'><?=$user->user_login;?></a></span></p>
-                <div class='submit'><div><input type='submit' value='Выйти' onclick="javascript:window.location='<?=BASEURL?>user/logout';" /></div></div>
+				<p><a href='/profile'>Изменить личные данные</a></p>
+				<div class='submit'><div><input type='submit' value='Выйти' onclick="javascript:window.location='<?=BASEURL?>user/logout';" /></div></div>
             </div>
             <div class='right-block'>
             <?	$credit_local = $this->session->userdata('manager_credit_local');

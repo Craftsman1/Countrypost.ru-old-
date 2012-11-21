@@ -430,6 +430,7 @@ abstract class BaseController extends Controller
 			}
 			
 			$view['pager'] = $this->get_paging();
+			$view['statuses'] = $this->Orders->getAllStatuses();
 		}
 		catch (Exception $e) 
 		{
