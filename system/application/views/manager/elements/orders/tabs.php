@@ -16,7 +16,7 @@
 			($sent_orders) ? 0 : $sent_orders ?>)</a>
 		</div>
 	</li>
-	<li <? if (strval($selected_submenu) == 'bid_orders') : ?>class='active'<? endif; ?>>
+	<li <? if (strval($selected_submenu) == 'unassigned_orders') : ?>class='active'<? endif; ?>>
 	<div>
 			<a href='javascript:goto_page("<?= $selfurl  ?>showBidOrders/0/ajax");'>Заказы с моими предложениями (<?=
 				empty($bid_orders) ? 0 : $bid_orders ?>)</a>

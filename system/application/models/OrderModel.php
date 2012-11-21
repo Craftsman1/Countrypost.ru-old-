@@ -12,7 +12,6 @@ class OrderModel extends BaseModel implements IModel{
 		'not_payed' => 'Не оплачен',
 		'not_available' => 'Нет в наличии',
 		'payed' => 'Оплачен',
-		'waiting' => 'Ждем прибытия',
 		'bought' => 'Выкуплен',
 		'completed' => 'Выполнен',
 		'deleted' => 'Удален'
@@ -24,7 +23,7 @@ class OrderModel extends BaseModel implements IModel{
 		'not_available' => 'Нет в наличии',
 		'payed' => 'Оплачен',
 		'bought' => 'Выкуплен',
-		'completed' => 'Выполнен',
+		'completed' => 'Отправлен',
 	);
 
 	private $offline_order_statuses = array(
@@ -33,7 +32,7 @@ class OrderModel extends BaseModel implements IModel{
 		'not_available' => 'Нет в наличии',
 		'payed' => 'Оплачен',
 		'bought' => 'Выкуплен',
-		'completed' => 'Выполнен',
+		'completed' => 'Отправлен',
 	);
 
 	private $service_order_statuses = array(
@@ -44,18 +43,21 @@ class OrderModel extends BaseModel implements IModel{
 	);
 
 	private $delivery_order_statuses = array(
-		'processing'   => 'Обрабатывается',
+		'processing' => 'Ждем прибытия',
 		'not_payed' => 'Не оплачен',
 		'payed' => 'Оплачен',
-		'waiting' => 'Ждем прибытия',
-		'completed' => 'Выкуплен',
+		'completed' => 'Отправлен',
 	);
 
 	private $mail_forwarding_order_statuses = array(
+		'processing' => 'Ждем прибытия',
+		'not_payed' => 'Не оплачен',
+		'payed' => 'Оплачен',
+		'completed' => 'Отправлен',
 	);
 
 	private $filter_statuses = array(
-		'proccessing'   => 'Обрабатывается', 
+		'processing'   => 'Обрабатывается',
 		'not_available' => 'Нет в наличии', 
 		'not_available_color' => 'Нет данного цвета',
 		'not_available_size' => 'Нет данного размера',

@@ -1,6 +1,5 @@
 <div id="partnersFormContainer">
     <form id="partnersForm" class='admin-inside' action='#'>
-        <a name="pagerScroll"></a>
         <div class="search_results">
             <span class="total" style="float: none;">
                 Найдено посредников: <b id="managers_count"><?= $this->paging_count ?></b>

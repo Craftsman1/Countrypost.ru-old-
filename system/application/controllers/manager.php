@@ -10,7 +10,6 @@ class Manager extends ManagerBaseController {
 	
 	function index()
 	{
-		//Func::redirect(BASEURL.'profile');
 		Func::redirect(BASEURL.$this->cname.'/orders');
 	}
 
@@ -44,24 +43,9 @@ class Manager extends ManagerBaseController {
 		}
 	}
 	
-	public function showAddPackage()
-	{
-		parent::showAddPackage();
-	}
-	
-	public function addPackage()
-	{
-		parent::addPackage();
-	}
-	
 	public function updateOdetailStatuses()
 	{
 		parent::updateOdetailStatuses();
-	}
-	
-	public function updatePdetailStatuses()
-	{
-		parent::updatePdetailStatuses();
 	}
 	
 	public function updateWeight()
@@ -257,116 +241,9 @@ class Manager extends ManagerBaseController {
 		$this->showOrders('sended', 'showSentOrders');
 	}
 
-	public function addPackageComment($package_id, $comment_id = null)
-	{
-		try
-		{
-			if (!is_numeric($package_id))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-		
-			// безопасность: проверяем связку менеджера и посылки
-			$this->load->model('PackageModel', 'Packages');
-			$package = $this->Packages->getManagerPackageById($package_id, $this->user->user_id);
-
-			if (!$package)
-			{
-				throw new Exception('Невозможно добавить комментарий. Партнер не обрабатывает данную посылку.');
-			}
-
-			// валидация пользовательского ввода
-			$this->load->model('PCommentModel', 'Comments');
-			
-			if (is_numeric($comment_id)) 
-			{
-				$pcomment = $this->Comments->getById($comment_id);
-				if (!$pcomment) 
-				{
-					throw new Exception('Невозможно изменить комментарий. Комментарий не найден.');
-				}
-				
-				$pcomment->pcomment_comment	= Check::txt('comment_update', 8096, 1);
-			}
-			else
-			{
-				$pcomment				= new stdClass();
-				$pcomment->pcomment_comment	= Check::txt('comment', 8096, 1);
-			}
-			
-			$pcomment->pcomment_package	= $package_id;
-			$pcomment->pcomment_user	= $this->user->user_id;
-			$empties					= Check::get_empties();
-		
-			if ($empties) 
-			{
-				throw new Exception('Текст комментария отсутствует. Попробуйте еще раз.');
-			}
-			
-			// сохранение результатов
-			if (!$this->Comments->addComment($pcomment) &&
-				!is_numeric($comment_id))
-			{
-				throw new Exception('Комментарий не добавлен. Попробуйте еще раз.');
-			}			
-			
-			// выставляем флаг нового комментария
-			$package->comment_for_client = TRUE;
-			$this->Packages->savePackage($package);
-
-			// уведомления
-			$this->load->model('ManagerModel', 'Managers');
-			$this->load->model('UserModel', 'Users');
-			$this->load->model('ClientModel', 'Clients');
-
-			Mailer::sendClientNotification(
-				Mailer::SUBJECT_NEW_COMMENT, 
-				Mailer::NEW_PACKAGE_COMMENT_NOTIFICATION, 
-				$package->package_id, 
-				$package->package_client,
-				"http://countrypost.ru/client/showPackageDetails/{$package->package_id}#comments",
-				$this->Clients);
-
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-		
-		// открываем комментарии к посылке
-		Func::redirect($_SERVER['HTTP_REFERER'] . '#comments');
-	}
-	
-	public function delPackageComment($package_id, $comment_id)
-	{
-		parent::delPackageComment((int) $package_id, (int) $comment_id);
-	}
-
-	public function delOrderComment($package_id, $comment_id){
-		parent::delOrderComment((int) $package_id, (int) $comment_id);
-	}
-
-	public function deletePackage()
-	{
-		parent::deletePackage();
-	}
-
-	public function editPackageAddress()
-	{
-		parent::editPackageAddress();
-	}
-
 	public function order()
 	{
 		parent::showOrderDetails();
-	}
-	
-	public function showDeclaration()
-	{
-		parent::showDeclaration();
 	}
 	
 	public function joinProducts($order_id)
@@ -378,31 +255,6 @@ class Manager extends ManagerBaseController {
 	{
 		parent::removeOdetailJoint($order_id, $odetail_joint_id);
 	}
-	
-	public function previewDeclaration($package_id){
-		
-		$this->load->model('PackageModel', 'Packages');
-		$this->load->model('DeclarationModel', 'Declarations');
-		
-		(int) $package_id;
-		$declarations	= null;
-		
-		$package		= $this->Packages->getManagerPackageById($package_id, $this->user->user_id);
-		
-		if ($package){
-			$declarations	= $this->Declarations->getDeclarationsByPackageId($package_id);	
-		}
-		
-		View::showChild($this->viewpath.'/pages/previewPackageDeclaration', array(
-			'package'		=> $package,
-			'declarations'	=> $declarations
-		));
-	}
-	
-	public function showPackageDetails()
-	{
-		parent::showPackageDetails();
-	}	
 	
 	public function addOrderComment($order_id, $comment_id = null)
 	{
