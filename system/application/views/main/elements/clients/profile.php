@@ -55,3 +55,14 @@
 		<? endif; ?>
 	</div>
 </div>
+
+<div class="profile client_tab">
+    <h3>О себе</h3>
+    <div class="table">
+        <div class="angle angle-lt"></div>
+        <div class="angle angle-rt"></div>
+        <div class="angle angle-lb"></div>
+        <div class="angle angle-rb"></div>
+        <?= htmlspecialchars_decode ($client->about_me) ?>
+    </div>
+</div>

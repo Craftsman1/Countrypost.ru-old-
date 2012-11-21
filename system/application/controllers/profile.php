@@ -232,8 +232,8 @@ class Profile extends BaseController {
 
             // находим адреса
             $this->load->model('AddressModel', 'Addresses');
-            $addresses = $this->Addresses->getAddressesByUserId($this->user->user_id);
-			
+            $addresses = $this->Addresses->getAddressesByUserId($client->statistics->client_user);
+
 			$view['countries'] = $countries;
             $view['countries_en'] = $countries_en;
             $view['addresses'] = $addresses;

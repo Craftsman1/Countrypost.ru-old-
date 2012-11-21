@@ -68,8 +68,8 @@
 	</div>
 </div>
 <script>
+	var profile_country = '';
 	$(function() {
-        $("#country").msDropDown({mainCSS:'idd'});
         $("#client_country").msDropDown({mainCSS:'idd'});
 		
 		var validateProfile = function() {
