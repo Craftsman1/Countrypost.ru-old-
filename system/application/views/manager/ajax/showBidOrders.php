@@ -10,7 +10,7 @@
 				<th>Номер заказа</th>
 				<th>Клиент</th>
 				<th>Доставка в</th>
-				<th>Общая стоимость</th>
+				<th>Примерная стоимость</th>
 				<th></th>
 			</tr>
 			<?if ($orders) : foreach($orders as $order) : ?>

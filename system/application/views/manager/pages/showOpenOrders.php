@@ -9,17 +9,15 @@
 		'orders' => $orders,
 		'pager' => $pager)); ?>
 </div>
-<script type="text/javascript">
-	$('#ordersForm').submit(function() {
-		if ($('#ordersForm input:checkbox:checked').size() == 0)
-		{
-			alert('Выберите заказы для отправки.');
-			return false;
+<script>
+	function refundItem(id) {
+		if (confirm("Возместить клиенту заказ №" + id + "?")){
+			window.location.href = '<?= $selfurl ?>refundOrder/' + id;
 		}
-		
-		if (!confirm('Вы уверены, что хотите отправить выбранные заказы?'))
-		{
-			return false;
-		}
-	});
+	}
+
+	function status_handler(page_status)
+	{
+		order_status_handler('<?= $selfurl ?>', page_status)
+	}
 </script>

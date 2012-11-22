@@ -221,6 +221,24 @@ class Manager extends ManagerBaseController {
 		parent::updateOrderDetails();
 	}
 
+	public function updateOpenOrderStatus($param1, $param2, $order, $status)
+	{
+		parent::updateOrderStatus($order, $status);
+		$this->showOpenOrders();
+	}
+
+	public function updatePayedOrderStatus($param1, $param2, $order, $status)
+	{
+		parent::updateOrderStatus($order, $status);
+		$this->showPayedOrders();
+	}
+
+	public function updateSentOrderStatus($param1, $param2, $order, $status)
+	{
+		parent::updateOrderStatus($order, $status);
+		$this->showSentOrders();
+	}
+
 	public function orders()
 	{
 		$this->showOpenOrders();

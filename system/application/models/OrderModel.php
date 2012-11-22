@@ -312,10 +312,9 @@ class OrderModel extends BaseModel implements IModel{
 	 */
 	public function getOrders(
 		$filter = NULL, 
-		$orderStatus = 'open', 
+		$orderStatus,// = 'open',
 		$clientId = NULL, 
-		$managerId = NULL, 
-		$includeUnassigned = FALSE) 
+		$managerId = NULL)
 	{
 		// инициализация параметров фильтра
 		$managerFilter = '';
@@ -323,8 +322,6 @@ class OrderModel extends BaseModel implements IModel{
 		$idFilter = '';
 		$clientIdAccess = '';
 		$managerIdAccess = '';
-		$openManagerIdAccess = '';
-		$statusFilter = '';
 		$bidJoin = '';
 		$bidFilter = '';
 		$user_group = '';
@@ -434,39 +431,11 @@ class OrderModel extends BaseModel implements IModel{
 				$bidFilter
 			ORDER BY `orders`.`order_date` DESC"
 		)->result();
-/*
-		print_r("SELECT
-				`orders`.*,
-				@package_day:=TIMESTAMPDIFF(DAY, `orders`.`order_date`, NOW()) as package_day,
-				`users`.`user_login`  as `client_login`,
-				`countries`.`country_name` as `order_manager_country`,
-				`countries`.`country_name` as `order_country_from`,
-				`countries`.`country_name_en` as `order_country_from_en`,
-				`countries`.`country_currency` as currency,
-				c2.`country_name` as `order_country_to`,
-				c2.`country_name_en` as `order_country_to_en`,
-				TIMESTAMPDIFF(HOUR, `orders`.`order_date`, NOW() - INTERVAL @package_day DAY) as `package_hour`
-				$extra_fields
-			FROM `orders`
-			INNER JOIN `users` on `users`.`user_id` = `orders`.`order_client`
-			$managerJoin
-			INNER JOIN `countries` on `orders`.`order_country_from` = `countries`.`country_id`
-			LEFT OUTER JOIN `countries` AS c2 on `orders`.`order_country_to` = c2.`country_id`
-			$bidJoin
-			WHERE
-				$statusFilter
-				$managerFilter
-				$periodFilter
-				$idFilter
-				$clientIdAccess
-				$managerIdAccess
-				$bidFilter
-			ORDER BY `orders`.`order_date` DESC");die();*/
+
 		// отдаем результат
 		return ((count($result) > 0 &&  $result) ? $result : false);		
 	}
-	
-	
+
 	public function getUnassignedOrders($filter = NULL, $clientId = NULL) 
 	{
 		// инициализация параметров фильтра
@@ -549,35 +518,6 @@ class OrderModel extends BaseModel implements IModel{
 			ORDER BY `orders`.`order_date` DESC
 			"
 		)->result();
-
-		/*die(
-		"SELECT
-				`orders`.*, 
-				@package_day:=TIMESTAMPDIFF(DAY, `orders`.`order_date`, NOW()) as package_day,
-				''  as `order_manager_login`, 
-				c.`country_name` as `order_country_from`,
-				c.`country_name_en` as `order_country_from_en`,
-				c.`country_currency` as currency,	
-				c2.`country_name` as `order_country_to`,
-				c2.`country_name_en` as `order_country_to_en`,
-				TIMESTAMPDIFF(HOUR, `orders`.`order_date`, NOW() - INTERVAL @package_day DAY) as `package_hour`
-				$requests_selector
-			FROM `orders`
-			INNER JOIN `countries` AS c on `orders`.`order_country` = c.`country_id`
-			LEFT OUTER JOIN `countries` AS c2 on `orders`.`order_country_to` = c2.`country_id`
-			$requests_join
-			WHERE 1
-				$idFilter
-				$clientIdAccess
-				$countryFromFilter
-				$countryToFilter
-				$orderTypeFilter
-				AND `orders`.`order_status` = 'pending'
-				AND `orders`.`order_manager` = 0
-			$requests_group
-			ORDER BY `orders`.`order_date` DESC
-			"
-		);*/
 
 		// отдаем результат
 		return ((count($result) > 0 &&  $result) ? $result : false);		
