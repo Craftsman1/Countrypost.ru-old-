@@ -59,7 +59,7 @@ else
 			</td>
 			<td>
 				<? if (empty($order->request_count)) : ?>
-				нет&nbsp;предложений
+				нет предложений
 				<? else : ?>
 				<a href="<?=$order_link?><?=$order->order_id?>"><?=$order->request_count?></a>
 				<? endif; ?>
@@ -72,7 +72,7 @@ else
 				<? if (empty($order->request_sent)) : ?>
 				<a href="<?=$order_link?><?=$order->order_id?>">Добавить предложение</a>
 				<? else : ?>
-				Вы&nbsp;уже&nbsp;добавили предложение
+				Вы уже добавили<br>предложение
 				<? endif; ?>
 				<? endif; ?>
 			</td>
