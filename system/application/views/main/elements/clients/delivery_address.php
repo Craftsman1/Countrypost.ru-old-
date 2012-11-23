@@ -9,10 +9,10 @@
 
         <table id="deliveryAddressTable">
             <tr>
-                <td width="20px">&nbsp;</td>
-                <td><b>Получатель</b></td>
-                <td><b>Адрес</b></td>
-                <td><b>Телефон</b></td>
+                <th width="20px">&nbsp;</th>
+                <th><b>Получатель</b></th>
+                <th><b>Адрес</b></th>
+                <th><b>Телефон</b></th>
             </tr>
             <? if ($addresses) :  ?>
             <? foreach ($addresses as $address) : ?>
