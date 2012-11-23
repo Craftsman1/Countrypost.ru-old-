@@ -1,4 +1,4 @@
-<div class='content'>
+<div class='content smallheader'>
 	<? Breadcrumb::showCrumbs(); ?>
 	<h2><?=$order->order_type?> Заказ №<?=$order->order_id?> <?=$order->order_country_from?> - <?=$order->order_country_to?> (<?=$order->order_city_to?>)</h2>
 	<? View::show('client/ajax/showOrderInfo'); ?>

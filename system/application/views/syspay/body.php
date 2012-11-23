@@ -9,7 +9,7 @@
 	</div>		
 	<? View::show('elements/div_bottom'); ?>	
 	<? View::show('elements/div_footer'); ?>	
-	<script type="text/javascript" src="/static/build/modulargrid.js"></script>
+	<script type="text/javascript" src="/design/build/modulargrid.js"></script>
 	<script type="text/javascript">
 	reformal_wdg_domain    = "Countrypost";
 	reformal_wdg_mode    = 0;

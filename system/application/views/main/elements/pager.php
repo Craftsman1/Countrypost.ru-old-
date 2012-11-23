@@ -77,17 +77,4 @@ foreach($pageNumbers as $m) :
 		var offset = $(this).val() * <?= getItemNByPage(2, $perPage) ?>;
 		goto_page('<?= $baseUrl ?>/' + offset + '/ajax');
 	});
-
-function goto_page(pager_url)
-{
-	window.location = '#pagerScroll';
-	$('em#ajax_message').hide();
-
-    $.ajax({
-		url: pager_url,
-		success: function (response){
-			$('.pages').remove();
-			$('#pagerForm,#packagesForm,#ordersForm,#partnersForm,#clientsForm,#unassignedOrders').before(response).remove();
-		}});
-}
 </script>

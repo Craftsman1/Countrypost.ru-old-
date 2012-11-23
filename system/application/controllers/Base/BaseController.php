@@ -129,197 +129,6 @@ abstract class BaseController extends Controller
 		View::$data['partners']	= $this->__partners;
 	}	
 	
-	private function updateDeclarationItem($declaration_id)
-	{
-		if (!is_numeric($declaration_id) ||
-			!isset($_POST['declaration_amount'.$declaration_id]) ||
-			!isset($_POST['declaration_cost'.$declaration_id])) return;
-
-		// находим товар в декларации
-		$declaration = $this->Declarations->getById($declaration_id);
-
-		if (!$declaration)
-		{
-			throw new Exception('Невозможно сохранить декларацию. Некоторые товары не найдены.');
-		}
-
-		// удаление товара из декларации
-		if ($_POST['declaration_item'.$declaration_id] == '')
-		{
-			$deleted = $this->Declarations->delete($declaration_id);
-				
-			if (!$deleted)
-			{
-				throw new Exception('Невозможно сохранить декларацию. Попоробуйте еще раз.');
-			}
-			
-			return;
-		}
-			
-		// валидация пользовательского ввода
-		Check::reset_empties();
-		$declaration->declaration_item 		= Check::txt('declaration_item'.$declaration_id, 8096, 1);
-		$declaration->declaration_amount 	= Check::int('declaration_amount'.$declaration_id);
-		$declaration->declaration_cost 		= Check::float('declaration_cost'.$declaration_id);
-		$empties							= Check::get_empties();
-		
-		if ($empties)
-		{
-			throw new Exception('Некоторые поля декларации не заполнены. Попробуйте еще раз.');
-		}
-				
-		// изменение деталей товара
-		$new_declaration = $this->Declarations->saveDeclaration($declaration);
-
-		if ($new_declaration === FALSE)
-		{
-			throw new Exception('Невозможно сохранить декларацию. Попоробуйте еще раз.');
-		}
-	}
-	
-	private function insertDeclarationItem($declaration_id)
-	{
-		// сохраняем только заполненные товары
-		if (!is_numeric($declaration_id) ||
-			!isset($_POST['new_item'.$declaration_id]) ||
-			$_POST['new_item'.$declaration_id] == '') return;
-
-		// валидация пользовательского ввода
-		$declaration = new stdClass();
-		$declaration->declaration_item 		= Check::txt('new_item'.$declaration_id, 8096, 1);
-		$declaration->declaration_amount 	= Check::int('new_amount'.$declaration_id);
-		$declaration->declaration_cost 		= Check::float('new_cost'.$declaration_id);
-		$declaration->declaration_package	= $this->uri->segment(3);
-		$empties							= Check::get_empties();
-
-		if ($empties)
-		{
-			throw new Exception('Некоторые поля декларации не заполнены. Попробуйте еще раз.');
-		}
-
-		// сохранение деталей товара
-		$declaration->declaration_id = '';
-		$new_declaration = $this->Declarations->saveDeclaration($declaration);
-				
-		if (!$new_declaration)
-		{
-			throw new Exception('Невозможно сохранить декларацию. Попоробуйте еще раз.');
-		}
-	}
-
-	protected function showPackages($packageStatus, $pageName, $showDeliveryList=FALSE)
-	{
-		try
-		{
-			$this->load->model('PackageModel', 'Packages');
-
-			// роли и разграничение доступа
-			if ($this->user->user_group == 'admin')
-			{
-				// обработка фильтра
-				$view['filter'] = $this->initFilter($packageStatus.'Packages');
-				$view['filter']->package_statuses = $this->Packages->getFilterStatuses();
-				
-				$this->load->model('ManagerModel', 'Managers');
-				$view['managers'] = $this->Managers->getManagersData();
-				
-				// отображаем посылки
-				$view['packages'] = $this->Packages->getPackages($view['filter'], $packageStatus, NULL, NULL);
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				// обработка фильтра
-				$view['filter'] = $this->initFilter($packageStatus.'Packages');
-				$view['filter']->package_statuses = $this->Packages->getFilterStatuses();
-				
-				$this->load->model('ManagerModel', 'Managers');
-				$view['manager'] = $this->Managers->getById($this->user->user_id);
-
-				// отображаем посылки
-				$view['packages'] = $this->Packages->getPackages($view['filter'], $packageStatus, NULL, $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				// отображаем посылки
-				$view['packages'] = $this->Packages->getPackages(NULL, $packageStatus, $this->user->user_id, NULL);
-				
-				// отображение способов доставки
-				if ($showDeliveryList)
-				{
-					$this->load->model('DeliveryModel', 'Deliveries');
-					$view['deliveries'] = $this->Deliveries->getList();
-					
-					if (!$view['deliveries'])
-					{
-						$this->result->m = 'Невозможно отобразить посылки. Способы доставки не доступны.';
-						Stack::push('result', $this->result);
-					}
-					
-					$view['packages'] = $this->Packages->getAvailableDeliveries($view['packages'], $this->Deliveries);
-				}
-
-				// показываем статистику
-				$this->putStatistics($view);
-				
-				//
-				$this->load->model('ClientModel', 'Clients');
-				$this->load->model('ManagerModel', 'Managers');
-				$view['managers'] = $this->Managers->getManagersData();
-				
-				if ( ! $view['managers'])
-				{
-					throw new Exception('Партнеры не найдены. Попробуйте еще раз.');
-				}
-
-				@$view['client'] = $this->__client;
-				@$view['partners'] = $this->__partners;
-
-			}
-			
-			if ( ! $view['packages'])
-			{
-				$this->result->m = 'Посылки не найдены.';
-			}
-			
-			// статусы
-			$view['package_statuses'] = $this->Packages->getStatuses();
-
-			/* пейджинг */
-			$this->init_paging();		
-			$this->paging_count = count($view['packages']);
-			$per_page = isset($this->session->userdata['new_packages_per_page']) ? $this->session->userdata['new_packages_per_page'] : NULL;
-			$per_page = (isset($per_page) && ($packageStatus == 'not_payed' || $packageStatus == 'open')) ? $per_page : $this->per_page;
-			
-			if ($view['packages'])
-			{
-				$view['packages'] = array_slice($view['packages'], $this->paging_offset, $per_page);
-			}
-			
-			$view['pager'] = $this->get_paging($per_page);
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-
-		// парсим шаблон
-		$view['per_page'] = $per_page;
-		
-		if ($this->uri->segment(4) == 'ajax')
-		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
-			$view['viewpath'] = $this->viewpath;
-			$this->load->view($this->viewpath."ajax/$pageName", $view);
-		}
-		else
-		{
-			View::showChild($this->viewpath."pages/$pageName", $view);
-		}
-	}
-	
 	protected function showOrders($orderStatus, $pageName)
 	{
 		try
@@ -360,33 +169,8 @@ abstract class BaseController extends Controller
 				// обработка фильтра
 				$view['filter'] = $this->initFilter($orderStatus.'Orders');
 				$view['filter']->order_statuses = $this->Orders->getFilterStatuses();
-				
-				// доступ к выбору заказов
-				if ($orderStatus == 'not_payed')
-				{
-					$this->load->model('ManagerModel', 'Managers');
-					$manager = $this->Managers->getById($this->user->user_id);
-					$view['acceptOrderAllowed'] = $this->Managers->isOrdersAllowed($manager);
 
-					// отображаем заказы
-					$view['orders'] = $this->Orders->getOrders(
-						$view['filter'], 
-						$orderStatus, 
-						NULL, 
-						$this->user->user_id);
-						
-					$view['unassigned_orders'] = $this->Orders->getUnassignedOrders(
-						$view['filter'], 
-						$orderStatus, 
-						NULL, 
-						$this->user->user_id, 
-						$manager->manager_country);
-				}
-				else
-				{
-					// отображаем заказы
-					$view['orders'] = $this->Orders->getOrders($view['filter'], $orderStatus, NULL, $this->user->user_id);
-				}
+				$view['orders'] = $this->Orders->getOrders($view['filter'], $orderStatus, NULL, $this->user->user_id);
 			}
 			else if ($this->user->user_group == 'client')
 			{
@@ -409,10 +193,10 @@ abstract class BaseController extends Controller
 				// общие суммы активных товаров и заказов
 				$this->load->model('ClientModel', 'Client');
 				$view['hasActiveOrdersOrPackages'] = $this->Client->hasActiveOrdersOrPackages($this->user->user_id);
-				
-				// показываем статистику
-				$this->putStatistics($view);
 			}
+
+			// показываем статистику
+			$this->putStatistics($view);
 			
 			if ( ! $view['orders'])
 			{
@@ -562,7 +346,7 @@ abstract class BaseController extends Controller
 			$view['bids'] = $this->Bids->getBids($view['order']->order_id);
 			$chosen_bid = FALSE;
 			$statistics = array();
-				
+
 			// комментарии и статистика
 			if (empty($this->user->user_group) OR
 				$this->user->user_group == 'manager' OR 
@@ -2986,108 +2770,6 @@ abstract class BaseController extends Controller
 		// открываем детали заказа
 		Func::redirect(BASEURL.$this->cname.'/showOrderDetails/'.$order_id);
 	}
-
-	protected function updatePackageDetails()
-	{
-		try
-		{
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!isset($_POST['package_id']) ||
-				!is_numeric($_POST['package_id']))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			
-			$this->load->model('PackageModel', 'Packages');
-			$package_id = $_POST['package_id'];
-			
-			// роли и разграничение доступа
-			if ($this->user->user_group == 'admin')
-			{
-			    $package = $this->Packages->getById($package_id);
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$package = $this->Packages->getManagerPackageById($package_id, $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$package = $this->Packages->getClientPackageById($package_id, $this->user->user_id);
-			}
-			
-			if (!$package)
-			{
-				throw new Exception('Невозможно сохранить детали заказа. Заказ недоступен.');
-			}
-
-			// валидация пользовательского ввода
-			Check::reset_empties();
-			$package->package_trackingno	= Check::str('trackingno',32);
-			
-			if ($this->user->user_group == 'admin' OR
-				$this->user->user_group == 'manager')
-			{
-				$package->package_special_comment	= Check::str('special_comment',255);
-				$package->package_special_cost	= floatval($_POST['special_cost']);
-
-				// находим курс конвертации
-				$this->load->model('CountryModel', 'Countries');
-				$this->load->model('CurrencyModel', 'Currencies');
-				$this->load->model('ManagerModel', 'Managers');
-				$manager = $this->Managers->getById($package->package_manager);
-				$country = $this->Countries->getById($manager->manager_country);
-			
-				if ( ! $country)
-				{
-					throw new Exception('Невозможно конвертировать цену в доллары. Курс не найден.');
-				}
-				
-				$cross_rate = $this->Currencies->getById($country->country_currency);
-				
-				if ( ! $cross_rate)
-				{
-					throw new Exception('Невозможно конвертировать цену в доллары. Попробуйте еще раз.');
-				}
-				
-				// конвертим доп.платежи и округляем до центов
-				$package->package_special_cost_usd = $this->convert($cross_rate,(float)$package->package_special_cost);
-				$package->package_special_cost_usd = ceil($package->package_special_cost_usd * 100) * 0.01;
-
-				// WTF?? так и не докопался почему special_cost не хочет обнуляться без этого
-				if ($package->package_special_cost_usd == 0)
-				{
-					$package->package_special_cost = 0;
-				}
-
-				// вычисляем стоимость посылки
-				$new_package = $this->Packages->recalculatePackage($package);
-			}
-			else
-			{
-				// сохранение результатов
-				$new_package = $this->Packages->savePackage($package);
-			}
-			
-			if ( ! $new_package)
-			{
-				throw new Exception('Посылка не сохранена. Попробуйте еще раз.');
-			}
-			
-			$this->result->m = 'Посылка успешно сохранена.';
-			Stack::push('result', $this->result);
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-		
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-	
 	
 	protected function updateStatus($status, $pageName, $modelName)
 	{
@@ -3148,193 +2830,7 @@ abstract class BaseController extends Controller
 		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
 
-	private function updatePackageStatus($param, $value)
-	{
-		// посылка или нет?
-		$is_package = FALSE;
-		$statuses = $this->Packages->getStatuses();
-		
-		if (stripos($param, 'package_status') !== FALSE)
-		{		
-			$package_id = str_ireplace('package_status', '', $param);
-			
-			if (is_numeric($package_id))
-			{				
-				$package_status = $_POST['package_status'.$package_id];
-			
-				if (empty($statuses[$package_status]))
-				{
-					throw new Exception('Статус одной или нескольких посылок не определен. Попоробуйте еще раз.');
-				}
-				
-				$is_package = TRUE;
-			}
-		}
-		
-		// декларация или нет?
-		$is_declaration = FALSE;
-		
-		if ( ! $is_package &&
-			isset($_POST['declaration_status']) &&
-			stripos($param, 'help') !== FALSE)
-		{		
-			$package_id = str_ireplace('help', '', $param);
-			
-			if (is_numeric($package_id))
-			{	
-				$declaration_status = $_POST['declaration_status'];
-				
-				if ($declaration_status != 'not_completed' && 
-					$declaration_status != 'completed')
-				{
-					throw new Exception('Статус деклараций не определен. Попоробуйте еще раз.');
-				}
-				
-				$is_declaration = TRUE;
-			}
-		}
-		
-		// если не посылка и не декларация, выходим
-		if ( ! $is_package AND ! $is_declaration) return;		
-
-		// роли и разграничение доступа
-		if ($this->user->user_group == 'admin')
-		{
-			$package = $this->Packages->getById($package_id);
-		}
-		else if ($this->user->user_group == 'manager')
-		{
-			$package = $this->Packages->getManagerPackageById($package_id, $this->user->user_id);
-		}
-		
-		if ( ! $package)
-		{
-			throw new Exception('Одна или несколько посылок не найдены. Попоробуйте еще раз.');
-		}
-			
-		// меняем статус посылки
-		$is_status_changed = FALSE;
-		// $is_order_closing = FALSE;
-		// $is_order_opening = FALSE;
-		$new_order_status = '';
-		
-		if ($is_package AND
-			$package->package_status != $package_status)
-		{
-			// проверяем, менять ли статус связанного заказа
-			if ($this->user->user_group == 'admin' AND
-				$package->order_id)
-			{
-				if ($package->package_status == 'sent')
-				{
-					$new_order_status = 'payed';
-				}
-				else if ($package_status == 'sent')
-				{
-					$new_order_status = 'sended';
-				}
-			}
-			
-			$package->package_status = $package_status;
-			$is_status_changed = TRUE;			
-		}
-		
-		// меняем статус декларации
-		if ($is_declaration)
-		{
-			$package->declaration_status = $declaration_status;
-		}
-		
-		// добавляем trackingno
-		if (isset($_POST['send_package'.$package_id]))
-		{
-			Check::reset_empties();
-			$package->package_status		= 'sent';
-			$package->package_trackingno 	= Check::txt('package_trackingno'.$package_id, 255, 1);
-			
-			// закрываем связанный заказ
-			if ($package->order_id)
-			{
-				$new_order_status = 'sended';
-			}
-			
-			$empties						= Check::get_empties();
-	
-			if ($empties) 
-			{
-				throw new Exception('Некоторые Tracking № отсутствуют. Попробуйте еще раз.');
-			}
-		}			
-		
-		// сохранение результатов
-		$new_package = $this->Packages->savePackage($package);
-		
-		if ( ! $new_package)
-		{
-			throw new Exception('Статусы посылок/деклараций не изменены. Попоробуйте еще раз.');
-		}
-		
-		// закрываем связанный заказ
-		if ($new_order_status)
-		{
-			$order = $this->Orders->getById($package->order_id);
-			
-			if ( ! $order)
-			{
-				throw new Exception('Невозможно закрыть или открыть связанный с посылкой заказ. Заказ не найден.');
-			}
-			
-			if ($order->order_status != $new_order_status)
-			{
-				$order->order_status = $new_order_status;
-				$this->Orders->saveOrder($order);
-			}
-		}
-
-		// уведомления
-		$status_caption = $this->Packages->getPackageStatusDescription($package->package_status);
-		if ($is_status_changed)
-		{
-			if ($this->user->user_group != 'admin')
-			{
-				Mailer::sendAdminNotification(
-					Mailer::SUBJECT_NEW_PACKAGE_STATUS, 
-					Mailer::NEW_PACKAGE_STATUS_NOTIFICATION, 
-					0,
-					$package->package_id, 
-					0,
-					"http://countrypost.ru/admin/showPackageDetails/{$package->package_id}",
-					NULL,
-					$this->Users,
-					$status_caption);
-			}
-			
-			if ($this->user->user_group != 'manager')
-			{
-				Mailer::sendManagerNotification(
-					Mailer::SUBJECT_NEW_PACKAGE_STATUS, 
-					Mailer::NEW_PACKAGE_STATUS_NOTIFICATION, 
-					$package->package_manager,
-					$package->package_id, 
-					0,
-					"http://countrypost.ru/manager/showPackageDetails/{$package->package_id}",
-					$this->Managers,
-					NULL,
-					$status_caption);
-			}
-
-			Mailer::sendClientNotification(
-				Mailer::SUBJECT_NEW_PACKAGE_STATUS, 
-				Mailer::NEW_PACKAGE_STATUS_NOTIFICATION, 
-				$package->package_id, 
-				$package->package_client,
-				"http://countrypost.ru/client/showPackageDetails/{$package->package_id}",
-				$this->Clients,
-				$status_caption);
-		}
-	}
-
-	private function updateOrderStatus($param, $value)
+	protected function updateOrderStatus($param, $order_status)
 	{
 		// заказ или нет?
 		if (stripos($param, 'order_status') === FALSE) return;
@@ -3342,8 +2838,7 @@ abstract class BaseController extends Controller
 		$order_id = str_ireplace('order_status', '', $param);
 		if (!is_numeric($order_id)) return;
 			
-		$order_status = $_POST['order_status'.$order_id];
-		
+		/*
 		if ($order_status != 'proccessing' && 
 			strpos($order_status, 'not_available') === FALSE && 
 			$order_status != 'not_payed' && 
@@ -3353,7 +2848,9 @@ abstract class BaseController extends Controller
 		{
 			throw new Exception('Статус одного или нескольких заказов не определен. Попоробуйте еще раз.');
 		}
-		
+		*/
+
+		$Orders = $this->getOrderModel();
 		// роли и разграничение доступа
 		if ($this->user->user_group == 'admin')
 		{
@@ -3371,12 +2868,12 @@ abstract class BaseController extends Controller
 		}
 		else if ($this->user->user_group == 'manager')
 		{
-			$order = $this->Orders->getManagerOrderById($order_id, $this->user->user_id);
+			$order = $Orders->getManagerOrderById($order_id, $this->user->user_id);
 		}
 		
-		if (!$order)
+		if ( ! $order)
 		{
-			throw new Exception('Один или несколько заказов не найдены. Попоробуйте еще раз.');
+			throw new Exception('Заказ не найдены. Попоробуйте еще раз.');
 		}
 			
 		// меняем статус заказа
@@ -3385,7 +2882,7 @@ abstract class BaseController extends Controller
 		
 		// сохранение результатов
 		$new_order = $this->Orders->saveOrder($order);
-
+/*
 		// уведомления
 		if ($recent_status != $order_status)
 		{
@@ -3427,7 +2924,7 @@ abstract class BaseController extends Controller
 				"http://countrypost.ru/client/showOrderDetails/{$order->order_id}",
 				$this->Clients,
 				$status_caption);
-		}
+		}*/
 	}
 	
 	protected function updateOdetailStatuses()
@@ -5716,23 +5213,28 @@ abstract class BaseController extends Controller
 	
 	private function putStatistics(&$view)
 	{
+		// TODO: оптимизировать. выборка всех заказов не нужна, только счетчики
 		$this->load->model('OrderModel', 'Orders');
 		$this->load->model('PackageModel', 'Packages');
-		
-		$view['new_packages'] = $this->Packages->getPackages(NULL, 'open', $this->user->user_id, NULL);
-		$view['payed_packages'] = $this->Packages->getPackages(NULL, 'payed', $this->user->user_id, NULL);
-		$view['sent_packages'] = $this->Packages->getPackages(NULL, 'sent', $this->user->user_id, NULL);
 
-		$view['new_orders'] = $this->Orders->getOrders(NULL, 'open', $this->user->user_id, NULL, TRUE);
-		$view['payed_orders'] = $this->Orders->getOrders(NULL, 'payed', $this->user->user_id, NULL, FALSE);
-		$view['sent_orders'] = $this->Orders->getOrders(NULL, 'sended', $this->user->user_id, NULL, FALSE);
-		
-		$view['new_packages'] = $view['new_packages'] ? count($view['new_packages']) : 0;
-		$view['payed_packages'] = $view['payed_packages'] ? count($view['payed_packages']) : 0;
-		$view['sent_packages'] = $view['sent_packages'] ? count($view['sent_packages']) : 0;
+		if ($this->user->user_group == 'client')
+		{
+			$view['new_orders'] = $this->Orders->getOrders(NULL, 'open', $this->user->user_id, NULL);
+			$view['payed_orders'] = $this->Orders->getOrders(NULL, 'payed', $this->user->user_id, NULL);
+			$view['sent_orders'] = $this->Orders->getOrders(NULL, 'sent', $this->user->user_id, NULL);
+		}
+		else if ($this->user->user_group == 'manager')
+		{
+			$view['new_orders'] = $this->Orders->getOrders(NULL, 'open', NULL, $this->user->user_id);
+			$view['payed_orders'] = $this->Orders->getOrders(NULL, 'payed', NULL, $this->user->user_id);
+			$view['sent_orders'] = $this->Orders->getOrders(NULL, 'sent', NULL, $this->user->user_id);
+			$view['bid_orders'] = $this->Orders->getOrders(NULL, 'bid', NULL, $this->user->user_id);
+		}
+
 		$view['new_orders'] = $view['new_orders'] ? count($view['new_orders']) : 0;
 		$view['payed_orders'] = $view['payed_orders'] ? count($view['payed_orders']) : 0;
 		$view['sent_orders'] = $view['sent_orders'] ? count($view['sent_orders']) : 0;
+		$view['bid_orders'] = $view['bid_orders'] ? count($view['bid_orders']) : 0;
 	}
 	
 	protected function joinPackageFotos()

@@ -87,7 +87,7 @@ function noty_generic(layout, message, ntype)
 		theme: 'defaultTheme',
 		timeout: 2000
 	});
-	console.log('html: '+n.options.id);
+	//console.log('html: '+n.options.id);
 }
 
 function success(layout, message)
@@ -137,3 +137,61 @@ function getNowDate()
 	return (day + "." + month + "." + date.getFullYear() + ' ' + hours + ':' + minutes);
 }
 
+function goto_page(page_url)
+{
+	window.location = '#pagerScroll';
+
+	$.ajax({
+		url: page_url,
+		success: function (response){
+			$('.pages').remove();
+			$('#pagerForm,#packagesForm,#ordersForm,#partnersForm,#clientsForm,#unassignedOrders').before(response).remove();
+		}});
+}
+
+function goto_page_message(page_url, form_name, success_message, error_message)
+{
+	window.location = '#pagerScroll';
+
+	$.ajax({
+		url: page_url,
+		success: function (response){
+			$('.pages').remove();
+			$('#' + form_name).before(response).remove();
+			success('top', success_message);
+		},
+		error: function () {
+			success('top', error_message);
+		}
+	});
+}
+
+function update_order_status(url, order_id)
+{
+	goto_page_message(url,
+		'ordersForm',
+		'Статус заказа №' + order_id + ' успешно изменен.',
+		'Не удалось изменить статус заказа №' + order_id + '. Попробуйте еще раз.');
+}
+
+function order_status_handler(uri, page_status)
+{
+	$('select.order_status').change(function() {
+		$(this)
+			.parent()
+			.find('img.status_progress')
+			.show();
+
+		var $url = uri +
+			'update' +
+			page_status +
+			'OrderStatus/0/ajax/' +
+			$(this).attr('name') +
+			'/' +
+			$(this).val();
+
+		var order_id = $(this).attr('name').substring(11);
+
+		update_order_status($url, order_id);
+	});
+}

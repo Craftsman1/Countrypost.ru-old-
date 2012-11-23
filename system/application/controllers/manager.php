@@ -221,6 +221,24 @@ class Manager extends ManagerBaseController {
 		parent::updateOrderDetails();
 	}
 
+	public function updateOpenOrderStatus($param1, $param2, $order, $status)
+	{
+		parent::updateOrderStatus($order, $status);
+		$this->showOpenOrders();
+	}
+
+	public function updatePayedOrderStatus($param1, $param2, $order, $status)
+	{
+		parent::updateOrderStatus($order, $status);
+		$this->showPayedOrders();
+	}
+
+	public function updateSentOrderStatus($param1, $param2, $order, $status)
+	{
+		parent::updateOrderStatus($order, $status);
+		$this->showSentOrders();
+	}
+
 	public function orders()
 	{
 		$this->showOpenOrders();
@@ -228,7 +246,7 @@ class Manager extends ManagerBaseController {
 
 	public function showOpenOrders()
 	{
-		$this->showOrders('not_payed', 'showOpenOrders');
+		$this->showOrders('open', 'showOpenOrders');
 	}
 	
 	public function showPayedOrders()
@@ -238,7 +256,12 @@ class Manager extends ManagerBaseController {
 	
 	public function showSentOrders()
 	{
-		$this->showOrders('sended', 'showSentOrders');
+		$this->showOrders('sent', 'showSentOrders');
+	}
+
+	public function showBidOrders()
+	{
+		$this->showOrders('bid', 'showBidOrders');
 	}
 
 	public function order()
@@ -266,218 +289,7 @@ class Manager extends ManagerBaseController {
 		parent::addBidComment($bid_id, $comment_id);
 	}
 	
-	public function saveDeclaration()
-	{
-		parent::saveDeclaration();
-	}	
-
-	public function updatePackageAddress()
-	{
-		parent::updatePackageAddress();
-	}
-	
-	public function updateNewPackagesStatus()
-	{
-		$this->updateStatus('not_payed', 'showNewPackages', 'PackageModel');
-	}
-	
-	public function addPdetailFoto()
-	{
-		try
-		{
-			if (empty($_POST['pdetail_id']) OR
-				! is_numeric($_POST['pdetail_id']))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-
-			$pdetail_id = $_POST['pdetail_id'];
-			$this->load->model('PdetailModel', 'Pdetails');
-			$details = $this->Pdetails->getFilteredDetails(
-				array(
-					'pdetail_manager' => $this->user->user_id,
-					'pdetail_id' => $pdetail_id
-				), 
-				true);
-							
-			if (empty($details))
-			{
-				throw new Exception('Товар не найден.');
-			}
-			
-			$pdetail = $details[0];
-			
-			// загрузка файла
-			$config['upload_path']			= UPLOAD_DIR."packages/{$pdetail->pdetail_package}/$pdetail_id/";
-			$config['allowed_types']		= 'jpg|gif|jpeg|png|JPG|GIF|JPEG|PNG';
-			$config['max_size']				= '4096';
-			$config['remove_spaces'] 		= FALSE;
-			$config['overwrite'] 			= FALSE;
-			$config['encrypt_name'] 		= TRUE;
-			$max_width						= 1024;
-			$max_height						= 768;
-			
-			if ( ! is_dir($config['upload_path']) AND
-				! (mkdir($config['upload_path'], 0777, true) OR
-					chmod($config['upload_path'], 0777)))
-			{
-				throw new Exception('Ошибка файловой системы. Обратитесь к администратору.');
-			}
-	
-			$this->load->library('upload', $config);
-			$uploaded = false;
-			
-			foreach(array('userfile1','userfile2','userfile3','userfile4','userfile5') as $val)
-			{
-				if ($this->upload->do_upload($val))	
-				{
-					$uploaded = true;
-				
-					$uploadedImg = $this->upload->data();
-					$imageInfo = getimagesize($uploadedImg['full_path']);
-					if ($imageInfo[0]>$max_width || $imageInfo[1]>$max_height)
-					{
-						$config['image_library']	= 'gd2';
-						$config['source_image']		= $uploadedImg['full_path'];
-						$config['maintain_ratio']	= TRUE;
-						$config['width']			= $max_width;
-						$config['height']			= $max_height;
-
-						$this->load->library('image_lib', $config); // загружаем библиотеку
-						$this->image_lib->resize(); // и вызываем функцию
-					}
-				}
-			}
-			if (! $uploaded)
-			{
-				throw new Exception((strip_tags(trim($this->upload->display_errors()))));
-			}
-
-			$this->load->model('PackageModel', 'Packages');
-			$package = $this->Packages->getById($pdetail->pdetail_package);
-			$package = $this->Packages->recalculatePackage($package);
-		}
-		catch (Exception $e)
-		{
-			$this->result->m = $e->getMessage();
-			Stack::push('result', $this->result);
-		}
-		
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-	
-	public function addPdetailJointFoto()
-	{
-		try
-		{
-			if (empty($_POST['pdetail_joint_id']) OR
-				! is_numeric($_POST['pdetail_joint_id']))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-
-			$pdetail_joint_id = $_POST['pdetail_joint_id'];
-			
-			$this->load->model('PdetailJointModel', 'Joints');
-			$joint = $this->Joints->getManagerJoint($pdetail_joint_id, $this->user->user_id);
-							
-			if (empty($joint))
-			{
-				throw new Exception('Товар не найден.');
-			}
-			
-			// загрузка файла
-			$config['upload_path']			= UPLOAD_DIR."packages/{$joint->package_id}/joint_$pdetail_joint_id/";
-			$config['allowed_types']		= 'jpg|gif|jpeg|png|JPG|GIF|JPEG|PNG';
-			$config['max_size']				= '4096';
-			$config['remove_spaces'] 		= FALSE;
-			$config['overwrite'] 			= FALSE;
-			$config['encrypt_name'] 		= TRUE;
-			$max_width						= 1024;
-			$max_height						= 768;
-			
-			if ( ! is_dir($config['upload_path']) AND
-				! (mkdir($config['upload_path'], 0777, true) OR
-					chmod($config['upload_path'], 0777)))
-			{
-				throw new Exception('Ошибка файловой системы. Обратитесь к администратору.');
-			}
-	
-			$this->load->library('upload', $config);
-			$uploaded = false;
-			
-			foreach(array('userfile1', 'userfile2', 'userfile3', 'userfile4', 'userfile5') as $val)
-			{
-				if ($this->upload->do_upload($val))	
-				{
-					$uploaded = true;
-				
-					$uploadedImg = $this->upload->data();
-					$imageInfo = getimagesize($uploadedImg['full_path']);
-					if ($imageInfo[0]>$max_width || $imageInfo[1]>$max_height)
-					{
-						$config['image_library']	= 'gd2';
-						$config['source_image']		= $uploadedImg['full_path'];
-						$config['maintain_ratio']	= TRUE;
-						$config['width']			= $max_width;
-						$config['height']			= $max_height;
-
-						$this->load->library('image_lib', $config); // загружаем библиотеку
-						$this->image_lib->resize(); // и вызываем функцию
-					}
-				}
-			}
-			if (! $uploaded)
-			{
-				throw new Exception((strip_tags(trim($this->upload->display_errors()))));
-			}
-
-			$this->load->model('PackageModel', 'Packages');
-			$package = $this->Packages->getById($joint->package_id);
-			$package = $this->Packages->recalculatePackage($package);
-		}
-		catch (Exception $e)
-		{
-			$this->result->m = $e->getMessage();
-			Stack::push('result', $this->result);
-		}
-		
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-	
-	public function showPdetailFoto($package_id, $pdetail_id, $filename)
-	{
-		header('Content-type: image/jpg');
-		$this->load->model('PdetailModel', 'PdetailModel');
-
-		if ($pdetail = $this->PdetailModel->getInfo(
-			array(
-				'pdetail_id' => intval($pdetail_id),
-				'pdetail_package' => intval($package_id),
-				'pdetail_manager' => intval($this->user->user_id),
-			))) 
-		{
-			$pdetail = $pdetail[0];
-			readfile(UPLOAD_DIR . "packages/$package_id/$pdetail_id/$filename");
-		}
-		
-		die();
-	}
-	
-	public function showPdetailJointFoto($package_id, $pdetail_joint_id, $filename)
-	{
-		header('Content-type: image/jpg');
-		$this->load->model('PdetailJointModel', 'Joints');
-
-		if ($this->Joints->getManagerJoint($pdetail_joint_id, $this->user->user_id)) 
-		{
-			readfile(UPLOAD_DIR . "packages/$package_id/joint_$pdetail_joint_id/$filename");
-		}
-
-		die();
-	}
-	
-	public function showScreen($oid=null) 
+	public function showScreen($oid=null)
 	{
 		header('Content-type: image/jpg');
 		$this->load->model('OdetailModel', 'OdetailModel');
@@ -488,18 +300,7 @@ class Manager extends ManagerBaseController {
 		die();
 	}
 	
-	public function showPdetailScreenshot($pid=null) 
-	{
-		header('Content-type: image/jpg');
-		$this->load->model('PdetailModel', 'PdetailModel');
-		if ($Detail = $this->PdetailModel->getInfo(array('pdetail_id' => intval($pid)))) 
-		{
-			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/packages/{$Detail->pdetail_package}/{$Detail->pdetail_id}.jpg");
-		}
-		die();
-	}
-	
-	public function showOutMoney() 
+	public function showOutMoney()
 	{
 		$this->load->model('Order2outModel', 'Order2out');
 		$this->load->model('CurrencyModel', 'Currencies');
@@ -859,11 +660,6 @@ class Manager extends ManagerBaseController {
 		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
 
-	public function refundPackage()
-	{
-		parent::refundPackage();
-	}	
-
 	public function sendOrderConfirmation($order_id){
 		parent::sendOrderConfirmation((int) $order_id);
 	}
@@ -873,63 +669,6 @@ class Manager extends ManagerBaseController {
 		parent::addProductManualAjax();
 	}
 	
-	public function addProductManualAjaxP() 
-	{
-		parent::addProductManualAjaxP();
-	}
-	
-	public function deleteProductP($id)
-	{
-		parent::deleteProductP($id);
-	}
-	
-	public function deliverPackage($package_id)
-	{
-		try
-		{
-			if ( ! $this->user OR
-				! $this->user->user_id OR
-				! is_numeric($package_id))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			
-			// безопасность: проверяем связку клиента и заказа
-			$this->load->model('PackageModel', 'Packages');
-			$package = $this->Packages->getManagerPackageById($package_id, $this->user->user_id);
-
-			if ( ! $package)
-			{
-				throw new Exception('Посылка не найдена. Попробуйте еще раз.');
-			}
-			
-			$package->package_status = 'not_payed';
-			$this->Packages->savePackage($package);			
-		}
-		catch (Exception $e)
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-		}
-		
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-
-	public function filterNewPackages()
-	{
-		$this->filter('openPackages', 'showNewPackages');
-	}
-	
-	public function filterPayedPackages()
-	{
-		$this->filter('payedPackages', 'showPayedPackages');
-	}
-	
-	public function filterSentPackages()
-	{
-		$this->filter('sentPackages', 'showSentPackages');
-	}
-
 	public function filterOpenOrders()
 	{
 		$this->filter('not_payedOrders', 'showOpenOrders');
@@ -955,17 +694,7 @@ class Manager extends ManagerBaseController {
 		$this->filter('paymentHistory', 'showPaymentHistory');
 	}
 	
-	public function joinPackageFotos()
-	{
-		parent::joinPackageFotos();
-	}
-	
-	public function deletePdetailJoint($package_id, $pdetail_joint_id)
-	{
-		parent::deletePdetailJoint($package_id, $pdetail_joint_id);
-	}
-
-	public function updateProductAjax() 
+	public function updateProductAjax()
 	{
 		parent::updateProductAjax();
 	}

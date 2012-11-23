@@ -1,4 +1,4 @@
-<form id="pagerForm" class='admin-inside' action="<?= $selfurl ?>closeOrders" method="POST">
+<form id="ordersForm" class='admin-inside' action="<?= $selfurl ?>updateOrderStatus/" method="POST">
 	<? View::show($viewpath.'elements/orders/tabs', array('selected_submenu' => 'new_orders')); ?>
 	<div class='table centered_th centered_td'>
 		<div class='angle angle-lt'></div>
@@ -55,12 +55,14 @@
 					</pre>
 				</td>
 				<td>
-					<select name="order_status<?= $order->order_id ?>">
+					<select name="order_status<?= $order->order_id ?>" class="order_status">
 						<? foreach ($statuses[$order->order_type] as $status => $status_name) : ?>
 						<option value="<?= $status ?>" <? if ($order->order_status == $status) :
 							?>selected="selected"<? endif; ?>><?= $status_name ?></option>
 						<? endforeach; ?>
 					</select>
+					<img class="float status_progress" style="display:none;margin-left: 5px;;"
+						 src="/static/images/lightbox-ico-loading.gif"/>
 				</td>
 				<td>
 					<a href="<?= $selfurl ?>order/<?= $order->order_id ?>"><?= $order->comment_for_manager ?
@@ -78,3 +80,8 @@
 	</div>
 </form>
 <?= $pager ?>
+<script>
+	$(function() {
+		status_handler('Open');
+	});
+</script>

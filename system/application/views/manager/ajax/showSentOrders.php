@@ -1,4 +1,4 @@
-<form id="pagerForm" class='admin-inside' action="<?=$selfurl?>closeOrders" method="POST">
+<form id="ordersForm" class='admin-inside' action="<?=$selfurl?>closeOrders" method="POST">
 	<? View::show($viewpath.'elements/orders/tabs', array('selected_submenu' => 'sent_orders')); ?>
 	<div class='table centered_th centered_td'>
 		<div class='angle angle-lt'></div>
@@ -55,12 +55,14 @@
 					</pre>
 				</td>
 				<td>
-					<select name="order_status<?= $order->order_id ?>">
+					<select name="order_status<?= $order->order_id ?>" class="order_status">
 						<? foreach ($statuses[$order->order_type] as $status => $status_name) : ?>
 						<option value="<?= $status ?>" <? if ($order->order_status == $status) :
 							?>selected="selected"<? endif; ?>><?= $status_name ?></option>
 						<? endforeach; ?>
 					</select>
+					<img class="float status_progress" style="display:none;margin-left: 5px;;"
+						 src="/static/images/lightbox-ico-loading.gif"/>
 					<? if ($order->order_cost < $order->order_cost_payed) : ?>
 					<br />
 					<?= $order->order_cost_payed - $order->order_system_comission_payed ?> <?= $order->currency ?>
@@ -92,9 +94,7 @@
 </form>
 <?= $pager ?>
 <script type="text/javascript">
-	function refundItem(id) {
-		if (confirm("Возместить клиенту заказ №" + id + "?")){
-			window.location.href = '<?=$selfurl?>refundOrder/' + id;
-		}
-	}
+	$(function() {
+		status_handler('Sent');
+	});
 </script>
