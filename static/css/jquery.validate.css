@@ -31,3 +31,7 @@ span.ValidationErrors {
 	width: 300px !important;
 	/*float: left;*/
 }
+
+.profile_box span.ValidationErrors {
+    position: absolute;
+}

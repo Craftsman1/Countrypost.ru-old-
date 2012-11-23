@@ -13,7 +13,7 @@
                 <br style="clear:both;">
                 <div>
                     <span class="label" style="float:left">Страна *:</span>
-                    <select id="country" name="country" class="textbox" onchange="validateCountry">
+                    <select id="country" name="country" class="textbox" onchange="$.fn.validateAddressCountry($(this))">
                         <option value="0">выберите страну...</option>
                         <? foreach ($Countries as $cntry) : ?>
                         <option value="<?= $cntry->country_id ?>"  title="/static/images/flags/<?= $cntry->country_name_en ?>.png" <? if ($client->client_country == $cntry->country_id) : ?>selected<? endif; ?>><?= $cntry->country_name ?></option>
@@ -133,136 +133,116 @@
         {
             $(obj).find('#addressItemProgress').remove();
             $(obj).find('.edit_icon, .delete_icon').show();
-        }
-
-
-        validateCountry = function()
-        {
-            var addError = function(field, message)
-            {
-                $("#blogProgress").hide();
-                if (!field.hasClass('ErrorField'))
-                {
-                    errorMsg = $('<span class="ValidationErrors">'+message+'</span>');
-                    field.addClass('ErrorField').after(errorMsg);
-                }
-            },
-            removeError = function(field) {
-                var nextElement = field.next();
-                if (field.hasClass('ErrorField'))
-                {
-                    field.removeClass('ErrorField');
-                }
-                if(nextElement.hasClass('ValidationErrors'))
-                {
-                    nextElement.remove();
-                }
-            },
-            errorCount = 0,
-            field = $('#country');
-            if(field.val() == 0)
-            {
-                addError($('#country_msdd'), 'Укажите страну.');
-                errorCount++;
-            }
-            else
-            {
-                removeError($('#country_msdd'));
-            }
-            return (errorCount > 0) ? false : true;
         },
-        validateAddress = function() {
-            var addError = function(field, message)
-            {
-                $("#blogProgress").hide();
-                if (!field.hasClass('ErrorField'))
-                {
-                    errorMsg = $('<span class="ValidationErrors">'+message+'</span>');
-                    field.addClass('ErrorField').after(errorMsg);
-                }
-            },
-            removeError = function(field) {
-                var nextElement = field.next();
-                if (field.hasClass('ErrorField'))
-                {
-                    field.removeClass('ErrorField');
-                }
-                if(nextElement.hasClass('ValidationErrors'))
-                {
-                    nextElement.remove();
-                }
-            },
+
+        validateAddressForm = function() {
+
             field = null,
             errorCount = 0;
 
             field = $('#recipient');
             if(field.val() == '')
             {
-                addError(field, 'Введите получателя.');
+                $.fn.addProfileFieldError(field, 'Введите получателя.');
                 errorCount++;
             }
             else
             {
-                removeError(field);
+                $.fn.removeProfileFieldError(field);
             }
 
             field = $('#country');
             if(field.val() == 0)
             {
-                addError($('#country_msdd'), 'Укажите страну.');
+                $.fn.addProfileFieldError($('#country_msdd'), 'Необходимо указать страну.');
                 errorCount++;
             }
             else
             {
-                removeError($('#country_msdd'));
+                $.fn.removeProfileFieldError($('#country_msdd'));
             }
 
             field = $('#city');
             if(field.val() == '')
             {
-                addError(field, 'Укажите город.');
+                $.fn.addProfileFieldError(field, 'Укажите город.');
                 errorCount++;
             }
             else
             {
-                removeError(field);
+                $.fn.removeProfileFieldError(field);
             }
             field = $('#index');
-            if(field.val() == '' || field.val().length < 5)
+            if(field.val() == '' || field.val().length < 5 || !field.val().match(/^[0-9]*$/))
             {
-                addError(field, 'Введите правильный индекс.');
+                $.fn.addProfileFieldError(field, 'Введите правильный индекс.');
                 errorCount++;
             }
             else
             {
-                removeError(field);
+                $.fn.removeProfileFieldError(field);
             }
             field = $('#address');
             if(field.val() == '' || field.val().length < 5)
             {
-                addError(field, 'Введите адрес.');
+                $.fn.addProfileFieldError(field, 'Введите адрес.');
                 errorCount++;
             }
             else
             {
-                removeError(field);
+                $.fn.removeProfileFieldError(field);
             }
             field = $('#phone');
-            if(field.val() == '')
+            if(field.val() == '' || !field.val().match(/^[0-9()\+ -]*$/))
             {
-                addError(field, 'Введите телефон.');
+                $.fn.addProfileFieldError(field, 'Введите правильный телефон.');
                 errorCount++;
             }
             else
             {
-                removeError(field);
+                $.fn.removeProfileFieldError(field);
             }
             return (errorCount > 0) ? false : true;
         }
-        // Валидация при заполнении
-        $('#recipient, #city, #index, #address, #phone').bind('blur', validateAddress);
 
-        $("#country").change(function() { validateCountry();}).msDropDown({mainCSS:'idd'});
+
+        $.fn.validateAddressCountry = function(field)
+        {
+            if(field.val() == 0 || field.val() == '')
+            {
+                $.fn.addProfileFieldError($('#country_msdd'), 'Необходимо указать страну.');
+                return false;
+            }
+            else
+            {
+                $.fn.removeProfileFieldError($('#country_msdd'));
+                return true;
+            }
+        }
+
+        // Валидация при заполнении
+        $('#recipient').validate({
+            expression: "if (VAL != '') return true; else return false;",
+            message: "Введите получателя."
+        });;
+        $('#city').validate({
+            expression: "if (VAL != '') return true; else return false;",
+            message: "Укажите город."
+        });;
+        $('#index').validate({
+            expression: "if (!(VAL == '' || VAL.length < 5 || VAL.length > 6 || !VAL.match(/^[0-9]*$/))) return true; else return false;",
+            message: "Введите правильный индекс."
+        });;
+        $('#address').validate({
+            expression: "if (VAL != '') return true; else return false;",
+            message: "Введите адрес."
+        });;
+        $('#phone').validate({
+            expression: "if (!(VAL == '' || !VAL.match(/^[0-9()\+ -]*$/))) return true; else return false;",
+            message: "Введите правильный телефон."
+        });;
+
+        $("#country").msDropDown({mainCSS:'idd'});
 
         $('#addressForm').ajaxForm({
             target: '/client/saveAddress',
@@ -273,7 +253,11 @@
             beforeSubmit: function(formData, jqForm, options)
             {
                 $("#blogProgress").show();
-                return validateAddress();
+                var valid = validateAddressForm();
+
+                if (!valid) $("#blogProgress").hide();
+
+                return valid;
             },
             success: function(response)
             {

@@ -26,7 +26,7 @@
             <br style="clear:both;" />
             <div>
                 <span class="label">Страна*:</span>
-                <select id="client_country" class="textbox" name="client_country">
+                <select id="client_country" class="textbox" name="client_country" onchange="$.fn.validateProfileCountry($(this))">
                     <option value="0">Выбрать страну</option>
                     <? if (!empty($Countries)) : foreach ($Countries as $country) : ?>
                     <option title="/static/images/flags/<?= $country->country_name_en ?>.png" value="<?= $country->country_id ?>" <?= ($client->client_country == $country->country_id) ? ' selected="selected" ' : '' ?>><?= $country->country_name ?></option>
@@ -47,7 +47,7 @@
 			<br style="clear:both;" />
 			<div>
                 <span class="label">Получать уведомления на email</span>
-                <input type="checkbox" class="checkbox" name="notifications_on" id="notifications_on"  <?= ($client->notifications_on == 1) ? 'checked="checked"' : '' ?> />
+                <input type="checkbox" class="checkbox" name="notifications_on" id="notifications_on" value="1"  <?= ($client->notifications_on) ? 'checked' : '' ?> />
 			</div>
 			<br style="clear:both;" />
             <div>
@@ -72,68 +72,106 @@
 	$(function() {
         $("#client_country").msDropDown({mainCSS:'idd'});
 		
-		var validateProfile = function() {
-			var addError = function(field, message) {
-				$("#profileProgress").hide();
-				if (!field.hasClass('ErrorField')) 
-				{
-					errorMsg = $('<span class="ValidationErrors">'+message+'</span>');
-					field.addClass('ErrorField').after(errorMsg);
-				}
-			},
-			removeError = function(field) {
-				var nextElement = field.next();
-				if (field.hasClass('ErrorField'))
-				{
-					field.removeClass('ErrorField');
-				}
-				if(nextElement.hasClass('ValidationErrors'))
-				{
-					nextElement.remove();
-				}
-			},
+		var validateProfileForm = function() {
 			field = null,
 			errorCount = 0;
 			
 			field = $('#login');
 			if(field.val() == '')
 			{
-				addError(field, 'Введите ваш логин.');
+				$.fn.addProfileFieldError(field, 'Введите ваш логин.');
 				errorCount++;				
 			}
 			else
 			{
-				removeError(field);
+				$.fn.removeProfileFieldError(field);
 			}
-			
-			field = $('#password');
-			if(field.val() != '' && field.val().length < 6)
-			{
-				addError(field, 'Пароль должен состоять из не менее 6-ти символов.');
-				errorCount++;				
-			}
-			else
-			{
-				removeError(field);
-			}
-			
+
+            field = $('#password');
+            if(field.val() != '' && field.val().length < 6)
+            {
+                $.fn.addProfileFieldError(field, 'Пароль должен состоять из не менее 6-ти символов.');
+                errorCount++;
+            }
+            else
+            {
+                $.fn.removeProfileFieldError(field);
+            }
+
+            field = $('#client_country');
+            if(field.val() == 0 || field.val() == '')
+            {
+                $.fn.addProfileFieldError($('#client_country_msdd'), 'Необходимо указать страну.');
+                errorCount++;
+            }
+            else
+            {
+                $.fn.removeProfileFieldError($('#client_country_msdd'));
+            }
+
 			field = $('#email');
 			if(!field.val().match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/))
 			{
-				addError(field, 'Введите правильный email.');
+				$.fn.addProfileFieldError(field, 'Введите правильный email.');
 				errorCount++;				
 			}
 			else
 			{
-				removeError(field);
+				$.fn.removeProfileFieldError(field);
 			}
 			
 			return (errorCount > 0) ? false : true;
 			
-		}
-		
-		// Валидация при заполнении
-		$('#login, #password, #email').bind('blur', validateProfile);
+        }
+
+        $.fn.validateProfileCountry = function(field)
+        {
+            if(field.val() == 0 || field.val() == '')
+            {
+                $.fn.addProfileFieldError($('#client_country_msdd'), 'Необходимо указать страну.');
+                return false;
+            }
+            else
+            {
+                $.fn.removeProfileFieldError($('#client_country_msdd'));
+                return true;
+            }
+        }
+
+        $.fn.addProfileFieldError = function(field, message) {
+            $("#profileProgress").hide();
+            if (!field.hasClass('ErrorField'))
+            {
+                errorMsg = $('<span class="ValidationErrors">'+message+'</span>');
+                field.addClass('ErrorField').after(errorMsg);
+            }
+        }
+        
+        $.fn.removeProfileFieldError = function(field) {
+            var nextElement = field.next();
+            if (field.hasClass('ErrorField'))
+            {
+                field.removeClass('ErrorField');
+            }
+            if(nextElement.hasClass('ValidationErrors'))
+            {
+                nextElement.remove();
+            }
+        }
+
+        // Валидация при заполнении
+        $('#login').validate({
+            expression: "if (VAL != '') return true; else return false;",
+            message: "Введите ваш логин."
+        });
+        $('#password').validate({
+            expression: "if (!(VAL != '' && VAL.length < 6)) return true; else return false;",
+            message: "Пароль должен состоять из не менее 6-ти символов."
+        });
+        $('#email').validate({
+            expression: "if (VAL.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) return true; else return false;",
+            message: "Введите правильный email."
+        });
 		
 		$('#profileForm').ajaxForm({
 			target: '/client/saveProfile',
@@ -144,7 +182,12 @@
 			{
 				$("#profileProgress").show();
 				// Валидация перед отправкой
-				return validateProfile();
+                var valid = validateProfileForm();
+
+                if (!valid)
+                    $("#profileProgress").hide();
+
+				return validateProfileForm();
 			},
 			success: function(response)
 			{

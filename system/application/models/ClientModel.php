@@ -46,7 +46,7 @@ class ClientModel extends BaseModel implements IModel{
     	$this->properties->client_phone_value	='';
     	$this->properties->client_phone			='';
     	$this->properties->skype			    ='';
-        $this->properties->notifications_on		='';
+        $this->properties->notifications_on	    ='';
         $this->properties->about_me     		='';
     	
     	/*$this->properties->client_user			='';
@@ -344,14 +344,14 @@ class ClientModel extends BaseModel implements IModel{
 	
 	public function updateClient($user_obj) {
 		$props = $this->getPropertyList();
-		
+
 		foreach ($props as $prop){
 			if (isset($user_obj->$prop)){
 				$this->_set($prop, $user_obj->$prop);
 			}
 		}
-			
-		$new_id = $this->save();
+
+		$new_id = $this->save(true);
 		
 		if (!$new_id) return false;
 		
