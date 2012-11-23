@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Класс работы с хлебными крошками
  * @uses Stack
@@ -10,7 +10,6 @@ class Breadcrumb {
 	
 	static private $crumbs	= array();
 	static private $instance;
-	
 
 	private function getCrumbStack(){
 		
@@ -41,8 +40,8 @@ class Breadcrumb {
 		}
 	}
 	
-	static public function getCrumbs($segment = null){
-		
+	static public function getCrumbs($segment = null)
+	{
 		ksort($_SESSION['breadcrumb']);
 		$crumbs = array();
 		$cState = null;
@@ -64,9 +63,5 @@ class Breadcrumb {
 	static public function showCrumbs($segment = null){
 		echo self::getCrumbs($segment);
 	}
-	
 }
-
-
-
 ?>

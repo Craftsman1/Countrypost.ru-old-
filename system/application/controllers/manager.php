@@ -5,7 +5,9 @@ class Manager extends ManagerBaseController {
 
 	function __construct()
 	{
-		parent::__construct();	
+		parent::__construct();
+		Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
+		Breadcrumb::setCrumb(array('/manager/orders/' => 'Мои заказы'), 1, TRUE);
 	}
 	
 	function index()
@@ -660,7 +662,8 @@ class Manager extends ManagerBaseController {
 		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
 
-	public function sendOrderConfirmation($order_id){
+	public function sendOrderConfirmation($order_id)
+	{
 		parent::sendOrderConfirmation((int) $order_id);
 	}
 	
@@ -669,19 +672,9 @@ class Manager extends ManagerBaseController {
 		parent::addProductManualAjax();
 	}
 	
-	public function filterOpenOrders()
+	public function filterOrders()
 	{
-		$this->filter('not_payedOrders', 'showOpenOrders');
-	}
-	
-	public function filterPayedOrders()
-	{
-		$this->filter('payedOrders', 'showPayedOrders');
-	}
-	
-	public function filterSentOrders()
-	{
-		$this->filter('sendedOrders', 'showSentOrders');
+		$this->filter('Orders', 'showOpenOrders/0/ajax');
 	}
 	
 	public function acceptOrder($order_id)
@@ -1038,5 +1031,16 @@ class Manager extends ManagerBaseController {
 		{
 			print_r($manager);
 		}
+	}
+
+	public function updatePerPage($per_page)
+	{
+		if ( ! is_numeric($per_page))
+		{
+			throw new Exception('Доступ запрещен.');
+		}
+
+		$this->session->set_userdata(array('orders_per_page' => $per_page));
+		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
 }

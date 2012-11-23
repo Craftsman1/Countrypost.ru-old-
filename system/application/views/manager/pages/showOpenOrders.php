@@ -1,16 +1,15 @@
 <div class='content'>
+	<? Breadcrumb::showCrumbs(); ?>
 	<a name="pagerScroll"></a>
-	<h3>Мои заказы</h3>
-	<? View::show($viewpath.'elements/order_filter', array(
-		'handler' => 'filterOpenOrders',
-		'show_status_filter' => TRUE
-	)); ?>
+	<h2>Мои заказы</h2>
+	<? View::show($viewpath.'elements/orders/order_filter'); ?>
 	<? View::show($viewpath.'ajax/showOpenOrders', array(
 		'orders' => $orders,
 		'pager' => $pager)); ?>
 </div>
 <script>
-	function refundItem(id) {
+	function refundItem(id)
+	{
 		if (confirm("Возместить клиенту заказ №" + id + "?")){
 			window.location.href = '<?= $selfurl ?>refundOrder/' + id;
 		}

@@ -103,7 +103,7 @@ class Clients extends BaseController {
 		$this->filter('Clients', 'showClients');
 	}
 	
-	public function initClientsFilter(&$filter)
+	public function processClientsFilter(&$filter)
 	{
 		$filter->country_from = '';
 		$filter->client_id = 0;

@@ -57,12 +57,13 @@ class OrderModel extends BaseModel implements IModel{
 	);
 
 	private $filter_statuses = array(
+		'pending'   => 'Посредник не выбран',
 		'processing'   => 'Обрабатывается',
-		'not_available' => 'Нет в наличии', 
-		'not_available_color' => 'Нет данного цвета',
-		'not_available_size' => 'Нет данного размера',
-		'not_available_count' => 'Нет указанного кол-ва',
 		'not_payed' => 'Не оплачен',
+		'not_available' => 'Нет в наличии',
+		'payed' => 'Оплачен',
+		'bought' => 'Выкуплен',
+		'completed' => 'Выполнен',
 	);
 
 	private $order_types = array(
@@ -383,7 +384,7 @@ class OrderModel extends BaseModel implements IModel{
 
 			if ( ! empty($filter->id_status))
 			{
-				$statusFilter = '`orders`.`order_status` = "'.$filter->id_status.'"';
+				$statusFilter .= ' AND `orders`.`order_status` = "'.$filter->id_status.'"';
 			}
 		}
 		
@@ -401,7 +402,7 @@ class OrderModel extends BaseModel implements IModel{
 				";
 		}
 
-		// выборка: потом доставленные заказы
+		// выборка
 		$result = $this->db->query(
 			"SELECT 
 				`orders`.*, 

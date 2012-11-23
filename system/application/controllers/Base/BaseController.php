@@ -1,4 +1,4 @@
-<?php
+<?
 if (!defined('BASEPATH'))
 {
     exit('No direct script access allowed');
@@ -167,10 +167,11 @@ abstract class BaseController extends Controller
 			else if ($this->user->user_group == 'manager')
 			{
 				// обработка фильтра
-				$view['filter'] = $this->initFilter($orderStatus.'Orders');
+				$view['filter'] = $this->initFilter('Orders');
 				$view['filter']->order_statuses = $this->Orders->getFilterStatuses();
 
 				$view['orders'] = $this->Orders->getOrders($view['filter'], $orderStatus, NULL, $this->user->user_id);
+				$view['orders_count'] = count($view['orders']);
 			}
 			else if ($this->user->user_group == 'client')
 			{
@@ -205,8 +206,13 @@ abstract class BaseController extends Controller
 			}
 			
 			/* пейджинг */
-			$this->init_paging();		
-			$this->paging_count = count($view['orders']);
+			$per_page = isset($this->session->userdata['orders_per_page']) ?
+			$this->session->userdata['orders_per_page'] : NULL;
+			$per_page = isset($per_page) ? $per_page : $this->per_page;
+			$this->per_page = $per_page;
+
+			$this->init_paging();
+			$this->paging_count = $view['orders'] ? count($view['orders']) : 0;
 			
 			if ($view['orders'])
 			{
@@ -214,6 +220,7 @@ abstract class BaseController extends Controller
 			}
 			
 			$view['pager'] = $this->get_paging();
+			$view['per_page'] = $per_page;
 			$view['statuses'] = $this->Orders->getAllStatuses();
 		}
 		catch (Exception $e) 
@@ -475,100 +482,7 @@ abstract class BaseController extends Controller
 		}
 	}
 
-	protected function showPackageDetails()
-	{
-		try
-		{
-			// безопасность
-			if ( ! $this->user ||
-				! $this->user->user_id ||
-				! is_numeric($this->uri->segment(3)))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-									
-			$this->load->model('PackageModel', 'Packages');
-			$this->load->model('ManagerModel', 'Managers');
-			$this->load->model('CountryModel', 'Countries');
-			
-			// роли и разграничение доступа
-			if ($this->user->user_group == 'admin')
-			{
-			    $view['package'] = $this->Packages->getById($this->uri->segment(3));
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$view['package'] = $this->Packages->getManagerPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$view['package'] = $this->Packages->getClientPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-			
-			$view['manager'] = $this->Managers->getManagerData($view['package']->package_manager);
-			
-			if ( ! $view['package'])
-			{
-				throw new Exception('Невозможно отобразить детали посылки. Попробуйте еще раз.');
-			}
-
-			$view['package_country'] = $this->Countries->getById($view['manager']->manager_country);
-			$view['back_handler'] = self::getPackageBackHandler($view['package'], $this->user->user_group);
-
-			// показываем детали посылки
-			$this->load->model('PdetailModel', 'Pdetails');
-			$this->load->model('PdetailJointModel', 'PdetailJoints');
-			
-			$view['pdetails_statuses'] = $this->Pdetails->getStatuses();
-			$view['package_statuses'] = $this->Packages->getStatuses();
-						
-			$view['pdetails'] = $this->Pdetails->getPackageDetails($view['package']->package_id);
-			
-			if ( ! $view['pdetails'])
-			{
-				$this->result->m = 'Товары посылки не найдены.';
-				Stack::push('result', $this->result);
-			}
-
-			if (is_array($view['pdetails']))
-			{
-				$view['packFotos'] = $this->Pdetails->getPackagesFoto($view['pdetails']);
-				$view['jointFotos'] = $this->PdetailJoints->getJointsFoto($view['pdetails']);
-			}
-			
-			//комментарии
-			$this->load->model('PCommentModel', 'Comments');
-			$view['comments'] = $this->Comments->getCommentsByPackageId($view['package']->package_id);
-		
-			// сбрасываем флаг нового комментария
-			$package = $view['package'];
-			
-			if ($this->user->user_group == 'client' &&
-				$package->comment_for_client)
-			{
-				$package->comment_for_client = 0;
-				$this->Packages->savePackage($package);
-			}
-			else if ($this->user->user_group == 'manager' &&
-				$package->comment_for_manager)
-			{
-				$package->comment_for_manager = 0;
-				$this->Packages->savePackage($package);
-			}
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-
-		// показываем детали посылки
-		View::showChild($this->viewpath.'/pages/showPackageDetails', $view);
-	}
-	
-	protected function addProductManualAjax() 
+	protected function addProductManualAjax()
 	{
 		$this->load->model('OrderModel', 'Orders');
 		$this->load->model('OdetailModel', 'OdetailModel');
@@ -813,374 +727,6 @@ abstract class BaseController extends Controller
 		}
 	}
 	
-	public function moveProducts() 
-	{
-		try 
-		{
-			$this->load->model('PackageModel', 'Packages');
-			$this->load->model('PdetailModel', 'Pdetails');
-			
-			Check::reset_empties();
-			$package_to_id	= Check::int('package_to');
-			$package_from_id	= Check::int('package_id');
-			
-			if (empty($package_to_id) OR
-				empty($package_from_id))
-			{
-				throw new Exception('Посылка назначения не указана. Попробуйте еще раз.');
-			}
-			
-			// разграничение доступа
-			if ($this->user->user_group == 'admin')
-			{
-				$package_from = $this->Packages->getById($package_from_id);
-				$package_to = $this->Packages->getById($package_to_id);
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$package_from = $this->Packages->getManagerPackageById($package_from_id, $this->user->user_id);
-				$package_to = $this->Packages->getManagerPackageById($package_to_id, $this->user->user_id);
-			}
-			
-			if (empty($package_from) OR 
-				empty($package_to))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			
-			$movingPdetails = array();
-			$movingFotos = array();
-			$movingScreenshots = array();
-
-			// погнали
-			foreach ($_POST as $key => $value) 
-			{
-				if (strpos($key, 'pdetail_id') === 0 AND
-					$key != 'pdetail_id')
-				{
-					$pdetail_id = str_ireplace('pdetail_id', '', $key);
-					$pdetails = $this->Pdetails->getFilteredDetails(
-						array(
-							'pdetail_id' => $pdetail_id,
-							'pdetail_package' => $package_from->package_id),
-						TRUE);
-					
-					if (empty($pdetails))
-					{
-						throw new Exception('Некоторые товары не найдены. Попробуйте еще раз.');
-					}
-					
-					$pdetail = $pdetails[0];
-					
-					// собираем фото
-					$movingFotos += $this->Pdetails->getPackagesFoto($pdetails);
-					
-					// собираем скриншоты
-					if (empty($pdetail->pdetail_img))
-					{
-						$movingScreenshots[] = $pdetail->pdetail_id;
-					}
-					
-					// и переносим посылку
-					$pdetail->pdetail_package = $package_to->package_id;
-					$pdetail->pdetail_client = $package_to->package_client;
-					$pdetail->pdetail_manager = $package_to->package_manager;
-					
-					$this->Pdetails->updatepdetail($pdetail);
-				}
-			}
-			
-			// копируем фото посылок
-			if (count($movingFotos))
-			{
-				if ( ! is_dir(UPLOAD_DIR."packages/{$package_to->package_id}"))
-				{
-					mkdir(UPLOAD_DIR."packages/{$package_to->package_id}", 0777, TRUE);
-				}
-				
-				foreach ($movingFotos as $pdetail_id => $files)
-				{
-					if ( ! is_dir(UPLOAD_DIR."packages/{$package_to->package_id}/$pdetail_id"))
-					{
-						mkdir(UPLOAD_DIR."packages/{$package_to->package_id}/$pdetail_id", 0777, TRUE);
-					}
-					
-					// копируем все фото товара
-					foreach ($files as $file)
-					{
-						if (file_exists(UPLOAD_DIR."packages/{$package_from->package_id}/$pdetail_id/$file"))
-						{
-							copy(
-								UPLOAD_DIR."packages/{$package_from->package_id}/$pdetail_id/$file", 
-								UPLOAD_DIR."packages/{$package_to->package_id}/$pdetail_id/$file");
-						}
-					}
-				}
-			}
-			
-			// копируем скриншоты товаров
-			foreach ($movingScreenshots as $pdetail_id)
-			{
-				if (file_exists(UPLOAD_DIR."packages/{$package_from->package_id}/$pdetail_id.jpg"))
-				{
-					if ( ! is_dir(UPLOAD_DIR."packages/{$package_to->package_id}"))
-					{
-						mkdir(UPLOAD_DIR."packages/{$package_to->package_id}", 0777, TRUE);
-					}
-					
-					copy(
-						UPLOAD_DIR."packages/{$package_from->package_id}/$pdetail_id.jpg", 
-						UPLOAD_DIR."packages/{$package_to->package_id}/$pdetail_id.jpg");
-				}
-			}
-			
-			// пересчитываем посылки
-			$this->Packages->recalculatePackage($package_from);
-			$this->Packages->recalculatePackage($package_to);
-		}
-		catch (Exception $e)
-		{
-			// todo: add exception message output
-			//print_r($e);
-		}		
-	}
-	
-	protected function addProductManualAjaxP() 
-	{		
-		$this->load->model('PackageModel', 'Packages');
-
-		Check::reset_empties();
-		$detail = new stdClass();
-		$detail->pdetail_package = Check::int('package_id');
-		
-		if (empty($detail->pdetail_package))
-		{
-			throw new Exception('Посылка не найдена.');
-		}
-		
-		// находим посылку и ее клиента
-		if ($this->user->user_group == 'client')
-		{
-			$package = $this->Packages->getClientPackageById($detail->pdetail_package, $this->user->user_id);
-		}
-		else if ($this->user->user_group == 'manager')
-		{
-			$package = $this->Packages->getManagerPackageById($detail->pdetail_package, $this->user->user_id);
-		}
-		else if ($this->user->user_group == 'admin')
-		{
-			$package = $this->Packages->getById($detail->pdetail_package);
-		}
-		
-		if (empty($package))
-		{
-			throw new Exception('Посылка не найдена.');
-		}
-		
-		if ($this->user->user_group == 'client' AND 
-			$package->package_client != $this->user->user_id)
-		{
-			throw new Exception('Посылка не найдена.');
-		}
-	
-		$client_id = $package->package_client;
-
-		if (empty($client_id))
-		{
-			throw new Exception('Клиент посылки не найден.');
-		}
-
-		// валидация
-		Check::reset_empties();
-		$detail->pdetail_link					= Check::str('olink', 500, 1);
-		$detail->pdetail_img					= Check::str('userfileimg', 500, 1);
-		$userfile								= isset($_FILES['userfile']) && empty($_FILES['userfile']['error']);
-		$detail->pdetail_shop_name				= Check::str('shop', 255, 0);
-		$detail->pdetail_product_name			= Check::str('oname', 255, 0);
-		$detail->pdetail_product_amount			= (isset($_POST['oamount']) &&
-														$_POST['oamount'] &&
-														is_numeric($_POST['oamount'])) ? 
-														$_POST['oamount'] :
-														1;
-		$detail->pdetail_product_color			= Check::str('ocolor', 32, 0);
-		$detail->pdetail_product_size			= Check::str('osize', 32, 0);
-		$detail->pdetail_client					= $client_id;
-		$detail->pdetail_manager				= $package->package_manager;
-		$detail->pdetail_status					= $package->order_id ? 'delivered' : 'processing';
-		
-		$empties								= Check::get_empties();		
-		
-		try 
-		{
-			// обязательны для заполнения:
-			// olink
-			// ocountry
-			// userfileimg либо клиентская картинка
-			if ( ! $detail->pdetail_link)
-			{
-				throw new Exception('Добавьте ссылку на товар.');
-			}
-			
-			if ($empties &&
-				!$detail->pdetail_img && 
-				!$userfile)
-			{
-				if (isset($_FILES['userfile']) && 
-					isset($_FILES['userfile']['error']) &&
-					$_FILES['userfile']['error'] == 1)
-				{
-					throw new Exception('Максимальный размер картинки 3MB.');
-				}
-				else
-				{
-					throw new Exception('Загрузите или добавьте ссылку на скриншот.');
-				}
-			}
-			
-			if ($userfile)
-			{
-				unset($detail->pdetail_img);
-			}
-				
-			$this->load->model('PdetailModel', 'PdetailModel');
-			
-			// открываем транзакцию
-			$this->db->trans_begin();	
-
-			$detail = $this->PdetailModel->addPdetail($detail);
-
-			// пересчитываем статус и стоимость посылки
-			$recent_status = $package->package_status;
-			$new_package = $this->Packages->recalculatePackage($package);
-
-			$status = $new_package->package_status;
-			$is_new_status = ($recent_status != $new_package->package_status);
-		
- 			// загружаем файл
-			if ($userfile)
-			{
-				$old = umask(0);
-				// загрузка файла
-				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/packages/{$detail->pdetail_package}"))
-				{
-					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/packages/{$detail->pdetail_package}",0777);
-				}
-				
-				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/packages/{$detail->pdetail_package}";
-				$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
-				$config['max_size']				= '3072';
-				$config['encrypt_name'] 		= TRUE;
-				$max_width						= 1024;
-				$max_height						= 768;
-				$this->load->library('upload', $config);
-
-				if (!$this->upload->do_upload()) {
-					throw new Exception(strip_tags(trim($this->upload->display_errors())));
-				}
-				
-				$uploadedImg = $this->upload->data();
-				if ( ! rename(
-						$uploadedImg['full_path'],
-						$_SERVER['DOCUMENT_ROOT']."/upload/packages/{$detail->pdetail_package}/{$detail->pdetail_id}.jpg"))
-				{
-					throw new Exception("Bad file name!");
-				}
-				
-				$uploadedImg	= $_SERVER['DOCUMENT_ROOT']."/upload/packages/{$detail->pdetail_package}/{$detail->pdetail_id}.jpg";
-				$imageInfo		= getimagesize($uploadedImg);
-				if ($imageInfo[0]>$max_width || $imageInfo[1]>$max_height){
-					
-					$config['image_library']	= 'gd2';
-					$config['source_image']		= $uploadedImg;
-					$config['maintain_ratio']	= TRUE;
-					$config['width']			= $max_width;
-					$config['height']			= $max_height;
-					
-					$this->load->library('image_lib', $config); // загружаем библиотеку
-					
-					$this->image_lib->resize(); // и вызываем функцию
-				}
-			}
-			
-			// закрываем транзакцию
-			$this->db->trans_commit();
-		}
-		catch (Exception $e)
-		{
-			echo $e->getMessage();
-		}
-	}
-	
-	protected function showDeclaration()
-	{
-		try
-		{
-			// безопасность
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!is_numeric($this->uri->segment(3)))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-		
-			$this->load->model('PackageModel', 'Packages');
-
-			// роли и разграничение доступа
-			if ($this->user->user_group == 'admin')
-			{
-			    $package = $this->Packages->getById($this->uri->segment(3));
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$package = $this->Packages->getManagerPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$package = $this->Packages->getClientPackageById($this->uri->segment(3), $this->user->user_id);
-			}			
-		
-			if (!$package)
-			{
-				throw new Exception('Невозможно отобразить декларацию. Соответствующая ей посылка недоступна.');
-			}
-
-			// показываем декларацию к посылке
-			$view['package'] = $package;
-			$this->load->model('DeclarationModel', 'Declarations');
-			$view['declarations'] = $this->Declarations->getDeclarationsByPackageId($this->uri->segment(3));
-			$view['back_handler'] = self::getPackageBackHandler($view['package'], $this->user->user_group);
-			
-			// подгружаем стоимости комиссий
-			$this->load->model('ConfigModel', 'Config');
-			$view['config'] = $this->Config->getConfig();
-			
-			// и курс
-			$this->load->model('CurrencyModel', 'Currency');
-			$view['usd'] = $this->Currency->getRate('USD');
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-			
-			// открываем новые посылки
-			if ($this->user->user_group == 'client')
-			{
-				Func::redirect(BASEURL.$this->cname.'/showOpenPackages');
-			}
-			else
-			{
-				Func::redirect(BASEURL.$this->cname.'/showNewPackages');
-			}
-			
-			return;
-		}
-
-		View::showChild($this->viewpath.'/pages/showPackageDeclaration', $view);
-	}
-	
 	protected function showO2oComments()
 	{
 		try
@@ -1331,119 +877,6 @@ abstract class BaseController extends Controller
 
 		// отображаем комментарии
 		View::showChild($this->viewpath.'/pages/showO2iComments', $view);
-	}
-	
-	protected function addOrderComment($order_id, $comment_id = NULL)
-	{
-		try
-		{
-			if (!is_numeric($order_id))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-		
-			// роли и разграничение доступа
-			$order = $this->getPrivilegedOrder(
-				$order_id, 
-				'Невозможно добавить комментарий. Соответствующий заказ недоступен.');
-
-			// валидация пользовательского ввода
-			$this->load->model('OCommentModel', 'Comments');
-			
-			if (is_numeric($comment_id)) 
-			{
-				$ocomment = $this->Comments->getById($comment_id);
-				if (!$ocomment) 
-				{
-					throw new Exception('Невозможно изменить комментарий. Комментарий не найден.');
-				}
-				
-				$ocomment->ocomment_comment	= Check::txt('comment_update', 8096, 1);
-			}
-			else
-			{
-				$ocomment				= new stdClass();
-				$ocomment->ocomment_comment	= Check::txt('comment', 8096, 1);
-				$ocomment->ocomment_user	= $this->user->user_id;
-			}
-			
-			$ocomment->ocomment_order	= $this->uri->segment(3);
-			$empties					= Check::get_empties();
-		
-			if ($empties) 
-			{
-				throw new Exception('Текст комментария отсутствует. Попробуйте еще раз.');
-			}
-			
-			// сохранение результатов
-			$this->db->trans_begin();
-			$new_comment = $this->Comments->addComment($ocomment);
-			
-			if (!$new_comment &&
-				!is_numeric($comment_id))
-			{
-				throw new Exception('Комментарий не добавлен. Попробуйте еще раз.');
-			}			
-			
-			// выставляем флаг нового комментария
-			if ($this->user->user_group == 'manager')
-			{
-				$order->comment_for_client = TRUE;
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$order->comment_for_manager = TRUE;
-			}
-			else if ($this->user->user_group == 'admin')
-			{
-				$order->comment_for_manager	= TRUE;
-				$order->comment_for_client	= TRUE;
-			}
-			
-			$this->Orders->saveOrder($order);
-			$this->db->trans_commit();
-			
-			// уведомления
-			$this->load->model('ManagerModel', 'Managers');
-			$this->load->model('UserModel', 'Users');
-			$this->load->model('ClientModel', 'Clients');
-			
-			if ($this->user->user_group != 'manager')
-			{
-				Mailer::sendManagerNotification(
-					Mailer::SUBJECT_NEW_COMMENT, 
-					Mailer::NEW_ORDER_COMMENT_NOTIFICATION, 
-					$order->order_manager,
-					$order->order_id, 
-					0,
-					"http://countrypost.ru/manager/showOrderDetails/{$order->order_id}#comments",
-					$this->Managers,
-					NULL);
-			}
-			
-			if ($this->user->user_group != 'client')
-			{
-				Mailer::sendClientNotification(
-					Mailer::SUBJECT_NEW_COMMENT, 
-					Mailer::NEW_ORDER_COMMENT_NOTIFICATION, 
-					$order->order_id, 
-					$order->order_client,
-					"http://countrypost.ru/client/showOrderDetails/{$order->order_id}#comments",
-					$this->Clients,
-					$this->Users);
-			}
-		}
-		catch (Exception $e) 
-		{
-			$this->db->trans_rollback();
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-		
-		// открываем комментарии к посылке
-		Func::redirect(BASEURL.$this->cname."/showOrderDetails/{$this->uri->segment(3)}#comments");
 	}
 	
 	protected function addBidComment($bid_id, $comment_id = NULL)
@@ -1697,9 +1130,10 @@ abstract class BaseController extends Controller
 	{
 		try
 		{
-			// валидация пользовательского ввода
+			// достаем из сессии последнюю фильтрацию
 			$filter	= $this->initFilter($filterType);
-			
+
+			// собираем общие для всех фильтров параметры (прочистить)
 			if (isset($_POST['manager_user'])) $filter->manager_user						= Check::int('manager_user');
 			if (isset($_POST['client_country'])) $filter->client_country					= Check::int('client_country');
 			if (isset($_POST['search_id'])) $filter->search_id								= Check::txt('search_id', 11, 1, '');
@@ -1708,93 +1142,57 @@ abstract class BaseController extends Controller
 			if (isset($_POST['period'])) $filter->period									= Check::txt('period', 5, 3, '');
 			if (isset($_POST['id_type'])) $filter->id_type									= Check::txt('id_type', 13, 5, '');
 			if (isset($_POST['id_status'])) $filter->id_status								= Check::txt('id_status', 20, 1, '');
-			
-			if (Check::int('our_pricelist')) 
-			{
-				$filter->our_pricelist = Check::int('our_pricelist');
-				$filter->pricelist_country_from	= '';
-				$filter->pricelist_country_to = '';
-			}
-			else
-			{
-				$filter->our_pricelist = '';
-				if (isset($_POST['pricelist_country_from'])) $filter->pricelist_country_from	= Check::int('pricelist_country_from');
-				if (isset($_POST['pricelist_country_to'])) $filter->pricelist_country_to		= Check::int('pricelist_country_to');
-			}
-			
-			if (isset($_POST['clientO2oSearchType'])) 
-			{
-				unset($filter->order2out_id);
-				unset($filter->user_login);
-				unset($filter->order2out_user);
-				
-				$clientO2oSearchType			= Check::txt('clientO2oSearchType', 14, 10, '');
-				$clientO2oSearchValue			= Check::txt('clientO2oSearchValue', 32, 1, '');
-				
-				if ($clientO2oSearchValue)
-				{
-					if ($clientO2oSearchType == 'order2out_id')
-					{
-						$filter->order2out_id	= $clientO2oSearchValue;
-					}
-					else if ($clientO2oSearchType == 'user_login')
-					{
-						$filter->user_login	= $clientO2oSearchValue;
-					}
-					else if ($clientO2oSearchType == 'order2out_user')
-					{
-						$filter->order2out_user	= $clientO2oSearchValue;
-					}
-				}
 
-				$filter->order2out_status		= Check::txt('order2out_status', 32, 1, '');
-			}
-					
-			if (!isset($filter->id_type) || $filter->id_type == '')
+			if ( ! isset($filter->id_type) || $filter->id_type == '')
 			{
 				$filter->search_id = '';
 				$filter->search_client = '';
 			}
-			
-			if ($filterType == 'paymentHistory')
+
+			// погнали
+			switch ($filterType)
 			{
-				$filter = $this->initPaymentHistoryFilter($filter);
+				case ('paymentHistory') :
+					$filter = $this->processPaymentHistoryFilter($filter);
+					break;
+				case ('UnassignedOrders') :
+					$filter = $this->processUnassignedOrdersFilter($filter);
+					break;
+				case ('Dealers') :
+					$filter = $this->processDealersFilter($filter);
+					break;
+				case ('Clients') :
+					$filter = $this->processClientsFilter($filter);
+					break;
+				case ('Orders') :
+				//	$filter = $this->initOrdersFilter($filter);
+					break;
+				case ('openClientO2o') :
+				case ('payedClientO2o') :
+				case ('openManagerO2o') :
+				case ('payedManagerO2o') :
+					$filter = $this->initO2oFilter($filter);
+					break;
 			}
-			
-			if ($filterType == 'UnassignedOrders')
-			{
-				$filter = $this->initUnassignedOrdersFilter($filter);
-			}
-			
-			if ($filterType == 'Dealers')
-			{
-				$filter = $this->initDealersFilter($filter);
-			}
-			
-			if ($filterType == 'Clients')
-			{
-				$filter = $this->initClientsFilter($filter);
-			}
-		
+
+			// кладем фильтрацию назад сессию
 			$_SESSION[$filterType.'Filter'] = $filter;
 		}
 		catch (Exception $e) 
 		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
 		}
 		
-		// открываем новые посылки
+		// уходим на страницу с результатами фильтрации
 		Func::redirect(BASEURL.$this->cname.'/'.$pageName);
+		//die($pageName);
 	}
 	
 	protected function initFilter($filterType)
 	{//$_SESSION[$filterType.'Filter'] = null;die();
-	
+		// если ничего не фильтровали, инициализируем фильтр
 		if ( ! isset($_SESSION[$filterType.'Filter']))
 		{
+			// инициализируем общие для всех фильтров параметры (прочистить)
 			$filter = new stdClass();
 			$filter->manager_user			= '';
 			$filter->client_country			= '';
@@ -1807,36 +1205,34 @@ abstract class BaseController extends Controller
 			$filter->pricelist_country_from	= '';
 			$filter->pricelist_country_to	= '';
 			$filter->pricelist_delivery		= '';
-			
-			if ($filterType == 'openClientO2o')
+
+			// погнали
+			switch ($filterType)
 			{
-				$filter->order2out_status = 'processing';
-			
+				case ('openClientO2o') :
+					$filter->order2out_status = 'processing';
+					break;
+				case ('payedClientO2o') :
+					$filter->order2out_status = 'payed';
+					break;
+				case ($filterType == 'openManagerO2o') :
+					$filter->order2out_status = 'processing';
+					break;
+				case ($filterType == 'payedManagerO2o') :
+					$filter->order2out_status = 'payed';
+				/*	break;
+				case ($filterType == 'paymentHistory') :
+					$filter = $this->initPaymentHistoryFilter($filter);*/
 			}
-			else if ($filterType == 'payedClientO2o')
-			{
-				$filter->order2out_status = 'payed';
-			}
-			else if ($filterType == 'openManagerO2o')
-			{
-				$filter->order2out_status = 'processing';
-			}
-			else if ($filterType == 'payedManagerO2o')
-			{
-				$filter->order2out_status = 'payed';
-			}
-			else if ($filterType == 'paymentHistory')
-			{
-				$filter = $this->initPaymentHistoryFilter($filter);
-			}
-			
+
 			$_SESSION[$filterType.'Filter'] = $filter;
 		}	
 
+		// кладем фильтр в сессию
 		return $_SESSION[$filterType.'Filter'];
 	}
 	
-	private function initPaymentHistoryFilter(&$filter)
+	private function processPaymentHistoryFilter(&$filter)
 	{
 		$filter->payment_from = '';
 		$filter->user_from = '';
@@ -1934,451 +1330,39 @@ abstract class BaseController extends Controller
 		return $filter;
 	}
 	
-	protected function addPackage($order_id = NULL)
+	private function initO2oFilter(&$filter)
 	{
-		try
+		if (isset($_POST['clientO2oSearchType']))
 		{
-			// валидация пользовательского ввода
-			Check::reset_empties();
-			$package = new stdClass();
-			
-			if ($this->user->user_group == 'admin' || $this->user->user_group == 'client')
-			{
-			    $package->package_manager	= Check::int('package_manager');
-	
-				if (empty($package->package_manager)) 
-				{
-					throw new Exception('Выберите страну.');
-				}			    
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$package->package_manager	= $this->user->user_id;
-			}
-			
-			$package->package_client			= ($this->user->user_group == 'client'?$this->user->user_id:Check::int('package_client'));
-			$package->package_trackingno		= Check::str('package_trackingno', 25);
-			$package->declaration_status		= 'not_completed';
-			$package->package_status			= ($this->user->user_group == 'client' ? 'processing' : 'not_payed');
-			$package->join_count				= 0;
-			$package->package_comission 		= 0;
-			$package->package_declaration_cost	= 0;
-			$package->package_delivery_cost		= 0;
-			$package->package_delivery_cost_local	= 0;
-			$package->package_join_cost			= 0;
-			$package->package_special_cost		= 0;
-			$package->package_special_cost_usd	= 0;
-			$package->order_id					= 0;
-			$package->package_join_count		= 0;
-			
-			// страховка
-			$package->package_insurance 		= PACKAGE_DEFAULT_INSURANCE;
-			
-			if ($package->package_insurance)
-			{
-				$package->package_insurance_cost 	= PACKAGE_DEFAULT_INSURANCE_AMOUNT;
-			}
-			
-			Check::reset_empties();
-			$package->package_weight			= Check::float('package_weight');
-			$empties							= Check::get_empties();
+			unset($filter->order2out_id);
+			unset($filter->user_login);
+			unset($filter->order2out_user);
 
-			if (is_array($empties)) 
-			{
-				throw new Exception('Введите вес.');
-			}
-			
-			$this->load->model('ManagerModel', 'Managers');
-			$manager = $this->Managers->getById($package->package_manager);
-			
-			if (!$manager) 
-			{
-				throw new Exception('Невозможно добавить посылку. Партнер не найден.');
-			}
-			
-			$this->load->model('ClientModel', 'Clients');
-			$client = $this->Clients->getById($package->package_client);
-			
-			if (!$client) 
-			{
-				throw new Exception("Невозможно добавить посылку. Клиент {$package->package_client} не найден.");
-			}
-			
-			$package->package_country_from		= $manager->manager_country;
-			$package->package_country_to		= $client->client_country;
+			$clientO2oSearchType			= Check::txt('clientO2oSearchType', 14, 10, '');
+			$clientO2oSearchValue			= Check::txt('clientO2oSearchValue', 32, 1, '');
 
-			$this->load->model('ConfigModel', 'Config');
-			$this->load->model('PackageModel', 'Packages');
-			
-			// вычисляем адрес посылки
-			$this->load->model('ClientModel', 'Clients');
-			$client = $this->Clients->getById($package->package_client);
-			if (!$client) 
+			if ($clientO2oSearchValue)
 			{
-				throw new Exception('Клиент не найден. Попробуйте еще раз.');
-			}
-			
-			$this->load->model('CountryModel', 'Countries');
-			$country = $this->Countries->getById($client->client_country);
-			if (!$country) 
-			{
-				throw new Exception('Страна назначения не найдена. Попробуйте еще раз.');
-			}
-			
-			if (empty($client->client_address) || empty($client->client_town)) 
-			{
-				$package->package_address = "Адрес не заполнен!";
-			}
-			else 
-			{
-				$package->package_address = sprintf('%s %s / %s, %s, %s, %s<br />Тел. %s', 
-				$client->client_surname,
-				$client->client_name,
-				$client->client_index,
-				$client->client_address,
-				$client->client_town,
-				$country->country_name,
-				$client->client_phone);
-			}
-		
-			// привязываем заказ
-			if ( ! empty($_POST['order_id']))
-			{
-				$package->order_id = $_POST['order_id'];
-			}
-			
-			// сохранение результатов
-			$this->load->model('PackageModel', 'Packages');
-			
-			$new_package = $this->Packages->savePackage($package);
-			
-			if (!$new_package)
-			{
-				throw new Exception('Посылка не добавлена. Попробуйте еще раз.');
-			}
-			
-			// привязываем посылку
-			if ( ! empty($_POST['order_id']))
-			{
-				$this->load->model('OrderModel', 'Orders');
-				$order = $this->Orders->getById($_POST['order_id']);
-				
-				if (!$order ||
-					$order->order_client != $package->package_client ||
-					$order->order_manager != $package->package_manager)
+				if ($clientO2oSearchType == 'order2out_id')
 				{
-					throw new Exception('Посылка не добавлена. Соответствующий заказ не найден.');
+					$filter->order2out_id	= $clientO2oSearchValue;
 				}
-				
-				$order->package_id = $new_package->package_id;
-				$this->Orders->saveOrder($order);
-			}
-
-			$this->load->model('OdetailModel', 'Odetails');
-			$this->load->model('PdetailModel', 'Pdetails');
-			
-			// копируем товары заказа в посылку
-			if ($package->order_id)
-			{
-				$odetails = $this->Odetails->getOrderDetails($package->order_id);
-				
-				if ( ! $odetails)
+				else if ($clientO2oSearchType == 'user_login')
 				{
-					throw new Exception('Посылка не добавлена. Товары заказа не найдены.');
+					$filter->user_login	= $clientO2oSearchValue;
 				}
-				
-				foreach ($odetails as $odetail)
+				else if ($clientO2oSearchType == 'order2out_user')
 				{
-					$pdetail = new stdClass();
-					$pdetail->odetail_id = $odetail->odetail_id;
-					$pdetail->pdetail_client = $odetail->odetail_client;
-					$pdetail->pdetail_manager = $odetail->odetail_manager;
-					$pdetail->pdetail_package = $new_package->package_id;
-					$pdetail->pdetail_link = $odetail->odetail_link;
-					$pdetail->pdetail_shop_name = $odetail->odetail_shop_name;
-					$pdetail->pdetail_product_name = $odetail->odetail_product_name;
-					$pdetail->pdetail_product_color = $odetail->odetail_product_color;
-					$pdetail->pdetail_product_size = $odetail->odetail_product_size;
-					$pdetail->pdetail_product_amount = $odetail->odetail_product_amount;
-					$pdetail->pdetail_status = 'delivered';
-
-					// копируем скриншот из заказа в посылку
-					if (isset($odetail->odetail_img))
-					{
-						$pdetail->pdetail_img = $odetail->odetail_img;
-						$this->Pdetails->addpdetail($pdetail);
-					}
-					else
-					{
-						$pdetail = $this->Pdetails->addpdetail($pdetail);
-						
-						$old = umask(0);
-						$odetail_file = $_SERVER['DOCUMENT_ROOT']."/upload/orders/{$odetail->odetail_client}/{$odetail->odetail_id}.jpg";
-						$package_folder = $_SERVER['DOCUMENT_ROOT']."/upload/packages/{$new_package->package_id}";
-						$pdetail_file = "$package_folder/{$pdetail->pdetail_id}.jpg";
-						
-						// загрузка файла
-						if (file_exists($odetail_file))
-						{
-							if ( ! is_dir($package_folder))
-							{
-								mkdir($package_folder, 0777);
-							}
-
-							if ( ! copy($odetail_file, $pdetail_file))
-							{
-								//throw new Exception("Bad file name!");
-								// чтобы не ломать создание посылки изза потеряной картинки в товаре заказа, проглатываем ошибку копирования
-							}
-						}
-					}
+					$filter->order2out_user	= $clientO2oSearchValue;
 				}
 			}
-			
-			// уведомления
-			if ($this->user->user_group != 'admin')
-			{
-				Mailer::sendAdminNotification(
-					Mailer::SUBJECT_NEW_PACKAGE, 
-					Mailer::NEW_PACKAGE_NOTIFICATION, 
-					0,
-					$new_package->package_id, 
-					0,
-					"http://countrypost.ru/admin/showPackageDetails/{$new_package->package_id}",
-					NULL,
-					NULL);
-			}
-			
-			if ($this->user->user_group != 'manager')
-			{
-				Mailer::sendManagerNotification(
-					Mailer::SUBJECT_NEW_PACKAGE, 
-					Mailer::NEW_PACKAGE_MANAGER_NOTIFICATION, 
-					$package->package_manager,
-					$new_package->package_id, 
-					0,
-					"http://countrypost.ru/manager/showPackageDetails/{$new_package->package_id}",
-					$this->Managers,
-					NULL);
-			}
 
-			Mailer::sendClientNotification(
-				Mailer::SUBJECT_NEW_PACKAGE, 
-				Mailer::NEW_PACKAGE_NOTIFICATION, 
-				$new_package->package_id, 
-				$package->package_client,
-				"http://countrypost.ru/client/showPackageDetails/{$new_package->package_id}",
-				$this->Clients);
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = -1;			
-			$this->result->m = $e->getMessage();
-			
-			
-			if ($this->user->user_group != 'client' OR
-				$this->uri->segment(3) != 'ajax')	
-			{
-				Stack::push('result', $this->result);
-				Func::redirect(BASEURL.$this->cname.'/showAddPackage');
-			}
-			else
-			{
-				echo $e->getMessage();
-				return;
-			}
+			$filter->order2out_status		= Check::txt('order2out_status', 32, 1, '');
 		}
 
-		// открываем новые посылки
-		if ($this->user->user_group == 'client')
-		{
-			if ($this->uri->segment(3) != 'ajax')
-			{
-				Func::redirect(BASEURL.$this->cname."/showOpenPackages");
-			}
-			else
-			{
-				echo '';
-			}
-		} 
-		else 
-		{
-			Func::redirect(BASEURL.$this->cname.'/showNewPackages');
-		}
+		return $filter;
 	}
-	
-	protected function saveDeclaration()
-	{
-		try
-		{
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!is_numeric($this->uri->segment(3)))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-		
-			$this->load->model('PackageModel', 'Packages');
-	
-			// роли и разграничение доступа
-			if ($this->user->user_group == 'admin')
-			{
-			    $package = $this->Packages->getById($this->uri->segment(3));
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$package = $this->Packages->getManagerPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$package = $this->Packages->getClientPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-			
-			if (!$package)
-			{
-				throw new Exception('Невозможно сохранить декларацию. Соответствующая посылка не найдена.');
-			}
 
-			if ($package->package_status == 'sent')
-			{
-				throw new Exception('Невозможно изменять декларацию для отправленных посылок.');
-			}
-			
-			if ($this->user->user_group == 'manager' && $package->declaration_status != 'help')
-			{
-				throw new Exception('Вы не можете изменить декларацию без запроса клиента.');
-			}			
-
-			$this->load->model('DeclarationModel', 'Declarations');
-
-			// итерируем по товарам в декларации
-			$this->db->trans_begin();
-			
-			foreach($_POST as $key=>$value)
-			{
-				if (stripos($key, 'declaration_item') === 0) 
-				{
-					$declaration_id = str_ireplace('declaration_item', '', $key);
-					$this->updateDeclarationItem($declaration_id);
-				}
-				else if (stripos($key, 'new_item') === 0) 
-				{
-					$declaration_id = str_ireplace('new_item', '', $key);
-					$this->insertDeclarationItem($declaration_id);
-				}
-			}
-			
-			// вычисляем статус декларации
-			$declarations = $this->Declarations->getDeclarationsByPackageId($package->package_id);
-			
-			if ($package->declaration_status == 'completed' &&
-				!(isset($declarations) &&
-				$declarations))
-			{
-				$package->declaration_status = 'not_completed';
-			}
-			else if ($package->declaration_status == 'not_completed' &&
-				isset($declarations) &&
-				$declarations)
-			{
-				$package->declaration_status = 'completed';
-			}
-			
-			// вычисляем стоимость посылки
-			$this->load->model('ConfigModel', 'Config');
-			$this->load->model('PricelistModel', 'Pricelist');
-			
-			$package = $this->Packages->calculateCost($package, $this->Config, $this->Pricelist);
-			
-			if (!$package) 
-			{
-				throw new Exception('Невозможно сохранить декларацию. Стоимость посылки не определена.');
-			}
-			
-			// сохраняем посылку
-			$package = $this->Packages->savePackage($package);
-
-			if (!$package)
-			{
-				throw new Exception('Декларация не сохранена. Попробуйте еще раз.');
-			}
-			
-			$this->db->trans_commit();
-			
-			// выводим сообщение
-			$this->result->m = 'Декларация успешно сохранена.';			
-			Stack::push('result', $this->result);
-		}
-		catch (Exception $e) 
-		{
-			$this->db->trans_rollback();
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-		
-		// открываем декларацию
-		Func::redirect(BASEURL.$this->cname.'/showDeclaration/'.$this->uri->segment(3));
-	}
-	
-	protected function deletePackage()
-	{
-		try
-		{
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!is_numeric($this->uri->segment(3)))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			
-			$this->load->model('PackageModel', 'Packages');
-
-			// роли и разграничение доступа
-			if ($this->user->user_group == 'admin')
-			{
-			    $package = $this->Packages->getById($this->uri->segment(3));
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$package = $this->Packages->getManagerPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$package = $this->Packages->getClientPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-			
-			if (!$package)
-			{
-				throw new Exception('Посылка не найдена. Попробуйте еще раз.');
-			}
-
-			// сохранение результатов
-			$package->package_status	= 'deleted';
-			$deleted_package = $this->Packages->savePackage($package);
-			
-			if (!$deleted_package)
-			{
-				throw new Exception('Посылка не удалена. Попробуйте еще раз.');
-			}			
-
-			$this->result->m = 'Посылка успешно удалена.';
-			Stack::push('result', $this->result);
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-		
-		// открываем новые посылки
-		if($this->user->user_group != 'client') Func::redirect(BASEURL.$this->cname.'/showNewPackages');
-		else Func::redirect(BASEURL.$this->cname.'/showOpenPackages');
-	}
-	
 	protected function deleteOrder()
 	{
 		try
@@ -2453,238 +1437,6 @@ abstract class BaseController extends Controller
 		
 		// открываем заказы
 		Func::redirect(BASEURL.$this->cname.'/showOpenOrders');
-	}
-	
-	protected function showAddPackage()
-	{
-		try
-		{
-			if (!$this->user ||
-				!$this->user->user_id)
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			
-			$this->load->model('ClientModel', 'Clients');
-
-			$view = array();
-			
-//			// отображаем список партнеров для админа
-//			if ($this->user->user_group == 'admin')
-//			{
-				$this->load->model('ManagerModel', 'Managers');
-				$view['managers'] = $this->Managers->getManagersData();
-				
-				if (!$view['managers'])
-				{
-					throw new Exception('Партнеры не найдены. Попробуйте еще раз.');
-				}
-//			}
-
-			@$view['client'] = $this->__client;
-			@$view['partners'] = $this->__partners;
-			
-			if($this->user->user_group == 'client') {
-				$this->load->model('PdetailModel', 'Pdetails');
-				$view['pdetails'] = $this->Pdetails->getFilteredDetails(array('pdetail_client'=>$this->user->user_id,'pdetail_package'=>0),TRUE);
-				foreach($view['pdetails'] as $key => $val)
-				{
-					$view['pdetails'][$key]->pdetail_status_desc = $this->Pdetails->getPackageDetailsStatusDescription($val->pdetail_status);
-				}
-				
-			}
-						
-			View::showChild($this->viewpath.'/pages/showAddPackage', $view);
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
-		}
-	}
-	
-	protected function editPackageAddress()
-	{
-		try
-		{
-			// безопасность
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!is_numeric($this->uri->segment(3)))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-		
-			$this->load->model('PackageModel', 'Packages');
-			
-			// роли и разграничение доступа
-			if ($this->user->user_group == 'admin')
-			{
-			    $view['package'] = $this->Packages->getById($this->uri->segment(3));
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$view['package'] = $this->Packages->getManagerPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$view['package'] = $this->Packages->getClientPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-			
-			if (!$view['package'])
-			{
-				throw new Exception('Невозможно изменить адрес посылки. Соответствующая посылка недоступна.');
-			}
-			
-			// безопасность: редактирование только неоплаченных или неполученных посылок
-			if ($view['package']->package_status != 'not_payed' && 
-				$view['package']->package_status != 'not_delivered' && 
-				$view['package']->package_status != 'processing')
-			{
-				throw new Exception('Невозможно изменить адрес посылки. Соответствующая посылка уже оплачена либо еще не получена партнером.');
-			}
-			
-			// отображаем список стран
-			$this->load->model('CountryModel', 'Countries');
-
-			$view['countries'] = $this->Countries->getDeliveryCountries($view['package']->package_country_from);
-			
-			if (!$view['countries']) 
-			{
-				throw new Exception('Невозможно изменить адрес посылки. Список стран недоступен.');
-			}
-			
-			View::showChild($this->viewpath.'/pages/editPackageAddress', $view);
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
-		}
-	}
-
-	protected function updatePackageAddress()
-	{
-		try
-		{
-			// безопасность
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!is_numeric($this->uri->segment(3)))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-		
-			$this->load->model('PackageModel', 'Packages');
-			
-			// роли и разграничение доступа
-			if ($this->user->user_group == 'admin')
-			{
-			    $package = $this->Packages->getById($this->uri->segment(3));
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$package = $this->Packages->getManagerPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$package = $this->Packages->getClientPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-			
-			if (!$package)
-			{
-				throw new Exception('Невозможно изменить адрес посылки. Соответствующая посылка недоступна.');
-			}
-			
-			// безопасность: редактирование только неоплаченных посылок
-			if ($package->package_status != 'not_payed' && $package->package_status != 'not_delivered')
-			{
-				throw new Exception('Невозможно изменить адрес посылки. Соответствующая посылка уже оплачена.');
-			}
-			
-			// валидация пользовательского ввода
-			$prev_country = $package->package_country_to;
-			
-			Check::reset_empties();
-			$package->package_country_to		= Check::int('package_country_to');
-			$package->package_address			= Check::txt('package_address', 255, 1, '');
-			$empties							= Check::get_empties();
-			
-			if (is_array($empties)) 
-			{
-				throw new Exception('Одно или несколько полей не заполнено.');
-			}
-			
-			// проверка доступности способа доставки
-			$filter = new stdClass();
-			
-			$filter->pricelist_country_from = $package->package_country_from;
-			$filter->pricelist_country_to = $package->package_country_to;
-			$filter->pricelist_delivery = '';
-			
-			$this->load->model('PricelistModel', 'Pricelist');
-			$pricelist = $this->Pricelist->getPricelist($filter);
-			
-			if (!$pricelist)
-			{
-				throw new Exception('Невозможно изменить адрес посылки. Доставка в выбранную страну недоступна.');
-			}
-			
-			// вычисляем стоимость посылки
-			if ($prev_country != $package->package_country_to)
-			{
-				$package->package_delivery = 0;
-				$package->package_delivery_cost = 0;
-
-				$this->load->model('ConfigModel', 'Config');
-				$this->load->model('PackageModel', 'Packages');
-				
-				$package = $this->Packages->calculateCost($package, $this->Config);
-				
-				if (!$package) 
-				{
-					throw new Exception('Невозможно изменить адрес посылки. Ошибка вычисления стоимости посылки.');
-				}
-			}
-			
-			// сохранение результатов
-			$this->load->model('PackageModel', 'Packages');
-			$new_package = $this->Packages->savePackage($package);
-			
-			if (!$new_package)
-			{
-				throw new Exception('Адрес посылки не изменен. Попробуйте еще раз.');
-			}			
-
-			// открываем новые посылки
-			$this->result->m = 'Адрес посылки успешно изменен.';			
-			Stack::push('result', $this->result);
-			
-			if ($this->user->user_group == 'admin' ||
-				$this->user->user_group == 'manager')
-			{
-				Func::redirect(BASEURL.$this->cname.'/showNewPackages');
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				Func::redirect(BASEURL.$this->cname.'/showOpenPackages');
-			}
-			
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname.'/editPackageAddress/'.$this->uri->segment(3));
-		}
 	}
 	
 	protected function updateOrderDetails()
@@ -2781,49 +1533,19 @@ abstract class BaseController extends Controller
 				throw new Exception('Доступ запрещен.');
 			}
 			
-			// проверка сохранения статусов деклараций
-			if (isset($_POST['declaration_status']) &&
-				($_POST['declaration_status'] == 'completed' ||
-				$_POST['declaration_status'] == 'not_completed'))
-			{
-				$declaration_status = $_POST['declaration_status'];
-			}
-			
 			$this->load->model('ManagerModel', 'Managers');
 			$this->load->model('ClientModel', 'Clients');
 			
-			// итерируем по посылкам
-			$this->db->trans_begin();
-			$this->load->model('OrderModel', 'Orders');			
-			
-			if ($modelName == 'PackageModel')
-			{
-				$this->load->model('PackageModel', 'Packages');
-				
-				foreach($_POST as $key => $value)
-				{
-					$this->updatePackageStatus($key, $value);
-				}
-			}
 			// итерируем по заказам
-			else if ($modelName == 'OrderModel')
+			foreach($_POST as $key => $value)
 			{
-				foreach($_POST as $key => $value)
-				{
-					$this->updateOrderStatus($key, $value);
-				}
+				$this->updateOrderStatus($key, $value);
 			}
 
 			$this->db->trans_commit();
 		}
 		catch (Exception $e) 
 		{
-			$this->db->trans_rollback();
-
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
 		}
 
 		// открываем посылки
@@ -3208,117 +1930,6 @@ abstract class BaseController extends Controller
 		}
 	}
 	
-	protected function updatePdetailStatuses()
-	{
-		try
-		{
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!isset($_POST['package_id']) ||
-				!is_numeric($_POST['package_id']))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-		
-			$package_id = $_POST['package_id'];
-			$this->load->model('PackageModel', 'Packages');
-
-			// роли и разграничение доступа
-			if ($this->user->user_group == 'admin')
-			{
-			    $package = $this->Packages->getById($package_id);
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$package = $this->Packages->getManagerPackageById($package_id, $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$package = $this->Packages->getClientPackageById($package_id, $this->user->user_id);
-			}
-			
-			if ( ! $package)
-			{
-				throw new Exception('Невозможно изменить статусы товаров. Заказ не найден.');
-			}
-				
-			// итерируем по товарам
-			$this->load->model('PdetailModel', 'Pdetails');
-			$this->db->trans_begin();
-			
-			// поиск параметров в запросе
-			foreach ($_POST as $key => $value)
-			{
-				if (($this->user->user_group == 'admin' OR
-					$this->user->user_group == 'manager') AND 
-					stripos($key, 'pdetail_status') === 0)
-				{
-					$pdetail_id = str_ireplace('pdetail_status', '', $key);
-					if ( ! is_numeric($pdetail_id)) continue;
-
-					// сохранение результатов
-					$pdetail = $this->Pdetails->getById($pdetail_id);
-					if ( ! $pdetail) 
-					{
-						throw new Exception('Некоторые товары не найдены. Попоробуйте еще раз.');
-					}
-					
-					$pdetail->pdetail_status = $value;
-					$new_pdetail = $this->Pdetails->updatePdetail($pdetail);
-				}
-				
-				if (stripos($key, 'pdetail_special_boxes') === 0)
-				{
-					$pdetail_id = str_ireplace('pdetail_special_boxes', '', $key);
-					if ( ! is_numeric($pdetail_id)) continue;
-
-					// сохранение результатов
-					$pdetail = $this->Pdetails->getById($pdetail_id);
-					if ( ! $pdetail) 
-					{
-						throw new Exception('Некоторые товары не найдены. Попоробуйте еще раз.');
-					}
-															
-					$pdetail->pdetail_special_boxes = intval($value);
-					$new_pdetail = $this->Pdetails->updatePdetail($pdetail);
-				}
-				
-				if (stripos($key, 'pdetail_special_invoices') === 0)
-				{
-					$pdetail_id = str_ireplace('pdetail_special_invoices', '', $key);
-					if ( ! is_numeric($pdetail_id)) continue;
-
-					// сохранение результатов
-					$pdetail = $this->Pdetails->getById($pdetail_id);
-					if (!$pdetail) 
-					{
-						throw new Exception('Некоторые товары не найдены. Попоробуйте еще раз.');
-					}
-															
-					$pdetail->pdetail_special_invoices = intval($value);
-					$new_pdetail = $this->Pdetails->updatePdetail($pdetail);
-				}
-			}
-			
-			// меняем статус заказа
-			$this->Packages->recalculatePackage($package);
-			$this->db->trans_commit();
-			
-			$this->result->e = 1;			
-			$this->result->m = 'Статусы товаров и посылки успешно изменены.';
-		}
-		catch (Exception $e) 
-		{
-			$this->db->trans_rollback();
-			$this->result->e = -1;	
-			$this->result->m = $e->getMessage();
-		}
-		
-		// ставим флаг для вывода сообщения в определенном месте страницы
-		$this->result->join_status = 1;
-		Stack::push('result', $this->result);
-	}
-	
 	protected function sendOrderConfirmation($order_id)
 	{
 		try
@@ -3359,70 +1970,7 @@ abstract class BaseController extends Controller
 		}
 	}
 	
-	protected function updateWeight($redirect = TRUE)
-	{
-		try
-		{
-			if (!$this->user ||
-				!$this->user->user_id)
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-		
-			$this->load->model('ConfigModel', 'Config');
-			$this->load->model('PackageModel', 'Packages');
-
-			// итерируем по товарам
-			$this->db->trans_begin();
-			
-			// поиск параметров в запросе
-			foreach($_POST as $key=>$value)
-			{
-				// обычные товары
-				if (stripos($key, 'package_weight') === 0)
-				{
-					$package_id = str_ireplace('package_weight', '', $key);
-					if (!is_numeric($package_id)) continue;
-
-					// сохранение результатов
-					$package = $this->Packages->getById($package_id);
-					if (!$package) 
-					{
-						throw new Exception('Некоторые товары не найдены. Попоробуйте еще раз.');
-					}
-		
-					if ($package->package_weight != $value)
-					{
-						$package->package_weight = $value;
-						$this->load->model('PricelistModel', 'Pricelist');
-						$package = $this->Packages->calculateCost($package, $this->Config, $this->Pricelist);
-
-						$this->Packages->savePackage($package);
-					}
-				}
-			}
-
-			$this->db->trans_commit();
-			
-			$this->result->e = 1;			
-			$this->result->m = 'Статусы товаров, цены и местная доставка успешно изменены.';
-		}
-		catch (Exception $e) 
-		{
-			$this->db->trans_rollback();
-			$this->result->e = -1;			
-			$this->result->m = $e->getMessage();
-		}
-
-		Stack::push('result', $this->result);
-		
-		if ($redirect)
-		{
-			Func::redirect($_SERVER['HTTP_REFERER']);
-		}
-	}
-	
-	protected function deleteOrder2out($oid) 
+	protected function deleteOrder2out($oid)
 	{
 		try 
 		{
@@ -3640,8 +2188,7 @@ abstract class BaseController extends Controller
 			Func::redirect(BASEURL.'syspay');
 		}
 	}
-	
-	
+
 	public function getPayments(){
 		
 		if (!$this->user)	return FALSE;
@@ -3650,97 +2197,6 @@ abstract class BaseController extends Controller
 		
 	}
 
-	
-	/**
-	 * Достаем фото посылки по имени файла и ИД посылки, последний нужен для секурности и поиска нужного каталога
-	 *
-	 * @param (int)		$pid
-	 * @param (string)	$filename
-	 */
-	protected function showPackagePhoto($pid,$filename) {
-		
-		header('Content-type: image/jpg');
-		
-		$filename	= Check::var_str($filename, 255,1);
-		(int) $pid;
-		
-		$this->load->model('PackageModel', 'Package');
-		$package	= $this->Package->getById($pid);
-		
-		if ($this->user->user_group == 'admin'){
-
-		}
-		else if ($this->user->user_group == 'manager'){
-			if ($this->user->user_id != $package->package_manager) die();
-		}
-		else if ($this->user->user_group == 'client'){
-			if ($this->user->user_id != $package->package_client) die();
-		}else{
-			die();
-		}
-
-		if (!$package || $pid != $package->package_id){
-			die();
-		}
-		
-		
-		if (file_exists(UPLOAD_DIR.'packages/'.$package->package_manager.'/'.$pid.'/'.$filename)){
-			readfile(UPLOAD_DIR.'packages/'.$package->package_manager.'/'.$pid.'/'.$filename);
-		}
-		
-		die();
-	}
-	
-	
-	protected function delPackageComment($package_id, $comment_id)
-	{
-		try
-		{
-		
-			(int) $comment_id;
-			(int) $package_id;
-			$this->load->model('PackageModel', 'Packages');
-			
-			if ($this->user->user_group	== 'manager'){
-				$package = $this->Packages->getManagerPackageById($package_id, $this->user->user_id);
-				
-			}elseif ($this->user->user_group == 'client'){
-				$package = $this->Packages->getClientPackageById($package_id, $this->user->user_id);
-				
-			}elseif ($this->user->user_group == 'admin'){
-				$package = $this->Packages->getById($package_id);
-				
-			}else{
-				throw new Exception('Доступ запрешен.');
-			}
-			
-
-			if (!$package)
-			{
-				throw new Exception('Невозможно удалить комментарий. Посылка не найдена.');
-			}
-
-			
-			// сохранение результатов
-			$this->load->model('PCommentModel', 'Comments');
-			
-			if (!$this->Comments->delComment($comment_id))
-			{
-				throw new Exception('Комментарий не удален. Попробуйте еще раз.');
-			}			
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-		
-		// открываем комментарии к посылке
-		Func::redirect(BASEURL.$this->cname.'/showPackageDetails/'.$this->uri->segment(3).'#comments');
-	}
-	
 	protected function delOrderComment($order_id, $comment_id){
 		
 		try
@@ -3899,111 +2355,6 @@ abstract class BaseController extends Controller
 		{
 			View::showChild($this->viewpath.'pages/showPaymentHistory', $view);
 		}
-	}
-	
-	protected function addInsurance($add = 1)
-	{
-		try
-		{
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!is_numeric($this->uri->segment(3)))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-		
-			// безопасность: проверяем связку клиента и посылки
-			$this->load->model('PackageModel', 'Packages');
-			
-			if ($this->user->user_group == 'client')
-			{
-				$package = $this->Packages->getClientPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'admin')
-			{
-				$package = $this->Packages->getById($this->uri->segment(3));
-			}
-			
-			if (!$package)
-			{
-				throw new Exception('Невозможно сохранить декларацию. Посылка недоступна.');
-			}
-
-			// меняем статус страховки
-			$package->package_insurance = $add;
-			$this->load->model('ConfigModel', 'Config');
-			
-			if ($add)
-			{
-				$package->package_insurance_cost = Check::int('insurance_amount');
-				$empties						 = Check::get_empties();
-				
-				if ($empties)
-				{
-					throw new Exception('Стоимость страховки не определена. Попробуйте еще раз.');
-				}
-			}
-			else
-			{
-				$package->package_insurance_cost = 0;
-			}
-			
-			// вычисляем стоимость посылки
-			$this->Packages->recalculatePackage($package);
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-		
-		// открываем посылки
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-	
-	protected function addDeclarationHelp()
-	{
-		try
-		{
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!is_numeric($this->uri->segment(3)))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-		
-			// безопасность: проверяем связку клиента и посылки
-			$this->load->model('PackageModel', 'Packages');
-			if ($this->user->user_group == 'admin')
-			{
-				$package = $this->Packages->getById($this->uri->segment(3));
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$package = $this->Packages->getClientPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-			
-			if (!$package)
-			{
-				throw new Exception('Невозможно сохранить декларацию. Посылка недоступна.');
-			}
-
-			// меняем статус декларации
-			$package->declaration_status = 'help';
-			$this->Packages->recalculatePackage($package);
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-		
-		// открываем посылки
-		Func::redirect(BASEURL.$this->cname.'/showDeclaration/'.$this->uri->segment(3));
 	}
 	
 	protected function joinProducts($order_id)
@@ -4406,165 +2757,7 @@ abstract class BaseController extends Controller
 		}
 	}
 	
-	protected function deleteProductP($pdid)
-	{
-		try
-		{
-			if ( ! $this->user ||
-				! $this->user->user_id ||
-				! is_numeric($pdid))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			
-			// безопасность: проверяем связку клиента и товара
-			$this->load->model('PdetailModel', 'PDetails');
-						
-			if ($this->user->user_group == 'client')
-			{
-				$pdetail = $this->PDetails->getFilteredDetails(array('pdetail_id'=>$pdid, 'pdetail_client'=>$this->user->user_id), TRUE);
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$pdetail = $this->PDetails->getFilteredDetails(array('pdetail_id'=>$pdid, 'pdetail_manager'=>$this->user->user_id), TRUE);
-			}
-			else if ($this->user->user_group == 'admin')
-			{
-				$pdetail = $this->PDetails->getById($pdid);
-			}
-			
-			if (is_array($pdetail) AND
-				count($pdetail))
-			{
-				$pdetail = $pdetail[0];
-			}
-			
-			if (empty($pdetail))
-			{
-				throw new Exception('Товар не найден. Попробуйте еще раз.');
-			}
-
-			// находим посылку
-			$this->load->model('PackageModel', 'Packages');
-
-			if ($this->user->user_group == 'client')
-			{
-				$package = $this->Packages->getClientPackageById($pdetail->pdetail_package, $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$package = $this->Packages->getManagerPackageById($pdetail->pdetail_package, $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'admin')
-			{
-				$package = $this->Packages->getById($pdetail->pdetail_package);
-			}
-			
-			if (empty($package))
-			{
-				throw new Exception('Невозможно изменить статусы товаров. Посылка не найдена.');
-			}
-
-			// сохранение результатов
-			$pdetail->pdetail_status = 'deleted';
-			
-			//$this->db->trans_begin();
-			
-			// удаляем товар из объединенной доставки
-			$this->load->model('PdetailJointModel', 'Joints');
-			
-			if ( ! empty($pdetail->pdetail_joint_id))
-			{
-				$joint = $this->Joints->getById($pdetail->pdetail_joint_id);
-				
-				if ( ! empty($joint))
-				{
-					$pdetail->pdetail_joint_id = 0;
-					$joint->pdetail_joint_count = intval($joint->pdetail_joint_count) - 1;
-					$this->Joints->saveJoint($joint);					
-				}
-			}
-
-			// сохраняем результат
-			$deleted_pdetail = $this->PDetails->updatepdetail($pdetail);
-
-			if ( ! $deleted_pdetail)
-			{
-				throw new Exception('Товар не удален. Попробуйте еще раз.');
-			}
-
-			// пересчитываем статус и стоимость посылки
-			if ($package) 
-			{
-				$recent_status = $package->package_status;
-				$package = $this->Packages->recalculatePackage($package);
-				$status = $package->package_status;
-				
-				$is_new_status = ($recent_status != $package->package_status);
-				$status_caption = $this->Packages->getPackageStatusDescription($package->package_status);
-			}
-			
-			//$this->db->trans_commit();
-			
-			// уведомления, только если остались товары в посылке
-			if (isset($is_new_status) AND 
-				$is_new_status)
-			{
-				$this->load->model('ManagerModel', 'Managers');
-				$this->load->model('UserModel', 'Users');
-				$this->load->model('ClientModel', 'Clients');
-
-				Mailer::sendAdminNotification(
-					Mailer::SUBJECT_NEW_PACKAGE_STATUS, 
-					Mailer::NEW_PACKAGE_STATUS_NOTIFICATION,
-					0,
-					$package->package_id, 
-					0,
-					"http://countrypost.ru/admin/showPackageDetails/{$package->package_id}",
-					NULL,
-					NULL,
-					$status_caption);
-
-				Mailer::sendManagerNotification(
-					Mailer::SUBJECT_NEW_PACKAGE_STATUS, 
-					Mailer::NEW_PACKAGE_STATUS_NOTIFICATION,
-					$package->package_manager, 
-					$package->package_id, 
-					0,
-					"http://countrypost.ru/manager/showPackageDetails/{$package->package_id}",
-					$this->Managers,
-					NULL,
-					$status_caption);
-
-				Mailer::sendClientNotification(
-					Mailer::SUBJECT_NEW_PACKAGE_STATUS, 
-					Mailer::NEW_PACKAGE_STATUS_NOTIFICATION,
-					$package->package_id, 
-					$package->package_client, 
-					"http://countrypost.ru/client/showOrderDetails/{$package->package_id}",
-					$this->Clients,
-					$status_caption);
-			}
-		}
-		catch (Exception $e)
-		{
-			$this->db->trans_rollback();
-			
-			$this->result->e = -1;			
-			$this->result->m = $e->getMessage();
-			
-			die();
-		}
-		
-		Stack::push('result', $this->result);
-		$this->result->e = 1;
-		$this->result->join_status = 1;
-
-		$this->result->m = 'Товар успешно удален.';
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-	
-	protected function updateProductAjax() 
+	protected function updateProductAjax()
 	{
 		Check::reset_empties();
 		$detail									= new stdClass();
@@ -4811,394 +3004,6 @@ abstract class BaseController extends Controller
 		$this->load->view($this->viewpath."ajax/showProduct", $view);
 	}
 
-	public function updateProductAjaxP() 
-	{
-		try 
-		{
-			Check::reset_empties();
-			$detail									= new stdClass();
-			$detail->pdetail_id						= Check::int('pdetail_id');
-			$empties								= Check::get_empties();		
-
-			if ($empties)
-			{
-				throw new Exception('Товар не найден.');
-			}
-
-			$view['pdetail_id'] = $detail->pdetail_id;
-			
-			// находим товар
-			$this->load->model('PdetailModel', 'PdetailModel');
-			
-			if ($this->user->user_group == 'client')
-			{
-				$detail = $this->PdetailModel->getClientPdetailById($detail->pdetail_id, $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$detail = $this->PdetailModel->getManagerPdetailById($detail->pdetail_id, $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'admin')
-			{
-				$detail = $this->PdetailModel->getById($detail->pdetail_id);
-			}
-			
-			if (empty($detail))
-			{
-				throw new Exception('Товар не найден.');
-			}
-			
-			// находим посылку и ее клиента
-			$this->load->model('PackageModel', 'Packages');
-
-			if ($this->user->user_group == 'client')
-			{
-				$package = $this->Packages->getClientPackageById($detail->pdetail_package, $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$package = $this->Packages->getManagerPackageById($detail->pdetail_package, $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'admin')
-			{
-				$package = $this->Packages->getById($detail->pdetail_package);
-			}
-			
-			if ( ! $package)
-			{
-				throw new Exception('Посылка не найдена.');
-			}		
-				
-			// парсим пользовательский ввод
-			Check::reset_empties();
-			
-			$detail->pdetail_link					= Check::str('olink'.$detail->pdetail_id, 500, 1);
-			$detail->pdetail_product_name			= Check::str('oname'.$detail->pdetail_id, 255, 0);
-			$detail->pdetail_product_color			= Check::str('ocolor'.$detail->pdetail_id, 32, 0);
-			$detail->pdetail_product_size			= Check::str('osize'.$detail->pdetail_id, 32, 0);		
-			$detail->pdetail_product_amount			= (isset($_POST['oamount'.$detail->pdetail_id]) &&
-														$_POST['oamount'.$detail->pdetail_id] &&
-														is_numeric($_POST['oamount'.$detail->pdetail_id])) ? 
-														$_POST['oamount'.$detail->pdetail_id] :
-														1;
-														
-			// 13.	Доп. услуги сейчас заблокированы. http://clip2net.com/s/1zpya Разблокируются только, если нажать редактировать товар. Нужно чтобы:
-			// •	в акк клиента они были разблокированы (для статусов Ждем прибытия, Получено, Не оплачено). Для статусов посылки Оплачен, Отправлен заблокировано.
-			// •	в акк партнера всегда заблокировано, но отображается что было выбрано
-			// •	в акк админа всегда разблокировано и редактируемо.
-			if ($this->user->user_group == 'admin' OR 
-				($this->user->user_group == 'client' AND 
-					($package->package_status == 'processing' OR
-					$package->package_status == 'delivered' OR
-					$package->package_status == 'not_delivered')))
-			{
-				$detail->pdetail_special_boxes			=  Check::chkbox('pdetail_special_boxes'.$detail->pdetail_id);
-				$detail->pdetail_special_invoices  		=  Check::chkbox('pdetail_special_invoices'.$detail->pdetail_id);
-			}
-			
-			if (($this->user->user_group == 'admin' OR 
-				$this->user->user_group == 'manager') AND
-				! empty($_POST['pdetail_status'.$detail->pdetail_id]))
-			{
-				$detail->pdetail_status = Check::str('pdetail_status'.$detail->pdetail_id, 32, 0);
-			}
-														
-			$is_img_changed = empty($_POST['img'.$detail->pdetail_id]) ? FALSE : $_POST['img'.$detail->pdetail_id];
-			
-			if ($is_img_changed)
-			{
-				if ($is_img_changed == 2)
-				{
-					$userfile = isset($_FILES['userfile']) && !$_FILES['userfile']['error'];
-					$detail->pdetail_img = NULL;
-				}
-				else
-				{
-					$userfile = FALSE;
-					$detail->pdetail_img = Check::str('userfileimg'.$detail->pdetail_id, 500, 1);
-				}
-			}
-			
-			$empties = Check::get_empties();		
-		
-			// обязательны для заполнения:
-			// olink
-			// userfileimg либо клиентская картинка
-			if ($detail->pdetail_link === FALSE)
-			{
-				throw new Exception('Добавьте ссылку на товар.');
-			}
-				
-			if ($empties AND
-				$is_img_changed)
-			{
-				if (isset($_FILES['userfile']) AND 
-					$_FILES['userfile']['error'] == 1)
-				{
-					throw new Exception('Максимальный размер картинки 3MB.');
-				}
-				else
-				{
-					throw new Exception('Загрузите или добавьте ссылку на скриншот.');
-				}
-			}
-			
-			$client_id = $package->package_client;
-			
-			// открываем транзакцию
-			$this->db->trans_begin();	
-			$this->PdetailModel->updatePdetail($detail);
-			
-			// пересчитываем посылку
-			$recent_status = $package->package_status;
-			$package = $this->Packages->recalculatePackage($package);
-			
-			$status = $package->package_status;
-			$is_new_status = ($recent_status != $status);
-			
-			if ($is_new_status)
-			{
-				$status_caption = $this->Packages->getPackageStatusDescription($package->package_status);
-			}
-			
- 			// загружаем файл
-			if (isset($userfile) && $userfile)
-			{
-				$old = umask(0);
-				// загрузка файла
-				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/packages/{$detail->pdetail_package}"))
-				{
-					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/packages/{$detail->pdetail_package}",0777);
-				}
-
-				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/packages/{$detail->pdetail_package}";
-				$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
-				$config['max_size']				= '3072';
-				$config['encrypt_name'] 		= TRUE;
-				$max_width						= 1024;
-				$max_height						= 768;
-				$this->load->library('upload', $config);
-
-				if (!$this->upload->do_upload()) {
-					throw new Exception(strip_tags(trim($this->upload->display_errors())));
-				}
-				
-				$uploadedImg = $this->upload->data();
-				$filename = $_SERVER['DOCUMENT_ROOT']."/upload/packages/{$detail->pdetail_package}/{$detail->pdetail_id}.jpg";
-				
-				if (file_exists($filename))
-				{
-					unlink($filename);
-				}
-				
-				if ( ! rename($uploadedImg['full_path'], $filename))
-				{
-					throw new Exception("Bad file name!");
-				}
-				
-				$imageInfo = getimagesize($filename);
-				
-				if ($imageInfo[0]>$max_width || $imageInfo[1]>$max_height){
-					
-					$config['image_library']	= 'gd2';
-					$config['source_image']		= $filename;
-					$config['maintain_ratio']	= TRUE;
-					$config['width']			= $max_width;
-					$config['height']			= $max_height;
-					
-					$this->load->library('image_lib', $config); // загружаем библиотеку
-					
-					$this->image_lib->resize(); // и вызываем функцию
-				}
-			}
-			
-			// закрываем транзакцию
-			$this->db->trans_commit();
-			
-			// уведомления
-			if (isset($is_new_status) && $is_new_status)
-			{
-				$view['new_package_status'] = $status_caption;
-			}
-						
-			// парсим шаблон
-			$view['pdetail'] = $detail;
-			$view['package'] = $package;
-		}
-		catch (Exception $e)
-		{
-			$view['error'] = $e->getMessage();
-		}
-		
-		$view['selfurl'] = BASEURL.$this->cname.'/';
-		$view['viewpath'] = $this->viewpath;
-		$view['pdetails_statuses'] = $this->PdetailModel->getStatuses();
-		$this->load->view($this->viewpath."ajax/showProductP", $view);
-	}
-	
-	protected function refundPackage()
-	{
-		try
-		{
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!is_numeric($this->uri->segment(3)))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			
-			// безопасность: проверяем связку клиента и заказа
-			$this->load->model('PackageModel', 'Packages');
-			
-			if ($this->user->user_group == 'admin')
-			{
-				$package = $this->Packages->getById($this->uri->segment(3));
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$package = $this->Packages->getManagerPackageById($this->uri->segment(3), $this->user->user_id);
-			}
-
-			if (!$package)
-			{
-				throw new Exception('Посылка не найдена. Попробуйте еще раз.');
-			}			
-
-
-			if (!$package)
-			{
-				throw new Exception('Посылка не найдена. Попробуйте еще раз.');
-			}			
-
-			// находим местную валюту
-			$this->load->model('CurrencyModel', 'Currency');
-			$currency = $this->Currency->getCurrencyByCountry($package->package_country_from);
-			
-			// добавление платежа партнера клиенту
-			$payment_manager = new stdClass();
-			$payment_manager->payment_from				= $package->package_manager;
-			$payment_manager->payment_to				= $package->package_client;
-			$payment_manager->payment_amount_from		= $package->package_manager_cost_payed - $package->package_manager_cost;
-			$payment_manager->payment_amount_to			= $package->package_manager_cost_payed - $package->package_manager_cost;
-			$payment_manager->payment_amount_tax		= $package->package_manager_comission_payed - $package->package_manager_comission;
-			$payment_manager->payment_purpose			= 'возмещение недоставленных посылок';
-			$payment_manager->payment_comment			= '№ '.$package->package_id;
-			$payment_manager->payment_type				= 'package';
-			$payment_manager->payment_transfer_package_id	= $this->user->user_id.date('Y').date('m').date('d').date('h').date('i').date('s');
-
-			// платеж партнеру в местной валюте
-			$payment_manager_local = new stdClass();
-			$sub_local_money = ($package->package_manager_cost_payed_local - $package->package_manager_cost_local >= 0);
-						
-			if ($sub_local_money)
-			{
-				$payment_manager_local->payment_from		= $package->package_manager;
-				$payment_manager_local->payment_to			= $package->package_client;
-				$payment_manager_local->payment_amount_from	= $package->package_manager_cost_payed_local - $package->package_manager_cost_local;
-				$payment_manager_local->payment_amount_to	= 0;
-				$payment_manager_local->payment_amount_tax	= $package->package_manager_comission_payed_local - $package->package_manager_comission_local;
-			}
-			else
-			{
-				$payment_manager_local->payment_from		= $package->package_client;
-				$payment_manager_local->payment_to			= $package->package_manager;
-				$payment_manager_local->payment_amount_from	= 0;
-				$payment_manager_local->payment_amount_to	= $package->package_manager_cost_local - $package->package_manager_cost_payed_local;
-				$payment_manager_local->payment_amount_tax	= $package->package_manager_comission_local - $package->package_manager_comission_payed_local;
-			}
-			
-			$payment_manager_local->payment_tax			= 0;
-			$payment_manager_local->payment_purpose		= 'возмещение недоставленных посылок в местной валюте';
-			$payment_manager_local->payment_comment		= '№ '.$package->package_id;
-			$payment_manager_local->payment_type		= 'package';
-			$payment_manager_local->payment_currency	= $currency->currency_symbol;
-			$payment_manager_local->payment_transfer_order_id	= '';
-			
-			// платеж системе
-			$payment_system = new stdClass();
-			$payment_system->payment_from				= 1;
-			$payment_system->payment_to					= $package->package_client;
-			$payment_system->payment_amount_from		= $package->package_system_comission_payed - $package->package_system_comission;
-			$payment_system->payment_amount_to			= $package->package_system_comission_payed - $package->package_system_comission;
-			$payment_system->payment_amount_tax			= $package->package_system_comission_payed - $package->package_system_comission;
-			$payment_system->payment_purpose			= 'возмещение недоставленных посылок';
-			$payment_system->payment_comment			= '№ '.$package->package_id;
-			$payment_system->payment_type				= 'package';
-			$payment_system->payment_transfer_order_id	= '';
-
-			$this->load->model('PaymentModel', 'Payment');
-			
-			// погнали
-			$this->db->trans_begin();
-
-			if (!$this->Payment->makePayment($payment_manager, TRUE) ||
-				!$this->Payment->makePayment($payment_system, TRUE) ||
-				!$this->Payment->makePaymentLocal($payment_manager_local, TRUE)) 
-			{
-				throw new Exception('Ошибка возмещения средств. Попробуйте еще раз.');
-			}			
-			
-			// сохраняем данные об оплате
-			$package->package_cost_payed = $package->package_cost;
-			$package->package_manager_comission_payed = $package->package_manager_comission;
-			$package->package_manager_cost_payed = $package->package_manager_cost;
-			$package->package_system_comission_payed = $package->package_system_comission;
-			$package->package_manager_cost_payed_local = $package->package_manager_cost_local;
-			$package->package_manager_comission_payed_local = $package->package_manager_comission_local;
-
-			$payed_package = $this->Packages->savePackage($package);
-			
-			if ($this->db->trans_status() !== FALSE)
-			{
-				$this->db->trans_commit();
-			}
-
-			// меняем баланс в сессии
-			if ($this->user->user_group == 'admin')
-			{
-				$this->session->set_userdata(array('user_coints' => ($this->user->user_coints - $payment_system->payment_amount_from)));
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$this->session->set_userdata(array('user_coints' => ($this->user->user_coints - $payment_manager->payment_amount_from)));
-				$this->session->set_userdata(array('manager_balance_local' => ($this->session->userdata('manager_balance_local') - $payment_manager_local->payment_amount_from)));
-			}
-			
-			$this->result->m = 'Стоимость посылки успешно возмещена клиенту.';
-		}
-		catch (Exception $e)
-		{
-			$this->db->trans_rollback();
-		
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-		}
-		
-		// открываем заказы
-		Stack::push('result', $this->result);
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-	
-	private static function getPackageBackHandler($package, $user_group)
-	{
-		switch ($package->package_status) 
-		{
-			case 'sent' : return 'showSentPackages';
-			case 'payed' : return 'showPayedPackages';
-			default : 
-			{
-				switch ($user_group) 
-				{
-					case 'client' : return 'showOpenPackages';
-					case 'admin' : return 'showNewPackages';
-					case 'manager' : return 'showNewPackages';
-				}
-			}
-		}
-		
-		return '';
-	}
-
 	private static function getOrderBackHandler($order, $user_group)
 	{
 		switch ($order->order_status) 
@@ -5222,6 +3027,7 @@ abstract class BaseController extends Controller
 			$view['new_orders'] = $this->Orders->getOrders(NULL, 'open', $this->user->user_id, NULL);
 			$view['payed_orders'] = $this->Orders->getOrders(NULL, 'payed', $this->user->user_id, NULL);
 			$view['sent_orders'] = $this->Orders->getOrders(NULL, 'sent', $this->user->user_id, NULL);
+			$view['bid_orders'] = 0;
 		}
 		else if ($this->user->user_group == 'manager')
 		{
@@ -5231,10 +3037,10 @@ abstract class BaseController extends Controller
 			$view['bid_orders'] = $this->Orders->getOrders(NULL, 'bid', NULL, $this->user->user_id);
 		}
 
-		$view['new_orders'] = $view['new_orders'] ? count($view['new_orders']) : 0;
-		$view['payed_orders'] = $view['payed_orders'] ? count($view['payed_orders']) : 0;
-		$view['sent_orders'] = $view['sent_orders'] ? count($view['sent_orders']) : 0;
-		$view['bid_orders'] = $view['bid_orders'] ? count($view['bid_orders']) : 0;
+		$view['new_orders'] = intval($view['new_orders']) ? count($view['new_orders']) : 0;
+		$view['payed_orders'] = intval($view['payed_orders']) ? count($view['payed_orders']) : 0;
+		$view['sent_orders'] = intval($view['sent_orders']) ? count($view['sent_orders']) : 0;
+		$view['bid_orders'] = intval($view['bid_orders']) ? count($view['bid_orders']) : 0;
 	}
 	
 	protected function joinPackageFotos()
@@ -5369,114 +3175,6 @@ abstract class BaseController extends Controller
 		}
 	}
 	
-	protected function deletePdetailJoint($package_id, $pdetail_joint_id)
-	{
-		try
-		{
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!isset($pdetail_joint_id) ||
-				!is_numeric($pdetail_joint_id) ||
-				!isset($package_id) ||
-				!is_numeric($package_id))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			
-			// проверяем доступ к посылке
-			$this->load->model('PackageModel', 'Packages');
-
-			if ($this->user->user_group == 'admin')
-			{
-			    $package = $this->Packages->getById($package_id);
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$package = $this->Packages->getManagerPackageById($package_id, $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$package = $this->Packages->getClientPackageById($package_id, $this->user->user_id);
-			}
-			
-			if (empty($package))
-			{
-				throw new Exception('Невозможно отменить объединение фото. Посылка не найдена.');
-			}
-
-			// находим объединие фото
-			$this->load->model('PdetailJointModel', 'Joints');
-			
-			$joint = $this->Joints->getById($pdetail_joint_id);
-			
-			if (empty($joint) OR
-				$joint->package_id != $package_id)
-			{
-				throw new Exception('Невозможно отменить объединение фото. Попробуйте еще раз.');
-			}
-			
-			// погнали
-			$this->Joints->deleteJoint($joint);
-			
-			$this->Packages->recalculatePackage($package);
-		}
-		catch (Exception $e)
-		{
-			$this->result->m = $e->getMessage();		
-			Stack::push('result', $this->result);
-		}
-		
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-	
-	protected function connectOrderToManager($order_id, $manager_id, $skip_redirect = FALSE)
-	{
-		try 
-		{
-			// валидация
-			$this->load->model('OrderModel', 'Orders');
-			$order = $this->Orders->getById($order_id);
-				
-			if (empty($order) OR
-				! empty($order->order_manager))
-			{
-				throw new Exception('Невозможно принять заказ на обработку. Заказ не найден.');
-			}
-			
-			$this->load->model('ManagerModel', 'Manager');
-			if ($this->Manager->isOrdersLimitReached($manager_id))
-			{
-				throw new Exception('Невозможно принять заказ на обработку. Достигнут максимум количества заказов.');
-			}
-			
-			// привязываем заказ
-			$order->order_manager = $manager_id;
-			$this->Orders->addOrder($order);
-			
-			// привязываем товары
-			$this->load->model('OdetailModel', 'Odetails');
-			$odetails = $this->Odetails->getOrderDetails($order_id);
-				
-			if ( ! empty($odetails))
-			{
-				foreach ($odetails as $odetail)
-				{
-					$odetail->odetail_manager = $order->order_manager;
-					$this->Odetails->addOdetail($odetail);
-				}
-			}
-		}
-		catch (Exception $e)
-		{
-			echo $e->getMessage();
-		}
-		
-		if ( ! $skip_redirect)
-		{
-			Func::redirect($_SERVER['HTTP_REFERER']);
-		}
-	}
-
 	private function getPrivilegedOrder($order_id, $validate = TRUE)
 	{
 		

@@ -13,7 +13,7 @@
         </div>
         <br>
         <br>
-        <div class='table'>
+        <div class='table centered_td centered_th'>
             <div class='angle angle-lt'></div>
             <div class='angle angle-rt'></div>
             <div class='angle angle-lb'></div>
@@ -35,15 +35,7 @@
                     <th>Выполненных&nbsp;заказов</th>
                     <th>Профиль</th>
                 </tr>
-                <style>
-                    #partnersForm td,#partnersForm th
-                    {
-                        text-align:center;
-                        vertical-align:middle;
-                        text-wrap: nowrap;
-                    }
-                </style>
-                <?if ($managers): foreach ($managers as $manager):?>
+                <? if ($managers): foreach ($managers as $manager) : ?>
                     <tr>
                         <td>
                             <b style=""><?= $manager->rating ?></b>
@@ -101,6 +93,6 @@
 				)); ?>
             </span>
         </div>
-        <?php if (isset($pager)) echo $pager ?>
+        <?= $pager ?>
     </form>
 </div>

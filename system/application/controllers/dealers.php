@@ -101,7 +101,7 @@ class Dealers extends BaseController {
 		$this->filter('Dealers', 'showDealers');
 	}
 	
-	public function initDealersFilter(&$filter)
+	public function processDealersFilter(&$filter)
 	{
 		$filter->country_from = '';
 		$filter->is_mail_forwarding = 0;

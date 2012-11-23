@@ -1,4 +1,22 @@
 <form id="ordersForm" class='admin-inside' action="<?= $selfurl ?>updateOrderStatus/" method="POST">
+	<div class="search_results">
+            <span class="total" style="float: none;">
+                Найдено заказов: <b id="orders_count"><?= $this->paging_count ?></b>
+            </span>
+	</div>
+	<br>
+	<br>
+	<div class="search_results">
+		<span class="total" style="float: none;">
+			&nbsp;
+		</span>
+		<span class="total" style="margin:0;">
+			<label>заказов на странице:</label>
+			<? View::show('main/elements/per_page', array(
+				'handler' => 'manager'
+			)); ?>
+		</span>
+	</div>
 	<? View::show($viewpath.'elements/orders/tabs', array('selected_submenu' => 'new_orders')); ?>
 	<div class='table centered_th centered_td'>
 		<div class='angle angle-lt'></div>
@@ -34,7 +52,7 @@
 					<? endif; ?>
 				</td>
 				<td>
-					<a target="_blank" href="<?= BASEURL . $order->client_login ?>"><?= $order->client_login ?></b>
+					<a target="_blank" href="<?= BASEURL . $order->client_login ?>"><?= $order->client_login ?></a>
 				</td>
 				<td style="text-align:left;">
 					<img src="/static/images/flags/<?= $order->order_country_to_en ?>.png" style="float:left;margin-right:10px;" />
@@ -78,8 +96,19 @@
 			<? endif; ?>
 		</table>
 	</div>
+	<div class="search_results">
+            <span class="total" style="float: none;">
+                Найдено заказов: <b id="orders_count"><?= $this->paging_count ?></b>
+            </span>
+            <span class="total" style="margin:0;">
+                <label>заказов на странице:</label>
+				<? View::show('main/elements/per_page', array(
+					'handler' => 'manager'
+				)); ?>
+            </span>
+	</div>
+	<?= $pager ?>
 </form>
-<?= $pager ?>
 <script>
 	$(function() {
 		status_handler('Open');

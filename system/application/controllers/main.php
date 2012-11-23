@@ -895,7 +895,7 @@ Email: {$this->user->user_email}";
 		$this->filter('UnassignedOrders', '/showUnassignedOrders');
 	}
 	
-	public function initUnassignedOrdersFilter(&$filter)
+	public function processUnassignedOrdersFilter(&$filter)
 	{
 		$filter->order_id = '';
 		$filter->country_from = '';

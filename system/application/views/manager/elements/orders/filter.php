@@ -1,14 +1,19 @@
-<form id="filterForm" action="<?=$selfurl?><?= $handler ?>" method="POST">
+<form id="filterForm" action="<?= $selfurl ?>filterOrders" method="POST">
 	<div class='sorting'>
 		<span class='first-title'>Поиск заказа:</span>
-		<div class='text-field first-input'><div><input type='text' maxlength="11" name="search_id" value="<?=$filter->search_id?>" value='Введите текст поиска' /></div></div>
+		<div class='text-field first-input'>
+			<div>
+				<input type='text' maxlength="11" name="search_id" value="<?=$filter->search_id?>">
+			</div>
+		</div>
 		<span>по:</span>
 		<select name="id_type" class='select first-input'>
 			<option value="">выбрать...</option>
 			<option value="order" <? if ('order' == $filter->id_type) : ?>selected="selected"<? endif; ?>>Номеру заказа</option>
 			<option value="client" <? if ('client' == $filter->id_type) : ?>selected="selected"<? endif; ?>>Номеру клиента</option>
-		</select>	
-		<? if ( ! empty($show_status_filter)) : ?>
+			<option value="tracking_no" <? if ('tracking_no' == $filter->id_type) : ?>selected="selected"<? endif;
+				?>>Трекинг номеру</option>
+		</select>
 		<span>статус:</span>
 		<select name='id_status' class='select'>
 			<option value=''>выбрать...</option>
@@ -16,11 +21,10 @@
 			<option value='<?= $status_id ?>' <? if ( ! empty($filter->id_status) AND $status_id == $filter->id_status) : ?>selected='selected'<? endif; ?>><?= $status_name ?></option>
 			<? endforeach; ?>
 		</select>
-		<? endif; ?>
 	</div>
 </form>
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(function() {
 		$('#filterForm select').change(function() {
 			document.getElementById('filterForm').submit();	
 		});

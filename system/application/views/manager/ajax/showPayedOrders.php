@@ -1,4 +1,22 @@
 <form id="ordersForm" class='admin-inside' action="<?= $selfurl ?>closeOrders" method="POST">
+	<div class="search_results">
+            <span class="total" style="float: none;">
+                Найдено заказов: <b id="orders_count"><?= $this->paging_count ?></b>
+            </span>
+	</div>
+	<br>
+	<br>
+	<div class="search_results">
+		<span class="total" style="float: none;">
+			&nbsp;
+		</span>
+		<span class="total" style="margin:0;">
+			<label>заказов на странице:</label>
+			<? View::show('main/elements/per_page', array(
+			'handler' => 'manager'
+		)); ?>
+		</span>
+	</div>
 	<? View::show($viewpath.'elements/orders/tabs', array('selected_submenu' => 'payed_orders')); ?>
 	<div class='table centered_th centered_td'>
 		<div class='angle angle-lt'></div>
@@ -95,8 +113,19 @@
 			<? endif; ?>
 		</table>
 	</div>
+	<div class="search_results">
+            <span class="total" style="float: none;">
+                Найдено заказов: <b id="orders_count"><?= $this->paging_count ?></b>
+            </span>
+            <span class="total" style="margin:0;">
+                <label>заказов на странице:</label>
+				<? View::show('main/elements/per_page', array(
+				'handler' => 'manager'
+			)); ?>
+            </span>
+	</div>
+	<?= $pager ?>
 </form>
-<?= $pager ?>
 <script type="text/javascript">
 	$(function() {
 		status_handler('Payed');
