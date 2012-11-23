@@ -69,8 +69,8 @@ function validate_generic(evt, regex)
 	var theEvent = evt || window.event;
 	var key = theEvent.keyCode || theEvent.which;
 	key = String.fromCharCode(key);
-	
-	if ( ! regex.test(key)) 
+	// проверяем на соответствие и пропускаем только delete, backspace, влево и вправо
+	if ( ! regex.test(key) && theEvent.keyCode != 8  && theEvent.keyCode != 46 && theEvent.keyCode != 37  && theEvent.keyCode != 39)
 	{
 		theEvent.returnValue = false;
 		theEvent.preventDefault();
