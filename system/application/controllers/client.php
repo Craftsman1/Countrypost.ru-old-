@@ -1965,6 +1965,10 @@ class Client extends ClientBaseController {
 			$this->load->model('ClientModel', 'Client');
 			$client = $this->Client->getById($this->user->user_id);
 
+            // получаем необязательные поля
+            $client->skype					= Check::str('skype', 255, 0);
+            $client->about_me				= Check::str('about_me', 65535, 0);
+
 			// валидация пользовательского ввода
 			Check::reset_empties();
             $user->user_email = Check::email(Check::str('email', 128, 4));
@@ -1979,13 +1983,12 @@ class Client extends ClientBaseController {
 					$user->user_password = md5($user->user_password);
 				}
 			}
-			
+
+
 			//$client->client_name			= Check::str('client_name', 255, 0);
 			//$client->client_surname 		= Check::str('client_surname', 255, 0);
 			//$client->client_otc			= Check::str('client_otc', 255, 0);
 			$client->client_country		    = Check::int('client_country');
-			$client->skype					= Check::str('skype', 255, 0);
-			$client->about_me				= Check::str('about_me', 65535, 0);
             $client->notifications_on       = Check::chkbox('notifications_on');
 
 			$empties = Check::get_empties();

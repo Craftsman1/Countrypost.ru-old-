@@ -215,7 +215,7 @@ class ManagerModel extends BaseModel implements IModel{
 		
 		foreach ($props as $prop)
 		{
-			if (isset($manager_obj->$prop))
+			if (isset($manager_obj->$prop) && !empty($manager_obj->$prop))
 			{
 				$this->_set($prop, $manager_obj->$prop);
 			}

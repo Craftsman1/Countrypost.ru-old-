@@ -33,7 +33,7 @@
 			)); ?>
 		</span>
 		</div>
-		<? if ( ! empty($client->statistics->skype)) : ?>
+        <? if(( ! empty($client->statistics->skype)) AND !empty($this->user) AND ($this->user->user_group == 'manager' OR $this->user->user_id == $client->client_user)) : ?>
 		<div>
             <span>
                 Skype:
@@ -56,6 +56,7 @@
 	</div>
 </div>
 
+
 <div class="profile client_tab">
     <h3>О себе</h3>
     <div class="table">
@@ -63,6 +64,6 @@
         <div class="angle angle-rt"></div>
         <div class="angle angle-lb"></div>
         <div class="angle angle-rb"></div>
-        <?= htmlspecialchars_decode ($client->about_me) ?>
+        <?= (strip_tags($client->about_me) == '') ? '<p>Данные не предоставлены.</p>' : htmlspecialchars_decode ($client->about_me) ?>
     </div>
 </div>

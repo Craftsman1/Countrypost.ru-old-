@@ -28,7 +28,7 @@
                 <br style="clear:both;">
                 <div>
                     <span class="label" style="float:left">Индекс *:</span>
-                    <input style="width:180px;" class="textbox" maxlength="255" id="index" name="index" value="" type="text">
+                    <input style="width:180px;" class="textbox" maxlength="6" id="index" name="index" value="" type="text">
                 </div>
                 <br style="clear:both;">
                 <div>

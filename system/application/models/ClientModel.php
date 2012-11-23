@@ -346,13 +346,17 @@ class ClientModel extends BaseModel implements IModel{
 		$props = $this->getPropertyList();
 
 		foreach ($props as $prop){
-			if (isset($user_obj->$prop)){
+			if (isset($user_obj->$prop) && !empty($user_obj->$prop)){
 				$this->_set($prop, $user_obj->$prop);
 			}
+            else if ($prop != 'client_country')
+            {
+                $this->db->set($prop, null);
+            }
 		}
 
 		$new_id = $this->save(true);
-		
+
 		if (!$new_id) return false;
 		
 		return $this->getInfo(array($user_obj->client_user));
