@@ -15,7 +15,7 @@
 		<form id="profileForm" action="/client/saveProfile">           
 			<br style="clear:both;" />
 			<div>
-				<span class="label">Логин*:</span>
+				<span class="label">Логин:</span>
                 <span class="label" style="margin-left: 0;"><b><?= $client->statistics->login ?></b></span>
 			</div>
 			<br style="clear:both;" />
@@ -79,7 +79,7 @@
 			field = $('#login');
 			if(field.val() == '')
 			{
-				$.fn.addProfileFieldError(field, 'Введите ваш логин.');
+				$.fn.addProfileFieldError(field, 'Введите ваш логин');
 				errorCount++;				
 			}
 			else
@@ -90,7 +90,7 @@
             field = $('#password');
             if(field.val() != '' && field.val().length < 6)
             {
-                $.fn.addProfileFieldError(field, 'Пароль должен состоять из не менее 6-ти символов.');
+                $.fn.addProfileFieldError(field, 'Пароль должен состоять из не менее 6-ти символов');
                 errorCount++;
             }
             else
@@ -101,7 +101,7 @@
             field = $('#client_country');
             if(field.val() == 0 || field.val() == '')
             {
-                $.fn.addProfileFieldError($('#client_country_msdd'), 'Необходимо указать страну.');
+                $.fn.addProfileFieldError($('#client_country_msdd'), 'Необходимо указать страну');
                 errorCount++;
             }
             else
@@ -128,7 +128,7 @@
         {
             if(field.val() == 0 || field.val() == '')
             {
-                $.fn.addProfileFieldError($('#client_country_msdd'), 'Необходимо указать страну.');
+                $.fn.addProfileFieldError($('#client_country_msdd'), 'Необходимо указать страну');
                 return false;
             }
             else
@@ -162,15 +162,15 @@
         // Валидация при заполнении
         $('#login').validate({
             expression: "if (VAL != '') return true; else return false;",
-            message: "Введите ваш логин."
+            message: "Введите ваш логин"
         });
         $('#password').validate({
             expression: "if (!(VAL != '' && VAL.length < 6)) return true; else return false;",
-            message: "Пароль должен состоять из не менее 6-ти символов."
+            message: "Пароль должен состоять из не менее 6-ти символов"
         });
         $('#email').validate({
             expression: "if (VAL.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) return true; else return false;",
-            message: "Введите правильный email."
+            message: "Введите правильный email"
         });
 		
 		$('#profileForm').ajaxForm({

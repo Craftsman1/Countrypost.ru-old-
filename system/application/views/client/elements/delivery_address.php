@@ -63,11 +63,11 @@
 
             <table id="deliveryAddressTable">
                 <tr>
-                    <td width="20px">&nbsp;</td>
-                    <td><b>Получатель</b></td>
-                    <td><b>Адрес</b></td>
-                    <td><b>Телефон</b></td>
-                    <td width="50px">&nbsp;</td>
+                    <th width="20px">&nbsp;</th>
+                    <th><b>Получатель</b></th>
+                    <th><b>Адрес</b></th>
+                    <th><b>Телефон</b></th>
+                    <th width="50px">&nbsp;</th>
                 </tr>
                 <? if ($addresses) :  ?>
                 <? foreach ($addresses as $address) : ?>
@@ -143,7 +143,7 @@
             field = $('#recipient');
             if(field.val() == '')
             {
-                $.fn.addProfileFieldError(field, 'Введите получателя.');
+                $.fn.addProfileFieldError(field, 'Введите получателя');
                 errorCount++;
             }
             else
@@ -154,7 +154,7 @@
             field = $('#country');
             if(field.val() == 0)
             {
-                $.fn.addProfileFieldError($('#country_msdd'), 'Необходимо указать страну.');
+                $.fn.addProfileFieldError($('#country_msdd'), 'Необходимо указать страну');
                 errorCount++;
             }
             else
@@ -165,7 +165,7 @@
             field = $('#city');
             if(field.val() == '')
             {
-                $.fn.addProfileFieldError(field, 'Укажите город.');
+                $.fn.addProfileFieldError(field, 'Укажите город');
                 errorCount++;
             }
             else
@@ -175,7 +175,7 @@
             field = $('#index');
             if(field.val() == '' || field.val().length < 5 || !field.val().match(/^[0-9]*$/))
             {
-                $.fn.addProfileFieldError(field, 'Введите правильный индекс.');
+                $.fn.addProfileFieldError(field, 'Введите правильный индекс');
                 errorCount++;
             }
             else
@@ -185,7 +185,7 @@
             field = $('#address');
             if(field.val() == '' || field.val().length < 5)
             {
-                $.fn.addProfileFieldError(field, 'Введите адрес.');
+                $.fn.addProfileFieldError(field, 'Введите адрес');
                 errorCount++;
             }
             else
@@ -195,7 +195,7 @@
             field = $('#phone');
             if(field.val() == '' || !field.val().match(/^[0-9()\+ -]*$/))
             {
-                $.fn.addProfileFieldError(field, 'Введите правильный телефон.');
+                $.fn.addProfileFieldError(field, 'Введите правильный телефон');
                 errorCount++;
             }
             else
@@ -210,7 +210,7 @@
         {
             if(field.val() == 0 || field.val() == '')
             {
-                $.fn.addProfileFieldError($('#country_msdd'), 'Необходимо указать страну.');
+                $.fn.addProfileFieldError($('#country_msdd'), 'Необходимо указать страну');
                 return false;
             }
             else
@@ -223,23 +223,25 @@
         // Валидация при заполнении
         $('#recipient').validate({
             expression: "if (VAL != '') return true; else return false;",
-            message: "Введите получателя."
+            message: "Введите получателя"
         });;
         $('#city').validate({
             expression: "if (VAL != '') return true; else return false;",
-            message: "Укажите город."
+            message: "Укажите город"
         });;
-        $('#index').validate({
+        $('#index')
+                .keypress(function(event){validate_number(event);})
+                .validate({
             expression: "if (!(VAL == '' || VAL.length < 5 || VAL.length > 6 || !VAL.match(/^[0-9]*$/))) return true; else return false;",
-            message: "Введите правильный индекс."
+            message: "Введите правильный индекс"
         });;
         $('#address').validate({
             expression: "if (VAL != '') return true; else return false;",
-            message: "Введите адрес."
+            message: "Введите адрес"
         });;
         $('#phone').validate({
             expression: "if (!(VAL == '' || !VAL.match(/^[0-9()\+ -]*$/))) return true; else return false;",
-            message: "Введите правильный телефон."
+            message: "Введите правильный телефон"
         });;
 
         $("#country").msDropDown({mainCSS:'idd'});
@@ -303,123 +305,3 @@
     });
 
 </script>
-
-
-
-<!--
-<div class="delivery_address client_tab" style="min-height: 300px;display:none;">
-	<div class='angle angle-lt'></div>
-	<div class='angle angle-rt'></div>
-	<div class='angle angle-lb'></div>
-	<div class='angle angle-rb'></div>
-
-    	<form id="deliveryAddressForm" method="post" action="/client/saveAdress">
-            <div class="table  admin-inside">
-                <br style="clear:both;">
-                <div>
-                    <span class="label">Получатель *:</span>
-                    <input style="width:180px;" class="textbox" maxlength="32" id="recipient" name="recipient" value="" type="text">
-                </div>
-                <br style="clear:both;">
-                <div>
-                    <span class="label">Страна *:</span>
-                    <select style="width:180px;" class="textbox" maxlength="32" id="country" name="country">
-                        <option>choose...</option>
-                    </select>
-                </div>
-                <br style="clear:both;">
-                <div>
-                    <span class="label">Город *:</span>
-                    <input style="width:180px;" class="textbox" maxlength="128" id="city" name="city" value="" type="text">
-                </div>
-                <br style="clear:both;">
-                <div>
-                    <span class="label">Индекс *:</span>
-                    <input style="width:180px;" class="textbox" maxlength="255" id="index" name="index" value="" type="text">
-                </div>
-                <br style="clear:both;">
-                <div>
-                    <span class="label">Адрес *:</span>
-                    <textarea style="width:180px; height: 60px;" class="textbox" maxlength="255" id="address" name="address"></textarea>
-                </div>
-                <br style="clear:both;">
-                <div>
-                    <span class="label">Телефон *:</span>
-                    <input style="width:180px;" class="textbox" maxlength="255" id="phone" name="phone" value="" type="text">
-                </div>
-                <br style="clear:both;">
-                <div class="submit" style="margin-left: 188px;">
-                    <div>
-                        <input value="Добавить" type="submit">
-                    </div>
-                </div>
-                <img ilo-full-src="http://cps/static/images/lightbox-ico-loading.gif" class="float" id="addressProgress" style="display:none;margin:0px;margin-top:4px;" src="/static/images/lightbox-ico-loading.gif">
-            </div>
-        </form>
-
-        <br style="clear:both;">
-
-        <h3>Мои адреса</h3>
-        <div class="table">
-            <div class="angle angle-lt"></div>
-            <div class="angle angle-rt"></div>
-            <div class="angle angle-lb"></div>
-            <div class="angle angle-rb"></div>
-            <div>
-                <table id="deliveryAddressTable">
-                    <thead>
-                    <tr>
-                        <td width="20px">&nbsp;</td>
-                        <td><b>Получатель</b></td>
-                        <td><b>Адрес</b></td>
-                        <td><b>Телефон</b></td>
-                        <td width="50px">&nbsp;</td>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-        </div>
-
-</div>
-
-
-<script type="text/javascript">
-$(function($) {
-
-    $('#deliveryAddressForm').ajaxForm({
-        target: '/manager/saveAddress',
-        type: 'POST',
-        dataType: 'html',
-        iframe: true,
-        beforeSubmit: function(formData, jqForm, options)
-        {
-            $("#addressProgress").show();
-        },
-        success: function(response)
-        {
-            $("#addressProgress").hide();
-            success('top', 'Адрес успешно сохранен!');
-
-            var news_snippet = '<div class="table"><div class="angle angle-lt"></div><div class="angle angle-rt"></div><div class="angle angle-lb"></div><div class="angle angle-rb"></div><div><table>' +
-                    getNowDate() +
-                    '</table> <span class="label"><b>' +
-                    $('.blog_box input#title').val() +
-                    '</b></span></div><div>' +
-                    message +
-                    '</div></div><br><br>';
-
-            $('#news_header').after(news_snippet);
-
-            $('.blog_box input#title').val('');
-            oEditor.SetHTML('');
-        },
-        error: function(response)
-        {
-            $("#addressProgress").hide();
-            error('top', 'Заполните все поля и сохраните еще раз.');
-        }
-    });
-
-})(jQuery)
-</script>
--->
