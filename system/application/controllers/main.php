@@ -32,9 +32,6 @@ class Main extends BaseController {
 					$view['filter'], 
 					$client_id);
 			
-			// показываем статистику
-			//$this->putStatistics($view);
-			
 			if ( ! $view['orders'])
 			{
 				$this->result->m = 'Заказы не найдены.';
@@ -895,7 +892,7 @@ Email: {$this->user->user_email}";
 		$this->filter('UnassignedOrders', '/showUnassignedOrders');
 	}
 	
-	public function processUnassignedOrdersFilter(&$filter)
+	public function processUnassignedOrdersFilter($filter)
 	{
 		$filter->order_id = '';
 		$filter->country_from = '';

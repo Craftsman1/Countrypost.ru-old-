@@ -129,17 +129,11 @@ abstract class BaseController extends Controller
 		View::$data['partners']	= $this->__partners;
 	}	
 	
-	protected function showOrders($orderStatus, $pageName)
+	protected function showOrders($orderStatus = NULL, $pageName = NULL)
 	{
 		try
 		{
-			if (!$this->user ||
-				!$this->user->user_id)
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			
-		    $this->load->model('OrderModel', 'Orders');
+			$this->load->model('OrderModel', 'Orders');
 		    
 			// роли и разграничение доступа
 			if ($this->user->user_group == 'admin')
@@ -170,8 +164,26 @@ abstract class BaseController extends Controller
 				$view['filter'] = $this->initFilter('Orders');
 				$view['filter']->order_statuses = $this->Orders->getFilterStatuses();
 
-				$view['orders'] = $this->Orders->getOrders($view['filter'], $orderStatus, NULL, $this->user->user_id);
+				// достаем статус из фильтра
+				if (empty($orderStatus))
+				{
+					$orderStatus = $this->Orders->getViewStatus(
+						$this->user->user_group,
+						$view['filter']->id_status);
+				}
+
+				// находим заказы по статусу и фильтру
+				$view['orders'] = $this->Orders->getOrders(
+					$view['filter'],
+					$orderStatus,
+					NULL,
+					$this->user->user_id);
+
 				$view['orders_count'] = count($view['orders']);
+
+				// страны для фильтра
+				$this->load->model('CountryModel', 'Country');
+				$view['countries'] = $this->Country->getList();
 			}
 			else if ($this->user->user_group == 'client')
 			{
@@ -182,12 +194,10 @@ abstract class BaseController extends Controller
 				$Orders		= $this->Orders->getOrders(NULL, $orderStatus, $this->user->user_id, NULL, ($orderStatus == 'open'));
 				$Odetails	= $this->OdetailModel->getFilteredDetails(array('odetail_client' => $this->user->user_id, 'odetail_order' => 0));
 				$Countries	= $this->CountryModel->getClientAvailableCountries($this->user->user_id);
-				$statuses	= $this->Orders->getAvailableOrderStatuses();
-						
+
 				$view = array (
 					'orders'	=> $Orders,
 					'Odetails'	=> $Odetails,
-					'statuses'	=> $statuses,
 					'Countries'	=> $Countries,
 				);
 				
@@ -216,12 +226,18 @@ abstract class BaseController extends Controller
 			
 			if ($view['orders'])
 			{
-				$view['orders'] = array_slice($view['orders'],$this->paging_offset,$this->per_page);
+				$view['orders'] = array_slice($view['orders'], $this->paging_offset, $this->per_page);
 			}
 			
 			$view['pager'] = $this->get_paging();
 			$view['per_page'] = $per_page;
 			$view['statuses'] = $this->Orders->getAllStatuses();
+			$view['view_status'] = ucfirst($orderStatus);
+
+			if (empty($pageName))
+			{
+				$pageName = "show{$view['view_status']}Orders";
+			}
 		}
 		catch (Exception $e) 
 		{
@@ -240,7 +256,7 @@ abstract class BaseController extends Controller
 		}
 		else
 		{
-			View::showChild($this->viewpath."pages/$pageName", $view);
+			View::showChild($this->viewpath."pages/showOrders", $view);
 		}
 	}
 	
@@ -326,7 +342,7 @@ abstract class BaseController extends Controller
 			$view['order'] = $this->getPrivilegedOrder(
 				$this->uri->segment(3), 
 				'Невозможно отобразить детали заказа. Попробуйте еще раз.');
-
+//print_r($view['order']);die();
 			// детали заказа
 			$this->load->model('OdetailModel', 'Odetails');
 			$view['odetails_statuses'] = $this->Odetails->getAvailableOrderDetailsStatuses();		    
@@ -461,7 +477,9 @@ abstract class BaseController extends Controller
 			}
 			
 			// крошки
-			Breadcrumb::setCrumb(array('http::://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => 'Заказ №' . $view['order']->order_id), 1, TRUE);
+			Breadcrumb::setCrumb(array(
+					"{$this->viewpath}order/{$view['order']->order_id}" => "Заказ №{$view['order']->order_id}"
+				), 1, TRUE);
 		}
 		catch (Exception $e) 
 		{
@@ -1165,7 +1183,7 @@ abstract class BaseController extends Controller
 					$filter = $this->processClientsFilter($filter);
 					break;
 				case ('Orders') :
-				//	$filter = $this->initOrdersFilter($filter);
+					$filter = $this->processOrdersFilter($filter);
 					break;
 				case ('openClientO2o') :
 				case ('payedClientO2o') :
@@ -1184,7 +1202,6 @@ abstract class BaseController extends Controller
 		
 		// уходим на страницу с результатами фильтрации
 		Func::redirect(BASEURL.$this->cname.'/'.$pageName);
-		//die($pageName);
 	}
 	
 	protected function initFilter($filterType)
@@ -1220,15 +1237,21 @@ abstract class BaseController extends Controller
 					break;
 				case ($filterType == 'payedManagerO2o') :
 					$filter->order2out_status = 'payed';
-				/*	break;
-				case ($filterType == 'paymentHistory') :
-					$filter = $this->initPaymentHistoryFilter($filter);*/
+					break;
+				case ($filterType == 'Orders') :
+					$filter->search_id = '';
+					$filter->id_type = '';
+					$filter->id_status = '';
+					$filter->country_to = '';
+					break;
+				/*		case ($filterType == 'paymentHistory') :
+							$filter = $this->initPaymentHistoryFilter($filter);*/
 			}
 
+			// кладем фильтр в сессию
 			$_SESSION[$filterType.'Filter'] = $filter;
-		}	
+		}
 
-		// кладем фильтр в сессию
 		return $_SESSION[$filterType.'Filter'];
 	}
 	
@@ -3185,7 +3208,7 @@ abstract class BaseController extends Controller
 			$order = $model->getById($order_id);
 			
 			if ($order->order_manager OR
-				$order->order_status != 'proccessing')
+				$order->order_status != 'pending')
 			{
 				$order = FALSE;
 			}
@@ -3275,12 +3298,6 @@ abstract class BaseController extends Controller
 			// кэш данных пользователей
 			$statistics[$personal_data->$id_field_name] = $personal_data->statistics;
 		}
-		
-		//print_r($personal_data->statistics);
-		//print_r($comment);
-					//print_r($bid);
-		//die();
-					
 	}
 }
 ?>

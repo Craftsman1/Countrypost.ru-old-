@@ -3,7 +3,7 @@
 	elseif (isset($user) AND
 		$user AND
 		$pageinfo['mname'] == 'index' AND $this->uri->segment(1) != 'dealers' AND $this->uri->segment(1) != 'clients') : ?><div class='top-block'>
-	<? if (isset($filter)) View::show('main/elements/order_filter'); ?>
+	<? if (isset($filter)) View::show('main/elements/orders/filter'); ?>
 	<div class='autorization autorization-ok'>
 		<h2>Авторизация</h2>
 		<p><b>Здравствуйте:</b><br /><span class='big-text'><a href='<?=BASEURL.$user->user_group?>'><?=$user->user_login;?></a></span></p>
@@ -16,7 +16,7 @@
 	</div>
 	<? View::show('main/elements/div_social'); ?>
 </div><? elseif ($pageinfo['mname'] == 'index' AND $this->uri->segment(1) != 'dealers' AND $this->uri->segment(1) != 'clients') : ?><div class='top-block'>
-	<? if (isset($filter)) View::show('main/elements/order_filter'); ?>
+	<? if (isset($filter)) View::show('main/elements/orders/filter'); ?>
 	<form class='autorization' method="post" action='<?= BASEURL ?>user/login'>
 		<h2>Авторизация</h2>
 		<div class='text-field'><div><input type='text' name="login" value='Логин' onfocus='javascript: if (this.value == "Логин") this.value = "";' onblur='javascript: if (this.value == "") this.value = "Логин";' /></div></div>
@@ -33,7 +33,7 @@
 	</form>				
 	<? View::show('main/elements/div_social'); ?>
 </div><? else : ?><div class='top-block'>
-	<? if (isset($filter)) View::show('main/elements/order_filter'); ?>
+	<? if (isset($filter)) View::show('main/elements/orders/filter'); ?>
 	<form class='block-user autorization-inner' action='<?= BASEURL ?>user/login' method="POST">
 		<h2>Авторизация</h2>
 		<div class='text-field'><div><input name="login" type='text' value='Логин' onfocus='javascript: if (this.value == "Логин") this.value = "";' onblur='javascript: if (this.value == "") this.value = "Логин";' /></div></div>

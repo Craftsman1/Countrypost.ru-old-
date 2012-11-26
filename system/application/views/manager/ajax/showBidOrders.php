@@ -31,7 +31,7 @@
 				<th>Примерная стоимость</th>
 				<th></th>
 			</tr>
-			<?if ($orders) : foreach($orders as $order) : ?>
+			<? if ($orders) : foreach($orders as $order) : ?>
 			<tr>
 				<td>
 					<a href="<?= $selfurl . 'order/' . $order->order_id ?>"><b><?= $order->order_id ?></b></a>
@@ -80,8 +80,8 @@
             <span class="total" style="margin:0;">
                 <label>заказов на странице:</label>
 				<? View::show('main/elements/per_page', array(
-				'handler' => 'manager'
-			)); ?>
+					'handler' => 'manager'
+				)); ?>
             </span>
 	</div>
 	<?= $pager ?>

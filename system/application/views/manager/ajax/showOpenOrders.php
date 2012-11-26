@@ -17,7 +17,7 @@
 			)); ?>
 		</span>
 	</div>
-	<? View::show($viewpath.'elements/orders/tabs', array('selected_submenu' => 'new_orders')); ?>
+	<? View::show($viewpath.'elements/orders/tabs', array('selected_submenu' => 'open_orders')); ?>
 	<div class='table centered_th centered_td'>
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>
@@ -74,7 +74,9 @@
 				</td>
 				<td>
 					<select name="order_status<?= $order->order_id ?>" class="order_status">
-						<? foreach ($statuses[$order->order_type] as $status => $status_name) : ?>
+						<? foreach ($statuses[$order->order_type] as $status => $status_name) :
+							if ($status == 'pending') continue;
+						?>
 						<option value="<?= $status ?>" <? if ($order->order_status == $status) :
 							?>selected="selected"<? endif; ?>><?= $status_name ?></option>
 						<? endforeach; ?>

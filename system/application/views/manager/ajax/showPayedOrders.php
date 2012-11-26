@@ -52,7 +52,7 @@
 					<? endif; ?>
 				</td>
 				<td>
-					<a target="_blank" href="<?= BASEURL . $order->client_login ?>"><?= $order->client_login ?></b>
+					<a target="_blank" href="<?= BASEURL . $order->client_login ?>"><?= $order->client_login ?></a>
 				</td>
 				<td style="text-align:left;">
 					<img src="/static/images/flags/<?= $order->order_country_to_en ?>.png" style="float:left;margin-right:10px;" />
@@ -74,7 +74,9 @@
 				</td>
 				<td>
 					<select name="order_status<?= $order->order_id ?>" class="order_status">
-						<? foreach ($statuses[$order->order_type] as $status => $status_name) : ?>
+						<? foreach ($statuses[$order->order_type] as $status => $status_name) :
+							if ($status == 'pending') continue;
+						?>
 						<option value="<?= $status ?>" <? if ($order->order_status == $status) :
 							 ?>selected="selected"<? endif; ?>><?= $status_name ?></option>
 						<? endforeach; ?>

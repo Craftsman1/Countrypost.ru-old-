@@ -30,194 +30,28 @@ class Manager extends ManagerBaseController {
 		}
 	}
 	
-	public function autocompletePackage($query)
-	{
-		$this->load->model('PackageModel', 'Package');
-		$ids = $this->Package->autocompleteManager(intval($query), $this->user->user_id);
-		
-		if ($ids)
-		{
-			echo "[$ids]";
-		}
-		else
-		{
-			echo '[]';
-		}
-	}
-	
 	public function updateOdetailStatuses()
 	{
 		parent::updateOdetailStatuses();
 	}
 	
-	public function updateWeight()
+	protected function processOrdersFilter($filter)
 	{
-		parent::updateWeight();
+		$filter->search_id	= Check::txt('search_id', 11, 1, '');
+		$filter->id_type = Check::txt('id_type', 13, 5, '');
+		$filter->id_status = Check::txt('id_status', 20, 1, '');
+		$filter->country_to = Check::int('country_to');
+		$filter->search_client = Check::txt('search_client', 11, 1, '');
+
+		if (empty($filter->id_type))
+		{
+			$filter->search_id = '';
+			$filter->search_client = '';
+		}
+
+		return $filter;
 	}
-	
-	public function updatePackagesTrackingNo()
-	{
-		parent::updateWeight(FALSE);
-		
-		try
-		{
-			$this->load->model('PackageModel', 'Packages');
-			$this->db->trans_begin();
-			
-			foreach($_POST as $key=>$value)
-			{
-				// поиск параметров в запросе
-				if (stripos($key, 'package') === FALSE) continue;
-			
-				$package_id = str_ireplace('package', '', $key);
-				if (!is_numeric($package_id)) continue;
 
-				// безопасность: проверяем связку менеджера и посылки
-				$this->load->model('PackageModel', 'Packages');
-				$this->load->model('OrderModel', 'Orders');
-				$package = $this->Packages->getManagerPackageById($package_id, $this->user->user_id);
-
-				if ( ! $package)
-				{
-					throw new Exception('Одна или несколько посылок не найдены. Попоробуйте еще раз.');
-				}
-					
-				// валидация пользовательского ввода
-				Check::reset_empties();
-				$package->package_status		= 'sent';
-				$package->package_trackingno 	= Check::txt('package_trackingno'.$package_id, 255, 1);
-				$empties						= Check::get_empties();
-		
-				if ($empties) 
-				{
-					throw new Exception('Некоторые Tracking № отсутствуют. Попробуйте еще раз.');
-				}
-				
-				// закрываем связанный заказ
-				if ($package->order_id)
-				{
-					$order = $this->Orders->getById($package->order_id);
-					
-					if ( ! $order)
-					{
-						throw new Exception('Невозможно закрыть или открыть связанный с посылкой заказ. Заказ не найден.');
-					}
-					
-					if ($order->order_status != 'sended')
-					{
-						$order->order_status = 'sended';
-						$this->Orders->saveOrder($order);
-					}
-				}
-
-				// сохранение результатов
-				$new_package = $this->Packages->savePackage($package);
-				
-				if (!$new_package)
-				{
-					throw new Exception('Некоторые посылки не отправлены. Попоробуйте еще раз.');
-				}
-			}
-			
-			$this->db->trans_commit();
-			
-			$this->result->m = 'Посылки успешно отправлены.';
-			Stack::push('result', $this->result);
-		}
-		catch (Exception $e) 
-		{
-			$this->db->trans_rollback();
-			
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-
-		// открываем оплаченные посылки
-		Func::redirect(BASEURL.$this->cname.'/showPayedPackages');
-	}
-	
-	public function closeOrders()
-	{
-		try
-		{
-			if (!$this->user ||
-				!$this->user->user_id)
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			
-			$this->load->model('OrderModel', 'Orders');
-			$this->db->trans_begin();
-			
-			foreach($_POST as $key=>$value)
-			{
-				// поиск параметров в запросе
-				if (stripos($key, 'order') === FALSE) continue;
-			
-				$order_id = str_ireplace('order', '', $key);
-				if (!is_numeric($order_id)) continue;
-
-				// безопасность: проверяем связку менеджера и заказа
-				$this->load->model('OrderModel', 'Orders');
-				$order = $this->Orders->getManagerOrderById($order_id, $this->user->user_id);
-
-				if (!$order)
-				{
-					throw new Exception('Один или несколько заказов не найдены. Попоробуйте еще раз.');
-				}
-					
-				// сохранение результатов
-				$order->order_status = 'sended';
-				$new_order = $this->Orders->saveOrder($order);
-			}
-			
-			$this->db->trans_commit();
-			
-			$this->result->m = 'Заказы успешно закрыты.';
-			Stack::push('result', $this->result);
-			
-			// уведомления
-			$this->load->model('ManagerModel', 'Managers');
-			$this->load->model('UserModel', 'Users');
-			$this->load->model('ClientModel', 'Clients');
-			
-			Mailer::sendAdminNotification(
-				Mailer::SUBJECT_NEW_ORDER_STATUS, 
-				Mailer::NEW_ORDER_STATUS_NOTIFICATION, 
-				0,
-				$order->order_id, 
-				0,
-				"http://countrypost.ru/admin/showOrderDetails/{$order->order_id}",
-				null,
-				$this->Users,
-				'Отправлен');
-
-			Mailer::sendClientNotification(
-				Mailer::SUBJECT_NEW_ORDER_STATUS, 
-				Mailer::NEW_ORDER_STATUS_NOTIFICATION, 
-				$order->order_id, 
-				$order->order_client,
-				"http://countrypost.ru/client/showOrderDetails/{$order->order_id}",
-				$this->Clients,
-				'Отправлен');
-
-		}
-		catch (Exception $e)
-		{
-			$this->db->trans_rollback();
-			
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-
-		// открываем заказы
-		Func::redirect(BASEURL.$this->cname.'/showPayedOrders');
-	}
-	
 	public function updateOrderDetails()
 	{
 		parent::updateOrderDetails();
@@ -243,27 +77,27 @@ class Manager extends ManagerBaseController {
 
 	public function orders()
 	{
-		$this->showOpenOrders();
+		$this->showOrders();
 	}
 
 	public function showOpenOrders()
 	{
-		$this->showOrders('open', 'showOpenOrders');
+		$this->showOrders('open');
 	}
 	
 	public function showPayedOrders()
 	{
-		$this->showOrders('payed', 'showPayedOrders');
+		$this->showOrders('payed');
 	}
 	
 	public function showSentOrders()
 	{
-		$this->showOrders('sent', 'showSentOrders');
+		$this->showOrders('sent');
 	}
 
 	public function showBidOrders()
 	{
-		$this->showOrders('bid', 'showBidOrders');
+		$this->showOrders('bid');
 	}
 
 	public function order()
@@ -674,7 +508,7 @@ class Manager extends ManagerBaseController {
 	
 	public function filterOrders()
 	{
-		$this->filter('Orders', 'showOpenOrders/0/ajax');
+		$this->filter('Orders', 'orders/0/ajax');
 	}
 	
 	public function acceptOrder($order_id)

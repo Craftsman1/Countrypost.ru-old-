@@ -20,15 +20,15 @@
 				<br />
 				<div>
 					<span class="label">Заказ из:</span>
-					<select id="country_from" name="country_from" class="textbox">
-						<option value="0">выберите страну...</option>
+					<select id="country_from" name="country_from" class="select" style="width:190px;">
+						<option value="0">все страны</option>
 						<? foreach ($countries as $country) : ?>
 						<option value="<?= $country->country_id ?>"  title="/static/images/flags/<?= $country->country_name_en ?>.png" <? if (isset($filter->country_from) AND $filter->country_from == $country->country_id) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
 						<? endforeach; ?>
 					</select>
 					<span class="label">&nbsp;&nbsp;&nbsp;Доставить в:</span>
-					<select id="country_to" name="country_to" class="textbox">
-						<option value="0">выберите страну...</option>
+					<select id="country_to" name="country_to" class="select" style="width:190px;">
+						<option value="0">все страны</option>
 						<? foreach ($countries as $country) : ?>
 						<option value="<?= $country->country_id ?>"  title="/static/images/flags/<?= $country->country_name_en ?>.png" <? if (isset($filter->country_to) AND $filter->country_to == $country->country_id) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
 						<? endforeach; ?>
@@ -84,6 +84,7 @@
 	$(function() {
 		$("#country_from").msDropDown({mainCSS:'idd'});
 		$("#country_to").msDropDown({mainCSS:'idd'});
+		$("#order_type").msDropDown({mainCSS:'idd'});
 		$("#filterForm").show();
 
 		$('#filterForm').ajaxForm({

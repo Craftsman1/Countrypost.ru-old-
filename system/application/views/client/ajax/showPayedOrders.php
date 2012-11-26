@@ -1,4 +1,4 @@
-<form id="pagerForm" class='admin-inside' action='#'>
+<form id="ordersForm" class='admin-inside' action='#'>
 	<? View::show($viewpath.'elements/orders/tabs', array('selected_submenu' => 'payed_orders')); ?>
 	<div class='table centered_th centered_td'>
 		<div class='angle angle-lt'></div>
@@ -15,9 +15,6 @@
 				<th></th>
 			</tr>
 			<? if ($orders) : foreach($orders as $order) : ?>
-			<script>
-				var order<?=$order->order_id?> = {"order_id":"<?=$order->order_id?>","order_shop_name":"<?=$order->order_shop_name?>","order_country":"<?= $order->order_manager_country ?>","order_date":"<?= $order->order_date ?>","order_products_cost":"<?= $order->order_products_cost ?>","order_status":"<?= $order->order_status ?>"};
-			</script>
 			<tr>
 				<td>
 					<a href="<?= $selfurl . 'order/' . $order->order_id ?>"><b><?=$order->order_id?></b></a>
@@ -59,8 +56,17 @@
 					</pre>
 				</td>
 				<td>
-					<? if ($order->order_status == 'payed') : ?>Оплачен (<?= $order->order_cost_payed ?> <?= $order->currency ?>)<? endif; ?>
-					<? if ($order->order_status == 'payed' && $order->order_cost > $order->order_cost_payed) : ?><br />$<?=$order->order_cost_payed?>
+					<? foreach ($statuses[$order->order_type] as $status => $status_name)
+					{
+						if ($order->order_status == $status)
+						{
+							echo $status_name;
+							break;
+						}
+					} ?>
+					<? if ($order->order_status == 'payed' && $order->order_cost > $order->order_cost_payed) : ?>
+					<br>
+					<?= $order->order_cost_payed ?> <?= $order->currency ?>
 					<div class='float'>	
 						<div class='submit' style="margin-right:0;">
 							<div>
@@ -83,10 +89,5 @@
 			<? endif;?>
 		</table>
 	</div>
+	<?= $pager ?>
 </form>
-<?= $pager ?>
-<script>
-	$(function() {
-	//	$('#page_title').html('Оплаченные заказы');
-	});
-</script>

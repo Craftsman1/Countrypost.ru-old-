@@ -2,8 +2,8 @@
 	<? Breadcrumb::showCrumbs(); ?>
 	<a name="pagerScroll"></a>
 	<h2>Мои заказы</h2>
-	<? View::show($viewpath.'elements/orders/order_filter'); ?>
-	<? View::show($viewpath.'ajax/showOpenOrders', array(
+	<? View::show("{$viewpath}elements/orders/filter"); ?>
+	<? View::show("{$viewpath}ajax/show{$view_status}Orders", array(
 		'orders' => $orders,
 		'pager' => $pager)); ?>
 </div>

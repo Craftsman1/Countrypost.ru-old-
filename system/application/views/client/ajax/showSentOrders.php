@@ -1,4 +1,4 @@
-<form id="pagerForm" class='admin-inside' action='#'>
+<form id="ordersForm" class='admin-inside' action='#'>
 	<? View::show($viewpath.'elements/orders/tabs', array('selected_submenu' => 'sent_orders')); ?>
 	<div class='table centered_th centered_td'>
 		<div class='angle angle-lt'></div>
@@ -15,9 +15,6 @@
 				<th></th>
 			</tr>
 			<? if ($orders) : foreach($orders as $order) : ?>
-			<script>
-				var order<?= $order->order_id ?> = {"order_id":"<?= $order->order_id ?>","order_shop_name":"<?= $order->order_shop_name ?>","order_country":"<?= $order->order_manager_country ?>","order_date":"<?= $order->order_date ?>","order_products_cost":"<?= $order->order_products_cost ?>","order_status":"<?= $order->order_status ?>"};
-			</script>
 			<tr>
 				<td>
 					<a href="<?= $selfurl . 'order/' . $order->order_id ?>"><b><?=$order->order_id?></b></a>
@@ -58,7 +55,16 @@
 						<? endif; ?>
 					</pre>
 				</td>
-				<td>Отправлен</td>
+				<td>
+					<? foreach ($statuses[$order->order_type] as $status => $status_name)
+					{
+						if ($order->order_status == $status)
+						{
+							echo $status_name;
+							break;
+						}
+					} ?>
+				</td>
 				<td>
 					<a href="<?=$selfurl?>showOrderDetails/<?=$order->order_id?>"><?= $order->comment_for_client ? "1234 комментариев" : "Посмотреть" ?></a>
 				</td>
@@ -72,10 +78,5 @@
 			<? endif;?>
 		</table>
 	</div>
+	<?= $pager ?>
 </form>
-<?= $pager ?>
-<script>
-	$(function() {
-//		$('#page_title').html('Отправленные заказы');
-	});
-</script>

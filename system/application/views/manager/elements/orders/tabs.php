@@ -1,5 +1,5 @@
 <ul class='tabs'>
-	<li <? if (strval($selected_submenu) == 'new_orders') : ?>class='active'<? endif; ?>>
+	<li <? if (strval($selected_submenu) == 'open_orders') : ?>class='active'<? endif; ?>>
 		<div>
 			<a href='javascript:goto_page("<?= $selfurl  ?>showOpenOrders/0/ajax");'>Новые (<?=  empty($new_orders) ?
 			0 : $new_orders ?>)</a>

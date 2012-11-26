@@ -1051,20 +1051,20 @@ class Client extends ClientBaseController {
 
 	public function showOpenOrders()
 	{
-		$this->showClientOrders('open', 'showOpenOrders');
+		$this->showClientOrders('open');
 	}
 
 	public function showSentOrders()
 	{
-		$this->showClientOrders('sended', 'showSentOrders');
+		$this->showClientOrders('sent');
 	}
 
 	public function showPayedOrders()
 	{
-		$this->showClientOrders('payed', 'showPayedOrders');
+		$this->showClientOrders('payed');
 	}
 
-	private function showClientOrders($status, $page)
+	private function showClientOrders($status)
 	{
 		$this->load->model('OdetailModel', 'OdetailModel');
 		$basket = $this->OdetailModel->getNewDetails($this->user->user_id);
@@ -1075,7 +1075,7 @@ class Client extends ClientBaseController {
 			return;
 		}
 
-		$this->showOrders($status, $page);
+		$this->showOrders($status);
 	}
 
 	public function deleteOrder()
@@ -1884,7 +1884,8 @@ class Client extends ClientBaseController {
 			}
 			
 			$order->order_manager = $bid->manager_id;
-			
+			$order->order_status = 'processing';
+
 			if ( ! ($new_order = $this->Orders->addOrder($order)))
 			{
 				throw new Exception('Предложение не выбрано. Обновите страницу и попробуйте еще раз.');

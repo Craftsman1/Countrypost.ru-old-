@@ -1,5 +1,5 @@
-<form id="pagerForm" class='admin-inside' action='#'>
-	<? View::show($viewpath.'elements/orders/tabs', array('selected_submenu' => 'new_orders')); ?>
+<form id="ordersForm" class='admin-inside' action='#'>
+	<? View::show($viewpath.'elements/orders/tabs', array('selected_submenu' => 'open_orders')); ?>
 	<div class='table centered_th centered_td'>
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>
@@ -15,9 +15,6 @@
 				<th></th>
 			</tr>
 			<? if ($orders) : foreach($orders as $order) : ?>
-			<script>
-				var order<?=$order->order_id?> = {"order_id":"<?=$order->order_id?>","order_shop_name":"<?=$order->order_shop_name?>","order_country":"<?= $order->order_manager_country ?>","order_date":"<?= $order->order_date ?>","order_products_cost":"<?= $order->order_products_cost ?>","order_status":"<?= $order->order_status ?>"};
-			</script>
 			<tr>
 				<td>
 					<a href="<?= $selfurl . 'order/' . $order->order_id ?>"><b><?=$order->order_id?></b></a>
@@ -59,16 +56,16 @@
 					</pre>
 				</td>
 				<td>
-					<?	  if ($order->order_status == 'proccessing') : ?>Обрабатывается
-					<?elseif ($order->order_status == 'not_available') : ?>Нет в наличии<br /><i>Удалите из заказа товары, которых нет в наличии</i>
-					<?elseif ($order->order_status == 'not_available_color'):?>Нет данного цвета
-					<?elseif ($order->order_status == 'not_available_size'):?>Нет данного размера
-					<?elseif ($order->order_status == 'not_available_count'):?>Нет указанного кол-ва
-					<?elseif ($order->order_status == 'not_payed') : ?>Не оплачен
-					<?elseif ($order->order_status == 'not_delivered') : ?><b>Не доставлен</b>
-					<?elseif ($order->order_status == 'payed') : ?>Оплачен<? endif; ?>
+					<? foreach ($statuses[$order->order_type] as $status => $status_name)
+					{
+						if ($order->order_status == $status)
+						{
+							echo $status_name;
+							break;
+						}
+					} ?>
 					<? if ($order->order_status == 'not_payed') : ?>
-					<div class='float'>	
+					<div class='float'>
 						<div class='submit' style="margin-right:0;">
 							<div>
 								<input type='button' onclick="payItem('<?=$order->order_id?>');" value='Оплатить' />
@@ -100,10 +97,5 @@
 			<? endif;?>
 		</table>
 	</div>
+	<?= $pager ?>
 </form>
-<?= $pager ?>
-<script>
-	$(function() {
-		//$('#page_title').html('Новые заказы');
-	});
-</script>

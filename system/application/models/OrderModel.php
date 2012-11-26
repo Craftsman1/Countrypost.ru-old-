@@ -18,6 +18,7 @@ class OrderModel extends BaseModel implements IModel{
 	);
 
 	private $online_order_statuses = array(
+		'pending'   => 'Посредник не выбран',
 		'processing'   => 'Обрабатывается',
 		'not_payed' => 'Не оплачен',
 		'not_available' => 'Нет в наличии',
@@ -27,6 +28,7 @@ class OrderModel extends BaseModel implements IModel{
 	);
 
 	private $offline_order_statuses = array(
+		'pending'   => 'Посредник не выбран',
 		'processing'   => 'Обрабатывается',
 		'not_payed' => 'Не оплачен',
 		'not_available' => 'Нет в наличии',
@@ -36,6 +38,7 @@ class OrderModel extends BaseModel implements IModel{
 	);
 
 	private $service_order_statuses = array(
+		'pending'   => 'Посредник не выбран',
 		'processing'   => 'Обрабатывается',
 		'not_payed' => 'Не оплачен',
 		'payed' => 'Оплачен',
@@ -43,6 +46,7 @@ class OrderModel extends BaseModel implements IModel{
 	);
 
 	private $delivery_order_statuses = array(
+		'pending'   => 'Посредник не выбран',
 		'processing' => 'Ждем прибытия',
 		'not_payed' => 'Не оплачен',
 		'payed' => 'Оплачен',
@@ -50,6 +54,7 @@ class OrderModel extends BaseModel implements IModel{
 	);
 
 	private $mail_forwarding_order_statuses = array(
+		'pending'   => 'Посредник не выбран',
 		'processing' => 'Ждем прибытия',
 		'not_payed' => 'Не оплачен',
 		'payed' => 'Оплачен',
@@ -109,6 +114,25 @@ class OrderModel extends BaseModel implements IModel{
 		return $router[$status];
     }
 
+	public function getViewStatus($user_group, $order_status)
+    {
+		$router = $this->order_view_router[$user_group];
+
+		foreach ($router as $view_status => $order_statuses)
+		{
+			foreach ($order_statuses as $status)
+			{
+				if ($order_status == $status)
+				{
+					return $view_status;
+				}
+			}
+
+		}
+
+		return 'open';
+    }
+
 	public function getOrderTypes()
     {
 	    return $this->order_types;
@@ -123,6 +147,7 @@ class OrderModel extends BaseModel implements IModel{
 			$name = "{$key}_order_statuses";
 			$statuses[$key] = $this->$name;
 		}
+
 	    return $statuses;
     }
 
@@ -318,6 +343,8 @@ class OrderModel extends BaseModel implements IModel{
 		$managerId = NULL)
 	{
 		// инициализация параметров фильтра
+		$countryFromFilter = '';
+		$countryToFilter = '';
 		$managerFilter = '';
 		$periodFilter = '';
 		$idFilter = '';
@@ -326,19 +353,20 @@ class OrderModel extends BaseModel implements IModel{
 		$bidJoin = '';
 		$bidFilter = '';
 		$user_group = '';
-		$managerJoin = "INNER JOIN `managers` on `managers`.`manager_user` = `orders`.`order_manager`";
-
+		$managerJoin = '';
 
 		// обработка ограничения доступа клиента и менеджера
 		if (isset($clientId))
 		{
 			$user_group = "client";
 			$clientIdAccess = " AND `orders`.`order_client` = $clientId";
+			$managerJoin = "LEFT OUTER JOIN `managers` on `managers`.`manager_user` = `orders`.`order_manager`";
 		}
 		else if (isset($managerId))
 		{
 			$user_group = "manager";
 			$managerIdAccess = " AND `orders`.`order_manager` = $managerId";
+			$managerJoin = "INNER JOIN `managers` on `managers`.`manager_user` = `orders`.`order_manager`";
 		}
 
 		// обработка статуса
@@ -386,40 +414,36 @@ class OrderModel extends BaseModel implements IModel{
 			{
 				$statusFilter .= ' AND `orders`.`order_status` = "'.$filter->id_status.'"';
 			}
-		}
-		
-		// дополнительные поля
-		$extra_fields = '';
-		
-		if (isset($clientId) AND
-			($orderStatus == 'payed' OR
-			$orderStatus == 'sent'))
-		{
-			$extra_fields = ", 
-				`managers`.`manager_skype`, 
-				`users`.`user_email` as manager_email, 
-				`managers`.`manager_name` as manager_fio
-				";
-		}
 
+			if ( ! empty($filter->country_from) AND
+				is_numeric($filter->country_from))
+			{
+				$countryFromFilter = ' AND `orders`.`order_country_from` = '.$filter->country_from;
+			}
+
+			if ( ! empty($filter->country_to) AND
+				is_numeric($filter->country_to))
+			{
+				$countryToFilter = ' AND `orders`.`order_country_to` = '.$filter->country_to;
+			}
+		}
+		
 		// выборка
 		$result = $this->db->query(
 			"SELECT 
 				`orders`.*, 
 				@package_day:=TIMESTAMPDIFF(DAY, `orders`.`order_date`, NOW()) as package_day,
 				`users`.`user_login`  as `client_login`,
-				`countries`.`country_name` as `order_manager_country`,
-				`countries`.`country_name` as `order_country_from`,
-				`countries`.`country_name_en` as `order_country_from_en`,
-				`countries`.`country_currency` as currency,
+				c1.`country_name` as `order_country_from`,
+				c1.`country_name_en` as `order_country_from_en`,
 				c2.`country_name` as `order_country_to`,
 				c2.`country_name_en` as `order_country_to_en`,
+				c1.`country_currency` as currency,
 				TIMESTAMPDIFF(HOUR, `orders`.`order_date`, NOW() - INTERVAL @package_day DAY) as `package_hour`
-				$extra_fields
 			FROM `orders`
 			INNER JOIN `users` on `users`.`user_id` = `orders`.`order_client`
 			$managerJoin
-			INNER JOIN `countries` on `orders`.`order_country_to` = `countries`.`country_id`
+			INNER JOIN `countries` AS c1 on `orders`.`order_country_from` = c1.`country_id`
 			LEFT OUTER JOIN `countries` AS c2 on `orders`.`order_country_to` = c2.`country_id`
 			$bidJoin
 			WHERE
@@ -430,8 +454,40 @@ class OrderModel extends BaseModel implements IModel{
 				$clientIdAccess
 				$managerIdAccess
 				$bidFilter
+				$countryFromFilter
+				$countryToFilter
 			ORDER BY `orders`.`order_date` DESC"
 		)->result();
+
+		/*
+		print_r("SELECT
+				`orders`.*,
+				@package_day:=TIMESTAMPDIFF(DAY, `orders`.`order_date`, NOW()) as package_day,
+				`users`.`user_login`  as `client_login`,
+				c1.`country_name` as `order_country_from`,
+				c1.`country_name_en` as `order_country_from_en`,
+				c2.`country_name` as `order_country_to`,
+				c2.`country_name_en` as `order_country_to_en`,
+				c1.`country_currency` as currency,
+				TIMESTAMPDIFF(HOUR, `orders`.`order_date`, NOW() - INTERVAL @package_day DAY) as `package_hour`
+			FROM `orders`
+			INNER JOIN `users` on `users`.`user_id` = `orders`.`order_client`
+			$managerJoin
+			INNER JOIN `countries` AS c1 on `orders`.`order_country_from` = c1.`country_id`
+			LEFT OUTER JOIN `countries` AS c2 on `orders`.`order_country_to` = c2.`country_id`
+			$bidJoin
+			WHERE
+				$statusFilter
+				$managerFilter
+				$periodFilter
+				$idFilter
+				$clientIdAccess
+				$managerIdAccess
+				$bidFilter
+				$countryFromFilter
+				$countryToFilter
+			ORDER BY `orders`.`order_date` DESC");die();
+		*/
 
 		// отдаем результат
 		return ((count($result) > 0 &&  $result) ? $result : false);		
