@@ -1,15 +1,4 @@
-<?
-$order_link = BASEURL;
-
-if (empty($this->user))
-{
-	$order_link .= 'main/order/';
-}
-else
-{
-	$order_link = $this->user->user_group . '/order/';
-}
-?>
+<? $order_link = BASEURL . 'main/order/'; ?>
 <div class='table centered_th centered_td' style="margin:0;" id="unassignedOrders">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>

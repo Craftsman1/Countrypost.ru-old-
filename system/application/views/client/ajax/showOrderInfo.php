@@ -18,7 +18,7 @@
 				<a href='/'><?= $order->statistics->fullname ?></a>
 				<br>
 				<br>
-				<a href='javascript:void();' onclick="unchooseBid();">Выбрать другого</a>
+				<a href='javascript:void(0);' onclick="unchooseBid();">Выбрать другого</a>
 				<? endif; ?>
 			</td>
 			<td align='right'>

@@ -339,125 +339,102 @@ abstract class BaseController extends Controller
 			}
 			
 			// роли и разграничение доступа
+			// на этом этапе незалогиненные пользователи попадают на главную страницу
 			$view['order'] = $this->getPrivilegedOrder(
 				$this->uri->segment(3), 
-				'Невозможно отобразить детали заказа. Попробуйте еще раз.');
-//print_r($view['order']);die();
-			// детали заказа
+				'Заказ не найден. Попробуйте еще раз.');
+
+			// подгружаем модели
+			$this->load->model('BidModel', 'Bids');
+			$this->load->model('BidCommentModel', 'Comments');
+			$this->load->model('ManagerModel', 'Managers');
+			$this->load->model('ClientModel', 'Clients');
 			$this->load->model('OdetailModel', 'Odetails');
-			$view['odetails_statuses'] = $this->Odetails->getAvailableOrderDetailsStatuses();		    
-			$view['odetails'] = $this->Odetails->getOrderDetails($view['order']->order_id);
-			
 			$this->load->model('CountryModel', 'Countries');
-			
+
+			$chosen_bid = FALSE;
+			$statistics = array();
+
+			// детали заказа
+			$view['odetails_statuses'] = $this->Odetails->getAvailableOrderDetailsStatuses();
+			$view['odetails'] = $this->Odetails->getOrderDetails($view['order']->order_id);
+
 			$this->Orders->prepareOrderView($view, 
 				$this->Countries, 
 				$this->Odetails);	
 			
 			// страны
 			$view['Countries'] = $this->Countries->getClientAvailableCountries($view['order']->order_client);
-			
 			$view['order']->order_status_desc = $this->Orders->getOrderStatusDescription($view['order']->order_status);
 			$view['order_statuses'] = $this->Orders->getAvailableOrderStatuses();
 			
 			// предложения
-			$this->load->model('BidModel', 'Bids');
-			$this->load->model('BidCommentModel', 'Comments');
-			$this->load->model('ManagerModel', 'Managers');
-			$this->load->model('ClientModel', 'Clients');
-			
 			$view['bids'] = $this->Bids->getBids($view['order']->order_id);
-			$chosen_bid = FALSE;
-			$statistics = array();
 
-			// комментарии и статистика
-			if (empty($this->user->user_group) OR
-				$this->user->user_group == 'manager' OR 
-				$this->user->user_group == 'client')
+			foreach ($view['bids'] as $bid)
 			{
-				foreach ($view['bids'] as $bid)
+				// статистика предложения
+				$this->processStatistics($bid, $statistics, 'manager_id', $bid->manager_id, 'manager');
+
+				// выбранное клиентом предложение
+				if ($bid->manager_id == $view['order']->order_manager)
 				{
-					// статистика видна всем
-					$this->processStatistics($bid, $statistics, 'manager_id', $bid->manager_id, 'manager');
-					
-					if ($bid->manager_id == $view['order']->order_manager)
+					$chosen_bid = $bid;
+				}
+
+				// комментарии
+				$bid->comments = $this->Comments->getCommentsByBidId($bid->bid_id);
+
+				if (empty($bid->comments))
+				{
+					continue;
+				}
+
+				// находим данные комментатора для каждого коммента
+				foreach ($bid->comments as $comment)
+				{
+					if ($comment->user_id == $bid->client_id)
 					{
-						$chosen_bid = $bid;
+						$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'client');
 					}
-					
-					// а комменты только партнеру и клиенту
-					if (isset($this->user->user_group))
+					else if ($comment->user_id == $bid->manager_id)
 					{
-						$bid->comments = $this->Comments->getCommentsByBidId($bid->bid_id);
-				
-						if (empty($bid->comments))
-						{
-							continue;
-						}
-						
-						foreach ($bid->comments as $comment)
-						{
-							if ($comment->user_id == $bid->client_id)
-							{
-								$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'client');
-							}
-							else if ($comment->user_id == $bid->manager_id)
-							{
-								$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'manager');
-							}
-						}
+						$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'manager');
 					}
 				}
-				
-				$view['order']->bid = $chosen_bid;
 			}
-			
-			// клиент
+
+			$view['order']->bid = $chosen_bid;
+
+			// находим клиента
 			$view['client'] = $this->Clients->getClientById($view['order']->order_client);
-			$view['bids_accepted'] = FALSE;
-			
+
 			$this->processStatistics($view['client'], $statistics, 'client_user', $view['client']->client_user, 'client');
-			
-			if ($view['order']->order_manager AND
-				isset($this->user) AND
-				$this->user->user_group == 'client')
+
+			// если клиент выбрал предложение, достаем для него данные посредника
+			if ($this->user->user_group == 'client' AND
+				$chosen_bid)
 			{
 				$this->processStatistics($view['order'], $statistics, 'order_manager', $view['order']->order_manager, 'manager');
 			}
-			
-			// партнер
-			if (isset($this->user->user_group) AND
-				($this->user->user_group == 'manager' OR 
-				$this->user->user_group == 'client'))
+
+			// кнопка добавить предложение для посредника
+			$view['bids_accepted'] = empty($chosen_bid) && ($this->user->user_group == 'manager');
+
+			if ($view['bids_accepted'])
 			{
-				// кнопка добавить предложение
-				if ($this->user->user_group == 'manager')
+				foreach ($view['bids'] as $bid)
 				{
-					if (empty($view['order']->order_manager))
+					if ($bid->manager_id == $this->user->user_id)
 					{
-						$view['bids_accepted'] = TRUE;
-						
-						foreach ($view['bids'] as $bid)
-						{
-							if ($bid->manager_id == $this->user->user_id)
-							{
-								$view['bids_accepted'] = FALSE;
-								break;
-							}
-						}
+						$view['bids_accepted'] = FALSE;
+						break;
 					}
 				}
 			}
-			
-			if (empty($this->user->user_group))
-			{
-				$view['bids_accepted'] = TRUE;
-			}
-			
-			// для формы нового предложения
-			if ($view['bids_accepted'] AND
-				(empty($this->user->user_group) OR
-				$this->user->user_group == 'manager'))
+
+			// для формы нового предложения у посредника
+			if ($view['bids_accepted'])
 			{
 				$new_bid = new stdClass();
 				$new_bid->bid_id = 0;
@@ -477,26 +454,175 @@ abstract class BaseController extends Controller
 			}
 			
 			// крошки
-			Breadcrumb::setCrumb(array(
-					"{$this->viewpath}order/{$view['order']->order_id}" => "Заказ №{$view['order']->order_id}"
-				), 1, TRUE);
+			$this->showOrderBreadcrumb($view['order'], $view['bids']);
 		}
 		catch (Exception $e) 
 		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
+			// если чтото свалилось, уходим на главную
+			Func::redirect(BASEURL);
+		}
+
+		// показываем заказ
+		View::showChild($this->viewpath.'/pages/showOrderDetails', $view);
+	}
+
+	protected function showPublicOrder()
+	{
+		try
+		{
+			// безопасность
+			if ( ! is_numeric($this->uri->segment(3)))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$view['order'] = $this->getPublicOrder(
+				$this->uri->segment(3),
+				'Заказ не найден. Попробуйте еще раз.');
+
+			// детали заказа
+			$this->load->model('OdetailModel', 'Odetails');
+			$view['odetails_statuses'] = $this->Odetails->getAvailableOrderDetailsStatuses();
+			$view['odetails'] = $this->Odetails->getOrderDetails($view['order']->order_id);
+
+			$this->load->model('CountryModel', 'Countries');
+
+			$this->Orders->prepareOrderView($view,
+				$this->Countries,
+				$this->Odetails);
+
+			// страны
+			$view['Countries'] = $this->Countries->getClientAvailableCountries($view['order']->order_client);
+
+			$view['order']->order_status_desc = $this->Orders->getOrderStatusDescription($view['order']->order_status);
+			$view['order_statuses'] = $this->Orders->getAvailableOrderStatuses();
+
+			// предложения
+			$this->load->model('BidModel', 'Bids');
+			$this->load->model('BidCommentModel', 'Comments');
+			$this->load->model('ManagerModel', 'Managers');
+			$this->load->model('ClientModel', 'Clients');
+
+			$view['bids'] = $this->Bids->getBids($view['order']->order_id);
+			$statistics = array();
+
+			// комментарии и статистика
+			if (empty($this->user->user_group) OR
+				$this->user->user_group == 'manager' OR
+				$this->user->user_group == 'client')
+			{
+				foreach ($view['bids'] as $bid)
+				{
+					// статистика видна всем
+					$this->processStatistics($bid, $statistics, 'manager_id', $bid->manager_id, 'manager');
+
+					// а комменты только партнеру и клиенту
+					if (isset($this->user->user_group))
+					{
+						$bid->comments = $this->Comments->getCommentsByBidId($bid->bid_id);
+
+						if (empty($bid->comments))
+						{
+							continue;
+						}
+
+						foreach ($bid->comments as $comment)
+						{
+							if ($comment->user_id == $bid->client_id)
+							{
+								$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'client');
+							}
+							else if ($comment->user_id == $bid->manager_id)
+							{
+								$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'manager');
+							}
+						}
+					}
+				}
+			}
+
+			// клиент
+			$view['client'] = $this->Clients->getClientById($view['order']->order_client);
+			$view['bids_accepted'] = FALSE;
+
+			$this->processStatistics($view['client'], $statistics, 'client_user', $view['client']->client_user, 'client');
+
+			if ($view['order']->order_manager AND
+				isset($this->user) AND
+				$this->user->user_group == 'client')
+			{
+				$this->processStatistics($view['order'], $statistics, 'order_manager', $view['order']->order_manager, 'manager');
+			}
+
+			// партнер
+			if (isset($this->user->user_group) AND
+				($this->user->user_group == 'manager' OR
+				$this->user->user_group == 'client'))
+			{
+				// кнопка добавить предложение
+				if ($this->user->user_group == 'manager')
+				{
+					if (empty($view['order']->order_manager))
+					{
+						$view['bids_accepted'] = TRUE;
+
+						foreach ($view['bids'] as $bid)
+						{
+							if ($bid->manager_id == $this->user->user_id)
+							{
+								$view['bids_accepted'] = FALSE;
+								break;
+							}
+						}
+					}
+				}
+			}
+
+			if (empty($this->user->user_group))
+			{
+				$view['bids_accepted'] = TRUE;
+			}
+
+			// для формы нового предложения
+			if ($view['bids_accepted'] AND
+				(empty($this->user->user_group) OR
+				$this->user->user_group == 'manager'))
+			{
+				$new_bid = new stdClass();
+				$new_bid->bid_id = 0;
+				$new_bid->manager_id = isset($this->user->user_id) ? $this->user->user_id : 0;
+				$new_bid->total_cost = $view['order']->order_total_cost;
+				$new_bid->manager_tax = $view['order']->manager_tax;
+				$new_bid->foto_tax = $view['order']->foto_tax;
+				$new_bid->delivery_cost = $view['order']->order_delivery_cost;
+				$new_bid->delivery_name = '';
+
+				if ($new_bid->manager_id)
+				{
+					$this->processStatistics($new_bid, $statistics, 'manager_id', $new_bid->manager_id, 'manager');
+				}
+
+				$view['new_bid'] = $new_bid;
+			}
+
+			// крошки
+			$this->showOrderBreadcrumb($view['order'], $view['bids']);
+		}
+		catch (Exception $e)
+		{
+			// если вдруг чтото не сработало, уходим на главную
+			Func::redirect(BASEURL);
 		}
 
 		// показываем детали заказа
-		if (empty($this->user))
+		if (empty($this->user->user_group))
 		{
 			View::showChild('/main/pages/showOrderDetails', $view);
 		}
 		else
 		{
-			View::showChild($this->viewpath.'/pages/showOrderDetails', $view);
+			View::showChild("{$this->user->user_group}/pages/showOrderDetails", $view);
 		}
 	}
 
@@ -3198,39 +3324,29 @@ abstract class BaseController extends Controller
 		}
 	}
 	
-	private function getPrivilegedOrder($order_id, $validate = TRUE)
+	protected function getPrivilegedOrder($order_id, $validate = TRUE)
 	{
-		
+		$order = FALSE;
 		$model = $this->getOrderModel();
-		
-		if (empty($this->user))
+
+		// залогиненным показываем только их заказ, либо заказ с их предложением
+		if (isset($this->user->user_group))
 		{
-			$order = $model->getById($order_id);
-			
-			if ($order->order_manager OR
-				$order->order_status != 'pending')
-			{
-				$order = FALSE;
-			}
-		}
-		else
-		{
-			$user_id = $this->user->user_id;
-			
 			switch ($this->user->user_group)
 			{
 				case 'manager' : 
-					$order = $model->getById($order_id);//$model->getManagerOrderById($order_id, $user_id);
+					$order = $model->getManagerOrderById($order_id, $this->user->user_id);
 					break;
 				case 'client' : 
-					$order = $model->getClientOrderById($order_id, $user_id);
+					$order = $model->getClientOrderById($order_id, $this->user->user_id);
 					break;
 				case 'admin' : 
 					$order = $model->getById($order_id);
 					break;
 			}
 		}
-		
+
+		// валидация
 		if ($validate AND
 			empty($order))
 		{
@@ -3240,6 +3356,31 @@ abstract class BaseController extends Controller
 		return $order;
 	}
 	
+	protected function getPublicOrder($order_id, $validate = TRUE)
+	{
+		$model = $this->getOrderModel();
+
+		// без логина показываем только новые заказы без выбранного посредника
+		$order = $model->getById($order_id);
+
+		if (empty($order) OR
+			$order->order_status == 'deleted' OR
+			$order->order_manager OR
+			$order->order_status != 'pending')
+		{
+			$order = FALSE;
+		}
+
+		// валидация
+		if ($validate AND
+			empty($order))
+		{
+			throw new Exception($validate);
+		}
+
+		return $order;
+	}
+
 	private function getPrivilegedBid($bid_id, $validate = TRUE)
 	{
 		$user_id = $this->user->user_id;

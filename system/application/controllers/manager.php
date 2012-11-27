@@ -41,7 +41,6 @@ class Manager extends ManagerBaseController {
 		$filter->id_type = Check::txt('id_type', 13, 5, '');
 		$filter->id_status = Check::txt('id_status', 20, 1, '');
 		$filter->country_to = Check::int('country_to');
-		$filter->search_client = Check::txt('search_client', 11, 1, '');
 
 		if (empty($filter->id_type))
 		{
@@ -104,7 +103,33 @@ class Manager extends ManagerBaseController {
 	{
 		parent::showOrderDetails();
 	}
-	
+
+	protected function showOrderBreadcrumb($order, $bids)
+	{
+		$index = 1;
+
+		if ($order->order_manager == $this->user->user_id)
+		{
+			$index = 2;
+		}
+		else if (empty($order->order_manager) AND
+			$bids)
+		{
+			foreach ($bids as $bid)
+			{
+				if ($bid->manager_id == $this->user->user_id)
+				{
+					$index = 2;
+					break;
+				}
+			}
+		}
+
+		Breadcrumb::setCrumb(array(
+			"/manager/order/{$order->order_id}" => "Заказ №{$order->order_id}"
+		), $index, TRUE);
+	}
+
 	public function joinProducts($order_id)
 	{
 		parent::joinProducts($order_id);

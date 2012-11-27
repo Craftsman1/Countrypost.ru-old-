@@ -282,16 +282,19 @@ class OrderModel extends BaseModel implements IModel{
 		return array_keys((array) $this->properties);
 	}	
 	
-	public function addOrder($order_obj) {
+	public function addOrder($order_obj)
+	{
 		$props = $this->getPropertyList();
 		
-		foreach ($props as $prop){
-			if (isset($order_obj->$prop)){
+		foreach ($props as $prop)
+		{
+			if (isset($order_obj->$prop))
+			{
 				$this->_set($prop, $order_obj->$prop);
 			}
 		}
 		
-		$new_id = $this->save(true);
+		$new_id = $this->save(TRUE);
 		
 		// TODO : На этом этапе можно смело удалять все заказы с `orders`.order_client = $_SESSION['temporary_user_id'] 
 		//        если не предусмотрен иной сборщик мусора 
@@ -303,7 +306,8 @@ class OrderModel extends BaseModel implements IModel{
 		return false;
 	}
 	
-	public function getClientOrders($client_id) {
+	public function getClientOrders($client_id)
+	{
 		return $this->db->query('
 			SELECT `'.$this->table.'`.*, `countries`.`country_name`
 			FROM `'.$this->table.'`
@@ -312,27 +316,7 @@ class OrderModel extends BaseModel implements IModel{
 	}
 	
 	/**
-	 * Get open orders by manager id
-	 *
-	 * @return array
-	 */
-	public function getOpenOrdersByManagerId($id){
-		$result = $this->select(array('order_manager' => $id));
-		
-		$result = $this->db->query('
-			SELECT `'.$this->table.'`.*
-			FROM `'.$this->table.'`
-			WHERE `'.$this->table.'`.`order_manager` = '.$id.'
-				AND `'.$this->table.'`.`order_status` <> "sended"
-				AND `'.$this->table.'`.`order_status` <> "payed"
-				AND `'.$this->table.'`.`order_status` <> "deleted"
-		')->result();
-		
-		return ((count($result) > 0 &&  $result) ? $result : false);		
-	}
-	
-	/**
-	 * Get all open orders
+	 * Get filtered orders
 	 *
 	 * @return array
 	 */
@@ -668,16 +652,44 @@ class OrderModel extends BaseModel implements IModel{
 	 *
 	 * @return array
 	 */
-	public function getManagerOrderById($order_id, $manager_id){
+	public function getManagerOrderById($order_id, $manager_id)
+	{
 		$order = $this->getById($order_id);
 		
-		if ($order &&
-			$order->order_manager == $manager_id)
+		if (empty($order) OR
+			$order->order_status == 'deleted')
+		{
+			return FALSE;
+		}
+
+		// нашли заказ у посредника
+		if ($order->order_manager == $manager_id)
 		{
 			return $order;
 		}
 
-		return false;
+		// ищем предложения
+		else if (empty($order->order_manager) AND
+			$order->order_status == 'pending')
+		{
+			$result = $this->db->query("
+				SELECT 1
+				FROM `bids`
+				WHERE
+					`bids`.`status` <> 'deleted'
+					AND `bids`.`order_id` = $order_id
+					AND `bids`.`manager_id` = $manager_id
+				GROUP BY `bids`.`manager_id`, `bids`.`order_id`
+			")->result();
+
+			// отдаем результат
+			if ((count($result > 0) &&  $result))
+			{
+				return $order;
+			}
+		}
+
+		return FALSE;
 	}
 	
 	/**
@@ -685,23 +697,29 @@ class OrderModel extends BaseModel implements IModel{
 	 *
 	 * @return array
 	 */
-	public function getClientOrderById($order_id, $client_id){
+	public function getClientOrderById($order_id, $client_id)
+	{
 		$order = $this->getById($order_id);
 		
 		// Если пользователь создавший заказ совпадает с авторизованным пользователем в рамках текущей сессии
 		if ($order AND
-			($order->order_client == $client_id OR
-			 (isset($_SESSION['temporary_user_id']) AND $order->order_client == $_SESSION['temporary_user_id'])))
+			$order->order_status != 'deleted' AND
+			($order->order_client == $client_id OR (
+				isset($_SESSION['temporary_user_id']) AND
+				 $order->order_client == $_SESSION['temporary_user_id'])))
 		{
 			// Заменяем временное значение ID клиента на ID реального клиента 
 			// если пользователь авторизовался в процессе оформления заказа
-			if (isset($_SESSION['temporary_user_id']) AND $order->order_client == $_SESSION['temporary_user_id'])
+			if (isset($_SESSION['temporary_user_id']) AND
+				$order->order_client == $_SESSION['temporary_user_id'])
+			{
 				$order->order_client = $client_id;
+			}
 			
 			return $order;
 		}
 
-		return false;
+		return FALSE;
 	}
 	
 	/**
@@ -709,20 +727,23 @@ class OrderModel extends BaseModel implements IModel{
 	 * Выкидывает исключения на некорректные данные
 	 * 
 	 * @param (object) 	- $order
-	 * @return (mixed)	- объект order или false в случае ошибки записи в базу
+	 * @return (mixed)	- объект order или FALSE в случае ошибки записи в базу
 	 */
-	public function saveOrder($order){
+	public function saveOrder($order)
+	{
 		$props = $this->getPropertyList();
 		
-		foreach ($props as $prop){
-			if (isset($order->$prop)){
+		foreach ($props as $prop)
+		{
+			if (isset($order->$prop))
+			{
 				$this->_set($prop, $order->$prop);
 			}
 		}
 		
-		$new_id = $this->save(true);
+		$new_id = $this->save(TRUE);
 		
-		if (!$new_id) return false;
+		if (!$new_id) return FALSE;
 		
 		return $this->getInfo(array($new_id));
 	}
@@ -736,7 +757,7 @@ class OrderModel extends BaseModel implements IModel{
 		
 		$result = $this->select(array('order_manager' => $id, 'order_status' => 'sended'));
 		
-		return ((count($result) > 0 &&  $result) ? $result : false);		
+		return ((count($result) > 0 &&  $result) ? $result : FALSE);
 	}
 	
 	/**
@@ -749,7 +770,7 @@ class OrderModel extends BaseModel implements IModel{
 		if (!$order->order_country_from ||
 			!$order->order_country_to)
 		{
-			$order->delivery_list = false;
+			$order->delivery_list = FALSE;
 		}
 		else
 		{		
@@ -848,7 +869,7 @@ class OrderModel extends BaseModel implements IModel{
 			$order->order_delivery_cost_local +
 			$order->order_manager_comission_local;
 						
-		return $order->order_cost ? $order : false;
+		return $order->order_cost ? $order : FALSE;
 	}
 	
 	/**
@@ -889,23 +910,22 @@ class OrderModel extends BaseModel implements IModel{
 		
 			if (!$order)
 			{
-				return false;
+				return FALSE;
 			}
 			
 			$order = $this->calculateCost($order, $config);
-		//	print_r($order);die();	
-		
+
 			if (!$order)
 			{
-				return false;
+				return FALSE;
 			}
 		}
 		catch (Exception $e) 
 		{
-			return false;
+			return FALSE;
 		}
 		
-		return true;
+		return TRUE;
 	}
 	
 	private function calculateTotals($order, $OdetailModel, $OdetailJointModel)

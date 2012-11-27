@@ -1371,11 +1371,6 @@ class Client extends ClientBaseController {
 		Func::redirect(BASEURL.$this->cname.'/showOpenOrders');
 	}
 	
-	public function showOrderDetails()
-	{
-		parent::showOrderDetails();
-	}	
-	
 	public function showPackageDetails()
 	{
 		parent::showPackageDetails();
@@ -2154,7 +2149,7 @@ class Client extends ClientBaseController {
 
 			$rating = $this->Ratings->addRating($rating);
 
-			if (empty($manager))
+			if (empty($rating))
 			{
 				throw new Exception('Отзыв не сохранен. Попробуйте еще раз.');
 			}
@@ -2163,5 +2158,19 @@ class Client extends ClientBaseController {
 		{
 
 		}
+	}
+
+	protected function showOrderBreadcrumb($order)
+	{
+		$index = 1;
+
+		if ($order->order_client == $this->user->user_id)
+		{
+			$index = 2;
+		}
+
+		Breadcrumb::setCrumb(array(
+			"/client/order/{$order->order_id}" => "Заказ №{$order->order_id}"
+		), $index, TRUE);
 	}
 }

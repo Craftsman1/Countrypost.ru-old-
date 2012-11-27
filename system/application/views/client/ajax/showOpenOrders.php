@@ -17,7 +17,7 @@
 			<? if ($orders) : foreach($orders as $order) : ?>
 			<tr>
 				<td>
-					<a href="<?= $selfurl . 'order/' . $order->order_id ?>"><b><?=$order->order_id?></b></a>
+					<a href="<?= "{$selfurl}order/{$order->order_id}" ?>"><b><?=$order->order_id?></b></a>
 					<br />
 					<? if ($order->order_type == 'online' OR $order->order_type == 'offline') : ?>
 					<?= $order->order_type ?> заказ
@@ -84,7 +84,7 @@
 					<? endif; ?>
 				</td>
 				<td>
-					<a href="<?=$selfurl?>showOrderDetails/<?=$order->order_id?>"><?= $order->comment_for_client ? "1234 комментариев" : "Посмотреть" ?></a>&nbsp;<a
+					<a href="<?= "{$selfurl}order/{$order->order_id}" ?>"><?= $order->comment_for_client ? "1234 комментариев" : "Посмотреть" ?></a>&nbsp;<a
 						href="javascript:deleteItem('<?=$order->order_id?>');"><img border="0" src="/static/images/delete.png" title="Удалить"></a>
 				</td>
 			</tr>
