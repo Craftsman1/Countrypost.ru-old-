@@ -3,18 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" afterPath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/client.php" afterPath="$PROJECT_DIR$/system/application/controllers/client.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/main.php" afterPath="$PROJECT_DIR$/system/application/controllers/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/manager.php" afterPath="$PROJECT_DIR$/system/application/controllers/manager.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OrderModel.php" afterPath="$PROJECT_DIR$/system/application/models/OrderModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfo.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showPayedOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showPayedOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/pages/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/client/pages/showOrderDetails.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" afterPath="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,7 +26,7 @@
       <file leaf-file-name="manager.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="26" selection-start="2009" selection-end="2016" vertical-scroll-proportion="-4.259259">
+            <state line="101" column="26" selection-start="2009" selection-end="2016" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -47,7 +35,7 @@
       <file leaf-file-name="client.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1373" column="4" selection-start="41449" selection-end="41449" vertical-scroll-proportion="-2.721519">
+            <state line="1373" column="4" selection-start="41449" selection-end="41449" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -56,7 +44,7 @@
       <file leaf-file-name="showOpenOrders.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="33" selection-start="599" selection-end="599" vertical-scroll-proportion="-9.137931">
+            <state line="19" column="33" selection-start="599" selection-end="599" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -65,7 +53,7 @@
       <file leaf-file-name="showPayedOrders.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showPayedOrders.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="69" selection-start="600" selection-end="636" vertical-scroll-proportion="-2.721519">
+            <state line="19" column="69" selection-start="600" selection-end="636" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -74,7 +62,7 @@
       <file leaf-file-name="showSentOrders.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="69" selection-start="599" selection-end="635" vertical-scroll-proportion="-2.721519">
+            <state line="19" column="69" selection-start="599" selection-end="635" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -83,7 +71,7 @@
       <file leaf-file-name="BaseController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="435" column="56" selection-start="12329" selection-end="12329" vertical-scroll-proportion="16.981482">
+            <state line="435" column="56" selection-start="12329" selection-end="12329" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -92,7 +80,7 @@
       <file leaf-file-name="ManagerModel.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/models/ManagerModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="511" column="0" selection-start="15475" selection-end="15475" vertical-scroll-proportion="-7.965517">
+            <state line="511" column="0" selection-start="15475" selection-end="15475" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -101,10 +89,8 @@
       <file leaf-file-name="showOrderDetails.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/client/pages/showOrderDetails.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="31" selection-start="20" selection-end="31" vertical-scroll-proportion="-0.0">
-              <folding>
-                <element signature="n#style#0;n#h3#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="0" column="31" selection-start="20" selection-end="31" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -112,7 +98,7 @@
       <file leaf-file-name="createorder.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/createorder.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="4" selection-start="68" selection-end="68" vertical-scroll-proportion="0.05755396">
+            <state line="32" column="14" selection-start="984" selection-end="984" vertical-scroll-proportion="0.86713284">
               <folding>
                 <marker date="1354023507922" expanded="false" signature="18451:18467" placeholder="..." />
                 <marker date="1354023507922" expanded="false" signature="18628:18644" placeholder="..." />
@@ -124,10 +110,8 @@
       <file leaf-file-name="showOrderDetails.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="27" selection-start="742" selection-end="742" vertical-scroll-proportion="-7.7777777">
+            <state line="21" column="27" selection-start="742" selection-end="742" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="n#style#0;n#th#6;n#tr#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#3;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
                 <marker date="1354021137440" expanded="false" signature="7031:7043" placeholder="..." />
                 <marker date="1354021137440" expanded="false" signature="11977:11993" placeholder="..." />
               </folding>
@@ -342,8 +326,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -479,7 +463,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25225225" sideWeight="0.6700767" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25546977" sideWeight="0.6700767" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -565,67 +549,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="26" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1354002332181" expanded="false" signature="95:104" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="127:2684" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="280:2677" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="287:474" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="533:2550" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="541:1281" placeholder="..." />
-            <marker date="1354002332181" expanded="false" signature="1297:1313" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="1314:1520" placeholder="..." />
-            <marker date="1354002332181" expanded="false" signature="1400:1429" placeholder="..." />
-            <marker date="1354002332181" expanded="false" signature="1448:1474" placeholder="..." />
-            <marker date="1354002332181" expanded="false" signature="1536:1552" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="1553:1756" placeholder="..." />
-            <marker date="1354002332181" expanded="false" signature="1637:1666" placeholder="..." />
-            <marker date="1354002332181" expanded="false" signature="1685:1711" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="1764:1866" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="1874:1936" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="1944:2542" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="2592:2652" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="2612:2644" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="2730:2813" placeholder="..." />
-            <marker date="1354002332181" expanded="true" signature="2746:2802" placeholder="{...}" />
-          </folding>
-        </state>
+        <state line="0" column="26" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showProduct.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.37062937">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.37062937" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1096" column="19" selection-start="28595" selection-end="28595" vertical-scroll-proportion="-8.103448">
-          <folding />
-        </state>
+        <state line="1096" column="19" selection-start="28595" selection-end="28595" vertical-scroll-proportion="-8.103448" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="706" column="40" selection-start="18330" selection-end="18330" vertical-scroll-proportion="-5.814815">
-          <folding />
-        </state>
+        <state line="706" column="40" selection-start="18330" selection-end="18330" vertical-scroll-proportion="-5.814815" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfo.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="42" selection-start="556" selection-end="556" vertical-scroll-proportion="-7.965517">
-          <folding />
-        </state>
+        <state line="20" column="42" selection-start="556" selection-end="556" vertical-scroll-proportion="-7.965517" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="27" selection-start="742" selection-end="742" vertical-scroll-proportion="-7.7777777">
+        <state line="21" column="27" selection-start="742" selection-end="742" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="n#style#0;n#th#6;n#tr#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#3;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
             <marker date="1354021137440" expanded="false" signature="7031:7043" placeholder="..." />
             <marker date="1354021137440" expanded="false" signature="11977:11993" placeholder="..." />
           </folding>
@@ -634,49 +584,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="26" selection-start="2009" selection-end="2016" vertical-scroll-proportion="-4.259259">
+        <state line="101" column="26" selection-start="2009" selection-end="2016" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1373" column="4" selection-start="41449" selection-end="41449" vertical-scroll-proportion="-2.721519">
+        <state line="1373" column="4" selection-start="41449" selection-end="41449" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="69" selection-start="599" selection-end="635" vertical-scroll-proportion="-2.721519">
+        <state line="19" column="69" selection-start="599" selection-end="635" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showPayedOrders.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="69" selection-start="600" selection-end="636" vertical-scroll-proportion="-2.721519">
+        <state line="19" column="69" selection-start="600" selection-end="636" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="33" selection-start="599" selection-end="599" vertical-scroll-proportion="-9.137931">
+        <state line="19" column="33" selection-start="599" selection-end="599" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/models/ManagerModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="511" column="0" selection-start="15475" selection-end="15475" vertical-scroll-proportion="-7.965517">
+        <state line="511" column="0" selection-start="15475" selection-end="15475" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="435" column="56" selection-start="12329" selection-end="12329" vertical-scroll-proportion="16.981482">
+        <state line="435" column="56" selection-start="12329" selection-end="12329" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -684,15 +634,13 @@
     <entry file="file://$PROJECT_DIR$/system/application/views/client/pages/showOrderDetails.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="31" selection-start="20" selection-end="31" vertical-scroll-proportion="-0.0">
-          <folding>
-            <element signature="n#style#0;n#h3#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/createorder.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="4" selection-start="68" selection-end="68" vertical-scroll-proportion="0.05755396">
+        <state line="32" column="14" selection-start="984" selection-end="984" vertical-scroll-proportion="0.86713284">
           <folding>
             <marker date="1354023507922" expanded="false" signature="18451:18467" placeholder="..." />
             <marker date="1354023507922" expanded="false" signature="18628:18644" placeholder="..." />
