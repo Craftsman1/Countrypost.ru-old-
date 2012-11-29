@@ -17,6 +17,28 @@ class OrderModel extends BaseModel implements IModel{
 		'deleted' => 'Удален'
 	);
 
+	private $editable_statuses = array(
+		'client' => array(
+			'pending',
+			'processing',
+			'not_payed'),
+		'manager' => array(
+			'processing',
+			'not_payed',
+			'not_available',
+			'payed',
+			'bought',
+			'completed')
+	);
+
+	private $payable_statuses = array(
+		'client' => array(
+			'not_payed',
+			'payed',
+			'bought'),
+		'manager' => array()
+	);
+
 	private $online_order_statuses = array(
 		'pending'   => 'Посредник не выбран',
 		'processing'   => 'Обрабатывается',
@@ -133,6 +155,16 @@ class OrderModel extends BaseModel implements IModel{
 		return 'open';
     }
 
+	public function getEditableStatuses($user_group)
+    {
+		return $this->editable_statuses[$user_group];
+    }
+
+	public function getPayableStatuses($user_group)
+    {
+		return $this->payable_statuses[$user_group];
+    }
+
 	public function getOrderTypes()
     {
 	    return $this->order_types;
@@ -222,6 +254,10 @@ class OrderModel extends BaseModel implements IModel{
 		$this->properties->order_is_red				= '';
 		$this->properties->order_city_to			= '';
 		$this->properties->preferred_delivery		= '';
+		$this->properties->tracking_no		= '';
+		$this->properties->payed_date		= '';
+		$this->properties->sent_date		= '';
+		$this->properties->address_id		= '';
 
 		parent::__construct();
     }

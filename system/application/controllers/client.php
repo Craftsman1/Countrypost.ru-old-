@@ -1981,9 +1981,6 @@ class Client extends ClientBaseController {
 			}
 
 
-			//$client->client_name			= Check::str('client_name', 255, 0);
-			//$client->client_surname 		= Check::str('client_surname', 255, 0);
-			//$client->client_otc			= Check::str('client_otc', 255, 0);
 			$client->client_country		    = Check::int('client_country');
             $client->notifications_on       = Check::chkbox('notifications_on');
 
@@ -2029,7 +2026,7 @@ class Client extends ClientBaseController {
 
             // находим адрес
             $this->load->model('AddressModel', 'Addresses');
-            $address = $this->Addresses->getById(0);
+            $address = new stdClass();
 
             $address->address_user = $this->user->user_id;
             $address->address_recipient = Check::str('recipient', 255, 1);
@@ -2172,5 +2169,92 @@ class Client extends ClientBaseController {
 		Breadcrumb::setCrumb(array(
 			"/client/order/{$order->order_id}" => "Заказ №{$order->order_id}"
 		), $index, TRUE);
+	}
+
+	public function updateOrder($order_id)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				'Невозможно сохранить детали заказа. Заказ недоступен.');
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('ClientModel', 'Clients');
+			$this->load->model('AddressModel', 'Addresses');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses('client');
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			$addresses = $this->Addresses->getAddressesByUserId($this->user->user_id);
+
+			// валидация пользовательского ввода
+			$order->preferred_delivery	= Check::str('delivery', 255, 1, '');
+			$order->address_id = Check::int('address');
+
+			// если в профиле нет адресов, добавляем новый
+			if (empty($addresses))
+			{
+				$order->order_address = Check::str('address_text', 255, 1, '');
+
+				if ($order->order_address)
+				{
+					$client = $this->Clients->getStatistics($this->user->user_id);
+					$address = new stdClass();
+
+					$address->address_user = $this->user->user_id;
+					$address->address_recipient = $client->fullname;
+					$address->address_country = $order->order_country_to;
+					$address->address_address = $order->order_address;
+					$address->is_generated = TRUE;
+
+					$address = $this->Addresses->addAddress($address);
+					$order->address_id = $address->address_id;
+				}
+			}
+			// если такой адрес есть, ставим его в заказ
+			else
+			{
+				$address_id = Check::int('address');
+
+				if ($address_id)
+				{
+					foreach ($addresses as $address)
+					{
+						if ($address->address_id == $address_id)
+						{
+							$order->address_id = $address_id;
+							$order->order_address = implode(', ', array(
+								$address->address_zip,
+								$address->country_name,
+								$address->address_address,
+								$address->address_town,
+								$address->address_recipient,
+								'тел.' . $address->address_phone
+							));
+							break;
+						}
+					}
+				}
+			}
+
+			// сохранение результатов
+			$this->Orders->saveOrder($order);
+		}
+		catch (Exception $e)
+		{
+			print_r($e);
+		}
 	}
 }

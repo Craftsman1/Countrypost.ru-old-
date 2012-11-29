@@ -1874,7 +1874,6 @@ div.add_order_box span.total ,div.search_results span.total {
 
 /************** Skin 2 *********************/
 .idd {
-	/*display:inline-block !important;*/
 	text-align:left;
 	--background-color:#fff;
 	font-family:Arial, Helvetica, sans-serif;
@@ -1942,7 +1941,81 @@ div.add_order_box span.total ,div.search_results span.total {
 	float: left;
 }
 .idd .ddChild a.selected {
-	background-color:#66CCFF;	
+	background-color:#66CCFF;
+}
+/*******************************/
+
+/************** Skin 3 *********************/
+.idd_order {
+	text-align:left;
+	--background-color:#fff;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	float:left;
+	border: 1px solid #AFAFAF;
+	height: 24px;
+	width: 614px!important;
+	background: #F7F7F7;
+}
+.idd_order .ddTitle {
+	padding:0px;
+	text-indent:0;
+	cursor:default;
+	overflow:hidden;
+	height:25px;
+	cursor: pointer;
+	margin-bottom: 0;
+}
+.idd_order .ddTitle span.arrow {
+	background:transparent url(/static/images/icon-arrow.gif) no-repeat 0 0; float:right; display:inline-block;width:27px; height:27px; cursor:pointer; top:-4px; position:relative; right:0px;
+}
+
+.idd_order .ddTitle span.ddTitleText,
+.idd_order span.ddTitleText
+{
+	text-indent:1px; overflow:hidden; line-height:25px; font-family:sans-serif; font-size:13px; color:#000;margin-left: 1px;
+}
+
+.idd_order .ddTitle span.ddTitleText img{text-align:left; padding:0 2px 0 2px;float:left;}
+.idd_order .ddTitle img.selected {
+	padding:0 2px 0 0;
+	vertical-align:top;
+}
+.idd_order .ddChild {
+	position:relative;
+	border:1px solid #c3c3c3;
+	border-top:none;
+	display:none;
+	margin:0;
+	width: 614px !important;
+	overflow:auto;
+	overflow-x:hidden !important;
+	background-color:#ffffff;
+	font-size:14px;
+	top: 0px !important;
+	left:-1px !important;
+}
+.idd_order .ddChild .opta a, .idd_order .ddChild .opta a:visited {padding-left:10px}
+.idd_order .ddChild a {
+	display:block;
+	padding:3px 0 3px 3px;
+	text-decoration:none;
+	color:#000;
+	overflow:hidden;
+	white-space:nowrap;
+	cursor:pointer;
+}
+.idd_order .ddChild a:hover {
+	background-color:#66CCFF;
+}
+.idd_order .ddChild a img {
+	border:0;
+	padding:0 2px 0 0;
+	vertical-align:middle;
+	float: left;
+}
+.idd_order .ddChild a.selected {
+	background-color:#66CCFF;
 }
 /*******************************/
 

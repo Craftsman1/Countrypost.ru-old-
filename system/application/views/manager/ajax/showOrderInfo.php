@@ -1,5 +1,5 @@
 <form id="orderForm" action="<?= $selfurl ?>updateOrder/<?= $order->order_id ?>" method="POST">
-	<? if ($order->order_client != $this->user->user_id) : ?>
+	<? if ($order->order_manager != $this->user->user_id OR empty($order->bid)) : ?>
 	<div class='clientOrderInfo' style="display:none;"></div>
 	<? else :
 		$is_editable = 	($order->order_client == $this->user->user_id) &&
@@ -46,54 +46,20 @@
 				<? endif; ?>
 			</span>
 		</div>
+		<div>
+			<span>
+				Клиент:
+			</span>
+			<span>
+				<a href="/main/profile/<?=$order->order_client?>"><?= $client->statistics->fullname ?> (<?= $client->statistics->login ?>)</a>
+			</span>
+		</div>
 		<div id="address_box" <? if (empty($order->order_manager)) : ?>style="display: none;"<? endif; ?>>
 			<span style="vertical-align: top;">
 				Адрес доставки и телефон:
 			</span>
 			<span style="display: inline-block;">
-				<? if ($is_editable) : ?>
-					<? if (empty($addresses)) : ?>
-						<textarea name="address_text" id="address_text" style="width:610px;resize:vertical;
-						"><?= $order->order_address ?></textarea>
-					<? else : ?>
-					<select id="address" name="address" style="width: 610px!important;clear: both;">
-						<option value="0" >выберите адрес...</option>
-						<? foreach ($addresses as $address) :
-							if ($address->is_generated)
-							{
-								$full_address = implode(', ', array(
-									$address->country_name,
-									$address->address_address,
-									$address->address_recipient
-								));
-							}
-							else
-							{
-								$full_address = implode(', ', array(
-									$address->address_zip,
-									$address->country_name,
-									$address->address_address,
-									$address->address_town,
-									'тел.' . $address->address_phone,
-									$address->address_recipient
-								));
-							}
-						?>
-						<option
-								value="<?= $address->address_id ?>"
-								title="/static/images/flags/<?= $address->country_name_en ?>.png"
-								<? if ($address->address_id == $order->address_id) : ?>
-								selected="true"
-								<? endif ?>
-						><?= $full_address ?></option>
-						<? endforeach; ?>
-					</select>
-					<br>
-					<a class="floatright" href="/profile">редактировать адреса</a>
-					<? endif; ?>
-				<? else : ?>
 				<?= $order->order_address ?>
-				<? endif; ?>
 			</span>
 		</div>
 		<div>
@@ -101,19 +67,13 @@
 				Способ международной доставки:
 			</span>
 			<span>
-				<? if ($is_editable) : ?>
-					<input type="text" name="delivery" id="delivery" style="width:612px;" value="<?=
-						empty($order->preferred_delivery) ?
-							(empty($order->bid->delivery_name) ?
-								'' :
-								$order->bid->delivery_name) :
-							$order->preferred_delivery ?>">
-				<? else : ?>
-				<?= $order->bid->delivery_name ?>
-				<? endif; ?>
+				<?= empty($order->preferred_delivery) ?
+						(empty($order->bid->delivery_name) ?
+							'' :
+							$order->bid->delivery_name) :
+						$order->preferred_delivery ?>
 			</span>
 		</div>
-		<? if ( ! empty($order->tracking_no)) : ?>
 		<div>
 			<span>
 				Tracking №:
@@ -122,7 +82,6 @@
 				<?= $order->tracking_no ?>
 			</span>
 		</div>
-		<? endif ?>
 		<div>
 			<span>
 				Добавлен:
@@ -168,8 +127,6 @@
 </form>
 <script>
 	$(function() {
-		$("#address").msDropDown({mainCSS:'idd_order'});
-
 		$('#orderForm').ajaxForm({
 			target: "<?= $selfurl ?>updateOrder/<?= $order->order_id ?>",
 			type: 'POST',

@@ -1,8 +1,6 @@
-<?
-$is_offer_accepted = ! empty($order->order_manager);
-$is_own_order = $is_offer_accepted AND ($order->order_manager == $this->user->user_id);
-?>
-<form class='admin-inside' id='detailsForm' action='<?=$selfurl?>updateProductAjax' enctype="multipart/form-data" method="POST">
+<? $is_own_order = ($this->user->user_id == $order->order_client); ?>
+<form class='admin-inside' id='detailsForm' action='<?= $selfurl ?>updateProductAjax' enctype="multipart/form-data"
+	  method="POST">
 	<div class='table'>
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>

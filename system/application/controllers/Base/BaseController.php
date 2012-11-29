@@ -351,6 +351,7 @@ abstract class BaseController extends Controller
 			$this->load->model('ClientModel', 'Clients');
 			$this->load->model('OdetailModel', 'Odetails');
 			$this->load->model('CountryModel', 'Countries');
+			$this->load->model('AddressModel', 'Addresses');
 
 			$chosen_bid = FALSE;
 			$statistics = array();
@@ -365,8 +366,10 @@ abstract class BaseController extends Controller
 			
 			// страны
 			$view['Countries'] = $this->Countries->getClientAvailableCountries($view['order']->order_client);
-			$view['order']->order_status_desc = $this->Orders->getOrderStatusDescription($view['order']->order_status);
-			$view['order_statuses'] = $this->Orders->getAvailableOrderStatuses();
+			//$view['order']->order_status_desc = $this->Orders->getOrderStatusDescription
+			//($view['order']->order_status);
+			//$view['order_statuses'] = $this->Orders->getAvailableOrderStatuses();
+			$view['statuses'] = $this->Orders->getAllStatuses();
 			
 			// предложения
 			$view['bids'] = $this->Bids->getBids($view['order']->order_id);
@@ -416,6 +419,16 @@ abstract class BaseController extends Controller
 				$chosen_bid)
 			{
 				$this->processStatistics($view['order'], $statistics, 'order_manager', $view['order']->order_manager, 'manager');
+			}
+
+			// адреса клиента
+			$view['addresses'] = $this->Addresses->getAddressesByUserId($view['order']->order_client);
+
+			// статусы, в которых можно редактировать заказ
+			if (isset($this->user->user_group))
+			{
+				$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
+				$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
 			}
 
 			// кнопка добавить предложение для посредника

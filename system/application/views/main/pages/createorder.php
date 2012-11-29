@@ -32,7 +32,6 @@
 			</div>
 		</div>
 	</div>
-  
 	<script type="text/javascript">
     (function($) {
       $.fn.getOrder = function(args)
