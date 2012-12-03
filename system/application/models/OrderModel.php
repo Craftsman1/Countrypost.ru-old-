@@ -479,36 +479,6 @@ class OrderModel extends BaseModel implements IModel{
 			ORDER BY `orders`.`order_date` DESC"
 		)->result();
 
-		/*
-		print_r("SELECT
-				`orders`.*,
-				@package_day:=TIMESTAMPDIFF(DAY, `orders`.`order_date`, NOW()) as package_day,
-				`users`.`user_login`  as `client_login`,
-				c1.`country_name` as `order_country_from`,
-				c1.`country_name_en` as `order_country_from_en`,
-				c2.`country_name` as `order_country_to`,
-				c2.`country_name_en` as `order_country_to_en`,
-				c1.`country_currency` as currency,
-				TIMESTAMPDIFF(HOUR, `orders`.`order_date`, NOW() - INTERVAL @package_day DAY) as `package_hour`
-			FROM `orders`
-			INNER JOIN `users` on `users`.`user_id` = `orders`.`order_client`
-			$managerJoin
-			INNER JOIN `countries` AS c1 on `orders`.`order_country_from` = c1.`country_id`
-			LEFT OUTER JOIN `countries` AS c2 on `orders`.`order_country_to` = c2.`country_id`
-			$bidJoin
-			WHERE
-				$statusFilter
-				$managerFilter
-				$periodFilter
-				$idFilter
-				$clientIdAccess
-				$managerIdAccess
-				$bidFilter
-				$countryFromFilter
-				$countryToFilter
-			ORDER BY `orders`.`order_date` DESC");die();
-		*/
-
 		// отдаем результат
 		return ((count($result) > 0 &&  $result) ? $result : false);		
 	}
@@ -938,20 +908,21 @@ class OrderModel extends BaseModel implements IModel{
 	
 	// полный пересчет стоимости заказа
 	// например, при удалении товара
-	public function recalculate($order, $OdetailModel, $OdetailJointModel, $config)
+	public function recalculate($order, $OdetailModel, $OdetailJointModel)
 	{
 		try
 		{
 			$order = $this->calculateTotals($order, $OdetailModel, $OdetailJointModel);
 		
-			if (!$order)
+			if (empty($order))
 			{
 				return FALSE;
 			}
-			
-			$order = $this->calculateCost($order, $config);
 
-			if (!$order)
+			// Дописать пересчет стоимости заказа
+			//$order = $this->calculateCost($order, $config);
+
+			if (empty($order))
 			{
 				return FALSE;
 			}
@@ -968,19 +939,64 @@ class OrderModel extends BaseModel implements IModel{
 	{
 		$total_price = 0;
 		$total_pricedelivery = 0;
-		$total_price_usd = 0;
-		$total_pricedelivery_usd = 0;
+		$total_weight = 0;
 		$joints = array();
 	
 		$odetails = $OdetailModel->getOrderDetails($order->order_id);
+
+		// вычисляем статус
+		$has_not_available_status = FALSE;
+		$has_processing_status = FALSE;
+		$has_available_status = FALSE;
+		$has_bought_status = FALSE;
+		$total_status = $order->order_status;
+
+		foreach ($odetails as $odetail)
+		{
+			switch ($odetail->odetail_status)
+			{
+				case 'processing' :
+					$has_processing_status = TRUE;
+					break;
+				case 'available' :
+					$has_available_status = TRUE;
+					break;
+				case 'not_available' :
+				case 'not_available_color' :
+				case 'not_available_size' :
+				case 'not_available_count' :
+					$has_not_available_status = TRUE;
+					break;
+				case 'bought' :
+					$has_bought_status = TRUE;
+					break;
+			}
+		}
+
+		if ($has_not_available_status)
+		{
+			$total_status = 'not_available';
+		}
+		else if ($has_processing_status)
+		{
+			$total_status = 'processing';
+		}
+		else if ($has_available_status)
+		{
+			$total_status = 'not_payed';
+		}
+		else if ($has_bought_status)
+		{
+			$total_status = 'bought';
+		}
 
 		// одиночные товары
 		foreach ($odetails as $odetail)
 		{
 			// подсчет сумм цен
 			$total_price += $odetail->odetail_price;
-			$total_price_usd += $odetail->odetail_price_usd;
-				
+			$total_weight += $odetail->odetail_weight;
+
 			// для объединенных товаров доставку считаем ниже
 			if ($odetail->odetail_joint_id)
 			{
@@ -992,33 +1008,28 @@ class OrderModel extends BaseModel implements IModel{
 			else
 			{
 				$total_pricedelivery += $odetail->odetail_pricedelivery;
-				$total_pricedelivery_usd += $odetail->odetail_pricedelivery_usd;
 			}
 		}
-		
+
 		// объединенные товары
 		foreach ($joints as $odetail_joint_id)
 		{
 			$joint = $OdetailJointModel->getById($odetail_joint_id);
-			if (!$joint) 
+			if (empty($joint))
 			{
-				throw new Exception('Некоторые товары не найдены. Попоробуйте еще раз.');
+				throw new Exception('Некоторые товары не найдены.');
 			}
 			
 			// суммируем доставку
 			$total_pricedelivery += $joint->odetail_joint_cost;
-			$total_pricedelivery_usd += $joint->odetail_joint_cost_usd;
-		}			
-			
+		}
+
 		// считаем стоимость заказа
-		$total_price_usd = ceil($total_price_usd);
-		$total_pricedelivery_usd = ceil($total_pricedelivery_usd);
-		
-		$order->order_products_cost_local = $total_price;
-		$order->order_delivery_cost_local = $total_pricedelivery;
-		$order->order_products_cost = $total_price_usd;
-		$order->order_delivery_cost = $total_pricedelivery_usd;
-		
+		$order->order_products_cost = $total_price;
+		$order->order_delivery_cost = $total_pricedelivery;
+		$order->order_weight = $total_weight;
+		$order->order_status = $total_status;
+
 		return $order;
 	}
 
@@ -1070,8 +1081,6 @@ class OrderModel extends BaseModel implements IModel{
 		{
 			foreach($view['odetails'] as $key => $val)
 			{
-				$view['odetails'][$key]->odetail_status_desc = $odetails_model->getOrderDetailsStatusDescription($val->odetail_status);
-				
 				// суммы
 				$view['order']->order_delivery_cost += $view['odetails'][$key]->odetail_pricedelivery;
 				if ($view['odetails'][$key]->odetail_foto_requested)

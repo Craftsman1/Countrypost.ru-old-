@@ -25,7 +25,7 @@ class OdetailModel extends BaseModel implements IModel{
 		'not_available_count' => 'Нет указанного кол-ва',
 		'bought' => 'Выкуплен',
 		'sent_by_seller' => 'Отправлен продавцом',
-		'received' => 'Получен',
+		'completed' => 'Получен',
 		'exchange' => 'Обмен',
 		'return' => 'Возврат',
 		'deleted' => 'Удален'
@@ -40,7 +40,7 @@ class OdetailModel extends BaseModel implements IModel{
 		'not_available_count' => 'Нет указанного кол-ва',
 		'bought' => 'Выкуплен',
 		'sent_by_seller' => 'Отправлен продавцом',
-		'received' => 'Получен',
+		'completed' => 'Получен',
 		'exchange' => 'Обмен',
 		'return' => 'Возврат'
 	);
@@ -54,7 +54,7 @@ class OdetailModel extends BaseModel implements IModel{
 		'not_available_count' => 'Нет указанного кол-ва',
 		'bought' => 'Выкуплен',
 		'sent_by_seller' => 'Отправлен продавцом',
-		'received' => 'Получен',
+		'completed' => 'Получен',
 		'exchange' => 'Обмен',
 		'return' => 'Возврат'
 	);
@@ -62,7 +62,7 @@ class OdetailModel extends BaseModel implements IModel{
 	private $service_statuses = array(
 		'processing' => 'Обрабатывается',
 		'available' => 'Не оплачено',
-		'bought' => 'Выполнено'//wtf???
+		'completed' => 'Выполнено'
 	);
 
 	private $delivery_statuses = array(
@@ -77,7 +77,14 @@ class OdetailModel extends BaseModel implements IModel{
 		'return' => 'Возврат'
 	);
 
-
+	// дублирует код из модели заказа. пока оставляем на правах кэширования этого массива
+	private $order_types = array(
+		'offline',
+		'online',
+		'service',
+		'delivery',
+		'mail_forwarding'
+	);
 
 	/**
 	 * конструктор
@@ -113,10 +120,10 @@ class OdetailModel extends BaseModel implements IModel{
 	{
 		$statuses = array();
 
-		foreach ($this->order_types as $key => $value)
+		foreach ($this->order_types as $type)
 		{
-			$name = "{$key}_statuses";
-			$statuses[$key] = $this->$name;
+			$name = "{$type}_statuses";
+			$statuses[$type] = $this->$name;
 		}
 
 		return $statuses;
@@ -152,7 +159,7 @@ class OdetailModel extends BaseModel implements IModel{
 	public function getList()
 	{
 		$sql = $this->select();
-		return ($sql)?($sql):(false);
+		return ($sql)?($sql):(FALSE);
 	}
 	
 	
@@ -186,7 +193,7 @@ class OdetailModel extends BaseModel implements IModel{
 			return $this->getById($new_id);
 		}
 		
-		return false;
+		return FALSE;
 	}
 	
 	public function updateOdetail($odetail_obj) {
@@ -205,7 +212,7 @@ class OdetailModel extends BaseModel implements IModel{
 			return $result;
 		}
 		
-		return false;
+		return FALSE;
 	}
 	
 	public function getFilteredDetails($filter) {
@@ -278,17 +285,12 @@ class OdetailModel extends BaseModel implements IModel{
 			$this->getPK()	=> (int) $id,
 		));					
 		
-		return ((count($r==1) &&  $r) ? array_shift($r) : false);
+		return ((count($r==1) &&  $r) ? array_shift($r) : FALSE);
 	}
 
 	public function getAvailableOrderDetailsStatuses()
 	{
 		return $this->statuses;
-	}
-
-	public function getOrderDetailsStatusDescription($detail_status)
-	{
-		return $this->statuses[$detail_status];
 	}
 
 	/**
@@ -303,7 +305,8 @@ class OdetailModel extends BaseModel implements IModel{
 			FROM `odetails`
 			LEFT OUTER JOIN `odetail_joints` ON
 				`odetail_joints`.`odetail_joint_id` = `odetails`.`odetail_joint_id`
-			WHERE `odetails`.`odetail_status` <> "deleted"
+			WHERE
+				`odetails`.`odetail_status` <> "deleted"
 				AND `odetails`.`odetail_order` = "'.intval($id).'"
 			ORDER BY 
 				`odetail_joints`.`odetail_joint_id` DESC,
@@ -343,7 +346,7 @@ class OdetailModel extends BaseModel implements IModel{
 			}
 		}
 		
-		return ((count($result) > 0 &&  $result) ? $result : false);		
+		return ((count($result) > 0 &&  $result) ? $result : FALSE);
 	}
 	
 	public function getOrderDetailsTotals($order_details_array)
@@ -429,24 +432,30 @@ class OdetailModel extends BaseModel implements IModel{
 		
 		if (!$row || count($row) != 1)
 		{
-			return false;
+			return FALSE;
 		}
 
 		return $row[0];		
 	}
 	
-	public function getManagerOdetailById($id, $manager_id) {		
-		$row = $this->db->query('
+	public function getManagerOdetailById($order_id, $odetail_id, $manager_id)
+	{
+		$row = $this->db->query("
 			SELECT `odetails`.*
 			FROM `odetails`
 			INNER JOIN `orders` ON `odetails`.`odetail_order` = `orders`.`order_id`
-			WHERE `odetails`.`odetail_id` = '.intval($id).'
-				AND `orders`.`order_manager` = '.intval($manager_id).'
-		')->result();
-		
-		if (!$row || count($row) != 1)
+			WHERE
+				`odetails`.`odetail_id` = '$odetail_id'
+				AND `orders`.`order_id` = '$order_id'
+				AND `orders`.`order_manager` = '$manager_id'
+				AND `orders`.`order_status` <> 'deleted'
+				AND `odetails`.`odetail_status` <> 'deleted'
+			LIMIT 1
+		")->result();
+
+		if (empty($row) OR count($row) != 1)
 		{
-			return false;
+			return FALSE;
 		}
 
 		return $row[0];		

@@ -989,4 +989,228 @@ class Manager extends ManagerBaseController {
 			print_r($e);
 		}
 	}
+
+	public function update_odetail_weight($order_id, $odetail_id, $weight)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				 ! is_numeric($odetail_id) OR
+				! is_numeric($weight))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'Odetails');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Заказ недоступен.');
+			}
+
+			// находим товар
+			$odetail = $this->Odetails->getManagerOdetailById($order_id, $odetail_id, $this->user->user_id);
+
+			if (empty($odetail))
+			{
+				throw new Exception('Товар не найден.');
+			}
+
+			$odetail->odetail_weight = $weight;
+
+			// сохранение результатов
+			$this->Odetails->addOdetail($odetail);
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+		}
+		catch (Exception $e)
+		{
+			print_r($e);
+		}
+	}
+
+	public function update_odetail_price($order_id, $odetail_id, $price)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				 ! is_numeric($odetail_id) OR
+				! is_numeric($price))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'Odetails');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Заказ недоступен.');
+			}
+
+			// находим товар
+			$odetail = $this->Odetails->getManagerOdetailById($order_id, $odetail_id, $this->user->user_id);
+
+			if (empty($odetail))
+			{
+				throw new Exception('Товар не найден.');
+			}
+
+			$odetail->odetail_price = $price;
+
+			// сохранение результатов
+			$this->Odetails->addOdetail($odetail);
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+		}
+		catch (Exception $e)
+		{
+			print_r($e);
+		}
+	}
+
+	public function update_odetail_pricedelivery($order_id, $odetail_id, $pricedelivery)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				 ! is_numeric($odetail_id) OR
+				! is_numeric($pricedelivery))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'Odetails');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Заказ недоступен.');
+			}
+
+			// находим товар
+			$odetail = $this->Odetails->getManagerOdetailById($order_id, $odetail_id, $this->user->user_id);
+
+			if (empty($odetail))
+			{
+				throw new Exception('Товар не найден.');
+			}
+
+			$odetail->odetail_pricedelivery = $pricedelivery;
+
+			// сохранение результатов
+			$this->Odetails->addOdetail($odetail);
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+		}
+		catch (Exception $e)
+		{
+			print_r($e);
+		}
+	}
+
+	public function update_odetail_status($order_id, $odetail_id, $status)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				 ! is_numeric($odetail_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Заказ недоступен.');
+			}
+
+			// валидация пользовательского ввода
+			$statuses = $this->Odetails->getAllStatuses();
+
+			if (empty($statuses[$order->order_type][$status]))
+			{
+				throw new Exception('Некорректный статус.');
+			}
+
+			// находим товар
+			$odetail = $this->Odetails->getManagerOdetailById($order_id, $odetail_id, $this->user->user_id);
+
+			if (empty($odetail))
+			{
+				throw new Exception('Товар не найден.');
+			}
+
+			$odetail->odetail_status = $status;
+
+			// сохранение результатов
+			$this->Odetails->addOdetail($odetail);
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+		}
+		catch (Exception $e)
+		{
+			print_r($e);
+		}
+	}
 }

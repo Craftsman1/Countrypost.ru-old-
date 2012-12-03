@@ -140,7 +140,7 @@ div.filter-box .select {
 	font: 13px sans-serif;
 	}
 
-div.filter-box span {
+div.filter-box span.label {
 	width: 100px;
 	margin-left: 10px;
 	font: 13px sans-serif;
@@ -1893,7 +1893,7 @@ div.add_order_box span.total ,div.search_results span.total {
 	cursor: pointer;
 }
 .idd .ddTitle span.arrow {
-	background:transparent url(/static/images/icon-arrow.gif) no-repeat 0 0; float:right; display:inline-block;width:27px; height:27px; cursor:pointer; top:-4px; position:relative; right:0px;
+	background:transparent url(/static/images/icon-arrow.gif) no-repeat 0 0; float:right; display:inline-block;width:27px; height:27px; cursor:pointer; top:0px; position:relative; right:0px;
 }
 
 .idd .ddTitle span.ddTitleText,
@@ -1954,7 +1954,7 @@ div.add_order_box span.total ,div.search_results span.total {
 	float:left;
 	border: 1px solid #AFAFAF;
 	height: 24px;
-	width: 614px!important;
+	width: 188px!important;
 	background: #F7F7F7;
 }
 .idd_order .ddTitle {
@@ -1967,7 +1967,7 @@ div.add_order_box span.total ,div.search_results span.total {
 	margin-bottom: 0;
 }
 .idd_order .ddTitle span.arrow {
-	background:transparent url(/static/images/icon-arrow.gif) no-repeat 0 0; float:right; display:inline-block;width:27px; height:27px; cursor:pointer; top:-4px; position:relative; right:0px;
+	background:transparent url(/static/images/icon-arrow.gif) no-repeat 0 0; float:right; display:inline-block;width:27px; height:27px; cursor:pointer; position:relative; right:0px;
 }
 
 .idd_order .ddTitle span.ddTitleText,
@@ -1987,7 +1987,7 @@ div.add_order_box span.total ,div.search_results span.total {
 	border-top:none;
 	display:none;
 	margin:0;
-	width: 614px !important;
+	width: 188px !important;
 	overflow:auto;
 	overflow-x:hidden !important;
 	background-color:#ffffff;
@@ -2523,4 +2523,11 @@ div.centered_th th,div.centered_td td
 	text-align:center;
 	vertical-align:middle;
 	white-space: nowrap;
+}
+
+table.order_details td
+{
+	font-size: 14px;
+	line-height: 19px;
+	vertical-align: middle;
 }

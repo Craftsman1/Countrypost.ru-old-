@@ -9,11 +9,14 @@
 	<? View::show('main/elements/orders/bids'); ?>
 </div>
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(function() {
+		$("input.int").keypress(function(event){validate_number(event);});
+
+
 		$('#orderForm input:text').keypress(function(event){validate_number(event);});
 
 		$('#detailsForm').ajaxForm({
-			target: '<?=$selfurl?>updateProductAjax/',
+			target: '<?= $selfurl ?>updateProductAjax/',
 			type: 'POST',
 			dataType: 'html',
 			iframe: true,
@@ -29,8 +32,107 @@
 			}
 		});
 	});
+
+	function update_odetail_weight(order_id, odetail_id)
+	{
+		var weight = $('input#odetail_weight' + odetail_id).val();
+		var uri = '<?= $selfurl ?>update_odetail_weight/' +
+				order_id + '/' +
+				odetail_id + '/' +
+				weight;
+
+		$.ajax({
+			url: uri,
+			beforeSend: function(data) {
+				$('img#progress' + odetail_id).show();
+			},
+			success: function(data) {
+				success('top', 'Вес товара №' + odetail_id + ' сохранен.');
+			},
+			error: function(data) {
+				error('top', 'Вес товара №' + odetail_id + ' не сохранен.');
+			},
+			complete: function(data) {
+				$('img#progress' + odetail_id).hide();
+			}
+		});
+	}
 	
-	
+	function update_odetail_price(order_id, odetail_id)
+	{
+		var price = $('input#odetail_price' + odetail_id).val();
+		var uri = '<?= $selfurl ?>update_odetail_price/' +
+				order_id + '/' +
+				odetail_id + '/' +
+				price;
+
+		$.ajax({
+			url: uri,
+			beforeSend: function(data) {
+				$('img#progress' + odetail_id).show();
+			},
+			success: function(data) {
+				success('top', 'Стоимость товара №' + odetail_id + ' сохранена.');
+			},
+			error: function(data) {
+				error('top', 'Стоимость товара №' + odetail_id + ' не сохранена.');
+			},
+			complete: function(data) {
+				$('img#progress' + odetail_id).hide();
+			}
+		});
+	}
+
+	function update_odetail_pricedelivery(order_id, odetail_id)
+	{
+		var pricedelivery = $('input#odetail_pricedelivery' + odetail_id).val();
+		var uri = '<?= $selfurl ?>update_odetail_pricedelivery/' +
+				order_id + '/' +
+				odetail_id + '/' +
+				pricedelivery;
+
+		$.ajax({
+			url: uri,
+			beforeSend: function(data) {
+				$('img#progress' + odetail_id).show();
+			},
+			success: function(data) {
+				success('top', 'Местная доставка товара №' + odetail_id + ' сохранена.');
+			},
+			error: function(data) {
+				error('top', 'Местная доставка товара №' + odetail_id + ' не сохранена.');
+			},
+			complete: function(data) {
+				$('img#progress' + odetail_id).hide();
+			}
+		});
+	}
+
+	function update_odetail_status(order_id, odetail_id)
+	{
+		var status = $('select#odetail_status' + odetail_id).val();
+		var uri = '<?= $selfurl ?>update_odetail_status/' +
+				order_id + '/' +
+				odetail_id + '/' +
+				status;
+
+		$.ajax({
+			url: uri,
+			beforeSend: function(data) {
+				$('img#progress' + odetail_id).show();
+			},
+			success: function(data) {
+				success('top', 'Статус товара №' + odetail_id + ' сохранен.');
+			},
+			error: function(data) {
+				error('top', 'Статус товара №' + odetail_id + ' не сохранен.');
+			},
+			complete: function(data) {
+				$('img#progress' + odetail_id).hide();
+			}
+		});
+	}
+
 	function editItem(id) {
 		if (!$('#odetail_shop_name' + id + ' textarea').length)
 		{
@@ -102,17 +204,6 @@
 		$(aa[0]).click();
 	}
 
-	function validate_number(evt) {
-		var theEvent = evt || window.event;
-		var key = theEvent.keyCode || theEvent.which;
-		key = String.fromCharCode( key );
-		var regex = /[0-9]|\./;
-		if( !regex.test(key) ) {
-			theEvent.returnValue = false;
-			theEvent.preventDefault();
-		}
-	}
-	
 	function updateItem(comment_id, user_login){
 		$('.save').hide();
 		$('.update').show();
@@ -125,13 +216,6 @@
 		window.location.href = '#edit_comment_area';
 	}
 
-	function editComment()
-	{
-		var $f = document.getElementById('commentForm');
-		$f.action = '<?=$selfurl?>addOrderComment/<?=$order->order_id?>/'+$('#comment_id').val();
-		$f.submit();
-	}
-	
 	function cancel(){
 		$('.save').show();
 		$('.update').hide();
@@ -171,32 +255,11 @@
 		}
 	}
 
-	function updateStatuses()
-	{
-		var queryString = $('#detailsForm').formSerialize(); 
-		$.post('<?=$selfurl?>updateOdetailStatuses/', queryString, function(result) {
-			self.location.reload();
-		});
-	}
-
 	function removeJoint(id)
 	{
 		if (confirm("Отменить объединение общей доставки?"))
 		{
 			window.location.href = '<?=$selfurl?>removeOdetailJoint/<?=$order->order_id?>/'+id;
-		}
-	}
-
-	function confirmUpdateCost()
-	{
-		return confirm("После нажатия кнопки Сохранить весь заказ будет обновлен и пересчитан по текущему курсу на главной странице. После этого сумма заказа может как увеличиться, так и уменьшиться.\n\nОб этом обязательно нужно предупредить клиента, написав в комментариях, либо любым другим способом.\n\nБез необходимости не нажимать на эту кнопку в оплаченном заказе.");
-	}	
-
-	function sendConfirmation()
-	{
-		if (confirm("Отправить клиенту уведомление о доставке заказа №<?=$order->order_id?>?"))
-		{
-			window.location.href = '<?=$selfurl?>sendOrderConfirmation/<?=$order->order_id?>';
 		}
 	}
 </script>

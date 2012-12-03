@@ -65,13 +65,15 @@
 			</span>
 		</div>
 		<div>
-			<span>
+			<span style="vertical-align: top;">
 				Tracking №:
 			</span>
 			<span>
 				<? if ($is_editable) : ?>
-				<input type="text" name="tracking_no" id="tracking_no" style="width:612px;" value="<?=
-					$order->tracking_no ?>">
+				<textarea name="tracking_no"
+						  id="tracking_no"
+						  style="width:188px;resize: vertical;"><?=
+					$order->tracking_no ?></textarea>
 				<? else : ?>
 				<?= $order->tracking_no ?>
 				<? endif; ?>

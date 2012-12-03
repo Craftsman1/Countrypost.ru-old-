@@ -357,7 +357,6 @@ abstract class BaseController extends Controller
 			$statistics = array();
 
 			// детали заказа
-			$view['odetails_statuses'] = $this->Odetails->getAvailableOrderDetailsStatuses();
 			$view['odetails'] = $this->Odetails->getOrderDetails($view['order']->order_id);
 
 			$this->Orders->prepareOrderView($view, 
@@ -366,11 +365,6 @@ abstract class BaseController extends Controller
 			
 			// страны
 			$view['Countries'] = $this->Countries->getClientAvailableCountries($view['order']->order_client);
-
-
-			// статусы заказов и товаров, сгруппированные по типу заказа
-			$view['statuses'] = $this->Orders->getAllStatuses();
-			$view['odetail_statuses'] = $this->Odetails->getAllStatuses();
 
 			// предложения
 			$view['bids'] = $this->Bids->getBids($view['order']->order_id);
@@ -431,6 +425,10 @@ abstract class BaseController extends Controller
 				$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
 				$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
 			}
+
+			// статусы заказов и товаров, сгруппированные по типу заказа
+			$view['statuses'] = $this->Orders->getAllStatuses();
+			$view['odetail_statuses'] = $this->Odetails->getAllStatuses();
 
 			// кнопка добавить предложение для посредника
 			$view['bids_accepted'] = empty($chosen_bid) && ($this->user->user_group == 'manager');
@@ -497,7 +495,7 @@ abstract class BaseController extends Controller
 
 			// детали заказа
 			$this->load->model('OdetailModel', 'Odetails');
-			$view['odetails_statuses'] = $this->Odetails->getAvailableOrderDetailsStatuses();
+			$view['editable_statuses'] = array();
 			$view['odetails'] = $this->Odetails->getOrderDetails($view['order']->order_id);
 
 			$this->load->model('CountryModel', 'Countries');
@@ -3154,7 +3152,6 @@ abstract class BaseController extends Controller
 			}
 			
 			// парсим шаблон
-			$detail->status_name = $this->OdetailModel->getOrderDetailsStatusDescription($detail->odetail_status);
 			$view['odetail'] = $detail;
 		}
 		catch (Exception $e)
