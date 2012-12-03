@@ -902,4 +902,91 @@ class Manager extends ManagerBaseController {
 		$this->session->set_userdata(array('orders_per_page' => $per_page));
 		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
+
+	public function updateOrder($order_id)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				'Невозможно сохранить детали заказа. Заказ недоступен.');
+
+			$this->load->model('OrderModel', 'Orders');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// валидация пользовательского ввода
+			$old_status = $order->order_status;
+			$old_tracking_no = $order->tracking_no;
+
+			$order->order_status = Check::str('order_status', 20, 1, '');
+			$order->tracking_no = Check::str('tracking_no', 255, 1, '');
+
+			$statuses = $this->Orders->getAllStatuses();
+
+			// валидируем статус
+			if (empty($statuses[$order->order_type][$order->order_status]) OR
+				$order->order_status == 'pending')
+			{
+				throw new Exception('Некорректный статус.');
+			}
+
+			// сохранение результатов
+			$this->Orders->saveOrder($order);
+		}
+		catch (Exception $e)
+		{
+			print_r($e);
+		}
+	}
+
+	public function closeOrder($order_id)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				'Невозможно сохранить детали заказа. Заказ недоступен.');
+
+			$this->load->model('OrderModel', 'Orders');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// валидация пользовательского ввода
+			$order->order_status = 'completed';
+			$order->tracking_no = Check::str('tracking_no', 255, 1, '');
+			$order->sent_date = date('Y-m-d H:i:s');
+
+			// сохранение результатов
+			$this->Orders->saveOrder($order);
+		}
+		catch (Exception $e)
+		{
+			print_r($e);
+		}
+	}
 }

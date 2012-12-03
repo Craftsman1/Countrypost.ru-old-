@@ -15,17 +15,69 @@ class OdetailModel extends BaseModel implements IModel{
 	protected  $properties			= null;				// array of properties
 	protected  $table				= 'odetails';			// table name
 	protected  $PK					= 'odetail_id';		// primary key name	
-	private    $_status_desc = array(
-					'processing' => 'Обрабатывается', 
-					'not_available' => 'Нет в наличии', 
-					'not_available_color' => 'Нет данного цвета',
-					'not_available_size' => 'Нет данного размера',
-					'not_available_count' => 'Нет указанного кол-ва',
-					'not_delivered' => 'Не доставлен',
-					'available' => 'Есть в наличии',
-					'purchased' => 'Выкуплен',
-					'received' => 'Получен'
-					);
+
+	private $statuses = array(
+		'processing' => 'Обрабатывается',//'Ждем прибытия',
+		'available' => 'Есть в наличии',///'Не оплачено','Получено'
+		'not_available' => 'Нет в наличии',
+		'not_available_color' => 'Нет данного цвета',
+		'not_available_size' => 'Нет данного размера',
+		'not_available_count' => 'Нет указанного кол-ва',
+		'bought' => 'Выкуплен',
+		'sent_by_seller' => 'Отправлен продавцом',
+		'received' => 'Получен',
+		'exchange' => 'Обмен',
+		'return' => 'Возврат',
+		'deleted' => 'Удален'
+		);
+
+	private $online_statuses = array(
+		'processing' => 'Обрабатывается',
+		'available' => 'Есть в наличии',
+		'not_available' => 'Нет в наличии',
+		'not_available_color' => 'Нет данного цвета',
+		'not_available_size' => 'Нет данного размера',
+		'not_available_count' => 'Нет указанного кол-ва',
+		'bought' => 'Выкуплен',
+		'sent_by_seller' => 'Отправлен продавцом',
+		'received' => 'Получен',
+		'exchange' => 'Обмен',
+		'return' => 'Возврат'
+	);
+
+	private $offline_statuses = array(
+		'processing' => 'Обрабатывается',
+		'available' => 'Есть в наличии',
+		'not_available' => 'Нет в наличии',
+		'not_available_color' => 'Нет данного цвета',
+		'not_available_size' => 'Нет данного размера',
+		'not_available_count' => 'Нет указанного кол-ва',
+		'bought' => 'Выкуплен',
+		'sent_by_seller' => 'Отправлен продавцом',
+		'received' => 'Получен',
+		'exchange' => 'Обмен',
+		'return' => 'Возврат'
+	);
+
+	private $service_statuses = array(
+		'processing' => 'Обрабатывается',
+		'available' => 'Не оплачено',
+		'bought' => 'Выполнено'//wtf???
+	);
+
+	private $delivery_statuses = array(
+		'processing' => 'Ждем прибытия',
+		'available' => 'Получено'
+	);
+
+	private $mail_forwarding_statuses = array(
+		'processing' => 'Ждем прибытия',
+		'available' => 'Получено',
+		'exchange' => 'Обмен',
+		'return' => 'Возврат'
+	);
+
+
 
 	/**
 	 * конструктор
@@ -56,8 +108,21 @@ class OdetailModel extends BaseModel implements IModel{
  		$this->properties->odetail_foto_requested	=0;
 		parent::__construct();
     }
-    
-   /**
+
+	public function getAllStatuses()
+	{
+		$statuses = array();
+
+		foreach ($this->order_types as $key => $value)
+		{
+			$name = "{$key}_statuses";
+			$statuses[$key] = $this->$name;
+		}
+
+		return $statuses;
+	}
+
+	/**
      * @see IModel
      * Инкапсуляция
      *
@@ -218,12 +283,12 @@ class OdetailModel extends BaseModel implements IModel{
 
 	public function getAvailableOrderDetailsStatuses()
 	{
-		return $this->_status_desc;
+		return $this->statuses;
 	}
 
 	public function getOrderDetailsStatusDescription($detail_status)
 	{
-		return $this->_status_desc[$detail_status];
+		return $this->statuses[$detail_status];
 	}
 
 	/**

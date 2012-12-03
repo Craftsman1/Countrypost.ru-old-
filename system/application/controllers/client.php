@@ -2190,7 +2190,7 @@ class Client extends ClientBaseController {
 			$this->load->model('AddressModel', 'Addresses');
 
 			// позволяет ли текущий статус редактирование
-			$editable_statuses = $this->Orders->getEditableStatuses('client');
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
 
 			if ( ! in_array($order->order_status, $editable_statuses))
 			{
@@ -2254,7 +2254,7 @@ class Client extends ClientBaseController {
 		}
 		catch (Exception $e)
 		{
-			print_r($e);
+
 		}
 	}
 }

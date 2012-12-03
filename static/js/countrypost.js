@@ -190,7 +190,7 @@ function order_status_handler(uri, page_status)
 			'/' +
 			$(this).val();
 
-		var order_id = $(this).attr('name').substring(11);
+		var order_id = $(this).attr('name').substring(12);
 
 		update_order_status($url, order_id);
 	});

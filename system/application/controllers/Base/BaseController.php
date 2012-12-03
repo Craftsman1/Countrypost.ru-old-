@@ -366,11 +366,12 @@ abstract class BaseController extends Controller
 			
 			// страны
 			$view['Countries'] = $this->Countries->getClientAvailableCountries($view['order']->order_client);
-			//$view['order']->order_status_desc = $this->Orders->getOrderStatusDescription
-			//($view['order']->order_status);
-			//$view['order_statuses'] = $this->Orders->getAvailableOrderStatuses();
+
+
+			// статусы заказов и товаров, сгруппированные по типу заказа
 			$view['statuses'] = $this->Orders->getAllStatuses();
-			
+			$view['odetail_statuses'] = $this->Odetails->getAllStatuses();
+
 			// предложения
 			$view['bids'] = $this->Bids->getBids($view['order']->order_id);
 
