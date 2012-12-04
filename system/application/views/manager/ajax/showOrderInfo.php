@@ -136,7 +136,7 @@
 	var noty_message = 'сохранен';
 
 	$(function() {
-		$("#order_status").msDropDown({mainCSS:'idd_order'});
+		//$("#order_status").msDropDown({mainCSS:'idd_order'});
 
 		$("#close_order").click(function() {
 			is_closing_order = true;

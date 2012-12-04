@@ -218,20 +218,13 @@ class OrderModel extends BaseModel implements IModel{
     	$this->properties->order_weight				= '';
     	$this->properties->order_cost				= '';
     	$this->properties->order_cost_payed			= '';
-    	$this->properties->order_country			= '';
-    	$this->properties->order_date				= '';    	
-    	$this->properties->order_status				= 'pending';
+    	$this->properties->order_date				= '';
+    	$this->properties->order_status				= '';
     	$this->properties->order_shop_name			= '';
     	$this->properties->comment_for_manager		= '';
     	$this->properties->comment_for_client		= '';
     	$this->properties->order_address			= '';
-    	$this->properties->order_login				= '';
     	$this->properties->order_delivery_cost		= '';
-    	$this->properties->package_delivery_cost	= '';
-    	$this->properties->package_id				= '';
-    	$this->properties->order_manager_login		= '';
-    	$this->properties->order_manager_country	= '';
-    	$this->properties->order_age				= '';
     	$this->properties->order_products_cost		= '';
     	$this->properties->order_comission			= '';
 		$this->properties->order_manager_comission	= '';
@@ -245,14 +238,7 @@ class OrderModel extends BaseModel implements IModel{
 		$this->properties->confirmation_sent		= '';
 		$this->properties->updated_by_client		= '';
 		
-    	$this->properties->order_delivery_cost_local			= '';
-    	$this->properties->order_products_cost_local			= '';
-    	$this->properties->order_manager_cost_local				= '';
-		$this->properties->order_manager_cost_payed_local		= '';
-		$this->properties->order_manager_comission_local		= '';
-		$this->properties->order_manager_comission_payed_local	= '';
-		$this->properties->order_is_red				= '';
-		$this->properties->order_city_to			= '';
+    	$this->properties->order_city_to			= '';
 		$this->properties->preferred_delivery		= '';
 		$this->properties->tracking_no		= '';
 		$this->properties->payed_date		= '';
@@ -1093,7 +1079,6 @@ class OrderModel extends BaseModel implements IModel{
 			}
 		}
 		
-		$view['order']->order_products_cost += $view['order']->order_delivery_cost;
 		$view['order']->manager_tax = ceil($view['order']->order_products_cost * $view['order']->manager_tax_percentage) * 0.01;
 		$view['order']->foto_tax = $view['order']->requested_foto_count * $view['order']->manager_foto_tax;
 		$view['order']->order_total_cost = 

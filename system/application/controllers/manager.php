@@ -545,12 +545,7 @@ class Manager extends ManagerBaseController {
 	{
 		$this->filter('paymentHistory', 'showPaymentHistory');
 	}
-	
-	public function updateProductAjax()
-	{
-		parent::updateProductAjax();
-	}
-	
+
 	public function addBid()
 	{
 		try 
@@ -1008,6 +1003,7 @@ class Manager extends ManagerBaseController {
 
 			$this->load->model('OrderModel', 'Orders');
 			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
 
 			// позволяет ли текущий статус редактирование
 			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
@@ -1037,11 +1033,17 @@ class Manager extends ManagerBaseController {
 			}
 
 			$this->Orders->saveOrder($order);
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
 		}
 		catch (Exception $e)
 		{
-			print_r($e);
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
 		}
+
+		print(json_encode($response));
 	}
 
 	public function update_odetail_price($order_id, $odetail_id, $price)
@@ -1062,6 +1064,7 @@ class Manager extends ManagerBaseController {
 
 			$this->load->model('OrderModel', 'Orders');
 			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
 
 			// позволяет ли текущий статус редактирование
 			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
@@ -1091,11 +1094,27 @@ class Manager extends ManagerBaseController {
 			}
 
 			$this->Orders->saveOrder($order);
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
 		}
 		catch (Exception $e)
 		{
-			print_r($e);
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
 		}
+
+		print(json_encode($response));
+	}
+
+	private function prepareOrderUpdateJSON($order)
+	{
+		return array(
+			'products_cost' => $order->order_products_cost,
+			'delivery_cost' => $order->order_delivery_cost,
+			'weight' => $order->order_weight,
+			'status' => $order->order_status
+		);
 	}
 
 	public function update_odetail_pricedelivery($order_id, $odetail_id, $pricedelivery)
@@ -1116,6 +1135,7 @@ class Manager extends ManagerBaseController {
 
 			$this->load->model('OrderModel', 'Orders');
 			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
 
 			// позволяет ли текущий статус редактирование
 			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
@@ -1145,11 +1165,17 @@ class Manager extends ManagerBaseController {
 			}
 
 			$this->Orders->saveOrder($order);
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
 		}
 		catch (Exception $e)
 		{
-			print_r($e);
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
 		}
+
+		print(json_encode($response));
 	}
 
 	public function update_odetail_status($order_id, $odetail_id, $status)
@@ -1207,10 +1233,212 @@ class Manager extends ManagerBaseController {
 			}
 
 			$this->Orders->saveOrder($order);
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
 		}
 		catch (Exception $e)
 		{
-			print_r($e);
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
 		}
+
+		print(json_encode($response));
+	}
+
+	public function updateProduct($order_id, $odetail_id)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				! is_numeric($odetail_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'Odetails');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Заказ недоступен.');
+			}
+
+			// находим товар
+			$odetail = $this->Odetails->getManagerOdetailById($order_id, $odetail_id, $this->user->user_id);
+
+			if (empty($odetail))
+			{
+				throw new Exception('Товар не найден.');
+			}
+
+			// парсим пользовательский ввод
+			Check::reset_empties();
+			$odetail->odetail_link				= Check::str('link', 500, 1);
+			$odetail->odetail_product_name		= Check::str('name', 255, 0, '');
+			$odetail->odetail_product_color		= Check::str('color', 255, 0, '');
+			$odetail->odetail_product_size		= Check::str('size', 255, 0, '');
+			$odetail->odetail_product_amount	= Check::int('amount');
+			$odetail->odetail_comment			= Check::str('comment', 255, 1, '');
+			$is_img_changed						= isset($_POST['img']) ? $_POST['img'] : FALSE;
+
+			if ($is_img_changed)
+			{
+				if ($is_img_changed == 2)
+				{
+					$userfile = isset($_FILES['userfile']) && !$_FILES['userfile']['error'];
+					$odetail->odetail_img = NULL;
+				}
+				else
+				{
+					$userfile = FALSE;
+					$odetail->odetail_img = Check::str('userfileimg', 500, 1);
+				}
+			}
+
+			$empties = Check::get_empties();
+
+			// валидация
+			if ($odetail->odetail_link === FALSE)
+			{
+				throw new Exception('Добавьте ссылку на товар.');
+			}
+
+			if ($empties AND
+				$is_img_changed)
+			{
+				if (isset($_FILES['userfile']) &&
+					$_FILES['userfile']['error'] == 1)
+				{
+					throw new Exception('Максимальный размер картинки 3MB.');
+				}
+				else
+				{
+					throw new Exception('Загрузите или добавьте ссылку на скриншот.');
+				}
+			}
+
+			$client_id = $order->order_client;
+
+			// открываем транзакцию
+			$this->db->trans_begin();
+
+			$this->Odetails->updateOdetail($odetail);
+
+			// загружаем файл
+			if (isset($userfile) && $userfile)
+			{
+				$old = umask(0);
+				// загрузка файла
+				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id")){
+					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id",0777);
+				}
+
+				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id";
+				$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
+				$config['max_size']				= '3072';
+				$config['encrypt_name'] 		= TRUE;
+				$max_width						= 1024;
+				$max_height						= 768;
+				$this->load->library('upload', $config);
+
+				if (!$this->upload->do_upload()) {
+					throw new Exception(strip_tags(trim($this->upload->display_errors())));
+				}
+
+				$uploadedImg = $this->upload->data();
+
+				// на сервере - '/upload/orders/'
+				$filename = $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id/{$odetail->odetail_id}.jpg";
+
+				if (file_exists($filename))
+				{
+					unlink($filename);
+				}
+
+				if (!rename($uploadedImg['full_path'], $filename))
+				{
+					throw new Exception("Bad file name!");
+				}
+
+				$imageInfo = getimagesize($filename);
+
+				if ($imageInfo[0]>$max_width || $imageInfo[1]>$max_height){
+
+					$config['image_library']	= 'gd2';
+					$config['source_image']		= $filename;
+					$config['maintain_ratio']	= TRUE;
+					$config['width']			= $max_width;
+					$config['height']			= $max_height;
+
+					$this->load->library('image_lib', $config); // загружаем библиотеку
+
+					$this->image_lib->resize(); // и вызываем функцию
+				}
+			}
+
+			// закрываем транзакцию
+			$this->db->trans_commit();
+/*
+			// уведомления
+			if (isset($is_new_status) && $is_new_status)
+			{
+				$this->load->model('ManagerModel', 'Managers');
+				$this->load->model('UserModel', 'Users');
+				$this->load->model('ClientModel', 'Clients');
+
+				Mailer::sendAdminNotification(
+					Mailer::SUBJECT_NEW_ORDER_STATUS,
+					Mailer::NEW_ORDER_STATUS_NOTIFICATION,
+					0,
+					$order->order_id,
+					0,
+					"http://countrypost.ru/admin/showOrderDetails/{$order->order_id}",
+					NULL,
+					NULL,
+					$status_caption);
+
+				Mailer::sendManagerNotification(
+					Mailer::SUBJECT_NEW_ORDER_STATUS,
+					Mailer::NEW_ORDER_STATUS_NOTIFICATION,
+					$order->order_manager,
+					$order->order_id,
+					0,
+					"http://countrypost.ru/manager/showOrderDetails/{$order->order_id}",
+					$this->Managers,
+					NULL,
+					$status_caption);
+
+				Mailer::sendClientNotification(
+					Mailer::SUBJECT_NEW_ORDER_STATUS,
+					Mailer::NEW_ORDER_STATUS_NOTIFICATION,
+					$order->order_id,
+					$order->order_client,
+					"http://countrypost.ru/client/showOrderDetails/{$order->order_id}",
+					$this->Clients,
+					$status_caption);
+
+				$view['new_order_status'] = $status_caption;
+			}
+*/
+
+			// отправляем cообщение
+			$response['message'] = "Описание товара №{$odetail->odetail_id} сохранено.";
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
 	}
 }

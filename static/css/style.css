@@ -2080,7 +2080,7 @@ div.new_order_box .textbox {
 	margin-bottom: 15px;
 	}
 
-div.new_order_box span {
+div.new_order_box span.label {
 	width: 190px;
 	margin-left: 10px;
 	font: 13px sans-serif;
@@ -2530,4 +2530,27 @@ table.order_details td
 	font-size: 14px;
 	line-height: 19px;
 	vertical-align: middle;
+}
+
+span.producteditor {
+	vertical-align: baseline;
+}
+
+span.producteditor br {
+	clear: both;
+}
+
+span.producteditor b {
+	display: inline-block;
+	height:14px;
+	margin-bottom: 14px;
+	vertical-align: baseline;
+}
+
+span.producteditor textarea {
+	width:150px;
+	height:14px;
+	margin-bottom: 14px;
+	resize:vertical;
+	float: right;
 }

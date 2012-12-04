@@ -103,16 +103,16 @@ class OdetailModel extends BaseModel implements IModel{
     	$this->properties->odetail_product_color	='';
     	$this->properties->odetail_product_size		='';
     	$this->properties->odetail_product_amount	='';
-    	$this->properties->odetail_status			='processing';
+    	$this->properties->odetail_comment			='';
+    	$this->properties->odetail_status			='';
 		$this->properties->odetail_price			=0;
-		$this->properties->odetail_price_usd		=0;
-    	$this->properties->odetail_pricedelivery    =0;
-    	$this->properties->odetail_pricedelivery_usd=0;
+		$this->properties->odetail_pricedelivery    =0;
     	$this->properties->odetail_img				='';
     	$this->properties->odetail_joint_id			=0;
     	$this->properties->odetail_weight			=0;
  		$this->properties->updated_by_client		=0;
  		$this->properties->odetail_foto_requested	=0;
+
 		parent::__construct();
     }
 
