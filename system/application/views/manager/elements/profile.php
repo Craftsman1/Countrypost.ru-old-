@@ -8,7 +8,7 @@
 			<img src="<?= IMG_PATH ?>avatar_big.png" width="200px" height="200px">
 			<br>
 			<br>
-			<a href="javascript:void();">изменить фото</a>
+			<a href="javascript:void(0);">изменить фото</a>
 		</form>
 	</div>
 	<div class='profile_box admin-inside'>

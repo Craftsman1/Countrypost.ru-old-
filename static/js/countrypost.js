@@ -32,7 +32,6 @@ function processStarClick(index, star)
 	{
 		$(star).parent().find('.star' + i).addClass('on');
 	}
-
 }
 
 function processStarHover(index, star)
@@ -190,8 +189,15 @@ function order_status_handler(uri, page_status)
 			'/' +
 			$(this).val();
 
-		var order_id = $(this).attr('name').substring(11);
+		var order_id = $(this).attr('name').substring(12);
 
 		update_order_status($url, order_id);
 	});
+}
+
+function setRel(id)
+{
+	$("a[rel*='lightbox_"+id+"']").lightBox();
+	var aa = $("a[rel*='lightbox_"+id+"']");
+	$(aa[0]).click();
 }

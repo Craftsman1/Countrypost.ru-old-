@@ -17,6 +17,28 @@ class OrderModel extends BaseModel implements IModel{
 		'deleted' => 'Удален'
 	);
 
+	private $editable_statuses = array(
+		'client' => array(
+			'pending',
+			'processing',
+			'not_payed'),
+		'manager' => array(
+			'processing',
+			'not_payed',
+			'not_available',
+			'payed',
+			'bought',
+			'completed')
+	);
+
+	private $payable_statuses = array(
+		'client' => array(
+			'not_payed',
+			'payed',
+			'bought'),
+		'manager' => array()
+	);
+
 	private $online_order_statuses = array(
 		'pending'   => 'Посредник не выбран',
 		'processing'   => 'Обрабатывается',
@@ -133,6 +155,16 @@ class OrderModel extends BaseModel implements IModel{
 		return 'open';
     }
 
+	public function getEditableStatuses($user_group)
+    {
+		return $this->editable_statuses[$user_group];
+    }
+
+	public function getPayableStatuses($user_group)
+    {
+		return $this->payable_statuses[$user_group];
+    }
+
 	public function getOrderTypes()
     {
 	    return $this->order_types;
@@ -186,20 +218,13 @@ class OrderModel extends BaseModel implements IModel{
     	$this->properties->order_weight				= '';
     	$this->properties->order_cost				= '';
     	$this->properties->order_cost_payed			= '';
-    	$this->properties->order_country			= '';
-    	$this->properties->order_date				= '';    	
-    	$this->properties->order_status				= 'pending';
+    	$this->properties->order_date				= '';
+    	$this->properties->order_status				= '';
     	$this->properties->order_shop_name			= '';
     	$this->properties->comment_for_manager		= '';
     	$this->properties->comment_for_client		= '';
     	$this->properties->order_address			= '';
-    	$this->properties->order_login				= '';
     	$this->properties->order_delivery_cost		= '';
-    	$this->properties->package_delivery_cost	= '';
-    	$this->properties->package_id				= '';
-    	$this->properties->order_manager_login		= '';
-    	$this->properties->order_manager_country	= '';
-    	$this->properties->order_age				= '';
     	$this->properties->order_products_cost		= '';
     	$this->properties->order_comission			= '';
 		$this->properties->order_manager_comission	= '';
@@ -213,15 +238,12 @@ class OrderModel extends BaseModel implements IModel{
 		$this->properties->confirmation_sent		= '';
 		$this->properties->updated_by_client		= '';
 		
-    	$this->properties->order_delivery_cost_local			= '';
-    	$this->properties->order_products_cost_local			= '';
-    	$this->properties->order_manager_cost_local				= '';
-		$this->properties->order_manager_cost_payed_local		= '';
-		$this->properties->order_manager_comission_local		= '';
-		$this->properties->order_manager_comission_payed_local	= '';
-		$this->properties->order_is_red				= '';
-		$this->properties->order_city_to			= '';
+    	$this->properties->order_city_to			= '';
 		$this->properties->preferred_delivery		= '';
+		$this->properties->tracking_no		= '';
+		$this->properties->payed_date		= '';
+		$this->properties->sent_date		= '';
+		$this->properties->address_id		= '';
 
 		parent::__construct();
     }
@@ -282,16 +304,19 @@ class OrderModel extends BaseModel implements IModel{
 		return array_keys((array) $this->properties);
 	}	
 	
-	public function addOrder($order_obj) {
+	public function addOrder($order_obj)
+	{
 		$props = $this->getPropertyList();
 		
-		foreach ($props as $prop){
-			if (isset($order_obj->$prop)){
+		foreach ($props as $prop)
+		{
+			if (isset($order_obj->$prop))
+			{
 				$this->_set($prop, $order_obj->$prop);
 			}
 		}
 		
-		$new_id = $this->save(true);
+		$new_id = $this->save(TRUE);
 		
 		// TODO : На этом этапе можно смело удалять все заказы с `orders`.order_client = $_SESSION['temporary_user_id'] 
 		//        если не предусмотрен иной сборщик мусора 
@@ -303,7 +328,8 @@ class OrderModel extends BaseModel implements IModel{
 		return false;
 	}
 	
-	public function getClientOrders($client_id) {
+	public function getClientOrders($client_id)
+	{
 		return $this->db->query('
 			SELECT `'.$this->table.'`.*, `countries`.`country_name`
 			FROM `'.$this->table.'`
@@ -312,27 +338,7 @@ class OrderModel extends BaseModel implements IModel{
 	}
 	
 	/**
-	 * Get open orders by manager id
-	 *
-	 * @return array
-	 */
-	public function getOpenOrdersByManagerId($id){
-		$result = $this->select(array('order_manager' => $id));
-		
-		$result = $this->db->query('
-			SELECT `'.$this->table.'`.*
-			FROM `'.$this->table.'`
-			WHERE `'.$this->table.'`.`order_manager` = '.$id.'
-				AND `'.$this->table.'`.`order_status` <> "sended"
-				AND `'.$this->table.'`.`order_status` <> "payed"
-				AND `'.$this->table.'`.`order_status` <> "deleted"
-		')->result();
-		
-		return ((count($result) > 0 &&  $result) ? $result : false);		
-	}
-	
-	/**
-	 * Get all open orders
+	 * Get filtered orders
 	 *
 	 * @return array
 	 */
@@ -458,36 +464,6 @@ class OrderModel extends BaseModel implements IModel{
 				$countryToFilter
 			ORDER BY `orders`.`order_date` DESC"
 		)->result();
-
-		/*
-		print_r("SELECT
-				`orders`.*,
-				@package_day:=TIMESTAMPDIFF(DAY, `orders`.`order_date`, NOW()) as package_day,
-				`users`.`user_login`  as `client_login`,
-				c1.`country_name` as `order_country_from`,
-				c1.`country_name_en` as `order_country_from_en`,
-				c2.`country_name` as `order_country_to`,
-				c2.`country_name_en` as `order_country_to_en`,
-				c1.`country_currency` as currency,
-				TIMESTAMPDIFF(HOUR, `orders`.`order_date`, NOW() - INTERVAL @package_day DAY) as `package_hour`
-			FROM `orders`
-			INNER JOIN `users` on `users`.`user_id` = `orders`.`order_client`
-			$managerJoin
-			INNER JOIN `countries` AS c1 on `orders`.`order_country_from` = c1.`country_id`
-			LEFT OUTER JOIN `countries` AS c2 on `orders`.`order_country_to` = c2.`country_id`
-			$bidJoin
-			WHERE
-				$statusFilter
-				$managerFilter
-				$periodFilter
-				$idFilter
-				$clientIdAccess
-				$managerIdAccess
-				$bidFilter
-				$countryFromFilter
-				$countryToFilter
-			ORDER BY `orders`.`order_date` DESC");die();
-		*/
 
 		// отдаем результат
 		return ((count($result) > 0 &&  $result) ? $result : false);		
@@ -668,16 +644,44 @@ class OrderModel extends BaseModel implements IModel{
 	 *
 	 * @return array
 	 */
-	public function getManagerOrderById($order_id, $manager_id){
+	public function getManagerOrderById($order_id, $manager_id)
+	{
 		$order = $this->getById($order_id);
 		
-		if ($order &&
-			$order->order_manager == $manager_id)
+		if (empty($order) OR
+			$order->order_status == 'deleted')
+		{
+			return FALSE;
+		}
+
+		// нашли заказ у посредника
+		if ($order->order_manager == $manager_id)
 		{
 			return $order;
 		}
 
-		return false;
+		// ищем предложения
+		else if (empty($order->order_manager) AND
+			$order->order_status == 'pending')
+		{
+			$result = $this->db->query("
+				SELECT 1
+				FROM `bids`
+				WHERE
+					`bids`.`status` <> 'deleted'
+					AND `bids`.`order_id` = $order_id
+					AND `bids`.`manager_id` = $manager_id
+				GROUP BY `bids`.`manager_id`, `bids`.`order_id`
+			")->result();
+
+			// отдаем результат
+			if ((count($result > 0) &&  $result))
+			{
+				return $order;
+			}
+		}
+
+		return FALSE;
 	}
 	
 	/**
@@ -685,23 +689,29 @@ class OrderModel extends BaseModel implements IModel{
 	 *
 	 * @return array
 	 */
-	public function getClientOrderById($order_id, $client_id){
+	public function getClientOrderById($order_id, $client_id)
+	{
 		$order = $this->getById($order_id);
 		
 		// Если пользователь создавший заказ совпадает с авторизованным пользователем в рамках текущей сессии
 		if ($order AND
-			($order->order_client == $client_id OR
-			 (isset($_SESSION['temporary_user_id']) AND $order->order_client == $_SESSION['temporary_user_id'])))
+			$order->order_status != 'deleted' AND
+			($order->order_client == $client_id OR (
+				isset($_SESSION['temporary_user_id']) AND
+				 $order->order_client == $_SESSION['temporary_user_id'])))
 		{
 			// Заменяем временное значение ID клиента на ID реального клиента 
 			// если пользователь авторизовался в процессе оформления заказа
-			if (isset($_SESSION['temporary_user_id']) AND $order->order_client == $_SESSION['temporary_user_id'])
+			if (isset($_SESSION['temporary_user_id']) AND
+				$order->order_client == $_SESSION['temporary_user_id'])
+			{
 				$order->order_client = $client_id;
+			}
 			
 			return $order;
 		}
 
-		return false;
+		return FALSE;
 	}
 	
 	/**
@@ -709,20 +719,23 @@ class OrderModel extends BaseModel implements IModel{
 	 * Выкидывает исключения на некорректные данные
 	 * 
 	 * @param (object) 	- $order
-	 * @return (mixed)	- объект order или false в случае ошибки записи в базу
+	 * @return (mixed)	- объект order или FALSE в случае ошибки записи в базу
 	 */
-	public function saveOrder($order){
+	public function saveOrder($order)
+	{
 		$props = $this->getPropertyList();
 		
-		foreach ($props as $prop){
-			if (isset($order->$prop)){
+		foreach ($props as $prop)
+		{
+			if (isset($order->$prop))
+			{
 				$this->_set($prop, $order->$prop);
 			}
 		}
 		
-		$new_id = $this->save(true);
+		$new_id = $this->save(TRUE);
 		
-		if (!$new_id) return false;
+		if (!$new_id) return FALSE;
 		
 		return $this->getInfo(array($new_id));
 	}
@@ -736,7 +749,7 @@ class OrderModel extends BaseModel implements IModel{
 		
 		$result = $this->select(array('order_manager' => $id, 'order_status' => 'sended'));
 		
-		return ((count($result) > 0 &&  $result) ? $result : false);		
+		return ((count($result) > 0 &&  $result) ? $result : FALSE);
 	}
 	
 	/**
@@ -749,7 +762,7 @@ class OrderModel extends BaseModel implements IModel{
 		if (!$order->order_country_from ||
 			!$order->order_country_to)
 		{
-			$order->delivery_list = false;
+			$order->delivery_list = FALSE;
 		}
 		else
 		{		
@@ -848,7 +861,7 @@ class OrderModel extends BaseModel implements IModel{
 			$order->order_delivery_cost_local +
 			$order->order_manager_comission_local;
 						
-		return $order->order_cost ? $order : false;
+		return $order->order_cost ? $order : FALSE;
 	}
 	
 	/**
@@ -881,50 +894,95 @@ class OrderModel extends BaseModel implements IModel{
 	
 	// полный пересчет стоимости заказа
 	// например, при удалении товара
-	public function recalculate($order, $OdetailModel, $OdetailJointModel, $config)
+	public function recalculate($order, $OdetailModel, $OdetailJointModel)
 	{
 		try
 		{
 			$order = $this->calculateTotals($order, $OdetailModel, $OdetailJointModel);
 		
-			if (!$order)
+			if (empty($order))
 			{
-				return false;
+				return FALSE;
 			}
-			
-			$order = $this->calculateCost($order, $config);
-		//	print_r($order);die();	
-		
-			if (!$order)
+
+			// Дописать пересчет стоимости заказа
+			//$order = $this->calculateCost($order, $config);
+
+			if (empty($order))
 			{
-				return false;
+				return FALSE;
 			}
 		}
 		catch (Exception $e) 
 		{
-			return false;
+			return FALSE;
 		}
 		
-		return true;
+		return TRUE;
 	}
 	
 	private function calculateTotals($order, $OdetailModel, $OdetailJointModel)
 	{
 		$total_price = 0;
 		$total_pricedelivery = 0;
-		$total_price_usd = 0;
-		$total_pricedelivery_usd = 0;
+		$total_weight = 0;
 		$joints = array();
 	
 		$odetails = $OdetailModel->getOrderDetails($order->order_id);
+
+		// вычисляем статус
+		$has_not_available_status = FALSE;
+		$has_processing_status = FALSE;
+		$has_available_status = FALSE;
+		$has_bought_status = FALSE;
+		$total_status = $order->order_status;
+
+		foreach ($odetails as $odetail)
+		{
+			switch ($odetail->odetail_status)
+			{
+				case 'processing' :
+					$has_processing_status = TRUE;
+					break;
+				case 'available' :
+					$has_available_status = TRUE;
+					break;
+				case 'not_available' :
+				case 'not_available_color' :
+				case 'not_available_size' :
+				case 'not_available_count' :
+					$has_not_available_status = TRUE;
+					break;
+				case 'bought' :
+					$has_bought_status = TRUE;
+					break;
+			}
+		}
+
+		if ($has_not_available_status)
+		{
+			$total_status = 'not_available';
+		}
+		else if ($has_processing_status)
+		{
+			$total_status = 'processing';
+		}
+		else if ($has_available_status)
+		{
+			$total_status = 'not_payed';
+		}
+		else if ($has_bought_status)
+		{
+			$total_status = 'bought';
+		}
 
 		// одиночные товары
 		foreach ($odetails as $odetail)
 		{
 			// подсчет сумм цен
 			$total_price += $odetail->odetail_price;
-			$total_price_usd += $odetail->odetail_price_usd;
-				
+			$total_weight += $odetail->odetail_weight;
+
 			// для объединенных товаров доставку считаем ниже
 			if ($odetail->odetail_joint_id)
 			{
@@ -936,33 +994,28 @@ class OrderModel extends BaseModel implements IModel{
 			else
 			{
 				$total_pricedelivery += $odetail->odetail_pricedelivery;
-				$total_pricedelivery_usd += $odetail->odetail_pricedelivery_usd;
 			}
 		}
-		
+
 		// объединенные товары
 		foreach ($joints as $odetail_joint_id)
 		{
 			$joint = $OdetailJointModel->getById($odetail_joint_id);
-			if (!$joint) 
+			if (empty($joint))
 			{
-				throw new Exception('Некоторые товары не найдены. Попоробуйте еще раз.');
+				throw new Exception('Некоторые товары не найдены.');
 			}
 			
 			// суммируем доставку
 			$total_pricedelivery += $joint->odetail_joint_cost;
-			$total_pricedelivery_usd += $joint->odetail_joint_cost_usd;
-		}			
-			
+		}
+
 		// считаем стоимость заказа
-		$total_price_usd = ceil($total_price_usd);
-		$total_pricedelivery_usd = ceil($total_pricedelivery_usd);
-		
-		$order->order_products_cost_local = $total_price;
-		$order->order_delivery_cost_local = $total_pricedelivery;
-		$order->order_products_cost = $total_price_usd;
-		$order->order_delivery_cost = $total_pricedelivery_usd;
-		
+		$order->order_products_cost = $total_price;
+		$order->order_delivery_cost = $total_pricedelivery;
+		$order->order_weight = $total_weight;
+		$order->order_status = $total_status;
+
 		return $order;
 	}
 
@@ -1014,8 +1067,6 @@ class OrderModel extends BaseModel implements IModel{
 		{
 			foreach($view['odetails'] as $key => $val)
 			{
-				$view['odetails'][$key]->odetail_status_desc = $odetails_model->getOrderDetailsStatusDescription($val->odetail_status);
-				
 				// суммы
 				$view['order']->order_delivery_cost += $view['odetails'][$key]->odetail_pricedelivery;
 				if ($view['odetails'][$key]->odetail_foto_requested)
@@ -1028,7 +1079,6 @@ class OrderModel extends BaseModel implements IModel{
 			}
 		}
 		
-		$view['order']->order_products_cost += $view['order']->order_delivery_cost;
 		$view['order']->manager_tax = ceil($view['order']->order_products_cost * $view['order']->manager_tax_percentage) * 0.01;
 		$view['order']->foto_tax = $view['order']->requested_foto_count * $view['order']->manager_foto_tax;
 		$view['order']->order_total_cost = 

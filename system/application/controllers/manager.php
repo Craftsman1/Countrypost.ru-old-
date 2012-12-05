@@ -41,7 +41,6 @@ class Manager extends ManagerBaseController {
 		$filter->id_type = Check::txt('id_type', 13, 5, '');
 		$filter->id_status = Check::txt('id_status', 20, 1, '');
 		$filter->country_to = Check::int('country_to');
-		$filter->search_client = Check::txt('search_client', 11, 1, '');
 
 		if (empty($filter->id_type))
 		{
@@ -104,7 +103,33 @@ class Manager extends ManagerBaseController {
 	{
 		parent::showOrderDetails();
 	}
-	
+
+	protected function showOrderBreadcrumb($order, $bids)
+	{
+		$index = 1;
+
+		if ($order->order_manager == $this->user->user_id)
+		{
+			$index = 2;
+		}
+		else if (empty($order->order_manager) AND
+			$bids)
+		{
+			foreach ($bids as $bid)
+			{
+				if ($bid->manager_id == $this->user->user_id)
+				{
+					$index = 2;
+					break;
+				}
+			}
+		}
+
+		Breadcrumb::setCrumb(array(
+			"/manager/order/{$order->order_id}" => "Заказ №{$order->order_id}"
+		), $index, TRUE);
+	}
+
 	public function joinProducts($order_id)
 	{
 		parent::joinProducts($order_id);
@@ -520,12 +545,7 @@ class Manager extends ManagerBaseController {
 	{
 		$this->filter('paymentHistory', 'showPaymentHistory');
 	}
-	
-	public function updateProductAjax()
-	{
-		parent::updateProductAjax();
-	}
-	
+
 	public function addBid()
 	{
 		try 
@@ -876,5 +896,509 @@ class Manager extends ManagerBaseController {
 
 		$this->session->set_userdata(array('orders_per_page' => $per_page));
 		Func::redirect($_SERVER['HTTP_REFERER']);
+	}
+
+	public function updateOrder($order_id)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				'Невозможно сохранить детали заказа. Заказ недоступен.');
+
+			$this->load->model('OrderModel', 'Orders');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// валидация пользовательского ввода
+			$old_status = $order->order_status;
+			$old_tracking_no = $order->tracking_no;
+
+			$order->order_status = Check::str('order_status', 20, 1, '');
+			$order->tracking_no = Check::str('tracking_no', 255, 1, '');
+
+			$statuses = $this->Orders->getAllStatuses();
+
+			// валидируем статус
+			if (empty($statuses[$order->order_type][$order->order_status]) OR
+				$order->order_status == 'pending')
+			{
+				throw new Exception('Некорректный статус.');
+			}
+
+			// сохранение результатов
+			$this->Orders->saveOrder($order);
+		}
+		catch (Exception $e)
+		{
+			print_r($e);
+		}
+	}
+
+	public function closeOrder($order_id)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				'Невозможно сохранить детали заказа. Заказ недоступен.');
+
+			$this->load->model('OrderModel', 'Orders');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// валидация пользовательского ввода
+			$order->order_status = 'completed';
+			$order->tracking_no = Check::str('tracking_no', 255, 1, '');
+			$order->sent_date = date('Y-m-d H:i:s');
+
+			// сохранение результатов
+			$this->Orders->saveOrder($order);
+		}
+		catch (Exception $e)
+		{
+			print_r($e);
+		}
+	}
+
+	public function update_odetail_weight($order_id, $odetail_id, $weight)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				 ! is_numeric($odetail_id) OR
+				! is_numeric($weight))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Заказ недоступен.');
+			}
+
+			// находим товар
+			$odetail = $this->Odetails->getManagerOdetailById($order_id, $odetail_id, $this->user->user_id);
+
+			if (empty($odetail))
+			{
+				throw new Exception('Товар не найден.');
+			}
+
+			$odetail->odetail_weight = $weight;
+
+			// сохранение результатов
+			$this->Odetails->addOdetail($odetail);
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
+	}
+
+	public function update_odetail_price($order_id, $odetail_id, $price)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				 ! is_numeric($odetail_id) OR
+				! is_numeric($price))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Заказ недоступен.');
+			}
+
+			// находим товар
+			$odetail = $this->Odetails->getManagerOdetailById($order_id, $odetail_id, $this->user->user_id);
+
+			if (empty($odetail))
+			{
+				throw new Exception('Товар не найден.');
+			}
+
+			$odetail->odetail_price = $price;
+
+			// сохранение результатов
+			$this->Odetails->addOdetail($odetail);
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
+	}
+
+	private function prepareOrderUpdateJSON($order)
+	{
+		return array(
+			'products_cost' => $order->order_products_cost,
+			'delivery_cost' => $order->order_delivery_cost,
+			'weight' => $order->order_weight,
+			'status' => $order->order_status
+		);
+	}
+
+	public function update_odetail_pricedelivery($order_id, $odetail_id, $pricedelivery)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				 ! is_numeric($odetail_id) OR
+				! is_numeric($pricedelivery))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Заказ недоступен.');
+			}
+
+			// находим товар
+			$odetail = $this->Odetails->getManagerOdetailById($order_id, $odetail_id, $this->user->user_id);
+
+			if (empty($odetail))
+			{
+				throw new Exception('Товар не найден.');
+			}
+
+			$odetail->odetail_pricedelivery = $pricedelivery;
+
+			// сохранение результатов
+			$this->Odetails->addOdetail($odetail);
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
+	}
+
+	public function update_odetail_status($order_id, $odetail_id, $status)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				 ! is_numeric($odetail_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Заказ недоступен.');
+			}
+
+			// валидация пользовательского ввода
+			$statuses = $this->Odetails->getAllStatuses();
+
+			if (empty($statuses[$order->order_type][$status]))
+			{
+				throw new Exception('Некорректный статус.');
+			}
+
+			// находим товар
+			$odetail = $this->Odetails->getManagerOdetailById($order_id, $odetail_id, $this->user->user_id);
+
+			if (empty($odetail))
+			{
+				throw new Exception('Товар не найден.');
+			}
+
+			$odetail->odetail_status = $status;
+
+			// сохранение результатов
+			$this->Odetails->addOdetail($odetail);
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
+	}
+
+	public function updateProduct($order_id, $odetail_id)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				! is_numeric($odetail_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'Odetails');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Заказ недоступен.');
+			}
+
+			// находим товар
+			$odetail = $this->Odetails->getManagerOdetailById($order_id, $odetail_id, $this->user->user_id);
+
+			if (empty($odetail))
+			{
+				throw new Exception('Товар не найден.');
+			}
+
+			// парсим пользовательский ввод
+			Check::reset_empties();
+			$odetail->odetail_link				= Check::str('link', 500, 1);
+			$odetail->odetail_product_name		= Check::str('name', 255, 0, '');
+			$odetail->odetail_product_color		= Check::str('color', 255, 0, '');
+			$odetail->odetail_product_size		= Check::str('size', 255, 0, '');
+			$odetail->odetail_product_amount	= Check::int('amount');
+			$odetail->odetail_comment			= Check::str('comment', 255, 1, '');
+
+			// проверяем, загружается картинка или ссылка
+			$img_selector = Check::str('img_selector', 4, 4, '');
+			$is_file_uploaded = ($img_selector == 'file') ? TRUE : FALSE;
+
+			if ($is_file_uploaded)
+			{
+				$userfile = isset($_FILES['userfile']) && !$_FILES['userfile']['error'];
+				$odetail->odetail_img = NULL;
+			}
+			else
+			{
+				$userfile = FALSE;
+				$odetail->odetail_img = Check::str('img', 4096, 1, NULL);
+			}
+
+			// валидация
+			if (empty($odetail->odetail_link))
+			{
+				throw new Exception('Добавьте ссылку на товар.');
+			}
+
+			//print_r($is_file_uploaded);
+			//print_r($userfile);
+			//die();
+
+			if ($is_file_uploaded AND
+				empty($userfile))
+			{
+				if (isset($_FILES['userfile']) &&
+					$_FILES['userfile']['error'] == 1)
+				{
+					throw new Exception('Максимальный размер картинки 3MB.');
+				}
+				else
+				{
+					throw new Exception('Загрузите или добавьте ссылку на скриншот.');
+				}
+			}
+
+			$client_id = $order->order_client;
+
+			// открываем транзакцию
+			$this->db->trans_begin();
+
+			$this->Odetails->updateOdetail($odetail);
+
+			// загружаем файл
+			if (isset($userfile) && $userfile)
+			{
+				$old = umask(0);
+				// загрузка файла
+				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id")){
+					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id",0777);
+				}
+
+				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id";
+				$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
+				$config['max_size']				= '3072';
+				$config['encrypt_name'] 		= TRUE;
+				$max_width						= 1024;
+				$max_height						= 768;
+				$this->load->library('upload', $config);
+
+				if (!$this->upload->do_upload()) {
+					throw new Exception(strip_tags(trim($this->upload->display_errors())));
+				}
+
+				$uploadedImg = $this->upload->data();
+
+				// на сервере - '/upload/orders/'
+				$filename = $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id/{$odetail->odetail_id}.jpg";
+
+				if (file_exists($filename))
+				{
+					unlink($filename);
+				}
+
+				if (!rename($uploadedImg['full_path'], $filename))
+				{
+					throw new Exception("Bad file name!");
+				}
+
+				$imageInfo = getimagesize($filename);
+
+				if ($imageInfo[0]>$max_width || $imageInfo[1]>$max_height){
+
+					$config['image_library']	= 'gd2';
+					$config['source_image']		= $filename;
+					$config['maintain_ratio']	= TRUE;
+					$config['width']			= $max_width;
+					$config['height']			= $max_height;
+
+					$this->load->library('image_lib', $config); // загружаем библиотеку
+
+					$this->image_lib->resize(); // и вызываем функцию
+				}
+			}
+
+			// закрываем транзакцию
+			$this->db->trans_commit();
+
+			// отправляем cообщение на страницу
+			$response['message'] = "Описание товара №{$odetail->odetail_id} сохранено.";
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
 	}
 }

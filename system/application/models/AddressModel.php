@@ -33,7 +33,8 @@ class AddressModel extends BaseModel implements IModel{
         $this->properties->address_address = '';
         $this->properties->address_phone = '';
         $this->properties->address_is_default = '';
-    	
+        $this->properties->is_generated = '';
+
         parent::__construct();
     }
     

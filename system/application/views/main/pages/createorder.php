@@ -1,7 +1,5 @@
-<div class='content'>
+<div class='content smallheader'>
 	<? Breadcrumb::showCrumbs(); ?>
-	<br>
-	<br>
 	<h2 id='page_title'>Выберите вид заказа:</h2>
 	<div class="order_type_selector">
 		<div class="online_order order">
@@ -34,7 +32,6 @@
 			</div>
 		</div>
 	</div>
-  
 	<script type="text/javascript">
     (function($) {
       $.fn.getOrder = function(args)

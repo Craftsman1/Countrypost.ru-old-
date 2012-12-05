@@ -15,17 +15,76 @@ class OdetailModel extends BaseModel implements IModel{
 	protected  $properties			= null;				// array of properties
 	protected  $table				= 'odetails';			// table name
 	protected  $PK					= 'odetail_id';		// primary key name	
-	private    $_status_desc = array(
-					'processing' => 'Обрабатывается', 
-					'not_available' => 'Нет в наличии', 
-					'not_available_color' => 'Нет данного цвета',
-					'not_available_size' => 'Нет данного размера',
-					'not_available_count' => 'Нет указанного кол-ва',
-					'not_delivered' => 'Не доставлен',
-					'available' => 'Есть в наличии',
-					'purchased' => 'Выкуплен',
-					'received' => 'Получен'
-					);
+
+	private $statuses = array(
+		'processing' => 'Обрабатывается',//'Ждем прибытия',
+		'available' => 'Есть в наличии',///'Не оплачено','Получено'
+		'not_available' => 'Нет в наличии',
+		'not_available_color' => 'Нет данного цвета',
+		'not_available_size' => 'Нет данного размера',
+		'not_available_count' => 'Нет указанного кол-ва',
+		'bought' => 'Выкуплен',
+		'sent_by_seller' => 'Отправлен продавцом',
+		'completed' => 'Получен',
+		'exchange' => 'Обмен',
+		'return' => 'Возврат',
+		'deleted' => 'Удален'
+		);
+
+	private $online_statuses = array(
+		'processing' => 'Обрабатывается',
+		'available' => 'Есть в наличии',
+		'not_available' => 'Нет в наличии',
+		'not_available_color' => 'Нет данного цвета',
+		'not_available_size' => 'Нет данного размера',
+		'not_available_count' => 'Нет указанного кол-ва',
+		'bought' => 'Выкуплен',
+		'sent_by_seller' => 'Отправлен продавцом',
+		'completed' => 'Получен',
+		'exchange' => 'Обмен',
+		'return' => 'Возврат'
+	);
+
+	private $offline_statuses = array(
+		'processing' => 'Обрабатывается',
+		'available' => 'Есть в наличии',
+		'not_available' => 'Нет в наличии',
+		'not_available_color' => 'Нет данного цвета',
+		'not_available_size' => 'Нет данного размера',
+		'not_available_count' => 'Нет указанного кол-ва',
+		'bought' => 'Выкуплен',
+		'sent_by_seller' => 'Отправлен продавцом',
+		'completed' => 'Получен',
+		'exchange' => 'Обмен',
+		'return' => 'Возврат'
+	);
+
+	private $service_statuses = array(
+		'processing' => 'Обрабатывается',
+		'available' => 'Не оплачено',
+		'completed' => 'Выполнено'
+	);
+
+	private $delivery_statuses = array(
+		'processing' => 'Ждем прибытия',
+		'available' => 'Получено'
+	);
+
+	private $mail_forwarding_statuses = array(
+		'processing' => 'Ждем прибытия',
+		'available' => 'Получено',
+		'exchange' => 'Обмен',
+		'return' => 'Возврат'
+	);
+
+	// дублирует код из модели заказа. пока оставляем на правах кэширования этого массива
+	private $order_types = array(
+		'offline',
+		'online',
+		'service',
+		'delivery',
+		'mail_forwarding'
+	);
 
 	/**
 	 * конструктор
@@ -44,20 +103,33 @@ class OdetailModel extends BaseModel implements IModel{
     	$this->properties->odetail_product_color	='';
     	$this->properties->odetail_product_size		='';
     	$this->properties->odetail_product_amount	='';
-    	$this->properties->odetail_status			='processing';
+    	$this->properties->odetail_comment			='';
+    	$this->properties->odetail_status			='';
 		$this->properties->odetail_price			=0;
-		$this->properties->odetail_price_usd		=0;
-    	$this->properties->odetail_pricedelivery    =0;
-    	$this->properties->odetail_pricedelivery_usd=0;
+		$this->properties->odetail_pricedelivery    =0;
     	$this->properties->odetail_img				='';
     	$this->properties->odetail_joint_id			=0;
     	$this->properties->odetail_weight			=0;
  		$this->properties->updated_by_client		=0;
  		$this->properties->odetail_foto_requested	=0;
+
 		parent::__construct();
     }
-    
-   /**
+
+	public function getAllStatuses()
+	{
+		$statuses = array();
+
+		foreach ($this->order_types as $type)
+		{
+			$name = "{$type}_statuses";
+			$statuses[$type] = $this->$name;
+		}
+
+		return $statuses;
+	}
+
+	/**
      * @see IModel
      * Инкапсуляция
      *
@@ -87,7 +159,7 @@ class OdetailModel extends BaseModel implements IModel{
 	public function getList()
 	{
 		$sql = $this->select();
-		return ($sql)?($sql):(false);
+		return ($sql)?($sql):(FALSE);
 	}
 	
 	
@@ -121,7 +193,7 @@ class OdetailModel extends BaseModel implements IModel{
 			return $this->getById($new_id);
 		}
 		
-		return false;
+		return FALSE;
 	}
 	
 	public function updateOdetail($odetail_obj) {
@@ -140,7 +212,7 @@ class OdetailModel extends BaseModel implements IModel{
 			return $result;
 		}
 		
-		return false;
+		return FALSE;
 	}
 	
 	public function getFilteredDetails($filter) {
@@ -213,17 +285,12 @@ class OdetailModel extends BaseModel implements IModel{
 			$this->getPK()	=> (int) $id,
 		));					
 		
-		return ((count($r==1) &&  $r) ? array_shift($r) : false);
+		return ((count($r==1) &&  $r) ? array_shift($r) : FALSE);
 	}
 
 	public function getAvailableOrderDetailsStatuses()
 	{
-		return $this->_status_desc;
-	}
-
-	public function getOrderDetailsStatusDescription($detail_status)
-	{
-		return $this->_status_desc[$detail_status];
+		return $this->statuses;
 	}
 
 	/**
@@ -238,7 +305,8 @@ class OdetailModel extends BaseModel implements IModel{
 			FROM `odetails`
 			LEFT OUTER JOIN `odetail_joints` ON
 				`odetail_joints`.`odetail_joint_id` = `odetails`.`odetail_joint_id`
-			WHERE `odetails`.`odetail_status` <> "deleted"
+			WHERE
+				`odetails`.`odetail_status` <> "deleted"
 				AND `odetails`.`odetail_order` = "'.intval($id).'"
 			ORDER BY 
 				`odetail_joints`.`odetail_joint_id` DESC,
@@ -278,7 +346,7 @@ class OdetailModel extends BaseModel implements IModel{
 			}
 		}
 		
-		return ((count($result) > 0 &&  $result) ? $result : false);		
+		return ((count($result) > 0 &&  $result) ? $result : FALSE);
 	}
 	
 	public function getOrderDetailsTotals($order_details_array)
@@ -364,24 +432,30 @@ class OdetailModel extends BaseModel implements IModel{
 		
 		if (!$row || count($row) != 1)
 		{
-			return false;
+			return FALSE;
 		}
 
 		return $row[0];		
 	}
 	
-	public function getManagerOdetailById($id, $manager_id) {		
-		$row = $this->db->query('
+	public function getManagerOdetailById($order_id, $odetail_id, $manager_id)
+	{
+		$row = $this->db->query("
 			SELECT `odetails`.*
 			FROM `odetails`
 			INNER JOIN `orders` ON `odetails`.`odetail_order` = `orders`.`order_id`
-			WHERE `odetails`.`odetail_id` = '.intval($id).'
-				AND `orders`.`order_manager` = '.intval($manager_id).'
-		')->result();
-		
-		if (!$row || count($row) != 1)
+			WHERE
+				`odetails`.`odetail_id` = '$odetail_id'
+				AND `orders`.`order_id` = '$order_id'
+				AND `orders`.`order_manager` = '$manager_id'
+				AND `orders`.`order_status` <> 'deleted'
+				AND `odetails`.`odetail_status` <> 'deleted'
+			LIMIT 1
+		")->result();
+
+		if (empty($row) OR count($row) != 1)
 		{
-			return false;
+			return FALSE;
 		}
 
 		return $row[0];		
