@@ -1,17 +1,6 @@
 <script type="text/javascript">
 $(function() {
-	$("input.int").keypress(function(event){validate_number(event);});
-
-	$('#detailsForm').ajaxForm({
-		target: '<?= $selfurl ?>updateProductAjax/',
-		type: 'POST',
-		dataType: 'html',
-		iframe: true,
-		success: function(response)
-		{
-			$('#detailsForm').append($(response));
-		}
-	});
+	$(".int").keypress(function(event){validate_number(event);});
 });
 
 // BOF: сохранение статуса, веса, стоимости и местной доставки
@@ -132,6 +121,9 @@ function editItem(id)
 		$tr.find('textarea.size').val(odetail['size']);
 		$tr.find('textarea.color').val(odetail['color']);
 		$tr.find('textarea.ocomment').val(odetail['comment']);
+		$tr.find('textarea.image').val(odetail['img']);
+		$tr.find('input.img_file').val(odetail['img_file']);
+		$tr.find('input.img_selector[value="' + odetail['img_selector'] + '"]').attr('checked', 'checked');
 	}
 }
 
@@ -166,29 +158,38 @@ function saveItem(id)
 		odetail['size'] = $tr.find('textarea.size').val();
 		odetail['color'] = $tr.find('textarea.color').val();
 		odetail['comment'] = $tr.find('textarea.ocomment').val();
+		odetail['img_selector'] = $tr.find('input.img_selector:checked').val();
 
-		var uri = '<?= $selfurl ?>updateProduct/<?= $order->order_id ?>/' + id;
-		var progress = 'img#progress' + id;
+		if (odetail['img_selector'] == 'link')
+		{
+			odetail['img'] = $tr.find('textarea.image').val();
+			odetail['img_file'] = '';
+		}
+		else if (odetail['img_selector'] == 'file')
+		{
+			odetail['img'] = '';
+			odetail['img_file'] = $tr.find('input.img_file').val();
+		}
 
-		$.ajax({
-			url: uri,
-			dataType: 'json',
-			type: 'POST',
-			data: odetail,
-			beforeSend: function(data) {
-				$(progress).show();
-			},
-			success: function(data) {
-				if (data['is_error'])
-				{
-					error('top', data['message']);
-				}
-				else
-				{
-					success('top', data['message']);
+		$tr.find('form').submit();
+	}
+}
 
-					var snippet =
-						'<a target="_blank" href="' + odetail['link'] + '">' +
+function submitItem(id, data)
+{
+	var $tr = $('tr#product' + id);
+	var odetail = eval('odetail' + id);
+
+	if (data['is_error'])
+	{
+		error('top', data['message']);
+	}
+	else
+	{
+		success('top', data['message']);
+
+		var snippet_first =
+				'<a target="_blank" href="' + odetail['link'] + '">' +
 						odetail['name'] +'</a>' +
 						(odetail['foto_requested'] == 1 ? ' (требуется фото товара)' : '') +
 						'<br><b>Количество</b>: ' +
@@ -200,18 +201,43 @@ function saveItem(id)
 						'<br><b>Комментарий</b>: ' +
 						odetail['comment'];
 
-					$tr.find('span.plaintext:first').html(snippet);
+		$tr.find('span.plaintext:first').html(snippet_first);
 
-					cancelItem(id);
-				}
-			},
-			error: function(data) {
-				error('top', 'Описание товара №' + id + ' не сохранено.');
-			},
-			complete: function(data) {
-				$(progress).hide();
+		var snippet_last = '';
+
+		if (odetail['img'] != '')
+		{
+			var short_link = odetail['img'];
+
+			if (short_link.length > 17)
+			{
+				short_link = short_link.substring(0, 17) + '...';
 			}
-		});
+
+			snippet_last =
+					"<a target='_blank' href='" +
+							odetail['img'] +
+							"'>" +
+							short_link +
+							"</a>";
+		}
+		else
+		{
+			snippet_last =
+					'<a href="javascript:void(0);" onclick="setRel(' +
+							id +
+							');"><img src="/manager/showScreen/' +
+							id +
+							'" width="55px" height="55px"><a rel="lightbox_' +
+							id +
+							'" href="/manager/showScreen/' +
+							id +
+							'" style="display:none;">Посмотреть</a></a>';
+		}
+
+		$tr.find('span.plaintext:last').html(snippet_last);
+
+		cancelItem(id);
 	}
 }
 // EOF: редактирование деталей заказа

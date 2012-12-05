@@ -1288,32 +1288,34 @@ class Manager extends ManagerBaseController {
 			$odetail->odetail_product_size		= Check::str('size', 255, 0, '');
 			$odetail->odetail_product_amount	= Check::int('amount');
 			$odetail->odetail_comment			= Check::str('comment', 255, 1, '');
-			$is_img_changed						= isset($_POST['img']) ? $_POST['img'] : FALSE;
 
-			if ($is_img_changed)
+			// проверяем, загружается картинка или ссылка
+			$img_selector = Check::str('img_selector', 4, 4, '');
+			$is_file_uploaded = ($img_selector == 'file') ? TRUE : FALSE;
+
+			if ($is_file_uploaded)
 			{
-				if ($is_img_changed == 2)
-				{
-					$userfile = isset($_FILES['userfile']) && !$_FILES['userfile']['error'];
-					$odetail->odetail_img = NULL;
-				}
-				else
-				{
-					$userfile = FALSE;
-					$odetail->odetail_img = Check::str('userfileimg', 500, 1);
-				}
+				$userfile = isset($_FILES['userfile']) && !$_FILES['userfile']['error'];
+				$odetail->odetail_img = NULL;
+			}
+			else
+			{
+				$userfile = FALSE;
+				$odetail->odetail_img = Check::str('img', 4096, 1, NULL);
 			}
 
-			$empties = Check::get_empties();
-
 			// валидация
-			if ($odetail->odetail_link === FALSE)
+			if (empty($odetail->odetail_link))
 			{
 				throw new Exception('Добавьте ссылку на товар.');
 			}
 
-			if ($empties AND
-				$is_img_changed)
+			//print_r($is_file_uploaded);
+			//print_r($userfile);
+			//die();
+
+			if ($is_file_uploaded AND
+				empty($userfile))
 			{
 				if (isset($_FILES['userfile']) &&
 					$_FILES['userfile']['error'] == 1)
@@ -1387,50 +1389,8 @@ class Manager extends ManagerBaseController {
 
 			// закрываем транзакцию
 			$this->db->trans_commit();
-/*
-			// уведомления
-			if (isset($is_new_status) && $is_new_status)
-			{
-				$this->load->model('ManagerModel', 'Managers');
-				$this->load->model('UserModel', 'Users');
-				$this->load->model('ClientModel', 'Clients');
 
-				Mailer::sendAdminNotification(
-					Mailer::SUBJECT_NEW_ORDER_STATUS,
-					Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-					0,
-					$order->order_id,
-					0,
-					"http://countrypost.ru/admin/showOrderDetails/{$order->order_id}",
-					NULL,
-					NULL,
-					$status_caption);
-
-				Mailer::sendManagerNotification(
-					Mailer::SUBJECT_NEW_ORDER_STATUS,
-					Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-					$order->order_manager,
-					$order->order_id,
-					0,
-					"http://countrypost.ru/manager/showOrderDetails/{$order->order_id}",
-					$this->Managers,
-					NULL,
-					$status_caption);
-
-				Mailer::sendClientNotification(
-					Mailer::SUBJECT_NEW_ORDER_STATUS,
-					Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-					$order->order_id,
-					$order->order_client,
-					"http://countrypost.ru/client/showOrderDetails/{$order->order_id}",
-					$this->Clients,
-					$status_caption);
-
-				$view['new_order_status'] = $status_caption;
-			}
-*/
-
-			// отправляем cообщение
+			// отправляем cообщение на страницу
 			$response['message'] = "Описание товара №{$odetail->odetail_id} сохранено.";
 		}
 		catch (Exception $e)

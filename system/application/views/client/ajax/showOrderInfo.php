@@ -53,8 +53,10 @@
 			<span style="display: inline-block;">
 				<? if ($is_editable) : ?>
 					<? if (empty($addresses)) : ?>
-						<textarea name="address_text" id="address_text" style="width:610px;resize:vertical;
-						"><?= $order->order_address ?></textarea>
+					<textarea name="address_text"
+							  id="address_text"
+							  style="width:188px;resize:vertical;
+					"><?= $order->order_address ?></textarea>
 					<? else : ?>
 					<select id="address" name="address" style="width: 610px!important;clear: both;">
 						<option value="0" >выберите адрес...</option>
@@ -62,8 +64,8 @@
 							if ($address->is_generated)
 							{
 								$full_address = implode(', ', array(
-									$address->country_name,
 									$address->address_address,
+									$address->country_name,
 									$address->address_recipient
 								));
 							}
@@ -71,9 +73,9 @@
 							{
 								$full_address = implode(', ', array(
 									$address->address_zip,
-									$address->country_name,
 									$address->address_address,
 									$address->address_town,
+									$address->country_name,
 									'тел.' . $address->address_phone,
 									$address->address_recipient
 								));
@@ -97,17 +99,18 @@
 			</span>
 		</div>
 		<div>
-			<span>
+			<span style="vertical-align: top;">
 				Способ международной доставки:
 			</span>
 			<span>
 				<? if ($is_editable) : ?>
-					<input type="text" name="delivery" id="delivery" style="width:612px;" value="<?=
-						empty($order->preferred_delivery) ?
-							(empty($order->bid->delivery_name) ?
-								'' :
-								$order->bid->delivery_name) :
-							$order->preferred_delivery ?>">
+				<textarea name="delivery"
+						  id="delivery"
+						  style="width:188px;resize: vertical;"><?=	empty($order->preferred_delivery) ?
+						(empty($order->bid->delivery_name) ?
+							'' :
+							$order->bid->delivery_name) :
+						$order->preferred_delivery ?></textarea>
 				<? else : ?>
 				<?= $order->bid->delivery_name ?>
 				<? endif; ?>

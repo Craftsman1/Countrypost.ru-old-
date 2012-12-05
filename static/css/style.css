@@ -2434,7 +2434,7 @@ div.mail_forwarding .hint {
 	font-style: italic;
 }
 
-div.profile_box span,div.blog_box span {
+div.profile_box span.label,div.blog_box span.label {
 	width: 190px;
 	font: 13px sans-serif;
 	margin-top:3px;
@@ -2548,9 +2548,23 @@ span.producteditor b {
 }
 
 span.producteditor textarea {
-	width:150px;
+	width:100px;
 	height:14px;
 	margin-bottom: 14px;
 	resize:vertical;
 	float: right;
+}
+
+span.producteditor textarea.img {
+	width:100px;
+	float: none;
+}
+
+span.producteditor input[type='file'] {
+	width: 100px;
+	float: none;
+}
+
+span.producteditor input[type='radio'] {
+	margin: 0px 5px 0 0;
 }

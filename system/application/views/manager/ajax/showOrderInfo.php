@@ -152,7 +152,7 @@
 			$('#orderForm').submit();
 		});
 
-		$("input#tracking_no").change(function() {
+		$("textarea#tracking_no").change(function() {
 			$('div#close_order').show();
 		});
 
@@ -167,6 +167,11 @@
 			{
 				$("#orderProgress").hide();
 				success('top', 'Заказ №<?= $order->order_id ?> успешно ' + noty_message + '!');
+
+				if (is_closing_order)
+				{
+					$('select.order_status').val('completed');
+				}
 			},
 			error: function(response)
 			{
