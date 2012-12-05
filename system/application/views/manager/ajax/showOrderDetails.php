@@ -32,7 +32,7 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 				Местная<br>доставка
 			</th>
 			<th>
-				Примерный<br>вес
+				Вес<br>товара
 			</th>
 			<? else : ?>
 			<th>Tracking №</th>
@@ -217,7 +217,7 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 					   onchange="update_odetail_weight('<?= $order->order_id ?>', '<?= $odetail->odetail_id ?>')
 							   ;">
 				<? else : ?>
-				<?= $odetail->odetail_weight ?>
+				<?= $odetail->odetail_weight ?> г
 				<? endif; ?>
 			</td>
 			<?// elseif ($odetail_joint_id != $odetail->odetail_joint_id) :
@@ -270,7 +270,7 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 				<b class="total_delivery_cost"><?= $order->order_delivery_cost ?></b>&nbsp;<?= $order->order_currency ?>
 			</td>
 			<td class="weight_total">
-				<b class="total_weight"><?= $order->order_weight ?></b>г
+				<b class="total_weight"><?= $order->order_weight ?></b> г
 			</td>
 			<? if ($is_editable) : ?>
 			<td colspan="2">&nbsp;</td>

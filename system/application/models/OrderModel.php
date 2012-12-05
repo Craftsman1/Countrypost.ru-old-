@@ -930,50 +930,53 @@ class OrderModel extends BaseModel implements IModel{
 	
 		$odetails = $OdetailModel->getOrderDetails($order->order_id);
 
-		// вычисляем статус
-		$has_not_available_status = FALSE;
-		$has_processing_status = FALSE;
-		$has_available_status = FALSE;
-		$has_bought_status = FALSE;
-		$total_status = $order->order_status;
-
-		foreach ($odetails as $odetail)
+		// вычисляем статус, если выбран посредник
+		if ($order->order_status != 'pending')
 		{
-			switch ($odetail->odetail_status)
+			$has_not_available_status = FALSE;
+			$has_processing_status = FALSE;
+			$has_available_status = FALSE;
+			$has_bought_status = FALSE;
+			$total_status = $order->order_status;
+
+			foreach ($odetails as $odetail)
 			{
-				case 'processing' :
-					$has_processing_status = TRUE;
-					break;
-				case 'available' :
-					$has_available_status = TRUE;
-					break;
-				case 'not_available' :
-				case 'not_available_color' :
-				case 'not_available_size' :
-				case 'not_available_count' :
-					$has_not_available_status = TRUE;
-					break;
-				case 'bought' :
-					$has_bought_status = TRUE;
-					break;
+				switch ($odetail->odetail_status)
+				{
+					case 'processing' :
+						$has_processing_status = TRUE;
+						break;
+					case 'available' :
+						$has_available_status = TRUE;
+						break;
+					case 'not_available' :
+					case 'not_available_color' :
+					case 'not_available_size' :
+					case 'not_available_count' :
+						$has_not_available_status = TRUE;
+						break;
+					case 'bought' :
+						$has_bought_status = TRUE;
+						break;
+				}
 			}
-		}
 
-		if ($has_not_available_status)
-		{
-			$total_status = 'not_available';
-		}
-		else if ($has_processing_status)
-		{
-			$total_status = 'processing';
-		}
-		else if ($has_available_status)
-		{
-			$total_status = 'not_payed';
-		}
-		else if ($has_bought_status)
-		{
-			$total_status = 'bought';
+			if ($has_not_available_status)
+			{
+				$total_status = 'not_available';
+			}
+			else if ($has_processing_status)
+			{
+				$total_status = 'processing';
+			}
+			else if ($has_available_status)
+			{
+				$total_status = 'not_payed';
+			}
+			else if ($has_bought_status)
+			{
+				$total_status = 'bought';
+			}
 		}
 
 		// одиночные товары

@@ -8,6 +8,7 @@
 	<? View::show('client/ajax/showOrderDetails'); ?>
 	<? View::show('main/elements/orders/bids'); ?>
 </div>
+<? View::show('client/elements/orders/scripts'); ?>
 <script type="text/javascript">
 /*
 	$(document).ready(function() {
@@ -95,13 +96,7 @@
 			$('#detailsForm').submit();						
 		}
 	}
-*/
-	function setRel(id){
-		$("a[rel*='lightbox_"+id+"']").lightBox();
-		var aa = $("a[rel*='lightbox_"+id+"']");
-		$(aa[0]).click();
-	}
-/*
+
 	function validate_number(evt) {
 		var theEvent = evt || window.event;
 		var key = theEvent.keyCode || theEvent.which;
@@ -200,17 +195,4 @@
 		}
 	}
 	*/
-	function unchooseBid()
-	{
-		$.post("/client/unchooseBid/<?= $order->order_id ?>")
-			.success(function() { 
-				success('top', 'Вы успешно отказались от работы с прошлым посредником.');
-				$('.clientOrderInfo').hide('slow');
-				$('.chooseBidForm,.choose_bid').show('slow');
-				$('h3.bids_header').html('Предложения от посредников');
-			})
-			.error(function() { 
-				error('top', 'Попробуйте еще раз.');
-			});
-	}
 </script>

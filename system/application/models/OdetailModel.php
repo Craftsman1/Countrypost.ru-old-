@@ -421,16 +421,21 @@ class OdetailModel extends BaseModel implements IModel{
 		return ;
 	}
 	
-	public function getClientOdetailById($id, $client_id) {		
-		$row = $this->db->query('
+	public function getClientOdetailById($order_id, $odetail_id, $client_id) {
+		$row = $this->db->query("
 			SELECT `odetails`.*
 			FROM `odetails`
 			INNER JOIN `orders` ON `odetails`.`odetail_order` = `orders`.`order_id`
-			WHERE `odetails`.`odetail_id` = '.intval($id).'
-				AND `orders`.`order_client` = '.intval($client_id).'
-		')->result();
-		
-		if (!$row || count($row) != 1)
+			WHERE
+				`odetails`.`odetail_id` = '$odetail_id'
+				AND `orders`.`order_id` = '$order_id'
+				AND `orders`.`order_client` = '$client_id'
+				AND `orders`.`order_status` <> 'deleted'
+				AND `odetails`.`odetail_status` <> 'deleted'
+			LIMIT 1
+		")->result();
+
+		if (empty($row) OR count($row) != 1)
 		{
 			return FALSE;
 		}

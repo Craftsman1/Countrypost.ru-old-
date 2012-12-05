@@ -1,120 +1,279 @@
-<? $is_own_order = ($this->user->user_id == $order->order_client); ?>
-<form class='admin-inside' id='detailsForm' action='<?= $selfurl ?>updateProductAjax' enctype="multipart/form-data"
-	  method="POST">
-	<div class='table'>
-		<div class='angle angle-lt'></div>
-		<div class='angle angle-rt'></div>
-		<div class='angle angle-lb'></div>
-		<div class='angle angle-rb'></div>
-		<table id="new_products">
-			<tr>
-				<th nowrap style="width:1px;">
-					№ <input type='checkbox' id='select_all' />
-				</th>
-				<th>Товар</th>
-				<th>Скриншот</th>
-				<th>Стоимость</th>
-				<th>Местная доставка</th>
-				<th>Примерный вес</th>
-				<? if ($is_own_order) : ?>
-				<th style="width:1px;"></th>
+<?
+$is_own_order = ($this->user->user_id == $order->order_client);
+$is_editable = $is_own_order && ($order->order_status == 'pending'); ?>
+<div class='table centered_td centered_th'>
+	<div class='angle angle-lt'></div>
+	<div class='angle angle-rt'></div>
+	<div class='angle angle-lb'></div>
+	<div class='angle angle-rb'></div>
+	<table id="new_products">
+		<colgroup>
+			<col style="width: 60px;">
+			<col>
+			<col>
+			<col style="width: 85px;">
+			<col style="width: 85px;">
+			<col style="width: 85px;">
+			<? if ( ! $is_editable AND $is_own_order) : ?>
+			<col style="width: 169px;">
+			<? endif; ?>
+			<col style="width: 44px">
+		</colgroup>
+		<tr>
+			<th nowrap>
+				№ <input type='checkbox' id='select_all'>
+			</th>
+			<th>Товар</th>
+			<th>Скриншот</th>
+			<? if ($order->order_type != 'mail_forwarding') : ?>
+			<th>
+				Стоимость
+			</th>
+			<th>
+				Местная<br>доставка
+			</th>
+			<th>
+				Вес<br>товара
+			</th>
+			<? else : ?>
+			<th>Tracking №</th>
+			<? endif; ?>
+			<? if ($order->order_status != 'pending') : ?>
+			<th>Статус</th>
+			<? endif; ?>
+			<? if ($is_editable) : ?>
+			<th style="width:1px;"></th>
+			<? endif; ?>
+		</tr>
+		<?
+		$odetail_joint_id = 0;
+		$odetail_joint_count = 0;
+
+		if ( ! empty($odetails)) : foreach($odetails as $odetail) :
+			if (stripos($odetail->odetail_link, 'http://') !== 0)
+			{
+				$odetail->odetail_link = 'http://'.$odetail->odetail_link;
+			}
+
+			if (isset($odetail->odetail_img) &&
+				stripos($odetail->odetail_img, 'http://') !== 0)
+			{
+				$odetail->odetail_img = 'http://'.$odetail->odetail_img;
+			}
+		?>
+		<tr id='product<?= $odetail->odetail_id ?>'>
+			<td id='odetail_id<?= $odetail->odetail_id ?>'>
+				<?= $odetail->odetail_id ?>
+				<? if ($is_editable) : ?>
+				<br>
+				<img id="progress<?= $odetail->odetail_id ?>"
+					 class="float"
+					 style="display:none;"
+					 src="/static/images/lightbox-ico-loading.gif"/>
 				<? endif; ?>
-			</tr>
-			<? $order_products_cost = 0; 
-				$order_delivery_cost = 0;
-				$order_product_weight = 0;
-				$odetail_joint_id = 0;
-				$odetail_joint_count = 0;
-				
-			if ( ! empty($odetails)) : foreach($odetails as $odetail) : 
-				$order_products_cost += $odetail->odetail_price;
-				$order_product_weight += $odetail->odetail_weight;
-				
-				if (stripos($odetail->odetail_link, 'http://') !== 0)
-				{
-					$odetail->odetail_link = 'http://'.$odetail->odetail_link;
-				}
-				
-				if (isset($odetail->odetail_img) && 
-					stripos($odetail->odetail_img, 'http://') !== 0)
-				{
-					$odetail->odetail_img = 'http://'.$odetail->odetail_img;
-				}
-			?>
-			<tr id='product<?=$odetail->odetail_id?>'>
-				<script>
-					var odetail<?=$odetail->odetail_id?> = {"odetail_id":"<?=$odetail->odetail_id?>","odetail_client":"<?=$odetail->odetail_client?>","odetail_manager":"<?=$odetail->odetail_manager?>","odetail_order":"<?=$odetail->odetail_order?>","odetail_link":"<?=$odetail->odetail_link?>","odetail_product_name":"<?=$odetail->odetail_product_name?>","odetail_product_color":"<?=$odetail->odetail_product_color?>","odetail_product_size":"<?=$odetail->odetail_product_size?>","odetail_product_amount":"<?=$odetail->odetail_product_amount?>","odetail_img":"<?=$odetail->odetail_img?>"};
-				</script>
-				<td id='odetail_id<?=$odetail->odetail_id?>'><?=$odetail->odetail_id?></td>
-				<td id='odetail_product_name<?=$odetail->odetail_id?>'>
-					<a target="_blank" href="<?=$odetail->odetail_link?>"><?=$odetail->odetail_product_name?></a> 
+			</td>
+			<? if ($is_editable) : ?>
+			<form action='<?= $selfurl ?>updateProduct/<?= $order->order_id ?>/<?= $odetail->odetail_id ?>'
+				  enctype="multipart/form-data"
+				  method="POST">
+			<? endif; ?>
+			<td style="text-align: left; vertical-align: bottom;">
+				<span class="plaintext">
+					<a target="_blank" href="<?= $odetail->odetail_link ?>"><?= $odetail->odetail_product_name ?></a>
 					<? if ($odetail->odetail_foto_requested) : ?>(требуется фото товара)<? endif; ?>
 					<br>
-					<b>Количество</b>: <?=$odetail->odetail_product_amount?>
-					<b>Размер</b>: <?=$odetail->odetail_product_size?>
-					<b>Цвет</b>: <?=$odetail->odetail_product_color?>
+					<b>Количество</b>: <?= $odetail->odetail_product_amount ?>
+					<b>Размер</b>: <?= $odetail->odetail_product_size ?>
+					<b>Цвет</b>: <?= $odetail->odetail_product_color ?>
 					<br>
-					<b>Комментарий</b>: <?=$odetail->odetail_comment?>
-				</td>
-				<td id='odetail_img<?=$odetail->odetail_id?>'>
+					<b>Комментарий</b>: <?= $odetail->odetail_comment ?>
+				</span>
+				<? if ($is_editable) : ?>
+				<script>
+					var odetail<?= $odetail->odetail_id ?> = {
+						"link":"<?= $odetail->odetail_link ?>",
+						"name":"<?= $odetail->odetail_product_name ?>",
+						"color":"<?= $odetail->odetail_product_color ?>",
+						"size":"<?= $odetail->odetail_product_size ?>",
+						"amount":"<?= $odetail->odetail_product_amount ?>",
+						"comment":"<?= $odetail->odetail_comment ?>",
+						"img":"<?= $odetail->odetail_img ?>",
+						"img_file":"",
+						"img_selector":"<?= isset($odetail->odetail_img) ? 'link' : 'file' ?>",
+						"foto_requested":"<?= $odetail->odetail_foto_requested ?>",
+						"is_editing":0
+					};
+
+					$(function() {
+						$('tr#product<?= $odetail->odetail_id ?> form').ajaxForm({
+							dataType: 'json',
+							iframe: true,
+							beforeSubmit: function()
+							{
+								$('img#progress<?= $odetail->odetail_id ?>').show();
+							},
+							error: function()
+							{
+								error('top', 'Описание товара №<?= $odetail->odetail_id ?> не сохранено.');
+							},
+							success: function(data) {
+								$('img#progress<?= $odetail->odetail_id ?>').hide();
+
+								submitItem(<?= $odetail->odetail_id ?>, data);
+							}
+						});
+					});
+				</script>
+				<span class="producteditor" style="display: none;">
+					<br>
+					<b>Ссылка</b>:
+					<textarea class="link" name="link"></textarea>
+					<br>
+					<b>Наименование</b>:
+					<textarea class="name" name="name"></textarea>
+					<br>
+					<b>Количество</b>:
+					<textarea class="amount int" name="amount"></textarea>
+					<br>
+					<b>Размер</b>:
+					<textarea class="size" name="size"></textarea>
+					<br>
+					<b>Цвет</b>:
+					<textarea class="color" name="color"></textarea>
+					<br>
+					<b>Комментарий</b>:
+					<textarea class="ocomment" name="comment"></textarea>
+					<br>
+				</span>
+				<? endif; ?>
+			</td>
+			<td>
+				<span class="plaintext">
 					<? if (isset($odetail->odetail_img)) : ?>
-					<a href="#" onclick="window.open('<?=$odetail->odetail_img?>');return false;"><?=(strlen($odetail->odetail_img)>17?substr($odetail->odetail_img,0,17).'...':$odetail->odetail_img)?></a>
+					<a target="_blank" href="<?= $odetail->odetail_img ?>"><?=
+						(strlen($odetail->odetail_img) > 17 ?
+							substr($odetail->odetail_img, 0, 17) . '...' :
+							$odetail->odetail_img) ?></a>
 					<? else : ?>
-					<a href="javascript:void(0)" onclick="setRel(<?=$odetail->odetail_id?>);">
-						Просмотреть скриншот <a rel="lightbox_<?=$odetail->odetail_id?>" href="/client/showScreen/<?=$odetail->odetail_id?>" style="display:none;">Посмотреть</a>
+					<a href="javascript:void(0)" onclick="setRel(<?= $odetail->odetail_id ?>);">
+						<img src='/client/showScreen/<?= $odetail->odetail_id ?>' width="55px" height="55px">
+						<a rel="lightbox_<?= $odetail->odetail_id ?>" href="/client/showScreen/<?=
+							$odetail->odetail_id ?>" style="display:none;">Посмотреть</a>
 					</a>
 					<? endif; ?>
-				</td>
-				<td id="odetail_price<?=$odetail->odetail_id?>"><?=$odetail->odetail_price?> <?=$order->order_currency?></td>
-				<td id="odetail_pricedelivery<?=$odetail->odetail_id?>"><?=$odetail->odetail_pricedelivery?> <?=$order->order_currency?></td>
-				<? if (!$odetail->odetail_joint_id) : 
-					$order_delivery_cost += $odetail->odetail_pricedelivery;
-				?>
-				<td id="odetail_weight<?=$odetail->odetail_id?>">
-					<?=$odetail->odetail_weight?>г
-				</td>
-				<? elseif ($odetail_joint_id != $odetail->odetail_joint_id) :
-						$odetail_joint_id = $odetail->odetail_joint_id;
-						$odetail_joint_count = $odetail->odetail_joint_count;
-						$order_delivery_cost += $odetail->odetail_joint_cost;
-				?>
-				<td rowspan="<?=$odetail_joint_count?>">
-					<?=$odetail->odetail_joint_cost?>
-				</td>
+				</span>
+				<? if ($is_editable) : ?>
+				<span class="producteditor" style="display: none;">
+					<input type="radio" name="img_selector" class="img_selector" value="link">
+					<textarea class="image" name="img"></textarea>
+					<br>
+					<input type="radio" name="img_selector" class="img_selector" value="file">
+					<input type="file" class="img_file" name="userfile">
+				</span>
 				<? endif; ?>
-				<? if ($is_own_order) : ?>
-				<td align="center" id="odetail_action<?=$odetail->odetail_id?>">
-					<a href="javascript:editItem(<?=$odetail->odetail_id?>)" id="odetail_edit<?=$odetail->odetail_id?>"><img border="0" src="/static/images/comment-edit.png" title="Редактировать"></a>
-					<br />
-					<a href="javascript:deleteItem(<?=$odetail->odetail_id?>)"><img border="0" src="/static/images/delete.png" title="Удалить"></a>
-				</td>
+			</td>
+			<? if ($is_editable) : ?>
+			</form>
+			<? endif; ?>
+			<td>
+				<? if ($is_editable) : ?>
+				<input type="text"
+					   id="odetail_price<?= $odetail->odetail_id ?>"
+					   name="odetail_price<?= $odetail->odetail_id ?>"
+					   class="int"
+					   value="<?= $odetail->odetail_price ?>"
+					   style="width:60px"
+					   maxlength="11"
+					   onchange="update_odetail_price('<?= $order->order_id ?>',
+							   '<?= $odetail->odetail_id ?>');">
+				<? else : ?>
+				<?= $odetail->odetail_price ?> <?= $order->order_currency ?>
 				<? endif; ?>
-			</tr>
+			</td>
+			<td>
+				<? if ($is_editable) : ?>
+				<input type="text"
+					   id="odetail_pricedelivery<?= $odetail->odetail_id ?>"
+					   name="odetail_price<?= $odetail->odetail_id ?>"
+					   class="int"
+					   value="<?= $odetail->odetail_pricedelivery ?>"
+					   style="width:60px"
+					   maxlength="11"
+					   onchange="update_odetail_pricedelivery('<?= $order->order_id ?>',
+							   '<?= $odetail->odetail_id ?>');">
+				<? else : ?>
+				<?= $odetail->odetail_pricedelivery ?> <?= $order->order_currency ?>
+				<? endif; ?>
+			</td>
+			<? //if (!$odetail->odetail_joint_id) :
+			//$order_delivery_cost += $odetail->odetail_pricedelivery;
+			?>
+			<td>
+				<? if ($is_editable) : ?>
+				<input type="text"
+					   id="odetail_weight<?= $odetail->odetail_id ?>"
+					   name="odetail_weight<?= $odetail->odetail_id ?>"
+					   class="int"
+					   value="<?= $odetail->odetail_weight ?>"
+					   style="width:60px"
+					   maxlength="11"
+					   onchange="update_odetail_weight('<?= $order->order_id ?>', '<?= $odetail->odetail_id ?>')
+							   ;">
+				<? else : ?>
+				<?= $odetail->odetail_weight ?> г
+				<? endif; ?>
+			</td>
+			<?// elseif ($odetail_joint_id != $odetail->odetail_joint_id) :
+			//	$odetail_joint_id = $odetail->odetail_joint_id;
+			//	$odetail_joint_count = $odetail->odetail_joint_count;
+			//	$order_delivery_cost += $odetail->odetail_joint_cost;
+			?>
+			<!--td rowspan="<?= $odetail_joint_count ?>">
+				<?//=$odetail->odetail_joint_cost ?>
+			</td-->
+			<? //endif; ?>
+			<? if ( ! $is_editable AND $is_own_order) : ?>
+			<td>
+				<?= $odetail_statuses[$order->order_type][$odetail->odetail_status] ?>
+			</td>
+			<? endif; ?>
+			<? if ($is_editable) : ?>
+			<td>
+				<a href="javascript:editItem(<?= $odetail->odetail_id ?>)"
+				   class="edit">
+					<img border="0" src="/static/images/comment-edit.png" title="Редактировать"></a>
+				<br>
+				<a href="javascript:cancelItem(<?= $odetail->odetail_id ?>)"
+				   class="cancel"
+				   style="display: none;">
+					<img border="0" src="/static/images/comment-delete.png" title="Отменить"></a>
+				<br>
+				<a href="javascript:saveItem(<?= $odetail->odetail_id ?>)"
+				   class="save"
+				   style="display: none;">
+					<img border="0" src="/static/images/done-filed.png" title="Сохранить"></a>
+			</td>
+			<? endif; ?>
+		</tr>
 			<? endforeach; endif; ?>
-			<tr>
-				<td colspan="3">&nbsp;</td>
-				<td class="price_total product_total"><?= $order_products_cost ?> <?=$order->order_currency?></td>
-				<td class="delivery_total product_total"><?= $order_delivery_cost ?>  <?=$order->order_currency?></td>
-				<td class="weight_total"><?= $order_product_weight ?>г</td>
-				<? if ($is_own_order) : ?>
-				<td align="center">&nbsp;</td>
-				<? endif; ?>
-			</tr>
-			<tr class='last-row'>
-				<td style="text-align: right;" colspan='7'>
-					<br />
-					<b>
-						Доставка в <span class='countryTo' style="float:none; display:inline; margin:0;"><?=$order->order_country_to?></span> <span class='cityTo' style="float:none; display:inline; margin:0;">(город: <?=$order->order_city_to?>)</span>: <b class="weight_total"><?= $order_product_weight ?> г</b>
-						<? if ( ! empty($order->preferred_delivery)) : ?>
-						<br />
-						Способ доставки: <b class="order_totals"><?=$order->preferred_delivery?></b>
-						<? endif; ?>
-					</b>
-				</td>
-			</tr>
-		</table>			
-	</div>
-</form>
+		<tr>
+			<td colspan="3">&nbsp;</td>
+			<td class="price_total product_total">
+				<b class="total_product_cost"><?= $order->order_products_cost ?></b>&nbsp;<?=
+				$order->order_currency ?>
+			</td>
+			<td class="delivery_total product_total">
+				<b class="total_delivery_cost"><?= $order->order_delivery_cost ?></b>&nbsp;<?= $order->order_currency ?>
+			</td>
+			<td class="weight_total">
+				<b class="total_weight"><?= $order->order_weight ?></b> г
+			</td>
+			<? if ($is_own_order) : ?>
+			<td>&nbsp;</td>
+			<? endif; ?>
+		</tr>
+	</table>
+</div>
 <script>
 	function deleteItem(item) {
 		if (confirm("Вы уверены, что хотите удалить товар №" + item + "?"))

@@ -2,7 +2,7 @@
 	<? if ($order->order_client != $this->user->user_id) : ?>
 	<div class='clientOrderInfo' style="display:none;"></div>
 	<? else :
-		$is_editable = 	($order->order_client == $this->user->user_id) &&
+		$is_editable = ($order->order_client == $this->user->user_id) &&
 			in_array($order->order_status, $editable_statuses);
 	?>
 	<div class="pricelist pricelist_main table clientOrderInfo">
