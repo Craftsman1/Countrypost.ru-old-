@@ -3,36 +3,43 @@
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>
 		<div class='angle angle-lb'></div>
-		<div class='angle angle-rb'></div>	
+		<div class='angle angle-rb'></div>
 		<form class='admin-inside' action="<?= $selfurl ?>checkout" id="onlineOrderForm" method="POST">
-			<input type='hidden' name="order_id" class="order_id" />
+            <input type='hidden' name="order_id" class="order_id" value="<?= ($order_empty_data) ? (int) $order_empty_data->order_id : 0 ?>" />
+            <input type='hidden' name="order_type" class="order_type" value="online" />
+            <input type='hidden' name="order_currency" class="order_currency" value="<?= $order_currency ?>" />
 			<div class='new_order_box'>
 				<div>
 					<span class="label">Заказать из*:</span>
-					<select id="country_from_online" name="country_from" class="textbox" onchange="setCountryFrom(this.value)">
+                    <!--onchange="setCountryFrom(this.value)"-->
+					<select id="country_from_online" name="country_from" class="textbox" >
 						<option value="0">выберите страну...</option>
 						<? foreach ($countries as $country) : ?>
 						<option 
 							value="<?= $country->country_id ?>"
 							title="/static/images/flags/<?= $country->country_name_en ?>.png" 
-							<? if (isset($filter->country_from) AND $filter->country_from == $country->country_id) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
+							<? if (isset($filter->country_from) AND $filter->country_from == $country->country_id OR ($order_empty_data AND $order_empty_data->order_country_from == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
 						<? endforeach; ?>
 					</select>
 				</div>
 				<br style="clear:both;" />
 				<div>
 					<span class="label">В какую страну доставить*:</span>
-					<select id="country_to_online" name="country_to" class="textbox" onchange="setCountryTo(this.value)">
+                    <!--onchange="setCountryTo(this.value)"-->
+					<select id="country_to_online" name="country_to" class="textbox" >
 						<option value="0">выберите страну...</option>
 						<? foreach ($countries as $country) : ?>
-						<option value="<?= $country->country_id ?>"  title="/static/images/flags/<?= $country->country_name_en ?>.png" <? if (isset($filter->country_to) AND $filter->country_to == $country->country_id) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
+						<option
+                                value="<?= $country->country_id ?>"
+                                title="/static/images/flags/<?= $country->country_name_en ?>.png"
+                                <? if (isset($filter->country_to) AND $filter->country_to == $country->country_id OR ($order_empty_data AND $order_empty_data->order_country_to == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
 						<? endforeach; ?>
 					</select>
 				</div>
 				<br style="clear:both;" />
 				<div>
 					<span class="label">Город доставки*:</span>
-					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='city_to' name="city_to" />
+					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='city_to' name="city_to" value="<?= ($order_empty_data) ? $order_empty_data->order_city_to : '' ?>" />
 				</div>
 				<br style="clear:both;" />
 				<div>
@@ -60,9 +67,11 @@
 		<a href="javascript: void(0);" class="excel_switcher" style="">Массовая загрузка товаров</a>
 	</div>		
 	<form class='admin-inside' action="<?= $selfurl ?>addProductManualAjax" id="onlineItemForm" method="POST">
-		<input type='hidden' name="order_id" class="order_id" />
-		<input type='hidden' name="ocountry" class="countryFrom" />
-		<input type='hidden' name="ocountry_to" class="countryTo" />
+		<input type='hidden' name="order_id" class="order_id" value="<?= ($order_empty_data) ? (int) $order_empty_data->order_id : 0 ?>" />
+        <input type='hidden' name="order_type" class="order_type" value="online" />
+		<input type='hidden' name="ocountry" class="countryFrom" value="<?= ($order_empty_data) ? (int) $order_empty_data->order_country_from : '' ?>" />
+        <input type='hidden' name="ocountry_to" class="countryTo" value="<?= ($order_empty_data) ? (int) $order_empty_data->order_country_to : '' ?>" />
+        <input type='hidden' name="city_to" class="cityTo" value="<?= ($order_empty_data) ? (int) $order_empty_data->order_city_to : '' ?>" />
 		<input type='hidden' name="userfileimg" value="12345" />
 		<div class='table add_detail_box' style="position:relative;">
 			<div class='angle angle-lt'></div>
@@ -83,13 +92,13 @@
 				<div>
 					<span class="label">Цена товара*:</span>
 					<input style="width:180px;" class="textbox" maxlength="11" type='text' id='oprice' name="oprice" />
-					<span class="label currency"></span>
+					<span class="label currency"><?= $order_currency ?></span>
 				</div>
 				<br style="clear:both;" />
 				<div>
 					<span class="label">Местная доставка*:</span>
 					<input style="width:180px;" class="textbox" maxlength="11" type='text' id='odeliveryprice' name="odeliveryprice" />
-					<span class="label currency"></span>
+					<span class="label currency"><?= $order_currency ?></span>
 				</div>
 				<br style="clear:both;" />
 				<div>
@@ -135,7 +144,7 @@
 					<span class="label screenshot_switch" style="font-size:11px;margin:0;width:300px;">
 						<a href="javascript: showScreenshotLink();">Добавить ссылку</a>&nbsp;или&nbsp;<a href="javascript: showScreenshotUploader();" class="screenshot_switch">Загрузить файл</a>
 					</span>
-					<input class="textbox screenshot_link_box" type='text' id='oimg' name="oimg" style='display:none;width:180px;' value="ссылка на скриншот" onfocus="javascript: if (this.value == 'ссылка на скриншот') this.value = '';" onblur="javascript: if (this.value == '') this.value = 'ссылка на скриншот';">
+					<input class="textbox screenshot_link_box" type='text' id='oimg' name="userfileimg" style='display:none;width:180px;' value="" onfocus="javascript: if (this.value == 'ссылка на скриншот') this.value = '';" onblur="javascript: if (this.value == '') this.value = 'ссылка на скриншот';">
 					<input class="textbox screenshot_uploader_box" type='file' id='ofile' name="userfile" style='display:none;width:180px;'>
 					<span class="label screenshot_link_box screenshot_uploader_box" style='display:none;'>
 						<img border="0" src="/static/images/delete.png" title="Удалить">
@@ -144,7 +153,7 @@
 				<br style="clear:both;" />
 				<div>
 					<span class="label">Нужно ли фото товара?</span>
-					<input type='checkbox' id='' name="foto_requested" />
+					<input type='checkbox' id='foto_requested' name="foto_requested" />
 				</div>
 				<br style="clear:both;" />
 				<div>
@@ -158,7 +167,7 @@
 	<div style="height: 50px;" class="admin-inside">
 		<div class="submit">
 			<div>
-				<input type="button" value="Добавить товар" name="add" onclick="/*addItem();*/">
+				<input type="button" value="Добавить товар" id="addItemOnline" name="add" onclick="/*addItem();*/">
 			</div>
 		</div>
 	</div>
@@ -167,7 +176,10 @@
 <script type="text/javascript">
 	$(function() {
 		$('div.online_order').click(function() {
-			$.fn.getOrder({
+            var order = new $.cpOrder(orderData);
+            order.init("online");
+
+			/*$.fn.getOrder({
 				orderType : "online",
 				forms : {
 					order : "#onlineOrderForm",
@@ -190,7 +202,8 @@
 					$('h2#page_title').html('Добавление нового Online заказа');
 					$("div.online_order_form").show('slow');
 				}
-			});
+			});*/
+
 		});
 		
 		// номер посредника
@@ -220,6 +233,8 @@
 	});		
 
 	$(function() {
+
+/*
 		$('#onlineOrderForm').ajaxForm({
 			target: $('#orderForm').attr('action'),
 			type: 'POST',
@@ -248,21 +263,9 @@
 				// $('img.product_progress_bar').hide();
 				// $('em.product_error').html('Товар не добавлен. Попробуйте еще раз.<br /><br />').show();
 			}
-		});
+		});*/
 	});
-			
-	// скриншот
-	function showScreenshotLink()
-	{
-		$('.screenshot_link_box').show('slow');
-		$('.screenshot_switch').hide('slow');
-	}
 
-	function showScreenshotUploader()
-	{
-		$('.screenshot_uploader_box').show('slow');
-		$('.screenshot_switch').hide('slow');
-	}
 </script>
 
 <script type="text/javascript">

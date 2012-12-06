@@ -638,6 +638,23 @@ abstract class BaseController extends Controller
 		}
 	}
 
+    protected function addBlankOrder ($client, $country_from, $country_to, $city_to, $order_type)
+    {
+        // типы заказов
+        $this->load->model('OrderModel', 'Orders');
+
+        $order = new stdClass();
+        $order->order_client = $client;
+        $order->order_country_from = $country_from;
+        $order->order_country_to = $country_to;
+        $order->order_city_to = $city_to;
+        $order->order_type = $order_type;
+        $order->is_creating = 1;
+        $order = $this->Orders->addOrder($order);
+
+        return $order;
+    }
+
 	protected function addProductManualAjax()
 	{
 		$this->load->model('OrderModel', 'Orders');
@@ -645,23 +662,62 @@ abstract class BaseController extends Controller
 		
 		Check::reset_empties();
 		$detail = new OdetailModel();
-		$detail->odetail_order = Check::int('order_id');
+        $detail->odetail_order = Check::int('order_id');
 		
 		if ( ! $detail->odetail_order &&
+            $this->user &&
 			$this->user->user_group != 'client')
 		{
 			throw new Exception('Заказ не найден.');
 		}
+        elseif ( ! $detail->odetail_order )
+        {
+            if (empty($this->user))
+            {
+                // Записываем в сессию случайное отрицательное число сгенерированное на базе session_id
+                if (! isset($_SESSION['temporary_user_id']))
+                {
+                    $int_session_value = preg_replace("[A-Za-z]", "0", session_id());
+                    $int_session_value = (int) $int_session_value;
+                    $left_bound = -(time()+$int_session_value);
+                    $_SESSION['temporary_user_id'] = rand($left_bound,-1);
+                }
+
+                $client_id = $_SESSION['temporary_user_id'];
+            }
+            else
+            {
+                $client_id = $this->user->user_id;
+            }
+
+            $country_from = Check::int('ocountry');
+            $country_to = Check::int('ocountry_to');
+            $order_type = Check::str('order_type', 40, 0);
+            $city_to = Check::str('city_to', 40, 0);
+
+            // создаем пустой заказ
+            $order = $this->addBlankOrder($client_id, $country_from, $country_to, $city_to, $order_type);
+            $detail->odetail_order = $order->order_id;
+        }
+        else
+        {
+            // TODO : В идеале проверять на данном этапе не сменился ли у заказа odetail_country
+            $order = new stdClass();
+            $order->order_id = $detail->odetail_order;
+        }
 		
 		// находим заказ и клиента
 		if (empty($this->user))
 		{
-			$client_id = 0;
+			$client_id = $_SESSION['temporary_user_id'];
 		}
 		else if ($this->user->user_group == 'client')
 		{
 			$client_id = $this->user->user_id;
 		}
+
+        $detail->odetail_comment                = Check::str('odetail_comment', 255, 0);
+        $detail->odetail_status                 = 'processing';
 		
 		Check::reset_empties();
 		$detail->odetail_link					= Check::str('olink', 500, 1);
@@ -830,6 +886,9 @@ abstract class BaseController extends Controller
 					
 					$this->image_lib->resize(); // и вызываем функцию
 				}
+
+                $detail->odetail_img = $detail->odetail_id;
+                $this->OdetailModel->addOdetail($detail);
 			}
 			
 			// закрываем транзакцию
@@ -874,8 +933,12 @@ abstract class BaseController extends Controller
 					$status_caption);
 			}
 			
-			// возвращаем номер товара
-			print($detail->odetail_id);
+			// возвращаем json с инфой по заказу и товару
+            $result = new stdClass();
+            $result->order_id = $order->order_id;
+            $result->odetail_id = $detail->odetail_id;
+            $result->odetail_img = $detail->odetail_img;
+			echo json_encode($result);
 		}
 		catch (Exception $e)
 		{
@@ -2738,7 +2801,7 @@ abstract class BaseController extends Controller
 			// сохранение результатов
 			if ($this->user->user_group == 'client')
 			{
-				OdetailModel::markUpdatedByClient($order, $detail, $this->getOrderModel());
+				OdetailModel::markUpdatedByClient($order, $odetail, $this->getOrderModel());
 			}
 			
 			$odetail->odetail_status = 'deleted';
@@ -2766,7 +2829,8 @@ abstract class BaseController extends Controller
 					$this->Joints->addOdetailJoint($joint);
 				}
 			}
-			
+
+            // TODO : Возвращает BOOL значение а не объект, работает каким-то чудом =)
 			$deleted_odetail = $this->ODetails->addOdetail($odetail);
 			
 			if ( ! $deleted_odetail)
@@ -2774,7 +2838,8 @@ abstract class BaseController extends Controller
 				throw new Exception('Товар не удален. Попробуйте еще раз.');
 			}
 
-			$is_order_deleted = TRUE;
+            // Закоментировал ибо ломает удаление товара из заказа
+			//$is_order_deleted = TRUE;
 /*			
 			// меняем статус заказа
 			if ( ! $this->ODetails->getOrderDetails($order->order_id))

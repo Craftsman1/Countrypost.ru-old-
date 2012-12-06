@@ -943,6 +943,29 @@ Email: {$this->user->user_email}";
 		    $this->load->model('OrderModel', 'Orders');
 			$view['order_types'] = $this->Orders->getOrderTypes();
 
+            $view['order_currency'] = '';
+
+            // Создаем пустой заказ
+            // TODO : проверить если, пользователь авторизован, на существование уже созданного ранее заказа
+            if($this->user AND $exist_order = $this->blankExistOrderCheck($this->user->user_id))
+            {
+                $view['order_empty_data'] = $exist_order;
+                if ($exist_order)
+                {
+                    foreach($view['countries'] as $v)
+                    {
+                        if ( $v->country_id == $exist_order->order_country_from)
+                        {
+                            $view['order_currency'] = $v->country_currency;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                $view['order_empty_data'] = null;
+            }
+
 			// крошки
 			Breadcrumb::setCrumb(array('http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => 'Добавление нового заказа'), 1, TRUE);
 
@@ -956,6 +979,17 @@ Email: {$this->user->user_email}";
 			Stack::push('result', $this->result);
 		}
 	}
+
+    private function blankExistOrderCheck($client_id)
+    {
+        // типы заказов
+        $this->load->model('OrderModel', 'Orders');
+        $order = $this->Orders->getClientBlankOrder($client_id);
+
+        if ($order) return $order;
+
+        return false;
+    }
 	
 	public function addEmptyOrder($order_type = 'online')
 	{
@@ -988,8 +1022,9 @@ Email: {$this->user->user_email}";
 			$order = new stdClass();
 			$order->order_client = $user_id;
 			$order->order_type = $order_type;
-				$order = $this->Orders->addOrder($order);
-			
+            $order->is_creating = 1;
+		    $order = $this->Orders->addOrder($order);
+
 			print($order->order_id);
 		}
 		catch (Exception $e) 
@@ -1035,7 +1070,18 @@ Email: {$this->user->user_email}";
 			{				
 				throw new Exception('Невозможно создать заказ.');
 			}
-			
+
+            // проставляем тип заказа
+            $order->order_type = Check::str('order_type', 255, 1);
+            $order->order_type = ($order->order_type == '') ? 'online' : $order->order_type;
+
+            // проставляем фактически клиента (если авторизация прошла во время заполнения формы заказа)
+            $order->order_client = $this->user->user_id;
+            // TODO : отыскать все товары и поменять временный клиент айди на реальный
+
+            // Поставляем статус заказу
+            $order->order_status = 'proccessing';
+
 			Check::reset_empties();
 			$order->order_country_from = Check::int('country_from');
 			$order->order_country_to = Check::int('country_to');
@@ -1045,7 +1091,8 @@ Email: {$this->user->user_email}";
 			$order->order_manager = Check::int('dealer_id');
 			$order->order_status = 'pending';
 			$order->order_date = date('Y-m-d H:i:s');			
-			
+			$order->is_creating = 0;
+
 			if ($empties) 
 			{
 				throw new Exception('Некоторые поля не заполнены. Попробуйте еще раз.');
@@ -1079,38 +1126,11 @@ Email: {$this->user->user_email}";
 	
 	public function order($order_id)
 	{
-		$order = $this->getPrivilegedOrder($order_id, FALSE);
-
-		// залогиненных отправляем в личный кабинет
-		if ($order AND
-			isset($this->user->user_group))
+		if (isset($this->user->user_group))
 		{
 			Func::redirect("/{$this->user->user_group}/order/$order_id");
 		}
-
-		// чужой заказ ищем среди публичных заказов
-		$order = $this->getPublicOrder($order_id, FALSE);
-
-		if ($order)
-		{
-			parent::showPublicOrder();
-			return;
-		}
-
-		// если заказа нет, уходим на главную
-		if (empty($order))
-		{
-			Func::redirect(BASEURL);
-		}
-
-		// если вдруг чтото не сработало, уходим на главную
-		Func::redirect(BASEURL);
-	}
-
-	protected function showOrderBreadcrumb($order)
-	{
-		Breadcrumb::setCrumb(array(
-			"/main/order/{$order->order_id}" => "Заказ №{$order->order_id}"
-		), 1, TRUE);
+		
+		parent::showOrderDetails();
 	}
 }
