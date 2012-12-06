@@ -1126,11 +1126,38 @@ Email: {$this->user->user_email}";
 	
 	public function order($order_id)
 	{
-		if (isset($this->user->user_group))
+		$order = $this->getPrivilegedOrder($order_id, FALSE);
+
+		// залогиненных отправляем в личный кабинет
+		if ($order AND
+			isset($this->user->user_group))
 		{
 			Func::redirect("/{$this->user->user_group}/order/$order_id");
 		}
-		
-		parent::showOrderDetails();
+
+		// чужой заказ ищем среди публичных заказов
+		$order = $this->getPublicOrder($order_id, FALSE);
+
+		if ($order)
+		{
+			parent::showPublicOrder();
+			return;
+		}
+
+		// если заказа нет, уходим на главную
+		if (empty($order))
+		{
+			Func::redirect(BASEURL);
+		}
+
+		// если вдруг чтото не сработало, уходим на главную
+		Func::redirect(BASEURL);
+	}
+
+	protected function showOrderBreadcrumb($order)
+	{
+		Breadcrumb::setCrumb(array(
+			"/main/order/{$order->order_id}" => "Заказ №{$order->order_id}"
+		), 1, TRUE);
 	}
 }
