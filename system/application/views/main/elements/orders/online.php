@@ -5,7 +5,7 @@
 		<div class='angle angle-lb'></div>
 		<div class='angle angle-rb'></div>
 		<form class='admin-inside' action="<?= $selfurl ?>checkout" id="onlineOrderForm" method="POST">
-            <input type='hidden' name="order_id" class="order_id" value="<?= ($order_empty_data) ? (int) $order_empty_data->order_id : 0 ?>" />
+            <input type='hidden' name="order_id" class="order_id" value="<?= ($order) ? (int) $order->order_id : 0 ?>" />
             <input type='hidden' name="order_type" class="order_type" value="online" />
             <input type='hidden' name="order_currency" class="order_currency" value="<?= $order_currency ?>" />
 			<div class='new_order_box'>
@@ -18,7 +18,7 @@
 						<option 
 							value="<?= $country->country_id ?>"
 							title="/static/images/flags/<?= $country->country_name_en ?>.png" 
-							<? if (isset($filter->country_from) AND $filter->country_from == $country->country_id OR ($order_empty_data AND $order_empty_data->order_country_from == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
+							<? if (isset($filter->country_from) AND $filter->country_from == $country->country_id OR ($order AND $order->order_country_from == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
 						<? endforeach; ?>
 					</select>
 				</div>
@@ -32,14 +32,14 @@
 						<option
                                 value="<?= $country->country_id ?>"
                                 title="/static/images/flags/<?= $country->country_name_en ?>.png"
-                                <? if (isset($filter->country_to) AND $filter->country_to == $country->country_id OR ($order_empty_data AND $order_empty_data->order_country_to == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
+                                <? if (isset($filter->country_to) AND $filter->country_to == $country->country_id OR ($order AND $order->order_country_to == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
 						<? endforeach; ?>
 					</select>
 				</div>
 				<br style="clear:both;" />
 				<div>
 					<span class="label">Город доставки*:</span>
-					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='city_to' name="city_to" value="<?= ($order_empty_data) ? $order_empty_data->order_city_to : '' ?>" />
+					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='city_to' name="city_to" value="<?= ($order) ? $order->order_city_to : '' ?>" />
 				</div>
 				<br style="clear:both;" />
 				<div>
@@ -67,11 +67,11 @@
 		<a href="javascript: void(0);" class="excel_switcher" style="">Массовая загрузка товаров</a>
 	</div>		
 	<form class='admin-inside' action="<?= $selfurl ?>addProductManualAjax" id="onlineItemForm" method="POST">
-		<input type='hidden' name="order_id" class="order_id" value="<?= ($order_empty_data) ? (int) $order_empty_data->order_id : 0 ?>" />
+		<input type='hidden' name="order_id" class="order_id" value="<?= ($order) ? (int) $order->order_id : 0 ?>" />
         <input type='hidden' name="order_type" class="order_type" value="online" />
-		<input type='hidden' name="ocountry" class="countryFrom" value="<?= ($order_empty_data) ? (int) $order_empty_data->order_country_from : '' ?>" />
-        <input type='hidden' name="ocountry_to" class="countryTo" value="<?= ($order_empty_data) ? (int) $order_empty_data->order_country_to : '' ?>" />
-        <input type='hidden' name="city_to" class="cityTo" value="<?= ($order_empty_data) ? (int) $order_empty_data->order_city_to : '' ?>" />
+		<input type='hidden' name="ocountry" class="countryFrom" value="<?= ($order) ? (int) $order->order_country_from : '' ?>" />
+        <input type='hidden' name="ocountry_to" class="countryTo" value="<?= ($order) ? (int) $order->order_country_to : '' ?>" />
+        <input type='hidden' name="city_to" class="cityTo" value="<?= ($order) ? (int) $order->order_city_to : '' ?>" />
 		<input type='hidden' name="userfileimg" value="12345" />
 		<div class='table add_detail_box' style="position:relative;">
 			<div class='angle angle-lt'></div>
@@ -178,32 +178,6 @@
 		$('div.online_order').click(function() {
             var order = new $.cpOrder(orderData);
             order.init("online");
-
-			/*$.fn.getOrder({
-				orderType : "online",
-				forms : {
-					order : "#onlineOrderForm",
-					item : "#onlineItemForm",
-				},
-				fields : {
-					country_from : {
-						selector : "#country_from_online",
-						required : true
-					},
-					country_to : {
-						selector : "#country_to_online",
-						required : true
-					}
-				},
-				show : function() 
-				{
-					// Отображаем форму
-					$('div.order_type_selector').hide();
-					$('h2#page_title').html('Добавление нового Online заказа');
-					$("div.online_order_form").show('slow');
-				}
-			});*/
-
 		});
 		
 		// номер посредника
@@ -227,91 +201,7 @@
 			$('.excel_box').show('slow');
 			$('.add_detail_box').hide('slow');
 		});
-		
-		//$('input#osize,input#oprice,input#odeliveryprice').keypress(function(event){validate_float(event);});
-		//$('input#oamount,input#oweight').keypress(function(event){validate_number(event);});
-	});		
 
-	$(function() {
-
-/*
-		$('#onlineOrderForm').ajaxForm({
-			target: $('#orderForm').attr('action'),
-			type: 'POST',
-			dataType: 'html',
-			iframe: true,
-			beforeSubmit: function(formData, jqForm, options)
-			{			
-			},
-			success: function(response)
-			{
-				// $progress = $('img.product_progress_bar:last');
-				// $progress.hide();
-				
-				if (response)
-				{
-					error('top', 'Заказ не добавлен. '+response);
-				}
-				else
-				{
-					success('top', 'Заказ №' + $('input.order_id').val() + ' добавлен! Дождитесь предложений от посредников и выберите лучшее из них.');
-					window.location = '/';
-				}
-			},
-			error: function(response)
-			{
-				// $('img.product_progress_bar').hide();
-				// $('em.product_error').html('Товар не добавлен. Попробуйте еще раз.<br /><br />').show();
-			}
-		});*/
 	});
 
-</script>
-
-<script type="text/javascript">
-	/* <![CDATA[ */
-	jQuery(function(){
-			
-			/*jQuery("#ValidNumber").validate({
-					expression: "if (!isNaN(VAL) && VAL) return true; else return false;",
-					message: "Please enter a valid number"
-			});
-			jQuery("#ValidInteger").validate({
-					expression: "if (VAL.match(/^[0-9]*$/) && VAL) return true; else return false;",
-					message: "Please enter a valid integer"
-			});
-			jQuery("#ValidDate").validate({
-					expression: "if (!isValidDate(parseInt(VAL.split('-')[2]), parseInt(VAL.split('-')[0]), parseInt(VAL.split('-')[1]))) return false; else return true;",
-					message: "Please enter a valid Date"
-			});
-			jQuery("#ValidEmail").validate({
-					expression: "if (VAL.match(/^[^\\W][a-zA-Z0-9\\_\\-\\.]+([a-zA-Z0-9\\_\\-\\.]+)*\\@[a-zA-Z0-9_]+(\\.[a-zA-Z0-9_]+)*\\.[a-zA-Z]{2,4}$/)) return true; else return false;",
-					message: "Please enter a valid Email ID"
-			});
-			jQuery("#ValidPassword").validate({
-					expression: "if (VAL.length > 5 && VAL) return true; else return false;",
-					message: "Please enter a valid Password"
-			});
-			jQuery("#ValidConfirmPassword").validate({
-					expression: "if ((VAL == jQuery('#ValidPassword').val()) && VAL) return true; else return false;",
-					message: "Confirm password field doesn't match the password field"
-			});
-			jQuery("#ValidSelection").validate({
-					expression: "if (VAL != '0') return true; else return false;",
-					message: "Please make a selection"
-			});
-			jQuery("#ValidMultiSelection").validate({
-					expression: "if (VAL) return true; else return false;",
-					message: "Please make a selection"
-			});
-			jQuery("#ValidRadio").validate({
-					expression: "if (isChecked(SelfID)) return true; else return false;",
-					message: "Please select a radio button"
-			});
-			jQuery("#ValidCheckbox").validate({
-					expression: "if (isChecked(SelfID)) return true; else return false;",
-					message: "Please check atleast one checkbox"
-			});*/
-	});
-	/* ]]> */
 </script>

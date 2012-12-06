@@ -3185,6 +3185,35 @@ abstract class BaseController extends Controller
 		
 		return $order;
 	}
+
+    protected function getNewOrder($order_id, $validate = TRUE)
+    {
+        $order = FALSE;
+        $model = $this->getOrderModel();
+
+        // залогиненным показываем только их заказ, либо заказ с их предложением
+        if (isset($this->user->user_group) && $this->user->user_group != 'manager')
+        {
+            switch ($this->user->user_group)
+            {
+                case 'client' :
+                    $order = $model->getClientOrderById($order_id, $this->user->user_id);
+                    break;
+                case 'admin' :
+                    $order = $model->getById($order_id);
+                    break;
+            }
+        }
+
+        // валидация
+        if ($validate AND
+            empty($order))
+        {
+            throw new Exception($validate);
+        }
+
+        return $order;
+    }
 	
 	protected function getPublicOrder($order_id, $validate = TRUE)
 	{
