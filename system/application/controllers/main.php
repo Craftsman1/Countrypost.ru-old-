@@ -947,7 +947,7 @@ Email: {$this->user->user_email}";
 
             // Создаем пустой заказ
             // TODO : проверить если, пользователь авторизован, на существование уже созданного ранее заказа
-            if($exist_order = $this->blankExistOrderCheck($this->user->user_id))
+            if($this->user AND $exist_order = $this->blankExistOrderCheck($this->user->user_id))
             {
                 $view['order_empty_data'] = $exist_order;
                 if ($exist_order)
@@ -1077,6 +1077,7 @@ Email: {$this->user->user_email}";
 
             // проставляем фактически клиента (если авторизация прошла во время заполнения формы заказа)
             $order->order_client = $this->user->user_id;
+            // TODO : отыскать все товары и поменять временный клиент айди на реальный
 
             // Поставляем статус заказу
             $order->order_status = 'proccessing';

@@ -266,6 +266,18 @@
                 }
             }
 
+            cObj.getById = function (id)
+            {
+                var out = null;
+                $.each(cObj.items,
+                    function (k, v)
+                    {
+                        if (v.id == id) out = v;
+                    }
+                )
+                return out;
+            }
+
             cObj.update = function(args)
             {
                 if (args && args.id)
@@ -768,7 +780,221 @@
 
                             iObj.edit = function (itemId)
                             {
-                                success('top', "В разработке.");
+                                var cart = oObj.options.cart,
+                                    item = cart.getById(itemId),
+                                    snippets = [],
+                                    info_container = $('tr[item-id="'+itemId+'"] td.oname'),
+                                    img_container = $('tr[item-id="'+itemId+'"] td.oimg'),
+                                    price_container = $('tr[item-id="'+itemId+'"] td.oprice'),
+                                    delivery_container = $('tr[item-id="'+itemId+'"] td.odeliveryprice'),
+                                    weight_container = $('tr[item-id="'+itemId+'"] td.oweight'),
+                                    controls_container = $('tr[item-id="'+itemId+'"] td.oedit'),
+                                    actions = '<a id="odetail_cancel'+itemId+'" item-id="'+itemId+'" href="#"><img border="0" title="Отменить" src="/static/images/comment-delete.png"></a><br>' +
+                                            '<a id="odetail_save'+itemId+'" item-id="'+itemId+'" href="#"><img border="0" title="Сохранить" src="/static/images/done-filed.png"></a>';
+
+                                snippets.push ({'html' : '<label>Название: <input type="text" name="name'+itemId+'" value="'+item.name+'"></label><br/>'});
+                                snippets.push ({'html' : '<label>Ссылка: <input type="text" name="olink'+itemId+'" value="'+item.olink+'"></label><br/>'});
+                                snippets.push ({'html' : '<label>Цвет: <input type="text" name="ocolor'+itemId+'" value="'+item.ocolor+'"></label><br/>'});
+                                snippets.push ({'html' : '<label>Размер: <input type="text" name="osize'+itemId+'" value="'+item.osize+'"></label><br/>'});
+                                snippets.push ({'html' : '<label>Количество: <input type="text" name="amount'+itemId+'" value="'+item.amount+'"></label><br/>'});
+                                snippets.push ({'html' : '<label><input type="checkbox" name="foto_requested'+itemId+'" '+((item.foto_requested) ? 'checked' : '')+' value="1"> требуется фото товара</label><br/>'});
+                                snippets.push ({'html' : '<label>Коментарий: <br/><textarea name="ocomment'+itemId+'">'+item.ocomment+'</textarea></label><br/>'});
+                                var temp_info_html = info_container.html();
+
+                                if (info_container)
+                                {
+                                    info_container.empty();
+
+                                    $.each(snippets,
+                                        function (k, v)
+                                        {
+                                            info_container.append(v.html);
+                                        }
+                                    )
+                                }
+
+                                if (controls_container)
+                                {
+                                    controls_container.find('.edit_icon').remove();
+                                    controls_container.prepend(actions);
+                                    $('#odetail_cancel'+itemId).bind('click', iObj.cancelItem);
+                                    $('#odetail_save'+itemId).bind('click', iObj.saveItem);
+                                }
+
+                                if (img_container)
+                                {
+                                    img_container.empty();
+                                    img_container.append(''+
+                                    '<input type="text" name="oimguserfile'+itemId+'" value=""/><br/>' +
+                                    '<input type="file" name="userfile'+itemId+'" value=""/>');
+                                }
+
+                                if (price_container)
+                                {
+                                    price_container.empty();
+                                    price_container.append('<input type="text" name="price'+itemId+'" value="'+item.price+'"><span class="label currency">'+item.currency+'</span>');
+                                }
+
+                                if (delivery_container)
+                                {
+                                    delivery_container.empty();
+                                    delivery_container.append('<input type="text" name="delivery'+itemId+'" value="'+item.delivery+'"><span class="label currency">'+item.currency+'</span>');
+                                }
+
+                                if (weight_container)
+                                {
+                                    weight_container.empty();
+                                    weight_container.append('<input type="text" name="weight'+itemId+'" value="'+item.weight+'"> г');
+                                }
+                                return false;
+                            }
+
+                            iObj.cancelItem = function ()
+                            {
+                                var itemId = $(this).attr('item-id'),
+                                    cart = oObj.options.cart,
+                                    item = cart.getById(itemId),
+                                    info_container = $('tr[item-id="'+itemId+'"] td.oname'),
+                                    img_container = $('tr[item-id="'+itemId+'"] td.oimg'),
+                                    price_container = $('tr[item-id="'+itemId+'"] td.oprice'),
+                                    delivery_container = $('tr[item-id="'+itemId+'"] td.odeliveryprice'),
+                                    weight_container = $('tr[item-id="'+itemId+'"] td.oweight'),
+                                    controls_container = $('tr[item-id="'+itemId+'"] td.oedit'),
+                                    info = '<a target="_blank" href="'+item.olink+'">'+item.name+'</a> ' +
+                                            ''+((item.foto_requested) ? '(требуется фото товара)' : '')+'<br>' +
+                                            '<b>Количество</b>: '+item.amount+' ' +
+                                            '<b>Размер</b>: '+item.osize+' ' +
+                                            '<b>Цвет</b>: '+item.ocolor+'<br/>' +
+                                            '<b>Коментарий</b>: '+item.ocomment+'',
+                                    actions = '<a class="edit_icon" id="edit_icon'+itemId+'" item-id="'+itemId+'" style="cursor: pointer;"><img src="/static/images/comment-edit.png" title="Изменить" border="0"></a><br>' +
+                                            '<a class="delete_icon" id="delete_icon'+itemId+'" item-id="'+itemId+'"><img src="/static/images/delete.png" style="cursor: pointer;" title="Удалить" border="0"></a>';
+
+                                info_container.empty();
+                                info_container.append(info);
+                                img_container.empty();
+                                img_container.append(item.oimg);
+                                price_container.empty();
+                                price_container.append(item.price+' <span class="label currency">'+item.currency+'</span>');
+                                delivery_container.empty();
+                                delivery_container.append(item.delivery+' <span class="label currency">'+item.currency+'</span>');
+                                weight_container.empty();
+                                weight_container.append(item.weight+' г');
+                                controls_container.empty();
+                                controls_container.append(actions);
+
+                                $('#edit_icon'+itemId).bind('click', function () { iObj.edit(itemId); });
+                                $('#delete_icon'+itemId).bind('click', function () { iObj.delete(itemId); });
+                                return false;
+                            }
+
+                            iObj.saveItem = function ()
+                            {
+                                var itemId = $(this).attr('item-id'),
+                                    cart = oObj.options.cart,
+                                    item = cart.getById(itemId),
+                                    info_container = $('tr[item-id="'+itemId+'"] td.oname'),
+                                    img_container = $('tr[item-id="'+itemId+'"] td.oimg'),
+                                    price_container = $('tr[item-id="'+itemId+'"] td.oprice'),
+                                    delivery_container = $('tr[item-id="'+itemId+'"] td.odeliveryprice'),
+                                    weight_container = $('tr[item-id="'+itemId+'"] td.oweight'),
+                                    controls_container = $('tr[item-id="'+itemId+'"] td.oedit'),
+                                    info = '',
+                                    actions = '<a class="edit_icon" id="edit_icon'+itemId+'" item-id="'+itemId+'" style="cursor: pointer;"><img src="/static/images/comment-edit.png" title="Изменить" border="0"></a><br>' +
+                                            '<a class="delete_icon" id="delete_icon'+itemId+'" item-id="'+itemId+'"><img src="/static/images/delete.png" style="cursor: pointer;" title="Удалить" border="0"></a>';
+
+                                $.each(info_container.find('input, textarea'),
+                                    function (k, v)
+                                    {
+                                        var name = $(v).attr('name').replace(itemId, ''),
+                                            value = $(v).val();
+                                        if ($(v).attr('type') != 'checkbox')
+                                        {
+                                            item[name] = value;
+                                        }
+                                        else
+                                        {
+                                            item[name] = (v.checked) ? 1 : 0;
+                                        }
+                                        cart.update(item);
+                                    }
+                                );
+
+                                $.each(price_container.find('input, textarea'),
+                                        function (k, v)
+                                        {
+                                            var name = $(v).attr('name').replace(itemId, ''),
+                                                    value = $(v).val();
+                                            if ($(v).attr('type') != 'checkbox')
+                                            {
+                                                item[name] = value;
+                                            }
+                                            else
+                                            {
+                                                item[name] = (v.checked) ? 1 : 0;
+                                            }
+                                            cart.update(item);
+                                        }
+                                );
+
+                                $.each(delivery_container.find('input, textarea'),
+                                        function (k, v)
+                                        {
+                                            var name = $(v).attr('name').replace(itemId, ''),
+                                                    value = $(v).val();
+                                            if ($(v).attr('type') != 'checkbox')
+                                            {
+                                                item[name] = value;
+                                            }
+                                            else
+                                            {
+                                                item[name] = (v.checked) ? 1 : 0;
+                                            }
+                                            cart.update(item);
+                                        }
+                                );
+
+                                $.each(weight_container.find('input, textarea'),
+                                        function (k, v)
+                                        {
+                                            var name = $(v).attr('name').replace(itemId, ''),
+                                                    value = $(v).val();
+                                            if ($(v).attr('type') != 'checkbox')
+                                            {
+                                                item[name] = value;
+                                            }
+                                            else
+                                            {
+                                                item[name] = (v.checked) ? 1 : 0;
+                                            }
+                                            cart.update(item);
+                                        }
+                                );
+
+                                info = '<a target="_blank" href="'+item.olink+'">'+item.name+'</a> ' +
+                                        ''+((item.foto_requested) ? '(требуется фото товара)' : '')+'<br>' +
+                                        '<b>Количество</b>: '+item.amount+' ' +
+                                        ((item.osize != '') ? '<b>Размер</b>: '+item.osize+' ' : '') +
+                                        ((item.ocolor != '') ? '<b>Цвет</b>: '+item.ocolor : '' )+'<br/>' +
+                                        ((item.ocomment != '') ? '<b>Коментарий</b>: '+item.ocomment+'' : '');
+
+                                info_container.empty();
+                                info_container.append(info);
+                                img_container.empty();
+                                img_container.append(item.oimg);
+                                price_container.empty();
+                                price_container.append(item.price+' <span class="label currency">'+item.currency+'</span>');
+                                delivery_container.empty();
+                                delivery_container.append(item.delivery+' <span class="label currency">'+item.currency+'</span>');
+                                weight_container.empty();
+                                weight_container.append(item.weight+' г');
+                                controls_container.empty();
+                                controls_container.append(actions);
+
+                                $('#edit_icon'+itemId).bind('click', function () { iObj.edit(itemId); });
+                                $('#delete_icon'+itemId).bind('click', function () { iObj.delete(itemId); });
+
+                                oObj.updateTotals();
+                                return false;
                             }
 
                             iObj.drawRow = function (item)

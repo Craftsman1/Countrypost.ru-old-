@@ -665,6 +665,7 @@ abstract class BaseController extends Controller
         $detail->odetail_order = Check::int('order_id');
 		
 		if ( ! $detail->odetail_order &&
+            $this->user &&
 			$this->user->user_group != 'client')
 		{
 			throw new Exception('Заказ не найден.');
@@ -682,11 +683,11 @@ abstract class BaseController extends Controller
                     $_SESSION['temporary_user_id'] = rand($left_bound,-1);
                 }
 
-                $client = $_SESSION['temporary_user_id'];
+                $client_id = $_SESSION['temporary_user_id'];
             }
             else
             {
-                $client = $this->user->user_id;
+                $client_id = $this->user->user_id;
             }
 
             $country_from = Check::int('ocountry');
@@ -695,7 +696,7 @@ abstract class BaseController extends Controller
             $city_to = Check::str('city_to', 40, 0);
 
             // создаем пустой заказ
-            $order = $this->addBlankOrder($client, $country_from, $country_to, $city_to, $order_type);
+            $order = $this->addBlankOrder($client_id, $country_from, $country_to, $city_to, $order_type);
             $detail->odetail_order = $order->order_id;
         }
         else
@@ -708,7 +709,7 @@ abstract class BaseController extends Controller
 		// находим заказ и клиента
 		if (empty($this->user))
 		{
-			$client_id = 0;
+			$client_id = $_SESSION['temporary_user_id'];
 		}
 		else if ($this->user->user_group == 'client')
 		{
