@@ -112,7 +112,8 @@
 							$order->bid->delivery_name) :
 						$order->preferred_delivery ?></textarea>
 				<? else : ?>
-				<?= $order->bid->delivery_name ?>
+                <? print_r($order->bid) ?>
+				<?= (!empty($order->bid)) ? $order->bid->delivery_name : '' ?>
 				<? endif; ?>
 			</span>
 		</div>

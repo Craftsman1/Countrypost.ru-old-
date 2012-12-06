@@ -251,17 +251,4 @@
 			}
 		});
 	});
-			
-	// скриншот
-	function showScreenshotLink()
-	{
-		$('.screenshot_link_box').show('slow');
-		$('.screenshot_switch').hide('slow');
-	}
-
-	function showScreenshotUploader()
-	{
-		$('.screenshot_uploader_box').show('slow');
-		$('.screenshot_switch').hide('slow');
-	}
 </script>

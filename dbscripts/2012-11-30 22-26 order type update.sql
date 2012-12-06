@@ -1,0 +1,1 @@
+ALTER TABLE `orders` ADD `is_creating` TINYINT( 1 ) NOT NULL DEFAULT 0;

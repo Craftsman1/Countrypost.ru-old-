@@ -45,6 +45,8 @@
 						.after(response);
 						
 					$('div.order_auth').hide('fast');
+
+                    $('.checkOutOrderBlock').show('fast');
 				}
 				else
 				{

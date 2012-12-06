@@ -244,6 +244,7 @@ class OrderModel extends BaseModel implements IModel{
 		$this->properties->payed_date		= '';
 		$this->properties->sent_date		= '';
 		$this->properties->address_id		= '';
+        $this->properties->is_creating      = '';
 
 		parent::__construct();
     }
@@ -713,6 +714,43 @@ class OrderModel extends BaseModel implements IModel{
 
 		return FALSE;
 	}
+
+    /**
+     * Возвращает заказ, если он есть у клиента
+     *
+     * @return object
+     */
+    public function getClientBlankOrder($client_id)
+    {
+        // выборка
+        $order = $this->db->query(
+            "SELECT
+                `orders` . * ,
+                @package_day := TIMESTAMPDIFF(DAY , `orders`.`order_date` , NOW( ) ) AS package_day,
+                `users`.`user_login` AS `client_login` ,
+                TIMESTAMPDIFF( HOUR , `orders`.`order_date` , NOW( ) - INTERVAL @package_day DAY ) AS `package_hour`
+            FROM `orders`
+            INNER JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
+            WHERE `orders`.`is_creating` = 1
+            ORDER BY `orders`.`order_date` DESC
+            LIMIT 1"
+        )->row();
+
+        if ($order)
+        {
+            $odetails = $this->db->query(
+                "SELECT *
+                FROM `odetails`
+                WHERE `odetails`.`odetail_order` = {$order->order_id} AND odetail_status <> 'deleted'"
+            )->result();
+
+            $order->details = $odetails;
+
+            return $order;
+        }
+
+        return false;
+    }
 	
 	/**
 	 * Добавление/изменение заказа

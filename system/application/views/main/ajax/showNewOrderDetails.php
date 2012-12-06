@@ -111,10 +111,10 @@
 			</tr>
 		</table>			
 	</div>
-	<div style="height: 50px;" class="admin-inside">
+	<div style="height: 50px; <?= (empty($this->user->user_group) ? 'display:none;' : '')?>" class="admin-inside checkOutOrderBlock">
 		<div class="submit">
 			<div>
-				<input type="button" value="Готово" name="checkout" onclick="/*checkout();*/">
+				<input type="button" value="Готово" id="checkoutOrder" name="checkout" onclick="/*checkout();*/">
 			</div>
 		</div>
 	</div>
