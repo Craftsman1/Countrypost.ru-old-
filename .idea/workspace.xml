@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="client profile bugfix">
-      <change type="MOVED" beforePath="C:\Program Files\wamp\www\countrypost.service\dbscripts\2012-11-27 02-26 country flags update.txt" afterPath="$PROJECT_DIR$/dbscripts/2012-11-27 02-26 country flags update.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/main.php" afterPath="$PROJECT_DIR$/system/application/controllers/main.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OrderModel.php" afterPath="$PROJECT_DIR$/system/application/models/OrderModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfo.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfo.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -82,10 +81,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="main.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1143" column="19" selection-start="30304" selection-end="30304" vertical-scroll-proportion="0.2753623">
+            <state line="1160" column="20" selection-start="30655" selection-end="30655" vertical-scroll-proportion="-9.814815">
               <folding />
             </state>
           </provider>
@@ -134,10 +133,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OrderModel.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="OrderModel.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="970" column="50" selection-start="23954" selection-end="23954" vertical-scroll-proportion="-4.5">
+            <state line="970" column="0" selection-start="23949" selection-end="23949" vertical-scroll-proportion="0.24751067">
               <folding />
             </state>
           </provider>
@@ -197,10 +196,10 @@
         <option value="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderDetails.php" />
         <option value="$PROJECT_DIR$/system/application/models/OdetailModel.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
-        <option value="$PROJECT_DIR$/system/application/models/OrderModel.php" />
         <option value="$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php" />
         <option value="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/main.php" />
+        <option value="$PROJECT_DIR$/system/application/models/OrderModel.php" />
       </list>
     </option>
   </component>
@@ -316,6 +315,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -530,7 +551,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25804377" sideWeight="0.33375958" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25804377" sideWeight="0.33375958" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -617,8 +638,6 @@
             <element signature="tag#select#0;tag#span#1;tag#div#6;tag#div#1;tag#form#0" expanded="false" />
             <element signature="e#3078#3106#0" expanded="true" />
             <element signature="e#3254#3291#0" expanded="true" />
-            <element signature="e#4348#4368#0" expanded="true" />
-            <element signature="e#4559#4606#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -674,13 +693,6 @@
     <entry file="file://$PROJECT_DIR$/system/application/models/OdetailModel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="431" column="54" selection-start="11607" selection-end="11607" vertical-scroll-proportion="-3.8888888">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="970" column="50" selection-start="23954" selection-end="23954" vertical-scroll-proportion="-4.5">
           <folding />
         </state>
       </provider>
@@ -791,7 +803,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1143" column="19" selection-start="30304" selection-end="30304" vertical-scroll-proportion="0.2753623">
+        <state line="1160" column="20" selection-start="30655" selection-end="30655" vertical-scroll-proportion="-9.814815">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="970" column="0" selection-start="23949" selection-end="23949" vertical-scroll-proportion="0.24751067">
           <folding />
         </state>
       </provider>

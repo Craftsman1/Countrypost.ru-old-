@@ -967,6 +967,7 @@ class OrderModel extends BaseModel implements IModel{
 		$joints = array();
 	
 		$odetails = $OdetailModel->getOrderDetails($order->order_id);
+		$total_status = $order->order_status;
 
 		// вычисляем статус, если выбран посредник
 		if ($order->order_status != 'pending')
@@ -975,7 +976,6 @@ class OrderModel extends BaseModel implements IModel{
 			$has_processing_status = FALSE;
 			$has_available_status = FALSE;
 			$has_bought_status = FALSE;
-			$total_status = $order->order_status;
 
 			foreach ($odetails as $odetail)
 			{
