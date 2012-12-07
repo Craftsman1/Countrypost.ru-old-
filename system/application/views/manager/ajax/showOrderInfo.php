@@ -1,10 +1,10 @@
-<form id="orderForm" action="<?= $selfurl ?>updateOrder/<?= $order->order_id ?>" method="POST">
-	<? if ($order->order_manager != $this->user->user_id OR empty($order->bid)) : ?>
-	<div class='clientOrderInfo' style="display:none;"></div>
-	<? else :
-		$is_editable = 	($order->order_manager == $this->user->user_id) &&
-			in_array($order->order_status, $editable_statuses);
+<? if ($order->order_manager != $this->user->user_id OR empty($order->bid)) : ?>
+<div class='clientOrderInfo' style="display:none;"></div>
+<? else :
+	$is_editable = 	($order->order_manager == $this->user->user_id) &&
+		in_array($order->order_status, $editable_statuses);
 	?>
+<form id="orderForm" action="<?= $selfurl ?>updateOrder/<?= $order->order_id ?>" method="POST">
 	<div class="pricelist pricelist_main table clientOrderInfo">
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>

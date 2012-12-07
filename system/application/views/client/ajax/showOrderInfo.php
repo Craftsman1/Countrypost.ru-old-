@@ -85,7 +85,7 @@
 							<? endforeach; ?>
 						</select>
 						<br>
-						<a class="floatright" href="/profile">редактировать адреса</a>
+						<a class="floatleft" href="/profile">редактировать адреса</a>
 						<? endif; ?>
 					<? else : ?>
 					<?= $order->order_address ?>
@@ -166,7 +166,7 @@
 </form>
 <script>
 	$(function() {
-		$("#address").msDropDown({mainCSS:'idd_order'});
+		//$("#address").msDropDown({mainCSS:'idd_order'});
 
 		$('#orderForm').ajaxForm({
 			target: "<?= $selfurl ?>updateOrder/<?= $order->order_id ?>",

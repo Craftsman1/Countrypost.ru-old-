@@ -20,7 +20,7 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 		</colgroup>
 		<tr>
 			<th nowrap>
-				№ <input type='checkbox' id='select_all' />
+				№ <? if ($is_editable) : ?><input type='checkbox' id='select_all'><? endif; ?>
 			</th>
 			<th>Товар</th>
 			<th>Скриншот</th>
@@ -288,25 +288,29 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 			<td colspan="2">&nbsp;</td>
 			<? endif; ?>
 		</tr>
-		<? if ($bids_accepted) : ?>
+		<? if ($bids_accepted AND
+			! empty($order->preferred_delivery)) : ?>
 		<tr class='last-row'>
-			<td colspan='3'>
-				<div class='floatleft'>
-					<div class='submit'><div><input type='button' class="bid_button" value='Добавить предложение' onclick="showRequestForm('<?= $order->order_id ?>');" /></div></div>
-				</div>
-			</td>
-			<td style="text-align: right;" colspan='3'>
+			<td style="text-align: right;" colspan='6'>
 				<b>
-					<? if ( ! empty($order->preferred_delivery)) : ?>
-					<br />
 					Способ доставки: <b class="order_totals"><?= $order->preferred_delivery ?></b>
-					<? endif; ?>
 				</b>
 			</td>
 		</tr>
 		<? endif; ?>
 	</table>
 </div>
+<? if ($bids_accepted) : ?>
+<div style="height:50px;">
+	<div class="admin-inside float-left">
+		<div class='submit'>
+			<div>
+				<input type='button' class="bid_button" value='Добавить предложение' onclick="showRequestForm('<?= $order->order_id ?>');" />
+			</div>
+		</div>
+	</div>
+</div>
+<? endif; ?>
 <? if ($is_editable) : ?>
 <div style="height:50px;">
 	<div class="admin-inside float-left">
