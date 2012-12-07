@@ -2451,6 +2451,71 @@ class Client extends ClientBaseController {
 		print(json_encode($response));
 	}
 
+	public function update_joint_pricedelivery($order_id, $joint_id, $cost)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				! is_numeric($joint_id) OR
+				! is_numeric($cost))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Заказ недоступен.');
+			}
+
+			// находим товар
+			$joint = $this->Joints->getPrivilegedJoint(
+				$order_id,
+				$joint_id,
+				$this->user->user_id,
+				$this->user->user_group);
+
+			if (empty($joint))
+			{
+				throw new Exception('Товары не найдены.');
+			}
+
+			$joint->cost = $cost;
+
+			// сохранение результатов
+			$this->Joints->addOdetailJoint($joint);
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
+	}
+
 	public function updateProduct($order_id, $odetail_id)
 	{
 		try
@@ -2539,53 +2604,7 @@ class Client extends ClientBaseController {
 			// загружаем файл
 			if (isset($userfile) && $userfile)
 			{
-				$old = umask(0);
-				// загрузка файла
-				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id")){
-					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id",0777);
-				}
-
-				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id";
-				$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
-				$config['max_size']				= '3072';
-				$config['encrypt_name'] 		= TRUE;
-				$max_width						= 1024;
-				$max_height						= 768;
-				$this->load->library('upload', $config);
-
-				if (!$this->upload->do_upload()) {
-					throw new Exception(strip_tags(trim($this->upload->display_errors())));
-				}
-
-				$uploadedImg = $this->upload->data();
-
-				// на сервере - '/upload/orders/'
-				$filename = $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id/{$odetail->odetail_id}.jpg";
-
-				if (file_exists($filename))
-				{
-					unlink($filename);
-				}
-
-				if (!rename($uploadedImg['full_path'], $filename))
-				{
-					throw new Exception("Bad file name!");
-				}
-
-				$imageInfo = getimagesize($filename);
-
-				if ($imageInfo[0]>$max_width || $imageInfo[1]>$max_height){
-
-					$config['image_library']	= 'gd2';
-					$config['source_image']		= $filename;
-					$config['maintain_ratio']	= TRUE;
-					$config['width']			= $max_width;
-					$config['height']			= $max_height;
-
-					$this->load->library('image_lib', $config); // загружаем библиотеку
-
-					$this->image_lib->resize(); // и вызываем функцию
-				}
+				$this->uploadOrderScreenshot($odetail, $client_id);
 			}
 
 			// закрываем транзакцию
@@ -2601,5 +2620,15 @@ class Client extends ClientBaseController {
 		}
 
 		print(json_encode($response));
+	}
+
+	public function joinProducts($order_id)
+	{
+		parent::joinProducts($order_id);
+	}
+
+	public function removeJoint($order_id, $joint_id)
+	{
+		parent::removeJoint($order_id, $joint_id);
 	}
 }

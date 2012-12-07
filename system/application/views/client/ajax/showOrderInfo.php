@@ -10,57 +10,51 @@
 		<div class='angle angle-rt'></div>
 		<div class='angle angle-lb'></div>
 		<div class='angle angle-rb'></div>
-		<div>
-			<span>
-				Статус:
-			</span>
-			<span>
-				<b>
-				<? foreach ($statuses[$order->order_type] as $status => $status_name)
-				{
-					if ($order->order_status == $status)
-					{
-						echo $status_name;
-						break;
-					}
-				} ?>
-				</b>
-			</span>
-		</div>
-		<div>
-			<span>
-				Оплатить:
-			</span>
-			<span>
-				<? if (in_array($order->order_status, $payable_statuses) AND
+		<table>
+			<tr>
+				<th nowrap>
+					Статус:
+				</th>
+				<th nowrap>
+					<b>
+					<?= $statuses[$order->order_type][$order->order_status] ?>
+					</b>
+				</th>
+			</tr>
+			<tr>
+				<td>
+					Оплатить:
+				</td>
+				<td>
+					<? if (in_array($order->order_status, $payable_statuses) AND
 					$order->order_cost > $order->order_cost_payed) : ?>
-				<div class="admin-inside" style="height:50px;" id='save_order_button'>
-					<div class="submit">
-						<div>
-							<input type="button" onclick="window.location = '/client/saveorder';"
-								   value="Оплатить <?= $order->order_cost - $order->order_cost_payed ?> <?=
-									   $order->order_currency ?>">
+					<div class="admin-inside" style="height:50px;" id='save_order_button'>
+						<div class="submit">
+							<div>
+								<input type="button" onclick="window.location = '/client/saveorder';"
+									   value="Оплатить <?= $order->order_cost - $order->order_cost_payed ?> <?=
+										   $order->order_currency ?>">
+							</div>
 						</div>
 					</div>
-				</div>
-				<? endif; ?>
-			</span>
-		</div>
-		<div id="address_box" <? if (empty($order->order_manager)) : ?>style="display: none;"<? endif; ?>>
-			<span style="vertical-align: top;">
-				Адрес доставки и телефон:
-			</span>
-			<span style="display: inline-block;">
-				<? if ($is_editable) : ?>
+					<? endif; ?>
+				</td>
+			</tr>
+			<tr id="address_box" <? if (empty($order->order_manager)) : ?>style="display: none;"<? endif; ?>>
+				<td>
+					Адрес доставки и телефон:
+				</td>
+				<td>
+					<? if ($is_editable) : ?>
 					<? if (empty($addresses)) : ?>
-					<textarea name="address_text"
-							  id="address_text"
-							  style="width:188px;resize:vertical;
+						<textarea name="address_text"
+								  id="address_text"
+								  style="width:188px;resize:vertical;
 					"><?= $order->order_address ?></textarea>
-					<? else : ?>
-					<select id="address" name="address" style="width: 610px!important;clear: both;">
-						<option value="0" >выберите адрес...</option>
-						<? foreach ($addresses as $address) :
+						<? else : ?>
+						<select id="address" name="address" style="width: 610px!important;clear: both;">
+							<option value="0" >выберите адрес...</option>
+							<? foreach ($addresses as $address) :
 							if ($address->is_generated)
 							{
 								$full_address = implode(', ', array(
@@ -80,80 +74,81 @@
 									$address->address_recipient
 								));
 							}
-						?>
-						<option
-								value="<?= $address->address_id ?>"
-								title="/static/images/flags/<?= $address->country_name_en ?>.png"
+							?>
+							<option
+									value="<?= $address->address_id ?>"
+									title="/static/images/flags/<?= $address->country_name_en ?>.png"
 								<? if ($address->address_id == $order->address_id) : ?>
-								selected="true"
+									selected="true"
 								<? endif ?>
-						><?= $full_address ?></option>
-						<? endforeach; ?>
-					</select>
-					<br>
-					<a class="floatright" href="/profile">редактировать адреса</a>
+									><?= $full_address ?></option>
+							<? endforeach; ?>
+						</select>
+						<br>
+						<a class="floatright" href="/profile">редактировать адреса</a>
+						<? endif; ?>
+					<? else : ?>
+					<?= $order->order_address ?>
 					<? endif; ?>
-				<? else : ?>
-				<?= $order->order_address ?>
-				<? endif; ?>
-			</span>
-		</div>
-		<div>
-			<span style="vertical-align: top;">
-				Способ международной доставки:
-			</span>
-			<span>
-				<? if ($is_editable) : ?>
-				<textarea name="delivery"
-						  id="delivery"
-						  style="width:188px;resize: vertical;"><?=	empty($order->preferred_delivery) ?
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Способ международной доставки:
+				</td>
+				<td>
+					<? if ($is_editable) : ?>
+					<textarea name="delivery"
+							  id="delivery"
+							  style="width:188px;resize: vertical;"><?=	empty($order->preferred_delivery) ?
 						(empty($order->bid->delivery_name) ?
 							'' :
 							$order->bid->delivery_name) :
 						$order->preferred_delivery ?></textarea>
-				<? else : ?>
-                <?= empty($order->bid) ? '' : $order->bid->delivery_name ?>
-				<? endif; ?>
-			</span>
-		</div>
-		<? if ( ! empty($order->tracking_no)) : ?>
-		<div>
-			<span>
-				Tracking №:
-			</span>
-			<span>
-				<?= $order->tracking_no ?>
-			</span>
-		</div>
-		<? endif ?>
-		<div>
-			<span>
-				Добавлен:
-			</span>
-			<span>
-				<?= date('d.m.Y H:i', strtotime($order->order_date)) ?>
-			</span>
-		</div>
-		<? if (isset($order->payed_date)) : ?>
-		<div>
-			<span>
-				Оплачен:
-			</span>
-			<span>
-				<?= date('d.m.Y H:i', strtotime($order->payed_date)) ?>
-			</span>
-		</div>
-		<? endif ?>
-		<? if (isset($order->sent_date)) : ?>
-		<div>
-			<span>
-				Отправлен:
-			</span>
-			<span>
-				<?= date('d.m.Y H:i', strtotime($order->sent_date)) ?>
-			</span>
-		</div>
-		<? endif ?>
+					<? else : ?>
+					<?= empty($order->bid) ? '' : $order->bid->delivery_name ?>
+					<? endif; ?>
+				</td>
+			</tr>
+			<? if ( ! empty($order->tracking_no)) : ?>
+			<tr>
+				<td>
+					Tracking №:
+				</td>
+				<td>
+					<?= $order->tracking_no ?>
+				</td>
+			</tr>
+			<? endif ?>
+			<tr>
+				<td>
+					Добавлен:
+				</td>
+				<td>
+					<?= date('d.m.Y H:i', strtotime($order->order_date)) ?>
+				</td>
+			</tr>
+			<? if (isset($order->payed_date)) : ?>
+			<tr>
+				<td>
+					Оплачен:
+				</td>
+				<td>
+					<?= date('d.m.Y H:i', strtotime($order->payed_date)) ?>
+				</td>
+			</tr>
+			<? endif ?>
+			<? if (isset($order->sent_date)) : ?>
+			<tr>
+				<td>
+					Отправлен:
+				</td>
+				<td>
+					<?= date('d.m.Y H:i', strtotime($order->sent_date)) ?>
+				</td>
+			</tr>
+			<? endif ?>
+		</table>
 	</div>
 	<? if ($is_editable) : ?>
 	<div style="height:50px;">

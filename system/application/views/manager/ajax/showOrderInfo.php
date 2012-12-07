@@ -10,103 +10,105 @@
 		<div class='angle angle-rt'></div>
 		<div class='angle angle-lb'></div>
 		<div class='angle angle-rb'></div>
-		<div>
-			<span>
-				Статус:
-			</span>
-			<span style="display: inline-block;">
-				<select id="order_status" name="order_status" class="order_status">
-					<? foreach ($statuses[$order->order_type] as $status => $status_name) :
-					if ($status == 'pending') continue;
-					?>
-					<option value="<?= $status ?>" <? if ($order->order_status == $status) :
-						?>selected<? endif; ?>><?= $status_name ?></option>
-					<? endforeach; ?>
-				</select>
-			</span>
-		</div>
-		<div>
-			<span>
-				Оплатить:
-			</span>
-			<span>
-				<? if (in_array($order->order_status, $payable_statuses)) : ?>
-				<?= $order->order_cost - $order->order_cost_payed ?>
-				<?= $order->order_currency ?>
-				<? endif; ?>
-			</span>
-		</div>
-		<div>
-			<span>
-				Клиент:
-			</span>
-			<span>
-				<a href="/main/profile/<?=$order->order_client?>"><?= $client->statistics->fullname ?> (<?= $client->statistics->login ?>)</a>
-			</span>
-		</div>
-		<div id="address_box" <? if (empty($order->order_manager)) : ?>style="display: none;"<? endif; ?>>
-			<span style="vertical-align: top;">
-				Адрес доставки и телефон:
-			</span>
-			<span style="display: inline-block;">
-				<?= $order->order_address ?>
-			</span>
-		</div>
-		<div>
-			<span>
-				Способ международной доставки:
-			</span>
-			<span>
-				<?= empty($order->preferred_delivery) ?
-						(empty($order->bid->delivery_name) ?
-							'' :
-							$order->bid->delivery_name) :
-						$order->preferred_delivery ?>
-			</span>
-		</div>
-		<div>
-			<span style="vertical-align: top;">
-				Tracking №:
-			</span>
-			<span>
-				<? if ($is_editable) : ?>
-				<textarea name="tracking_no"
-						  id="tracking_no"
-						  style="width:188px;resize: vertical;"><?=
-					$order->tracking_no ?></textarea>
-				<? else : ?>
-				<?= $order->tracking_no ?>
-				<? endif; ?>
-			</span>
-		</div>
-		<div>
-			<span>
-				Добавлен:
-			</span>
-			<span>
-				<?= date('d.m.Y H:i', strtotime($order->order_date)) ?>
-			</span>
-		</div>
-		<? if (isset($order->payed_date)) : ?>
-		<div>
-			<span>
-				Оплачен:
-			</span>
-			<span>
-				<?= date('d.m.Y H:i', strtotime($order->payed_date)) ?>
-			</span>
-		</div>
-		<? endif ?>
-		<? if (isset($order->sent_date)) : ?>
-		<div>
-			<span>
-				Отправлен:
-			</span>
-			<span>
-				<?= date('d.m.Y H:i', strtotime($order->sent_date)) ?>
-			</span>
-		</div>
-		<? endif ?>
+		<table>
+			<tr>
+				<th nowrap>
+					Статус:
+				</th>
+				<th nowrap>
+					<select id="order_status" name="order_status" class="order_status">
+						<? foreach ($statuses[$order->order_type] as $status => $status_name) :
+						if ($status == 'pending') continue;
+						?>
+						<option value="<?= $status ?>" <? if ($order->order_status == $status) :
+							?>selected<? endif; ?>><?= $status_name ?></option>
+						<? endforeach; ?>
+					</select>
+				</th>
+			</tr>
+			<tr>
+				<td>
+					Оплатить:
+				</td>
+				<td>
+					<? if (in_array($order->order_status, $payable_statuses)) : ?>
+					<?= $order->order_cost - $order->order_cost_payed ?>
+					<?= $order->order_currency ?>
+					<? endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Клиент:
+				</td>
+				<td>
+					<a href="/<?= $client->statistics->login ?>"><?= $client->statistics->fullname ?> (<?= $client->statistics->login ?>)</a>
+				</td>
+			</tr>
+			<tr <? if (empty($order->order_manager)) : ?>style="display: none;"<? endif; ?>>
+				<td>
+					Адрес доставки и телефон:
+				</td>
+				<td>
+					<?= $order->order_address ?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Способ международной доставки:
+				</td>
+				<td>
+					<?= empty($order->preferred_delivery) ?
+					(empty($order->bid->delivery_name) ?
+						'' :
+						$order->bid->delivery_name) :
+					$order->preferred_delivery ?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Tracking №:
+				</td>
+				<td>
+					<? if ($is_editable) : ?>
+					<textarea name="tracking_no"
+							  id="tracking_no"
+							  style="width:188px;resize: vertical;"><?=
+						$order->tracking_no ?></textarea>
+					<? else : ?>
+					<?= $order->tracking_no ?>
+					<? endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Добавлен:
+				</td>
+				<td>
+					<?= date('d.m.Y H:i', strtotime($order->order_date)) ?>
+				</td>
+			</tr>
+			<? if (isset($order->payed_date)) : ?>
+			<tr>
+				<td>
+					Оплачен:
+				</td>
+				<td>
+					<?= date('d.m.Y H:i', strtotime($order->payed_date)) ?>
+				</td>
+			</tr>
+			<? endif ?>
+			<? if (isset($order->sent_date)) : ?>
+			<tr>
+				<td>
+					Отправлен:
+				</td>
+				<td>
+					<?= date('d.m.Y H:i', strtotime($order->sent_date)) ?>
+				</td>
+			</tr>
+			<? endif ?>
+		</table>
 	</div>
 	<? if ($is_editable) : ?>
 	<div style="height:50px;">
@@ -136,7 +138,7 @@
 	var noty_message = 'сохранен';
 
 	$(function() {
-		//$("#order_status").msDropDown({mainCSS:'idd_order'});
+		//$("#order_status").msDropDown({mainCSS:'idd'});
 
 		$("#close_order").click(function() {
 			is_closing_order = true;

@@ -350,6 +350,7 @@ abstract class BaseController extends Controller
 			$this->load->model('ManagerModel', 'Managers');
 			$this->load->model('ClientModel', 'Clients');
 			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
 			$this->load->model('CountryModel', 'Countries');
 			$this->load->model('AddressModel', 'Addresses');
 
@@ -358,10 +359,9 @@ abstract class BaseController extends Controller
 
 			// детали заказа
 			$view['odetails'] = $this->Odetails->getOrderDetails($view['order']->order_id);
+			$view['joints'] = $this->Joints->getOrderJoints($view['order']->order_id);
 
-			$this->Orders->prepareOrderView($view, 
-				$this->Countries, 
-				$this->Odetails);	
+			$this->Orders->prepareOrderView($view, $this->Countries);
 			
 			// страны
 			$view['Countries'] = $this->Countries->getClientAvailableCountries($view['order']->order_client);
@@ -2585,26 +2585,34 @@ abstract class BaseController extends Controller
 	{
 		try
 		{
-			if (!is_numeric($order_id))
+			if ( ! is_numeric($order_id))
 			{
 				throw new Exception('Доступ запрещен.');
 			}
 		
-			// безопасность: проверяем связку менеджера и посылки
+			// безопасность и разграничение доступа
 			$order = $this->getPrivilegedOrder(
 				$order_id, 
 				'Невозможно объединить товары. Указанный заказ не найден.');
 
-			$this->load->model('OdetailModel', 'Details');
+			$this->load->model('OdetailModel', 'Odetails');
 			$this->load->model('OdetailJointModel', 'Joints');
+
+			// позволяет ли текущий статус объединение
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Заказ недоступен.');
+			}
 
 			// погнали
 			$this->db->trans_begin();
 			
-			$joint = $this->Joints->generateOdetailJoint();
+			$joint = $this->Joints->generateJoint();
 
 			// ищем товары в запросе
-			foreach($_POST as $param=>$value)
+			foreach($_POST as $param => $value)
 			{
 				if (stripos($param, 'join') === FALSE)
 				{
@@ -2613,80 +2621,82 @@ abstract class BaseController extends Controller
 				
 				$odetail_id = str_ireplace('join', '', $param);
 
-				if (!is_numeric($odetail_id))
+				if ( ! is_numeric($odetail_id))
 				{	
 					continue;
 				}
 
 				// находим товар
-				$odetail = $this->Details->getClientOdetailById($odetail_id, $order->order_client);
-				
-				if (!$odetail)
+				$odetail = $this->Odetails->getPrivilegedOdetail(
+					$order_id,
+					$odetail_id,
+					$this->user->user_id,
+					$this->user->user_group);
+
+				if ( ! $odetail)
 				{
 					throw new Exception('Невозможно объединить товары. Некоторые товары отсутствуют в товаре.');
 				}
 				
 				// вычисляем суммарную стоимость
-				$joint->odetail_joint_cost += $odetail->odetail_pricedelivery;
-				$joint->odetail_joint_count++;
+				$joint->cost += $odetail->odetail_pricedelivery;
+				$joint->count++;
 				
 				// удаляем старые джоинты
 				if ($odetail->odetail_joint_id)
 				{
-					$this->Details->clearJoints($odetail->odetail_joint_id);
+					$this->Odetails->clearJoints($odetail->odetail_joint_id);
 				}
 				
 				// сохраняем товар
-				$odetail->odetail_joint_id = $joint->odetail_joint_id;
+				$odetail->odetail_joint_id = $joint->joint_id;
 			
-				$this->Details->addOdetail($odetail);
+				$this->Odetails->addOdetail($odetail);
 			}
 
-			if ($joint->odetail_joint_count < 2)
+			if ($joint->count < 2)
 			{
 				throw new Exception('Выберите хотя бы 2 товара для объединения.');
 			}
 
 			$this->Joints->addOdetailJoint($joint);
-			
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+
 			// закрываем транзакцию
 			if ($this->db->trans_status() !== FALSE)
 			{
 				$this->db->trans_commit();
 			}
-			
-			$this->result->e = 1;
-			$this->result->m = 'Местная доставка выбранных товаров успешно объединена.';
-			$this->result->join_status = 1;
 		}
 		catch (Exception $e) 
 		{
 			$this->db->trans_rollback();
-
-			$this->result->join_status = -1;
-			$this->result->e = -1;
-			$this->result->m = $e->getMessage();
 		}
 
-		Stack::push('result', $this->result);
-		
 		// открываем детали заказа
 		if (isset($order) && $order)
 		{
-			Func::redirect(BASEURL."{$this->cname}/showOrderDetails/{$order->order_id}");
+			Func::redirect(BASEURL."{$this->cname}/order/{$order->order_id}");
 		}
 		else
 		{
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect(BASEURL);
 		}
 	}
 	
-	protected function removeOdetailJoint($order_id, $odetail_joint_id)
+	protected function removeJoint($order_id, $joint_id)
 	{
 		try
 		{
-			if (!is_numeric($odetail_joint_id) ||
-				!is_numeric($order_id))
+			if ( ! is_numeric($joint_id) ||
+				! is_numeric($order_id))
 			{
 				throw new Exception('Доступ запрещен.');
 			}
@@ -2694,44 +2704,41 @@ abstract class BaseController extends Controller
 			// безопасность: проверяем связку менеджера и заказа
 			$order = $this->getPrivilegedOrder(
 				$order_id, 
-				'Невозможно отменить объединение товаров. Указанный заказ не найден.');
+				'Заказ не найден.');
 
-			$this->load->model('OdetailModel', 'Details');
+			$this->load->model('OdetailModel', 'Odetails');
 
 			// погнали
 			$this->db->trans_begin();
 			
-			$this->Details->clearJoints($odetail_joint_id);
+			$this->Odetails->clearJoints($joint_id);
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
 
 			// закрываем транзакцию
 			if ($this->db->trans_status() !== FALSE)
 			{
 				$this->db->trans_commit();
 			}
-			
-			$this->result->e = 1;
-			$this->result->m = 'Объединение местной доставки успешно отменено.';
-			$this->result->join_status = 1;
 		}
 		catch (Exception $e) 
 		{
-			$this->db->trans_rollback();
-
-			$this->result->join_status = -1;
-			$this->result->e = -1;
-			$this->result->m = $e->getMessage();
 		}
 
-		Stack::push('result', $this->result);
-		
 		// открываем детали заказа
 		if (isset($order) && $order)
 		{
-			Func::redirect(BASEURL."{$this->cname}/showOrderDetails/{$order->order_id}");
+			Func::redirect(BASEURL . "{$this->cname}/order/{$order->order_id}");
 		}
 		else
 		{
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect(BASEURL);
 		}
 	}
 	
@@ -3268,6 +3275,61 @@ abstract class BaseController extends Controller
 		
 			// кэш данных пользователей
 			$statistics[$personal_data->$id_field_name] = $personal_data->statistics;
+		}
+	}
+
+	protected function uploadOrderScreenshot($odetail, $client_id)
+	{
+		// создаем новый каталог для картинок клиента
+		if ( ! is_dir($_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$client_id"))
+		{
+			mkdir($_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$client_id", 0777);
+		}
+
+		$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id";
+		$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
+		$config['max_size']				= '3072';
+		$config['encrypt_name'] 		= TRUE;
+		$max_width						= 1024;
+		$max_height						= 768;
+
+		$this->load->library('upload', $config);
+
+		// загружаем файл
+		if ( ! $this->upload->do_upload())
+		{
+			throw new Exception(strip_tags(trim($this->upload->display_errors())));
+		}
+
+		$uploadedImg = $this->upload->data();
+
+		$filename = $_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$client_id/{$odetail->odetail_id}.jpg";
+
+		// прибиваем старый файл
+		if (file_exists($filename))
+		{
+			unlink($filename);
+		}
+
+		// копируем новый из папки temp
+		if ( ! rename($uploadedImg['full_path'], $filename))
+		{
+			throw new Exception("Измените название файла и загрузите его еще раз.");
+		}
+
+		$imageInfo = getimagesize($filename);
+
+		// ресайзим большие картинки
+		if ($imageInfo[0] > $max_width || $imageInfo[1] > $max_height)
+		{
+			$config['image_library']	= 'gd2';
+			$config['source_image']		= $filename;
+			$config['maintain_ratio']	= TRUE;
+			$config['width']			= $max_width;
+			$config['height']			= $max_height;
+
+			$this->load->library('image_lib', $config);
+			$this->image_lib->resize();
 		}
 	}
 }

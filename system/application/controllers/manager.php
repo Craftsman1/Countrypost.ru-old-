@@ -1310,10 +1310,6 @@ class Manager extends ManagerBaseController {
 				throw new Exception('Добавьте ссылку на товар.');
 			}
 
-			//print_r($is_file_uploaded);
-			//print_r($userfile);
-			//die();
-
 			if ($is_file_uploaded AND
 				empty($userfile))
 			{
@@ -1338,53 +1334,7 @@ class Manager extends ManagerBaseController {
 			// загружаем файл
 			if (isset($userfile) && $userfile)
 			{
-				$old = umask(0);
-				// загрузка файла
-				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id")){
-					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id",0777);
-				}
-
-				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id";
-				$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
-				$config['max_size']				= '3072';
-				$config['encrypt_name'] 		= TRUE;
-				$max_width						= 1024;
-				$max_height						= 768;
-				$this->load->library('upload', $config);
-
-				if (!$this->upload->do_upload()) {
-					throw new Exception(strip_tags(trim($this->upload->display_errors())));
-				}
-
-				$uploadedImg = $this->upload->data();
-
-				// на сервере - '/upload/orders/'
-				$filename = $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id/{$odetail->odetail_id}.jpg";
-
-				if (file_exists($filename))
-				{
-					unlink($filename);
-				}
-
-				if (!rename($uploadedImg['full_path'], $filename))
-				{
-					throw new Exception("Bad file name!");
-				}
-
-				$imageInfo = getimagesize($filename);
-
-				if ($imageInfo[0]>$max_width || $imageInfo[1]>$max_height){
-
-					$config['image_library']	= 'gd2';
-					$config['source_image']		= $filename;
-					$config['maintain_ratio']	= TRUE;
-					$config['width']			= $max_width;
-					$config['height']			= $max_height;
-
-					$this->load->library('image_lib', $config); // загружаем библиотеку
-
-					$this->image_lib->resize(); // и вызываем функцию
-				}
+				$this->uploadOrderScreenshot($odetail, $client_id);
 			}
 
 			// закрываем транзакцию
