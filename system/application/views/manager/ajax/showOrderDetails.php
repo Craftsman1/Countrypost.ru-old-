@@ -7,7 +7,7 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
 	<div class='angle angle-rb'></div>
-	<table id="new_products">
+	<table id="new_products" class="products">
 		<colgroup>
 			<col style="width: 60px;">
 			<col>
