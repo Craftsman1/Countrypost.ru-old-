@@ -949,7 +949,7 @@ Email: {$this->user->user_email}";
             // TODO : проверить если, пользователь авторизован, на существование уже созданного ранее заказа
             if($this->user AND $exist_order = $this->blankExistOrderCheck($this->user->user_id))
             {
-                $view['order_empty_data'] = $exist_order;
+                $view['order'] = $exist_order;
                 if ($exist_order)
                 {
                     foreach($view['countries'] as $v)
@@ -963,7 +963,7 @@ Email: {$this->user->user_email}";
             }
             else
             {
-                $view['order_empty_data'] = null;
+                $view['order'] = null;
             }
 
 			// крошки
