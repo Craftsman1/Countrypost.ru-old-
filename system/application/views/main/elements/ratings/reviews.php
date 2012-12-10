@@ -1,1 +1,1 @@
-<span class='label review_count'>	<a style="color:green;">+<?= $positive ?></a> / <?= $neutral ?> / <a style="color:red;">-<?= $negative ?></a></span>
+<span class='label review_count'>	<a style="color:green;">+ <?= $positive ?></a> / <?= $neutral ?> / <a style="color:red;">- <?= $negative ?></a></span>

@@ -2570,3 +2570,7 @@ span.producteditor input[type='file'] {
 span.producteditor input[type='radio'] {
 	margin: 0px 5px 0 0;
 }
+
+div.personal span.review_count {
+	text-align: left!important;
+}

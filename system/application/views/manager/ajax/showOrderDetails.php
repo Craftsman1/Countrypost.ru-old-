@@ -305,7 +305,7 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 	<div class="admin-inside float-left">
 		<div class='submit'>
 			<div>
-				<input type='button' class="bid_button" value='Добавить предложение' onclick="showRequestForm('<?= $order->order_id ?>');" />
+				<input type='button' class="bid_button" value='Добавить предложение?' onclick="showNewBidForm('<?= $order->order_id ?>');" />
 			</div>
 		</div>
 	</div>

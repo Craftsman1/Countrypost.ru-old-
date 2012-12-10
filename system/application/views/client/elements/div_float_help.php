@@ -1,10 +1,5 @@
 <div class='table' id="lay_block" style="width:400px; position:absolute; z-index: 1000; display:none; top:390px; left:290px;">
-<!--	<div class='angle angle-lt' style="background-color: #787878; opacity:0.3;"></div>
-	<div class='angle angle-rt' style="background-color: #787878; opacity:0.3;"></div>
-	<div class='angle angle-lb' style="background-color: #787878; opacity:0.3;"></div>
-	<div class='angle angle-rb' style="background-color: #787878; opacity:0.3;"></div>-->
-	
-	<form class='admin-inside' action="<?=$selfurl?>proxy/" method="GET">			
+	<form class='admin-inside' action="<?=$selfurl?>proxy/" method="GET">
 		<table>
 			<tr>
 				<td>Название магазина:</td>
@@ -26,10 +21,9 @@
 		</table>
 	</form>
 </div>
-	
 <script type="text/javascript">
-
 	var fclick = 0;
+
 	function lay(){
 		$('#lay').css({
 			'width': document.body.clientWidth,
@@ -47,5 +41,4 @@
 			})
 		}
 	}
-
 </script>
