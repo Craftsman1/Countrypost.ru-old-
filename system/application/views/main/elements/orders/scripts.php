@@ -1,4 +1,3 @@
-
 <script type="text/javascript">
 (function ($) {
     $.cpField = function () {
@@ -886,7 +885,7 @@
                                     '      ' + item.id + '<br>' +
                                     '      <img src="/static/images/lightbox-ico-loading.gif" style="" class="float" id="progress' + item.id + '">' +
                                     '   </td>' +
-                                    '   <form method="POST" id="odetail' + item.id + '" enctype="multipart/form-data" action="/client/updateNewProduct/' + oObj.options.order_id + '/' + item.id + '">' +
+                                    '   <form method="POST" id="odetail' + oObj.options.type + item.id + '" enctype="multipart/form-data" action="/client/updateNewProduct/' + oObj.options.order_id + '/' + item.id + '">' +
                                     '   <td style="text-align: left; vertical-align: bottom;">' +
                                     '      <span class="plaintext">' +
                                     '          <a href="' + item.link + '" target="_blank">' + item.name + '</a>' +
@@ -1650,7 +1649,7 @@
                             '      ' + item.id + '<br>' +
                             '      <img src="/static/images/lightbox-ico-loading.gif" style="" class="float" id="progress' + item.id + '">' +
                             '   </td>' +
-                            '   <form method="POST" id="odetail' + item.id + '" enctype="multipart/form-data" action="/client/updateNewProduct/' + oObj.options.order_id + '/' + item.id + '">' +
+                            '   <form method="POST" id="odetail' + oObj.options.type + item.id + '" enctype="multipart/form-data" action="/client/updateNewProduct/' + oObj.options.order_id + '/' + item.id + '">' +
                             '   <td style="text-align: left; vertical-align: bottom;">' +
                             '      <span class="plaintext">' +
                             '          <b>' + item.name + '</b><br>' +
@@ -2361,7 +2360,7 @@
                             '      ' + item.id + '<br>' +
                             '      <img src="/static/images/lightbox-ico-loading.gif" style="" class="float" id="progress' + item.id + '">' +
                             '   </td>' +
-                            '   <form method="POST" id="odetail' + item.id + '" enctype="multipart/form-data" action="/client/updateNewProduct/' + oObj.options.order_id + '/' + item.id + '">' +
+                            '   <form method="POST" id="odetail' + oObj.options.type + item.id + '" enctype="multipart/form-data" action="/client/updateNewProduct/' + oObj.options.order_id + '/' + item.id + '">' +
                             '   <td style="text-align: left; vertical-align: bottom;">' +
                             '      <span class="plaintext">' +
                             '          <b>' + item.name + '</b>' +
@@ -2907,7 +2906,7 @@
                     $tr.find('textarea.volume').val(parseFloat(odetail['ovolume']));
                     $tr.find('textarea.tnved').val(odetail['otnved']);
                     $tr.find('textarea.amount').val(parseInt(odetail['amount'], 10));
-                    if (odetail['insurance_need'])
+                    if (odetail['insurance_need'] == 1)
                     {
                         $tr.find('input#insurance_y').attr('checked', 'checked');
                     }
@@ -2936,6 +2935,11 @@
                     $tr = $('tr#product' + itemId);
 
                     odetail['name'] = $tr.find('textarea.name').val();
+                    odetail['insurance_need'] = $tr.find('input[name="insurance"]:checked').val();
+                    odetail['ovolume'] = $tr.find('textarea.volume').val();
+                    odetail['otnveb'] = $tr.find('textarea.tnveb').val();
+                    odetail['olink'] = $tr.find('textarea.link').val();
+                    odetail['amount'] = $tr.find('textarea.amount').val();
                     odetail['ocomment'] = $tr.find('textarea.ocomment').val();
                     odetail['img_selector'] = $tr.find('input.img_selector:checked').val();
 
@@ -3089,7 +3093,7 @@
                             '      ' + item.id + '<br>' +
                             '      <img src="/static/images/lightbox-ico-loading.gif" style="" class="float" id="progress' + item.id + '">' +
                             '   </td>' +
-                            '   <form method="POST" id="odetail' + item.id + '" enctype="multipart/form-data" action="/client/updateNewProduct/' + oObj.options.order_id + '/' + item.id + '">' +
+                            '   <form method="POST" id="odetail' + oObj.options.type + item.id + '" enctype="multipart/form-data" action="/client/updateNewProduct/' + oObj.options.order_id + '/' + item.id + '">' +
                             '   <td style="text-align: left; vertical-align: bottom;">' +
                             '      <span class="plaintext">' +
                             '           <b>' + ((link) ? '<a href="' + link+ '" target="BLANK">' : '') + item.name + ((link) ? '</a>' : '')+'</b>' +
@@ -3170,7 +3174,7 @@
                     snippet.find('a.delete').bind('click', iObj.deleteItem);
                     snippet.find('a.edit').bind('click', iObj.editItem);
                     snippet.find('a.cancel').bind('click', iObj.cancelItem);
-                    snippet.find('a.save').bind('click', iObj.saveItem);
+                    snippet.find('a.save').unbind('click').bind('click', iObj.saveItem);
 
                     snippet.find('input.odetail_price').bind('change', iObj.updateItemPrice);
                     snippet.find('input.odetail_pricedelivery').bind('change', iObj.updateItemDeliveryPrice);
@@ -3363,28 +3367,6 @@
             }).submit();
         }  // End saveOffline
         // Конец Заказы
-
-        var showOrderProgress = function () {
-            // Отображаем прогресс по выбору типа заказа
-            if (obj = $('.' + oObj.options.type + '_order div:first b')) {
-                var img = $("<div class='orderProgress'><img src='/static/images/lightbox-ico-loading.gif'/></div>");
-                img.css({
-                    float:'left',
-                    left:'110px',
-                    position:'absolute',
-                    top:'-8px',
-                    width:'32px'
-                });
-                obj.append(img);
-            }
-        } // End showOrderProgress
-
-        var hideOrderProgress = function () {
-            // Скрываем прогресс по выбору типа заказа
-            if (obj = $('.' + oObj.options.type + '_order div:first b')) {
-                obj.hide('slow').remove();
-            }
-        } // End hideOrderProgress
 
         oObj.options =
         {
