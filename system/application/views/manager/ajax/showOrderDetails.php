@@ -7,7 +7,7 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
 	<div class='angle angle-rb'></div>
-	<table id="new_products">
+	<table id="new_products" class="products">
 		<colgroup>
 			<col style="width: 60px;">
 			<col>
@@ -20,7 +20,7 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 		</colgroup>
 		<tr>
 			<th nowrap>
-				№ <input type='checkbox' id='select_all' />
+				№ <? if ($is_editable) : ?><input type='checkbox' id='select_all'><? endif; ?>
 			</th>
 			<th>Товар</th>
 			<th>Скриншот</th>
@@ -63,8 +63,11 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 				<?= $odetail->odetail_id ?>
 				<? if ($is_editable) : ?>
 				<br>
+				<input type='checkbox' name='join<?= $odetail->odetail_id ?>'>
+				<br>
 				<img id="progress<?= $odetail->odetail_id ?>"
-					 class="float"
+					 class="float <? if ($odetail->odetail_joint_id) : ?>progressJoint<?= $odetail->odetail_joint_id
+						 ?><? endif; ?>"
 					 style="display:none;"
 					 src="/static/images/lightbox-ico-loading.gif"/>
 				<? endif; ?>
@@ -187,6 +190,7 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 				<?= $odetail->odetail_price ?> <?= $order->order_currency ?>
 				<? endif; ?>
 			</td>
+			<? if ( ! $odetail->odetail_joint_id) : ?>
 			<td>
 				<? if ($is_editable) : ?>
 				<input type="text"
@@ -202,9 +206,26 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 				<?= $odetail->odetail_pricedelivery ?> <?= $order->order_currency ?>
 				<? endif; ?>
 			</td>
-			<? //if (!$odetail->odetail_joint_id) :
-				//$order_delivery_cost += $odetail->odetail_pricedelivery;
-			 ?>
+				<? elseif ($odetail_joint_id != $odetail->odetail_joint_id) :
+				$odetail_joint_id = $odetail->odetail_joint_id; ?>
+			<td rowspan="<?= $joints[$odetail->odetail_joint_id]->count ?>">
+				<? if ($is_editable) : ?>
+				<input type="text"
+					   id="joint_pricedelivery<?= $odetail->odetail_joint_id ?>"
+					   name="joint_price<?= $odetail->odetail_joint_id ?>"
+					   class="int"
+					   value="<?= $joints[$odetail->odetail_joint_id]->cost ?>"
+					   style="width:60px"
+					   maxlength="11"
+					   onchange="update_joint_pricedelivery('<?= $order->order_id ?>',
+							   '<?= $odetail->odetail_joint_id ?>');">
+				<br>
+				<a href="javascript:removeJoint(<?= $odetail->odetail_joint_id ?>);">Отменить<br>объединение</a>
+				<? else : ?>
+				<?= $joints[$odetail->odetail_joint_id]->cost ?> <?= $order->order_currency ?>
+				<? endif; ?>
+			</td>
+			<? endif; ?>
 			<td>
 				<? if ($is_editable) : ?>
 				<input type="text"
@@ -220,15 +241,6 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 				<?= $odetail->odetail_weight ?> г
 				<? endif; ?>
 			</td>
-			<?// elseif ($odetail_joint_id != $odetail->odetail_joint_id) :
-				//	$odetail_joint_id = $odetail->odetail_joint_id;
-				//	$odetail_joint_count = $odetail->odetail_joint_count;
-				//	$order_delivery_cost += $odetail->odetail_joint_cost;
-			 ?>
-			<!--td rowspan="<?= $odetail_joint_count ?>">
-				<?//=$odetail->odetail_joint_cost ?>
-			</td-->
-			<? //endif; ?>
 			<? if ($is_editable) : ?>
 			<td>
 				<select	id="odetail_status<?= $odetail->odetail_id ?>"
@@ -276,22 +288,41 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 			<td colspan="2">&nbsp;</td>
 			<? endif; ?>
 		</tr>
-		<? if ($bids_accepted) : ?>
+		<? if ($bids_accepted AND
+			! empty($order->preferred_delivery)) : ?>
 		<tr class='last-row'>
-			<td colspan='3'>
-				<div class='floatleft'>
-					<div class='submit'><div><input type='button' class="bid_button" value='Добавить предложение' onclick="showRequestForm('<?= $order->order_id ?>');" /></div></div>
-				</div>
-			</td>
-			<td style="text-align: right;" colspan='3'>
+			<td style="text-align: right;" colspan='6'>
 				<b>
-					<? if ( ! empty($order->preferred_delivery)) : ?>
-					<br />
 					Способ доставки: <b class="order_totals"><?= $order->preferred_delivery ?></b>
-					<? endif; ?>
 				</b>
 			</td>
 		</tr>
 		<? endif; ?>
 	</table>
 </div>
+<? if ($bids_accepted) : ?>
+<div style="height:50px;">
+	<div class="admin-inside float-left">
+		<div class='submit'>
+			<div>
+				<input type='button' class="bid_button" value='Добавить предложение' onclick="showRequestForm('<?= $order->order_id ?>');" />
+			</div>
+		</div>
+	</div>
+</div>
+<? endif; ?>
+<? if ($is_editable) : ?>
+<div style="height:50px;">
+	<div class="admin-inside float-left">
+		<div class="submit">
+			<div>
+				<input type="button" value="Объединить доставку" onclick="joinProducts();">
+			</div>
+		</div>
+	</div>
+	<img class="float"
+		 id="joinProgress"
+		 style="display:none;margin:0px;margin-top:5px;"
+		 src="/static/images/lightbox-ico-loading.gif">
+</div>
+<? endif ?>

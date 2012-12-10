@@ -304,18 +304,20 @@ class OdetailModel extends BaseModel implements IModel{
 	 */
 	public function getOrderDetails($id)
 	{
-		$result = $this->db->query('
-			SELECT `odetails`.*, `odetail_joints`.`odetail_joint_cost`, `odetail_joints`.`odetail_joint_count`
-			FROM `odetails`
+		$result = $this->db->query("
+			SELECT
+				`odetails`.*, `odetail_joints`.`cost`, `odetail_joints`.`count`
+			FROM
+				`odetails`
 			LEFT OUTER JOIN `odetail_joints` ON
-				`odetail_joints`.`odetail_joint_id` = `odetails`.`odetail_joint_id`
+				`odetail_joints`.`joint_id` = `odetails`.`odetail_joint_id`
 			WHERE
-				`odetails`.`odetail_status` <> "deleted"
-				AND `odetails`.`odetail_order` = "'.intval($id).'"
+				`odetails`.`odetail_status` <> 'deleted'
+				AND `odetails`.`odetail_order` = '$id'
 			ORDER BY 
-				`odetail_joints`.`odetail_joint_id` DESC,
+				`odetail_joints`.`joint_id` DESC,
 				`odetails`.`odetail_id` ASC
-		')->result();
+		")->result();
 
 		// статус джоинтов
 		if (count($result) > 0 &&  $result)
@@ -381,16 +383,20 @@ class OdetailModel extends BaseModel implements IModel{
 
 	public function clearJoints($id)
 	{
-		$this->db->query('
-			UPDATE `odetails`
-			SET `odetails`.`odetail_joint_id` = 0
-			WHERE `odetails`.`odetail_joint_id` = "'.intval($id).'"
-		');
+		$this->db->query("
+			UPDATE
+				`odetails`
+			SET
+				`odetails`.`odetail_joint_id` = 0
+			WHERE
+				`odetails`.`odetail_joint_id` = '$id' AND
+				`odetails`.`odetail_status` <> 'deleted'
+		");
 	
-		$this->db->query('
+		$this->db->query("
 			DELETE FROM `odetail_joints`
-			WHERE `odetail_joints`.`odetail_joint_id` = "'.intval($id).'"
-		');
+			WHERE `odetail_joints`.`joint_id` = '$id'
+		");
 	}
 
 	/**
@@ -424,8 +430,23 @@ class OdetailModel extends BaseModel implements IModel{
 		
 		return ;
 	}
-	
-	public function getClientOdetailById($order_id, $odetail_id, $client_id) {
+
+	public function getPrivilegedOdetail($order_id, $odetail_id, $user_id, $user_group)
+	{
+		if ($user_group == 'client')
+		{
+			return $this->getClientOdetailById($order_id, $odetail_id, $user_id);
+		}
+		else if ($user_group == 'manager')
+		{
+			return $this->getManagerOdetailById($order_id, $odetail_id, $user_id);
+		}
+
+		return FALSE;
+	}
+
+	public function getClientOdetailById($order_id, $odetail_id, $client_id)
+	{
 		$row = $this->db->query("
 			SELECT `odetails`.*
 			FROM `odetails`

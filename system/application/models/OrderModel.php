@@ -1065,7 +1065,7 @@ class OrderModel extends BaseModel implements IModel{
 			// для объединенных товаров доставку считаем ниже
 			if ($odetail->odetail_joint_id)
 			{
-				if (!in_array($odetail->odetail_joint_id, $joints))
+				if ( ! in_array($odetail->odetail_joint_id, $joints))
 				{
 					$joints[] = $odetail->odetail_joint_id;
 				}
@@ -1077,16 +1077,16 @@ class OrderModel extends BaseModel implements IModel{
 		}
 
 		// объединенные товары
-		foreach ($joints as $odetail_joint_id)
+		foreach ($joints as $joint_id)
 		{
-			$joint = $OdetailJointModel->getById($odetail_joint_id);
+			$joint = $OdetailJointModel->getById($joint_id);
 			if (empty($joint))
 			{
 				throw new Exception('Некоторые товары не найдены.');
 			}
 			
 			// суммируем доставку
-			$total_pricedelivery += $joint->odetail_joint_cost;
+			$total_pricedelivery += $joint->cost;
 		}
 
 		// считаем стоимость заказа
@@ -1126,15 +1126,15 @@ class OrderModel extends BaseModel implements IModel{
 		return $fotos;
 	}
 	
-	public function prepareOrderView($view, $country_model, $odetails_model)
+	public function prepareOrderView($view, $country_model)
 	{
 		$view['order']->manager_tax_percentage = 10;
-		$view['order']->order_delivery_cost = 0;
 		$view['order']->manager_foto_tax = 5;
 		$view['order']->requested_foto_count = 0;
-		$view['order']->order_products_cost = 0; 
-		$view['order']->order_product_weight = 0;
-		$view['order']->order_total_cost = 0;
+		//$view['order']->order_delivery_cost = 0;
+		//$view['order']->order_products_cost = 0;
+		//$view['order']->order_product_weight = 0;
+		//$view['order']->order_total_cost = 0;
 
 		$order_country_from = $country_model->getById($view['order']->order_country_from);
 		$order_country_to = $country_model->getById($view['order']->order_country_to);
@@ -1147,20 +1147,20 @@ class OrderModel extends BaseModel implements IModel{
 			foreach($view['odetails'] as $key => $val)
 			{
 				// суммы
-				$view['order']->order_delivery_cost += $view['odetails'][$key]->odetail_pricedelivery;
+				//$view['order']->order_delivery_cost += $view['odetails'][$key]->odetail_pricedelivery;
 				if ($view['odetails'][$key]->odetail_foto_requested)
 				{
 					$view['order']->requested_foto_count++;
 				}
 				
-				$view['order']->order_products_cost += $view['odetails'][$key]->odetail_price; 
-				$view['order']->order_product_weight += $view['odetails'][$key]->odetail_weight;
+				//$view['order']->order_products_cost += $view['odetails'][$key]->odetail_price;
+				//$view['order']->order_product_weight += $view['odetails'][$key]->odetail_weight;
 			}
 		}
 		
 		$view['order']->manager_tax = ceil($view['order']->order_products_cost * $view['order']->manager_tax_percentage) * 0.01;
 		$view['order']->foto_tax = $view['order']->requested_foto_count * $view['order']->manager_foto_tax;
-		$view['order']->order_total_cost = 
+		$view['order']->order_total_cost =
 			$view['order']->order_products_cost +
 			$view['order']->manager_tax +
 			$view['order']->foto_tax;	

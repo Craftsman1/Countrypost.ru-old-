@@ -1,6 +1,10 @@
 <script type="text/javascript">
 $(function() {
 	$(".int").keypress(function(event){validate_number(event);});
+
+	$('#select_all').change(function() {
+		$('table.products td input[type=checkbox]').attr('checked', ($(this).attr('checked') == 'checked'));
+	});
 });
 
 // BOF: сохранение статуса, веса, стоимости и местной доставки
@@ -42,6 +46,20 @@ function update_odetail_pricedelivery(order_id, odetail_id)
 	var success_message = 'Местная доставка товара №' + odetail_id + ' сохранена.';
 	var error_message = 'Местная доставка товара №' + odetail_id + ' не сохранена.';
 	var progress = 'img#progress' + odetail_id;
+
+	updateCustomProduct(uri, success_message, error_message, progress);
+}
+
+function update_joint_pricedelivery(order_id, joint_id)
+{
+	var cost = $('input#joint_pricedelivery' + joint_id).val();
+	var uri = '<?= $selfurl ?>update_joint_pricedelivery/' +
+			order_id + '/' +
+			joint_id + '/' +
+			cost;
+	var success_message = 'Местная доставка товаров сохранена.';
+	var error_message = 'Местная доставка товаров не сохранена.';
+	var progress = 'img.progressJoint' + joint_id;
 
 	updateCustomProduct(uri, success_message, error_message, progress);
 }
@@ -280,18 +298,27 @@ function getSelectedCurrency()
 
 function joinProducts()
 {
-	var selectedProds = $('#detailsForm input[type="checkbox"]:checked');
+	var selectedProds = $('table.products input[type="checkbox"]:checked');
 
 	if (selectedProds.length < 2)
 	{
-		alert("Выберите хотя бы 2 товара для объединения.");
+		alert("Выберите хотя бы 2 товара для объединения местной доставки.");
 		return false;
 	}
 
-	if (confirm("Вы уверены, что хотите объединить выбранные товары?"))
+	if (confirm("Объединить местную доставку для выбранных товаров?"))
 	{
-		var queryString = $('#detailsForm').formSerialize();
-		$.post('<?=$selfurl?>joinProducts/<?=$order->order_id?>', queryString,
+		$('img#joinProgress').show();
+		var queryString = '';
+
+		selectedProds.each(function(index, item) {
+			queryString += (queryString.length ? '&' : '') +
+					$(item).attr('name') +
+					'=on';
+		});
+
+		$.post('<?= $selfurl ?>joinProducts/<?= $order->order_id ?>',
+				queryString,
 				function()
 				{
 					self.location.reload();
@@ -302,9 +329,10 @@ function joinProducts()
 
 function removeJoint(id)
 {
-	if (confirm("Отменить объединение общей доставки?"))
+	if (confirm("Отменить объединение общей доставки для выбранных товаров?"))
 	{
-		window.location.href = '<?=$selfurl?>removeOdetailJoint/<?=$order->order_id?>/'+id;
+		$('img#joinProgress').show();
+		window.location.href = '<?= $selfurl ?>removeJoint/<?= $order->order_id ?>/' + id;
 	}
 }
 </script>
