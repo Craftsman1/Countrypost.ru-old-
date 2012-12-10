@@ -1,3 +1,12 @@
+<?
+    $order = null;
+    for ($i = 0, $n = count($orders); $i<$n; $i++) :
+        if ($orders[$i]->order_type == 'online') :
+            $order = $orders[$i];
+            break;
+        endif;
+    endfor;
+?>
 <div class="online_order_form" style='display:none;'>
 	<div class='table' style="position:relative;">
 		<div class='angle angle-lt'></div>
@@ -39,12 +48,12 @@
 				<br style="clear:both;" />
 				<div>
 					<span class="label">Город доставки*:</span>
-					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='city_to' name="city_to" value="<?= ($order) ? $order->order_city_to : '' ?>" />
+					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='city_to_online' name="city_to" value="<?= ($order) ? $order->order_city_to : '' ?>" />
 				</div>
 				<br style="clear:both;" />
 				<div>
 					<span class="label">Cпособ доставки:</span>
-					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='requested_delivery' name="requested_delivery" />
+					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='requested_delivery_online' name="requested_delivery" />
 				</div>
 				<br style="clear:both;" />
 				<div>
@@ -52,7 +61,7 @@
 						<a href="javascript: void(0);" onclick="">Выбрать посредника</a>
 					</span>
 					<span class="label dealer_number_box" style='display:none;'>Номер посредника:</span>
-					<input class="textbox dealer_number_box" maxlength="6" type='text' id='dealer_id' name="dealer_id" style='display:none;width:180px;' >
+					<input class="textbox dealer_number_box" maxlength="6" type='text' id='dealer_id_online' name="dealer_id" style='display:none;width:180px;' >
 					<span class="label dealer_number_box" style='display:none;'>
 						<img border="0" src="/static/images/delete.png" title="Удалить">
 					</span>
@@ -171,7 +180,7 @@
 			</div>
 		</div>
 	</div>
-	<? View::show('main/ajax/showNewOrderDetails'); ?>
+	<? View::show('main/ajax/showNewOrderDetails', array('order_type' => 'online', 'order' => $order)); ?>
 </div>
 <script type="text/javascript">
 	$(function() {

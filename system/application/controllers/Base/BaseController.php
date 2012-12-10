@@ -663,6 +663,8 @@ abstract class BaseController extends Controller
 		Check::reset_empties();
 		$detail = new OdetailModel();
         $detail->odetail_order = Check::int('order_id');
+
+        $order_type = Check::str('order_type', 20, 1);
 		
 		if ( ! $detail->odetail_order &&
             $this->user &&
@@ -716,7 +718,11 @@ abstract class BaseController extends Controller
 			$client_id = $this->user->user_id;
 		}
 
-        $detail->odetail_comment                = Check::str('odetail_comment', 255, 0);
+        $detail->odetail_shop				    = Check::str('oshop', 255, 0);
+        $detail->odetail_volume				    = Check::float('ovolume', 0);
+        $detail->odetail_tnved				    = Check::str('otnved', 255, 1);
+        $detail->odetail_insurance				= Check::int('insurance_need');
+        $detail->odetail_comment                = Check::str('ocomment', 255, 0);
         $detail->odetail_status                 = 'processing';
 		
 		Check::reset_empties();
@@ -739,63 +745,35 @@ abstract class BaseController extends Controller
 		
 		try 
 		{
-			if (empty($detail->odetail_link))
-			{
-				throw new Exception('Добавьте ссылку на товар.');
-			}
-				
-			if (empty($detail->odetail_product_name))
-			{
-				throw new Exception('Добавьте наименование товара.');
-			}
-				
-			if (empty($detail->odetail_price))
-			{
-				throw new Exception('Добавьте цену товара.');
-			}
-				
-			if (empty($detail->odetail_pricedelivery))
-			{
-				throw new Exception('Добавьте местную доставку товара.');
-			}
-				
-			if (empty($detail->odetail_weight))
-			{
-				throw new Exception('Добавьте примерный вес товара.');
-			}
-				
-			if (empty($detail->odetail_country))
-			{
-				throw new Exception('Выберите страну.');
-			}
-				
-			if ( ! $detail->odetail_product_amount)
-			{
-				$detail->odetail_product_amount = 1;
-			}
-			
-			if ($empties &&
-				!$detail->odetail_img && 
-				!$userfile)
-			{
-				if (isset($_FILES['userfile']) && 
-					isset($_FILES['userfile']['error']) &&
-					$_FILES['ofile']['error'] == 1)
-				{
-					throw new Exception('Максимальный размер картинки 3MB.');
-				}
-				else
-				{
-					throw new Exception('Загрузите или добавьте ссылку на скриншот.');
-				}
-			}
+            switch ($order_type)
+            {
+                case 'online' :
+                    $this->onlineProductCheck($detail);
+                    break;
+                case 'offline' :
+                    $this->offlineProductCheck($detail);
+                    break;
+                case 'delivery' :
+                    $this->deliveryProductCheck($detail);
+                    break;
+                case 'service' :
+                    $this->serviceProductCheck($detail);
+                    break;
+                case 'mailforward' :
+                    $this->mailforwardProductCheck($detail);
+                    break;
+            }
 			
 			if ($userfile)
 			{
-				unset($detail->odetail_img);
+                unset($detail->odetail_img);
 			}
+            elseif (!$detail->odetail_img)
+            {
+                $detail->odetail_img = 0;
+            }
 				
-			$Odetails = $this->OdetailModel->getFilteredDetails(array('odetail_client' => $client_id, 'odetail_order' => 0));
+			//$Odetails = $this->OdetailModel->getFilteredDetails(array('odetail_client' => $client_id, 'odetail_order' => 0));
 				
 			// открываем транзакцию
 			$this->db->trans_begin();	
@@ -843,6 +821,7 @@ abstract class BaseController extends Controller
 				}
 			}
 			*/
+
  			// загружаем файл
 			if ($userfile)
 			{
@@ -887,7 +866,6 @@ abstract class BaseController extends Controller
 					$this->image_lib->resize(); // и вызываем функцию
 				}
 
-                $detail->odetail_img = $detail->odetail_id;
                 $this->OdetailModel->addOdetail($detail);
 			}
 			
@@ -945,6 +923,93 @@ abstract class BaseController extends Controller
 			echo $e->getMessage();
 		}
 	}
+
+    protected function onlineProductCheck ($detail)
+    {
+
+        if (empty($detail->odetail_link))
+        {
+            throw new Exception('Добавьте ссылку на товар.');
+        }
+
+        if (empty($detail->odetail_product_name))
+        {
+            throw new Exception('Добавьте наименование товара.');
+        }
+
+        if (empty($detail->odetail_price))
+        {
+            throw new Exception('Добавьте цену товара.');
+        }
+
+        if (empty($detail->odetail_pricedelivery))
+        {
+            throw new Exception('Добавьте местную доставку товара.');
+        }
+
+        if (empty($detail->odetail_weight))
+        {
+            throw new Exception('Добавьте примерный вес товара.');
+        }
+
+        if (empty($detail->odetail_country))
+        {
+            throw new Exception('Выберите страну.');
+        }
+
+        if ( ! $detail->odetail_product_amount)
+        {
+            $detail->odetail_product_amount = 1;
+        }
+    }
+
+    protected function offlineProductCheck ($detail)
+    {
+        if (empty($detail->odetail_product_name))
+        {
+            throw new Exception('Добавьте наименование товара.');
+        }
+
+        if (empty($detail->odetail_price))
+        {
+            throw new Exception('Добавьте цену товара.');
+        }
+
+        if (empty($detail->odetail_pricedelivery))
+        {
+            throw new Exception('Добавьте местную доставку товара.');
+        }
+
+        if (empty($detail->odetail_weight))
+        {
+            throw new Exception('Добавьте примерный вес товара.');
+        }
+
+        if (empty($detail->odetail_country))
+        {
+            throw new Exception('Выберите страну.');
+        }
+
+        if ( ! $detail->odetail_product_amount)
+        {
+            $detail->odetail_product_amount = 1;
+        }
+    }
+
+    protected function deliveryProductCheck ($detail)
+    {
+
+    }
+
+    protected function serviceProductCheck ($detail)
+    {
+
+    }
+
+    protected function mailforwardProductCheck ($detail)
+    {
+
+    }
 	
 	protected function showO2oComments()
 	{
@@ -2758,230 +2823,327 @@ abstract class BaseController extends Controller
 		$this->session->set_userdata(array('payments_per_page' => $per_page));
 		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
-	
-	protected function deleteProduct($odid)
-	{
-		try
-		{
-			/*
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!is_numeric($odid))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			*/
-			// безопасность: проверяем связку клиента и товара
-			$this->load->model('OdetailModel', 'ODetails');
-			$this->load->model('OdetailJointModel', 'Joints');
-				
-			if (empty($this->user))
-			{
-				$odetail = $this->ODetails->getById($odid);
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$odetail = $this->ODetails->getClientOdetailById($odid, $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'admin')
-			{
-				$odetail = $this->ODetails->getById($odid);
-			}
 
-			if ( ! $odetail)
-			{
-				throw new Exception('Товар не найден. Попробуйте еще раз.');
-			}			
+    protected function deleteProduct($odid)
+    {
+        try
+        {
+            /*
+            if (!$this->user ||
+                !$this->user->user_id ||
+                !is_numeric($odid))
+            {
+                throw new Exception('Доступ запрещен.');
+            }
+            */
+            // безопасность: проверяем связку клиента и товара
+            $this->load->model('OdetailModel', 'ODetails');
+            $this->load->model('OdetailJointModel', 'Joints');
 
-			// находим заказ
-			$order = $this->getPrivilegedOrder(
-				$odetail->odetail_order, 
-				'Невозможно изменить статусы товаров. Заказ не найден.');
+            if (empty($this->user))
+            {
+                $odetail = $this->ODetails->getById($odid);
+            }
+            else if ($this->user->user_group == 'client')
+            {
+                $odetail = $this->ODetails->getClientOdetailById($odid, $this->user->user_id);
+            }
+            else if ($this->user->user_group == 'admin')
+            {
+                $odetail = $this->ODetails->getById($odid);
+            }
 
-			// сохранение результатов
-			if ($this->user->user_group == 'client')
-			{
-				OdetailModel::markUpdatedByClient($order, $odetail, $this->getOrderModel());
-			}
-			
-			$odetail->odetail_status = 'deleted';
-			$this->db->trans_begin();
-			
-			// удаляем товар из объединенной доставки
-			if ($odetail->odetail_joint_id)
-			{
-				$joint = $this->Joints->getById($odetail->odetail_joint_id);
-				
-				if ( ! $joint)
-				{
-					throw new Exception('Товар не найден. Попробуйте еще раз.');
-				}
-				
-				// сносим объединенную посылку
-				if ($joint->odetail_joint_count < 3)
-				{
-					$this->ODetails->clearJoints($joint->odetail_joint_id);
-				}
-				// или правим ее
-				else
-				{
-					$joint->odetail_joint_count = $joint->odetail_joint_count - 1;
-					$this->Joints->addOdetailJoint($joint);
-				}
-			}
+            if ( ! $odetail)
+            {
+                throw new Exception('Товар не найден. Попробуйте еще раз.');
+            }
+
+            // находим заказ
+            $order = $this->getPrivilegedOrder(
+                $odetail->odetail_order,
+                'Невозможно изменить статусы товаров. Заказ не найден.');
+
+            // сохранение результатов
+            if ($this->user->user_group == 'client')
+            {
+                OdetailModel::markUpdatedByClient($order, $odetail, $this->getOrderModel());
+            }
+
+            $odetail->odetail_status = 'deleted';
+
+            $this->db->trans_begin();
+            // удаляем товар из объединенной доставки
+            if ($odetail->odetail_joint_id)
+            {
+                $joint = $this->Joints->getById($odetail->odetail_joint_id);
+
+                if ( ! $joint)
+                {
+                    throw new Exception('Товар не найден. Попробуйте еще раз.');
+                }
+
+                // сносим объединенную посылку
+                if ($joint->odetail_joint_count < 3)
+                {
+                    $this->ODetails->clearJoints($joint->odetail_joint_id);
+                }
+                // или правим ее
+                else
+                {
+                    $joint->odetail_joint_count = $joint->odetail_joint_count - 1;
+                    $this->Joints->addOdetailJoint($joint);
+                }
+            }
 
             // TODO : Возвращает BOOL значение а не объект, работает каким-то чудом =)
-			$deleted_odetail = $this->ODetails->addOdetail($odetail);
-			
-			if ( ! $deleted_odetail)
-			{
-				throw new Exception('Товар не удален. Попробуйте еще раз.');
-			}
+            $deleted_odetail = $this->ODetails->addOdetail($odetail);
+
+            if ( ! $deleted_odetail)
+            {
+                throw new Exception('Товар не удален. Попробуйте еще раз.');
+            }
 
             // Закоментировал ибо ломает удаление товара из заказа
-			//$is_order_deleted = TRUE;
-/*			
-			// меняем статус заказа
-			if ( ! $this->ODetails->getOrderDetails($order->order_id))
-			{
-				$order->order_status = 'deleted';
-				$is_order_deleted = TRUE;
-			}
-			else
-			{
-				$status = $this->ODetails->getTotalStatus($order->order_id);
-				
-				if (!$status)
-				{
-					throw new Exception('Невозможно изменить статус заказа. Попоробуйте еще раз.');
-				}
-				
-				$recent_status = $order->order_status;
-				
-				if ($recent_status != 'payed' && $recent_status != 'sent')
-				{
-					$order->order_status = $this->Orders->calculateOrderStatus($status);
-					$is_new_status = ($recent_status != $order->order_status);
-					$status_caption = $this->Orders->getOrderStatusDescription($order->order_status);
-				}
-			}
-			
-			// пересчитываем стоимость заказа
-			$this->load->model('ConfigModel', 'Config');
-			
-			if (!$this->Orders->recalculate($order, $this->ODetails, $this->Joints, $this->Config))
-			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
-			}
-			
-			// сохраняем изменения в заказе
-			$new_order = $this->Orders->saveOrder($order);
-			
-			if (!$new_order)
-			{
-				throw new Exception('Невожможно изменить статус заказа. Попоробуйте еще раз.');
-			}
-*/
-			$this->db->trans_commit();
-			
-			// уведомления, только если остались товары в заказе
-			if (isset($is_new_status) && $is_new_status && !isset($is_order_deleted))
-			{
-				$this->load->model('ManagerModel', 'Managers');
-				$this->load->model('UserModel', 'Users');
-				$this->load->model('ClientModel', 'Clients');
+            //$is_order_deleted = TRUE;
+            /*
+                        // меняем статус заказа
+                        if ( ! $this->ODetails->getOrderDetails($order->order_id))
+                        {
+                            $order->order_status = 'deleted';
+                            $is_order_deleted = TRUE;
+                        }
+                        else
+                        {
+                            $status = $this->ODetails->getTotalStatus($order->order_id);
 
-				/*
-				Mailer::sendAdminNotification(
-					Mailer::SUBJECT_NEW_ORDER_STATUS, 
-					Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-					0,
-					$order->order_id, 
-					0,
-					"http://countrypost.ru/admin/showOrderDetails/{$order->order_id}",
-					NULL,
-					NULL,
-					$status_caption);
+                            if (!$status)
+                            {
+                                throw new Exception('Невозможно изменить статус заказа. Попоробуйте еще раз.');
+                            }
 
-				Mailer::sendManagerNotification(
-					Mailer::SUBJECT_NEW_ORDER_STATUS, 
-					Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-					$order->order_manager, 
-					$order->order_id, 
-					0,
-					"http://countrypost.ru/manager/showOrderDetails/{$order->order_id}",
-					$this->Managers,
-					NULL,
-					$status_caption);
+                            $recent_status = $order->order_status;
 
-				Mailer::sendClientNotification(
-					Mailer::SUBJECT_NEW_ORDER_STATUS, 
-					Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-					$order->order_id, 
-					$order->order_client, 
-					"http://countrypost.ru/client/showOrderDetails/{$order->order_id}",
-					$this->Clients,
-					$status_caption);
-				*/
-			}
-		}
-		catch (Exception $e)
-		{
-			$this->db->trans_rollback();
-			
-			$this->result->e = -1;			
-			$this->result->m = $e->getMessage();
-		}
-		
-		// открываем заказы
-		Stack::push('result', $this->result);
-		$this->result->e = 1;
-		$this->result->join_status = 1;
+                            if ($recent_status != 'payed' && $recent_status != 'sent')
+                            {
+                                $order->order_status = $this->Orders->calculateOrderStatus($status);
+                                $is_new_status = ($recent_status != $order->order_status);
+                                $status_caption = $this->Orders->getOrderStatusDescription($order->order_status);
+                            }
+                        }
 
-		if (isset($is_order_deleted))
-		{
-			// уведомления, удаленный заказ
-			$this->load->model('ManagerModel', 'Managers');
-			$this->load->model('UserModel', 'Users');
-			$this->load->model('ClientModel', 'Clients');
+                        // пересчитываем стоимость заказа
+                        $this->load->model('ConfigModel', 'Config');
 
-			Mailer::sendAdminNotification(
-				Mailer::SUBJECT_ORDER_DELETED_STATUS, 
-				Mailer::ORDER_DELETED_NOTIFICATION,
-				0,
-				$order->order_id, 
-				0,
-				NULL,
-				NULL,
-				NULL);
+                        if (!$this->Orders->recalculate($order, $this->ODetails, $this->Joints, $this->Config))
+                        {
+                            throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+                        }
 
-			Mailer::sendManagerNotification(
-				Mailer::SUBJECT_ORDER_DELETED_STATUS, 
-				Mailer::ORDER_DELETED_NOTIFICATION,
-				$order->order_manager, 
-				$order->order_id, 
-				0,
-				NULL,
-				$this->Managers,
-				NULL);
+                        // сохраняем изменения в заказе
+                        $new_order = $this->Orders->saveOrder($order);
 
-			Mailer::sendClientNotification(
-				Mailer::SUBJECT_ORDER_DELETED_STATUS, 
-				Mailer::ORDER_DELETED_NOTIFICATION,
-				$order->order_id, 
-				$order->order_client, 
-				NULL,
-				$this->Clients);
-			
-			$this->result->m = 'Заказ успешно удален.';
-			Func::redirect(BASEURL.$this->cname.'/showOpenOrders');
-		}
-		else
-		{
-			$this->result->m = 'Товар успешно удален.';
-			Func::redirect($_SERVER['HTTP_REFERER']);
-		}
-	}
+                        if (!$new_order)
+                        {
+                            throw new Exception('Невожможно изменить статус заказа. Попоробуйте еще раз.');
+                        }
+            */
+            $this->db->trans_commit();
+
+            // уведомления, только если остались товары в заказе
+            if (isset($is_new_status) && $is_new_status && !isset($is_order_deleted))
+            {
+                $this->load->model('ManagerModel', 'Managers');
+                $this->load->model('UserModel', 'Users');
+                $this->load->model('ClientModel', 'Clients');
+
+                /*
+                Mailer::sendAdminNotification(
+                    Mailer::SUBJECT_NEW_ORDER_STATUS,
+                    Mailer::NEW_ORDER_STATUS_NOTIFICATION,
+                    0,
+                    $order->order_id,
+                    0,
+                    "http://countrypost.ru/admin/showOrderDetails/{$order->order_id}",
+                    NULL,
+                    NULL,
+                    $status_caption);
+
+                Mailer::sendManagerNotification(
+                    Mailer::SUBJECT_NEW_ORDER_STATUS,
+                    Mailer::NEW_ORDER_STATUS_NOTIFICATION,
+                    $order->order_manager,
+                    $order->order_id,
+                    0,
+                    "http://countrypost.ru/manager/showOrderDetails/{$order->order_id}",
+                    $this->Managers,
+                    NULL,
+                    $status_caption);
+
+                Mailer::sendClientNotification(
+                    Mailer::SUBJECT_NEW_ORDER_STATUS,
+                    Mailer::NEW_ORDER_STATUS_NOTIFICATION,
+                    $order->order_id,
+                    $order->order_client,
+                    "http://countrypost.ru/client/showOrderDetails/{$order->order_id}",
+                    $this->Clients,
+                    $status_caption);
+                */
+            }
+        }
+        catch (Exception $e)
+        {
+            $this->db->trans_rollback();
+
+            $this->result->e = -1;
+            $this->result->m = $e->getMessage();
+        }
+
+        // открываем заказы
+        Stack::push('result', $this->result);
+        $this->result->e = 1;
+        $this->result->join_status = 1;
+
+        if (isset($is_order_deleted))
+        {
+            // уведомления, удаленный заказ
+            $this->load->model('ManagerModel', 'Managers');
+            $this->load->model('UserModel', 'Users');
+            $this->load->model('ClientModel', 'Clients');
+
+            Mailer::sendAdminNotification(
+                Mailer::SUBJECT_ORDER_DELETED_STATUS,
+                Mailer::ORDER_DELETED_NOTIFICATION,
+                0,
+                $order->order_id,
+                0,
+                NULL,
+                NULL,
+                NULL);
+
+            Mailer::sendManagerNotification(
+                Mailer::SUBJECT_ORDER_DELETED_STATUS,
+                Mailer::ORDER_DELETED_NOTIFICATION,
+                $order->order_manager,
+                $order->order_id,
+                0,
+                NULL,
+                $this->Managers,
+                NULL);
+
+            Mailer::sendClientNotification(
+                Mailer::SUBJECT_ORDER_DELETED_STATUS,
+                Mailer::ORDER_DELETED_NOTIFICATION,
+                $order->order_id,
+                $order->order_client,
+                NULL,
+                $this->Clients);
+
+            $this->result->m = 'Заказ успешно удален.';
+            Func::redirect(BASEURL.$this->cname.'/showOpenOrders');
+        }
+        else
+        {
+            $this->result->m = 'Товар успешно удален.';
+            Func::redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    protected function deleteNewProduct($oid, $odid)
+    {
+        try
+        {
+            // безопасность: проверяем связку клиента и товара
+            $this->load->model('OdetailModel', 'ODetails');
+            $this->load->model('OdetailJointModel', 'Joints');
+
+            if (empty($this->user))
+            {
+                $odetail = $this->ODetails->getById($odid);
+            }
+            else if ($this->user->user_group == 'client')
+            {
+                $odetail = $this->ODetails->getClientOdetailById($oid, $odid, $this->user->user_id);
+            }
+            else if ($this->user->user_group == 'admin')
+            {
+                $odetail = $this->ODetails->getById($odid);
+            }
+
+            if ( ! $odetail)
+            {
+                throw new Exception('Товар не найден. Попробуйте еще раз.');
+            }
+
+            // находим заказ
+            $order = $this->getNewOrder(
+                $odetail->odetail_order,
+                'Невозможно изменить статусы товаров. Заказ не найден.');
+
+            // сохранение результатов
+            if ($this->user->user_group == 'client')
+            {
+                OdetailModel::markUpdatedByClient($order, $odetail, $this->getOrderModel());
+            }
+
+            $this->db->trans_begin();
+
+            // удаляем товар из объединенной доставки
+            if ($odetail->odetail_joint_id)
+            {
+                $joint = $this->Joints->getById($odetail->odetail_joint_id);
+
+                if ( ! $joint)
+                {
+                    throw new Exception('Товар не найден. Попробуйте еще раз.');
+                }
+
+                // сносим объединенную посылку
+                if ($joint->odetail_joint_count < 3)
+                {
+                    $this->ODetails->clearJoints($joint->odetail_joint_id);
+                }
+                // или правим ее
+                else
+                {
+                    $joint->odetail_joint_count = $joint->odetail_joint_count - 1;
+                    $this->Joints->addOdetailJoint($joint);
+                }
+            }
+
+            $odetail->odetail_status = 'deleted';
+
+            // TODO : Возвращает BOOL значение а не объект, работает каким-то чудом =)
+            $deleted_odetail = $this->ODetails->addOdetail($odetail);
+
+            if ( ! $deleted_odetail)
+            {
+                throw new Exception('Товар не удален. Попробуйте еще раз.');
+            }
+
+            $this->db->trans_commit();
+
+            // открываем заказы
+            Stack::push('result', $this->result);
+            $this->result->e = 1;
+            $this->result->join_status = 1;
+            $this->result->m = 'Товар успешно удален.';
+
+            echo json_encode($this->result);
+            exit;
+        }
+        catch (Exception $e)
+        {
+            $this->db->trans_rollback();
+
+            $this->result->e = -1;
+            $this->result->m = $e->getMessage();
+
+            echo json_encode($this->result);
+            exit;
+        }
+
+        //Func::redirect($_SERVER['HTTP_REFERER']);
+    }
 	
 	private static function getOrderBackHandler($order, $user_group)
 	{

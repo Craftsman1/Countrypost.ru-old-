@@ -2791,6 +2791,10 @@ class Client extends ClientBaseController {
             // парсим пользовательский ввод
             Check::reset_empties();
             $odetail->odetail_link				= Check::str('link', 500, 1);
+            $odetail->odetail_shop				= Check::str('shop', 255, 0);
+            $odetail->odetail_volume			= Check::str('volume', 255, 0);
+            $odetail->odetail_tnved				= Check::str('tnved', 255, 0);
+            $odetail->odetail_insurance		    = Check::str('insurance', 255, 0);
             $odetail->odetail_product_name		= Check::str('name', 255, 0, '');
             $odetail->odetail_product_color		= Check::str('color', 255, 0, '');
             $odetail->odetail_product_size		= Check::str('size', 255, 0, '');
@@ -2812,10 +2816,24 @@ class Client extends ClientBaseController {
                 $odetail->odetail_img = Check::str('img', 4096, 1, NULL);
             }
 
-            // валидация
-            if (empty($odetail->odetail_link))
+            // Валидация
+            switch ($order->order_type)
             {
-                throw new Exception('Добавьте ссылку на товар.');
+                case 'online' :
+                    $this->onlineProductCheck($odetail);
+                    break;
+                case 'offline' :
+                    $this->offlineProductCheck($odetail);
+                    break;
+                case 'delivery' :
+                    $this->deliveryProductCheck($odetail);
+                    break;
+                case 'service' :
+                    $this->serviceProductCheck($odetail);
+                    break;
+                case 'mailforward' :
+                    $this->mailforwardProductCheck($odetail);
+                    break;
             }
 
             if ($is_file_uploaded AND

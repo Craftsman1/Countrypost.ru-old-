@@ -947,23 +947,14 @@ Email: {$this->user->user_email}";
 
             // Создаем пустой заказ
             // TODO : проверить если, пользователь авторизован, на существование уже созданного ранее заказа
-            if($this->user AND $exist_order = $this->blankExistOrderCheck($this->user->user_id))
+            if($this->user AND $exist_orders = $this->blankExistOrderCheck($this->user->user_id))
             {
-                $view['order'] = $exist_order;
-                if ($exist_order)
-                {
-                    foreach($view['countries'] as $v)
-                    {
-                        if ( $v->country_id == $exist_order->order_country_from)
-                        {
-                            $view['order_currency'] = $v->country_currency;
-                        }
-                    }
-                }
+                $view['orders'] = $exist_orders;
             }
+            // TODO : Если не авторизован проверить нет ли временного заказа
             else
             {
-                $view['order'] = null;
+                $view['orders'] = null;
             }
 
 			// крошки
@@ -984,9 +975,9 @@ Email: {$this->user->user_email}";
     {
         // типы заказов
         $this->load->model('OrderModel', 'Orders');
-        $order = $this->Orders->getClientBlankOrder($client_id);
+        $orders = $this->Orders->getClientBlankOrders($client_id);
 
-        if ($order) return $order;
+        if ($orders) return $orders;
 
         return false;
     }
@@ -1040,11 +1031,16 @@ Email: {$this->user->user_email}";
 	{
 		parent::addProductManualAjax();
 	}
-	
-	public function deleteProduct($odid)
-	{
-		parent::deleteProduct($odid);
-	}
+
+    public function deleteProduct($odid)
+    {
+        parent::deleteProduct($odid);
+    }
+
+    public function deleteNewProduct($oid, $odid)
+    {
+        parent::deleteNewProduct($oid, $odid);
+    }
 	
 	public function checkout()
 	{
@@ -1084,10 +1080,23 @@ Email: {$this->user->user_email}";
 
 			Check::reset_empties();
 			$order->order_country_from = Check::int('country_from');
-			$order->order_country_to = Check::int('country_to');
-			$order->order_city_to = Check::str('city_to', 255, 1);
+
+            // для некоторых заказов получаем необязательные поля отдельно
+            if ($order->order_type != 'service')
+            {
+                $order->order_country_to = Check::int('country_to');
+                $order->order_city_to = Check::str('city_to', 255, 1);
+            }
 			
 			$empties = Check::get_empties();
+
+            // для некоторых заказов получаем необязательные поля отдельно
+            if ($order->order_type == 'service')
+            {
+                $order->order_country_to = Check::int('country_to');
+                $order->order_city_to = Check::str('city_to', 255, 1);
+            }
+
 			$order->order_manager = Check::int('dealer_id');
 			$order->order_status = 'pending';
 			$order->order_date = date('Y-m-d H:i:s');			

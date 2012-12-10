@@ -720,33 +720,71 @@ class OrderModel extends BaseModel implements IModel{
      *
      * @return object
      */
-    public function getClientBlankOrder($client_id)
+    public function getClientBlankOrders($client_id)
     {
         // выборка
-        $order = $this->db->query(
+        $orders = $this->db->query(
             "SELECT
                 `orders` . * ,
-                @package_day := TIMESTAMPDIFF(DAY , `orders`.`order_date` , NOW( ) ) AS package_day,
                 `users`.`user_login` AS `client_login` ,
-                TIMESTAMPDIFF( HOUR , `orders`.`order_date` , NOW( ) - INTERVAL @package_day DAY ) AS `package_hour`
+                `countries`.`country_currency` AS `order_currency`
             FROM `orders`
             INNER JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
-            WHERE `orders`.`is_creating` = 1
-            ORDER BY `orders`.`order_date` DESC
-            LIMIT 1"
-        )->row();
+            INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'online'
+            UNION ALL
+            SELECT
+                `orders` . * ,
+                `users`.`user_login` AS `client_login` ,
+                `countries`.`country_currency` AS `order_currency`
+            FROM `orders`
+            INNER JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
+            INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'offline'
+            UNION ALL
+            SELECT
+                `orders` . * ,
+                `users`.`user_login` AS `client_login` ,
+                `countries`.`country_currency` AS `order_currency`
+            FROM `orders`
+            INNER JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
+            INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'delivery'
+            UNION ALL
+            SELECT
+                `orders` . * ,
+                `users`.`user_login` AS `client_login` ,
+                `countries`.`country_currency` AS `order_currency`
+            FROM `orders`
+            INNER JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
+            INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'service'
+            UNION ALL
+            SELECT
+                `orders` . * ,
+                `users`.`user_login` AS `client_login` ,
+                `countries`.`country_currency` AS `order_currency`
+            FROM `orders`
+            INNER JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
+            INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'mailforward'
+            "
+        )->result();
 
-        if ($order)
+        if ($orders)
         {
-            $odetails = $this->db->query(
-                "SELECT *
-                FROM `odetails`
-                WHERE `odetails`.`odetail_order` = {$order->order_id} AND odetail_status <> 'deleted'"
-            )->result();
+            foreach ($orders as $k=>$order) :
+                $odetails = $this->db->query(
+                    "SELECT *
+                    FROM `odetails`
+                    WHERE `odetails`.`odetail_order` = {$order->order_id} AND odetail_status <> 'deleted'
+                    ORDER BY `odetails`.`odetail_id` DESC "
+                )->result();
 
-            $order->details = $odetails;
+                $orders[$k]->details = $odetails;
+            endforeach;
 
-            return $order;
+            return $orders;
         }
 
         return false;
