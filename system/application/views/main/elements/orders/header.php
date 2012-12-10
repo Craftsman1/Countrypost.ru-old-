@@ -1,0 +1,1 @@
+<? $route = $order->order_country_from;if ($order->order_country_from AND $order->order_country_to){	$route .= ' - ';}$route .= $order->order_country_to;if ($order->order_city_to){	$route .=  ' (' . $order->order_city_to . ')';}?><h2>	<?= $order_types[$order->order_type] ?> №<?= $order->order_id ?> <?= $route ?></h2>

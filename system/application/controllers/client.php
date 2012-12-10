@@ -2332,7 +2332,7 @@ class Client extends ClientBaseController {
 		print(json_encode($response));
 	}
 
-    public function updateNewProduct($order_id, $odetail_id)
+	public function updateNewProduct($order_id, $odetail_id)
     {
         try
         {

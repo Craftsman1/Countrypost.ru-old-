@@ -75,8 +75,6 @@
                     <td class="address_id"><?=$address->address_id?></td>
                     <td><?=$address->address_recipient?></td>
                     <td>
-						<!--?=$address->address_zip.', '.$address->address_address.', '.$address->address_town.',
-						'.$address->country_name?-->
 						<? if ($address->is_generated)
 						{
 							$full_address = implode(', ', array(

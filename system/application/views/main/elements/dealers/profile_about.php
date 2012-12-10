@@ -37,7 +37,7 @@
 			Отзывы:
 		</span>
 		<span>
-			<? View::show('main/elements/dealers/reviews', array(
+			<? View::show('main/elements/ratings/reviews', array(
 				'positive' =>  $manager->statistics->positive_reviews,
 				'neutral' =>  $manager->statistics->neutral_reviews,
 				'negative' =>  $manager->statistics->negative_reviews)); ?>

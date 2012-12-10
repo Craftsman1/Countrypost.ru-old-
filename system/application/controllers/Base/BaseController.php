@@ -366,7 +366,7 @@ abstract class BaseController extends Controller
 			// страны
 			$view['Countries'] = $this->Countries->getClientAvailableCountries($view['order']->order_client);
 
-			// предложения
+			// предложения: никаких ограничений доступа, показываем все
 			$view['bids'] = $this->Bids->getBids($view['order']->order_id);
 
 			foreach ($view['bids'] as $bid)
@@ -429,6 +429,7 @@ abstract class BaseController extends Controller
 			// статусы заказов и товаров, сгруппированные по типу заказа
 			$view['statuses'] = $this->Orders->getAllStatuses();
 			$view['odetail_statuses'] = $this->Odetails->getAllStatuses();
+			$view['order_types'] = $this->Orders->getOrderTypes();
 
 			// кнопка добавить предложение для посредника
 			$view['bids_accepted'] = empty($chosen_bid) && ($this->user->user_group == 'manager');
@@ -495,8 +496,11 @@ abstract class BaseController extends Controller
 
 			// детали заказа
 			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
+
 			$view['editable_statuses'] = array();
 			$view['odetails'] = $this->Odetails->getOrderDetails($view['order']->order_id);
+			$view['joints'] = $this->Joints->getOrderJoints($view['order']->order_id);
 
 			$this->load->model('CountryModel', 'Countries');
 
@@ -509,6 +513,7 @@ abstract class BaseController extends Controller
 
 			$view['order']->order_status_desc = $this->Orders->getOrderStatusDescription($view['order']->order_status);
 			$view['order_statuses'] = $this->Orders->getAvailableOrderStatuses();
+			$view['order_types'] = $this->Orders->getOrderTypes();
 
 			// предложения
 			$this->load->model('BidModel', 'Bids');
@@ -516,6 +521,7 @@ abstract class BaseController extends Controller
 			$this->load->model('ManagerModel', 'Managers');
 			$this->load->model('ClientModel', 'Clients');
 
+			// предложения: никаких ограничений доступа, показываем все
 			$view['bids'] = $this->Bids->getBids($view['order']->order_id);
 			$statistics = array();
 
@@ -628,6 +634,8 @@ abstract class BaseController extends Controller
 		}
 
 		// показываем детали заказа
+		View::showChild('/main/pages/showOrderDetails', $view);
+		/*
 		if (empty($this->user->user_group))
 		{
 			View::showChild('/main/pages/showOrderDetails', $view);
@@ -635,7 +643,7 @@ abstract class BaseController extends Controller
 		else
 		{
 			View::showChild("{$this->user->user_group}/pages/showOrderDetails", $view);
-		}
+		}*/
 	}
 
     protected function addBlankOrder ($client, $country_from, $country_to, $city_to, $order_type)
@@ -780,49 +788,7 @@ abstract class BaseController extends Controller
 
 			$detail = $this->OdetailModel->addOdetail($detail);
 
-			/*
-			// если заказ уже создан, вычисляем его статус
-			if ($detail->odetail_order)
-			{
-				// находим заказ
-				if ( ! isset($order))
-				{
-					$order = $this->Orders->getClientOrderById($detail->odetail_order, $client_id);
-				}
-				
-				if ( ! isset($order) || ! $order)
-				{
-					throw new Exception('Невозможно изменить статусы товаров. Заказ не найден.');
-				}
-		
-				// вычисляем общий статус товаров
-				$status = $this->OdetailModel->getTotalStatus($detail->odetail_order);
-				
-				if (!$status)
-				{
-					throw new Exception('Статус заказа не определен. Попоробуйте еще раз.');
-				}
-
-				$recent_status = $order->order_status;
-				$order->order_status = $this->Orders->calculateOrderStatus($status);
-				$is_new_status = ($recent_status != $order->order_status && $recent_status != 'payed');
-				
-				if ($is_new_status)
-				{
-					$status_caption = $this->Orders->getOrderStatusDescription($order->order_status);
-					
-					// меняем статус заказа
-					$new_order = $this->Orders->saveOrder($order);
-					
-					if (!$new_order)
-					{
-						throw new Exception('Невожможно изменить статус заказа. Попоробуйте еще раз.');
-					}
-				}
-			}
-			*/
-
- 			// загружаем файл
+			// загружаем файл
 			if ($userfile)
 			{
 				$old = umask(0);
@@ -1471,7 +1437,7 @@ abstract class BaseController extends Controller
 	}
 	
 	protected function initFilter($filterType)
-	{//$_SESSION[$filterType.'Filter'] = null;die();
+	{
 		// если ничего не фильтровали, инициализируем фильтр
 		if ( ! isset($_SESSION[$filterType.'Filter']))
 		{
@@ -1728,119 +1694,6 @@ abstract class BaseController extends Controller
 		Func::redirect(BASEURL.$this->cname.'/showOpenOrders');
 	}
 	
-	protected function updateOrderDetails()
-	{
-		try
-		{
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!isset($_POST['order_id']) ||
-				!is_numeric($_POST['order_id']))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			
-			$order_id = $_POST['order_id'];
-			
-			// роли и разграничение доступа
-			$order = $this->getPrivilegedOrder(
-				$order_id, 
-				'Невозможно сохранить детали заказа. Заказ недоступен.');
-
-			// валидация пользовательского ввода
-			Check::reset_empties();
-			$order->order_products_cost	= Check::float('order_products_cost');
-			$order->order_delivery_cost	= Check::float('order_delivery_cost');
-			$empties					= Check::get_empties();
-	
-			if ($empties) 
-			{
-				throw new Exception('Некоторые поля не заполнены. Попробуйте еще раз.');
-			}
-			
-			// вычисляем стоимость заказа
-			if (FALSE &&
-				$this->user->user_group == 'admin' &&
-				$order_cost != $order->order_cost)
-			{
-				$order->order_cost = $order_cost;
-			}
-			else
-			{
-				$this->load->model('ConfigModel', 'Config');
-				$order = $this->Orders->calculateCost($order, $this->Config);
-				
-				if (!$order) 
-				{
-					throw new Exception('Невозможно вычислить стоимость заказа. Попробуйте еще раз.');
-				}
-			}
-		
-			// вычисляем стоимость международной доставки
-			$this->load->model('PricelistModel', 'Pricelist');
-			$this->Orders->setAvailableDeliveries($order, $this->Pricelist);
-			$order->package_delivery_cost = '';
-			
-			if ($order->delivery_list)
-			{
-				foreach ($order->delivery_list as $delivery)
-				{
-					$order->package_delivery_cost .= $delivery->delivery_name.': '.$delivery->delivery_price.'р<br />';
-				}
-			}
-
-			// сохранение результатов
-			$new_order = $this->Orders->saveOrder($order);
-			
-			if (!$new_order)
-			{
-				throw new Exception('Заказ не сохранен. Попробуйте еще раз.');
-			}
-			
-			$this->result->m = 'Заказ успешно сохранен.';
-			Stack::push('result', $this->result);
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-		
-		// открываем детали заказа
-		Func::redirect(BASEURL.$this->cname.'/showOrderDetails/'.$order_id);
-	}
-	
-	protected function updateStatus($status, $pageName, $modelName)
-	{
-		try
-		{
-			if (!$this->user ||
-				!$this->user->user_id)
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			
-			$this->load->model('ManagerModel', 'Managers');
-			$this->load->model('ClientModel', 'Clients');
-			
-			// итерируем по заказам
-			foreach($_POST as $key => $value)
-			{
-				$this->updateOrderStatus($key, $value);
-			}
-
-			$this->db->trans_commit();
-		}
-		catch (Exception $e) 
-		{
-		}
-
-		// открываем посылки
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-
 	protected function updateOrderStatus($param, $order_status)
 	{
 		// заказ или нет?
@@ -3398,22 +3251,12 @@ abstract class BaseController extends Controller
 
 	private function getPrivilegedBid($bid_id, $validate = TRUE)
 	{
-		$user_id = $this->user->user_id;
-		$model = $this->Bids;
-		
-		switch ($this->user->user_group)
-		{
-			case 'manager' : 
-				$bid = $model->getManagerBidById($bid_id, $user_id);
-				break;
-			case 'client' : 
-				$bid = $model->getClientBidById($bid_id, $user_id);
-				break;
-			case 'admin' : 
-				$bid = $model->getById($bid_id);
-				break;
-		}
-		
+		$bid = $this->Bids->getPrivilegedBid(
+			$bid_id,
+			$this->user->user_id,
+			$this->user->user_group
+		);
+
 		if ($validate AND
 			empty($bid))
 		{

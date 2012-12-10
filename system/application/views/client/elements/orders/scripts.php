@@ -244,39 +244,6 @@ function submitItem(id, data)
 		cancelItem(id);
 	}
 }
-// EOF: редактирование деталей заказа
-
-function deleteItem(id) {
-	if (confirm("Вы уверены, что хотите удалить заказ №" + id + "?")){
-		window.location.href = '<?= $selfurl ?>deleteOrder/' + id;
-	}
-}
-
-function payItem(id) {
-	if (confirm("Оплатить заказ №" + id + "?")){
-		window.location.href = '<?= $selfurl ?>payOrder/' + id;
-	}
-}
-
-function repayItem(id) {
-	if (confirm("Доплатить за заказ №" + id + "?")){
-		window.location.href = '<?= $selfurl ?>repayOrder/' + id;
-	}
-}
-
-function unchooseBid()
-{
-	$.post("/client/unchooseBid/<?= $order->order_id ?>")
-			.success(function() {
-				success('top', 'Вы успешно отказались от работы с прошлым посредником.');
-				$('.clientOrderInfo').hide('slow');
-				$('.chooseBidForm,.choose_bid').show('slow');
-				$('h3.bids_header').html('Предложения от посредников');
-			})
-			.error(function() {
-				error('top', 'Попробуйте еще раз.');
-			});
-}
 
 function joinProducts()
 {
@@ -295,16 +262,16 @@ function joinProducts()
 
 		selectedProds.each(function(index, item) {
 			queryString += (queryString.length ? '&' : '') +
-				$(item).attr('name') +
-				'=on';
+					$(item).attr('name') +
+					'=on';
 		});
 
 		$.post('<?= $selfurl ?>joinProducts/<?= $order->order_id ?>',
-			queryString,
-			function()
-			{
-				self.location.reload();
-			}
+				queryString,
+				function()
+				{
+					self.location.reload();
+				}
 		);
 	}
 }
@@ -315,6 +282,25 @@ function removeJoint(id)
 	{
 		$('img#joinProgress').show();
 		window.location.href = '<?= $selfurl ?>removeJoint/<?= $order->order_id ?>/' + id;
+	}
+}
+// EOF: редактирование деталей заказа
+
+function deleteItem(id) {
+	if (confirm("Вы уверены, что хотите удалить заказ №" + id + "?")){
+		window.location.href = '<?= $selfurl ?>deleteOrder/' + id;
+	}
+}
+
+function payItem(id) {
+	if (confirm("Оплатить заказ №" + id + "?")){
+		window.location.href = '<?= $selfurl ?>payOrder/' + id;
+	}
+}
+
+function repayItem(id) {
+	if (confirm("Доплатить за заказ №" + id + "?")){
+		window.location.href = '<?= $selfurl ?>repayOrder/' + id;
 	}
 }
 </script>

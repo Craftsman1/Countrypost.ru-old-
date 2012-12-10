@@ -123,7 +123,25 @@ class BidModel extends BaseModel implements IModel{
 		")->result();
 	}
 
-	public function getClientBidById($bid_id, $user_id) 
+	public function getPrivilegedBid($bid_id, $user_id, $user_group)
+	{
+		if ($user_group == 'client')
+		{
+			return $this->getClientBidById($bid_id, $user_id);
+		}
+		else if ($user_group == 'manager')
+		{
+			return $this->getManagerBidById($bid_id, $user_id);
+		}
+		else if ($user_group == 'admin')
+		{
+			return $this->getById($bid_id);
+		}
+
+		return FALSE;
+	}
+
+	private function getClientBidById($bid_id, $user_id)
 	{
 		$result = $this->db->query("
 			SELECT `{$this->table}`.*
@@ -138,7 +156,7 @@ class BidModel extends BaseModel implements IModel{
 		return ((count($result) > 0 &&  $result) ? $result[0] : FALSE);
 	}
 	
-	public function getManagerBidById($bid_id, $user_id) 
+	private function getManagerBidById($bid_id, $user_id)
 	{
 		$result = $this->db->query("
 			SELECT `{$this->table}`.*
