@@ -495,8 +495,11 @@ abstract class BaseController extends Controller
 
 			// детали заказа
 			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
+			
 			$view['editable_statuses'] = array();
 			$view['odetails'] = $this->Odetails->getOrderDetails($view['order']->order_id);
+			$view['joints'] = $this->Joints->getOrderJoints($view['order']->order_id);
 
 			$this->load->model('CountryModel', 'Countries');
 
