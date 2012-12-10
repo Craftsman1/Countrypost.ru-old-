@@ -288,9 +288,8 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 			<td colspan="2">&nbsp;</td>
 			<? endif; ?>
 		</tr>
-		<? if ($bids_accepted AND
-			! empty($order->preferred_delivery)) : ?>
-		<tr class='last-row'>
+		<? if ( ! empty($order->preferred_delivery)) : ?>
+		<tr class='last-row' style="display: none;">
 			<td style="text-align: right;" colspan='6'>
 				<b>
 					Способ доставки: <b class="order_totals"><?= $order->preferred_delivery ?></b>
@@ -300,17 +299,15 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 		<? endif; ?>
 	</table>
 </div>
-<? if ($bids_accepted) : ?>
-<div style="height:50px;">
+<div style="height: 50px; display: none;">
 	<div class="admin-inside float-left">
 		<div class='submit'>
 			<div>
-				<input type='button' class="bid_button" value='Добавить предложение?' onclick="showNewBidForm('<?= $order->order_id ?>');" />
+				<input type='button' class="bid_button" value='Добавить предложение' onclick="showNewBidForm('<?= $order->order_id ?>');" />
 			</div>
 		</div>
 	</div>
 </div>
-<? endif; ?>
 <? if ($is_editable) : ?>
 <div style="height:50px;">
 	<div class="admin-inside float-left">
