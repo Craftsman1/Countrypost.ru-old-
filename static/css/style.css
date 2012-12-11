@@ -2574,3 +2574,20 @@ span.producteditor input[type='radio'] {
 div.personal span.review_count {
 	text-align: left!important;
 }
+
+div.bid_auth {
+	margin-top: 40px;
+	margin-left: -20px;
+}
+
+div.bid_auth h2{
+	margin: 0 0 15px 23px;
+}
+
+div.bid_auth .remember-password {
+	top: 93px;
+}
+
+div.bid_auth .register {
+	top: 59px;
+}
