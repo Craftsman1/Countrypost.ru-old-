@@ -1,5 +1,6 @@
 <div style="display:block;" class='top-block bid_auth'>
-	<form class='autorization bidAuthForm' method="post" action='<?= BASEURL ?>user/loginAjax' style="float:left;">
+	<form class='autorization bidAuthForm' method="POST" action='<?= BASEURL ?>user/loginAjax/newBid/<?=
+	$order->order_id ?>' style="float:left;">
     	<input type="hidden" name="segment" value="<?= $this->uri->segment(2) ?>" />
 		<h2>Авторизация</h2>
 		<div class='text-field'>
@@ -34,7 +35,6 @@
 <script type="text/javascript">
 	$(function() {
 		$('form.bidAuthForm').ajaxForm({
-			target: '<?= BASEURL ?>user/loginAjax',
 			type: 'POST',
 			dataType: 'html',
 			iframe: true,
@@ -60,8 +60,11 @@
 						
 					$('div.bid_auth').hide('slow');
 
-                    $('.checkOutOrderBlock').show('fast');
-                    $('div#newBid').show('slow');
+					$('div#bid0')
+						.detach()
+						.appendTo('div#newBidForm');
+
+					showNewBidForm();
 				}
 				else
 				{

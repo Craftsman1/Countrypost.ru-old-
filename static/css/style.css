@@ -227,7 +227,9 @@ body {
 .header {
 	padding:44px 0 0;
 	overflow:hidden;
+	margin-bottom: 40px;
 	}
+
 	.header .logo {
 		float:left;
 		width:210px;

@@ -7,7 +7,9 @@
 		Товары в заказе
 	</h3>
 	<? View::show('manager/ajax/showOrderDetails'); ?>
+	<? if ($bids_accepted) : ?>
 	<? View::show('main/elements/orders/newBidForm'); ?>
+	<? endif; ?>
 	<? View::show('main/elements/orders/bids'); ?>
 </div>
 <? View::show('manager/elements/orders/scripts'); ?>
