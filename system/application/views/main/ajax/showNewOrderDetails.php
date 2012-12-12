@@ -8,26 +8,39 @@
             <col style="width: 60px;">
             <col>
             <col>
-            <col style="width: 85px;">
-            <col style="width: 85px;">
-            <col style="width: 85px;">
+            <? if ($order_type == 'mail_forwarding') : ?>
+                <col style="width: 185px;">
+            <? else : ?>
+                <col style="width: 85px;">
+                <col style="width: 85px;">
+                <col style="width: 85px;">
+            <? endif; ?>
             <col style="width: 44px">
         </colgroup>
+
         <tr>
             <th nowrap>
                 № <input type='checkbox' id='select_all'>
             </th>
             <th>Товар</th>
             <th>Скриншот</th>
-            <th>
-                Стоимость
-            </th>
-            <th>
-                Местная<br>доставка
-            </th>
-            <th>
-                Вес<br>товара
-            </th>
+
+            <? if ($order_type == 'mail_forwarding') : ?>
+                <th>
+                    Tracking номер
+                </th>
+            <? else : ?>
+                <th>
+                    Стоимость
+                </th>
+                <th>
+                    Местная<br>доставка
+                </th>
+                <th>
+                    Вес<br>товара
+                </th>
+            <? endif; ?>
+
             <th style="width:1px;"></th>
         </tr>
         <?
@@ -74,6 +87,13 @@
         ?>
         <tr id='product<?= $odetail->odetail_id ?>'>
             <td id='odetail_id<?= $odetail->odetail_id ?>'>
+
+
+                <form style="display: none;" id="odetail<?= $order_type ?><?= $odetail->odetail_id ?>" action="<?= $selfurl ?>updateNewProduct/<?= $order->order_id ?>/<?= $odetail->odetail_id ?>"
+                      enctype="multipart/form-data"
+                      method="POST">
+                </form>
+
                 <input type="checkbox" name="odetail_id" value="<?= $odetail->odetail_id ?>"/>
                 <br>
                 <?= $odetail->odetail_id ?>
@@ -85,10 +105,6 @@
 
             </td>
 
-            <form id="odetail<?= $order_type ?><?= $odetail->odetail_id ?>" action="/client/updateNewProduct/<?= $order->order_id ?>/<?= $odetail->odetail_id ?>"
-                  enctype="multipart/form-data"
-                  method="POST">
-
                 <td style="text-align: left; vertical-align: bottom;">
 
                     <?
@@ -97,12 +113,12 @@
                             ?>
                             <span class="plaintext">
                                 <a target="_blank" href="<?= $odetail->odetail_link ?>"><?= $odetail->odetail_product_name ?></a>
-                                        <? if ($odetail->odetail_foto_requested) : ?>(требуется фото товара)<? endif; ?>
-                                        <br>
+                                <? if ($odetail->odetail_foto_requested) : ?>(требуется фото товара)<? endif; ?>
+                                <br>
                                 <b>Количество</b>: <?= $odetail->odetail_product_amount ?>
-                                        <b>Размер</b>: <?= $odetail->odetail_product_size ?>
-                                        <b>Цвет</b>: <?= $odetail->odetail_product_color ?>
-                                        <br>
+                                <b>Размер</b>: <?= $odetail->odetail_product_size ?>
+                                <b>Цвет</b>: <?= $odetail->odetail_product_color ?>
+                                <br>
                                 <b>Комментарий</b>: <?= $odetail->odetail_comment ?>
                             </span>
                             <span class="producteditor" style="display: none;">
@@ -165,7 +181,8 @@
                         case 'service' :
                             ?>
                             <span class="plaintext">
-                                <b><?= $odetail->odetail_product_name ?></b><br>
+                                <b><?= $odetail->odetail_product_name ?></b>
+                                <? if ($odetail->odetail_foto_requested) : ?>(требуется фото товара)<? endif; ?><br>
                                 <b>Описание услуги</b>: <?= $odetail->odetail_comment ?>
                             </span>
                             <span class="producteditor" style="display: none;">
@@ -227,53 +244,121 @@
                                 <br>
                             </span><?
                             break;
+                        case 'mail_forwarding' :
+                            $link = '';
+                            if ( !empty($odetail->odetail_link) && stripos($odetail->odetail_link, 'http://') !==0 )
+                            {
+                                $link = 'http://'.$odetail->odetail_link;
+                            }
+                            elseif ( !empty($odetail->odetail_link) )
+                            {
+                                $link = $odetail->odetail_link;
+                            }
+                            ?>
+                            <span class="plaintext">
+                                <b><?=($link)?'<a href="'.$link.'" target="BLANK">':''?><?= $odetail->odetail_product_name ?><?=($link)?'</a>':''?></b>
+                                <? if ($odetail->odetail_foto_requested) : ?>(требуется фото товара)<? endif; ?>
+                                <br>
+                                <b>Количество</b>: <?= $odetail->odetail_product_amount ?>
+                                <b>Размер</b>: <?= $odetail->odetail_product_size ?>
+                                <b>Цвет</b>: <?= $odetail->odetail_product_color ?>
+                                <br>
+                                <b>Комментарий</b>: <?= $odetail->odetail_comment ?>
+                            </span>
+                            <span class="producteditor" style="display: none;">
+                                <br>
+                                <b>Наименование</b>:
+                                <textarea class="name" name="name"></textarea>
+                                <br>
+                                <b>Ссылка на товар</b>:
+                                <textarea class="link" name="link"></textarea>
+                                <br>
+                                <b>Количество</b>:
+                                <textarea class="amount int" name="amount"></textarea>
+                                <br>
+                                <b>Размер</b>:
+                                <textarea class="size" name="size"></textarea>
+                                <br>
+                                <b>Цвет</b>:
+                                <textarea class="color" name="color"></textarea>
+                                <br>
+                                <b>Комментарий</b>:
+                                <textarea class="ocomment" name="comment"></textarea>
+                                <br>
+                            </span><?
+                            break;
                     } ?>
                 </td>
                 <td>
                     <span class="plaintext">
+                        <?= $oimg ?>
                     </span>
 
                     <span class="producteditor" style="display: none;">
+                        <input value="link" class="img_selector" name="img_selector" type="radio">
+                        <textarea name="img" class="image"></textarea>
+                        <br>
+                        <input value="file" class="img_selector" name="img_selector" type="radio">
+                        <input name="userfile" class="img_file" type="file">
                     </span>
                 </td>
 
-            </form>
+            <? if ($order_type == 'mail_forwarding') : ?>
+                <td>
+                    <span class="plaintext">
+                        <?= $odetail->odetail_tracking ?>
+                    </span>
 
-            <td>
-                <input type="text"
-                   order-id="<?= $order->order_id ?>"
-                   odetail-id="<?= $odetail->odetail_id ?>"
-                   id="odetail_price<?= $odetail->odetail_id ?>"
-                   class="odetail_price int"
-                   name="odetail_price<?= $odetail->odetail_id ?>"
-                   value="<?= $odetail->odetail_price ?>"
-                   style="width:60px"
-                   maxlength="11">
-            </td>
-            <td>
-                <input type="text"
-                   order-id="<?= $order->order_id ?>"
-                   odetail-id="<?= $odetail->odetail_id ?>"
-                   id="odetail_pricedelivery<?= $odetail->odetail_id ?>"
-                   class="odetail_pricedelivery int"
-                   name="odetail_pricedelivery<?= $odetail->odetail_id ?>"
-                   value="<?= $odetail->odetail_pricedelivery ?>"
-                   style="width:60px"
-                   maxlength="11">
-            </td>
-            <td>
+                    <span class="producteditor" style="display: none;">
+                        <input type="text"
+                               order-id="<?= $order->order_id ?>"
+                               odetail-id="<?= $odetail->odetail_id ?>"
+                               id="odetail_tracking<?= $odetail->odetail_id ?>"
+                               class="odetail_tracking int"
+                               name="odetail_tracking"
+                               value="<?= $odetail->odetail_tracking ?>"
+                               style="width:180px"
+                               maxlength="80">
+                    </span>
+                </td>
+            <? else : ?>
+                <td>
+                    <input type="text"
+                       order-id="<?= $order->order_id ?>"
+                       odetail-id="<?= $odetail->odetail_id ?>"
+                       id="odetail_price<?= $odetail->odetail_id ?>"
+                       class="odetail_price int"
+                       name="odetail_price<?= $odetail->odetail_id ?>"
+                       value="<?= $odetail->odetail_price ?>"
+                       style="width:60px"
+                       maxlength="11">
+                </td>
+                <td>
+                    <input type="text"
+                       order-id="<?= $order->order_id ?>"
+                       odetail-id="<?= $odetail->odetail_id ?>"
+                       id="odetail_pricedelivery<?= $odetail->odetail_id ?>"
+                       class="odetail_pricedelivery int"
+                       name="odetail_pricedelivery<?= $odetail->odetail_id ?>"
+                       value="<?= $odetail->odetail_pricedelivery ?>"
+                       style="width:60px"
+                       maxlength="11">
+                </td>
+                <td>
 
-                <input type="text"
-                   order-id="<?= $order->order_id ?>"
-                   odetail-id="<?= $odetail->odetail_id ?>"
-                   id="odetail_weight<?= $odetail->odetail_id ?>"
-                   class="odetail_weight int"
-                   name="odetail_weight<?= $odetail->odetail_id ?>"
-                   value="<?= $odetail->odetail_weight ?>"
-                   style="width:60px"
-                   maxlength="11">
+                    <input type="text"
+                       order-id="<?= $order->order_id ?>"
+                       odetail-id="<?= $odetail->odetail_id ?>"
+                       id="odetail_weight<?= $odetail->odetail_id ?>"
+                       class="odetail_weight int"
+                       name="odetail_weight<?= $odetail->odetail_id ?>"
+                       value="<?= $odetail->odetail_weight ?>"
+                       style="width:60px"
+                       maxlength="11">
 
-            </td>
+                </td>
+            <? endif; ?>
+
             <td>
                 <a href="#"
                    odetail-id="<?= $odetail->odetail_id ?>"
@@ -300,36 +385,52 @@
         </tr>
         <? endforeach; endif; ?>
 
-        <tr>
-            <td colspan="3">&nbsp;</td>
-            <td class="price_total product_total">
-                <b class="total_product_cost"><?= ($order) ? $order->order_products_cost : '' ?></b>&nbsp;<?=
-                ($order) ? $order->order_currency : '' ?>
-            </td>
-            <td class="delivery_total product_total">
-                <b class="total_delivery_cost"><?= ($order) ? $order->order_delivery_cost : '' ?></b>&nbsp;<?= ($order) ? $order->order_currency : '' ?>
-            </td>
-            <td class="weight_total">
-                <b class="total_weight"><?= ($order) ? $order->order_weight : '' ?></b> г
-            </td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr class='last-row'>
-            <td colspan='2' style="border: none;">
-                <div class='floatleft'>
-                    <div class='submit'><div><input type='submit' value='Объединить доставку' /></div></div>
-                </div>
-                <img class="tooltip_join" src="/static/images/mini_help.gif" />
-            </td>
-            <td style="text-align: right; border: none;" colspan='5'>
-                <br />
-                <b>
-                    Итого: <b class="order_totals"></b>
+        <? if ($order_type != 'mail_forwarding') : ?>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+                <td class="price_total product_total">
+                    <b class="total_product_cost"><?= ($order) ? $order->order_products_cost : '' ?></b>&nbsp;<?=
+                    ($order) ? $order->order_currency : '' ?>
+                </td>
+                <td class="delivery_total product_total">
+                    <b class="total_delivery_cost"><?= ($order) ? $order->order_delivery_cost : '' ?></b>&nbsp;<?= ($order) ? $order->order_currency : '' ?>
+                </td>
+                <td class="weight_total">
+                    <b class="total_weight"><?= ($order) ? $order->order_weight : '' ?></b> г
+                </td>
+                <td>&nbsp;</td>
+            </tr>
+        <? else : ?>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        <? endif; ?>
+        <? if ($order_type != 'mail_forwarding') : ?>
+            <tr class='last-row'>
+                <td colspan='2' style="border: none;">
+                    <div class='floatleft'>
+                        <div class='submit'><div><input type='submit' value='Объединить доставку' /></div></div>
+                    </div>
+                    <img class="tooltip_join" src="/static/images/mini_help.gif" />
+                </td>
+                <td style="text-align: right; border: none;" colspan='5'>
                     <br />
-                    Доставка в <span class='countryTo' style="float:none; display:inline; margin:0;"></span><span class='cityTo' style="float:none; display:inline; margin:0;"></span>: <b class="weight_total"></b>
-                </b>
-            </td>
-        </tr>
+                    <b>
+                        Итого: <b class="order_totals"></b>
+                        <br />
+                        Доставка в <span class='countryTo' style="float:none; display:inline; margin:0;"></span><span class='cityTo' style="float:none; display:inline; margin:0;"></span>: <b class="weight_total"></b>
+                    </b>
+                </td>
+            </tr>
+        <? else : ?>
+            <tr class='last-row' style="display: none">
+                <td colspan='5' style="border: none;">&nbsp;</td>
+            </tr>
+        <? endif; ?>
 
     </table>
 </div>

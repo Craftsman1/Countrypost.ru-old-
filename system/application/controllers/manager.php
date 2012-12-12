@@ -1063,6 +1063,11 @@ class Manager extends ManagerBaseController {
 		parent::update_odetail_price($order_id, $odetail_id, $price);
 	}
 
+	public function update_odetail_tracking($order_id, $odetail_id, $tracking)
+	{
+		parent::update_odetail_tracking($order_id, $odetail_id, $tracking);
+	}
+
 	public function update_odetail_pricedelivery($order_id, $odetail_id, $pricedelivery)
 	{
 		parent::update_odetail_pricedelivery($order_id, $odetail_id, $pricedelivery);

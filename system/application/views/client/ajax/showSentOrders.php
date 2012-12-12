@@ -17,15 +17,9 @@
 			<? if ($orders) : foreach($orders as $order) : ?>
 			<tr>
 				<td>
-					<a href="<?= "{$selfurl}order/{$order->order_id}" ?>"><b><?=$order->order_id?></b></a>
+					<a href="<?= "{$selfurl}order/{$order->order_id}" ?>"><b><?= $order->order_id ?></b></a>
 					<br />
-					<? if ($order->order_type == 'online' OR $order->order_type == 'offline') : ?>
-					<?= $order->order_type ?> заказ
-					<? elseif ($order->order_type == 'service') : ?>
-					Услуга
-					<? elseif ($order->order_type == 'delivery') : ?>
-					Доставка
-					<? endif;?>
+					<?= $order_types[$order->order_type] ?>
 					<br />
 					<? if ($order->package_day == 0) : ?>
 					<?=$order->package_day == 0 ? "" : $order->package_day.' '.humanForm((int)$order->package_day, "день", "дня", "дней")?> <?=$order->package_hour == 0 ? "" : $order->package_hour.' '.humanForm((int)$order->package_hour, "час", "часа", "часов")?> назад

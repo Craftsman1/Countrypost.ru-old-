@@ -7,7 +7,7 @@ $(function() {
 	});
 });
 
-// BOF: сохранение статуса, веса, стоимости и местной доставки
+// BOF: сохранение статуса, веса, стоимости, местной доставки и трекинг номера
 function update_odetail_weight(order_id, odetail_id)
 {
 	var weight = $('input#odetail_weight' + odetail_id).val();
@@ -31,6 +31,20 @@ function update_odetail_price(order_id, odetail_id)
 			price;
 	var success_message = 'Стоимость товара №' + odetail_id + ' сохранена.';
 	var error_message = 'Стоимость товара №' + odetail_id + ' не сохранена.';
+	var progress = 'img#progress' + odetail_id;
+
+	updateCustomProduct(uri, success_message, error_message, progress);
+}
+
+function update_odetail_tracking(order_id, odetail_id)
+{
+	var tracking = $('input#odetail_tracking' + odetail_id).val();
+	var uri = '<?= $selfurl ?>update_odetail_tracking/' +
+			order_id + '/' +
+			odetail_id + '/' +
+			tracking;
+	var success_message = 'Tracking номер товара №' + odetail_id + ' сохранен.';
+	var error_message = 'Tracking номер товара №' + odetail_id + ' не сохранен.';
 	var progress = 'img#progress' + odetail_id;
 
 	updateCustomProduct(uri, success_message, error_message, progress);
@@ -115,9 +129,9 @@ function editItem(id)
 
 		$tr.find('span.plaintext').hide();
 		$tr.find('span.producteditor').show();
-		$tr.find('a.edit').hide();
-		$tr.find('a.cancel').show();
-		$tr.find('a.save').show();
+		$tr.find('.edit').hide();
+		$tr.find('.cancel').show();
+		$tr.find('.save').show();
 
 		$tr.find('textarea.link').val(odetail['link']);
 		$tr.find('textarea.name').val(odetail['name']);
@@ -142,9 +156,9 @@ function cancelItem(id)
 
 		$tr.find('span.plaintext').show();
 		$tr.find('span.producteditor').hide();
-		$tr.find('a.edit').show();
-		$tr.find('a.cancel').hide();
-		$tr.find('a.save').hide();
+		$tr.find('.edit').show();
+		$tr.find('.cancel').hide();
+		$tr.find('.save').hide();
 	}
 }
 

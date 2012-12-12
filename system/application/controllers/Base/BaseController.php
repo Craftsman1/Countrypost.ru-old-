@@ -206,6 +206,8 @@ abstract class BaseController extends Controller
 				$view['hasActiveOrdersOrPackages'] = $this->Client->hasActiveOrdersOrPackages($this->user->user_id);
 			}
 
+			$view['order_types'] = $this->Orders->getOrderTypes();
+
 			// показываем статистику
 			$this->putStatistics($view);
 			
@@ -429,6 +431,7 @@ abstract class BaseController extends Controller
 			$view['statuses'] = $this->Orders->getAllStatuses();
 			$view['odetail_statuses'] = $this->Odetails->getAllStatuses();
 			$view['order_types'] = $this->Orders->getOrderTypes();
+			$view['joinable_types'] = $this->Orders->getJoinableTypes();
 
 			// кнопка добавить предложение для посредника
 			$view['bids_accepted'] = empty($chosen_bid) && ($this->user->user_group == 'manager');
@@ -634,7 +637,7 @@ abstract class BaseController extends Controller
 		return $new_bid;
 	}
 
-    protected function addBlankOrder ($client, $country_from, $country_to, $city_to, $order_type)
+    protected function addBlankOrder ($client, $country_from, $country_to, $city_to, $preferred_delivery, $order_manager, $order_type)
     {
         // типы заказов
         $this->load->model('OrderModel', 'Orders');
@@ -644,6 +647,8 @@ abstract class BaseController extends Controller
         $order->order_country_from = $country_from;
         $order->order_country_to = $country_to;
         $order->order_city_to = $city_to;
+        $order->preferred_delivery = $preferred_delivery;
+        $order->order_manager = $order_manager;
         $order->order_type = $order_type;
         $order->is_creating = 1;
         $order = $this->Orders->addOrder($order);
@@ -692,9 +697,11 @@ abstract class BaseController extends Controller
             $country_to = Check::int('ocountry_to');
             $order_type = Check::str('order_type', 40, 0);
             $city_to = Check::str('city_to', 40, 0);
+            $preferred_delivery = Check::str('requested_delivery', 255, 0);
+            $order_manager = Check::int('dealer_id');
 
             // создаем пустой заказ
-            $order = $this->addBlankOrder($client_id, $country_from, $country_to, $city_to, $order_type);
+            $order = $this->addBlankOrder($client_id, $country_from, $country_to, $city_to, $preferred_delivery, $order_manager, $order_type);
             $detail->odetail_order = $order->order_id;
         }
         else
@@ -719,6 +726,7 @@ abstract class BaseController extends Controller
         $detail->odetail_tnved				    = Check::str('otnved', 255, 1);
         $detail->odetail_insurance				= Check::int('insurance_need');
         $detail->odetail_comment                = Check::str('ocomment', 255, 0);
+        $detail->odetail_tracking               = Check::str('otracking', 80, 0);
         $detail->odetail_status                 = 'processing';
 		
 		Check::reset_empties();
@@ -877,93 +885,6 @@ abstract class BaseController extends Controller
 			echo $e->getMessage();
 		}
 	}
-
-    protected function onlineProductCheck ($detail)
-    {
-
-        if (empty($detail->odetail_link))
-        {
-            throw new Exception('Добавьте ссылку на товар.');
-        }
-
-        if (empty($detail->odetail_product_name))
-        {
-            throw new Exception('Добавьте наименование товара.');
-        }
-
-        if (empty($detail->odetail_price))
-        {
-            throw new Exception('Добавьте цену товара.');
-        }
-
-        if (empty($detail->odetail_pricedelivery))
-        {
-            throw new Exception('Добавьте местную доставку товара.');
-        }
-
-        if (empty($detail->odetail_weight))
-        {
-            throw new Exception('Добавьте примерный вес товара.');
-        }
-
-        if (empty($detail->odetail_country))
-        {
-            throw new Exception('Выберите страну.');
-        }
-
-        if ( ! $detail->odetail_product_amount)
-        {
-            $detail->odetail_product_amount = 1;
-        }
-    }
-
-    protected function offlineProductCheck ($detail)
-    {
-        if (empty($detail->odetail_product_name))
-        {
-            throw new Exception('Добавьте наименование товара.');
-        }
-
-        if (empty($detail->odetail_price))
-        {
-            throw new Exception('Добавьте цену товара.');
-        }
-
-        if (empty($detail->odetail_pricedelivery))
-        {
-            throw new Exception('Добавьте местную доставку товара.');
-        }
-
-        if (empty($detail->odetail_weight))
-        {
-            throw new Exception('Добавьте примерный вес товара.');
-        }
-
-        if (empty($detail->odetail_country))
-        {
-            throw new Exception('Выберите страну.');
-        }
-
-        if ( ! $detail->odetail_product_amount)
-        {
-            $detail->odetail_product_amount = 1;
-        }
-    }
-
-    protected function deliveryProductCheck ($detail)
-    {
-
-    }
-
-    protected function serviceProductCheck ($detail)
-    {
-
-    }
-
-    protected function mailforwardProductCheck ($detail)
-    {
-
-    }
 	
 	protected function showO2oComments()
 	{
@@ -3448,6 +3369,70 @@ abstract class BaseController extends Controller
 			}
 
 			$odetail->odetail_price = $price;
+
+			// сохранение результатов
+			$this->Odetails->addOdetail($odetail);
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
+	}
+
+	protected function update_odetail_tracking($order_id, $odetail_id, $tracking)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				! is_numeric($odetail_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
+
+			// позволяет ли текущий статус редактирование
+			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $editable_statuses))
+			{
+				throw new Exception('Заказ недоступен.');
+			}
+
+			// находим товар
+			$odetail = $this->Odetails->getPrivilegedOdetail(
+				$order_id,
+				$odetail_id,
+				$this->user->user_id,
+				$this->user->user_group);
+
+			if (empty($odetail))
+			{
+				throw new Exception('Товар не найден.');
+			}
+
+			$odetail->odetail_tracking = $tracking;
 
 			// сохранение результатов
 			$this->Odetails->addOdetail($odetail);

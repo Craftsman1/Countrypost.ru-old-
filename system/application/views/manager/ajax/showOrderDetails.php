@@ -1,7 +1,9 @@
 <?
 $is_offer_accepted = ! empty($order->order_manager);
 $is_own_order = $is_offer_accepted AND ($order->order_manager == $this->user->user_id);
-$is_editable = in_array($order->order_status, $editable_statuses); ?>
+$is_editable = in_array($order->order_status, $editable_statuses);
+$is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
+?>
 <div class='table centered_td centered_th'>
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
@@ -20,11 +22,13 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 		</colgroup>
 		<tr>
 			<th nowrap>
-				№ <? if ($is_editable) : ?><input type='checkbox' id='select_all'><? endif; ?>
+				№ <? if ($is_joinable) : ?><input type='checkbox' id='select_all'><? endif; ?>
 			</th>
 			<th>Товар</th>
 			<th>Скриншот</th>
-			<? if ($order->order_type != 'mail_forwarding') : ?>
+			<? if ($order->order_type == 'mail_forwarding') : ?>
+			<th>Tracking №</th>
+			<? else : ?>
 			<th>
 				Стоимость
 			</th>
@@ -34,8 +38,6 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 			<th>
 				Вес<br>товара
 			</th>
-			<? else : ?>
-			<th>Tracking №</th>
 			<? endif; ?>
 			<? if ($is_editable) : ?>
 			<th>Статус</th>
@@ -61,9 +63,11 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 		<tr id='product<?= $odetail->odetail_id ?>'>
 			<td id='odetail_id<?= $odetail->odetail_id ?>'>
 				<?= $odetail->odetail_id ?>
-				<? if ($is_editable) : ?>
+				<? if ($is_joinable) : ?>
 				<br>
 				<input type='checkbox' name='join<?= $odetail->odetail_id ?>'>
+				<? endif; ?>
+				<? if ($is_editable) : ?>
 				<br>
 				<img id="progress<?= $odetail->odetail_id ?>"
 					 class="float <? if ($odetail->odetail_joint_id) : ?>progressJoint<?= $odetail->odetail_joint_id
@@ -175,6 +179,22 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 			<? if ($is_editable) : ?>
 			</form>
 			<? endif; ?>
+			<? if ($order->order_type == 'mail_forwarding') : ?>
+			<td>
+				<? if ($is_editable) : ?>
+				<input type="text"
+					   id="odetail_tracking<?= $odetail->odetail_id ?>"
+					   name="odetail_tracking<?= $odetail->odetail_id ?>"
+					   value="<?= $odetail->odetail_tracking ?>"
+					   style="width:60px"
+					   maxlength="80"
+					   onchange="update_odetail_tracking('<?= $order->order_id ?>',
+							   '<?= $odetail->odetail_id ?>');">
+				<? else : ?>
+				<?= $odetail->odetail_tracking ?>
+				<? endif; ?>
+			</td>
+			<? else : ?>
 			<td>
 				<? if ($is_editable) : ?>
 				<input type="text"
@@ -241,6 +261,7 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 				<?= $odetail->odetail_weight ?> г
 				<? endif; ?>
 			</td>
+			<? endif; ?>
 			<? if ($is_editable) : ?>
 			<td>
 				<select	id="odetail_status<?= $odetail->odetail_id ?>"
@@ -258,12 +279,12 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 				<a href="javascript:editItem(<?= $odetail->odetail_id ?>)"
 				   class="edit">
 					<img border="0" src="/static/images/comment-edit.png" title="Редактировать"></a>
-				<br>
+				<br class="cancel" style="display: none;">
 				<a href="javascript:cancelItem(<?= $odetail->odetail_id ?>)"
 				   class="cancel"
 				   style="display: none;">
 					<img border="0" src="/static/images/comment-delete.png" title="Отменить"></a>
-				<br>
+				<br class="save" style="display: none;">
 				<a href="javascript:saveItem(<?= $odetail->odetail_id ?>)"
 				   class="save"
 				   style="display: none;">
@@ -272,6 +293,7 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 			<? endif; ?>
 		</tr>
 		<? endforeach; endif; ?>
+		<? if ($order->order_type != 'mail_forwarding') : ?>
 		<tr>
 			<td colspan="3">&nbsp;</td>
 			<td class="price_total product_total">
@@ -288,6 +310,7 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 			<td colspan="2">&nbsp;</td>
 			<? endif; ?>
 		</tr>
+		<? endif; ?>
 		<? if ( ! empty($order->preferred_delivery)) : ?>
 		<tr class='last-row' style="display: none;">
 			<td style="text-align: right;" colspan='6'>
@@ -308,7 +331,7 @@ $is_editable = in_array($order->order_status, $editable_statuses); ?>
 		</div>
 	</div>
 </div>
-<? if ($is_editable) : ?>
+<? if ($is_joinable) : ?>
 <div style="height:50px;">
 	<div class="admin-inside float-left">
 		<div class="submit">

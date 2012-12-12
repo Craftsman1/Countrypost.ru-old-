@@ -32,6 +32,13 @@
         <div>Если Вам нужна только доставка без выкупа и поиска товара.
         </div>
     </div>
+    <div class="mail_forwarding_order order">
+        <div>
+            <b>MailForwarding</b>
+        </div>
+        <div>Самостоятельный заказ товар на адрес посредника (перед заказом согласуйте с посредником).
+        </div>
+    </div>
 </div>
 
 <? View::show('main/elements/orders/scripts'); ?>
@@ -40,6 +47,7 @@
     <? View::show('main/elements/orders/offline'); ?>
     <? View::show('main/elements/orders/service'); ?>
     <? View::show('main/elements/orders/delivery'); ?>
+    <? View::show('main/elements/orders/mailforwarding'); ?>
 </div>
 <script>
     // скриншот

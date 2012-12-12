@@ -2,7 +2,8 @@
 	<? Breadcrumb::showCrumbs(); ?>
 	<? View::show('main/elements/orders/header'); ?>
 	<? View::show('manager/ajax/showOrderInfo'); ?>
-	<h3 class='managerOrderInfo' <? if ($order->order_manager != $this->user->user_id OR empty($order->bid)) : ?>style="display:none;"<?
+	<h3 class='managerOrderInfo' <? if ( ! in_array($order->order_status, $editable_statuses)) : ?>style="display:none;
+	"<?
 	endif; ?>>
 		Товары в заказе
 	</h3>

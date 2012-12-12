@@ -2,20 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="client profile bugfix">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dbscripts/2012-12-11 19-48 odetails-3.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/mailforwarding.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" afterPath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/user.php" afterPath="$PROJECT_DIR$/system/application/controllers/user.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/client.php" afterPath="$PROJECT_DIR$/system/application/controllers/client.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/main.php" afterPath="$PROJECT_DIR$/system/application/controllers/main.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/manager.php" afterPath="$PROJECT_DIR$/system/application/controllers/manager.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OdetailModel.php" afterPath="$PROJECT_DIR$/system/application/models/OdetailModel.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OrderModel.php" afterPath="$PROJECT_DIR$/system/application/models/OrderModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/div_header.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/div_header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/auth/newBid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/auth/newBid.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/pages/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/main/pages/showOrderDetails.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/div_header.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/div_header.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showPayedOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showPayedOrders.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showNewOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showNewOrderDetails.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/delivery.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/delivery.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/offline.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/offline.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/online.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/online.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/service.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/service.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" afterPath="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/ajax/showBidOrders.php" afterPath="$PROJECT_DIR$/system/application/views/manager/ajax/showBidOrders.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/ajax/showOpenOrders.php" afterPath="$PROJECT_DIR$/system/application/views/manager/ajax/showOpenOrders.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderDetails.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfo.php" afterPath="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfo.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/ajax/showPayedOrders.php" afterPath="$PROJECT_DIR$/system/application/views/manager/ajax/showPayedOrders.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/ajax/showSentOrders.php" afterPath="$PROJECT_DIR$/system/application/views/manager/ajax/showSentOrders.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/orders/scripts.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/orders/scripts.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/pages/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/manager/pages/showOrderDetails.php" />
     </list>
     <ignored path="countrypost.service.iws" />
@@ -36,83 +51,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="newBidForm.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="118" column="0" selection-start="2329" selection-end="2329" vertical-scroll-proportion="-81.37931">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="newBid.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="16" selection-start="1071" selection-end="1071" vertical-scroll-proportion="-7.586207">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <marker date="1355238135907" expanded="true" signature="607:889" placeholder="..." />
-                <element signature="n#style#0;n#input#0;n#span#7;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#span#8;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#textarea#0;n#span#11;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
-                <marker date="1355238135907" expanded="true" signature="2601:2619" placeholder="..." />
-                <marker date="1355238135907" expanded="true" signature="2720:2738" placeholder="..." />
-                <marker date="1355238135907" expanded="true" signature="2835:2851" placeholder="..." />
-                <element signature="n#style#0;n#img#0;n#div#2;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="manager.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="635" column="9" selection-start="18170" selection-end="18170" vertical-scroll-proportion="-23.88889">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="comment.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/comment.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bid.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="84" selection-start="2256" selection-end="2256" vertical-scroll-proportion="-16.37931">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#form#0;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#3;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#4;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#div#6;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bids.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="4" selection-start="410" selection-end="410" vertical-scroll-proportion="0.054945055">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -129,22 +68,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/static/css/style.css" />
-        <option value="$PROJECT_DIR$/system/application/views/client/elements/div_header.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/auth/new_order.php" />
-        <option value="$PROJECT_DIR$/system/application/views/manager/pages/showOrderDetails.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/newBidScript.php" />
-        <option value="$PROJECT_DIR$/system/application/views/manager/elements/div_header.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/user.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/ajax/showBidOrders.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/ajax/showPayedOrders.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/main.php" />
         <option value="$PROJECT_DIR$/system/application/models/OrderModel.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/auth/newBid.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfo.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/pages/showOrderDetails.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/elements/orders/scripts.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderDetails.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php" />
       </list>
     </option>
   </component>
@@ -181,7 +120,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -254,98 +192,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="elements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="elements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="orders" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -362,15 +211,15 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="220" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="895" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="887" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="895" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="213" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="211" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -504,10 +353,9 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47826087" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21428572" sideWeight="0.556266" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21685971" sideWeight="0.556266" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21428572" sideWeight="0.4347826" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -516,6 +364,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -585,149 +434,656 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/pages/showOrderDetails.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="19" column="98" selection-start="664" selection-end="664" vertical-scroll-proportion="0.36363637">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/OdetailModel.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showPayedOrders.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="369" column="12" selection-start="9996" selection-end="9996" vertical-scroll-proportion="0.13043478">
-          <folding>
-            <element signature="n#getAvailableOrderDetailsStatuses#0;n#OdetailModel#0;n#!!top" expanded="false" />
-            <element signature="n#getOrderDetails#0;n#OdetailModel#0;n#!!top" expanded="false" />
-            <element signature="n#clearJoints#0;n#OdetailModel#0;n#!!top" expanded="false" />
-            <element signature="n#getTotalStatus#0;n#OdetailModel#0;n#!!top" expanded="false" />
-            <element signature="n#setStatus#0;n#OdetailModel#0;n#!!top" expanded="false" />
-            <element signature="n#getPrivilegedOdetail#0;n#OdetailModel#0;n#!!top" expanded="false" />
-            <element signature="n#getClientOdetailById#0;n#OdetailModel#0;n#!!top" expanded="false" />
-            <element signature="n#getManagerOdetailById#0;n#OdetailModel#0;n#!!top" expanded="false" />
-            <element signature="n#markUpdatedByClient#0;n#OdetailModel#0;n#!!top" expanded="false" />
-            <element signature="n#unmarkUpdatedByClient#0;n#OdetailModel#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/div_header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="44" selection-start="1983" selection-end="1983" vertical-scroll-proportion="1.9230769">
+        <state line="21" column="59" selection-start="730" selection-end="730" vertical-scroll-proportion="0.5874126">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/user.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="167" column="46" selection-start="5257" selection-end="5257" vertical-scroll-proportion="-10.793103">
-          <folding>
-            <marker date="1355224172922" expanded="true" signature="11197:11497" placeholder="..." />
-          </folding>
+        <state line="21" column="59" selection-start="729" selection-end="729" vertical-scroll-proportion="0.41958043">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/manager/pages/showOrderDetails.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showBidOrders.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="14" selection-start="483" selection-end="483" vertical-scroll-proportion="0.3021978">
+        <state line="38" column="59" selection-start="1235" selection-end="1235" vertical-scroll-proportion="0.4755245">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showSentOrders.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="59" selection-start="1250" selection-end="1250" vertical-scroll-proportion="0.33566433">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showPayedOrders.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="59" selection-start="1288" selection-end="1288" vertical-scroll-proportion="0.41958043">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1203" column="43" selection-start="30824" selection-end="30824" vertical-scroll-proportion="-22.275862">
+        <state line="181" column="36" selection-start="4042" selection-end="4042" vertical-scroll-proportion="-112.413795">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="28" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.7692308">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/showOrderDetails.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="628" column="35" selection-start="18095" selection-end="18095" vertical-scroll-proportion="0.72727275">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/newBid.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="20" selection-start="2578" selection-end="2578" vertical-scroll-proportion="1.8461539">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="0" selection-start="2329" selection-end="2329" vertical-scroll-proportion="-81.37931">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="16" selection-start="1071" selection-end="1071" vertical-scroll-proportion="-7.586207">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <marker date="1355238135907" expanded="true" signature="607:889" placeholder="..." />
-            <element signature="n#style#0;n#input#0;n#span#7;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#span#8;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#textarea#0;n#span#11;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <marker date="1355238135907" expanded="true" signature="2601:2619" placeholder="..." />
-            <marker date="1355238135907" expanded="true" signature="2720:2738" placeholder="..." />
-            <marker date="1355238135907" expanded="true" signature="2835:2851" placeholder="..." />
-            <element signature="n#style#0;n#img#0;n#div#2;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="635" column="9" selection-start="18170" selection-end="18170" vertical-scroll-proportion="-23.88889">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/comment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="84" selection-start="2256" selection-end="2256" vertical-scroll-proportion="-16.37931">
+        <state line="1070" column="0" selection-start="28829" selection-end="28829" vertical-scroll-proportion="-14.24138">
           <folding>
-            <element signature="n#style#0;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#form#0;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#4;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#6;n#div#0;n#td#0;n#tr#3;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#__construct#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#index#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#autocompleteClient#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#562#626#0" expanded="false" />
+            <element signature="e#600#626#0" expanded="false" />
+            <element signature="n#updateOdetailStatuses#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#processOrdersFilter#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#994#1090#0" expanded="false" />
+            <element signature="n#updateOrderDetails#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#updateOpenOrderStatus#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#updatePayedOrderStatus#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#updateSentOrderStatus#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#orders#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#showOpenOrders#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#showPayedOrders#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#showSentOrders#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#showBidOrders#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#order#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#showOrderBreadcrumb#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#2130#2393#0" expanded="false" />
+            <element signature="e#2211#2393#0" expanded="false" />
+            <element signature="e#2265#2389#0" expanded="false" />
+            <element signature="e#2298#2384#0" expanded="false" />
+            <element signature="e#2397#2513#0" expanded="false" />
+            <element signature="e#2418#2498#0" expanded="false" />
+            <element signature="n#removeOdetailJoint#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#addOrderComment#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#addBidComment#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#showScreen#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#3026#3210#0" expanded="false" />
+            <element signature="n#showOutMoney#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#3669#3763#0" expanded="false" />
+            <element signature="e#3908#4101#0" expanded="false" />
+            <element signature="e#4127#4412#0" expanded="false" />
+            <element signature="e#4335#4412#0" expanded="false" />
+            <element signature="n#showPayedOutMoney#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#4873#4967#0" expanded="false" />
+            <element signature="e#5112#5305#0" expanded="false" />
+            <element signature="e#5331#5626#0" expanded="false" />
+            <element signature="e#5544#5626#0" expanded="false" />
+            <element signature="n#order2out#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#5790#5894#0" expanded="false" />
+            <element signature="e#5991#6113#0" expanded="false" />
+            <element signature="e#6146#6328#0" expanded="false" />
+            <element signature="e#6372#9937#0" expanded="false" />
+            <element signature="e#6399#6473#0" expanded="false" />
+            <element signature="e#6481#6809#0" expanded="false" />
+            <element signature="e#6633#6804#0" expanded="false" />
+            <element signature="e#6817#7095#0" expanded="false" />
+            <element signature="e#6955#7090#0" expanded="false" />
+            <element signature="e#7410#7498#0" expanded="false" />
+            <element signature="e#7586#8336#0" expanded="false" />
+            <element signature="e#8069#8203#0" expanded="false" />
+            <element signature="e#8382#9270#0" expanded="false" />
+            <element signature="e#8946#9102#0" expanded="false" />
+            <element signature="e#9501#9775#0" expanded="false" />
+            <element signature="e#9783#9937#0" expanded="false" />
+            <element signature="n#deleteOrder2out#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#showO2oComments#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#showO2iComments#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#addO2oComment#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#refundOrder#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#10373#14986#0" expanded="false" />
+            <element signature="e#10384#10481#0" expanded="false" />
+            <element signature="e#10685#10772#0" expanded="false" />
+            <element signature="e#13637#13914#0" expanded="false" />
+            <element signature="e#14385#14466#0" expanded="false" />
+            <element signature="e#14843#14986#0" expanded="false" />
+            <element signature="n#sendOrderConfirmation#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#addProductManualAjax#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#filterOrders#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#acceptOrder#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#filterPaymentHistory#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#addBid#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#15624#18174#0" expanded="false" />
+            <element signature="e#15675#15764#0" expanded="false" />
+            <element signature="e#15870#15947#0" expanded="false" />
+            <element signature="e#15955#16065#0" expanded="false" />
+            <element signature="e#16567#16668#0" expanded="false" />
+            <element signature="e#16720#16864#0" expanded="false" />
+            <element signature="e#17226#17654#0" expanded="false" />
+            <element signature="e#17421#17527#0" expanded="false" />
+            <element signature="e#17993#18076#0" expanded="false" />
+            <element signature="e#18146#18174#0" expanded="false" />
+            <element signature="n#saveProfile#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#18215#20156#0" expanded="false" />
+            <element signature="e#18677#18909#0" expanded="false" />
+            <element signature="e#18805#18904#0" expanded="false" />
+            <element signature="e#19491#19601#0" expanded="false" />
+            <element signature="e#19775#19881#0" expanded="false" />
+            <element signature="e#19915#20052#0" expanded="false" />
+            <element signature="e#20095#20156#0" expanded="false" />
+            <element signature="n#saveBlog#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#20194#21000#0" expanded="false" />
+            <element signature="e#20313#20427#0" expanded="false" />
+            <element signature="e#20385#20427#0" expanded="false" />
+            <element signature="e#20688#20798#0" expanded="false" />
+            <element signature="e#20867#20964#0" expanded="false" />
+            <element signature="e#20971#21000#0" expanded="false" />
+            <element signature="n#savePricelist#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#21043#21960#0" expanded="false" />
+            <element signature="e#21638#21748#0" expanded="false" />
+            <element signature="e#21826#21925#0" expanded="false" />
+            <element signature="e#21932#21960#0" expanded="false" />
+            <element signature="n#savePaymentTypes#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#22006#22664#0" expanded="false" />
+            <element signature="e#22334#22444#0" expanded="false" />
+            <element signature="e#22522#22629#0" expanded="false" />
+            <element signature="e#22636#22664#0" expanded="false" />
+            <element signature="n#saveDelivery#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#22706#23264#0" expanded="false" />
+            <element signature="e#22944#23054#0" expanded="false" />
+            <element signature="e#23236#23264#0" expanded="false" />
+            <element signature="n#saveAddress#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#23305#24183#0" expanded="false" />
+            <element signature="e#23839#23949#0" expanded="false" />
+            <element signature="e#24027#24126#0" expanded="false" />
+            <element signature="e#24133#24183#0" expanded="false" />
+            <element signature="n#updatePerPage#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#24235#24316#0" expanded="false" />
+            <element signature="n#updateOrder#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#24482#25642#0" expanded="false" />
+            <element signature="e#24493#24577#0" expanded="false" />
+            <element signature="e#24626#24728#0" expanded="false" />
+            <element signature="e#24917#25030#0" expanded="false" />
+            <element signature="e#25361#25524#0" expanded="false" />
+            <element signature="e#25598#25642#0" expanded="false" />
+            <element signature="n#closeOrder#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#25691#26545#0" expanded="false" />
+            <element signature="e#25702#25786#0" expanded="false" />
+            <element signature="e#25835#25937#0" expanded="false" />
+            <element signature="e#26126#26239#0" expanded="false" />
+            <element signature="e#26501#26545#0" expanded="false" />
+            <element signature="n#update_odetail_status#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="e#26627#28292#0" expanded="false" />
+            <element signature="e#26638#26755#0" expanded="false" />
+            <element signature="e#26804#26870#0" expanded="false" />
+            <element signature="e#27164#27278#0" expanded="false" />
+            <element signature="e#27374#27483#0" expanded="false" />
+            <element signature="e#27519#27644#0" expanded="false" />
+            <element signature="e#27650#27725#0" expanded="false" />
+            <element signature="e#27868#28042#0" expanded="false" />
+            <element signature="e#28187#28292#0" expanded="false" />
+            <element signature="n#update_odetail_weight#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#update_odetail_price#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#update_odetail_pricedelivery#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#update_joint_pricedelivery#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#updateProduct#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#joinProducts#0;n#Manager#0;n#!!top" expanded="false" />
+            <element signature="n#removeJoint#0;n#Manager#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/pages/showOrderDetails.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="4" selection-start="410" selection-end="410" vertical-scroll-proportion="0.054945055">
-          <folding />
+        <state line="4" column="43" selection-start="206" selection-end="206" vertical-scroll-proportion="0.10989011">
+          <folding>
+            <element signature="e#196#285#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="160" column="18" selection-start="4866" selection-end="4866" vertical-scroll-proportion="0.35302198">
+          <folding>
+            <element signature="e#45#258#0" expanded="false" />
+            <element signature="e#147#254#0" expanded="false" />
+            <element signature="e#394#813#0" expanded="false" />
+            <element signature="e#867#1296#0" expanded="false" />
+            <element signature="e#1353#1802#0" expanded="false" />
+            <element signature="e#1864#2339#0" expanded="false" />
+            <element signature="e#2397#2811#0" expanded="false" />
+            <element signature="e#2889#3227#0" expanded="false" />
+            <element signature="e#2899#3223#0" expanded="false" />
+            <element signature="e#2978#3006#0" expanded="false" />
+            <element signature="e#3034#3100#0" expanded="false" />
+            <element signature="e#3126#3163#0" expanded="false" />
+            <element signature="e#3192#3220#0" expanded="false" />
+            <element signature="e#3296#3606#0" expanded="false" />
+            <element signature="e#3323#3358#0" expanded="false" />
+            <element signature="e#3366#3405#0" expanded="false" />
+            <element signature="e#4910#5726#0" expanded="false" />
+            <element signature="e#4984#5724#0" expanded="false" />
+            <element signature="e#5466#5554#0" expanded="false" />
+            <element signature="e#5603#5691#0" expanded="false" />
+            <element signature="e#5758#7137#0" expanded="false" />
+            <element signature="e#5855#5892#0" expanded="false" />
+            <element signature="e#5900#7135#0" expanded="false" />
+            <element signature="e#6462#6726#0" expanded="false" />
+            <element signature="e#6535#6595#0" expanded="false" />
+            <element signature="e#6736#7058#0" expanded="false" />
+            <element signature="e#7163#7783#0" expanded="false" />
+            <element signature="e#7271#7363#0" expanded="false" />
+            <element signature="e#7434#7781#0" expanded="false" />
+            <element signature="e#7536#7633#0" expanded="false" />
+            <element signature="e#7737#7773#0" expanded="false" />
+            <element signature="e#7810#8012#0" expanded="false" />
+            <element signature="e#7889#8010#0" expanded="false" />
+            <element signature="e#8076#8211#0" expanded="false" />
+            <element signature="e#8144#8209#0" expanded="false" />
+            <element signature="e#8234#8344#0" expanded="false" />
+            <element signature="e#8280#8342#0" expanded="false" />
+            <element signature="e#8369#8485#0" expanded="false" />
+            <element signature="e#8419#8483#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/orders/scripts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="254" column="9" selection-start="7191" selection-end="7191" vertical-scroll-proportion="0.24587911">
+          <folding>
+            <element signature="e#45#258#0" expanded="false" />
+            <element signature="e#147#254#0" expanded="false" />
+            <element signature="e#378#797#0" expanded="false" />
+            <element signature="e#851#1280#0" expanded="false" />
+            <element signature="e#1337#1786#0" expanded="false" />
+            <element signature="e#1848#2323#0" expanded="false" />
+            <element signature="e#2381#2795#0" expanded="false" />
+            <element signature="e#2850#3276#0" expanded="false" />
+            <element signature="e#3354#3692#0" expanded="false" />
+            <element signature="e#3364#3688#0" expanded="false" />
+            <element signature="e#3443#3471#0" expanded="false" />
+            <element signature="e#3499#3565#0" expanded="false" />
+            <element signature="e#3591#3628#0" expanded="false" />
+            <element signature="e#3657#3685#0" expanded="false" />
+            <element signature="e#3761#4071#0" expanded="false" />
+            <element signature="e#3788#3823#0" expanded="false" />
+            <element signature="e#3831#3870#0" expanded="false" />
+            <element signature="e#7668#8147#0" expanded="false" />
+            <element signature="e#8047#8104#0" expanded="false" />
+            <element signature="e#8112#8145#0" expanded="false" />
+            <element signature="e#8202#8348#0" expanded="false" />
+            <element signature="e#8254#8297#0" expanded="false" />
+            <element signature="e#8381#8410#0" expanded="false" />
+            <element signature="e#8436#9056#0" expanded="false" />
+            <element signature="e#8544#8636#0" expanded="false" />
+            <element signature="e#8707#9054#0" expanded="false" />
+            <element signature="e#8809#8906#0" expanded="false" />
+            <element signature="e#9010#9046#0" expanded="false" />
+            <element signature="e#9083#9285#0" expanded="false" />
+            <element signature="e#9162#9283#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="3" selection-start="3" selection-end="3" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#1292#1355#0" expanded="true" />
+            <element signature="e#1863#1900#0" expanded="true" />
+            <element signature="e#2494#2514#0" expanded="true" />
+            <element signature="e#2777#2798#0" expanded="true" />
+            <element signature="e#2967#3014#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="285" column="16" selection-start="9606" selection-end="9606" vertical-scroll-proportion="0.4903846">
+          <folding>
+            <element signature="e#9332#9354#0" expanded="true" />
+            <element signature="e#9578#9600#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showOrderDetails.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="280" column="74" selection-start="9669" selection-end="9669" vertical-scroll-proportion="0.2747253">
+          <folding>
+            <element signature="e#9719#9741#0" expanded="true" />
+            <element signature="e#9837#9859#0" expanded="true" />
+            <element signature="e#9965#9987#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2137" column="5" selection-start="60898" selection-end="60898" vertical-scroll-proportion="0.03846154">
+          <folding>
+            <element signature="n#Client#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#index#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#419#493#0" expanded="false" />
+            <element signature="e#450#490#0" expanded="false" />
+            <element signature="e#501#580#0" expanded="false" />
+            <element signature="e#953#1059#0" expanded="false" />
+            <element signature="e#1186#1286#0" expanded="false" />
+            <element signature="e#1292#1852#0" expanded="false" />
+            <element signature="e#1339#1851#0" expanded="false" />
+            <element signature="n#showShop#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#1893#1947#0" expanded="false" />
+            <element signature="e#2021#2430#0" expanded="false" />
+            <element signature="e#2367#2430#0" expanded="false" />
+            <element signature="e#2444#2500#0" expanded="false" />
+            <element signature="e#2690#2938#0" expanded="false" />
+            <element signature="e#2749#2938#0" expanded="false" />
+            <element signature="n#addProductManual#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#3888#8406#0" expanded="false" />
+            <element signature="e#3900#3930#0" expanded="false" />
+            <element signature="e#4004#4095#0" expanded="false" />
+            <element signature="e#4104#4192#0" expanded="false" />
+            <element signature="e#4204#4346#0" expanded="false" />
+            <element signature="e#4354#4411#0" expanded="false" />
+            <element signature="e#4607#5110#0" expanded="false" />
+            <element signature="e#4701#5110#0" expanded="false" />
+            <element signature="e#4858#5015#0" expanded="false" />
+            <element signature="e#4898#5009#0" expanded="false" />
+            <element signature="e#5282#6114#0" expanded="false" />
+            <element signature="e#5488#5595#0" expanded="false" />
+            <element signature="e#5721#5824#0" expanded="false" />
+            <element signature="e#5996#6109#0" expanded="false" />
+            <element signature="e#6144#7761#0" expanded="false" />
+            <element signature="e#6297#6467#0" expanded="false" />
+            <element signature="e#6816#6933#0" expanded="false" />
+            <element signature="e#6985#7171#0" expanded="false" />
+            <element signature="e#7343#7756#0" expanded="false" />
+            <element signature="e#7827#8029#0" expanded="false" />
+            <element signature="e#7959#8029#0" expanded="false" />
+            <element signature="e#8048#8406#0" expanded="false" />
+            <element signature="e#8189#8391#0" expanded="false" />
+            <element signature="e#8321#8391#0" expanded="false" />
+            <element signature="n#addProductManualAjax#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#addBillFoto#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#8769#9642#0" expanded="false" />
+            <element signature="e#8850#8921#0" expanded="false" />
+            <element signature="e#8951#9527#0" expanded="false" />
+            <element signature="e#8997#9143#0" expanded="false" />
+            <element signature="e#9405#9522#0" expanded="false" />
+            <element signature="e#9534#9642#0" expanded="false" />
+            <element signature="n#deleteBillFoto#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#9821#10248#0" expanded="false" />
+            <element signature="e#9964#10133#0" expanded="false" />
+            <element signature="e#10140#10248#0" expanded="false" />
+            <element signature="n#addProduct#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#11214#12872#0" expanded="false" />
+            <element signature="e#11405#11553#0" expanded="false" />
+            <element signature="e#11445#11552#1" expanded="false" />
+            <element signature="e#11562#12149#0" expanded="false" />
+            <element signature="e#11656#12149#0" expanded="false" />
+            <element signature="e#11898#12055#0" expanded="false" />
+            <element signature="e#11938#12049#0" expanded="false" />
+            <element signature="e#12732#12872#0" expanded="false" />
+            <element signature="n#deleteDetail#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#13066#13804#0" expanded="false" />
+            <element signature="e#13164#13734#0" expanded="false" />
+            <element signature="e#13199#13312#0" expanded="false" />
+            <element signature="e#13334#13460#0" expanded="false" />
+            <element signature="e#13374#13459#1" expanded="false" />
+            <element signature="e#13467#13620#0" expanded="false" />
+            <element signature="e#13547#13620#0" expanded="false" />
+            <element signature="e#13630#13734#0" expanded="false" />
+            <element signature="e#13741#13804#0" expanded="false" />
+            <element signature="e#13851#14002#0" expanded="false" />
+            <element signature="e#13931#14002#0" expanded="false" />
+            <element signature="n#showBasket#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#14175#14263#0" expanded="false" />
+            <element signature="e#14521#14614#0" expanded="false" />
+            <element signature="n#showScreen#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#14824#15042#0" expanded="false" />
+            <element signature="n#showOrder2InFoto#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#15200#15401#0" expanded="false" />
+            <element signature="n#showNewsList#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#15547#15672#0" expanded="false" />
+            <element signature="e#15679#15777#0" expanded="false" />
+            <element signature="e#15730#15776#0" expanded="false" />
+            <element signature="n#showAddBalance#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#showOutMoney#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#16268#16362#0" expanded="false" />
+            <element signature="e#16376#16620#0" expanded="false" />
+            <element signature="e#16646#16931#0" expanded="false" />
+            <element signature="e#16854#16931#0" expanded="false" />
+            <element signature="n#order2out#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#17256#18132#0" expanded="false" />
+            <element signature="e#17381#18128#0" expanded="false" />
+            <element signature="e#17522#18128#0" expanded="false" />
+            <element signature="e#17659#18128#0" expanded="false" />
+            <element signature="e#17813#18128#0" expanded="false" />
+            <element signature="e#18176#21797#0" expanded="false" />
+            <element signature="e#18187#18434#0" expanded="false" />
+            <element signature="e#18296#18434#0" expanded="false" />
+            <element signature="e#18442#19512#0" expanded="false" />
+            <element signature="e#18465#19507#0" expanded="false" />
+            <element signature="e#18579#19507#0" expanded="false" />
+            <element signature="e#18704#19507#0" expanded="false" />
+            <element signature="e#19520#19746#0" expanded="false" />
+            <element signature="e#20038#20126#0" expanded="false" />
+            <element signature="e#20877#21022#0" expanded="false" />
+            <element signature="e#21316#21585#0" expanded="false" />
+            <element signature="e#21593#21797#0" expanded="false" />
+            <element signature="n#addOrder2In#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#22278#23267#0" expanded="false" />
+            <element signature="e#22446#23263#0" expanded="false" />
+            <element signature="e#22521#22705#0" expanded="false" />
+            <element signature="e#22810#23031#0" expanded="false" />
+            <element signature="e#23036#23258#0" expanded="false" />
+            <element signature="e#23309#25532#0" expanded="false" />
+            <element signature="e#23320#23462#0" expanded="false" />
+            <element signature="e#23785#23874#0" expanded="false" />
+            <element signature="e#23979#25081#0" expanded="false" />
+            <element signature="e#24416#25076#0" expanded="false" />
+            <element signature="e#24488#24645#0" expanded="false" />
+            <element signature="e#24943#25070#0" expanded="false" />
+            <element signature="e#25156#25416#0" expanded="false" />
+            <element signature="e#25424#25532#0" expanded="false" />
+            <element signature="n#getOrder2outDetails#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#getOrder2inDetails#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#deleteOrder2out#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#deleteOrder2in#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#createOrder2out#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#getScreenshot#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#getScreenshotHtml#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#putScreenshot#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#27551#27734#0" expanded="false" />
+            <element signature="n#proxy#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#28124#28164#0" expanded="false" />
+            <element signature="e#28747#28894#0" expanded="false" />
+            <element signature="e#28787#28893#1" expanded="false" />
+            <element signature="e#29046#29314#0" expanded="false" />
+            <element signature="e#29083#29313#0" expanded="false" />
+            <element signature="n#orders#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#showOpenOrders#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#showSentOrders#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#showPayedOrders#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#showClientOrders#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#29784#29880#0" expanded="false" />
+            <element signature="n#payOrder#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#29949#35173#0" expanded="false" />
+            <element signature="e#29960#30104#0" expanded="false" />
+            <element signature="e#30307#30394#0" expanded="false" />
+            <element signature="e#32950#33218#0" expanded="false" />
+            <element signature="e#33792#33873#0" expanded="false" />
+            <element signature="e#34198#34452#0" expanded="false" />
+            <element signature="e#34458#34748#0" expanded="false" />
+            <element signature="e#34754#35022#0" expanded="false" />
+            <element signature="e#35030#35173#0" expanded="false" />
+            <element signature="n#repayOrder#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#35374#40541#0" expanded="false" />
+            <element signature="e#35385#35529#0" expanded="false" />
+            <element signature="e#35732#35949#0" expanded="false" />
+            <element signature="e#35831#35949#0" expanded="false" />
+            <element signature="e#37287#38220#0" expanded="false" />
+            <element signature="e#37764#38220#0" expanded="false" />
+            <element signature="e#39363#39634#0" expanded="false" />
+            <element signature="e#40127#40208#0" expanded="false" />
+            <element signature="e#40398#40541#0" expanded="false" />
+            <element signature="n#showAddresses#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#40734#40818#0" expanded="false" />
+            <element signature="e#40823#40909#0" expanded="false" />
+            <element signature="n#showAddImage#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#showPayedOutMoney#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#41490#41584#0" expanded="false" />
+            <element signature="e#41598#41842#0" expanded="false" />
+            <element signature="e#41868#42163#0" expanded="false" />
+            <element signature="e#42081#42163#0" expanded="false" />
+            <element signature="n#taobaoRegister#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#42208#43637#0" expanded="false" />
+            <element signature="e#42347#42419#0" expanded="false" />
+            <element signature="e#42543#42708#0" expanded="false" />
+            <element signature="e#42918#43021#0" expanded="false" />
+            <element signature="e#43026#43133#0" expanded="false" />
+            <element signature="e#43141#43342#0" expanded="false" />
+            <element signature="e#43363#43575#0" expanded="false" />
+            <element signature="e#43583#43637#0" expanded="false" />
+            <element signature="n#alipayRefill#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#43680#45747#0" expanded="false" />
+            <element signature="e#43819#43891#0" expanded="false" />
+            <element signature="e#44015#44190#0" expanded="false" />
+            <element signature="e#44307#44425#0" expanded="false" />
+            <element signature="e#44684#44772#0" expanded="false" />
+            <element signature="e#44777#44869#0" expanded="false" />
+            <element signature="e#44877#44967#0" expanded="false" />
+            <element signature="e#45057#45229#0" expanded="false" />
+            <element signature="e#45427#45685#0" expanded="false" />
+            <element signature="e#45693#45747#0" expanded="false" />
+            <element signature="n#taobaoPayment#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#45790#48482#0" expanded="false" />
+            <element signature="e#45929#46001#0" expanded="false" />
+            <element signature="e#46125#46302#0" expanded="false" />
+            <element signature="e#46419#46537#0" expanded="false" />
+            <element signature="e#46772#46879#0" expanded="false" />
+            <element signature="e#46884#46990#0" expanded="false" />
+            <element signature="e#47265#47350#0" expanded="false" />
+            <element signature="e#47281#47349#1" expanded="false" />
+            <element signature="e#47359#47719#0" expanded="false" />
+            <element signature="e#47481#47574#0" expanded="false" />
+            <element signature="e#47634#47713#0" expanded="false" />
+            <element signature="e#47856#47953#0" expanded="false" />
+            <element signature="e#47962#48156#0" expanded="false" />
+            <element signature="e#48180#48420#0" expanded="false" />
+            <element signature="e#48428#48482#0" expanded="false" />
+            <element signature="n#importOrder#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#48524#49045#0" expanded="false" />
+            <element signature="e#48737#48815#0" expanded="false" />
+            <element signature="e#48824#48894#0" expanded="false" />
+            <element signature="e#48989#49045#0" expanded="false" />
+            <element signature="n#addBidComment#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#chooseBid#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#49206#51037#0" expanded="false" />
+            <element signature="e#49236#49322#0" expanded="false" />
+            <element signature="e#49418#49500#0" expanded="false" />
+            <element signature="e#49617#49694#0" expanded="false" />
+            <element signature="e#49699#49809#0" expanded="false" />
+            <element signature="e#49903#50059#0" expanded="false" />
+            <element signature="e#50829#50912#0" expanded="false" />
+            <element signature="e#50981#51037#0" expanded="false" />
+            <element signature="n#unchooseBid#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#51087#51724#0" expanded="false" />
+            <element signature="e#51117#51205#0" expanded="false" />
+            <element signature="e#51323#51400#0" expanded="false" />
+            <element signature="e#51405#51464#0" expanded="false" />
+            <element signature="e#51506#51663#0" expanded="false" />
+            <element signature="e#51670#51724#0" expanded="false" />
+            <element signature="n#saveProfile#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#51765#53428#0" expanded="false" />
+            <element signature="e#52353#52582#0" expanded="false" />
+            <element signature="e#52478#52577#0" expanded="false" />
+            <element signature="e#52771#52881#0" expanded="false" />
+            <element signature="e#53049#53153#0" expanded="false" />
+            <element signature="e#53187#53324#0" expanded="false" />
+            <element signature="e#53367#53428#0" expanded="false" />
+            <element signature="n#saveAddress#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#53481#55266#0" expanded="false" />
+            <element signature="e#54403#54543#0" expanded="false" />
+            <element signature="e#54701#54824#0" expanded="false" />
+            <element signature="e#54873#55039#0" expanded="false" />
+            <element signature="e#55185#55266#0" expanded="false" />
+            <element signature="n#removeAddress#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#55372#55549#0" expanded="false" />
+            <element signature="n#saveRating#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#55615#57615#0" expanded="false" />
+            <element signature="e#56180#56290#0" expanded="false" />
+            <element signature="e#56332#56564#0" expanded="false" />
+            <element signature="e#56363#56425#0" expanded="false" />
+            <element signature="e#56430#56493#0" expanded="false" />
+            <element signature="e#56498#56559#0" expanded="false" />
+            <element signature="e#57483#57579#0" expanded="false" />
+            <element signature="e#57586#57615#0" expanded="false" />
+            <element signature="n#showOrderBreadcrumb#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#57688#57760#0" expanded="false" />
+            <element signature="e#57764#57879#0" expanded="false" />
+            <element signature="e#57785#57864#0" expanded="false" />
+            <element signature="n#updateOrder#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#57930#60161#0" expanded="false" />
+            <element signature="e#57941#58025#0" expanded="false" />
+            <element signature="e#58074#58176#0" expanded="false" />
+            <element signature="e#58466#58579#0" expanded="false" />
+            <element signature="e#58869#60058#0" expanded="false" />
+            <element signature="e#58970#59471#0" expanded="false" />
+            <element signature="e#59528#60058#0" expanded="false" />
+            <element signature="e#59584#60053#0" expanded="false" />
+            <element signature="e#59612#60047#0" expanded="false" />
+            <element signature="e#59658#60040#0" expanded="false" />
+            <element signature="e#60132#60161#0" expanded="false" />
+            <element signature="n#addO2oComment#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#addO2iComment#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#deleteOrder#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#deleteProduct#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#showO2iComments#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#addOrderComment#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#updateProductAjax#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#order#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="n#update_odetail_weight#0;n#Client#0;n#!!top" expanded="false" />
+            <element signature="e#62096#63282#0" expanded="false" />
+            <element signature="e#62107#62253#0" expanded="false" />
+            <element signature="e#62302#62361#0" expanded="false" />
+            <element signature="e#62640#62715#0" expanded="false" />
+            <element signature="e#62858#63032#0" expanded="false" />
+            <element signature="e#63177#63282#0" expanded="false" />
+            <element signature="e#63400#64583#0" expanded="false" />
+            <element signature="e#63411#63556#0" expanded="false" />
+            <element signature="e#63605#63664#0" expanded="false" />
+            <element signature="e#63943#64018#0" expanded="false" />
+            <element signature="e#64159#64333#0" expanded="false" />
+            <element signature="e#64478#64583#0" expanded="false" />
+            <element signature="e#64717#65924#0" expanded="false" />
+            <element signature="e#64728#64881#0" expanded="false" />
+            <element signature="e#64930#64989#0" expanded="false" />
+            <element signature="e#65268#65343#0" expanded="false" />
+            <element signature="e#65500#65674#0" expanded="false" />
+            <element signature="e#65819#65924#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3409" column="0" selection-start="97285" selection-end="97285" vertical-scroll-proportion="-0.32027972">
+          <folding>
+            <element signature="n#prepareOrderUpdateJSON#0;n#BaseController#0;n#!!top" expanded="false" />
+            <element signature="n#update_odetail_pricedelivery#0;n#BaseController#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

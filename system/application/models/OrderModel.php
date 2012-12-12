@@ -101,6 +101,13 @@ class OrderModel extends BaseModel implements IModel{
 		'mail_forwarding' => 'Mail Forwarding'
 	);
 
+	private $joinable_types = array(
+		'offline'   => 'Offline заказ',
+		'online' => 'Online заказ',
+		'service' => 'Услуга',
+		'delivery' => 'Доставка'
+	);
+
 	private $order_view_router = array(
 		'client'   => array(
 			'open' => array(
@@ -168,6 +175,11 @@ class OrderModel extends BaseModel implements IModel{
 	public function getOrderTypes()
     {
 	    return $this->order_types;
+    }
+
+	public function getJoinableTypes()
+    {
+	    return $this->joinable_types;
     }
 
 	public function getAllStatuses()
@@ -766,8 +778,8 @@ class OrderModel extends BaseModel implements IModel{
                 `countries`.`country_currency` AS `order_currency`
             FROM `orders`
             INNER JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
-            INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'mailforward'
+            LEFT JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'mail_forwarding'
             "
         )->result();
 

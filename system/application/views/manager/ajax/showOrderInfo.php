@@ -1,9 +1,4 @@
-<? if ($order->order_manager != $this->user->user_id OR empty($order->bid)) : ?>
-<div class='clientOrderInfo' style="display:none;"></div>
-<? else :
-	$is_editable = 	($order->order_manager == $this->user->user_id) &&
-		in_array($order->order_status, $editable_statuses);
-	?>
+<? if (in_array($order->order_status, $editable_statuses)) : ?>
 <form id="orderForm" action="<?= $selfurl ?>updateOrder/<?= $order->order_id ?>" method="POST">
 	<div class="pricelist pricelist_main table clientOrderInfo">
 		<div class='angle angle-lt'></div>
@@ -70,14 +65,10 @@
 					Tracking №:
 				</td>
 				<td>
-					<? if ($is_editable) : ?>
 					<textarea name="tracking_no"
 							  id="tracking_no"
 							  style="width:188px;resize: vertical;"><?=
 						$order->tracking_no ?></textarea>
-					<? else : ?>
-					<?= $order->tracking_no ?>
-					<? endif; ?>
 				</td>
 			</tr>
 			<tr>
@@ -110,7 +101,6 @@
 			<? endif ?>
 		</table>
 	</div>
-	<? if ($is_editable) : ?>
 	<div style="height:50px;">
 		<div id="save_order" class="admin-inside float-left">
 			<div class="submit">
@@ -131,15 +121,12 @@
 		<img class="float" id="orderProgress" style="display:none;margin:0px;margin-top:5px;"
 			 src="/static/images/lightbox-ico-loading.gif"/>
 	</div>
-	<? endif ?>
 </form>
 <script>
 	var is_closing_order = false;
 	var noty_message = 'сохранен';
 
 	$(function() {
-		//$("#order_status").msDropDown({mainCSS:'idd'});
-
 		$("#close_order").click(function() {
 			is_closing_order = true;
 			noty_message = 'отправлен';
