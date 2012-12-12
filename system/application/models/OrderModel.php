@@ -1126,44 +1126,82 @@ class OrderModel extends BaseModel implements IModel{
 		return $fotos;
 	}
 	
-	public function prepareOrderView($view, $country_model)
+	public function prepareOrderView($view)
 	{
-		$view['order']->manager_tax_percentage = 10;
-		$view['order']->manager_foto_tax = 5;
-		$view['order']->requested_foto_count = 0;
-		//$view['order']->order_delivery_cost = 0;
-		//$view['order']->order_products_cost = 0;
-		//$view['order']->order_product_weight = 0;
-		//$view['order']->order_total_cost = 0;
+		$ci = get_instance();
+		$ci->load->model('CountryModel', 'Countries');
 
-		$order_country_from = $country_model->getById($view['order']->order_country_from);
-		$order_country_to = $country_model->getById($view['order']->order_country_to);
-		$view['order']->order_currency = $order_country_from ? $order_country_from->country_currency : '';
-		$view['order']->order_country_from = $order_country_from ? $order_country_from->country_name : '';
-		$view['order']->order_country_to = $order_country_to ? $order_country_to->country_name : '';
+		// ищем страны для заказа
+		$order_country_from = $ci->Countries->getById($view['order']->order_country_from);
+		$order_country_to = $ci->Countries->getById($view['order']->order_country_to);
 
-		if ($view['odetails'])
+		$view['order']->order_currency = strval($order_country_from->country_currency);
+		$view['order']->order_country_from = strval($order_country_from->country_name);
+		$view['order']->order_country_to = $order_country_to ? strval($order_country_to->country_name) : '';
+	}
+
+	public function prepareNewBidView($order, $manager_id, $just_logged_in = FALSE)
+	{
+		$ci = get_instance();
+		$ci->load->model('CountryModel', 'Countries');
+		$ci->load->model('ManagerModel', 'Managers');
+		$ci->load->model('OdetailModel', 'Odetails');
+
+		// ищем посредника
+		$manager = $ci->Managers->getById($manager_id);
+
+		if ($just_logged_in)
 		{
-			foreach($view['odetails'] as $key => $val)
+			// ищем страны и валюту для заказа
+			$order_country_from = $ci->Countries->getById($order->order_country_from);
+			$order_country_to = $ci->Countries->getById($order->order_country_to);
+
+			$order->order_currency = strval($order_country_from->country_currency);
+			$order->order_country_from = strval($order_country_from->country_name);
+			$order->order_country_to = $order_country_to ? strval($order_country_to->country_name) : '';
+		}
+
+		// считаем сколько заказано фото
+		$order->requested_foto_count = 0;
+
+		$odetails = $ci->Odetails->getOrderDetails($order->order_id);
+
+		if ($odetails)
+		{
+			foreach($odetails as $odetail)
 			{
-				// суммы
-				//$view['order']->order_delivery_cost += $view['odetails'][$key]->odetail_pricedelivery;
-				if ($view['odetails'][$key]->odetail_foto_requested)
+				if ($odetail->odetail_foto_requested)
 				{
-					$view['order']->requested_foto_count++;
+					$order->requested_foto_count++;
 				}
-				
-				//$view['order']->order_products_cost += $view['odetails'][$key]->odetail_price;
-				//$view['order']->order_product_weight += $view['odetails'][$key]->odetail_weight;
 			}
 		}
-		
-		$view['order']->manager_tax = ceil($view['order']->order_products_cost * $view['order']->manager_tax_percentage) * 0.01;
-		$view['order']->foto_tax = $view['order']->requested_foto_count * $view['order']->manager_foto_tax;
-		$view['order']->order_total_cost =
-			$view['order']->order_products_cost +
-			$view['order']->manager_tax +
-			$view['order']->foto_tax;	
+
+		// расчитываем комиссии
+		// 1. комиссия посредника
+		$order->manager_tax = ceil(
+			($order->order_products_cost + $order->order_delivery_cost) *
+			$manager->order_tax *
+			0.01);
+
+		if ($order->manager_tax < $manager->min_order_tax)
+		{
+			$order->manager_tax = $manager->min_order_tax;
+		}
+
+		// 2. комиссия за фото
+		$order->foto_tax = $order->requested_foto_count * $manager->foto_tax;
+
+		// 3. стоимость предложения
+		$order->order_total_cost =
+			$order->order_products_cost +
+			$order->order_delivery_cost +
+			$order->manager_tax +
+			$order->foto_tax;
+
+		// 4. заполняем данные для динамических расчетов
+		$order->manager_tax_percentage = $manager->order_tax;
+		$order->manager_foto_tax_percentage = $manager->foto_tax;
 	}
 }
 ?>

@@ -1,4 +1,4 @@
-<? if (isset($user) AND $user):
+<? if (isset($this->user) AND $this->user):
 	// Проверяем раздел происхождения запроса в рамках типа аккаунта пользователя
 	if (!empty($segment) AND !empty($allowed_segments) AND !in_array($segment, $allowed_segments)) :
 	?>
@@ -14,7 +14,7 @@
             <div class='block-user'>
                 <div class='left-block'>
                 <h2>Авторизация</h2>
-                <p>Здравствуйте, <span class='big-text'><a href='<?=$user ? BASEURL.$user->user_group : BASEURL.'user/showRegistration';?>'><?=$user->user_login;?></a></span></p>
+                <p>Здравствуйте, <span class='big-text'><a href='<?=$this->user ? BASEURL.$this->user->user_group : BASEURL.'user/showRegistration';?>'><?=$this->user->user_login;?></a></span></p>
                 <p><a href='/profile'>Изменить личные данные</a></p>
                 <div class='submit'><div><input type='submit' value='Выйти' onclick="javascript:window.location='<?=BASEURL?>user/logout';" /></div></div>
                 </div>
@@ -30,7 +30,7 @@
                         </strong> 
                         <div style="width:335px;height:11px;" class='ellipsis floatleft'>
                         <?= $partner->manager_addres ?>
-                        (<?= $user->user_id ?>) 
+                        (<?= $this->user->user_id ?>)
                         </div> 
                         <a href='<?= $selfurl ?>showAddresses/<?= $partner->manager_user ?>' class='floatright'>Подробнее</a>
                     </p>
@@ -42,12 +42,12 @@
                 </div>
                 <? endif; ?>
                 <div class='center-block'>
-                    <h3>ВАШ НОМЕР НА САЙТЕ: <?= $user->user_id ?></h3>
-                    <p>Общий баланс: <span class='big-text'>$<?=$user->user_coints;?></span></p>
-                    <p><a href='/<?=$user->user_group?>/showAddBalance'>Пополнить</a></p>
+                    <h3>ВАШ НОМЕР НА САЙТЕ: <?= $this->user->user_id ?></h3>
+                    <p>Общий баланс: <span class='big-text'>$<?=$this->user->user_coints;?></span></p>
+                    <p><a href='/<?=$this->user->user_group?>/showAddBalance'>Пополнить</a></p>
                     <p>(<a href='/syspay/showPays/' class='anthracite-color'>Как пополнить?</a>)</p>
-                    <p><a href='/<?=$user->user_group?>/showPaymentHistory'>Статистика платежей</a></p>
-                    <p><a href='/<?=$user->user_group?>/showOutMoney'>Заявка на вывод денег</a></p>
+                    <p><a href='/<?=$this->user->user_group?>/showPaymentHistory'>Статистика платежей</a></p>
+                    <p><a href='/<?=$this->user->user_group?>/showOutMoney'>Заявка на вывод денег</a></p>
                 </div>
             </div>
         </div>

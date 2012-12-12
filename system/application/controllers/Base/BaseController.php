@@ -360,9 +360,8 @@ abstract class BaseController extends Controller
 			// детали заказа
 			$view['odetails'] = $this->Odetails->getOrderDetails($view['order']->order_id);
 			$view['joints'] = $this->Joints->getOrderJoints($view['order']->order_id);
+			$this->Orders->prepareOrderView($view);
 
-			$this->Orders->prepareOrderView($view, $this->Countries);
-			
 			// страны
 			$view['Countries'] = $this->Countries->getClientAvailableCountries($view['order']->order_client);
 
@@ -449,6 +448,11 @@ abstract class BaseController extends Controller
 			// для формы нового предложения у посредника
 			if ($view['bids_accepted'])
 			{
+				if (isset($this->user->user_id))
+				{
+					$this->Orders->prepareNewBidView($view['order'], $this->user->user_id);
+				}
+
 				$new_bid = new stdClass();
 				$new_bid->bid_id = 0;
 				$new_bid->manager_id = isset($this->user->user_id) ? $this->user->user_id : 0;
@@ -504,14 +508,11 @@ abstract class BaseController extends Controller
 
 			$this->load->model('CountryModel', 'Countries');
 
-			$this->Orders->prepareOrderView($view,
-				$this->Countries,
-				$this->Odetails);
+			$this->Orders->prepareOrderView($view);
 
 			// страны
 			$view['Countries'] = $this->Countries->getClientAvailableCountries($view['order']->order_client);
 
-			$view['order']->order_status_desc = $this->Orders->getOrderStatusDescription($view['order']->order_status);
 			$view['order_statuses'] = $this->Orders->getAvailableOrderStatuses();
 			$view['order_types'] = $this->Orders->getOrderTypes();
 
@@ -575,24 +576,17 @@ abstract class BaseController extends Controller
 
 			// партнер
 			if (isset($this->user->user_group) AND
-				($this->user->user_group == 'manager' OR
-				$this->user->user_group == 'client'))
+				$this->user->user_group == 'manager' AND
+					empty($view['order']->order_manager))
 			{
-				// кнопка добавить предложение
-				if ($this->user->user_group == 'manager')
-				{
-					if (empty($view['order']->order_manager))
-					{
-						$view['bids_accepted'] = TRUE;
+				$view['bids_accepted'] = TRUE;
 
-						foreach ($view['bids'] as $bid)
-						{
-							if ($bid->manager_id == $this->user->user_id)
-							{
-								$view['bids_accepted'] = FALSE;
-								break;
-							}
-						}
+				foreach ($view['bids'] as $bid)
+				{
+					if ($bid->manager_id == $this->user->user_id)
+					{
+						$view['bids_accepted'] = FALSE;
+						break;
 					}
 				}
 			}
@@ -604,24 +598,11 @@ abstract class BaseController extends Controller
 
 			// для формы нового предложения
 			if ($view['bids_accepted'] AND
-				(empty($this->user->user_group) OR
-				$this->user->user_group == 'manager'))
+				isset($this->user->user_group))
 			{
-				$new_bid = new stdClass();
-				$new_bid->bid_id = 0;
-				$new_bid->manager_id = isset($this->user->user_id) ? $this->user->user_id : 0;
-				$new_bid->total_cost = $view['order']->order_total_cost;
-				$new_bid->manager_tax = $view['order']->manager_tax;
-				$new_bid->foto_tax = $view['order']->foto_tax;
-				$new_bid->delivery_cost = $view['order']->order_delivery_cost;
-				$new_bid->delivery_name = '';
+				$this->Orders->prepareNewBidView($view['order'], $this->user->user_id);
 
-				if ($new_bid->manager_id)
-				{
-					$this->processStatistics($new_bid, $statistics, 'manager_id', $new_bid->manager_id, 'manager');
-				}
-
-				$view['new_bid'] = $new_bid;
+				$view['new_bid'] = $this->generateNewBid($view['order'], $statistics);
 			}
 
 			// крошки
@@ -635,15 +616,22 @@ abstract class BaseController extends Controller
 
 		// показываем детали заказа
 		View::showChild('/main/pages/showOrderDetails', $view);
-		/*
-		if (empty($this->user->user_group))
-		{
-			View::showChild('/main/pages/showOrderDetails', $view);
-		}
-		else
-		{
-			View::showChild("{$this->user->user_group}/pages/showOrderDetails", $view);
-		}*/
+	}
+
+	protected function generateNewBid($order, $statistics = array())
+	{
+		$new_bid = new stdClass();
+		$new_bid->bid_id = 0;
+		$new_bid->manager_id = $this->user->user_id;
+		$new_bid->total_cost = $order->order_total_cost;
+		$new_bid->manager_tax = $order->manager_tax;
+		$new_bid->foto_tax = $order->foto_tax;
+		$new_bid->delivery_cost = 0;
+		$new_bid->delivery_name = '';
+
+		$this->processStatistics($new_bid, $statistics, 'manager_id', $this->user->user_id, 'manager');
+
+		return $new_bid;
 	}
 
     protected function addBlankOrder ($client, $country_from, $country_to, $city_to, $preferred_delivery, $order_manager, $order_type)

@@ -107,51 +107,79 @@ class User extends BaseController {
 		return FALSE;
 	}
 	
-	public function loginAjax()
+	public function loginAjax($handler = NULL, $id = NULL)
 	{
-		$view['logged_in'] = 0;
 		$view['is_manager'] = 0;
 		$view['is_client'] = 0;
 		$view['allowed_segments'] = array();
 		$view['segment'] = Check::str('segment', 32, 1);
 		
-		if ($this->loginInternal(NULL, NULL, FALSE))
+		if ( ! $this->loginInternal(NULL, NULL, FALSE))
 		{
-			$view['logged_in'] = 1;
-			$view['user'] = $this->user;
+			return;
+		}
 
-			if ($this->user->user_group == 'manager')
-			{
-				$view['is_manager'] = 1;
-				$view['allowed_segments'][] = 'order';
-			}
-			elseif ($this->user->user_group == 'client')
-			{
-				$view['is_client'] = 1;
-				$view['allowed_segments'][] = 'createorder';
-			}
-		}
-		
-		// Выбираем соответствующее представление
-		if ($view['is_manager'] == 1)
+		if ($this->user->user_group == 'manager')
 		{
-			$this->load->view("/manager/elements/div_header", $view);
+			$view['is_manager'] = 1;
+			$view['allowed_segments'][] = 'order';
+
 		}
-		elseif ($view['is_client'] == 1)
+		elseif ($this->user->user_group == 'client')
 		{
-			$this->load->view("/client/elements/div_header", $view);
+			$view['is_client'] = 1;
+			$view['allowed_segments'][] = 'createorder';
+		}
+
+		if (isset($handler) AND isset($id))
+		{
+			$this->getLoginData($handler, $id, $view);
+		}
+
+		$this->load->view("/{$this->user->user_group}/elements/div_header", $view);
+	}
+
+	private function getLoginData($handler, $id, &$view)
+	{
+		if ($this->user->user_group == 'manager')
+		{
+			return $this->getManagerLoginData($handler, $id, $view);
+		}
+		elseif ($this->user->user_group == 'client')
+		{
+			// TODO: вставить сюда получение доп.информации при логине клиента, когда возникнет такая необходимость
+			//return $this->getClientLoginData($handler, $id, $view);
+		}
+	}
+
+	private function getManagerLoginData($handler, $id, &$view)
+	{
+		if ($handler == 'newBid' AND is_numeric($id))
+		{
+			$this->load->model('OrderModel', 'Orders');
+			$order = $this->getPublicOrder($id, FALSE);
+
+			if ($order)
+			{
+				$this->Orders->prepareNewBidView($order, $this->user->user_id, TRUE);
+
+				$view['extra_data']['order'] = $order;
+				$view['extra_data']['bid'] = $this->generateNewBid($order);
+				$view['extra_view'] = 'newBid';
+			}
 		}
 	}
 	
-	public function logout(){
-		
+	public function logout()
+	{
 		$this->load->model('UserModel', 'User');
 
-		foreach ($this->User->getPropertyList() as $prop){
-			$this->session->unset_userdata(array($prop=>''));
+		foreach ($this->User->getPropertyList() as $prop)
+		{
+			$this->session->unset_userdata(array($prop => ''));
 		}
 		
-		header('Location: '.BASEURL);
+		header('Location: ' . BASEURL);
 	}
 
 	public function facebook($code = NULL) {
@@ -720,13 +748,13 @@ class User extends BaseController {
 		View::showChild($this->viewpath.'pages/registration', $view);
 	}
 	
-	
 	/**
 	 * Confirmation of registration
 	 *
 	 * @param string	$code
 	 */
-	public function confirmRegistration($code = null){
+	public function confirmRegistration($code = null)
+	{
 	
 		/**
 		 * load country list form stack, if it exists;
@@ -845,12 +873,11 @@ class User extends BaseController {
 		View::showChild($this->viewpath.'pages/confirmation');
 	}
 	
-	
-	public function showCaptchaImage(){
+	public function showCaptchaImage()
+	{
         $this->load->library('alcaptcha');
 		echo $this->alcaptcha->image();
 	}
-	
 	
 	public function showPasswordRecovery()
 	{
@@ -898,8 +925,6 @@ class User extends BaseController {
 		
 		View::showChild($this->viewpath.'pages/recovery', array('result'=>$result));
 	}
-
-	
 	
 	public function showProfile(){ 
 		/**
@@ -1039,5 +1064,4 @@ class User extends BaseController {
 																'empties'		=> $empties,
 		));
 	}
-	
 }
