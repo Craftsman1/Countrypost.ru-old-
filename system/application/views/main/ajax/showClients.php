@@ -64,8 +64,8 @@
 								'negative' =>  $client->statistics->negative_reviews
 							)); ?>
                         </td>
-                        <td>100</td>
-                        <td>200</td>
+                        <td>123</td>
+                        <td>456</td>
                         <td>
                             <a href='<?= BASEURL.$client->statistics->login ?>'>подробнее</a>
                         </td>

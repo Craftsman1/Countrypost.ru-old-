@@ -1102,10 +1102,15 @@ class OrderModel extends BaseModel implements IModel{
 		}
 
 		// считаем стоимость заказа
-		$order->order_products_cost = $total_price;
-		$order->order_delivery_cost = $total_pricedelivery;
 		$order->order_weight = $total_weight;
 		$order->order_status = $total_status;
+
+		$order->order_products_cost = $total_price;
+		$order->order_delivery_cost = $total_pricedelivery;
+		$order->order_cost =
+			$order->order_products_cost +
+			$order->order_delivery_cost;
+
 
 		return $order;
 	}

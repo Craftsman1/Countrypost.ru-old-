@@ -26,10 +26,10 @@
 					Оплатить:
 				</td>
 				<td>
-					<? if (in_array($order->order_status, $payable_statuses)) : ?>
-					<?= $order->order_cost - $order->order_cost_payed ?>
+					<? //if (in_array($order->order_status, $payable_statuses)) : ?>
+					<?= $order->order_cost ?>
 					<?= $order->order_currency ?>
-					<? endif; ?>
+					<? //endif; ?>
 				</td>
 			</tr>
 			<tr>

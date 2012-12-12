@@ -531,13 +531,13 @@ class ManagerModel extends BaseModel implements IModel{
 				LEFT JOIN `orders` ON `orders`.`order_manager` = `{$this->table}`.`manager_user`
 			WHERE 
 				`{$this->table}`.`manager_user` = {$manager_id}
-				AND `orders`.`order_status` IN ('sended')
+				AND `orders`.`order_status` = 'completed'
 			GROUP BY
 				`{$this->table}`.`manager_user`"
 		)->result();
 		
 		$completed_orders = ($result) ? $result[0] : FALSE;
-		$statistics->completed_orders = FALSE;
+		$statistics->completed_orders = 0;
 		
 		if ($completed_orders)
 		{

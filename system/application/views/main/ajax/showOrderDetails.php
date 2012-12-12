@@ -137,6 +137,7 @@
 	</div>
 </div>
 <? endif; ?>
+<a name="new_bid"></a>
 <script>
 	function updateTotals()
 	{

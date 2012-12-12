@@ -1,3 +1,8 @@
+<style>
+	div.filter-box span.label {
+		width: 200px;
+	}
+</style>
 <a name="pagerScroll"></a>
 <div id="filterFormContainer">
 	<form class='admin-inside' action="<?= $selfurl ?>filterDealers" id="filterForm" method="POST">

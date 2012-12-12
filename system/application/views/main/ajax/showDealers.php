@@ -47,10 +47,16 @@
                             <b style="position:relative;top:17px;"><?=$countries[$manager->manager_country]?></b>
                         </td>
                         <td style="text-align:left;">
-                            <?=$manager->statistics->fullname?>
-                            <br>
-                            <b class="cashback">100% CASHBACK</b>
-                            <b class="mf">MF</b>
+                            <?= $manager->statistics->fullname ?>
+                            <? if ($manager->is_cashback OR $manager->is_mail_forwarding) : ?>
+							<br>
+							<? if ($manager->is_cashback) : ?>
+							<b class="cashback">100% CASHBACK</b>
+							<? endif; ?>
+							<? if ($manager->is_mail_forwarding) : ?>
+							<b class="mf">MF</b>
+							<? endif; ?>
+							<? endif; ?>
                         </td>
                         <td>
 							<? View::show('main/elements/ratings/reviews', array(
@@ -62,15 +68,17 @@
                         <td>
                             <a target="_blank" href="<?= empty($manager->website) ? BASEURL.$manager->statistics->login : $manager->website ?>"><?= empty($manager->website) ? BASEURL.$manager->statistics->login : $manager->website ?></a>
                         </td>
-                        <td><?=$manager->statistics->completed_orders?></td>
+                        <td>
+							<?= $manager->statistics->completed_orders ?>
+						</td>
                         <td>
                             <a href='<?= BASEURL.$manager->statistics->login ?>'>посмотреть</a>
                         </td>
                     </tr>
-                    <?endforeach;?>	
-                <?else:?>
+                    <? endforeach; ?>
+                	<? else : ?>
                     <tr>
-                        <td colspan=9>Посредники не найдены.</td>
+                        <td colspan='9'>Посредники не найдены.</td>
                     </tr>
                 <?endif;?>
                 <tr class='last-row'>

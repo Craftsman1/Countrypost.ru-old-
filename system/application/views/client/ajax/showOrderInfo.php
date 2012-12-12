@@ -37,6 +37,9 @@
 							</div>
 						</div>
 					</div>
+					<? else : ?>
+					<?= $order->order_cost ?>
+					<?= $order->order_currency ?>
 					<? endif; ?>
 				</td>
 			</tr>

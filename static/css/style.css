@@ -161,8 +161,6 @@ div.filter-box .textbox {
 	font: 13px sans-serif;
 	}
 
-			
-			
 .angle {
 	width:20px;
 	height:20px;
@@ -2592,4 +2590,54 @@ div.bid_auth .remember-password {
 
 div.bid_auth .register {
 	top: 59px;
+}
+
+div.new_bid_box {
+	font-size: 14px;
+	margin-top: 40px;
+}
+
+div.new_bid_box b {
+	font-weight: normal;
+}
+
+div.new_bid_box > div {
+	height: 36px;
+}
+
+div.new_bid_box span.bold,div.new_bid_box span.bold b {
+	font-weight: bold;
+}
+
+div.new_bid_box span {
+	width: 270px;
+	height: 36px;
+	vertical-align: baseline;
+	display: inline-block;
+}
+
+div.new_bid_box b.currency  {
+	left: 420px;
+	position: absolute;
+	margin-top: 7px;
+}
+
+div.new_bid_box b.percent  {
+	left: 494px;
+	position: absolute;
+	margin-top: 7px;
+}
+
+div.new_bid_box .textbox  {
+	padding:4px 4px 3px;
+	background:#f7f7f7;
+	border: 1px solid #afafaf;
+	color:#000;
+	font: 13px sans-serif;
+}
+
+div.new_bid_box textarea  {
+	resize: vertical;
+	width: 425px;
+	display: block;
 }
