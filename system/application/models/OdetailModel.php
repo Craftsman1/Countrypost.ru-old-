@@ -116,8 +116,9 @@ class OdetailModel extends BaseModel implements IModel{
         $this->properties->odetail_volume           =0;
         $this->properties->odetail_tnved            ='';
         $this->properties->odetail_insurance        =0;
+        $this->properties->odetail_tracking         ='';
 
-		parent::__construct();
+        parent::__construct();
     }
 
 	public function getAllStatuses()

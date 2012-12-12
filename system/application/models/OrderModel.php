@@ -766,8 +766,8 @@ class OrderModel extends BaseModel implements IModel{
                 `countries`.`country_currency` AS `order_currency`
             FROM `orders`
             INNER JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
-            INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'mailforward'
+            LEFT JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'mail_forwarding'
             "
         )->result();
 

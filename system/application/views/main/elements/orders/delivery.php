@@ -60,7 +60,7 @@ endfor;
                             <a href="javascript: void(0);" onclick="">Выбрать посредника</a>
                         </span>
                     <span class="label dealer_number_box" style='display:none;'>Номер посредника:</span>
-                    <input class="textbox dealer_number_box" maxlength="6" type='text' id='dealer_id_online' name="dealer_id" style='display:none;width:180px;' >
+                    <input class="textbox dealer_number_box" maxlength="6" type='text' id='dealer_id_delivery' name="dealer_id" style='display:none;width:180px;' >
                         <span class="label dealer_number_box" style='display:none;'>
                             <img border="0" src="/static/images/delete.png" title="Удалить">
                         </span>
@@ -80,6 +80,7 @@ endfor;
         <input type='hidden' name="ocountry" class="countryFrom" value="<?= ($order) ? (int) $order->order_country_from : '' ?>" />
         <input type='hidden' name="ocountry_to" class="countryTo" value="<?= ($order) ? (int) $order->order_country_to : '' ?>" />
         <input type='hidden' name="city_to" class="cityTo" value="<?= ($order) ? (int) $order->order_city_to : '' ?>" />
+        <input type='hidden' name="dealer_id" class="dealerId" value="<?= ($order) ? (int) $order->order_manager : '' ?>" />
         <input type='hidden' name="userfileimg" value="" />
         <div class='table add_detail_box' style="position:relative;">
             <div class='angle angle-lt'></div>

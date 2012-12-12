@@ -1,0 +1,1 @@
+ALTER TABLE `odetails` ADD `odetail_tracking` VARCHAR( 80 ) NULL AFTER `odetail_insurance` 

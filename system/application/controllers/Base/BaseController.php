@@ -646,7 +646,7 @@ abstract class BaseController extends Controller
 		}*/
 	}
 
-    protected function addBlankOrder ($client, $country_from, $country_to, $city_to, $order_type)
+    protected function addBlankOrder ($client, $country_from, $country_to, $city_to, $preferred_delivery, $order_manager, $order_type)
     {
         // типы заказов
         $this->load->model('OrderModel', 'Orders');
@@ -656,6 +656,8 @@ abstract class BaseController extends Controller
         $order->order_country_from = $country_from;
         $order->order_country_to = $country_to;
         $order->order_city_to = $city_to;
+        $order->preferred_delivery = $preferred_delivery;
+        $order->order_manager = $order_manager;
         $order->order_type = $order_type;
         $order->is_creating = 1;
         $order = $this->Orders->addOrder($order);
@@ -704,9 +706,11 @@ abstract class BaseController extends Controller
             $country_to = Check::int('ocountry_to');
             $order_type = Check::str('order_type', 40, 0);
             $city_to = Check::str('city_to', 40, 0);
+            $preferred_delivery = Check::str('requested_delivery', 255, 0);
+            $order_manager = Check::int('dealer_id');
 
             // создаем пустой заказ
-            $order = $this->addBlankOrder($client_id, $country_from, $country_to, $city_to, $order_type);
+            $order = $this->addBlankOrder($client_id, $country_from, $country_to, $city_to, $preferred_delivery, $order_manager, $order_type);
             $detail->odetail_order = $order->order_id;
         }
         else
@@ -731,6 +735,7 @@ abstract class BaseController extends Controller
         $detail->odetail_tnved				    = Check::str('otnved', 255, 1);
         $detail->odetail_insurance				= Check::int('insurance_need');
         $detail->odetail_comment                = Check::str('ocomment', 255, 0);
+        $detail->odetail_tracking               = Check::str('otracking', 80, 0);
         $detail->odetail_status                 = 'processing';
 		
 		Check::reset_empties();
@@ -889,93 +894,6 @@ abstract class BaseController extends Controller
 			echo $e->getMessage();
 		}
 	}
-
-    protected function onlineProductCheck ($detail)
-    {
-
-        if (empty($detail->odetail_link))
-        {
-            throw new Exception('Добавьте ссылку на товар.');
-        }
-
-        if (empty($detail->odetail_product_name))
-        {
-            throw new Exception('Добавьте наименование товара.');
-        }
-
-        if (empty($detail->odetail_price))
-        {
-            throw new Exception('Добавьте цену товара.');
-        }
-
-        if (empty($detail->odetail_pricedelivery))
-        {
-            throw new Exception('Добавьте местную доставку товара.');
-        }
-
-        if (empty($detail->odetail_weight))
-        {
-            throw new Exception('Добавьте примерный вес товара.');
-        }
-
-        if (empty($detail->odetail_country))
-        {
-            throw new Exception('Выберите страну.');
-        }
-
-        if ( ! $detail->odetail_product_amount)
-        {
-            $detail->odetail_product_amount = 1;
-        }
-    }
-
-    protected function offlineProductCheck ($detail)
-    {
-        if (empty($detail->odetail_product_name))
-        {
-            throw new Exception('Добавьте наименование товара.');
-        }
-
-        if (empty($detail->odetail_price))
-        {
-            throw new Exception('Добавьте цену товара.');
-        }
-
-        if (empty($detail->odetail_pricedelivery))
-        {
-            throw new Exception('Добавьте местную доставку товара.');
-        }
-
-        if (empty($detail->odetail_weight))
-        {
-            throw new Exception('Добавьте примерный вес товара.');
-        }
-
-        if (empty($detail->odetail_country))
-        {
-            throw new Exception('Выберите страну.');
-        }
-
-        if ( ! $detail->odetail_product_amount)
-        {
-            $detail->odetail_product_amount = 1;
-        }
-    }
-
-    protected function deliveryProductCheck ($detail)
-    {
-
-    }
-
-    protected function serviceProductCheck ($detail)
-    {
-
-    }
-
-    protected function mailforwardProductCheck ($detail)
-    {
-
-    }
 	
 	protected function showO2oComments()
 	{
