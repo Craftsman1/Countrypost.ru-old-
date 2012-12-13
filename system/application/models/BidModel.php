@@ -31,6 +31,7 @@ class BidModel extends BaseModel implements IModel{
     	$this->properties->foto_tax			='';
     	$this->properties->delivery_cost	='';
     	$this->properties->delivery_name	='';
+    	$this->properties->extra_tax	='';
     	$this->properties->total_cost	='';
     	$this->properties->status	='';
     	$this->properties->created	='';
@@ -48,9 +49,7 @@ class BidModel extends BaseModel implements IModel{
 	{
 		return $this->PK;
 	}
-	
-	
-	
+
     /**
      * @see IModel
      * Инкапсуляция

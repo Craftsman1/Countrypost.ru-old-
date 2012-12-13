@@ -541,69 +541,96 @@ class Manager extends ManagerBaseController {
 		$this->filter('paymentHistory', 'showPaymentHistory');
 	}
 
-	public function addBid()
+	public function addBid($order_id)
 	{
 		try 
 		{
-			$order_id = Check::int('order_id');
-			if (empty($order_id))
+			if (empty($order_id) OR
+				! is_numeric($order_id))
 			{				
-				throw new Exception('Невозможно создать заказ.');
+				throw new Exception('Невозможно добавить предложение.');
 			}
 						
-			$this->load->model('OrderModel', 'Orders');
-			$order = $this->Orders->getById($order_id);
+			// роли и разграничение доступа
+			$order = $this->getPublicOrder(
+				$order_id,
+				'Заказ не найден. Попробуйте еще раз.');
 
-			if (empty($order))
-			{				
-				throw new Exception('Заказ не найден.');
-			}
-			
-			if ( ! empty($order->order_manager))
-			{				
-				throw new Exception('Извините, посредник уже выбран.');
-			}
-			
-			Check::reset_empties();
+			// погнали
 			$bid = new stdClass();
-
 			$bid->order_id = $order_id;
 			$bid->manager_id = $this->user->user_id;
 			$bid->client_id = $order->order_client;
-			$bid->manager_tax = Check::float('manager_tax');
-			$bid->delivery_cost = Check::float('order_delivery_cost');
-			$bid->delivery_name = Check::str('delivery_name', 255, 1);
-			$bid->total_cost = Check::float('order_total_cost');
-			
+			$bid->foto_tax = Check::int('foto_tax');
+
+			// допрасходы
+			$extra_tax_counter = Check::int('extra_tax_counter');
+			$bid->extra_tax = 0;
+			//print_r($extra_tax_counter);die();
+			for ($i = 0; $i < $extra_tax_counter; $i++)
+			{
+				$bid_extra = new stdClass();
+				$bid_extra->extra_name = Check::str('extra_tax_name' . $i, 255, 1, 'дополнительные расходы');
+				$bid_extra->extra_tax = Check::int('extra_tax_value' . $i);
+
+
+				if ($bid_extra->extra_tax)
+				{
+					$bid->extra_tax += $bid_extra->extra_tax;
+				}
+			}
+
+			Check::reset_empties();
+
+			// доставка
+			if ($order->order_country_to)
+			{
+				$bid->delivery_cost = Check::int('delivery_cost');
+				$bid->delivery_name = Check::str('delivery_name', 255, 1);
+			}
+			else
+			{
+				$bid->delivery_cost = 0;
+				$bid->delivery_name = '';
+			}
+
+			$bid->manager_tax = Check::int('manager_tax');
+
 			$empties = Check::get_empties();
-			$bid->foto_tax = Check::float('foto_tax');
-			
+
 			if ($empties) 
 			{
+				//print_r($empties);die();
 				throw new Exception('Некоторые поля не заполнены. Попробуйте еще раз.');
 			}
 
+			$bid->total_cost =
+				$order->order_products_cost +
+				$order->order_delivery_cost +
+				$bid->manager_tax +
+				$bid->foto_tax +
+				$bid->extra_tax +
+				$bid->delivery_cost;
+
 			$this->load->model('BidModel', 'Bids');
 			
-			if (!($bid = $this->Bids->addBid($bid))) 
+			if ( ! ($bid = $this->Bids->addBid($bid)))
 			{
 				throw new Exception('Ошибка создания предложения. Обратитесь к администрации сервиса.');
 			}
 
-			$this->load->model('ManagerModel', 'Managers');
-			$this->processStatistics($bid, array(), 'manager_id', $this->user->user_id, 'manager');
-			
 			// комменты
 			$comment = new stdClass();
-			$comment->bid_id = $bid->bid_id;
 			$comment->message = Check::txt('comment', 8096, 1);
-			$comment->user_id = $this->user->user_id;
 
 			// сохранение результатов
 			if ( ! empty($comment->message) AND
 				$comment->message != '<p></p>')
 			{
 				$this->load->model('BidCommentModel', 'Comments');
+
+				$comment->bid_id = $bid->bid_id;
+				$comment->user_id = $this->user->user_id;
 
 				$new_comment = $this->Comments->addComment($comment);
 				if ( ! $new_comment)
@@ -616,24 +643,27 @@ class Manager extends ManagerBaseController {
 				$bid->comments = array();
 				$bid->comments[] = $new_comment;
 			}
-			
+
+			// отрисовка предложения
+			$this->load->model('ManagerModel', 'Managers');
 			$this->load->model('CountryModel', 'Countries');
 			$this->load->model('OdetailModel', 'Odetails');
+
+			$this->processStatistics($bid, array(), 'manager_id', $this->user->user_id, 'manager');
 
 			$view['selfurl'] = BASEURL.$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 			$view['bid'] = $bid;
 			$view['order'] = $order;
-			$view['odetails'] = $this->Odetails->getOrderDetails($view['order']->order_id);
+			$view['odetails'] = $this->Odetails->getOrderDetails($order_id);
 			
-			$this->Orders->prepareOrderView($view, 
-				$this->Countries, 
-				$this->Odetails);
+			$this->Orders->prepareOrderView($view);
 			
 			$this->load->view("/main/elements/orders/bid", $view);
 		}
 		catch (Exception $e)
 		{
+			//print_r($e);
 		}
 	}
 
