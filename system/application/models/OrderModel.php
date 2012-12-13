@@ -494,7 +494,7 @@ class OrderModel extends BaseModel implements IModel{
 		$requests_selector = '';
 		$requests_join = '';
 		$requests_group = '';
-				
+
 		// обработка фильтра
 		if (isset($filter))
 		{
@@ -524,16 +524,11 @@ class OrderModel extends BaseModel implements IModel{
 			if ( ! empty($filter->requests_count))
 			{
 				$requests_selector = ", COUNT(r.manager_id) request_count, SUM(r.manager_id = '$clientId') request_sent";
-				$requests_join = ' LEFT OUTER JOIN `bids` AS r on r.`order_id` = orders.`order_id`';
+				$requests_join = " LEFT OUTER JOIN `bids` AS r on r.`order_id` = orders.`order_id` AND r.status !=
+				'deleted'";
 				$requests_group = ' GROUP BY orders.order_id';
 			}
 		}
-		
-		// обработка ограничения доступа клиента и менеджера
-		if (isset($clientId))
-		{
-		//		$clientIdAccess = " AND `orders`.`order_client` = $clientId";
-		}		
 		
 		// выборка
 		$result = $this->db->query(
@@ -558,11 +553,11 @@ class OrderModel extends BaseModel implements IModel{
 				$countryFromFilter
 				$countryToFilter
 				$orderTypeFilter
+
 				AND `orders`.`order_status` = 'pending'
 				AND `orders`.`order_manager` = 0
 			$requests_group
-			ORDER BY `orders`.`order_date` DESC
-			"
+			ORDER BY `orders`.`order_date` DESC"
 		)->result();
 
 		// отдаем результат

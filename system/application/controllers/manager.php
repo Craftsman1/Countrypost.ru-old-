@@ -130,22 +130,7 @@ class Manager extends ManagerBaseController {
 		), $index, TRUE);
 	}
 
-	public function removeOdetailJoint($order_id, $odetail_joint_id)
-	{
-		parent::removeOdetailJoint($order_id, $odetail_joint_id);
-	}
-	
-	public function addOrderComment($order_id, $comment_id = null)
-	{
-		parent::addOrderComment($order_id, $comment_id);
-	}
-	
-	public function addBidComment($bid_id, $comment_id = null)
-	{
-		parent::addBidComment($bid_id, $comment_id);
-	}
-	
-	public function showScreen($oid=null)
+	public function showScreen($oid = null)
 	{
 		header('Content-type: image/jpg');
 		$this->load->model('OdetailModel', 'OdetailModel');
@@ -531,11 +516,6 @@ class Manager extends ManagerBaseController {
 		$this->filter('Orders', 'orders/0/ajax');
 	}
 	
-	public function acceptOrder($order_id)
-	{
-		parent::connectOrderToManager($order_id, $this->user->user_id);
-	}
-	
 	public function filterPaymentHistory()
 	{
 		$this->filter('paymentHistory', 'showPaymentHistory');
@@ -619,6 +599,9 @@ class Manager extends ManagerBaseController {
 				throw new Exception('Ошибка создания предложения. Обратитесь к администрации сервиса.');
 			}
 
+			$this->load->model('ManagerModel', 'Managers');
+			$this->processStatistics($bid, array(), 'manager_id', $this->user->user_id, 'manager');
+
 			// комменты
 			$comment = new stdClass();
 			$comment->message = Check::txt('comment', 8096, 1);
@@ -645,11 +628,8 @@ class Manager extends ManagerBaseController {
 			}
 
 			// отрисовка предложения
-			$this->load->model('ManagerModel', 'Managers');
 			$this->load->model('CountryModel', 'Countries');
 			$this->load->model('OdetailModel', 'Odetails');
-
-			$this->processStatistics($bid, array(), 'manager_id', $this->user->user_id, 'manager');
 
 			$view['selfurl'] = BASEURL.$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
@@ -665,6 +645,77 @@ class Manager extends ManagerBaseController {
 		{
 			//print_r($e);
 		}
+	}
+
+	public function removeBid($order_id, $bid_id)
+	{
+		try
+		{
+			if (empty($order_id) OR
+				empty($bid_id) OR
+				! is_numeric($order_id) OR
+				! is_numeric($bid_id))
+			{
+				throw new Exception('Невозможно удалить предложение.');
+			}
+
+			$this->load->model('BidModel', 'Bids');
+
+			// роли и разграничение доступа
+			$order = $this->getPublicOrder(
+				$order_id, FALSE);
+
+			if (empty($order))
+			{
+				$order = $this->getPrivilegedOrder(
+					$order_id,
+					'Заказ не найден. Попробуйте еще раз.');
+			}
+
+			if ( ! empty($order->payed_date))
+			{
+				throw new Exception('Невозможно отказаться от оплаченного заказа.');
+			}
+
+			$bid = $this->Bids->getPrivilegedBid(
+				$bid_id,
+				$this->user->user_id,
+				$this->user->user_group);
+
+			if (empty($bid) OR
+				$bid->order_id != $order_id)
+			{
+				throw new Exception('Предложение не найдено.');
+			}
+
+			// погнали
+			$bid->status = 'deleted';
+			$this->Bids->addBid($bid);
+
+			// меняем статус заказа
+			if ($order->order_status != 'pending')
+			{
+				$order->order_status = 'pending';
+				$order->order_manager = 0;
+
+				$this->Orders->saveOrder($order);
+			}
+
+			// отправляем пересчитанные детали заказа
+			$response['is_error'] = FALSE;
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
+	}
+
+	public function addBidComment($bid_id, $comment_id = null)
+	{
+		parent::addBidComment($bid_id, $comment_id);
 	}
 
 	public function saveProfile()

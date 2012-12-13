@@ -1,4 +1,4 @@
-<form id="orderForm" action="<?= $selfurl ?>updateOrder/<?= $order->order_id ?>" method="POST">
+<form id="orderForm" action="/client/updateOrder/<?= $order->order_id ?>" method="POST">
 	<? if ($order->order_client != $this->user->user_id) : ?>
 	<div class='clientOrderInfo' style="display:none;"></div>
 	<? else :
@@ -43,7 +43,7 @@
 					<? endif; ?>
 				</td>
 			</tr>
-			<tr id="address_box" <? if (empty($order->order_manager)) : ?>style="display: none;"<? endif; ?>>
+			<tr id="address_box">
 				<td>
 					Адрес доставки и телефон:
 				</td>
@@ -169,11 +169,7 @@
 </form>
 <script>
 	$(function() {
-		//$("#address").msDropDown({mainCSS:'idd_order'});
-
 		$('#orderForm').ajaxForm({
-			target: "<?= $selfurl ?>updateOrder/<?= $order->order_id ?>",
-			type: 'POST',
 			dataType: 'html',
 			iframe: true,
 			beforeSubmit: function(formData, jqForm, options)
@@ -188,7 +184,7 @@
 			error: function(response)
 			{
 				$("#orderProgress").hide();
-				error('top', 'Заказ №<?= $order->order_id ?> нео сохранен. Попробуйте еще раз.');
+				error('top', 'Заказ №<?= $order->order_id ?> не сохранен. Попробуйте еще раз.');
 			}
 		});
 	});

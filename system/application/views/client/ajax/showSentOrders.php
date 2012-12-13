@@ -32,8 +32,14 @@
 					<b style="position:relative;top:6px;"><?=$order->order_country_from ?></b>
 				</td>
 				<td style="text-align:left;">
+					<? if (empty($order->order_country_to_en)) : ?>
+					<b>не требуется</b>
+					<? else : ?>
 					<img src="/static/images/flags/<?= $order->order_country_to_en ?>.png" style="float:left;margin-right:10px;" />
-					<b style="position:relative;top:6px;"><?= $order->order_country_to ?></b>
+					<b style="position:relative;top:6px;">
+						<?= $order->order_country_to ?>
+					</b>
+					<? endif; ?>
 				</td>
 				<td style="vertical-align: top;">
 					<?= $order->order_cost ?> <?= $order->currency ?>

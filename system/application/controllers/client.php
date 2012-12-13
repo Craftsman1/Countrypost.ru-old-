@@ -1697,20 +1697,28 @@ class Client extends ClientBaseController {
 				throw new Exception('Предложение не найдено.');
 			}
 
+			$order_id = $bid->order_id;
+
 			// заказ
-			$this->load->model('OrderModel', 'Orders');
-			$order = $this->Orders->getById($bid->order_id);
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				'Заказ недоступен.');
 
-			if (empty($order))
-			{				
-				throw new Exception('Заказ не найден.');
-			}
-
+			//
 			if ( ! empty($order->order_manager))
-			{				
-				throw new Exception('Извините, посредник уже выбран.');
+			{
+				throw new Exception('Извините, уже выбран другой исполнитель.');
 			}
-			
+
+			// позволяет ли текущий статус редактирование
+			$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $view['editable_statuses']))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// сохраняем заказ
 			$order->order_manager = $bid->manager_id;
 			$order->order_status = 'processing';
 
@@ -1718,24 +1726,31 @@ class Client extends ClientBaseController {
 			{
 				throw new Exception('Предложение не выбрано. Обновите страницу и попробуйте еще раз.');
 			}
-			
+
+			// показываем новую форму заказа
+			$this->load->model('ClientModel', 'Clients');
+			$this->load->model('AddressModel', 'Addresses');
 			$this->load->model('ManagerModel', 'Managers');
-			$this->load->model('CountryModel', 'Countries');
+
+			$view['addresses'] = $this->Addresses->getAddressesByUserId($this->user->user_id);
+			$view['statuses'] = $this->Orders->getAllStatuses();
+			$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
+			$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
+
 			$this->processStatistics($order, array(), 'order_manager', $order->order_manager, 'manager');
-			$order->order_status_desc = $this->Orders->getOrderStatusDescription($order->order_status);
-			$order->bid = $bid;
-			
-			$order_country_from = $this->Countries->getById($order->order_country_from);
-			$order->order_currency = $order_country_from ? $order_country_from->country_currency : '';		
-			$view = array('order' => $order);
-			
-			$this->load->model('OdetailModel', 'Odetails');
+			//$order->bid = $bid;
+
+			//$order_country_from = $this->Countries->getById($order->order_country_from);
+			//$order->order_currency = $order_country_from ? $order_country_from->country_currency : '';
+			$view['order'] = $order;
+
+			/*$this->load->model('OdetailModel', 'Odetails');
 			$view['odetails'] = $this->Odetails->getOrderDetails($view['order']->order_id);
 			$this->load->model('CountryModel', 'Countries');
 			$view['order_country_from'] = '';
-			$this->Orders->prepareOrderView($view, 
-				$this->Countries, 
-				$this->Odetails);	
+			*/
+
+			$this->Orders->prepareOrderView($view);
 
 			$this->load->view("/client/ajax/showOrderInfo", $view);
 		}
@@ -1770,7 +1785,8 @@ class Client extends ClientBaseController {
 			}
 			
 			$order->order_manager = 0;
-			
+			$order->order_status = 'pending';
+
 			if ( ! ($order = $this->Orders->addOrder($order)))
 			{
 				throw new Exception('Посредник до сих пор выбран. Обновите страницу и попробуйте еще раз.');
