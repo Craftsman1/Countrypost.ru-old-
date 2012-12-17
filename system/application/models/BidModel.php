@@ -91,6 +91,25 @@ class BidModel extends BaseModel implements IModel{
 		return false;
 	}
 
+	public function addBidExtras($bid, $extras)
+	{
+		foreach ($extras as $extra)
+		{
+			$this->db->query("
+				INSERT INTO `bid_extras` (
+					bid_id,
+					extra_name,
+					extra_tax
+				)
+				VALUES (
+					$bid->bid_id,
+					'$extra->extra_name',
+					'$extra->extra_tax'
+				)
+			");
+		}
+	}
+
 	public function getById($id)
 	{
 		$r = $this->select(array(
@@ -100,7 +119,27 @@ class BidModel extends BaseModel implements IModel{
 		return ((count($r==1) &&  $r) ? array_shift($r) : false);
 	}
 	
-	public function getBids($order_id) 
+	public function isBidAllowed($order, $manager_id)
+	{
+		if ($order->order_manager)
+		{
+			return FALSE;
+		}
+
+		$result = $this->db->query("
+			SELECT 1
+			FROM bids
+			INNER JOIN orders ON orders.order_id = bids.order_id
+			WHERE
+				bids.order_id = '$order->order_id' AND
+				bids.manager_id = '$manager_id' AND
+				bids.status != 'deleted'
+		")->result();
+
+		return empty($result);
+	}
+
+	public function getBids($order_id)
 	{
 		return $this->db->query("
 			SELECT `{$this->table}`.*
@@ -110,6 +149,19 @@ class BidModel extends BaseModel implements IModel{
 				status != 'deleted'
 			ORDER BY created DESC
 		")->result();
+	}
+
+	public function getBidExtras($bid_id)
+	{
+		$result = $this->db->query("
+			SELECT `bid_extras`.*
+			FROM `bid_extras`
+			WHERE
+				bid_id = '$bid_id' AND
+				status != 'deleted'
+		")->result();
+
+		return ((count($result) > 0 AND $result) ? $result : FALSE);
 	}
 
 	public function getPrivilegedBid($bid_id, $user_id, $user_group)

@@ -161,11 +161,17 @@ class User extends BaseController {
 
 			if ($order)
 			{
-				$this->Orders->prepareNewBidView($order, $this->user->user_id, TRUE);
+				$this->load->model('BidModel', 'Bids');
 
-				$view['extra_data']['order'] = $order;
-				$view['extra_data']['bid'] = $this->generateNewBid($order);
 				$view['extra_view'] = 'newBid';
+
+				if ($this->Bids->isBidAllowed($order, $this->user->user_id))
+				{
+					$this->Orders->prepareNewBidView($order, $this->user->user_id, TRUE);
+
+					$view['extra_data']['order'] = $order;
+					$view['extra_data']['bid'] = $this->generateNewBid($order);
+				}
 			}
 		}
 	}

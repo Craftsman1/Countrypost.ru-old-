@@ -546,17 +546,18 @@ class Manager extends ManagerBaseController {
 			// допрасходы
 			$extra_tax_counter = Check::int('extra_tax_counter');
 			$bid->extra_tax = 0;
-			//print_r($extra_tax_counter);die();
+
 			for ($i = 0; $i < $extra_tax_counter; $i++)
 			{
 				$bid_extra = new stdClass();
-				$bid_extra->extra_name = Check::str('extra_tax_name' . $i, 255, 1, 'дополнительные расходы');
+				$bid_extra->extra_name = Check::str('extra_tax_name' . $i, 255, 1, 'Дополнительные расходы');
 				$bid_extra->extra_tax = Check::int('extra_tax_value' . $i);
 
 
 				if ($bid_extra->extra_tax)
 				{
 					$bid->extra_tax += $bid_extra->extra_tax;
+					$bid_extras[] = $bid_extra;
 				}
 			}
 
@@ -580,7 +581,6 @@ class Manager extends ManagerBaseController {
 
 			if ($empties) 
 			{
-				//print_r($empties);die();
 				throw new Exception('Некоторые поля не заполнены. Попробуйте еще раз.');
 			}
 
@@ -601,6 +601,13 @@ class Manager extends ManagerBaseController {
 
 			$this->load->model('ManagerModel', 'Managers');
 			$this->processStatistics($bid, array(), 'manager_id', $this->user->user_id, 'manager');
+
+			// сохраняем допрасходы
+			if (isset($bid_extras))
+			{
+				$this->Bids->addBidExtras($bid, $bid_extras);
+				$bid->bid_extras = $bid_extras;
+			}
 
 			// комменты
 			$comment = new stdClass();
@@ -643,7 +650,6 @@ class Manager extends ManagerBaseController {
 		}
 		catch (Exception $e)
 		{
-			//print_r($e);
 		}
 	}
 
