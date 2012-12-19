@@ -35,3 +35,11 @@ span.ValidationErrors {
 .profile_box span.ValidationErrors {
     position: absolute;
 }
+
+.producteditor span.ValidationErrors
+{
+    float: left;
+    white-space: normal;
+    width: auto !important;
+    word-wrap: normal;
+}

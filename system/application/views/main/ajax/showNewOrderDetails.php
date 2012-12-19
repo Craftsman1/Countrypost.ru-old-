@@ -7,13 +7,21 @@
         <colgroup>
             <col style="width: 60px;">
             <col>
-            <col>
+
+            <? if ($order_type != 'delivery') : ?>
+                <col style="width: 206px;">
+            <? endif; ?>
+
             <? if ($order_type == 'mail_forwarding') : ?>
                 <col style="width: 185px;">
             <? else : ?>
                 <col style="width: 85px;">
                 <col style="width: 85px;">
+
+                <? if ($order_type != 'service') : ?>
                 <col style="width: 85px;">
+                <? endif; ?>
+
             <? endif; ?>
             <col style="width: 44px">
         </colgroup>
@@ -23,7 +31,10 @@
                 № <input type='checkbox' id='select_all'>
             </th>
             <th>Товар</th>
-            <th>Скриншот</th>
+
+            <? if ($order_type != 'delivery') : ?>
+                <th style="width: 206px;">Скриншот</th>
+            <? endif; ?>
 
             <? if ($order_type == 'mail_forwarding') : ?>
                 <th>
@@ -36,9 +47,12 @@
                 <th>
                     Местная<br>доставка
                 </th>
+
+                <? if ($order_type != 'service') : ?>
                 <th>
                     Вес<br>товара
                 </th>
+                <? endif; ?>
             <? endif; ?>
 
             <th style="width:1px;"></th>
@@ -211,7 +225,7 @@
                                 <? if ($odetail->odetail_insurance) : ?>(требуется страховка)<? endif; ?>
                                 <br>
                                 <b>Количество</b>: <?= $odetail->odetail_product_amount ?>
-                                <b>Объём</b>: <?= $odetail->odetail_volume ?>
+                                <b>Объём</b>: <?= (float) $odetail->odetail_volume ?>
                                 <b>ТН ВЭД</b>: <?= $odetail->odetail_tnved ?>
                                 <br>
                                 <b>Комментарий</b>: <?= $odetail->odetail_comment ?>
@@ -235,7 +249,7 @@
                                 <br>
                                 <b>Требуется страховка?</b>
                                 <div style="float:right">
-                                    <label><input type="radio" name="insurance" id="insurance_y" value="1"/> Да</label>
+                                    <label><input type="radio" name="insurance" id="insurance_y" value="1"/> Да</label><br/>
                                     <label><input type="radio" name="insurance" id="insurance_n" value="0"/> Нет</label>
                                 </div>
                                 <br>
@@ -289,12 +303,13 @@
                             break;
                     } ?>
                 </td>
-                <td>
+            <? if ($order_type != 'delivery') : ?>
+                <td style="width: 206px;">
                     <span class="plaintext">
                         <?= $oimg ?>
                     </span>
 
-                    <span class="producteditor" style="display: none;">
+                    <span class="producteditor" style="display: none; width: 206px;">
                         <input value="link" class="img_selector" name="img_selector" type="radio">
                         <textarea name="img" class="image"></textarea>
                         <br>
@@ -302,6 +317,7 @@
                         <input name="userfile" class="img_file" type="file">
                     </span>
                 </td>
+             <? endif; ?>
 
             <? if ($order_type == 'mail_forwarding') : ?>
                 <td>
@@ -344,19 +360,23 @@
                        style="width:60px"
                        maxlength="11">
                 </td>
+
+                <? if ($order_type != 'service') : ?>
                 <td>
 
                     <input type="text"
-                       order-id="<?= $order->order_id ?>"
-                       odetail-id="<?= $odetail->odetail_id ?>"
-                       id="odetail_weight<?= $odetail->odetail_id ?>"
-                       class="odetail_weight int"
-                       name="odetail_weight<?= $odetail->odetail_id ?>"
-                       value="<?= $odetail->odetail_weight ?>"
-                       style="width:60px"
-                       maxlength="11">
+                           order-id="<?= $order->order_id ?>"
+                           odetail-id="<?= $odetail->odetail_id ?>"
+                           id="odetail_weight<?= $odetail->odetail_id ?>"
+                           class="odetail_weight int"
+                           name="odetail_weight<?= $odetail->odetail_id ?>"
+                           value="<?= $odetail->odetail_weight ?>"
+                           style="width:60px"
+                           maxlength="11">
 
                 </td>
+                <? endif; ?>
+
             <? endif; ?>
 
             <td>
@@ -387,7 +407,13 @@
 
         <? if ($order_type != 'mail_forwarding') : ?>
             <tr>
-                <td colspan="3">&nbsp;</td>
+
+                <? if ($order_type == 'delivery') : ?>
+                    <td colspan="2">&nbsp;</td>
+                <? else : ?>
+                    <td colspan="3">&nbsp;</td>
+                <? endif; ?>
+
                 <td class="price_total product_total">
                     <b class="total_product_cost"><?= ($order) ? $order->order_products_cost : '' ?></b>&nbsp;<?=
                     ($order) ? $order->order_currency : '' ?>
@@ -395,9 +421,13 @@
                 <td class="delivery_total product_total">
                     <b class="total_delivery_cost"><?= ($order) ? $order->order_delivery_cost : '' ?></b>&nbsp;<?= ($order) ? $order->order_currency : '' ?>
                 </td>
+
+                <? if ($order_type != 'service') : ?>
                 <td class="weight_total">
                     <b class="total_weight"><?= ($order) ? $order->order_weight : '' ?></b> г
                 </td>
+                <? endif; ?>
+
                 <td>&nbsp;</td>
             </tr>
         <? else : ?>
@@ -414,8 +444,9 @@
                 <td colspan='2' style="border: none;">
                     <div class='floatleft'>
                         <div class='submit'><div><input type='submit' value='Объединить доставку' /></div></div>
+                        <img src="/static/images/lightbox-ico-loading.gif" style="display:none;" class="float" id="joint_progress">
                     </div>
-                    <img class="tooltip_join" src="/static/images/mini_help.gif" />
+                    <img class="tooltip_join" style="float:left" src="/static/images/mini_help.gif" />
                 </td>
                 <td style="text-align: right; border: none;" colspan='5'>
                     <br />
@@ -451,35 +482,6 @@
     
 <script>
 
-
-	function cancelItem(id) {
-		if ($('#odetail_product_name' + id + ' textarea').length)
-		{
-			var odetail = eval('odetail' + id);
-			
-			$('#odetail_product_name' + id).html(odetail['odetail_product_name']);
-
-			$('#odetail_product_color' + id).html(odetail['odetail_product_color'] + ' / ' + odetail['odetail_product_size'] + ' / ' + odetail['odetail_product_amount']);
-
-			$('#odetail_link' + id + ',#odetail_img' + id).find('label,textarea,input,br').remove();
-			$('#odetail_link' + id + ',#odetail_img' + id).children().show();
-			$('#odetail_img' + id + ' a[rel]').hide();
-						
-			$('#odetail_action' + id)			
-				.html('<a href="javascript:editItem(' + id + ')" id="odetail_edit' + id + '"><img border="0" src="/static/images/comment-edit.png" title="Изменить"></a><br /><a href="javascript:deleteItem(' + id + ')"><img border="0" src="/static/images/delete.png" title="Удалить"></a>');
-		}
-	}
-
-	function saveItem(id) {
-		if ($('#odetail_product_name' + id + ' textarea').length)
-		{
-			$('#odetail_product_name' + id).parent().find('input,textarea').attr('readonly', true);
-			$('#odetail_action' + id).html('<img border="0" src="/static/images/lightbox-ico-loading.gif" title="Товар сохраняется..."><br><a href="javascript:cancelItem(' + id + ')" id="odetail_cancel' + id + '"><img border="0" src="/static/images/comment-delete.png" title="Отменить"></a>');
-			$('#odetail_id').val(id);
-			$('#detailsForm').submit();						
-		}
-	}
-	
 	function setRel(id){
 		$("a[rel*='lightbox_"+id+"']").lightBox();
 		var aa = $("a[rel*='lightbox_"+id+"']");

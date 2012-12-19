@@ -8,7 +8,7 @@ for ($i = 0, $n = count($orders); $i<$n; $i++) :
 endfor;
 ?>
 
-<div class="mail_forwarding_order_form" style='display:none;'>
+<div class="mail_forwarding_order_form">
 
     <ol style="padding: 10px 0px; font-size: 14px; line-height: 26px;">
         <li>Выберите посредника на адрес которого вы будите самостоятельно заказывать.</li>
@@ -25,17 +25,18 @@ endfor;
             <input type='hidden' name="order_type" class="order_type" value="mail_forwarding" />
             <input type='hidden' name="order_currency" class="order_currency" value="<?= $order_currency ?>" />
             <div class='new_order_box'>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label dealer_number_box">Номер посредника*:</span>
-                    <input class="textbox dealer_number_box" maxlength="6" type='text' id='dealer_id_mail_forwarding' name="dealer_id" style='width:180px;' >
+                    <input class="textbox dealer_number_box" maxlength="255" type='text' id='dealer_id_ac_mail_forwarding' style='width:180px;' value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>" >
+                    <input type='hidden' id='dealer_id_mail_forwarding' name="dealer_id" value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>">
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Cпособ доставки*:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='requested_delivery_mail_forwarding' name="requested_delivery" />
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
             </div>
         </form>
     </div>
@@ -63,28 +64,28 @@ endfor;
                     <span class="label">Наименование товара*:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='oname' name="oname" />
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Tracking номер*: <img style="margin-left: 7px;" src="/static/images/mini_help.gif"></span>
                     <input style="width:180px;" class="textbox" maxlength="11" type='text' id='otracking' name="otracking" />
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Ссылка на товар:</span>
                     <input style="width:180px;" class="textbox" maxlength="500" type='text' id='olink' name="olink" />
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
             </div>
         </div>
         <h3>Дополнительная информация по товару:</h3>
         <div class='add_detail_box' style="position:relative;">
             <div class='new_order_box'>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Цвет:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='ocolor' name="ocolor" />
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Размер:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='osize' name="osize" />
@@ -92,12 +93,12 @@ endfor;
 						<input class="border:auto;" type='button' value="подобрать размер" />
 					</span>
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Количество:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='oamount' name="oamount" value="1" />
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
 					<span class="label">
 						Скриншот (max. 3 Mb):
@@ -111,17 +112,17 @@ endfor;
 						<img border="0" src="/static/images/delete.png" title="Удалить">
 					</span>
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Нужно ли фото товара?</span>
                     <input type='checkbox' id='foto_requested' name="foto_requested" />
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Комментарий к товару:</span>
                     <textarea style="width:180px;resize:auto!important;" class="textbox" maxlength="255" id='ocomment' name="ocomment"></textarea>
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
             </div>
         </div>
     </form>
@@ -138,7 +139,7 @@ endfor;
 <script type="text/javascript">
 	$(function()
     {
-        $('div.mail_forwarding_order').click(function() {
+        $(window).load(function() {
             var order = new $.cpOrder(orderData);
             order.init("mail_forwarding");
         });

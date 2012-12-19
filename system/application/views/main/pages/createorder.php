@@ -1,55 +1,92 @@
 <div class='content smallheader'>
 <? Breadcrumb::showCrumbs(); ?>
-<h2 id='page_title'>Выберите вид заказа:</h2>
 
-<div class="order_type_selector">
-    <div class="online_order order">
-        <div>
-            <b>Online заказ</b>
-        </div>
-        <div>Заказ на покупку и доставку из любого интернет-магазина, торговой площадки, аукциона и т.д.
-        </div>
-    </div>
-    <div class="offline_order order">
-        <div>
-            <b>Offline заказ</b>
-        </div>
-        <div>Заказ на покупку и доставку из любого offline магазина/поставщика у которого нет сайта или online продаж.
-            <br/>Заявки на поиск товара/поставщика также добавляйте сюда.
-        </div>
-    </div>
-    <div class="service_order order">
-        <div>
-            <b>Услуга</b>
-        </div>
-        <div>Если Вам нужна какая-то помощь или услуга, не связанная с покупкой и доставкой, в любой стране.
-        </div>
-    </div>
-    <div class="delivery_order order">
-        <div>
-            <b>Доставка</b>
-        </div>
-        <div>Если Вам нужна только доставка без выкупа и поиска товара.
-        </div>
-    </div>
-    <div class="mail_forwarding_order order">
-        <div>
-            <b>MailForwarding</b>
-        </div>
-        <div>Самостоятельный заказ товар на адрес посредника (перед заказом согласуйте с посредником).
-        </div>
-    </div>
-</div>
+<? if (!$order_type) : ?>
+    <h2 id='page_title'>Выберите вид заказа:</h2>
 
-<? View::show('main/elements/orders/scripts'); ?>
+    <div class="order_type_selector">
+        <div class="online_order order">
+            <div>
+                <b>Online заказ</b>
+            </div>
+            <div>Заказ на покупку и доставку из любого интернет-магазина, торговой площадки, аукциона и т.д.
+            </div>
+        </div>
+        <div class="offline_order order">
+            <div>
+                <b>Offline заказ</b>
+            </div>
+            <div>Заказ на покупку и доставку из любого offline магазина/поставщика у которого нет сайта или online продаж.
+                <br/>Заявки на поиск товара/поставщика также добавляйте сюда.
+            </div>
+        </div>
+        <div class="service_order order">
+            <div>
+                <b>Услуга</b>
+            </div>
+            <div>Если Вам нужна какая-то помощь или услуга, не связанная с покупкой и доставкой, в любой стране.
+            </div>
+        </div>
+        <div class="delivery_order order">
+            <div>
+                <b>Доставка</b>
+            </div>
+            <div>Если Вам нужна только доставка без выкупа и поиска товара.
+            </div>
+        </div>
+        <div class="mail_forwarding_order order">
+            <div>
+                <b>MailForwarding</b>
+            </div>
+            <div>Самостоятельный заказ товар на адрес посредника (перед заказом согласуйте с посредником).
+            </div>
+        </div>
+    </div>
+<? else : ?>
+    <h2 id='page_title'></h2>
+    <? View::show('main/elements/orders/scripts'); ?>
+    <?
+    switch ($order_type) :
+        case 'online' :
+            View::show('main/elements/orders/online');
+            break;
+        case 'offline' :
+            View::show('main/elements/orders/offline');
+            break;
+        case 'service' :
+            View::show('main/elements/orders/service');
+            break;
+        case 'delivery' :
+            View::show('main/elements/orders/delivery');
+            break;
+        case 'mailforwarding' :
+            View::show('main/elements/orders/mailforwarding');
+            break;
+    endswitch;
+    ?>
+<? endif; ?>
 
-    <? View::show('main/elements/orders/online'); ?>
-    <? View::show('main/elements/orders/offline'); ?>
-    <? View::show('main/elements/orders/service'); ?>
-    <? View::show('main/elements/orders/delivery'); ?>
-    <? View::show('main/elements/orders/mailforwarding'); ?>
 </div>
 <script>
+    (function($){
+        $('div.online_order').bind('click', function() {
+            document.location = '<?= $this->viewpath ?>createorder/online';
+        });
+        $('div.offline_order').bind('click', function() {
+            document.location = '<?= $this->viewpath ?>createorder/offline';
+        });
+        $('div.service_order').bind('click', function() {
+            document.location = '<?= $this->viewpath ?>createorder/service';
+        });
+        $('div.delivery_order').bind('click', function() {
+            document.location = '<?= $this->viewpath ?>createorder/delivery';
+        });
+        $('div.mail_forwarding_order').bind('click', function() {
+            document.location = '<?= $this->viewpath ?>createorder/mailforwarding';
+        });
+    })(jQuery)
+
+
     // скриншот
     function showScreenshotLink() {
         $('.screenshot_link_box').show('slow');

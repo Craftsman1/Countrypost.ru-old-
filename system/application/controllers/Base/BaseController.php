@@ -665,8 +665,13 @@ abstract class BaseController extends Controller
 		$detail = new OdetailModel();
         $detail->odetail_order = Check::int('order_id');
 
-        $order_type = Check::str('order_type', 20, 1);
-		
+        $order_type = Check::str('order_type', 40, 1);
+        $order_manager = Check::int('dealer_id');
+        $country_from = Check::int('ocountry');
+        $country_to = Check::int('ocountry_to');
+        $city_to = Check::str('city_to', 40, 0);
+        $preferred_delivery = Check::str('requested_delivery', 255, 0);
+
 		if ( ! $detail->odetail_order &&
             $this->user &&
 			$this->user->user_group != 'client')
@@ -693,13 +698,6 @@ abstract class BaseController extends Controller
                 $client_id = $this->user->user_id;
             }
 
-            $country_from = Check::int('ocountry');
-            $country_to = Check::int('ocountry_to');
-            $order_type = Check::str('order_type', 40, 0);
-            $city_to = Check::str('city_to', 40, 0);
-            $preferred_delivery = Check::str('requested_delivery', 255, 0);
-            $order_manager = Check::int('dealer_id');
-
             // создаем пустой заказ
             $order = $this->addBlankOrder($client_id, $country_from, $country_to, $city_to, $preferred_delivery, $order_manager, $order_type);
             $detail->odetail_order = $order->order_id;
@@ -710,7 +708,14 @@ abstract class BaseController extends Controller
             $order = new stdClass();
             $order->order_id = $detail->odetail_order;
         }
-		
+
+        $order->order_type          = $order_type;
+        $order->order_manager       = $order_manager;
+        $order->country_from        = $country_from;
+        $order->country_to          = $country_to;
+        $order->city_to             = $city_to;
+        $order->preferred_delivery  = $preferred_delivery;
+
 		// находим заказ и клиента
 		if (empty($this->user))
 		{
@@ -743,7 +748,7 @@ abstract class BaseController extends Controller
 		$detail->odetail_product_color			= Check::str('ocolor', 32, 0);
 		$detail->odetail_product_size			= Check::str('osize', 32, 0);
 		$detail->odetail_client					= $client_id;
-		$detail->odetail_manager				= 0;
+		$detail->odetail_manager				= $order_manager;
 		$detail->odetail_country				= Check::str('ocountry', 255, 1);
 		$detail->odetail_foto_requested			= Check::chkbox('foto_requested');
 		
@@ -780,7 +785,9 @@ abstract class BaseController extends Controller
 			//$Odetails = $this->OdetailModel->getFilteredDetails(array('odetail_client' => $client_id, 'odetail_order' => 0));
 				
 			// открываем транзакцию
-			$this->db->trans_begin();	
+			$this->db->trans_begin();
+
+            $this->Orders->saveOrder($order);
 
 			$detail = $this->OdetailModel->addOdetail($detail);
 
@@ -2556,6 +2563,112 @@ abstract class BaseController extends Controller
 			Func::redirect(BASEURL);
 		}
 	}
+
+    protected function joinNewProducts($order_id)
+    {
+        try
+        {
+            if ( ! is_numeric($order_id))
+            {
+                throw new Exception('Доступ запрещен.');
+            }
+
+            // безопасность и разграничение доступа
+            $order = $this->getNewOrder(
+                $order_id,
+                'Невозможно объединить товары. Указанный заказ не найден.');
+
+            $this->load->model('OdetailModel', 'Odetails');
+            $this->load->model('OdetailJointModel', 'Joints');
+
+            // позволяет ли текущий статус объединение
+            $editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+            if ( ! in_array($order->order_status, $editable_statuses))
+            {
+                throw new Exception('Заказ недоступен.');
+            }
+
+            // погнали
+            $this->db->trans_begin();
+
+            $joint = $this->Joints->generateJoint();
+
+            // ищем товары в запросе
+            foreach($_POST as $param => $value)
+            {
+                if (stripos($param, 'join') === FALSE)
+                {
+                    continue;
+                }
+
+                $odetail_id = str_ireplace('join', '', $param);
+
+                if ( ! is_numeric($odetail_id))
+                {
+                    continue;
+                }
+
+                // находим товар
+                $odetail = $this->Odetails->getPrivilegedOdetail(
+                    $order_id,
+                    $odetail_id,
+                    $this->user->user_id,
+                    $this->user->user_group);
+
+                if ( ! $odetail)
+                {
+                    throw new Exception('Невозможно объединить товары. Некоторые товары отсутствуют в товаре.');
+                }
+
+                // вычисляем суммарную стоимость
+                $joint->cost += $odetail->odetail_pricedelivery;
+                $joint->count++;
+
+                // удаляем старые джоинты
+                if ($odetail->odetail_joint_id)
+                {
+                    $this->Odetails->clearJoints($odetail->odetail_joint_id);
+                }
+
+                // сохраняем товар
+                $odetail->odetail_joint_id = $joint->joint_id;
+
+                $this->Odetails->addOdetail($odetail);
+            }
+
+            if ($joint->count < 2)
+            {
+                throw new Exception('Выберите хотя бы 2 товара для объединения.');
+            }
+
+            $this->Joints->addOdetailJoint($joint);
+
+            // пересчитываем заказ
+            if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+            {
+                throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+            }
+
+            $this->Orders->saveOrder($order);
+
+            // закрываем транзакцию
+            if ($this->db->trans_status() !== FALSE)
+            {
+                $this->db->trans_commit();
+            }
+            $result['message'] = 'Доставка успешно обьединена.';
+        }
+        catch (Exception $e)
+        {
+            $result['is_error'] = 1;
+            $result['message'] = 'Доставка не обьединена. '.$e->getMessage();
+            $this->db->trans_rollback();
+        }
+
+        echo json_encode($result);
+        exit;
+    }
 	
 	public function updatePerPage($per_page)
 	{

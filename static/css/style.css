@@ -2064,12 +2064,19 @@ div.new_order_box span.label {
 	float: left;
 	}
 
-div.new_order_box span.label.currency {
+.add_detail_box.table div.new_order_box span.label.currency {
     left: 378px;
     margin: 7px 0;
     position: absolute;
     width: auto;
-	}
+}
+
+.add_detail_box div.new_order_box span.label.currency {
+    left: 358px;
+    margin: 7px 0;
+    position: absolute;
+    width: auto;
+}
 
 div.new_order_box .textbox {
 	width: 188px;
@@ -2557,18 +2564,23 @@ span.producteditor textarea {
 	float: right;
 }
 
-span.producteditor textarea.img {
-	width:100px;
-	float: none;
+span.producteditor textarea.image {
+	width:180px;
+	float: right;
 }
 
 span.producteditor input[type='file'] {
-	width: 100px;
-	float: none;
+	width: 184px;
+	float: right;
 }
 
 span.producteditor input[type='radio'] {
-	margin: 0px 5px 0 0;
+	margin: 4px 5px 0 0;
+    float: left;
+}
+
+span.producteditor label input[type='radio'] {
+    margin: 0px 5px 0 0;
 }
 
 div.personal span.review_count {
@@ -2640,4 +2652,40 @@ div.new_bid_box textarea  {
 	resize: vertical;
 	width: 425px;
 	display: block;
+}
+
+/* АВТОКОМПЛИТ ДЛЯ ВЫБОРА ПОСРЕДНИКА В ЗАКАЗАХ */
+.ac_results
+{
+    background: #ffffff;
+    width: 180px;
+    border: 1px solid #dddddd;
+}
+
+.ac_results ul
+{
+    margin: 0px;
+    padding: 0;
+}
+
+
+.ac_results ul li
+{
+    list-style: none;
+    border-bottom: 1px solid #dddddd;
+    margin: 4px 0px;
+    padding: 2px 4px;
+    width: 172px;
+    cursor: pointer;
+    color: #000000;
+}
+
+.ac_results ul li:last-of-type
+{
+    border: none;
+}
+
+.ac_results ul li:hover
+{
+    background: #dddddd;
 }

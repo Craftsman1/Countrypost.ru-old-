@@ -7,7 +7,7 @@
         endif;
     endfor;
 ?>
-<div class="online_order_form" style='display:none;'>
+<div class="online_order_form">
 	<div class='table' style="position:relative;">
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>
@@ -31,7 +31,7 @@
 						<? endforeach; ?>
 					</select>
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">В какую страну доставить*:</span>
                     <!--onchange="setCountryTo(this.value)"-->
@@ -45,28 +45,29 @@
 						<? endforeach; ?>
 					</select>
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Город доставки*:</span>
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='city_to_online' name="city_to" value="<?= ($order) ? $order->order_city_to : '' ?>" />
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Cпособ доставки:</span>
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='requested_delivery_online' name="requested_delivery" />
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
-					<span class="label dealer_number_switch">
+					<span class="label dealer_number_switch" style='<?= (!$order OR empty($order->order_manager)) ? '' : 'display:none;' ?>'>
 						<a href="javascript: void(0);" onclick="">Выбрать посредника</a>
 					</span>
-					<span class="label dealer_number_box" style='display:none;'>Номер посредника:</span>
-					<input class="textbox dealer_number_box" maxlength="6" type='text' id='dealer_id_online' name="dealer_id" style='display:none;width:180px;' >
-					<span class="label dealer_number_box" style='display:none;'>
+					<span class="label dealer_number_box" style='<?= (!$order OR empty($order->order_manager)) ? 'display:none;' : '' ?>'>Номер посредника:</span>
+                    <input class="textbox dealer_number_box" maxlength="255" type='text' id='dealer_id_ac_online' style='<?= (!$order OR empty($order->order_manager)) ? 'display:none;' : '' ?>width:180px;' value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>" >
+                    <input type='hidden' id='dealer_id_online' name="dealer_id" value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>">
+					<span class="label dealer_number_box" style='<?= (!$order OR empty($order->order_manager)) ? 'display:none;' : '' ?>'>
 						<img border="0" src="/static/images/delete.png" title="Удалить">
 					</span>
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 			</div>
 		</form>
 	</div>
@@ -93,24 +94,24 @@
 					<span class="label">Ссылка на товар*:</span>
 					<input style="width:180px;" class="textbox" maxlength="4096" type='text' id='olink' name="olink" />
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Наименование товара*:</span>
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='oname' name="oname" />
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Цена товара*:</span>
 					<input style="width:180px;" class="textbox" maxlength="11" type='text' id='oprice' name="oprice" />
 					<span class="label currency"><?= $order_currency ?></span>
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
-					<span class="label">Местная доставка*:</span>
+					<span class="label">Местная доставка:</span>
 					<input style="width:180px;" class="textbox" maxlength="11" type='text' id='odeliveryprice' name="odeliveryprice" />
 					<span class="label currency"><?= $order_currency ?></span>
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Примерный вес (г)*:
 						<br />
@@ -121,19 +122,19 @@
 					<span class="label">
 						<input class="border:auto;" type='button' value="примерный вес товаров" />
 					</span>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				</div>
 			</div>
 		</div>
 		<h3>Дополнительная информация по товару:</h3>
 		<div class='add_detail_box' style="position:relative;">
 			<div class='new_order_box'>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Цвет:</span>
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='ocolor' name="ocolor" />
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Размер:</span>
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='osize' name="osize" />
@@ -141,12 +142,12 @@
 						<input class="border:auto;" type='button' value="подобрать размер" />
 					</span>
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Количество:</span>
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='oamount' name="oamount" value="1" />
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">
 						Скриншот (max. 3 Mb):
@@ -160,17 +161,17 @@
 						<img border="0" src="/static/images/delete.png" title="Удалить">
 					</span>
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Нужно ли фото товара?</span>
 					<input type='checkbox' id='foto_requested' name="foto_requested" />
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Комментарий к товару:</span>
 					<textarea style="width:180px;resize:auto!important;" class="textbox" maxlength="255" id='ocomment' name="ocomment"></textarea>
 				</div>
-				<br style="clear:both;" />
+				<div style="clear:both;" ></div>
 			</div>
 		</div>
 	</form>
@@ -181,15 +182,47 @@
 			</div>
 		</div>
 	</div>
-	<? View::show('main/ajax/showNewOrderDetails', array('order_type' => 'online', 'order' => $order)); ?>
+
+    <? View::show('main/ajax/showNewOrderDetails', array('order_type' => 'online', 'order' => $order)); ?>
+
 </div>
 <script type="text/javascript">
 	$(function() {
-		$('div.online_order').click(function() {
+		$(window).load(function() {
             var order = new $.cpOrder(orderData);
             order.init("online");
 		});
-		
+
+        $('.submit input[type="submit"]').bind('click', function () {
+            var data_items = $('#new_products input[name="odetail_id"]:checked'),
+                    post_data = {};
+
+            $('#joint_progress').show();
+
+            $.each(data_items, function(k, v) {
+                post_data['join'+ $(v).val()] = $(v).val();
+            });
+
+            $.post( "/main/joinNewProducts/<?= $order->order_id ?>",
+                    post_data,
+                    function (responce)
+                    {
+                        if (!responce.is_error)
+                        {
+                            success('top', responce.message);
+                        }
+                        else
+                        {
+                            error('top', responce.message);
+                        }
+
+                        $('#joint_progress').hide();
+                    },
+                    'json'
+            );
+        });
+
+
 		// номер посредника
 		$('.dealer_number_switch a').click(function() {
 			$('.dealer_number_switch').hide('slow');
@@ -198,7 +231,9 @@
 		
 		$('.dealer_number_box img').click(function() {
 			$('.dealer_number_switch').show('slow');
-			$('.dealer_number_box').hide('slow');
+            $('.dealer_number_box').hide('slow');
+            $('.dealer_number_box').val('');
+            $('#dealer_id').val('');
 		});
 
 		// ссылка на скриншот

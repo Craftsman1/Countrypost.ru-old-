@@ -185,4 +185,14 @@ class Dealers extends BaseController {
 		$view['viewpath'] = $this->viewpath;
 		$this->load->view("main/ajax/showDealers", $view);
 	}
+
+    public function getDealersJson($query = null)
+    {
+        $this->load->model('ManagerModel', 'Managers');
+
+        $managers = $this->Managers->getAutocomplitManagers($query);
+
+        echo json_encode($managers);
+        exit;
+    }
 }

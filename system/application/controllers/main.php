@@ -928,7 +928,7 @@ Email: {$this->user->user_email}";
 		return $filter;
 	}
 	
-	public function createorder()
+	public function createorder($order_type = null)
 	{
 		try
 		{
@@ -962,8 +962,39 @@ Email: {$this->user->user_email}";
                 $view['orders'] = null;
             }
 
+            // тип заказа для построения страницы
+            $view['order_type'] = $order_type;
+
 			// крошки
-			Breadcrumb::setCrumb(array('http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => 'Добавление нового заказа'), 1, TRUE);
+            if (!$order_type)
+            {
+                Breadcrumb::setCrumb(array('http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => 'Добавление нового заказа'), 1, TRUE);
+            }
+            else
+            {
+                Breadcrumb::setCrumb(array('http://'.$_SERVER['SERVER_NAME'].$this->viewpath.'createorder' => 'Добавление нового заказа'), 1, TRUE);
+
+                $result_url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+
+                switch ($order_type) :
+
+                    case 'online' :
+                        Breadcrumb::setCrumb(array($result_url => 'Новый Online заказ'), 2, TRUE);
+                        break;
+                    case 'offline' :
+                        Breadcrumb::setCrumb(array($result_url => 'Новый Offline заказ'), 2, TRUE);
+                        break;
+                    case 'service' :
+                        Breadcrumb::setCrumb(array($result_url => 'Новая услуга'), 2, TRUE);
+                        break;
+                    case 'delivery' :
+                        Breadcrumb::setCrumb(array($result_url => 'Новый заказ на доставку'), 2, TRUE);
+                        break;
+                    case 'mailforwarding' :
+                        Breadcrumb::setCrumb(array($result_url => 'Новый '.$order_type.' заказ'), 2, TRUE);
+                        break;
+                endswitch;
+            }
 
 			View::showChild($this->viewpath.'/pages/createorder', $view);
 		}
@@ -1046,6 +1077,11 @@ Email: {$this->user->user_email}";
     {
         parent::deleteNewProduct($oid, $odid);
     }
+
+    public function joinNewProducts($order_id)
+    {
+        parent::joinNewProducts($order_id);
+    }
 	
 	public function checkout()
 	{
@@ -1084,10 +1120,15 @@ Email: {$this->user->user_email}";
             $order->order_status = 'proccessing';
 
 			Check::reset_empties();
-			$order->order_country_from = Check::int('country_from');
 
             // для некоторых заказов получаем необязательные поля отдельно
-            if ($order->order_type != 'service')
+            if ($order->order_type != 'mail_forwarding')
+            {
+                $order->order_country_from = Check::int('country_from');
+            }
+
+            // для некоторых заказов получаем необязательные поля отдельно
+            if ($order->order_type != 'service' AND $order->order_type != 'mail_forwarding')
             {
                 $order->order_country_to = Check::int('country_to');
                 $order->order_city_to = Check::str('city_to', 255, 1);
@@ -1131,6 +1172,24 @@ Email: {$this->user->user_email}";
 			{
 				throw new Exception('Ошибка создания заказа.');
 			}
+
+            if ($order->order_type == 'mail_forwarding')
+            {
+                $this->load->model('BidModel', 'Bids');
+
+                $bid = new stdClass();
+                $bid->order_id = $order_id;
+                $bid->manager_id = $order->order_manager;
+                $bid->client_id = $order->order_client;
+                $bid->delivery_name = $order->preferred_delivery;
+                $bid->status = 'active';
+                $bid->created = $order->order_date;
+
+                if ( ! ($bid = $this->Bids->addBid($bid)))
+                {
+                    throw new Exception('Ошибка создания предложения. Обратитесь к администрации сервиса.');
+                }
+            }
 		}
 		catch (Exception $e)
 		{
@@ -1219,16 +1278,21 @@ Email: {$this->user->user_email}";
             // проверяем, загружается картинка или ссылка
             $img_selector = Check::str('img_selector', 4, 4, '');
             $is_file_uploaded = ($img_selector == 'file') ? TRUE : FALSE;
+            $is_img_link = ($img_selector == 'link') ? TRUE : FALSE;
 
             if ($is_file_uploaded)
             {
                 $userfile = isset($_FILES['userfile']) && !$_FILES['userfile']['error'];
                 $odetail->odetail_img = NULL;
             }
-            else
+            elseif ($is_img_link)
             {
                 $userfile = FALSE;
                 $odetail->odetail_img = Check::str('img', 4096, 1, NULL);
+            }
+            else
+            {
+                $userfile = FALSE;
             }
 
             // Валидация
@@ -1328,6 +1392,9 @@ Email: {$this->user->user_email}";
             $this->db->trans_commit();
 
             // отправляем cообщение на страницу
+            $response['order_id'] = $order->order_id;
+            $response['odetail_id'] = $odetail->odetail_id;
+            $response['odetail_img'] = $odetail->odetail_img;
             $response['message'] = "Описание товара №{$odetail->odetail_id} сохранено.";
         }
         catch (Exception $e)

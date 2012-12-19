@@ -286,55 +286,79 @@ class ManagerModel extends BaseModel implements IModel{
 	/**
 	 * Список партнеров
 	 */
-	public function getManagers() {
-		$managers = $count = array();
-		$rows_count = $this->db->query('SELECT `'.$this->table.'`.manager_user as manager_id,(SELECT count(c2m.manager_id ) FROM `c2m` WHERE c2m.manager_id=`'.$this->table.'`.manager_user) as count FROM `'.$this->table.'`')->result();
-		
-		foreach($rows_count as $r){
-			$count[$r->manager_id]=$r->count;
-		}
-		
-		$rows = $this->db->query('
+    public function getManagers() {
+        $managers = $count = array();
+        $rows_count = $this->db->query('SELECT `'.$this->table.'`.manager_user as manager_id,(SELECT count(c2m.manager_id ) FROM `c2m` WHERE c2m.manager_id=`'.$this->table.'`.manager_user) as count FROM `'.$this->table.'`')->result();
+
+        foreach($rows_count as $r){
+            $count[$r->manager_id]=$r->count;
+        }
+
+        $rows = $this->db->query('
 			SELECT `'.$this->table.'`.*
 						FROM `'.$this->table.'`
 		 				WHERE `'.$this->table.'`.`manager_status` = 1
 						GROUP BY `'.$this->table.'`.`manager_user`		
 		')->result();
-                $last = array();
-                /*print_r($rows);
-                echo "<br/>";*/
-                $managers['all'] = array();
-                $managers['addons'] = array();
-		foreach ($rows as $row) {
-                        if((!array_key_exists($row->manager_country, $last) || $last[$row->manager_country]->last_client_added > $row->last_client_added))
-                            $last[$row->manager_country] = $row;
-			if ((!array_key_exists($row->manager_country, $managers['all']) || $managers['all'][$row->manager_country]->last_client_added > $row->last_client_added) &&($count[$row->manager_user]<$row->manager_max_clients)) {
-                    //if ((!array_key_exists($row->manager_country, $managers) || $managers[$row->manager_country]->last_client_added > $row->last_client_added)) {
-				$managers['all'][$row->manager_country] = $row;
-				/*
-				if(isset($count[$row->manager_user]) && $count[$row->manager_user]>$row->manager_max_clients){
-					$managers['addons'][$row->manager_country] = $row;
-				}*/
-			}
-			
-		}
-                /*print_r($count);
-                echo "<br/>";
-                print_r($last);
-                echo "<br/>";
-                print_r($managers);
-                echo "<br/>";*/
-                foreach ($last as $k => $country_manager){
-                    if (!isset($managers['all'][$k])){
-                        $managers['all'][$k] = $country_manager;
-                        $managers['addons'][$k] = $country_manager;
-                    }
-                }
-                /*print_r($managers);
-                echo "<br/>";
-                die();*/
-		return $managers;
-	}
+        $last = array();
+        /*print_r($rows);
+        echo "<br/>";*/
+        $managers['all'] = array();
+        $managers['addons'] = array();
+        foreach ($rows as $row) {
+            if((!array_key_exists($row->manager_country, $last) || $last[$row->manager_country]->last_client_added > $row->last_client_added))
+                $last[$row->manager_country] = $row;
+            if ((!array_key_exists($row->manager_country, $managers['all']) || $managers['all'][$row->manager_country]->last_client_added > $row->last_client_added) &&($count[$row->manager_user]<$row->manager_max_clients)) {
+                //if ((!array_key_exists($row->manager_country, $managers) || $managers[$row->manager_country]->last_client_added > $row->last_client_added)) {
+                $managers['all'][$row->manager_country] = $row;
+                /*
+                if(isset($count[$row->manager_user]) && $count[$row->manager_user]>$row->manager_max_clients){
+                    $managers['addons'][$row->manager_country] = $row;
+                }*/
+            }
+
+        }
+        /*print_r($count);
+        echo "<br/>";
+        print_r($last);
+        echo "<br/>";
+        print_r($managers);
+        echo "<br/>";*/
+        foreach ($last as $k => $country_manager){
+            if (!isset($managers['all'][$k])){
+                $managers['all'][$k] = $country_manager;
+                $managers['addons'][$k] = $country_manager;
+            }
+        }
+        /*print_r($managers);
+        echo "<br/>";
+        die();*/
+        return $managers;
+    }
+
+    /* Список посредников для автокомплит */
+    public function getAutocomplitManagers($query)
+    {
+        $managers = $count = array();
+
+        $like_query = '%'.$query.'%';
+
+        $managers = $this->db->query(
+            "SELECT
+                a.manager_user as id,
+                b.user_login as login,
+                @fio := CAST(CONCAT(a.manager_surname, ' ', a.manager_name, ' ', a.manager_otc) AS CHAR) as fio
+            FROM `".$this->table."` a
+            LEFT JOIN `users` b ON b.user_id = a.manager_user
+            HAVING
+                fio LIKE ".$this->db->escape($like_query)." OR
+                a.manager_user LIKE ".$this->db->escape($like_query)." OR
+                b.user_login LIKE ".$this->db->escape($like_query)."
+            "
+        )->result();
+
+        return $managers;
+    }
 	
 	public function getActiveManagers() {		
 		$result = $this->select(array('manager_status' => '1'));

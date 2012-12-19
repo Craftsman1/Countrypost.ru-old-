@@ -7,7 +7,7 @@ for ($i = 0, $n = count($orders); $i<$n; $i++) :
     endif;
 endfor;
 ?>
-<div class="service_order_form" style='display:none;'>
+<div class="service_order_form">
     <div class='table' style="position:relative;">
         <div class='angle angle-lt'></div>
         <div class='angle angle-rt'></div>
@@ -31,13 +31,13 @@ endfor;
                         <? endforeach; ?>
                     </select>
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Нужна ли доставка?</span>
                     <label><input type="radio" name="delivery_need" id="delivery_need_y" value="1"/> Да</label>
                     <label><input type="radio" name="delivery_need" id="delivery_need_n" value="0" checked="true"/> Нет</label>
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div style="display:none">
                     <span class="label">В какую страну доставить*:</span>
                     <select id="country_to_service" name="country_to" class="textbox" >
@@ -50,28 +50,29 @@ endfor;
                         <? endforeach; ?>
                     </select>
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div style="display:none">
                     <span class="label">Город доставки*:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='city_to_service' name="city_to" value="<?= ($order) ? $order->order_city_to : '' ?>" />
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div style="display:none">
                     <span class="label">Cпособ доставки:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='requested_delivery_service' name="requested_delivery" />
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
-                        <span class="label dealer_number_switch">
-                            <a href="javascript: void(0);" onclick="">Выбрать посредника</a>
-                        </span>
-                    <span class="label dealer_number_box" style='display:none;'>Номер посредника:</span>
-                    <input class="textbox dealer_number_box" maxlength="6" type='text' id='dealer_id_service' name="dealer_id" style='display:none;width:180px;' >
-                        <span class="label dealer_number_box" style='display:none;'>
-                            <img border="0" src="/static/images/delete.png" title="Удалить">
-                        </span>
+					<span class="label dealer_number_switch" style='<?= (!$order OR empty($order->order_manager)) ? '' : 'display:none;' ?>'>
+						<a href="javascript: void(0);" onclick="">Выбрать посредника</a>
+					</span>
+                    <span class="label dealer_number_box" style='<?= (!$order OR empty($order->order_manager)) ? 'display:none;' : '' ?>'>Номер посредника:</span>
+                    <input class="textbox dealer_number_box" maxlength="255" type='text' id='dealer_id_ac_service' style='<?= (!$order OR empty($order->order_manager)) ? 'display:none;' : '' ?>width:180px;' value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>" >
+                    <input type='hidden' id='dealer_id_service' name="dealer_id" value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>">
+					<span class="label dealer_number_box" style='<?= (!$order OR empty($order->order_manager)) ? 'display:none;' : '' ?>'>
+						<img border="0" src="/static/images/delete.png" title="Удалить">
+					</span>
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
             </div>
         </form>
     </div>
@@ -98,41 +99,30 @@ endfor;
                     <span class="label">Наименование услуги*:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='oname' name="oname" />
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Подробное описание что нужно сделать*:</span>
                     <textarea style="width:180px;resize:auto!important;" class="textbox" maxlength="255" id='ocomment' name="ocomment"></textarea>
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Стоимость за выполнение:</span>
                     <input style="width:180px;" class="textbox" maxlength="11" type='text' id='oprice' name="oprice" />
                     <span class="label currency"><?= $order_currency ?></span>
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Местная доставка:</span>
                     <input style="width:180px;" class="textbox" maxlength="11" type='text' id='odeliveryprice' name="odeliveryprice" />
                     <span class="label currency"><?= $order_currency ?></span>
                 </div>
-                <br style="clear:both;" />
-                <div>
-                    <span class="label">Примерный вес (г)*:
-                        <br />
-                        <i>1кг - 1000грамм
-                        </i>
-                    </span>
-                    <input style="width:180px;" class="textbox" maxlength="255" type='text' id='oweight' name="oweight" />
-                        <span class="label">
-                            <input class="border:auto;" type='button' value="примерный вес товаров" />
-                        </span>
-                    <br style="clear:both;" />
-                </div>
+                <div style="clear:both;" ></div>
             </div>
         </div>
         <div class='add_detail_box' style="position:relative;">
             <div class='new_order_box'>
-                <br style="clear:both;" />
+                <br/>
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">
                         Скриншот (max. 3 Mb):
@@ -146,7 +136,7 @@ endfor;
                         <img border="0" src="/static/images/delete.png" title="Удалить">
                     </span>
                 </div>
-                <br style="clear:both;" />
+                <div style="clear:both;" ></div>
             </div>
         </div>
     </form>
@@ -163,7 +153,7 @@ endfor;
 <script type="text/javascript">
 	$(function()
     {
-        $('div.service_order').click(function() {
+        $(window).load(function() {
             var order = new $.cpOrder(orderData);
             order.init("service");
         });
