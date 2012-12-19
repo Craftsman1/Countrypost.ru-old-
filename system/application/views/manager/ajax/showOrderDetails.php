@@ -322,7 +322,7 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 		<? endif; ?>
 	</table>
 </div>
-<div style="height: 50px; display: none;">
+<div style="height: 50px; display: none;" id="newBidButton">
 	<div class="admin-inside float-left">
 		<div class='submit'>
 			<div>

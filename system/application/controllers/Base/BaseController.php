@@ -372,6 +372,9 @@ abstract class BaseController extends Controller
 
 			foreach ($view['bids'] as $bid)
 			{
+				// находим допрасходы
+				$bid->extra_taxes = $this->Bids->getBidExtras($bid->bid_id);
+
 				// статистика предложения
 				$this->processStatistics($bid, $statistics, 'manager_id', $bid->manager_id, 'manager');
 
@@ -561,6 +564,10 @@ abstract class BaseController extends Controller
 							}
 						}
 					}
+
+
+					// находим допрасходы
+					$bid->extra_taxes = $this->Bids->getBidExtras($bid->bid_id);
 				}
 			}
 

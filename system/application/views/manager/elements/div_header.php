@@ -67,10 +67,13 @@ if (isset($extra_view))
 {
 	if ($extra_view == 'newBid')
 	{
-		View::show('main/elements/orders/newBid', array(
-			'order' => $extra_data['order'],
-			'new_bid' => $extra_data['bid']
-		));
+		if (isset($extra_data))
+		{
+			View::show('main/elements/orders/newBid', array(
+				'order' => $extra_data['order'],
+				'new_bid' => $extra_data['bid']
+			));
+		}
 	}
 }
 ?>
