@@ -83,7 +83,7 @@
         <input type='hidden' name="ocountry_to" class="countryTo" value="<?= ($order) ? (int) $order->order_country_to : '' ?>" />
         <input type='hidden' name="city_to" class="cityTo" value="<?= ($order) ? (int) $order->order_city_to : '' ?>" />
         <input type='hidden' name="dealer_id" class="dealerId" value="<?= ($order) ? (int) $order->order_manager : '' ?>" />
-		<input type='hidden' name="userfileimg" value="12345" />
+
 		<div class='table add_detail_box' style="position:relative;">
 			<div class='angle angle-lt'></div>
 			<div class='angle angle-rt'></div>
@@ -193,6 +193,8 @@
             order.init("online");
 		});
 
+        <? if ($order) : ?>
+
         $('.submit input[type="submit"]').bind('click', function () {
             var data_items = $('#new_products input[name="odetail_id"]:checked'),
                     post_data = {};
@@ -222,6 +224,7 @@
             );
         });
 
+        <? endif; ?>
 
 		// номер посредника
 		$('.dealer_number_switch a').click(function() {

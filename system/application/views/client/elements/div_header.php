@@ -51,6 +51,10 @@
                 </div>
             </div>
         </div>
+
+    <script>
+        user = '<?= (!empty($this->user)) ? $this->user->user_group : '' ?>';
+    </script>
     <? endif; ?>
 <? else : ?>
 <? endif; ?>

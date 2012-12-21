@@ -205,4 +205,5 @@
     //var countryFrom = '';
     var countryTo = '';
     var cityTo = '';
+    var user = '<?= (!empty($this->user)) ? $this->user->user_group : '' ?>';
 </script>

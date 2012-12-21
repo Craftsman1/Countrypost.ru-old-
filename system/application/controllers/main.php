@@ -959,7 +959,16 @@ Email: {$this->user->user_email}";
             // TODO : Если не авторизован проверить нет ли временного заказа
             else
             {
-                $view['orders'] = null;
+                $user_id = UserModel::getTemporaryKey();
+
+                if ($exist_orders = $this->blankExistOrderCheck($user_id))
+                {
+                    $view['orders'] = $exist_orders;
+                }
+                else
+                {
+                    $view['orders'] = null;
+                }
             }
 
             // тип заказа для построения страницы
@@ -1030,16 +1039,7 @@ Email: {$this->user->user_email}";
 				// Эта фишка не прокатывает, значение сессии не может быть типа INT
 				//$user_id = session_id();
 				
-				// Записываем в сессию случайное отрицательное число сгенерированное на базе session_id
-				if (! isset($_SESSION['temporary_user_id']))
-				{
-					$int_session_value = preg_replace("[A-Za-z]", "0", session_id());
-					$int_session_value = (int) $int_session_value;
-					$left_bound = -(time()+$int_session_value);			
-					$_SESSION['temporary_user_id'] = rand($left_bound,-1);
-				}
-				
-				$user_id = $_SESSION['temporary_user_id'];
+				$user_id = UserModel::getTemporaryKey();
 			}
 			else
 			{
@@ -1253,8 +1253,22 @@ Email: {$this->user->user_email}";
             $this->load->model('OrderModel', 'Orders');
             $this->load->model('OdetailModel', 'Odetails');
 
+            // Находим пользователя
+            if (!empty($this->user))
+            {
+                if ($this->user->user_group != 'client')
+                {
+                    throw new Exception('Доступ запрещен.');
+                }
+                $client_id = $this->user->user_id;
+            }
+            else
+            {
+                $client_id = UserModel::getTemporaryKey();
+            }
+
             // находим товар
-            $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $this->user->user_id);
+            $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
 
             if (empty($odetail))
             {
@@ -1424,11 +1438,6 @@ Email: {$this->user->user_email}";
             throw new Exception('Добавьте цену товара.');
         }
 
-        if (empty($detail->odetail_pricedelivery))
-        {
-            throw new Exception('Добавьте местную доставку товара.');
-        }
-
         if (empty($detail->odetail_weight))
         {
             throw new Exception('Добавьте примерный вес товара.');
@@ -1455,11 +1464,6 @@ Email: {$this->user->user_email}";
         if (empty($detail->odetail_price))
         {
             throw new Exception('Добавьте цену товара.');
-        }
-
-        if (empty($detail->odetail_pricedelivery))
-        {
-            throw new Exception('Добавьте местную доставку товара.');
         }
 
         if (empty($detail->odetail_weight))

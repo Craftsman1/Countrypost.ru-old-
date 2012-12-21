@@ -286,7 +286,7 @@ body {
 		background:url(../images/autorization.png) 0 0px no-repeat;
 		}
 		.autorization h2 {
-			margin:0 0 15px 23px;
+			margin:0 0 15px 23px !important;
 			}
 		.autorization .text-field  {
 			width:223px;

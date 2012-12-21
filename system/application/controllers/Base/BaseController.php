@@ -92,7 +92,7 @@ abstract class BaseController extends Controller
 		);
 		
 		//подгружаем доп данные для клиента
-		if ($this->user && $this->user->user_group	== 'client'){
+		if ($this->user AND $this->user->user_group	== 'client'){
 			$this->loadClientData();
 		}
 	}
@@ -267,9 +267,9 @@ abstract class BaseController extends Controller
 		try
 		{
 			// безопасность
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!is_numeric($this->uri->segment(3)))
+			if ( ! $this->user OR
+				 ! $this->user->user_id OR
+				 ! is_numeric($this->uri->segment(3)))
 			{
 				throw new Exception('Доступ запрещен.');
 			}
@@ -290,13 +290,13 @@ abstract class BaseController extends Controller
 			$view['comments'] = $this->Comments->getCommentsByOrderId($this->uri->segment(3));
 			
 			// сбрасываем флаг нового комментария
-			if ($this->user->user_group == 'client' &&
+			if ($this->user->user_group == 'client' AND
 				$order->comment_for_client)
 			{
 				$order->comment_for_client = 0;
 				$view['order'] = $this->Orders->saveOrder($order);
 			}
-			else if ($this->user->user_group == 'manager' &&
+			else if ($this->user->user_group == 'manager' AND
 				$order->comment_for_manager)
 			{
 				$order->comment_for_manager = 0;
@@ -307,7 +307,7 @@ abstract class BaseController extends Controller
 				$view['order'] = $order;
 			}
 
-			if (!$view['order'])
+			if ( ! $view['order'])
 			{
 				throw new Exception('Ошибка отображения комментариев. Попробуйте еще раз.');
 			}
@@ -437,7 +437,7 @@ abstract class BaseController extends Controller
 			$view['joinable_types'] = $this->Orders->getJoinableTypes();
 
 			// кнопка добавить предложение для посредника
-			$view['bids_accepted'] = empty($chosen_bid) && ($this->user->user_group == 'manager');
+			$view['bids_accepted'] = (empty($chosen_bid) AND ($this->user->user_group == 'manager'));
 
 			if ($view['bids_accepted'])
 			{
@@ -679,32 +679,31 @@ abstract class BaseController extends Controller
         $city_to = Check::str('city_to', 40, 0);
         $preferred_delivery = Check::str('requested_delivery', 255, 0);
 
-		if ( ! $detail->odetail_order &&
-            $this->user &&
+        // Находим клиента
+        if (empty($this->user))
+        {
+            $client_id = UserModel::getTemporaryKey();
+        }
+        else
+        {
+            // если пользователь не клиент
+            if ($this->user->user_group != 'client')
+            {
+                throw new Exception('Вы не имеете прав на добавление товаров.');
+            }
+
+            $client_id = $this->user->user_id;
+        }
+
+        // Находим заказ
+		if ( ! $detail->odetail_order AND
+            $this->user AND
 			$this->user->user_group != 'client')
 		{
 			throw new Exception('Заказ не найден.');
 		}
         elseif ( ! $detail->odetail_order )
         {
-            if (empty($this->user))
-            {
-                // Записываем в сессию случайное отрицательное число сгенерированное на базе session_id
-                if (! isset($_SESSION['temporary_user_id']))
-                {
-                    $int_session_value = preg_replace("[A-Za-z]", "0", session_id());
-                    $int_session_value = (int) $int_session_value;
-                    $left_bound = -(time()+$int_session_value);
-                    $_SESSION['temporary_user_id'] = rand($left_bound,-1);
-                }
-
-                $client_id = $_SESSION['temporary_user_id'];
-            }
-            else
-            {
-                $client_id = $this->user->user_id;
-            }
-
             // создаем пустой заказ
             $order = $this->addBlankOrder($client_id, $country_from, $country_to, $city_to, $preferred_delivery, $order_manager, $order_type);
             $detail->odetail_order = $order->order_id;
@@ -723,15 +722,6 @@ abstract class BaseController extends Controller
         $order->city_to             = $city_to;
         $order->preferred_delivery  = $preferred_delivery;
 
-		// находим заказ и клиента
-		if (empty($this->user))
-		{
-			$client_id = $_SESSION['temporary_user_id'];
-		}
-		else if ($this->user->user_group == 'client')
-		{
-			$client_id = $this->user->user_id;
-		}
 
         $detail->odetail_shop				    = Check::str('oshop', 255, 0);
         $detail->odetail_volume				    = Check::float('ovolume', 0);
@@ -750,7 +740,7 @@ abstract class BaseController extends Controller
 		$empties								= Check::get_empties();	
 		
 		$detail->odetail_img					= Check::str('userfileimg', 500, 1);
-		$userfile								= isset($_FILES['userfile']) && !$_FILES['userfile']['error'];
+		$userfile								= (isset($_FILES['userfile']) AND ! $_FILES['userfile']['error']);
 		$detail->odetail_product_amount			= Check::int('oamount');
 		$detail->odetail_product_color			= Check::str('ocolor', 32, 0);
 		$detail->odetail_product_size			= Check::str('osize', 32, 0);
@@ -779,12 +769,12 @@ abstract class BaseController extends Controller
                     $this->mailforwardProductCheck($detail);
                     break;
             }
-			
+
 			if ($userfile)
 			{
                 unset($detail->odetail_img);
 			}
-            elseif (!$detail->odetail_img)
+            elseif ( ! $detail->odetail_img)
             {
                 $detail->odetail_img = 0;
             }
@@ -818,7 +808,7 @@ abstract class BaseController extends Controller
 				$max_height						= 768;
 				$this->load->library('upload', $config);
 
-				if (!$this->upload->do_upload()) {
+				if ( ! $this->upload->do_upload()) {
 					throw new Exception(strip_tags(trim($this->upload->display_errors())));
 				}
 				
@@ -829,7 +819,7 @@ abstract class BaseController extends Controller
 				
 				$uploadedImg	= $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id/{$detail->odetail_id}.jpg";
 				$imageInfo		= getimagesize($uploadedImg);
-				if ($imageInfo[0]>$max_width || $imageInfo[1]>$max_height){
+				if ($imageInfo[0]>$max_width OR $imageInfo[1]>$max_height){
 					
 					$config['image_library']	= 'gd2';
 					$config['source_image']		= $uploadedImg;
@@ -849,7 +839,7 @@ abstract class BaseController extends Controller
 			$this->db->trans_commit();
 			
 			// уведомления
-			if (isset($is_new_status) && $is_new_status)
+			if (isset($is_new_status) AND $is_new_status)
 			{
 				$this->load->model('ManagerModel', 'Managers');
 				$this->load->model('UserModel', 'Users');
@@ -905,8 +895,8 @@ abstract class BaseController extends Controller
 		try
 		{
 			// безопасность
-			if (!$this->user ||
-				!$this->user->user_id ||
+			if ( ! $this->user OR
+				 ! $this->user->user_id OR
 				!is_numeric($this->uri->segment(3)))
 			{
 				throw new Exception('Доступ запрещен.');
@@ -924,7 +914,7 @@ abstract class BaseController extends Controller
 				$o2o = $this->O2o->getClientsO2oById($this->uri->segment(3), $this->user->user_id);
 			}
 			
-			if (!$o2o)
+			if ( ! $o2o)
 			{
 				throw new Exception('Невозможно отобразить комментарии. Соответствующая заявка недоступна.');
 			}
@@ -951,19 +941,19 @@ abstract class BaseController extends Controller
 			$view['comments'] = $this->Comments->getCommentsByO2oId($this->uri->segment(3));
 			$view['o2o'] = $o2o;
 
-			if (!$view['o2o'])
+			if ( ! $view['o2o'])
 			{
 				throw new Exception('Ошибка отображения комментариев. Попробуйте еще раз.');
 			}
 			
 			// сбрасываем флаг нового комментария
-			if ($this->user->user_group == 'client' &&
+			if ($this->user->user_group == 'client' AND
 				$o2o->comment_for_client)
 			{
 				$o2o->comment_for_client = 0;
 				$this->O2o->addOrder($o2o);
 			}
-			else if ($this->user->user_group == 'admin' &&
+			else if ($this->user->user_group == 'admin' AND
 				$o2o->comment_for_admin)
 			{
 				$o2o->comment_for_admin = 0;
@@ -991,8 +981,8 @@ abstract class BaseController extends Controller
 		try
 		{
 			// безопасность
-			if (!$this->user ||
-				!$this->user->user_id ||
+			if ( ! $this->user OR
+				 ! $this->user->user_id OR
 				!is_numeric($this->uri->segment(3)))
 			{
 				throw new Exception('Доступ запрещен.');
@@ -1010,7 +1000,7 @@ abstract class BaseController extends Controller
 				$o2i = $this->O2i->getClientsO2iById($this->uri->segment(3), $this->user->user_id);
 			}
 			
-			if (!$o2i)
+			if ( ! $o2i)
 			{
 				throw new Exception('Невозможно отобразить комментарии. Соответствующая заявка недоступна.');
 			}
@@ -1020,19 +1010,19 @@ abstract class BaseController extends Controller
 			$view['comments'] = $this->Comments->getCommentsByO2iId($this->uri->segment(3));
 			$view['o2i'] = $o2i;
 
-			if (!$view['o2i'])
+			if ( ! $view['o2i'])
 			{
 				throw new Exception('Ошибка отображения комментариев. Попробуйте еще раз.');
 			}
 			
 			// сбрасываем флаг нового комментария
-			if ($this->user->user_group == 'client' &&
+			if ($this->user->user_group == 'client' AND
 				$o2i->order2in_2clientcomment)
 			{
 				$o2i->order2in_2clientcomment = 0;
 				$this->O2i->addOrder($o2i);
 			}
-			else if ($this->user->user_group == 'admin' &&
+			else if ($this->user->user_group == 'admin' AND
 				$o2i->order2in_2admincomment)
 			{
 				$o2i->order2in_2admincomment = 0;
@@ -1099,7 +1089,7 @@ abstract class BaseController extends Controller
 			// сохранение результатов
 			$comment = $this->Comments->addComment($comment);
 			
-			if ( ! $comment &&
+			if ( ! $comment AND
 				! is_numeric($comment_id))
 			{
 				throw new Exception('Комментарий не добавлен. Попробуйте еще раз.');
@@ -1145,8 +1135,8 @@ abstract class BaseController extends Controller
 		try
 		{
 			// безопасность
-			if (!$this->user ||
-				!$this->user->user_id ||
+			if ( ! $this->user OR
+				 ! $this->user->user_id OR
 				!is_numeric($this->uri->segment(3)))
 			{
 				throw new Exception('Доступ запрещен.');
@@ -1164,7 +1154,7 @@ abstract class BaseController extends Controller
 				$o2o = $this->O2o->getClientsO2oById($this->uri->segment(3), $this->user->user_id);
 			}
 
-			if (!$o2o)
+			if ( ! $o2o)
 			{
 				throw new Exception('Невозможно добавить комментарий. Соответствующая заявка недоступна.');
 			}
@@ -1187,7 +1177,7 @@ abstract class BaseController extends Controller
 			$this->db->trans_begin();
 			$new_comment = $this->Comments->addComment($o2comment);
 			
-			if (!$new_comment)
+			if ( ! $new_comment)
 			{
 				throw new Exception('Комментарий не добавлен. Попробуйте еще раз.');
 			}			
@@ -1224,8 +1214,8 @@ abstract class BaseController extends Controller
 		try
 		{
 			// безопасность
-			if (!$this->user ||
-				!$this->user->user_id ||
+			if ( ! $this->user OR
+				 ! $this->user->user_id OR
 				!is_numeric($this->uri->segment(3)))
 			{
 				throw new Exception('Доступ запрещен.');
@@ -1243,7 +1233,7 @@ abstract class BaseController extends Controller
 				$o2i = $this->O2i->getClientsO2iById($this->uri->segment(3), $this->user->user_id);
 			}
 
-			if (!$o2i)
+			if ( ! $o2i)
 			{
 				throw new Exception('Невозможно добавить комментарий. Соответствующая заявка недоступна.');
 			}
@@ -1267,7 +1257,7 @@ abstract class BaseController extends Controller
 			$this->db->trans_begin();
 			$new_comment = $this->Comments->addComment($o2comment);
 			
-			if (!$new_comment)
+			if ( ! $new_comment)
 			{
 				throw new Exception('Комментарий не добавлен. Попробуйте еще раз.');
 			}			
@@ -1316,7 +1306,7 @@ abstract class BaseController extends Controller
 			if (isset($_POST['id_type'])) $filter->id_type									= Check::txt('id_type', 13, 5, '');
 			if (isset($_POST['id_status'])) $filter->id_status								= Check::txt('id_status', 20, 1, '');
 
-			if ( ! isset($filter->id_type) || $filter->id_type == '')
+			if ( ! isset($filter->id_type) OR $filter->id_type == '')
 			{
 				$filter->search_id = '';
 				$filter->search_client = '';
@@ -1426,7 +1416,7 @@ abstract class BaseController extends Controller
 		$filter->sservice	= '';
 
 		// сброс фильтра
-		if (isset($_POST['resetFilter']) && $_POST['resetFilter'] == '1')
+		if (isset($_POST['resetFilter']) AND $_POST['resetFilter'] == '1')
 		{
 			return $filter;
 		}
@@ -1495,11 +1485,11 @@ abstract class BaseController extends Controller
 		}
 		
 		// тип услуги, за которую произведена оплата
-		if (isset($filter->sservice) &&
-			($filter->sservice == 'package' || 
-			$filter->sservice == 'order' || 
-			$filter->sservice == 'in' || 
-			$filter->sservice == 'out' || 
+		if (isset($filter->sservice) AND
+			($filter->sservice == 'package' OR 
+			$filter->sservice == 'order' OR 
+			$filter->sservice == 'in' OR 
+			$filter->sservice == 'out' OR 
 			$filter->sservice == 'salary'))
 		{
 			$filter->condition['payment_type'] = $filter->sservice;
@@ -1545,8 +1535,8 @@ abstract class BaseController extends Controller
 	{
 		try
 		{
-			if (!$this->user ||
-				!$this->user->user_id ||
+			if ( ! $this->user OR
+				 ! $this->user->user_id OR
 				!is_numeric($this->uri->segment(3)))
 			{
 				throw new Exception('Доступ запрещен.');
@@ -1561,7 +1551,7 @@ abstract class BaseController extends Controller
 			$order->order_status = 'deleted';
 			$deleted_order = $this->Orders->saveOrder($order);
 			
-			if (!$deleted_order)
+			if ( ! $deleted_order)
 			{
 				throw new Exception('Заказ не удален. Попробуйте еще раз.');
 			}
@@ -1633,7 +1623,7 @@ abstract class BaseController extends Controller
 
 			if ($order->order_status == 'payed')
 			{
-				if (!isset($_POST['payed'.$order_id]) || !is_numeric($_POST['payed'.$order_id]))
+				if (!isset($_POST['payed'.$order_id]) OR !is_numeric($_POST['payed'.$order_id]))
 				{
 					throw new Exception('Сумма оплаты одного или нескольких заказов не определена. Попоробуйте еще раз.');
 				}
@@ -1706,9 +1696,9 @@ abstract class BaseController extends Controller
 	{
 		try
 		{
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!isset($_POST['order_id']) ||
+			if ( ! $this->user OR
+				 ! $this->user->user_id OR
+				!isset($_POST['order_id']) OR
 				!is_numeric($_POST['order_id']))
 			{
 				throw new Exception('Доступ запрещен.');
@@ -1726,14 +1716,14 @@ abstract class BaseController extends Controller
 			$this->load->model('CurrencyModel', 'Currencies');
 			$country = $this->Countries->getById($order->order_country);
 		
-			if (!$country)
+			if ( ! $country)
 			{
 				throw new Exception('Невозможно конвертировать цену в доллары. Курс не найден.');
 			}
 			
 			$cross_rate = $this->Currencies->getById($country->country_currency);
 			
-			if (!$cross_rate)
+			if ( ! $cross_rate)
 			{
 				throw new Exception('Невозможно конвертировать цену в доллары. Попробуйте еще раз.');
 			}
@@ -1761,7 +1751,7 @@ abstract class BaseController extends Controller
 
 					// сохранение результатов
 					$odetail = $this->Odetails->getById($odetail_id);
-					if (!$odetail) 
+					if ( ! $odetail) 
 					{
 						throw new Exception('Некоторые товары не найдены. Попоробуйте еще раз.');
 					}
@@ -1796,7 +1786,7 @@ abstract class BaseController extends Controller
 					// конвертируем валюту для невыкупленных, доставленных и недоставленных товаров
 					$current_status = $odetail->odetail_status;
 					
-					if ($current_status != 'purchased' && $current_status != 'received' && $current_status != 'not_delivered')
+					if ($current_status != 'purchased' AND $current_status != 'received' AND $current_status != 'not_delivered')
 					{
 						$odetail->odetail_price = 
 							isset($_POST['odetail_price'.$odetail_id]) ?
@@ -1820,7 +1810,7 @@ abstract class BaseController extends Controller
 					else 
 					{
 						// замораживаем доставку у объединенных
-						if ($odetail->odetail_joint_id && 
+						if ($odetail->odetail_joint_id AND 
 							empty($joint_skip_deliveries[$odetail->odetail_joint_id]))
 						{
 							$joint_skip_deliveries[$odetail->odetail_joint_id] = 1;
@@ -1835,7 +1825,7 @@ abstract class BaseController extends Controller
 					$total_price_usd += $odetail->odetail_price_usd;
 					
 					// для объединенных товаров доставку считаем ниже
-					if (!$odetail->odetail_joint_id)
+					if ( ! $odetail->odetail_joint_id)
 					{
 						$total_pricedelivery += $odetail->odetail_pricedelivery;
 						$total_pricedelivery_usd += $odetail->odetail_pricedelivery_usd;
@@ -1857,7 +1847,7 @@ abstract class BaseController extends Controller
 			foreach ($joint_skip_deliveries as $odetail_joint_id => $skip)
 			{
 				$joint = $this->Joints->getById($odetail_joint_id);
-				if (!$joint) 
+				if ( ! $joint) 
 				{
 					throw new Exception('Некоторые товары не найдены. Попоробуйте еще раз.');
 				}
@@ -1865,7 +1855,7 @@ abstract class BaseController extends Controller
 				// инициализация
 				$odetail_joint_cost = isset($_POST["odetail_joint_cost$odetail_joint_id"]) ? $_POST["odetail_joint_cost$odetail_joint_id"] : NULL;
 
-				if (!empty($odetail_joint_cost) &&
+				if (!empty($odetail_joint_cost) AND
 					is_numeric($odetail_joint_cost))
 				{
 					$joint->odetail_joint_cost = $odetail_joint_cost;
@@ -1882,7 +1872,7 @@ abstract class BaseController extends Controller
 			// меняем статус заказа
 			$status = $this->Odetails->getTotalStatus($order_id);
 			
-			if (!$status)
+			if ( ! $status)
 			{
 				throw new Exception('Статус заказа не определен. Попоробуйте еще раз.');
 			}
@@ -2028,7 +2018,7 @@ abstract class BaseController extends Controller
 		try 
 		{
 			// безопасность
-			if (!isset($oid) ||
+			if (!isset($oid) OR
 				!is_numeric($oid))
 			{
 				throw new Exception('Доступ запрещен.');
@@ -2042,20 +2032,20 @@ abstract class BaseController extends Controller
 			// роли и доступ
 			if ($this->user->user_group == 'admin')
 			{
-				if (!$o2o)
+				if ( ! $o2o)
 				{
 					throw new Exception('Заявка не найдена. Попробуйте еще раз.');
 				}
 			}
-			else if (!$o2o || 
-				$o2o->order2out_user != $this->user->user_id ||
+			else if ( ! $o2o OR 
+				$o2o->order2out_user != $this->user->user_id OR
 				$o2o->order2out_status != 'processing')
 			{
 				throw new Exception('Заявка не найдена. Попробуйте еще раз.');
 			}
 			
 			// долларовый счет или в местной валюте
-			$is_usd_account = !empty($o2o->order2out_ammount) && (empty($o2o->order2out_currency) || !empty($o2o->order2out_ammount_local));
+			$is_usd_account = !empty($o2o->order2out_ammount) AND (empty($o2o->order2out_currency) OR !empty($o2o->order2out_ammount_local));
 			$is_local_account = isset($o2o->order2out_currency);
 			
 			$this->load->model('ManagerModel', 'Manager');
@@ -2093,7 +2083,7 @@ abstract class BaseController extends Controller
 			//платеж в долларах
 			if ($is_usd_account)
 			{
-				if (!$this->Payment->makePayment($payment_obj)) 
+				if ( ! $this->Payment->makePayment($payment_obj)) 
 				{
 					throw new Exception('Невозможно отменить заявку на вывод. Попробуйте еще раз.');
 				}
@@ -2114,7 +2104,7 @@ abstract class BaseController extends Controller
 					$o2o->order2out_ammount :
 					$o2o->order2out_ammount_local;
 			
-				if (!$this->Payment->makePaymentLocal($payment_obj)) 
+				if ( ! $this->Payment->makePaymentLocal($payment_obj)) 
 				{
 					throw new Exception('Невозможно отменить заявку на вывод. Попробуйте еще раз.');
 				}
@@ -2131,7 +2121,7 @@ abstract class BaseController extends Controller
 			// удаляем заявку
 			$o2o->order2out_status = 'deleted';
 			
-			if (!$this->Order2out->addOrder($o2o)) 
+			if ( ! $this->Order2out->addOrder($o2o)) 
 			{
 				throw new Exception('Ошибка удаления заявки на вывод. Попробуйте еще раз.');
 			}		
@@ -2156,7 +2146,7 @@ abstract class BaseController extends Controller
 		try 
 		{
 			// безопасность
-			if (!isset($oid) ||
+			if (!isset($oid) OR
 				!is_numeric($oid))
 			{
 				throw new Exception('Доступ запрещен.');
@@ -2170,12 +2160,12 @@ abstract class BaseController extends Controller
 			// роли и доступ
 			if ($this->user->user_group == 'admin')
 			{
-				if (!$o2o)
+				if ( ! $o2o)
 				{
 					throw new Exception('Заявка не найдена. Попробуйте еще раз.');
 				}
 			}
-			else if (!$o2o || $o2o->order2in_status != 'processing' || $o2o->order2in_user != $this->user->user_id)
+			else if ( ! $o2o OR $o2o->order2in_status != 'processing' OR $o2o->order2in_user != $this->user->user_id)
 			{
 				throw new Exception('Заявка не найдена. Попробуйте еще раз.');
 			}
@@ -2183,7 +2173,7 @@ abstract class BaseController extends Controller
 			// сохранение результата
 			$this->db->trans_begin();
 			/*
-			if ($this->user->user_group == 'admin' && $o2o->order2in_status == 'payed')
+			if ($this->user->user_group == 'admin' AND $o2o->order2in_status == 'payed')
 			{
 				$payment_obj = new stdClass();
 				$payment_obj->payment_from			= $o2o->order2in_user;
@@ -2196,7 +2186,7 @@ abstract class BaseController extends Controller
 				
 				$this->load->model('PaymentModel', 'Payment');
 					
-				if (!$this->Payment->makePayment($payment_obj)) 
+				if ( ! $this->Payment->makePayment($payment_obj)) 
 				{
 					throw new Exception('Ошибка снятия денег со счета клиента. Попробуйте еще раз.');
 				}
@@ -2214,7 +2204,7 @@ abstract class BaseController extends Controller
 			
 			$o2o->order2in_status = 'deleted';
 			
-			if (!$this->Order2in->addOrder($o2o)) 
+			if ( ! $this->Order2in->addOrder($o2o)) 
 			{
 				throw new Exception('Ошибка удаления заявки на вывод. Попробуйте еще раз.');
 			}		
@@ -2244,7 +2234,7 @@ abstract class BaseController extends Controller
 
 	public function getPayments(){
 		
-		if (!$this->user)	return FALSE;
+		if ( ! $this->user)	return FALSE;
 		
 		$this->load->model('PaymentModel', 'Payment');
 		
@@ -2265,7 +2255,7 @@ abstract class BaseController extends Controller
 			// сохранение результатов
 			$this->load->model('OCommentModel', 'Comments');
 			
-			if (!$this->Comments->delComment($comment_id))
+			if ( ! $this->Comments->delComment($comment_id))
 			{
 				throw new Exception('Комментарий не удален. Попробуйте еще раз.');
 			}			
@@ -2335,7 +2325,7 @@ abstract class BaseController extends Controller
 			$this->paging_base_url = '/'.$this->user->user_group.'/'.$this->uri->segment(2);
 		}
 
-		if ($this->uri->segment(1) == 'main' &&
+		if ($this->uri->segment(1) == 'main' AND
 			$this->uri->segment(2) == 'showCategory')
 		{
 			$this->paging_base_url = '/main/showCategory/'.
@@ -2385,7 +2375,7 @@ abstract class BaseController extends Controller
 		$this->init_paging();		
 		$this->paging_count = count($view['Payments']);
 	
-		if (isset($view['Payments']) && $view['Payments'])
+		if (isset($view['Payments']) AND $view['Payments'])
 		{
 			$view['Payments'] = array_slice($view['Payments'], $this->paging_offset, $this->per_page);
 		}			
@@ -2510,7 +2500,7 @@ abstract class BaseController extends Controller
 		}
 
 		// открываем детали заказа
-		if (isset($order) && $order)
+		if (isset($order) AND $order)
 		{
 			Func::redirect(BASEURL."{$this->cname}/order/{$order->order_id}");
 		}
@@ -2524,7 +2514,7 @@ abstract class BaseController extends Controller
 	{
 		try
 		{
-			if ( ! is_numeric($joint_id) ||
+			if ( ! is_numeric($joint_id) OR
 				! is_numeric($order_id))
 			{
 				throw new Exception('Доступ запрещен.');
@@ -2561,7 +2551,7 @@ abstract class BaseController extends Controller
 		}
 
 		// открываем детали заказа
-		if (isset($order) && $order)
+		if (isset($order) AND $order)
 		{
 			Func::redirect(BASEURL . "{$this->cname}/order/{$order->order_id}");
 		}
@@ -2679,8 +2669,8 @@ abstract class BaseController extends Controller
 	
 	public function updatePerPage($per_page)
 	{
-		if (!is_numeric($per_page) ||
-			!$this->user)
+		if (!is_numeric($per_page) OR
+			 ! $this->user)
 		{
 			throw new Exception('Доступ запрещен.');
 		}
@@ -2691,8 +2681,8 @@ abstract class BaseController extends Controller
 	
 	public function updatePaymentsPerPage($per_page)
 	{
-		if (!is_numeric($per_page) ||
-			!$this->user)
+		if (!is_numeric($per_page) OR
+			 ! $this->user)
 		{
 			throw new Exception('Доступ запрещен.');
 		}
@@ -2706,8 +2696,8 @@ abstract class BaseController extends Controller
         try
         {
             /*
-            if (!$this->user ||
-                !$this->user->user_id ||
+            if ( ! $this->user OR
+                 ! $this->user->user_id OR
                 !is_numeric($odid))
             {
                 throw new Exception('Доступ запрещен.');
@@ -2793,14 +2783,14 @@ abstract class BaseController extends Controller
                         {
                             $status = $this->ODetails->getTotalStatus($order->order_id);
 
-                            if (!$status)
+                            if ( ! $status)
                             {
                                 throw new Exception('Невозможно изменить статус заказа. Попоробуйте еще раз.');
                             }
 
                             $recent_status = $order->order_status;
 
-                            if ($recent_status != 'payed' && $recent_status != 'sent')
+                            if ($recent_status != 'payed' AND $recent_status != 'sent')
                             {
                                 $order->order_status = $this->Orders->calculateOrderStatus($status);
                                 $is_new_status = ($recent_status != $order->order_status);
@@ -2811,7 +2801,7 @@ abstract class BaseController extends Controller
                         // пересчитываем стоимость заказа
                         $this->load->model('ConfigModel', 'Config');
 
-                        if (!$this->Orders->recalculate($order, $this->ODetails, $this->Joints, $this->Config))
+                        if ( ! $this->Orders->recalculate($order, $this->ODetails, $this->Joints, $this->Config))
                         {
                             throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
                         }
@@ -2819,7 +2809,7 @@ abstract class BaseController extends Controller
                         // сохраняем изменения в заказе
                         $new_order = $this->Orders->saveOrder($order);
 
-                        if (!$new_order)
+                        if ( ! $new_order)
                         {
                             throw new Exception('Невожможно изменить статус заказа. Попоробуйте еще раз.');
                         }
@@ -2827,7 +2817,7 @@ abstract class BaseController extends Controller
             $this->db->trans_commit();
 
             // уведомления, только если остались товары в заказе
-            if (isset($is_new_status) && $is_new_status && !isset($is_order_deleted))
+            if (isset($is_new_status) AND $is_new_status AND !isset($is_order_deleted))
             {
                 $this->load->model('ManagerModel', 'Managers');
                 $this->load->model('UserModel', 'Users');
@@ -3230,7 +3220,7 @@ abstract class BaseController extends Controller
         $model = $this->getOrderModel();
 
         // залогиненным показываем только их заказ, либо заказ с их предложением
-        if (isset($this->user->user_group) && $this->user->user_group != 'manager')
+        if (isset($this->user->user_group) AND $this->user->user_group != 'manager')
         {
             switch ($this->user->user_group)
             {
@@ -3241,6 +3231,12 @@ abstract class BaseController extends Controller
                     $order = $model->getById($order_id);
                     break;
             }
+        }
+        // если пользователь не авторизован пробуем достать временный заказ
+        elseif (empty($this->user))
+        {
+            $temp_user_id = UserModel::getTemporaryKey();
+            $order = $model->getClientOrderById($order_id, $temp_user_id);
         }
 
         // валидация
@@ -3370,7 +3366,7 @@ abstract class BaseController extends Controller
 		$imageInfo = getimagesize($filename);
 
 		// ресайзим большие картинки
-		if ($imageInfo[0] > $max_width || $imageInfo[1] > $max_height)
+		if ($imageInfo[0] > $max_width OR $imageInfo[1] > $max_height)
 		{
 			$config['image_library']	= 'gd2';
 			$config['source_image']		= $filename;
@@ -3770,7 +3766,7 @@ abstract class BaseController extends Controller
 
 			if ($is_file_uploaded)
 			{
-				$userfile = isset($_FILES['userfile']) && !$_FILES['userfile']['error'];
+				$userfile = isset($_FILES['userfile']) AND  ! $_FILES['userfile']['error'];
 				$odetail->odetail_img = NULL;
 			}
 			else
@@ -3788,7 +3784,7 @@ abstract class BaseController extends Controller
 			if ($is_file_uploaded AND
 				empty($userfile))
 			{
-				if (isset($_FILES['userfile']) &&
+				if (isset($_FILES['userfile']) AND
 					$_FILES['userfile']['error'] == 1)
 				{
 					throw new Exception('Максимальный размер картинки 3MB.');
@@ -3807,7 +3803,7 @@ abstract class BaseController extends Controller
 			$this->Odetails->updateOdetail($odetail);
 
 			// загружаем файл
-			if (isset($userfile) && $userfile)
+			if (isset($userfile) AND $userfile)
 			{
 				$this->uploadOrderScreenshot($odetail, $client_id);
 			}

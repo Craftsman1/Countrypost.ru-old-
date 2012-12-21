@@ -71,10 +71,6 @@ endfor;
         </form>
     </div>
     <h3>Добавить товар/груз:</h3>
-    <div class="h2_link">
-        <img src="/static/images/mini_help.gif" style="float:right;margin-left: 7px;" />
-        <a href="javascript: void(0);" class="excel_switcher" style="">Массовая загрузка товаров</a>
-    </div>
     <form class='admin-inside' action="<?= $selfurl ?>addProductManualAjax" id="deliveryItemForm" method="POST">
         <input type='hidden' name="order_id" class="order_id" value="<?= ($order) ? (int) $order->order_id : 0 ?>" />
         <input type='hidden' name="order_type" class="order_type" value="delivery" />

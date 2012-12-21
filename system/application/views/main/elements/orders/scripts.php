@@ -234,6 +234,7 @@
                 var item = new cartItem(args);
 
                 cObj.items.push(item);
+                window.cpCart = cObj.items;
             }
         }
 
@@ -247,6 +248,7 @@
                 });
 
                 cObj.items.push(item);
+                window.cpCart = cObj.items;
             }
         }
 
@@ -294,6 +296,7 @@
                 cObj.items.splice(i, 1);
                 break;
             }
+            window.cpCart = cObj.items;
         }
 
         cObj.calcTotals = function () {
@@ -1212,7 +1215,7 @@
             });
             country_from.validate({
                 expression:'if (VAL == 0) { return false; } else { return true; }',
-                message:'Необходимо выбрать страну поступления'
+                message:'Необходимо выбрать страну заказа'
             });
             oObj.fields.push(country_from);
 
@@ -1519,7 +1522,10 @@
 
                                     // Отображаем список товаров
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().show();
-                                    $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    if (user != '')
+                                    {
+                                        $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    }
                                 }
                             }
                             // Ответ не был получен
@@ -1990,7 +1996,7 @@
             });
             country_from.validate({
                 expression:'if (VAL == 0) { return false; } else { return true; }',
-                message:'Необходимо выбрать страну поступления'
+                message:'Необходимо выбрать страну заказа'
             });
             oObj.fields.push(country_from);
 
@@ -2237,7 +2243,10 @@
 
                                     // Отображаем список товаров
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().show();
-                                    $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    if (user != '')
+                                    {
+                                        $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    }
                                 }
                             }
                             // Ответ не был получен
@@ -2682,7 +2691,7 @@
             });
             country_from.validate({
                 expression:'if (VAL == 0) { return false; } else { return true; }',
-                message:'Необходимо выбрать страну поступления'
+                message:'Необходимо выбрать страну заказа'
             });
             oObj.fields.push(country_from);
 
@@ -2984,7 +2993,10 @@
 
                                     // Отображаем список товаров
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().show();
-                                    $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    if (user != '')
+                                    {
+                                        $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    }
                                 }
                             }
                             // Ответ не был получен
@@ -3454,7 +3466,7 @@
             });
             country_from.validate({
                 expression:'if (VAL == 0) { return false; } else { return true; }',
-                message:'Необходимо выбрать страну поступления'
+                message:'Необходимо выбрать страну заказа'
             });
             oObj.fields.push(country_from);
 
@@ -3711,7 +3723,10 @@
 
                                     // Отображаем список товаров
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().show();
-                                    $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    if (user != '')
+                                    {
+                                        $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    }
                                 }
                             }
                             // Ответ не был получен
@@ -4220,5 +4235,20 @@
         oObj.items = [];
     }
 
+    var selectAll = function ()
+    {
+        var obj = $(this);
+        if (obj[0].checked)
+        {
+            $('#new_products input[type="checkbox"]').attr('checked', 'checked');
+        }
+        else
+        {
+            $('#new_products input[type="checkbox"]').removeAttr('checked');
+        }
+    }
+    $(window).load(function() {
+        $('#select_all').bind('click', selectAll);
+    });
 })(jQuery)
 </script>

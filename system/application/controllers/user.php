@@ -128,7 +128,12 @@ class User extends BaseController {
 		elseif ($this->user->user_group == 'client')
 		{
 			$view['is_client'] = 1;
-			$view['allowed_segments'][] = 'createorder';
+            $view['allowed_segments'][] = 'createorder';
+            $view['allowed_segments'][] = 'online';
+            $view['allowed_segments'][] = 'offline';
+            $view['allowed_segments'][] = 'service';
+            $view['allowed_segments'][] = 'delivery';
+            $view['allowed_segments'][] = 'mailforwarding';
 		}
 
 		if (isset($handler) AND isset($id))
