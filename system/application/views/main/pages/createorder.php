@@ -85,48 +85,42 @@
             document.location = '<?= $this->viewpath ?>createorder/mailforwarding';
         });
 
-    <?
-    $order = null;
-    for ($i = 0, $n = count($orders); $i<$n; $i++) :
-        if ($orders[$i]->order_type == 'online') :
-            $order = $orders[$i];
-            break;
-        endif;
-    endfor;
-    ?>
-
-    <? if ($order) : ?>
 
         $('.submit input[type="submit"]').bind('click', function () {
             var data_items = $('#new_products input[name="odetail_id"]:checked'),
-                    post_data = {};
+                post_data = {},
+                order_id = parseInt($('input.order_id').val(), 10);
 
-            $('#joint_progress').show();
 
-            $.each(data_items, function(k, v) {
-                post_data['join'+ $(v).val()] = $(v).val();
-            });
+            if (order_id && !isNaN(order_id))
+            {
+                $('#joint_progress').show();
 
-            $.post( "/main/joinNewProducts/<?= $order->order_id ?>",
-                    post_data,
-                    function (responce)
-                    {
-                        if (!responce.is_error)
+                $.each(data_items, function(k, v) {
+                    post_data['join'+ $(v).val()] = $(v).val();
+                });
+
+                $.post( "/main/joinNewProducts/" + order_id,
+                        post_data,
+                        function (responce)
                         {
-                            success('top', responce.message);
-                        }
-                        else
-                        {
-                            error('top', responce.message);
-                        }
+                            if (!responce.is_error)
+                            {
+                                success('top', responce.message);
+                            }
+                            else
+                            {
+                                error('top', responce.message);
+                            }
 
-                        $('#joint_progress').hide();
-                    },
-                    'json'
-            );
+                            $('#joint_progress').hide();
+                        },
+                        'json'
+                );
+            }
+
         });
 
-        <? endif; ?>
     })(jQuery)
 
 
