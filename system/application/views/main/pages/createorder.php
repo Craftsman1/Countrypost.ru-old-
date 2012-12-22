@@ -107,6 +107,7 @@
                             if (!responce.is_error)
                             {
                                 success('top', responce.message);
+                                document.location.reload();
                             }
                             else
                             {
@@ -236,7 +237,7 @@
     }
 
 
-    var orderData = <?= ($json = json_encode($orders)) ? $json : '{}' ?>;
+    var orderData = <?= ($json = json_encode(array($order))) ? $json : '{}' ?>;
     var currencies = <?= json_encode($countries); ?>;
     var selectedCurrency = '<?= $order_currency ?>';
     //var countryFrom = '';

@@ -946,6 +946,9 @@ Email: {$this->user->user_email}";
 
 			// типы заказов
 		    $this->load->model('OrderModel', 'Orders');
+            $this->load->model('OdetailModel', 'Odetails');
+            $this->load->model('OdetailJointModel', 'Joints');
+
 			$view['order_types'] = $this->Orders->getOrderTypes();
 
             $view['order_currency'] = '';
@@ -970,6 +973,22 @@ Email: {$this->user->user_email}";
                     $view['orders'] = null;
                 }
             }
+
+            $view['order'] = null;
+            $view['joints'] = null;
+            $view['odetails'] = null;
+
+            for($i = 0, $n = count($view['orders']); $i < $n; $i++) :
+                $order = $view['orders'][$i];
+                if ($order->order_type == $order_type) :
+                    $view['order'] = $order;
+                    $view['odetails'] = $this->Odetails->getOrderDetails($order->order_id);
+                    $view['joints'] = $this->Joints->getOrderJoints($order->order_id);
+                    $this->Orders->prepareOrderView($view);
+                    break;
+                endif;
+            endfor;
+
 
             // тип заказа для построения страницы
             $view['order_type'] = $order_type;
@@ -1081,6 +1100,11 @@ Email: {$this->user->user_email}";
     public function joinNewProducts($order_id)
     {
         parent::joinNewProducts($order_id);
+    }
+
+    public function removeNewJoint($order_id, $joint_id)
+    {
+        parent::removeNewJoint($order_id, $joint_id);
     }
 	
 	public function checkout()

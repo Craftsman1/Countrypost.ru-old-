@@ -2674,6 +2674,58 @@ abstract class BaseController extends Controller
         echo json_encode($result);
         exit;
     }
+
+    protected function removeNewJoint($order_id, $joint_id)
+    {
+        try
+        {
+            if ( ! is_numeric($joint_id) OR
+                ! is_numeric($order_id))
+            {
+                throw new Exception('Доступ запрещен.');
+            }
+
+            // безопасность: проверяем связку менеджера и заказа
+            $order = $this->getNewOrder(
+                $order_id,
+                'Заказ не найден.');
+
+            $this->load->model('OdetailModel', 'Odetails');
+            $this->load->model('OdetailJointModel', 'Joints');
+
+            // погнали
+            $this->db->trans_begin();
+
+            $this->Odetails->clearJoints($joint_id);
+
+            // пересчитываем заказ
+            if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+            {
+                throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+            }
+
+            $this->Orders->saveOrder($order);
+
+            // закрываем транзакцию
+            if ($this->db->trans_status() !== FALSE)
+            {
+                $this->db->trans_commit();
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+
+        // открываем детали заказа
+        if (isset($order) AND $order)
+        {
+            Func::redirect(BASEURL . "{$this->cname}/createorder/{$order->order_type}");
+        }
+        else
+        {
+            Func::redirect(BASEURL);
+        }
+    }
 	
 	public function updatePerPage($per_page)
 	{

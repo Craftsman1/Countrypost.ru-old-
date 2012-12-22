@@ -4256,5 +4256,65 @@
     $(window).load(function() {
         $('#select_all').bind('click', selectAll);
     });
+
+
 })(jQuery)
+
+
+function joinProducts()
+{
+    var selectedProds = $('table.products input[type="checkbox"]:checked');
+
+    if (selectedProds.length < 2)
+    {
+        alert("Выберите хотя бы 2 товара для объединения местной доставки.");
+        return false;
+    }
+
+    if (confirm("Объединить местную доставку для выбранных товаров?"))
+    {
+        $('img#joinProgress').show();
+        var queryString = '';
+        var order_id = parseInt($('input.order_id').val(), 10);
+
+        selectedProds.each(function(index, item) {
+            queryString += (queryString.length ? '&' : '') +
+                    $(item).attr('name') +
+                    '=on';
+        });
+
+        if (order_id && !isNaN(order_id))
+        {
+            $.post('<?= $selfurl ?>joinNewProducts/' + order_id,
+                    queryString,
+                    function()
+                    {
+                        self.location.reload();
+                    }
+            );
+        }
+        else
+        {
+            error('top', 'Доставка не объединена.');
+        }
+    }
+}
+
+function removeJoint(id)
+{
+    var order_id = parseInt($('input.order_id').val(), 10);
+
+    if (order_id && !isNaN(order_id))
+    {
+        if (confirm("Отменить объединение общей доставки для выбранных товаров?"))
+        {
+            $('img#joinProgress').show();
+            window.location.href = '<?= $selfurl ?>removeNewJoint/' + order_id + '/' + id;
+        }
+    }
+    else
+    {
+        error('top', 'Объединенная доставка не отменена.');
+    }
+}
 </script>

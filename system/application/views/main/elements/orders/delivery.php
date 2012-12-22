@@ -1,11 +1,11 @@
 <?
-$order = null;
+/*$order = null;
 for ($i = 0, $n = count($orders); $i<$n; $i++) :
     if ($orders[$i]->order_type == 'delivery') :
         $order = $orders[$i];
         break;
     endif;
-endfor;
+endfor;*/
 ?>
 <div class="delivery_order_form">
     <div class='table' style="position:relative;">
@@ -27,7 +27,7 @@ endfor;
                         <option
                                 value="<?= $country->country_id ?>"
                                 title="/static/images/flags/<?= $country->country_name_en ?>.png"
-                            <? if (isset($filter->country_from) AND $filter->country_from == $country->country_id OR ($order AND $order->order_country_from == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
+                            <? if (isset($filter->country_from) AND $filter->country_from == $country->country_id OR ($order AND $order->order_country_from == $country->country_name)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
                         <? endforeach; ?>
                     </select>
                 </div>
@@ -40,7 +40,7 @@ endfor;
                         <option
                                 value="<?= $country->country_id ?>"
                                 title="/static/images/flags/<?= $country->country_name_en ?>.png"
-                            <? if (isset($filter->country_to) AND $filter->country_to == $country->country_id OR ($order AND $order->order_country_to == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
+                            <? if (isset($filter->country_to) AND $filter->country_to == $country->country_id OR ($order AND $order->order_country_to == $country->country_name)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
                         <? endforeach; ?>
                     </select>
                 </div>

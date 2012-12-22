@@ -338,6 +338,9 @@
                     </span>
                 </td>
             <? else : ?>
+
+
+
                 <td>
                     <input type="text"
                        order-id="<?= $order->order_id ?>"
@@ -348,18 +351,39 @@
                        value="<?= $odetail->odetail_price ?>"
                        style="width:60px"
                        maxlength="11">
+
                 </td>
-                <td>
-                    <input type="text"
-                       order-id="<?= $order->order_id ?>"
-                       odetail-id="<?= $odetail->odetail_id ?>"
-                       id="odetail_pricedelivery<?= $odetail->odetail_id ?>"
-                       class="odetail_pricedelivery int"
-                       name="odetail_pricedelivery<?= $odetail->odetail_id ?>"
-                       value="<?= $odetail->odetail_pricedelivery ?>"
-                       style="width:60px"
-                       maxlength="11">
-                </td>
+
+                <? if ($odetail_joint_id != $odetail->odetail_joint_id) :
+                    $odetail_joint_id = $odetail->odetail_joint_id; ?>
+                    <td rowspan="<?= $joints[$odetail->odetail_joint_id]->count ?>">
+
+                        <input type="text"
+                               id="joint_pricedelivery<?= $odetail->odetail_joint_id ?>"
+                               name="joint_price<?= $odetail->odetail_joint_id ?>"
+                               class="int"
+                               value="<?= $joints[$odetail->odetail_joint_id]->cost ?>"
+                               style="width:60px"
+                               maxlength="11"
+                               onchange="update_joint_pricedelivery('<?= $order->order_id ?>',
+                                       '<?= $odetail->odetail_joint_id ?>');">
+                        <br>
+                        <a href="javascript:removeJoint(<?= $odetail->odetail_joint_id ?>);">Отменить<br>объединение</a>
+
+                    </td>
+                <? elseif ( ! $odetail->odetail_joint_id) : ?>
+                    <td>
+                        <input type="text"
+                               order-id="<?= $order->order_id ?>"
+                               odetail-id="<?= $odetail->odetail_id ?>"
+                               id="odetail_pricedelivery<?= $odetail->odetail_id ?>"
+                               class="odetail_pricedelivery int"
+                               name="odetail_pricedelivery<?= $odetail->odetail_id ?>"
+                               value="<?= $odetail->odetail_pricedelivery ?>"
+                               style="width:60px"
+                               maxlength="11">
+                    </td>
+                <? endif; ?>
 
                 <? if ($order_type != 'service') : ?>
                 <td>
