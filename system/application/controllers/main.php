@@ -988,19 +988,19 @@ Email: {$this->user->user_email}";
                 switch ($order_type) :
 
                     case 'online' :
-                        Breadcrumb::setCrumb(array($result_url => 'Новый Online заказ'), 2, TRUE);
+                        Breadcrumb::setCrumb(array($result_url => 'Online заказ'), 2, TRUE);
                         break;
                     case 'offline' :
-                        Breadcrumb::setCrumb(array($result_url => 'Новый Offline заказ'), 2, TRUE);
+                        Breadcrumb::setCrumb(array($result_url => 'Offline заказ'), 2, TRUE);
                         break;
                     case 'service' :
-                        Breadcrumb::setCrumb(array($result_url => 'Новая услуга'), 2, TRUE);
+                        Breadcrumb::setCrumb(array($result_url => 'Услуга'), 2, TRUE);
                         break;
                     case 'delivery' :
-                        Breadcrumb::setCrumb(array($result_url => 'Новый заказ на доставку'), 2, TRUE);
+                        Breadcrumb::setCrumb(array($result_url => 'Заказ на доставку'), 2, TRUE);
                         break;
                     case 'mailforwarding' :
-                        Breadcrumb::setCrumb(array($result_url => 'Новый '.$order_type.' заказ'), 2, TRUE);
+                        Breadcrumb::setCrumb(array($result_url => 'Mailforwarding заказ'), 2, TRUE);
                         break;
                 endswitch;
             }
@@ -1495,5 +1495,191 @@ Email: {$this->user->user_email}";
     protected function mailforwardProductCheck ($detail)
     {
 
+    }
+
+    public function update_new_odetail_weight($order_id, $odetail_id, $weight)
+    {
+        try
+        {
+            if ( ! is_numeric($order_id) OR
+                ! is_numeric($odetail_id) OR
+                ! is_numeric($weight))
+            {
+                throw new Exception('Доступ запрещен.');
+            }
+
+            // роли и разграничение доступа
+            $order = $this->getNewOrder(
+                $order_id,
+                "Заказ недоступен.");
+
+            $this->load->model('OrderModel', 'Orders');
+            $this->load->model('OdetailModel', 'Odetails');
+            $this->load->model('OdetailJointModel', 'Joints');
+
+            if (!empty($this->user))
+            {
+                $client_id = $this->user->user_id;
+            }
+            else
+            {
+                $client_id = UserModel::getTemporaryKey();
+            }
+
+            // находим товар
+            $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+
+            if (empty($odetail))
+            {
+                throw new Exception('Товар не найден.');
+            }
+
+            $odetail->odetail_weight = $weight;
+
+            // сохранение результатов
+            $this->Odetails->addOdetail($odetail);
+
+            // пересчитываем заказ
+            if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+            {
+                throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+            }
+
+            $this->Orders->saveOrder($order);
+
+            // отправляем пересчитанные детали заказа
+            $response = $this->prepareOrderUpdateJSON($order);
+        }
+        catch (Exception $e)
+        {
+            $response['is_error'] = TRUE;
+            $response['message'] = $e->getMessage();
+        }
+
+        print(json_encode($response));
+    }
+
+    public function update_new_odetail_price($order_id, $odetail_id, $price)
+    {
+        try
+        {
+            if ( ! is_numeric($order_id) OR
+                ! is_numeric($odetail_id) OR
+                ! is_numeric($price))
+            {
+                throw new Exception('Доступ запрещен.');
+            }
+
+            // роли и разграничение доступа
+            $order = $this->getNewOrder(
+                $order_id,
+                "Заказ недоступен.");
+
+            $this->load->model('OrderModel', 'Orders');
+            $this->load->model('OdetailModel', 'Odetails');
+            $this->load->model('OdetailJointModel', 'Joints');
+
+            if (!empty($this->user))
+            {
+                $client_id = $this->user->user_id;
+            }
+            else
+            {
+                $client_id = UserModel::getTemporaryKey();
+            }
+
+            // находим товар
+            $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+
+            if (empty($odetail))
+            {
+                throw new Exception('Товар не найден.');
+            }
+
+            $odetail->odetail_price = $price;
+
+            // сохранение результатов
+            $this->Odetails->addOdetail($odetail);
+
+            // пересчитываем заказ
+            if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+            {
+                throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+            }
+
+            $this->Orders->saveOrder($order);
+
+            // отправляем пересчитанные детали заказа
+            $response = $this->prepareOrderUpdateJSON($order);
+        }
+        catch (Exception $e)
+        {
+            $response['is_error'] = TRUE;
+            $response['message'] = $e->getMessage();
+        }
+
+        print(json_encode($response));
+    }
+
+    public function update_new_odetail_pricedelivery($order_id, $odetail_id, $pricedelivery)
+    {
+        try
+        {
+            if ( ! is_numeric($order_id) OR
+                ! is_numeric($odetail_id) OR
+                ! is_numeric($pricedelivery))
+            {
+                throw new Exception('Доступ запрещен.');
+            }
+
+            // роли и разграничение доступа
+            $order = $this->getNewOrder(
+                $order_id,
+                "Заказ недоступен.");
+
+            $this->load->model('OrderModel', 'Orders');
+            $this->load->model('OdetailModel', 'Odetails');
+            $this->load->model('OdetailJointModel', 'Joints');
+
+            if (!empty($this->user))
+            {
+                $client_id = $this->user->user_id;
+            }
+            else
+            {
+                $client_id = UserModel::getTemporaryKey();
+            }
+
+            // находим товар
+            $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+
+            if (empty($odetail))
+            {
+                throw new Exception('Товар не найден.');
+            }
+
+            $odetail->odetail_pricedelivery = $pricedelivery;
+
+            // сохранение результатов
+            $this->Odetails->addOdetail($odetail);
+
+            // пересчитываем заказ
+            if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+            {
+                throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+            }
+
+            $this->Orders->saveOrder($order);
+
+            // отправляем пересчитанные детали заказа
+            $response = $this->prepareOrderUpdateJSON($order);
+        }
+        catch (Exception $e)
+        {
+            $response['is_error'] = TRUE;
+            $response['message'] = $e->getMessage();
+        }
+
+        print(json_encode($response));
     }
 }

@@ -70,6 +70,7 @@ endfor;
                     <input type='hidden' id='dealer_id_service' name="dealer_id" value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>">
 					<span class="label dealer_number_box" style='<?= (!$order OR empty($order->order_manager)) ? 'display:none;' : '' ?>'>
 						<img border="0" src="/static/images/delete.png" title="Удалить">
+                        <img src="/static/images/lightbox-ico-loading.gif" style="position: absolute; margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
 					</span>
                 </div>
                 <div style="clear:both;" ></div>
@@ -97,7 +98,7 @@ endfor;
                 </div>
                 <div style="clear:both;" ></div>
                 <div>
-                    <span class="label">Подробное описание что нужно сделать*:</span>
+                    <span class="label">Подробное описание что<br/> нужно сделать*:</span>
                     <textarea style="width:180px;resize:auto!important;" class="textbox" maxlength="255" id='ocomment' name="ocomment"></textarea>
                 </div>
                 <div style="clear:both;" ></div>
@@ -112,13 +113,7 @@ endfor;
                     <input style="width:180px;" class="textbox" maxlength="11" type='text' id='odeliveryprice' name="odeliveryprice" />
                     <span class="label currency"><?= $order_currency ?></span>
                 </div>
-                <div style="clear:both;" ></div>
-            </div>
-        </div>
-        <div class='add_detail_box' style="position:relative;">
-            <div class='new_order_box'>
-                <br/>
-                <div style="clear:both;" ></div>
+                <div style="clear:both;" ></div><br/>
                 <div>
                     <span class="label">
                         Скриншот (max. 3 Mb):
@@ -132,6 +127,12 @@ endfor;
                         <img border="0" src="/static/images/delete.png" title="Удалить">
                     </span>
                 </div>
+                <div style="clear:both;" ></div>
+            </div>
+        </div>
+        <div class='add_detail_box' style="position:relative;">
+            <div class='new_order_box'>
+
                 <div style="clear:both;" ></div>
             </div>
         </div>

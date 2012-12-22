@@ -65,6 +65,7 @@ endfor;
                     <input type='hidden' id='dealer_id_offline' name="dealer_id" value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>">
 					<span class="label dealer_number_box" style='<?= (!$order OR empty($order->order_manager)) ? 'display:none;' : '' ?>'>
 						<img border="0" src="/static/images/delete.png" title="Удалить">
+                        <img src="/static/images/lightbox-ico-loading.gif" style="position: absolute; margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
 					</span>
                 </div>
                 <div style="clear:both;" ></div>

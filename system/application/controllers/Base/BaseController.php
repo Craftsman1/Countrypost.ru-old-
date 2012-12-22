@@ -2575,8 +2575,16 @@ abstract class BaseController extends Controller
                 $order_id,
                 'Невозможно объединить товары. Указанный заказ не найден.');
 
+            if (empty($this->user))
+            {
+                throw new Exception('Необходима авторизация. Доступ запрещен.');
+            }
+
             $this->load->model('OdetailModel', 'Odetails');
             $this->load->model('OdetailJointModel', 'Joints');
+
+
+
 
             // позволяет ли текущий статус объединение
             $editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);

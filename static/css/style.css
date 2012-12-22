@@ -2658,7 +2658,7 @@ div.new_bid_box textarea  {
 .ac_results
 {
     background: #ffffff;
-    width: 180px;
+    width: 188px !important;
     border: 1px solid #dddddd;
 }
 
@@ -2671,13 +2671,13 @@ div.new_bid_box textarea  {
 
 .ac_results ul li
 {
-    list-style: none;
-    border-bottom: 1px solid #dddddd;
-    margin: 4px 0px;
-    padding: 2px 4px;
-    width: 172px;
-    cursor: pointer;
+    border-bottom: 1px solid #DDDDDD;
     color: #000000;
+    cursor: pointer;
+    list-style: none outside none;
+    margin: 4px 0;
+    padding: 4px 10px;
+    width: 168px;
 }
 
 .ac_results ul li:last-of-type

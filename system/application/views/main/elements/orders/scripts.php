@@ -306,10 +306,15 @@
                 if (isNaN(v.delivery)) v.delivery = 0;
                 if (isNaN(v.weight)) v.weight = 0;
                 if (isNaN(v.amount)) v.amount = 0;
-                result.price = parseFloat(result.price, 10) + parseFloat(v.price, 10);
-                result.delivery = parseFloat(result.delivery, 10) + parseFloat(v.delivery, 10);
+                result.price = parseFloat(result.price) + parseFloat(v.price);
+                result.delivery = parseFloat(result.delivery) + parseFloat(v.delivery);
                 result.weight = parseInt(result.weight, 10) + parseInt(v.weight, 10);
                 result.amount = parseInt(result.amount, 10) + parseInt(v.amount, 10);
+
+                result.price = (isNaN(result.price)) ? 0 : result.price;
+                result.delivery = (isNaN(result.delivery)) ? 0 : result.delivery;
+                result.weight = (isNaN(result.weight)) ? 0 : result.weight;
+                result.amount = (isNaN(result.amount)) ? 0 : result.amount;
             });
             return result;
         }
@@ -456,6 +461,7 @@
                 autoFill:false,
                 matchContains:0,
                 cacheLength:10,
+                loadingClass : 'progress_ac',
                 onItemSelect: function (suggestion) {
                     $('#dealer_id_' + order_type).val(suggestion.extra.id);
                 },
@@ -945,7 +951,7 @@
 
                             addItemProgress(odetail_id);
 
-                            $.post('/client/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                            $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                                     function (responce) {
                                         removeItemProgress(odetail_id);
                                         if (responce.is_error) {
@@ -976,7 +982,7 @@
 
                             addItemProgress(odetail_id);
 
-                            $.post('/client/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                            $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                                     function (responce) {
                                         removeItemProgress(odetail_id);
                                         if (responce.is_error) {
@@ -1007,7 +1013,7 @@
 
                             addItemProgress(odetail_id);
 
-                            $.post('/client/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                            $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                                     function (responce) {
                                         removeItemProgress(odetail_id);
                                         if (responce.is_error) {
@@ -1725,7 +1731,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -1756,7 +1762,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -1787,7 +1793,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -2440,7 +2446,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -2471,7 +2477,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -2502,7 +2508,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -3202,7 +3208,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -3233,7 +3239,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -3264,7 +3270,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {

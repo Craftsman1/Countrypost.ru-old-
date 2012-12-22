@@ -319,12 +319,13 @@ jQuery.autocomplete = function(input, options) {
         if (data) {
             receiveData(q, data);
             // if an AJAX url has been supplied, try loading the data now
-        } else if( (typeof options.url == "string") && (options.url.length > 0) ){
+        } else if( (typeof options.url == "string") && (options.url.length > 0) ) {
+            $('.progress_ac').show();
             $.post(makeUrl(q), function(data) {
                 data = parseData(data);
                 addToCache(q, data);
                 receiveData(q, data);
-            }, 'json');
+            }, 'json').complete(function() { $('.progress_ac').hide(); });
             // if there's been no data found, remove the loading class
         } else {
             $input.removeClass(options.loadingClass);
@@ -385,11 +386,12 @@ jQuery.autocomplete = function(input, options) {
         if (data) {
             findValueCallback(q, data);
         } else if( (typeof options.url == "string") && (options.url.length > 0) ){
+            $('.progress_ac').show();
             $.post(makeUrl(q), function(data) {
                 data = parseData(data)
                 addToCache(q, data);
                 findValueCallback(q, data);
-            }, 'json');
+            }, 'json').complete(function() { $('.progress_ac').hide(); });
         } else {
             // no matches
             findValueCallback(q, null);

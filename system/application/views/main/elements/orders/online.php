@@ -65,6 +65,7 @@
                     <input type='hidden' id='dealer_id_online' name="dealer_id" value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>">
 					<span class="label dealer_number_box" style='<?= (!$order OR empty($order->order_manager)) ? 'display:none;' : '' ?>'>
 						<img border="0" src="/static/images/delete.png" title="Удалить">
+                        <img src="/static/images/lightbox-ico-loading.gif" style="position: absolute; margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
 					</span>
 				</div>
 				<div style="clear:both;" ></div>
@@ -192,39 +193,6 @@
             var order = new $.cpOrder(orderData);
             order.init("online");
 		});
-
-        <? if ($order) : ?>
-
-        $('.submit input[type="submit"]').bind('click', function () {
-            var data_items = $('#new_products input[name="odetail_id"]:checked'),
-                    post_data = {};
-
-            $('#joint_progress').show();
-
-            $.each(data_items, function(k, v) {
-                post_data['join'+ $(v).val()] = $(v).val();
-            });
-
-            $.post( "/main/joinNewProducts/<?= $order->order_id ?>",
-                    post_data,
-                    function (responce)
-                    {
-                        if (!responce.is_error)
-                        {
-                            success('top', responce.message);
-                        }
-                        else
-                        {
-                            error('top', responce.message);
-                        }
-
-                        $('#joint_progress').hide();
-                    },
-                    'json'
-            );
-        });
-
-        <? endif; ?>
 
 		// номер посредника
 		$('.dealer_number_switch a').click(function() {

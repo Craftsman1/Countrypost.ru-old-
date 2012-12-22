@@ -30,6 +30,7 @@ endfor;
                     <span class="label dealer_number_box">Номер посредника*:</span>
                     <input class="textbox dealer_number_box" maxlength="255" type='text' id='dealer_id_ac_mail_forwarding' style='width:180px;' value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>" >
                     <input type='hidden' id='dealer_id_mail_forwarding' name="dealer_id" value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>">
+                    <img src="/static/images/lightbox-ico-loading.gif" style="margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
                 </div>
                 <div style="clear:both;" ></div>
                 <div>
