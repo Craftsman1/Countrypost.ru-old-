@@ -237,7 +237,7 @@
     }
 
 
-    var orderData = <?= ($json = json_encode(array($order))) ? $json : '{}' ?>;
+    var orderData = <?= ($order AND ($json = json_encode(array($order)))) ? $json : 'null' ?>;
     var currencies = <?= json_encode($countries); ?>;
     var selectedCurrency = '<?= $order_currency ?>';
     //var countryFrom = '';
