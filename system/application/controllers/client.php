@@ -513,7 +513,14 @@ class Client extends ClientBaseController {
 	
 	public function showScreen($oid=null) 
 	{
-        if (!empty($this->user))
+        header('Content-type: image/jpg');
+        $this->load->model('OdetailModel', 'OdetailModel');
+        if ($Detail = $this->OdetailModel->getInfo(array('odetail_client' => $this->user->user_id, 'odetail_id' => intval($oid)))) {
+            readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/{$this->user->user_id}/$oid.jpg");
+        }
+        die();
+
+        /*if (!empty($this->user))
         {
             $client_id = $this->user->user_id;
         }
@@ -527,7 +534,7 @@ class Client extends ClientBaseController {
 		if ($Detail = $this->OdetailModel->getInfo(array('odetail_client' => $client_id, 'odetail_id' => intval($oid)))) {
 			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/{$Detail->client_id}/$oid.jpg");
 		}
-		die();
+		die();*/
 	}
 	
 	public function showOrder2InFoto($oid, $filename) {
