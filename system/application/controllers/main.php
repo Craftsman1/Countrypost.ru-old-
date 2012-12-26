@@ -1515,17 +1515,46 @@ Email: {$this->user->user_email}";
 
     protected function deliveryProductCheck ($detail)
     {
+        if (empty($detail->odetail_product_name))
+        {
+            throw new Exception('Добавьте наименование товара.');
+        }
 
+        if (empty($detail->odetail_weight))
+        {
+            throw new Exception('Добавьте примерный вес товара.');
+        }
+
+        if ( ! $detail->odetail_product_amount)
+        {
+            $detail->odetail_product_amount = 1;
+        }
     }
 
     protected function serviceProductCheck ($detail)
     {
+        if (empty($detail->odetail_product_name))
+        {
+            throw new Exception('Добавьте наименование товара.');
+        }
 
+        if (empty($detail->odetail_tracking))
+        {
+            throw new Exception('Добавьте tracking номер.');
+        }
     }
 
     protected function mailforwardProductCheck ($detail)
     {
+        if (empty($detail->odetail_product_name))
+        {
+            throw new Exception('Добавьте наименование товара.');
+        }
 
+        if (empty($detail->odetail_comment))
+        {
+            throw new Exception('Добавьте подробное описание.');
+        }
     }
 
     public function update_new_odetail_weight($order_id, $odetail_id, $weight)
