@@ -434,19 +434,37 @@ class OdetailModel extends BaseModel implements IModel{
 		return ;
 	}
 
-	public function getPrivilegedOdetail($order_id, $odetail_id, $user_id, $user_group)
-	{
-		if ($user_group == 'client')
-		{
-			return $this->getClientOdetailById($order_id, $odetail_id, $user_id);
-		}
-		else if ($user_group == 'manager')
-		{
-			return $this->getManagerOdetailById($order_id, $odetail_id, $user_id);
-		}
+    public function getPrivilegedOdetail($order_id, $odetail_id, $user_id, $user_group)
+    {
+        if ($user_group == 'client')
+        {
+            return $this->getClientOdetailById($order_id, $odetail_id, $user_id);
+        }
+        else if ($user_group == 'manager')
+        {
+            return $this->getManagerOdetailById($order_id, $odetail_id, $user_id);
+        }
 
-		return FALSE;
-	}
+        return FALSE;
+    }
+
+    public function getNewOdetail($order_id, $odetail_id, $user_id, $user_group)
+    {
+        $odetail = FALSE;
+
+        if ($user_group == 'client')
+        {
+            $odetail = $this->getClientOdetailById($order_id, $odetail_id, $user_id);
+
+            if (!$odetail)
+            {
+                $user_id = UserModel::getTemporaryKey(true);
+                $odetail = $this->getClientOdetailById($order_id, $odetail_id, $user_id);
+            }
+        }
+
+        return $odetail;
+    }
 
 	public function getClientOdetailById($order_id, $odetail_id, $client_id)
 	{

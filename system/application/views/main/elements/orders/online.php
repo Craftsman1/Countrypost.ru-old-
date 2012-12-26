@@ -168,7 +168,7 @@ endfor;*/
 				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Нужно ли фото товара?</span>
-					<input type='checkbox' id='foto_requested' name="foto_requested" />
+					<input type='checkbox' id='foto_requested' name="foto_requested" value="1" />
 				</div>
 				<div style="clear:both;" ></div>
 				<div>

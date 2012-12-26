@@ -191,12 +191,24 @@
                 alert("Необходимо указать (expression и message) детали валидации");
         }
 
-        this.check = function () {
+        this.check = function ()
+        {
             return fieldValidate();
         }
 
-        this.val = function () {
-            return fObj.element.val();
+        this.val = function ()
+        {
+            var val = '';
+            if (fObj.element.attr('type') == 'checkbox')
+            {
+                val = fObj.element.is(':checked') ? fObj.element.val() : 0;
+            }
+            else
+            {
+                val = fObj.element.val();
+            }
+
+            return val;
         }
     }
 
@@ -299,20 +311,37 @@
             window.cpCart = cObj.items;
         }
 
-        cObj.calcTotals = function () {
+        cObj.calcTotals = function ()
+        {
             var result = {price:0, delivery:0, weight:0, amount:0, currency:cObjCurrency};
+
+            var calculatedJoints = [];
+
             $.each(cObj.items, function (k, v) {
                 if (isNaN(v.price)) v.price = 0;
                 if (isNaN(v.delivery)) v.delivery = 0;
                 if (isNaN(v.weight)) v.weight = 0;
                 if (isNaN(v.amount)) v.amount = 0;
                 result.price = parseFloat(result.price) + parseFloat(v.price);
-                result.delivery = parseFloat(result.delivery) + parseFloat(v.delivery);
                 result.weight = parseInt(result.weight, 10) + parseInt(v.weight, 10);
                 result.amount = parseInt(result.amount, 10) + parseInt(v.amount, 10);
 
+                if (v.joint_id == 0)
+                {
+                    result.delivery = parseFloat(result.delivery) + parseFloat(v.delivery);
+                    result.delivery = (isNaN(result.delivery)) ? 0 : result.delivery;
+                }
+                else
+                {
+                    var index = calculatedJoints.indexOf(v.joint_id);
+                    if (index == -1)
+                    {
+                        result.delivery = result.delivery + parseFloat(orderJoints[v.joint_id].cost);
+                        calculatedJoints.push(v.joint_id);
+                    }
+                }
+
                 result.price = (isNaN(result.price)) ? 0 : result.price;
-                result.delivery = (isNaN(result.delivery)) ? 0 : result.delivery;
                 result.weight = (isNaN(result.weight)) ? 0 : result.weight;
                 result.amount = (isNaN(result.amount)) ? 0 : result.amount;
             });
@@ -463,7 +492,29 @@
                 cacheLength:10,
                 loadingClass : 'progress_ac',
                 onItemSelect: function (suggestion) {
+                    $('#dealer_id_ac_' + order_type).val(suggestion.extra.id);
                     $('#dealer_id_' + order_type).val(suggestion.extra.id);
+                    if (oObj.options.order_id)
+                    {
+                        $('.progress_ac').show();
+                        $.post('<?= $selfurl ?>update_new_order_dealer_id/' + oObj.options.order_id + '/' + suggestion.extra.id,
+                                {},
+                                function(data)
+                                {
+                                    $('.progress_ac').hide();
+                                    if (data.is_error)
+                                    {
+                                        error('top', 'Посредник не выбран. ' + data.message);
+                                    }
+                                    else
+                                    {
+
+                                        success('top', 'Посредник выбран.');
+                                    }
+                                },
+                                'json'
+                        );
+                    }
                 },
                 formatItem : function(row, i, num)
                 {
@@ -674,7 +725,7 @@
                         ocolor:fieldByName(iObj.fields, 'ocolor').val(),
                         osize:fieldByName(iObj.fields, 'osize').val(),
                         oimg:fieldByName(iObj.fields, 'userfileimg').val(),
-                        foto_requested:fieldByName(iObj.fields, 'foto_requested').val(),
+                        foto_requested: fieldByName(iObj.fields, 'foto_requested').val(),
                         ocomment:fieldByName(iObj.fields, 'ocomment').val()
                     });
                     var row = iObj.drawRow(item);
@@ -976,8 +1027,8 @@
                             var val = $(this).val();
                             var odetail_id = $(this).attr('odetail-id');
                             if (isNaN(val) || parseInt(val, 10) == 0) {
-                                error('top', 'Стоимость не изменена. Укажите стоимость доставки.');
-                                return;
+                                val = 0;
+                                $(this).val(0);
                             }
 
                             addItemProgress(odetail_id);
@@ -1038,7 +1089,7 @@
                 {
                     oimg = getImageSnippet(item);
 
-                            // Рисуем новый товар
+                            // Рисуем новый online товар
                             var snippet = $('' +
                                     '<tr id="product' + item.id + '" class="snippet" detail-id="' + item.id + '">' +
                                     '   <td id="odetail_id' + item.id + '">' +
@@ -1050,7 +1101,7 @@
                                     '   </td>' +
                                     '   <td style="text-align: left; vertical-align: bottom;">' +
                                     '      <span class="plaintext">' +
-                                    '          <a href="' + item.link + '" target="_blank">' + item.name + '</a>' +
+                                    '          <a href="' + item.olink + '" target="_blank">' + item.name + '</a>' +
                                     '          '+((item.foto_requested) ? '(требуется фото товара)' : '')+' ' +
                                     '          <br/>' +
                                     '          <b>Количество</b>: ' + item.amount +
@@ -1102,16 +1153,16 @@
                                     '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.weight + '" class="odetail_weight int" name="odetail_weight' + item.id + '" id="odetail_weight' + item.id + '">' +
                                     '   </td>' +
                                     '   <td>' +
-                                    '      <a class="edit" odetail-id="' + item.id + '" href="#">' +
+                                    '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                                     '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
                                     '      <br/>' +
-                                    '      <a class="delete" odetail-id="' + item.id + '" href="#">' +
+                                    '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                                     '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
                                     '      <br/>' +
-                                    '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="#">' +
+                                    '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                                     '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
                                     '      <br/>' +
-                                    '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="#">' +
+                                    '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                                     '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
                                     '   </td>' +
                                     '</tr>');
@@ -1161,6 +1212,7 @@
 
                                     oObj.options.cart.addCustom({
                                         id:v.odetail_id,
+                                        joint_id:v.odetail_joint_id,
                                         name:v.odetail_product_name,
                                         price:v.odetail_price,
                                         delivery:v.odetail_pricedelivery,
@@ -1756,8 +1808,8 @@
                     var val = $(this).val();
                     var odetail_id = $(this).attr('odetail-id');
                     if (isNaN(val) || parseInt(val, 10) == 0) {
-                        error('top', 'Стоимость не изменена. Укажите стоимость доставки.');
-                        return;
+                        val = 0;
+                        $(this).val(0);
                     }
 
                     addItemProgress(odetail_id);
@@ -1830,8 +1882,8 @@
                             '   </td>' +
                             '   <td style="text-align: left; vertical-align: bottom;">' +
                             '      <span class="plaintext">' +
-                            '          <b>' + item.name + '</b><br/>' +
-                            '          '+((item.foto_requested) ? '(требуется фото товара)' : '')+' ' +
+                            '          <b>' + item.name + '</b>' +
+                            '          '+((item.foto_requested) ? '(требуется фото товара)' : '') + '<br/> ' +
                             '          <b>Магазин</b>: ' + item.oshop + '' +
                             '          <br/>' +
                             '          <b>Количество</b>: ' + item.amount +
@@ -1883,16 +1935,16 @@
                             '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.weight + '" class="odetail_weight int" name="odetail_weight' + item.id + '" id="odetail_weight' + item.id + '">' +
                             '   </td>' +
                             '   <td>' +
-                            '      <a class="edit" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
                             '      <br/>' +
-                            '      <a class="delete" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
                             '   </td>' +
                             '</tr>');
@@ -1942,6 +1994,7 @@
 
                             oObj.options.cart.addCustom({
                                 id:v.odetail_id,
+                                joint_id:v.odetail_joint_id,
                                 name:v.odetail_product_name,
                                 price:v.odetail_price,
                                 delivery:v.odetail_pricedelivery,
@@ -2471,8 +2524,8 @@
                     var val = $(this).val();
                     var odetail_id = $(this).attr('odetail-id');
                     if (isNaN(val) || parseInt(val, 10) == 0) {
-                        error('top', 'Стоимость не изменена. Укажите стоимость доставки.');
-                        return;
+                        val = 0;
+                        $(this).val(0);
                     }
 
                     addItemProgress(odetail_id);
@@ -2578,16 +2631,16 @@
                             '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.delivery + '" class="odetail_pricedelivery int" name="odetail_pricedelivery' + item.id + '" id="odetail_pricedelivery' + item.id + '">' +
                             '   </td>' +
                             '   <td>' +
-                            '      <a class="edit" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
                             '      <br/>' +
-                            '      <a class="delete" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
                             '   </td>' +
                             '</tr>');
@@ -2637,6 +2690,7 @@
 
                             oObj.options.cart.addCustom({
                                 id:v.odetail_id,
+                                joint_id:v.odetail_joint_id,
                                 name:v.odetail_product_name,
                                 price:v.odetail_price,
                                 delivery:v.odetail_pricedelivery,
@@ -3151,7 +3205,7 @@
                     odetail['name'] = $tr.find('textarea.name').val();
                     odetail['insurance'] = parseInt($tr.find('input[name="insurance"]:checked').val(), 10);
                     odetail['ovolume'] = $tr.find('textarea.volume').val();
-                    odetail['otnveb'] = $tr.find('textarea.tnveb').val();
+                    odetail['otnved'] = $tr.find('textarea.tnved').val();
                     odetail['olink'] = $tr.find('textarea.link').val();
                     odetail['amount'] = $tr.find('textarea.amount').val();
                     odetail['ocomment'] = $tr.find('textarea.ocomment').val();
@@ -3201,9 +3255,10 @@
                 iObj.updateItemPrice = function () {
                     var val = $(this).val();
                     var odetail_id = $(this).attr('odetail-id');
-                    if (isNaN(val) || parseInt(val, 10) == 0) {
-                        error('top', 'Стоимость не изменена. Укажите стоимость товара.');
-                        return;
+                    if (isNaN(val) || parseInt(val, 10) == 0)
+                    {
+                        val = 0;
+                        $(this).val(0);
                     }
 
                     addItemProgress(odetail_id);
@@ -3233,8 +3288,8 @@
                     var val = $(this).val();
                     var odetail_id = $(this).attr('odetail-id');
                     if (isNaN(val) || parseInt(val, 10) == 0) {
-                        error('top', 'Стоимость не изменена. Укажите стоимость доставки.');
-                        return;
+                        val = 0;
+                        $(this).val(0);
                     }
 
                     addItemProgress(odetail_id);
@@ -3354,16 +3409,16 @@
                             '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.weight + '" class="odetail_weight int" name="odetail_weight' + item.id + '" id="odetail_weight' + item.id + '">' +
                             '   </td>' +
                             '   <td>' +
-                            '      <a class="edit" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
                             '      <br/>' +
-                            '      <a class="delete" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
                             '   </td>' +
                             '</tr>');
@@ -3413,6 +3468,7 @@
 
                             oObj.options.cart.addCustom({
                                 id:v.odetail_id,
+                                joint_id:v.odetail_joint_id,
                                 name:v.odetail_product_name,
                                 olink:v.odetail_link,
                                 price:v.odetail_price,
@@ -3422,7 +3478,7 @@
                                 currency:selectedCurrency,
                                 ovolume:v.odetail_volume,
                                 otnved:v.odetail_tnved,
-                                insurance_need:v.odetail_insurance,
+                                insurance:v.odetail_insurance,
                                 ocomment:v.odetail_comment
                             });
                         });
@@ -3638,6 +3694,13 @@
                     });
                     iObj.fields.push(amount);
 
+                    // ТРебуются фото
+                    foto_requested = new $.cpField();
+                    foto_requested.init({
+                        object:$('#'+oObj.options.type+'ItemForm #foto_requested')
+                    });
+                    iObj.fields.push(foto_requested);
+
                     // Коментарий к товару
                     ocomment = new $.cpField();
                     ocomment.init({
@@ -3661,6 +3724,7 @@
                         osize:fieldByName(iObj.fields, 'osize').val(),
                         amount:fieldByName(iObj.fields, 'oamount').val(),
                         ocomment:fieldByName(iObj.fields, 'ocomment').val(),
+                        foto_requested:fieldByName(iObj.fields, 'foto_requested').val(),
                         currency:selectedCurrency
                     });
 
@@ -4004,16 +4068,16 @@
                             '       </span>' +
                             '   </td>' +
                             '   <td>' +
-                            '      <a class="edit" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
                             '      <br/>' +
-                            '      <a class="delete" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
                             '   </td>' +
                             '</tr>' +
@@ -4067,6 +4131,7 @@
 
                             oObj.options.cart.addCustom({
                                 id:v.odetail_id,
+                                joint_id:v.odetail_joint_id,
                                 name:v.odetail_product_name,
                                 olink:v.odetail_link,
                                 price:v.odetail_price,
@@ -4083,7 +4148,7 @@
                             });
                         });
 
-                        // прикручиваем обработчики кнопок деталям заказа
+                        // прикручиваем обработчики кнопок деталям mailforwarding заказа
                         $('.' + oObj.options.type + '_order_form #new_products a.edit').bind('click', iObj.editItem);
                         $('.' + oObj.options.type + '_order_form #new_products a.delete').bind('click', iObj.deleteItem);
                         $('.' + oObj.options.type + '_order_form #new_products a.save').bind('click', iObj.saveItem);
@@ -4204,6 +4269,8 @@
                     initMailforwarding();
                     break;
             }
+
+            window.cpOrder = oObj;
         } // End init
 
         oObj.updateTotals = function () {
@@ -4316,5 +4383,41 @@ function removeJoint(id)
     {
         error('top', 'Объединенная доставка не отменена.');
     }
+}
+
+function update_joint_pricedelivery(order_id, joint_id)
+{
+    var cost = $('input#joint_pricedelivery' + joint_id).val();
+    var uri = '<?= $selfurl ?>update_new_joint_pricedelivery/' +
+            order_id + '/' +
+            joint_id + '/' +
+            cost;
+    var success_message = 'Местная доставка товаров сохранена.';
+    var error_message = 'Местная доставка товаров не сохранена. ';
+    var progress = 'img.progressJoint' + joint_id;
+
+    $(progress).show();
+    $.post( uri,
+        {},
+        function(data)
+        {
+            if (data.is_error)
+            {
+                error('top', error_message + data.message);
+            }
+            else
+            {
+                success('top', success_message);
+                orderJoints[joint_id].cost = cost;
+                if (window.cpOrder)
+                {
+                    window.cpOrder.updateTotals();
+                }
+            }
+            $(progress).hide();
+        },
+        'json'
+    );
+    //updateCustomProduct(uri, success_message, error_message, progress);
 }
 </script>

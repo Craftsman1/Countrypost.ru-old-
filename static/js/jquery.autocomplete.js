@@ -320,12 +320,14 @@ jQuery.autocomplete = function(input, options) {
             receiveData(q, data);
             // if an AJAX url has been supplied, try loading the data now
         } else if( (typeof options.url == "string") && (options.url.length > 0) ) {
-            $('.progress_ac').show();
+            //$('.progress_ac').show();
+            $('.ac_input').addClass('ui-autocomplete-loading');
             $.post(makeUrl(q), function(data) {
                 data = parseData(data);
                 addToCache(q, data);
                 receiveData(q, data);
-            }, 'json').complete(function() { $('.progress_ac').hide(); });
+            }, 'json').complete(function() { //$('.progress_ac').hide();
+                    $('.ac_input').removeClass('ui-autocomplete-loading'); });
             // if there's been no data found, remove the loading class
         } else {
             $input.removeClass(options.loadingClass);
@@ -386,12 +388,14 @@ jQuery.autocomplete = function(input, options) {
         if (data) {
             findValueCallback(q, data);
         } else if( (typeof options.url == "string") && (options.url.length > 0) ){
-            $('.progress_ac').show();
+            //$('.progress_ac').show();
+            $('.ac_input').addClass('ui-autocomplete-loading');
             $.post(makeUrl(q), function(data) {
                 data = parseData(data)
                 addToCache(q, data);
                 findValueCallback(q, data);
-            }, 'json').complete(function() { $('.progress_ac').hide(); });
+            }, 'json').complete(function() { //$('.progress_ac').hide();
+                    $('.ac_input').removeClass('ui-autocomplete-loading'); });
         } else {
             // no matches
             findValueCallback(q, null);

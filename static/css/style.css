@@ -1648,7 +1648,7 @@ div.extra_payment_money input
 	width:83px!important;
 }
 
-.ui-autocomplete-loading { background: white url(../images/autocomplete.gif) right center no-repeat; border:#AFAFAF 1px solid;padding: 2px 1px;}
+.ui-autocomplete-loading { background: white url(../images/autocomplete.gif) right center no-repeat !important; border:#AFAFAF 1px solid;padding: 2px 1px;}
 .ui-autocomplete { background: white; width: 90px; cursor: pointer; list-style-type: none; border: #AFAFAF solid 1px;border-top:0;}
 .ui-autocomplete :hover{ background: #AFAFAF;}
 a.ui-corner-all { color: #444; display: block; }
@@ -2082,7 +2082,7 @@ div.new_order_box .textbox {
 	width: 188px;
 	float: left;
 	padding:4px 4px 3px;
-	background:#f7f7f7;
+	background-color:#f7f7f7 !important;
 	border: 1px solid #afafaf;
 	color:#000;
 	font: 13px sans-serif;
@@ -2557,21 +2557,24 @@ span.producteditor b {
 }
 
 span.producteditor textarea {
-	width:100px;
+    width: 100%;
 	height:14px;
 	margin-bottom: 14px;
 	resize:vertical;
-	float: right;
+	float: left;
+    margin-top: -10px;
 }
 
 span.producteditor textarea.image {
 	width:180px;
 	float: right;
+    margin-top: 0px;
 }
 
 span.producteditor input[type='file'] {
 	width: 184px;
 	float: right;
+    margin-top: 0px;
 }
 
 span.producteditor input[type='radio'] {
@@ -2671,11 +2674,10 @@ div.new_bid_box textarea  {
 
 .ac_results ul li
 {
-    border-bottom: 1px solid #DDDDDD;
     color: #000000;
     cursor: pointer;
     list-style: none outside none;
-    margin: 4px 0;
+    margin: 0px 0;
     padding: 4px 10px;
     width: 168px;
 }

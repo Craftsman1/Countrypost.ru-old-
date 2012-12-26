@@ -86,7 +86,7 @@
         });
 
 
-        $('.submit input[type="submit"]').bind('click', function () {
+        $('.submit .joint_delivery_submit').bind('click', function () {
             var data_items = $('#new_products input[name="odetail_id"]:checked'),
                 post_data = {},
                 order_id = parseInt($('input.order_id').val(), 10);
@@ -238,6 +238,7 @@
 
 
     var orderData = <?= ($order AND ($json = json_encode(array($order)))) ? $json : 'null' ?>;
+    var orderJoints = <?= ($joints AND ($json = json_encode($joints))) ? $json : 'null' ?>;
     var currencies = <?= json_encode($countries); ?>;
     var selectedCurrency = '<?= $order_currency ?>';
     //var countryFrom = '';

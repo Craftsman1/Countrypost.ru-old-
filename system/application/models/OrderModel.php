@@ -760,8 +760,17 @@ class OrderModel extends BaseModel implements IModel{
      *
      * @return object
      */
-    public function getClientBlankOrders($client_id)
+    public function getClientBlankOrders($client_id, $order_type = '')
     {
+        $where = " AND `orders`.`order_client` = '".$client_id."'";
+
+        $temp_client_id = UserModel::getTemporaryKey(true);
+
+        if ($client_id != $temp_client_id)
+        {
+            $where .= ' OR `orders`.`order_client` = '.$temp_client_id;
+        }
+
         // выборка
         $orders = $this->db->query(
             "SELECT
@@ -771,7 +780,7 @@ class OrderModel extends BaseModel implements IModel{
             FROM `orders`
             LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
             INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'online' AND `orders`.`order_client` = '".$client_id."'
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'online' {$where}
             UNION ALL
             SELECT
                 `orders` . * ,
@@ -780,7 +789,7 @@ class OrderModel extends BaseModel implements IModel{
             FROM `orders`
             LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
             INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'offline' AND `orders`.`order_client` = '".$client_id."'
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'offline' {$where}
             UNION ALL
             SELECT
                 `orders` . * ,
@@ -789,7 +798,7 @@ class OrderModel extends BaseModel implements IModel{
             FROM `orders`
             LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
             INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'delivery' AND `orders`.`order_client` = '".$client_id."'
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'delivery' {$where}
             UNION ALL
             SELECT
                 `orders` . * ,
@@ -798,7 +807,7 @@ class OrderModel extends BaseModel implements IModel{
             FROM `orders`
             LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
             INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'service' AND `orders`.`order_client` = '".$client_id."'
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'service' {$where}
             UNION ALL
             SELECT
                 `orders` . * ,
@@ -807,7 +816,8 @@ class OrderModel extends BaseModel implements IModel{
             FROM `orders`
             LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
             LEFT JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'mail_forwarding' AND `orders`.`order_client` = '".$client_id."'
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'mail_forwarding' {$where}
+            ORDER BY order_id DESC
             "
         )->result();
 

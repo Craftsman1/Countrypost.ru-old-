@@ -2615,7 +2615,7 @@ abstract class BaseController extends Controller
                 }
 
                 // находим товар
-                $odetail = $this->Odetails->getPrivilegedOdetail(
+                $odetail = $this->Odetails->getNewOdetail(
                     $order_id,
                     $odetail_id,
                     $this->user->user_id,
@@ -2623,7 +2623,7 @@ abstract class BaseController extends Controller
 
                 if ( ! $odetail)
                 {
-                    throw new Exception('Невозможно объединить товары. Некоторые товары отсутствуют в товаре.');
+                    throw new Exception('Невозможно объединить товары. Некоторые товары не найдены.');
                 }
 
                 // вычисляем суммарную стоимость

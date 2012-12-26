@@ -955,7 +955,7 @@ Email: {$this->user->user_email}";
 
             // Создаем пустой заказ
             // TODO : проверить если, пользователь авторизован, на существование уже созданного ранее заказа
-            if($this->user AND $exist_orders = $this->blankExistOrderCheck($this->user->user_id))
+            if($this->user AND $exist_orders = $this->blankExistOrderCheck($this->user->user_id, $order_type))
             {
                 $view['orders'] = $exist_orders;
             }
@@ -964,7 +964,7 @@ Email: {$this->user->user_email}";
             {
                 $user_id = UserModel::getTemporaryKey();
 
-                if ($exist_orders = $this->blankExistOrderCheck($user_id))
+                if ($exist_orders = $this->blankExistOrderCheck($user_id, $order_type))
                 {
                     $view['orders'] = $exist_orders;
                 }
@@ -978,13 +978,20 @@ Email: {$this->user->user_email}";
             $view['joints'] = null;
             $view['odetails'] = null;
 
+
             for($i = 0, $n = count($view['orders']); $i < $n; $i++) :
                 $order = $view['orders'][$i];
-                if ($order->order_type == $order_type) :
+
+                $order_type_name = ($order_type == 'mailforwarding') ? 'mail_forwarding' : $order_type;
+
+                if ($order->order_type == $order_type_name) :
                     $view['order'] = $order;
                     $view['odetails'] = $this->Odetails->getOrderDetails($order->order_id);
                     $view['joints'] = $this->Joints->getOrderJoints($order->order_id);
-                    $this->Orders->prepareOrderView($view);
+                    if ($order_type != 'mailforwarding')
+                    {
+                        $this->Orders->prepareOrderView($view);
+                    }
                     break;
                 endif;
             endfor;
@@ -1035,11 +1042,11 @@ Email: {$this->user->user_email}";
 		}
 	}
 
-    private function blankExistOrderCheck($client_id)
+    private function blankExistOrderCheck($client_id, $order_type = '')
     {
         // типы заказов
         $this->load->model('OrderModel', 'Orders');
-        $orders = $this->Orders->getClientBlankOrders($client_id);
+        $orders = $this->Orders->getClientBlankOrders($client_id, $order_type);
 
         if ($orders) return $orders;
 
@@ -1705,5 +1712,44 @@ Email: {$this->user->user_email}";
         }
 
         print(json_encode($response));
+    }
+
+    public function update_new_joint_pricedelivery($order_id, $joint_id, $cost)
+    {
+        parent::update_joint_pricedelivery($order_id, $joint_id, $cost);
+    }
+
+    public function update_new_order_dealer_id($order_id, $dealer_id)
+    {
+        try
+        {
+            if ( ! is_numeric($order_id) OR
+                ! is_numeric($dealer_id))
+            {
+                throw new Exception('Доступ запрещен.');
+            }
+
+            // роли и разграничение доступа
+            $order = $this->getNewOrder(
+                $order_id,
+                "Заказ недоступен.");
+
+            $this->load->model('OrderModel', 'Orders');
+
+            $order->order_manager = $dealer_id;
+
+            $this->Orders->saveOrder($order);
+
+            // отправляем пересчитанные детали заказа
+            $response = $this->prepareOrderUpdateJSON($order);
+        }
+        catch (Exception $e)
+        {
+            $response['is_error'] = TRUE;
+            $response['message'] = $e->getMessage();
+        }
+
+        print(json_encode($response));
+        exit();
     }
 }

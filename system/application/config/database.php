@@ -38,8 +38,8 @@ $active_group = "default";
 $active_record = TRUE;
 
 $db['default']['hostname'] = "localhost";
-$db['default']['username'] = "omni";
-$db['default']['password'] = "inQ1ES7kbU";
+$db['default']['username'] = "root";
+$db['default']['password'] = "";
 $db['default']['database'] = "countrypost.service";
 $db['default']['dbdriver'] = "mysql";
 $db['default']['dbprefix'] = "";
