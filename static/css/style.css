@@ -2554,6 +2554,7 @@ span.producteditor b {
 	height:14px;
 	margin-bottom: 14px;
 	vertical-align: baseline;
+    float:left;
 }
 
 span.producteditor textarea {
