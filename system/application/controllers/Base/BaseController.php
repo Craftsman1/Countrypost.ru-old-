@@ -2990,6 +2990,12 @@ abstract class BaseController extends Controller
             else if ($this->user->user_group == 'client')
             {
                 $odetail = $this->ODetails->getClientOdetailById($oid, $odid, $this->user->user_id);
+
+                if (empty($odetail))
+                {
+                    $client_id = UserModel::getTemporaryKey(true);
+                    $odetail = $this->ODetails->getClientOdetailById($oid, $odid, $client_id);
+                }
             }
             else if ($this->user->user_group == 'admin')
             {
