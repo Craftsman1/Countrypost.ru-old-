@@ -3007,7 +3007,7 @@ abstract class BaseController extends Controller
                 'Невозможно изменить статусы товаров. Заказ не найден.');
 
             // сохранение результатов
-            if ($this->user->user_group == 'client')
+            if ((!empty($this->user) AND $this->user->user_group == 'client') OR empty($this->user))
             {
                 OdetailModel::markUpdatedByClient($order, $odetail, $this->getOrderModel());
             }

@@ -715,6 +715,7 @@
                     // Рисуем новый товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
+                        joint_id:0,
                         name:fieldByName(iObj.fields, 'oname').val(),
                         price:fieldByName(iObj.fields, 'oprice').val(),
                         delivery:fieldByName(iObj.fields, 'odeliveryprice').val(),
@@ -878,7 +879,7 @@
                     $tr.find('textarea.link').val(odetail['olink']);
 
 
-                    name = new $.cpField();
+                    var name = new $.cpField();
                     name.init({
                         object:$tr.find('textarea.name')
                     });
@@ -1503,6 +1504,7 @@
                     // Рисуем новый товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
+                        joint_id:0,
                         name:fieldByName(iObj.fields, 'oname').val(),
                         price:fieldByName(iObj.fields, 'oprice').val(),
                         delivery:fieldByName(iObj.fields, 'odeliveryprice').val(),
@@ -1654,7 +1656,7 @@
 
                     iObj.itemFields = [];
 
-                    name = new $.cpField();
+                    var name = new $.cpField();
                     name.init({
                         object:$tr.find('textarea.name')
                     });
@@ -1664,7 +1666,7 @@
                     });
                     iObj.itemFields.push(name);
 
-                    amount = new $.cpField();
+                    var amount = new $.cpField();
                     amount.init({
                         object:$tr.find('textarea.amount'),
                         needCheck : 'number'
@@ -2232,6 +2234,7 @@
                     // Рисуем новый товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
+                        joint_id:0,
                         name:fieldByName(iObj.fields, 'oname').val(),
                         price:fieldByName(iObj.fields, 'oprice').val(),
                         delivery:fieldByName(iObj.fields, 'odeliveryprice').val(),
@@ -2376,7 +2379,7 @@
 
                     iObj.itemFields = [];
 
-                    name = new $.cpField();
+                    var name = new $.cpField();
                     name.init({
                         object:$tr.find('textarea.name')
                     });
@@ -2386,7 +2389,7 @@
                     });
                     iObj.itemFields.push(name);
 
-                    ocomment = new $.cpField();
+                    var ocomment = new $.cpField();
                     ocomment.init({
                         object:$tr.find('textarea.ocomment')
                     });
@@ -2971,6 +2974,7 @@
                     // Рисуем новый товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
+                        joint_id:0,
                         name:fieldByName(iObj.fields, 'oname').val(),
                         olink:fieldByName(iObj.fields, 'olink').val(),
                         ovolume:fieldByName(iObj.fields, 'ovolume').val(),
@@ -3128,7 +3132,7 @@
 
                     iObj.itemFields = [];
 
-                    name = new $.cpField();
+                    var name = new $.cpField();
                     name.init({
                         object:$tr.find('textarea.name')
                     });
@@ -3138,14 +3142,14 @@
                     });
                     iObj.itemFields.push(name);
 
-                    amount = new $.cpField();
+                    var amount = new $.cpField();
                     amount.init({
                         object:$tr.find('textarea.amount'),
                         needCheck : 'number'
                     });
                     iObj.itemFields.push(amount);
 
-                    volume = new $.cpField();
+                    var volume = new $.cpField();
                     volume.init({
                         object:$tr.find('textarea.volume'),
                         needCheck : 'float'
@@ -3717,6 +3721,7 @@
                     // Рисуем новый товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
+                        joint_id:0,
                         name:fieldByName(iObj.fields, 'oname').val(),
                         olink:fieldByName(iObj.fields, 'olink').val(),
                         otracking:fieldByName(iObj.fields, 'otracking').val(),
@@ -3868,7 +3873,7 @@
 
                     iObj.itemFields = [];
 
-                    name = new $.cpField();
+                    var name = new $.cpField();
                     name.init({
                         object:$tr.find('textarea.name')
                     });
@@ -3878,7 +3883,7 @@
                     });
                     iObj.itemFields.push(name);
 
-                    tracking = new $.cpField();
+                    var tracking = new $.cpField();
                     tracking.init({
                         object:$tr.find('input.odetail_tracking')
                     });
@@ -3888,7 +3893,7 @@
                     });
                     iObj.itemFields.push(tracking);
 
-                    amount = new $.cpField();
+                    var amount = new $.cpField();
                     amount.init({
                         object:$tr.find('textarea.amount'),
                         needCheck : 'number'
