@@ -832,7 +832,9 @@
                                     if (responce.e == -1) {
                                         error('top', responce.m);
                                     }
-                                    else {
+                                    else
+                                    {
+                                        var odetail = oObj.options.cart.getById(itemId);
                                         oObj.options.cart.delete(itemId);
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
@@ -844,6 +846,11 @@
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
+
+                                        if(odetail.odetail_joint_id != 0)
+                                        {
+                                            document.location.reload();
+                                        }
                                     }
                                 })
                                 .error(function (responce) {
@@ -1623,6 +1630,7 @@
                                         error('top', responce.m);
                                     }
                                     else {
+                                        var odetail = oObj.options.cart.getById(itemId);
                                         oObj.options.cart.delete(itemId);
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
@@ -1634,6 +1642,11 @@
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
+
+                                        if(odetail.odetail_joint_id != 0)
+                                        {
+                                            document.location.reload();
+                                        }
                                     }
                                 })
                                 .error(function (responce) {
@@ -2346,6 +2359,7 @@
                                         error('top', responce.m);
                                     }
                                     else {
+                                        var odetail = oObj.options.cart.getById(itemId);
                                         oObj.options.cart.delete(itemId);
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
@@ -2357,6 +2371,11 @@
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
+
+                                        if(odetail.odetail_joint_id != 0)
+                                        {
+                                            document.location.reload();
+                                        }
                                     }
                                 })
                                 .error(function (responce) {
@@ -3098,6 +3117,7 @@
                                         error('top', responce.m);
                                     }
                                     else {
+                                        var odetail = oObj.options.cart.getById(itemId);
                                         oObj.options.cart.delete(itemId);
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
@@ -3109,6 +3129,11 @@
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
+
+                                        if(odetail.odetail_joint_id != 0)
+                                        {
+                                            document.location.reload();
+                                        }
                                     }
                                 })
                                 .error(function (responce) {
@@ -3839,6 +3864,7 @@
                                         error('top', responce.m);
                                     }
                                     else {
+                                        var odetail = oObj.options.cart.getById(itemId);
                                         oObj.options.cart.delete(itemId);
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
@@ -3850,6 +3876,11 @@
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
+
+                                        if(odetail.odetail_joint_id != 0)
+                                        {
+                                            document.location.reload();
+                                        }
                                     }
                                 })
                                 .error(function (responce) {

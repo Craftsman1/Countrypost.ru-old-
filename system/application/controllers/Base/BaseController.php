@@ -3031,14 +3031,14 @@ abstract class BaseController extends Controller
                 }
 
                 // сносим объединенную посылку
-                if ($joint->odetail_joint_count < 3)
+                if ($joint->count < 3)
                 {
-                    $this->ODetails->clearJoints($joint->odetail_joint_id);
+                    $this->ODetails->clearJoints($joint->joint_id);
                 }
                 // или правим ее
                 else
                 {
-                    $joint->odetail_joint_count = $joint->odetail_joint_count - 1;
+                    $joint->odetail_joint_count = $joint->count - 1;
                     $this->Joints->addOdetailJoint($joint);
                 }
             }
