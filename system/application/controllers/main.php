@@ -1591,14 +1591,25 @@ Email: {$this->user->user_email}";
             if (!empty($this->user))
             {
                 $client_id = $this->user->user_id;
+
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+
+                if (empty($odetail))
+                {
+                    $client_id = UserModel::getTemporaryKey();
+
+                    // находим товар
+                    $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+                }
             }
             else
             {
                 $client_id = UserModel::getTemporaryKey();
-            }
 
-            // находим товар
-            $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+            }
 
             if (empty($odetail))
             {
@@ -1653,14 +1664,25 @@ Email: {$this->user->user_email}";
             if (!empty($this->user))
             {
                 $client_id = $this->user->user_id;
+
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+
+                if (empty($odetail))
+                {
+                    $client_id = UserModel::getTemporaryKey();
+
+                    // находим товар
+                    $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+                }
             }
             else
             {
                 $client_id = UserModel::getTemporaryKey();
-            }
 
-            // находим товар
-            $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+            }
 
             if (empty($odetail))
             {
@@ -1715,14 +1737,25 @@ Email: {$this->user->user_email}";
             if (!empty($this->user))
             {
                 $client_id = $this->user->user_id;
+
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+
+                if (empty($odetail))
+                {
+                    $client_id = UserModel::getTemporaryKey();
+
+                    // находим товар
+                    $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+                }
             }
             else
             {
                 $client_id = UserModel::getTemporaryKey();
-            }
 
-            // находим товар
-            $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+            }
 
             if (empty($odetail))
             {
