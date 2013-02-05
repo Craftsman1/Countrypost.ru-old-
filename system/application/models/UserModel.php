@@ -237,5 +237,24 @@ class UserModel extends BaseModel implements IModel {
 			throw new Exception('Пользователь не может быть удален', -1);
 		}
 		return true;
-	}}
+	}
+
+    public static function getTemporaryKey ($autocreate = TRUE)
+    {
+        $temp_id = Stack::last('temporary_user_id');
+
+        if (!$temp_id AND $autocreate)
+        {
+            $int_session_value = preg_replace("[A-Za-z]", "1", session_id());
+            $int_session_value = (int) $int_session_value;
+            $left_bound = -(time()+$int_session_value);
+
+            Stack::push('temporary_user_id', rand($left_bound,-1));
+
+            $temp_id = Stack::last('temporary_user_id');
+        }
+
+        return $temp_id;
+    }
+}
 ?>

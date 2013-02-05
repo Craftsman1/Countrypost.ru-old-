@@ -513,12 +513,28 @@ class Client extends ClientBaseController {
 	
 	public function showScreen($oid=null) 
 	{
+        header('Content-type: image/jpg');
+        $this->load->model('OdetailModel', 'OdetailModel');
+        if ($Detail = $this->OdetailModel->getInfo(array('odetail_client' => $this->user->user_id, 'odetail_id' => intval($oid)))) {
+            readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/{$this->user->user_id}/$oid.jpg");
+        }
+        die();
+
+        /*if (!empty($this->user))
+        {
+            $client_id = $this->user->user_id;
+        }
+        else
+        {
+            $client_id = UserModel::getTemporaryKey();
+        }
+        // TODO : а если картинка не JPG!?
 		header('Content-type: image/jpg');
 		$this->load->model('OdetailModel', 'OdetailModel');
-		if ($Detail = $this->OdetailModel->getInfo(array('odetail_client' => $this->user->user_id, 'odetail_id' => intval($oid)))) {
-			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/{$this->user->user_id}/$oid.jpg");
+		if ($Detail = $this->OdetailModel->getInfo(array('odetail_client' => $client_id, 'odetail_id' => intval($oid)))) {
+			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/{$Detail->client_id}/$oid.jpg");
 		}
-		die();
+		die();*/
 	}
 	
 	public function showOrder2InFoto($oid, $filename) {
@@ -2193,163 +2209,4 @@ class Client extends ClientBaseController {
 		parent::removeJoint($order_id, $joint_id);
 	}
 	// EOF: перенаправление обработчиков в базовый контроллер
-
-	public function update_new_odetail_weight($order_id, $odetail_id, $weight)
-	{
-		try
-		{
-			if ( ! is_numeric($order_id) OR
-				! is_numeric($odetail_id) OR
-				! is_numeric($weight))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-
-			// роли и разграничение доступа
-			$order = $this->getNewOrder(
-				$order_id,
-				"Заказ недоступен.");
-
-			$this->load->model('OrderModel', 'Orders');
-			$this->load->model('OdetailModel', 'Odetails');
-			$this->load->model('OdetailJointModel', 'Joints');
-
-			// находим товар
-			$odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $this->user->user_id);
-
-			if (empty($odetail))
-			{
-				throw new Exception('Товар не найден.');
-			}
-
-			$odetail->odetail_weight = $weight;
-
-			// сохранение результатов
-			$this->Odetails->addOdetail($odetail);
-
-			// пересчитываем заказ
-			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
-			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
-			}
-
-			$this->Orders->saveOrder($order);
-
-			// отправляем пересчитанные детали заказа
-			$response = $this->prepareOrderUpdateJSON($order);
-		}
-		catch (Exception $e)
-		{
-			$response['is_error'] = TRUE;
-			$response['message'] = $e->getMessage();
-		}
-
-		print(json_encode($response));
-	}
-
-	public function update_new_odetail_price($order_id, $odetail_id, $price)
-	{
-		try
-		{
-			if ( ! is_numeric($order_id) OR
-				! is_numeric($odetail_id) OR
-				! is_numeric($price))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-
-			// роли и разграничение доступа
-			$order = $this->getNewOrder(
-				$order_id,
-				"Заказ недоступен.");
-
-			$this->load->model('OrderModel', 'Orders');
-			$this->load->model('OdetailModel', 'Odetails');
-			$this->load->model('OdetailJointModel', 'Joints');
-
-			// находим товар
-			$odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $this->user->user_id);
-
-			if (empty($odetail))
-			{
-				throw new Exception('Товар не найден.');
-			}
-
-			$odetail->odetail_price = $price;
-
-			// сохранение результатов
-			$this->Odetails->addOdetail($odetail);
-
-			// пересчитываем заказ
-			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
-			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
-			}
-
-			$this->Orders->saveOrder($order);
-
-			// отправляем пересчитанные детали заказа
-			$response = $this->prepareOrderUpdateJSON($order);
-		}
-		catch (Exception $e)
-		{
-			$response['is_error'] = TRUE;
-			$response['message'] = $e->getMessage();
-		}
-
-		print(json_encode($response));
-	}
-
-	public function update_new_odetail_pricedelivery($order_id, $odetail_id, $pricedelivery)
-	{
-		try
-		{
-			if ( ! is_numeric($order_id) OR
-				! is_numeric($odetail_id) OR
-				! is_numeric($pricedelivery))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-
-			// роли и разграничение доступа
-			$order = $this->getNewOrder(
-				$order_id,
-				"Заказ недоступен.");
-
-			$this->load->model('OrderModel', 'Orders');
-			$this->load->model('OdetailModel', 'Odetails');
-			$this->load->model('OdetailJointModel', 'Joints');
-
-			// находим товар
-			$odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $this->user->user_id);
-
-			if (empty($odetail))
-			{
-				throw new Exception('Товар не найден.');
-			}
-
-			$odetail->odetail_pricedelivery = $pricedelivery;
-
-			// сохранение результатов
-			$this->Odetails->addOdetail($odetail);
-
-			// пересчитываем заказ
-			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
-			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
-			}
-
-			$this->Orders->saveOrder($order);
-
-			// отправляем пересчитанные детали заказа
-			$response = $this->prepareOrderUpdateJSON($order);
-		}
-		catch (Exception $e)
-		{
-			$response['is_error'] = TRUE;
-			$response['message'] = $e->getMessage();
-		}
-
-		print(json_encode($response));
-	}
 }

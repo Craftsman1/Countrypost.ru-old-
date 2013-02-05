@@ -191,12 +191,24 @@
                 alert("Необходимо указать (expression и message) детали валидации");
         }
 
-        this.check = function () {
+        this.check = function ()
+        {
             return fieldValidate();
         }
 
-        this.val = function () {
-            return fObj.element.val();
+        this.val = function ()
+        {
+            var val = '';
+            if (fObj.element.attr('type') == 'checkbox')
+            {
+                val = fObj.element.is(':checked') ? fObj.element.val() : 0;
+            }
+            else
+            {
+                val = fObj.element.val();
+            }
+
+            return val;
         }
     }
 
@@ -234,6 +246,7 @@
                 var item = new cartItem(args);
 
                 cObj.items.push(item);
+                window.cpCart = cObj.items;
             }
         }
 
@@ -247,6 +260,7 @@
                 });
 
                 cObj.items.push(item);
+                window.cpCart = cObj.items;
             }
         }
 
@@ -294,19 +308,42 @@
                 cObj.items.splice(i, 1);
                 break;
             }
+            window.cpCart = cObj.items;
         }
 
-        cObj.calcTotals = function () {
+        cObj.calcTotals = function ()
+        {
             var result = {price:0, delivery:0, weight:0, amount:0, currency:cObjCurrency};
+
+            var calculatedJoints = [];
+
             $.each(cObj.items, function (k, v) {
                 if (isNaN(v.price)) v.price = 0;
                 if (isNaN(v.delivery)) v.delivery = 0;
                 if (isNaN(v.weight)) v.weight = 0;
                 if (isNaN(v.amount)) v.amount = 0;
-                result.price = parseFloat(result.price, 10) + parseFloat(v.price, 10);
-                result.delivery = parseFloat(result.delivery, 10) + parseFloat(v.delivery, 10);
+                result.price = parseFloat(result.price) + parseFloat(v.price);
                 result.weight = parseInt(result.weight, 10) + parseInt(v.weight, 10);
                 result.amount = parseInt(result.amount, 10) + parseInt(v.amount, 10);
+
+                if (v.joint_id == 0)
+                {
+                    result.delivery = parseFloat(result.delivery) + parseFloat(v.delivery);
+                    result.delivery = (isNaN(result.delivery)) ? 0 : result.delivery;
+                }
+                else
+                {
+                    var index = calculatedJoints.indexOf(v.joint_id);
+                    if (index == -1)
+                    {
+                        result.delivery = result.delivery + parseFloat(orderJoints[v.joint_id].cost);
+                        calculatedJoints.push(v.joint_id);
+                    }
+                }
+
+                result.price = (isNaN(result.price)) ? 0 : result.price;
+                result.weight = (isNaN(result.weight)) ? 0 : result.weight;
+                result.amount = (isNaN(result.amount)) ? 0 : result.amount;
             });
             return result;
         }
@@ -453,8 +490,31 @@
                 autoFill:false,
                 matchContains:0,
                 cacheLength:10,
+                loadingClass : 'progress_ac',
                 onItemSelect: function (suggestion) {
+                    $('#dealer_id_ac_' + order_type).val(suggestion.extra.id);
                     $('#dealer_id_' + order_type).val(suggestion.extra.id);
+                    if (oObj.options.order_id)
+                    {
+                        $('.progress_ac').show();
+                        $.post('<?= $selfurl ?>update_new_order_dealer_id/' + oObj.options.order_id + '/' + suggestion.extra.id,
+                                {},
+                                function(data)
+                                {
+                                    $('.progress_ac').hide();
+                                    if (data.is_error)
+                                    {
+                                        error('top', 'Посредник не выбран. ' + data.message);
+                                    }
+                                    else
+                                    {
+
+                                        success('top', 'Посредник выбран.');
+                                    }
+                                },
+                                'json'
+                        );
+                    }
                 },
                 formatItem : function(row, i, num)
                 {
@@ -655,6 +715,7 @@
                     // Рисуем новый товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
+                        joint_id:0,
                         name:fieldByName(iObj.fields, 'oname').val(),
                         price:fieldByName(iObj.fields, 'oprice').val(),
                         delivery:fieldByName(iObj.fields, 'odeliveryprice').val(),
@@ -665,7 +726,7 @@
                         ocolor:fieldByName(iObj.fields, 'ocolor').val(),
                         osize:fieldByName(iObj.fields, 'osize').val(),
                         oimg:fieldByName(iObj.fields, 'userfileimg').val(),
-                        foto_requested:fieldByName(iObj.fields, 'foto_requested').val(),
+                        foto_requested: fieldByName(iObj.fields, 'foto_requested').val(),
                         ocomment:fieldByName(iObj.fields, 'ocomment').val()
                     });
                     var row = iObj.drawRow(item);
@@ -771,7 +832,9 @@
                                     if (responce.e == -1) {
                                         error('top', responce.m);
                                     }
-                                    else {
+                                    else
+                                    {
+                                        var odetail = oObj.options.cart.getById(itemId);
                                         oObj.options.cart.delete(itemId);
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
@@ -783,6 +846,11 @@
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
+
+                                        if(odetail.odetail_joint_id != 0)
+                                        {
+                                            document.location.reload();
+                                        }
                                     }
                                 })
                                 .error(function (responce) {
@@ -818,7 +886,7 @@
                     $tr.find('textarea.link').val(odetail['olink']);
 
 
-                    name = new $.cpField();
+                    var name = new $.cpField();
                     name.init({
                         object:$tr.find('textarea.name')
                     });
@@ -942,7 +1010,7 @@
 
                             addItemProgress(odetail_id);
 
-                            $.post('/client/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                            $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                                     function (responce) {
                                         removeItemProgress(odetail_id);
                                         if (responce.is_error) {
@@ -967,13 +1035,13 @@
                             var val = $(this).val();
                             var odetail_id = $(this).attr('odetail-id');
                             if (isNaN(val) || parseInt(val, 10) == 0) {
-                                error('top', 'Стоимость не изменена. Укажите стоимость доставки.');
-                                return;
+                                val = 0;
+                                $(this).val(0);
                             }
 
                             addItemProgress(odetail_id);
 
-                            $.post('/client/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                            $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                                     function (responce) {
                                         removeItemProgress(odetail_id);
                                         if (responce.is_error) {
@@ -1004,7 +1072,7 @@
 
                             addItemProgress(odetail_id);
 
-                            $.post('/client/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                            $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                                     function (responce) {
                                         removeItemProgress(odetail_id);
                                         if (responce.is_error) {
@@ -1029,7 +1097,7 @@
                 {
                     oimg = getImageSnippet(item);
 
-                            // Рисуем новый товар
+                            // Рисуем новый online товар
                             var snippet = $('' +
                                     '<tr id="product' + item.id + '" class="snippet" detail-id="' + item.id + '">' +
                                     '   <td id="odetail_id' + item.id + '">' +
@@ -1041,7 +1109,7 @@
                                     '   </td>' +
                                     '   <td style="text-align: left; vertical-align: bottom;">' +
                                     '      <span class="plaintext">' +
-                                    '          <a href="' + item.link + '" target="_blank">' + item.name + '</a>' +
+                                    '          <a href="' + item.olink + '" target="_blank">' + item.name + '</a>' +
                                     '          '+((item.foto_requested) ? '(требуется фото товара)' : '')+' ' +
                                     '          <br/>' +
                                     '          <b>Количество</b>: ' + item.amount +
@@ -1093,16 +1161,16 @@
                                     '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.weight + '" class="odetail_weight int" name="odetail_weight' + item.id + '" id="odetail_weight' + item.id + '">' +
                                     '   </td>' +
                                     '   <td>' +
-                                    '      <a class="edit" odetail-id="' + item.id + '" href="#">' +
+                                    '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                                     '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
                                     '      <br/>' +
-                                    '      <a class="delete" odetail-id="' + item.id + '" href="#">' +
+                                    '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                                     '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
                                     '      <br/>' +
-                                    '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="#">' +
+                                    '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                                     '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
                                     '      <br/>' +
-                                    '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="#">' +
+                                    '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                                     '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
                                     '   </td>' +
                                     '</tr>');
@@ -1152,6 +1220,7 @@
 
                                     oObj.options.cart.addCustom({
                                         id:v.odetail_id,
+                                        joint_id:v.odetail_joint_id,
                                         name:v.odetail_product_name,
                                         price:v.odetail_price,
                                         delivery:v.odetail_pricedelivery,
@@ -1212,7 +1281,7 @@
             });
             country_from.validate({
                 expression:'if (VAL == 0) { return false; } else { return true; }',
-                message:'Необходимо выбрать страну поступления'
+                message:'Необходимо выбрать страну заказа'
             });
             oObj.fields.push(country_from);
 
@@ -1442,6 +1511,7 @@
                     // Рисуем новый товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
+                        joint_id:0,
                         name:fieldByName(iObj.fields, 'oname').val(),
                         price:fieldByName(iObj.fields, 'oprice').val(),
                         delivery:fieldByName(iObj.fields, 'odeliveryprice').val(),
@@ -1519,7 +1589,10 @@
 
                                     // Отображаем список товаров
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().show();
-                                    $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    if (user != '')
+                                    {
+                                        $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    }
                                 }
                             }
                             // Ответ не был получен
@@ -1557,6 +1630,7 @@
                                         error('top', responce.m);
                                     }
                                     else {
+                                        var odetail = oObj.options.cart.getById(itemId);
                                         oObj.options.cart.delete(itemId);
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
@@ -1568,6 +1642,11 @@
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
+
+                                        if(odetail.odetail_joint_id != 0)
+                                        {
+                                            document.location.reload();
+                                        }
                                     }
                                 })
                                 .error(function (responce) {
@@ -1590,7 +1669,7 @@
 
                     iObj.itemFields = [];
 
-                    name = new $.cpField();
+                    var name = new $.cpField();
                     name.init({
                         object:$tr.find('textarea.name')
                     });
@@ -1600,7 +1679,7 @@
                     });
                     iObj.itemFields.push(name);
 
-                    amount = new $.cpField();
+                    var amount = new $.cpField();
                     amount.init({
                         object:$tr.find('textarea.amount'),
                         needCheck : 'number'
@@ -1719,7 +1798,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -1744,13 +1823,13 @@
                     var val = $(this).val();
                     var odetail_id = $(this).attr('odetail-id');
                     if (isNaN(val) || parseInt(val, 10) == 0) {
-                        error('top', 'Стоимость не изменена. Укажите стоимость доставки.');
-                        return;
+                        val = 0;
+                        $(this).val(0);
                     }
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -1781,7 +1860,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -1818,8 +1897,8 @@
                             '   </td>' +
                             '   <td style="text-align: left; vertical-align: bottom;">' +
                             '      <span class="plaintext">' +
-                            '          <b>' + item.name + '</b><br/>' +
-                            '          '+((item.foto_requested) ? '(требуется фото товара)' : '')+' ' +
+                            '          <b>' + item.name + '</b>' +
+                            '          '+((item.foto_requested) ? '(требуется фото товара)' : '') + '<br/> ' +
                             '          <b>Магазин</b>: ' + item.oshop + '' +
                             '          <br/>' +
                             '          <b>Количество</b>: ' + item.amount +
@@ -1871,16 +1950,16 @@
                             '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.weight + '" class="odetail_weight int" name="odetail_weight' + item.id + '" id="odetail_weight' + item.id + '">' +
                             '   </td>' +
                             '   <td>' +
-                            '      <a class="edit" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
                             '      <br/>' +
-                            '      <a class="delete" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
                             '   </td>' +
                             '</tr>');
@@ -1930,6 +2009,7 @@
 
                             oObj.options.cart.addCustom({
                                 id:v.odetail_id,
+                                joint_id:v.odetail_joint_id,
                                 name:v.odetail_product_name,
                                 price:v.odetail_price,
                                 delivery:v.odetail_pricedelivery,
@@ -1990,7 +2070,7 @@
             });
             country_from.validate({
                 expression:'if (VAL == 0) { return false; } else { return true; }',
-                message:'Необходимо выбрать страну поступления'
+                message:'Необходимо выбрать страну заказа'
             });
             oObj.fields.push(country_from);
 
@@ -2167,6 +2247,7 @@
                     // Рисуем новый товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
+                        joint_id:0,
                         name:fieldByName(iObj.fields, 'oname').val(),
                         price:fieldByName(iObj.fields, 'oprice').val(),
                         delivery:fieldByName(iObj.fields, 'odeliveryprice').val(),
@@ -2237,7 +2318,10 @@
 
                                     // Отображаем список товаров
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().show();
-                                    $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    if (user != '')
+                                    {
+                                        $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    }
                                 }
                             }
                             // Ответ не был получен
@@ -2275,6 +2359,7 @@
                                         error('top', responce.m);
                                     }
                                     else {
+                                        var odetail = oObj.options.cart.getById(itemId);
                                         oObj.options.cart.delete(itemId);
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
@@ -2286,6 +2371,11 @@
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
+
+                                        if(odetail.odetail_joint_id != 0)
+                                        {
+                                            document.location.reload();
+                                        }
                                     }
                                 })
                                 .error(function (responce) {
@@ -2308,7 +2398,7 @@
 
                     iObj.itemFields = [];
 
-                    name = new $.cpField();
+                    var name = new $.cpField();
                     name.init({
                         object:$tr.find('textarea.name')
                     });
@@ -2318,7 +2408,7 @@
                     });
                     iObj.itemFields.push(name);
 
-                    ocomment = new $.cpField();
+                    var ocomment = new $.cpField();
                     ocomment.init({
                         object:$tr.find('textarea.ocomment')
                     });
@@ -2431,7 +2521,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -2456,13 +2546,13 @@
                     var val = $(this).val();
                     var odetail_id = $(this).attr('odetail-id');
                     if (isNaN(val) || parseInt(val, 10) == 0) {
-                        error('top', 'Стоимость не изменена. Укажите стоимость доставки.');
-                        return;
+                        val = 0;
+                        $(this).val(0);
                     }
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -2493,7 +2583,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -2563,16 +2653,16 @@
                             '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.delivery + '" class="odetail_pricedelivery int" name="odetail_pricedelivery' + item.id + '" id="odetail_pricedelivery' + item.id + '">' +
                             '   </td>' +
                             '   <td>' +
-                            '      <a class="edit" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
                             '      <br/>' +
-                            '      <a class="delete" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
                             '   </td>' +
                             '</tr>');
@@ -2622,6 +2712,7 @@
 
                             oObj.options.cart.addCustom({
                                 id:v.odetail_id,
+                                joint_id:v.odetail_joint_id,
                                 name:v.odetail_product_name,
                                 price:v.odetail_price,
                                 delivery:v.odetail_pricedelivery,
@@ -2682,7 +2773,7 @@
             });
             country_from.validate({
                 expression:'if (VAL == 0) { return false; } else { return true; }',
-                message:'Необходимо выбрать страну поступления'
+                message:'Необходимо выбрать страну заказа'
             });
             oObj.fields.push(country_from);
 
@@ -2902,6 +2993,7 @@
                     // Рисуем новый товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
+                        joint_id:0,
                         name:fieldByName(iObj.fields, 'oname').val(),
                         olink:fieldByName(iObj.fields, 'olink').val(),
                         ovolume:fieldByName(iObj.fields, 'ovolume').val(),
@@ -2984,7 +3076,10 @@
 
                                     // Отображаем список товаров
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().show();
-                                    $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    if (user != '')
+                                    {
+                                        $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    }
                                 }
                             }
                             // Ответ не был получен
@@ -3022,6 +3117,7 @@
                                         error('top', responce.m);
                                     }
                                     else {
+                                        var odetail = oObj.options.cart.getById(itemId);
                                         oObj.options.cart.delete(itemId);
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
@@ -3033,6 +3129,11 @@
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
+
+                                        if(odetail.odetail_joint_id != 0)
+                                        {
+                                            document.location.reload();
+                                        }
                                     }
                                 })
                                 .error(function (responce) {
@@ -3056,7 +3157,7 @@
 
                     iObj.itemFields = [];
 
-                    name = new $.cpField();
+                    var name = new $.cpField();
                     name.init({
                         object:$tr.find('textarea.name')
                     });
@@ -3066,14 +3167,14 @@
                     });
                     iObj.itemFields.push(name);
 
-                    amount = new $.cpField();
+                    var amount = new $.cpField();
                     amount.init({
                         object:$tr.find('textarea.amount'),
                         needCheck : 'number'
                     });
                     iObj.itemFields.push(amount);
 
-                    volume = new $.cpField();
+                    var volume = new $.cpField();
                     volume.init({
                         object:$tr.find('textarea.volume'),
                         needCheck : 'float'
@@ -3133,7 +3234,7 @@
                     odetail['name'] = $tr.find('textarea.name').val();
                     odetail['insurance'] = parseInt($tr.find('input[name="insurance"]:checked').val(), 10);
                     odetail['ovolume'] = $tr.find('textarea.volume').val();
-                    odetail['otnveb'] = $tr.find('textarea.tnveb').val();
+                    odetail['otnved'] = $tr.find('textarea.tnved').val();
                     odetail['olink'] = $tr.find('textarea.link').val();
                     odetail['amount'] = $tr.find('textarea.amount').val();
                     odetail['ocomment'] = $tr.find('textarea.ocomment').val();
@@ -3183,14 +3284,15 @@
                 iObj.updateItemPrice = function () {
                     var val = $(this).val();
                     var odetail_id = $(this).attr('odetail-id');
-                    if (isNaN(val) || parseInt(val, 10) == 0) {
-                        error('top', 'Стоимость не изменена. Укажите стоимость товара.');
-                        return;
+                    if (isNaN(val) || parseInt(val, 10) == 0)
+                    {
+                        val = 0;
+                        $(this).val(0);
                     }
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -3215,13 +3317,13 @@
                     var val = $(this).val();
                     var odetail_id = $(this).attr('odetail-id');
                     if (isNaN(val) || parseInt(val, 10) == 0) {
-                        error('top', 'Стоимость не изменена. Укажите стоимость доставки.');
-                        return;
+                        val = 0;
+                        $(this).val(0);
                     }
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -3252,7 +3354,7 @@
 
                     addItemProgress(odetail_id);
 
-                    $.post('/client/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
                             function (responce) {
                                 removeItemProgress(odetail_id);
                                 if (responce.is_error) {
@@ -3336,16 +3438,16 @@
                             '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.weight + '" class="odetail_weight int" name="odetail_weight' + item.id + '" id="odetail_weight' + item.id + '">' +
                             '   </td>' +
                             '   <td>' +
-                            '      <a class="edit" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
                             '      <br/>' +
-                            '      <a class="delete" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
                             '   </td>' +
                             '</tr>');
@@ -3395,6 +3497,7 @@
 
                             oObj.options.cart.addCustom({
                                 id:v.odetail_id,
+                                joint_id:v.odetail_joint_id,
                                 name:v.odetail_product_name,
                                 olink:v.odetail_link,
                                 price:v.odetail_price,
@@ -3404,7 +3507,7 @@
                                 currency:selectedCurrency,
                                 ovolume:v.odetail_volume,
                                 otnved:v.odetail_tnved,
-                                insurance_need:v.odetail_insurance,
+                                insurance:v.odetail_insurance,
                                 ocomment:v.odetail_comment
                             });
                         });
@@ -3454,7 +3557,7 @@
             });
             country_from.validate({
                 expression:'if (VAL == 0) { return false; } else { return true; }',
-                message:'Необходимо выбрать страну поступления'
+                message:'Необходимо выбрать страну заказа'
             });
             oObj.fields.push(country_from);
 
@@ -3620,6 +3723,13 @@
                     });
                     iObj.fields.push(amount);
 
+                    // ТРебуются фото
+                    foto_requested = new $.cpField();
+                    foto_requested.init({
+                        object:$('#'+oObj.options.type+'ItemForm #foto_requested')
+                    });
+                    iObj.fields.push(foto_requested);
+
                     // Коментарий к товару
                     ocomment = new $.cpField();
                     ocomment.init({
@@ -3636,6 +3746,7 @@
                     // Рисуем новый товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
+                        joint_id:0,
                         name:fieldByName(iObj.fields, 'oname').val(),
                         olink:fieldByName(iObj.fields, 'olink').val(),
                         otracking:fieldByName(iObj.fields, 'otracking').val(),
@@ -3643,6 +3754,7 @@
                         osize:fieldByName(iObj.fields, 'osize').val(),
                         amount:fieldByName(iObj.fields, 'oamount').val(),
                         ocomment:fieldByName(iObj.fields, 'ocomment').val(),
+                        foto_requested:fieldByName(iObj.fields, 'foto_requested').val(),
                         currency:selectedCurrency
                     });
 
@@ -3711,7 +3823,10 @@
 
                                     // Отображаем список товаров
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().show();
-                                    $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    if (user != '')
+                                    {
+                                        $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+                                    }
                                 }
                             }
                             // Ответ не был получен
@@ -3749,6 +3864,7 @@
                                         error('top', responce.m);
                                     }
                                     else {
+                                        var odetail = oObj.options.cart.getById(itemId);
                                         oObj.options.cart.delete(itemId);
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
@@ -3760,6 +3876,11 @@
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
+
+                                        if(odetail.odetail_joint_id != 0)
+                                        {
+                                            document.location.reload();
+                                        }
                                     }
                                 })
                                 .error(function (responce) {
@@ -3783,7 +3904,7 @@
 
                     iObj.itemFields = [];
 
-                    name = new $.cpField();
+                    var name = new $.cpField();
                     name.init({
                         object:$tr.find('textarea.name')
                     });
@@ -3793,7 +3914,7 @@
                     });
                     iObj.itemFields.push(name);
 
-                    tracking = new $.cpField();
+                    var tracking = new $.cpField();
                     tracking.init({
                         object:$tr.find('input.odetail_tracking')
                     });
@@ -3803,7 +3924,7 @@
                     });
                     iObj.itemFields.push(tracking);
 
-                    amount = new $.cpField();
+                    var amount = new $.cpField();
                     amount.init({
                         object:$tr.find('textarea.amount'),
                         needCheck : 'number'
@@ -3983,16 +4104,16 @@
                             '       </span>' +
                             '   </td>' +
                             '   <td>' +
-                            '      <a class="edit" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
                             '      <br/>' +
-                            '      <a class="delete" odetail-id="' + item.id + '" href="#">' +
+                            '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
                             '      <br/>' +
-                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="#">' +
+                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
                             '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
                             '   </td>' +
                             '</tr>' +
@@ -4046,6 +4167,7 @@
 
                             oObj.options.cart.addCustom({
                                 id:v.odetail_id,
+                                joint_id:v.odetail_joint_id,
                                 name:v.odetail_product_name,
                                 olink:v.odetail_link,
                                 price:v.odetail_price,
@@ -4062,7 +4184,7 @@
                             });
                         });
 
-                        // прикручиваем обработчики кнопок деталям заказа
+                        // прикручиваем обработчики кнопок деталям mailforwarding заказа
                         $('.' + oObj.options.type + '_order_form #new_products a.edit').bind('click', iObj.editItem);
                         $('.' + oObj.options.type + '_order_form #new_products a.delete').bind('click', iObj.deleteItem);
                         $('.' + oObj.options.type + '_order_form #new_products a.save').bind('click', iObj.saveItem);
@@ -4183,6 +4305,8 @@
                     initMailforwarding();
                     break;
             }
+
+            window.cpOrder = oObj;
         } // End init
 
         oObj.updateTotals = function () {
@@ -4220,5 +4344,116 @@
         oObj.items = [];
     }
 
+    var selectAll = function ()
+    {
+        var obj = $(this);
+        if (obj[0].checked)
+        {
+            $('#new_products input[type="checkbox"]').attr('checked', 'checked');
+        }
+        else
+        {
+            $('#new_products input[type="checkbox"]').removeAttr('checked');
+        }
+    }
+    $(window).load(function() {
+        $('#select_all').bind('click', selectAll);
+    });
+
+
 })(jQuery)
+
+
+function joinProducts()
+{
+    var selectedProds = $('table.products input[type="checkbox"]:checked');
+
+    if (selectedProds.length < 2)
+    {
+        alert("Выберите хотя бы 2 товара для объединения местной доставки.");
+        return false;
+    }
+
+    if (confirm("Объединить местную доставку для выбранных товаров?"))
+    {
+        $('img#joinProgress').show();
+        var queryString = '';
+        var order_id = parseInt($('input.order_id').val(), 10);
+
+        selectedProds.each(function(index, item) {
+            queryString += (queryString.length ? '&' : '') +
+                    $(item).attr('name') +
+                    '=on';
+        });
+
+        if (order_id && !isNaN(order_id))
+        {
+            $.post('<?= $selfurl ?>joinNewProducts/' + order_id,
+                    queryString,
+                    function()
+                    {
+                        self.location.reload();
+                    }
+            );
+        }
+        else
+        {
+            error('top', 'Доставка не объединена.');
+        }
+    }
+}
+
+function removeJoint(id)
+{
+    var order_id = parseInt($('input.order_id').val(), 10);
+
+    if (order_id && !isNaN(order_id))
+    {
+        if (confirm("Отменить объединение общей доставки для выбранных товаров?"))
+        {
+            $('img#joinProgress').show();
+            window.location.href = '<?= $selfurl ?>removeNewJoint/' + order_id + '/' + id;
+        }
+    }
+    else
+    {
+        error('top', 'Объединенная доставка не отменена.');
+    }
+}
+
+function update_joint_pricedelivery(order_id, joint_id)
+{
+    var cost = $('input#joint_pricedelivery' + joint_id).val();
+    var uri = '<?= $selfurl ?>update_new_joint_pricedelivery/' +
+            order_id + '/' +
+            joint_id + '/' +
+            cost;
+    var success_message = 'Местная доставка товаров сохранена.';
+    var error_message = 'Местная доставка товаров не сохранена. ';
+    var progress = 'img.progressJoint' + joint_id;
+
+    $(progress).show();
+    $.post( uri,
+        {},
+        function(data)
+        {
+            if (data.is_error)
+            {
+                error('top', error_message + data.message);
+            }
+            else
+            {
+                success('top', success_message);
+                orderJoints[joint_id].cost = cost;
+                if (window.cpOrder)
+                {
+                    window.cpOrder.updateTotals();
+                }
+            }
+            $(progress).hide();
+        },
+        'json'
+    );
+    //updateCustomProduct(uri, success_message, error_message, progress);
+}
 </script>

@@ -286,7 +286,7 @@ body {
 		background:url(../images/autorization.png) 0 0px no-repeat;
 		}
 		.autorization h2 {
-			margin:0 0 15px 23px;
+			margin:0 0 15px 23px !important;
 			}
 		.autorization .text-field  {
 			width:223px;
@@ -1648,7 +1648,7 @@ div.extra_payment_money input
 	width:83px!important;
 }
 
-.ui-autocomplete-loading { background: white url(../images/autocomplete.gif) right center no-repeat; border:#AFAFAF 1px solid;padding: 2px 1px;}
+.ui-autocomplete-loading { background: white url(../images/autocomplete.gif) right center no-repeat !important; border:#AFAFAF 1px solid;padding: 2px 1px;}
 .ui-autocomplete { background: white; width: 90px; cursor: pointer; list-style-type: none; border: #AFAFAF solid 1px;border-top:0;}
 .ui-autocomplete :hover{ background: #AFAFAF;}
 a.ui-corner-all { color: #444; display: block; }
@@ -2082,7 +2082,7 @@ div.new_order_box .textbox {
 	width: 188px;
 	float: left;
 	padding:4px 4px 3px;
-	background:#f7f7f7;
+	background-color:#f7f7f7 !important;
 	border: 1px solid #afafaf;
 	color:#000;
 	font: 13px sans-serif;
@@ -2554,24 +2554,28 @@ span.producteditor b {
 	height:14px;
 	margin-bottom: 14px;
 	vertical-align: baseline;
+    float:left;
 }
 
 span.producteditor textarea {
-	width:100px;
+    width: 100%;
 	height:14px;
 	margin-bottom: 14px;
 	resize:vertical;
-	float: right;
+	float: left;
+    margin-top: -10px;
 }
 
 span.producteditor textarea.image {
 	width:180px;
 	float: right;
+    margin-top: 0px;
 }
 
 span.producteditor input[type='file'] {
 	width: 184px;
 	float: right;
+    margin-top: 0px;
 }
 
 span.producteditor input[type='radio'] {
@@ -2658,7 +2662,7 @@ div.new_bid_box textarea  {
 .ac_results
 {
     background: #ffffff;
-    width: 180px;
+    width: 188px !important;
     border: 1px solid #dddddd;
 }
 
@@ -2671,13 +2675,12 @@ div.new_bid_box textarea  {
 
 .ac_results ul li
 {
-    list-style: none;
-    border-bottom: 1px solid #dddddd;
-    margin: 4px 0px;
-    padding: 2px 4px;
-    width: 172px;
-    cursor: pointer;
     color: #000000;
+    cursor: pointer;
+    list-style: none outside none;
+    margin: 0px 0;
+    padding: 4px 10px;
+    width: 168px;
 }
 
 .ac_results ul li:last-of-type

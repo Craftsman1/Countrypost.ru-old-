@@ -946,21 +946,56 @@ Email: {$this->user->user_email}";
 
 			// типы заказов
 		    $this->load->model('OrderModel', 'Orders');
+            $this->load->model('OdetailModel', 'Odetails');
+            $this->load->model('OdetailJointModel', 'Joints');
+
 			$view['order_types'] = $this->Orders->getOrderTypes();
 
             $view['order_currency'] = '';
 
             // Создаем пустой заказ
             // TODO : проверить если, пользователь авторизован, на существование уже созданного ранее заказа
-            if($this->user AND $exist_orders = $this->blankExistOrderCheck($this->user->user_id))
+            if($this->user AND $exist_orders = $this->blankExistOrderCheck($this->user->user_id, $order_type))
             {
                 $view['orders'] = $exist_orders;
             }
             // TODO : Если не авторизован проверить нет ли временного заказа
             else
             {
-                $view['orders'] = null;
+                $user_id = UserModel::getTemporaryKey();
+
+                if ($exist_orders = $this->blankExistOrderCheck($user_id, $order_type))
+                {
+                    $view['orders'] = $exist_orders;
+                }
+                else
+                {
+                    $view['orders'] = null;
+                }
             }
+
+            $view['order'] = null;
+            $view['joints'] = null;
+            $view['odetails'] = null;
+
+
+            for($i = 0, $n = count($view['orders']); $i < $n; $i++) :
+                $order = $view['orders'][$i];
+
+                $order_type_name = ($order_type == 'mailforwarding') ? 'mail_forwarding' : $order_type;
+
+                if ($order->order_type == $order_type_name) :
+                    $view['order'] = $order;
+                    $view['odetails'] = $this->Odetails->getOrderDetails($order->order_id);
+                    $view['joints'] = $this->Joints->getOrderJoints($order->order_id);
+                    if ($order_type != 'mailforwarding')
+                    {
+                        $this->Orders->prepareOrderView($view);
+                    }
+                    break;
+                endif;
+            endfor;
+
 
             // тип заказа для построения страницы
             $view['order_type'] = $order_type;
@@ -979,19 +1014,19 @@ Email: {$this->user->user_email}";
                 switch ($order_type) :
 
                     case 'online' :
-                        Breadcrumb::setCrumb(array($result_url => 'Новый Online заказ'), 2, TRUE);
+                        Breadcrumb::setCrumb(array($result_url => 'Online заказ'), 2, TRUE);
                         break;
                     case 'offline' :
-                        Breadcrumb::setCrumb(array($result_url => 'Новый Offline заказ'), 2, TRUE);
+                        Breadcrumb::setCrumb(array($result_url => 'Offline заказ'), 2, TRUE);
                         break;
                     case 'service' :
-                        Breadcrumb::setCrumb(array($result_url => 'Новая услуга'), 2, TRUE);
+                        Breadcrumb::setCrumb(array($result_url => 'Услуга'), 2, TRUE);
                         break;
                     case 'delivery' :
-                        Breadcrumb::setCrumb(array($result_url => 'Новый заказ на доставку'), 2, TRUE);
+                        Breadcrumb::setCrumb(array($result_url => 'Заказ на доставку'), 2, TRUE);
                         break;
                     case 'mailforwarding' :
-                        Breadcrumb::setCrumb(array($result_url => 'Новый '.$order_type.' заказ'), 2, TRUE);
+                        Breadcrumb::setCrumb(array($result_url => 'Mailforwarding заказ'), 2, TRUE);
                         break;
                 endswitch;
             }
@@ -1007,11 +1042,11 @@ Email: {$this->user->user_email}";
 		}
 	}
 
-    private function blankExistOrderCheck($client_id)
+    private function blankExistOrderCheck($client_id, $order_type = '')
     {
         // типы заказов
         $this->load->model('OrderModel', 'Orders');
-        $orders = $this->Orders->getClientBlankOrders($client_id);
+        $orders = $this->Orders->getClientBlankOrders($client_id, $order_type);
 
         if ($orders) return $orders;
 
@@ -1030,16 +1065,7 @@ Email: {$this->user->user_email}";
 				// Эта фишка не прокатывает, значение сессии не может быть типа INT
 				//$user_id = session_id();
 				
-				// Записываем в сессию случайное отрицательное число сгенерированное на базе session_id
-				if (! isset($_SESSION['temporary_user_id']))
-				{
-					$int_session_value = preg_replace("[A-Za-z]", "0", session_id());
-					$int_session_value = (int) $int_session_value;
-					$left_bound = -(time()+$int_session_value);			
-					$_SESSION['temporary_user_id'] = rand($left_bound,-1);
-				}
-				
-				$user_id = $_SESSION['temporary_user_id'];
+				$user_id = UserModel::getTemporaryKey();
 			}
 			else
 			{
@@ -1081,6 +1107,11 @@ Email: {$this->user->user_email}";
     public function joinNewProducts($order_id)
     {
         parent::joinNewProducts($order_id);
+    }
+
+    public function removeNewJoint($order_id, $joint_id)
+    {
+        parent::removeNewJoint($order_id, $joint_id);
     }
 	
 	public function checkout()
@@ -1253,8 +1284,33 @@ Email: {$this->user->user_email}";
             $this->load->model('OrderModel', 'Orders');
             $this->load->model('OdetailModel', 'Odetails');
 
-            // находим товар
-            $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $this->user->user_id);
+            // Находим пользователя
+            if (!empty($this->user))
+            {
+                if ($this->user->user_group != 'client')
+                {
+                    throw new Exception('Доступ запрещен.');
+                }
+                $client_id = $this->user->user_id;
+
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+
+                if (empty($odetail))
+                {
+                    $client_id = UserModel::getTemporaryKey();
+
+                    // находим товар
+                    $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+                }
+            }
+            else
+            {
+                $client_id = UserModel::getTemporaryKey();
+
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+            }
 
             if (empty($odetail))
             {
@@ -1424,11 +1480,6 @@ Email: {$this->user->user_email}";
             throw new Exception('Добавьте цену товара.');
         }
 
-        if (empty($detail->odetail_pricedelivery))
-        {
-            throw new Exception('Добавьте местную доставку товара.');
-        }
-
         if (empty($detail->odetail_weight))
         {
             throw new Exception('Добавьте примерный вес товара.');
@@ -1457,11 +1508,6 @@ Email: {$this->user->user_email}";
             throw new Exception('Добавьте цену товара.');
         }
 
-        if (empty($detail->odetail_pricedelivery))
-        {
-            throw new Exception('Добавьте местную доставку товара.');
-        }
-
         if (empty($detail->odetail_weight))
         {
             throw new Exception('Добавьте примерный вес товара.');
@@ -1480,16 +1526,303 @@ Email: {$this->user->user_email}";
 
     protected function deliveryProductCheck ($detail)
     {
+        if (empty($detail->odetail_product_name))
+        {
+            throw new Exception('Добавьте наименование товара.');
+        }
 
+        if (empty($detail->odetail_weight))
+        {
+            throw new Exception('Добавьте примерный вес товара.');
+        }
+
+        if ( ! $detail->odetail_product_amount)
+        {
+            $detail->odetail_product_amount = 1;
+        }
     }
 
     protected function serviceProductCheck ($detail)
     {
+        if (empty($detail->odetail_product_name))
+        {
+            throw new Exception('Добавьте наименование товара.');
+        }
 
+        if (empty($detail->odetail_tracking))
+        {
+            throw new Exception('Добавьте tracking номер.');
+        }
     }
 
     protected function mailforwardProductCheck ($detail)
     {
+        if (empty($detail->odetail_product_name))
+        {
+            throw new Exception('Добавьте наименование товара.');
+        }
 
+        if (empty($detail->odetail_comment))
+        {
+            throw new Exception('Добавьте подробное описание.');
+        }
+    }
+
+    public function update_new_odetail_weight($order_id, $odetail_id, $weight)
+    {
+        try
+        {
+            if ( ! is_numeric($order_id) OR
+                ! is_numeric($odetail_id) OR
+                ! is_numeric($weight))
+            {
+                throw new Exception('Доступ запрещен.');
+            }
+
+            // роли и разграничение доступа
+            $order = $this->getNewOrder(
+                $order_id,
+                "Заказ недоступен.");
+
+            $this->load->model('OrderModel', 'Orders');
+            $this->load->model('OdetailModel', 'Odetails');
+            $this->load->model('OdetailJointModel', 'Joints');
+
+            if (!empty($this->user))
+            {
+                $client_id = $this->user->user_id;
+
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+
+                if (empty($odetail))
+                {
+                    $client_id = UserModel::getTemporaryKey();
+
+                    // находим товар
+                    $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+                }
+            }
+            else
+            {
+                $client_id = UserModel::getTemporaryKey();
+
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+            }
+
+            if (empty($odetail))
+            {
+                throw new Exception('Товар не найден.');
+            }
+
+            $odetail->odetail_weight = $weight;
+
+            // сохранение результатов
+            $this->Odetails->addOdetail($odetail);
+
+            // пересчитываем заказ
+            if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+            {
+                throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+            }
+
+            $this->Orders->saveOrder($order);
+
+            // отправляем пересчитанные детали заказа
+            $response = $this->prepareOrderUpdateJSON($order);
+        }
+        catch (Exception $e)
+        {
+            $response['is_error'] = TRUE;
+            $response['message'] = $e->getMessage();
+        }
+
+        print(json_encode($response));
+    }
+
+    public function update_new_odetail_price($order_id, $odetail_id, $price)
+    {
+        try
+        {
+            if ( ! is_numeric($order_id) OR
+                ! is_numeric($odetail_id) OR
+                ! is_numeric($price))
+            {
+                throw new Exception('Доступ запрещен.');
+            }
+
+            // роли и разграничение доступа
+            $order = $this->getNewOrder(
+                $order_id,
+                "Заказ недоступен.");
+
+            $this->load->model('OrderModel', 'Orders');
+            $this->load->model('OdetailModel', 'Odetails');
+            $this->load->model('OdetailJointModel', 'Joints');
+
+            if (!empty($this->user))
+            {
+                $client_id = $this->user->user_id;
+
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+
+                if (empty($odetail))
+                {
+                    $client_id = UserModel::getTemporaryKey();
+
+                    // находим товар
+                    $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+                }
+            }
+            else
+            {
+                $client_id = UserModel::getTemporaryKey();
+
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+            }
+
+            if (empty($odetail))
+            {
+                throw new Exception('Товар не найден.');
+            }
+
+            $odetail->odetail_price = $price;
+
+            // сохранение результатов
+            $this->Odetails->addOdetail($odetail);
+
+            // пересчитываем заказ
+            if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+            {
+                throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+            }
+
+            $this->Orders->saveOrder($order);
+
+            // отправляем пересчитанные детали заказа
+            $response = $this->prepareOrderUpdateJSON($order);
+        }
+        catch (Exception $e)
+        {
+            $response['is_error'] = TRUE;
+            $response['message'] = $e->getMessage();
+        }
+
+        print(json_encode($response));
+    }
+
+    public function update_new_odetail_pricedelivery($order_id, $odetail_id, $pricedelivery)
+    {
+        try
+        {
+            if ( ! is_numeric($order_id) OR
+                ! is_numeric($odetail_id) OR
+                ! is_numeric($pricedelivery))
+            {
+                throw new Exception('Доступ запрещен.');
+            }
+
+            // роли и разграничение доступа
+            $order = $this->getNewOrder(
+                $order_id,
+                "Заказ недоступен.");
+
+            $this->load->model('OrderModel', 'Orders');
+            $this->load->model('OdetailModel', 'Odetails');
+            $this->load->model('OdetailJointModel', 'Joints');
+
+            if (!empty($this->user))
+            {
+                $client_id = $this->user->user_id;
+
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+
+                if (empty($odetail))
+                {
+                    $client_id = UserModel::getTemporaryKey();
+
+                    // находим товар
+                    $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+                }
+            }
+            else
+            {
+                $client_id = UserModel::getTemporaryKey();
+
+                // находим товар
+                $odetail = $this->Odetails->getClientOdetailById($order_id, $odetail_id, $client_id);
+            }
+
+            if (empty($odetail))
+            {
+                throw new Exception('Товар не найден.');
+            }
+
+            $odetail->odetail_pricedelivery = $pricedelivery;
+
+            // сохранение результатов
+            $this->Odetails->addOdetail($odetail);
+
+            // пересчитываем заказ
+            if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+            {
+                throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+            }
+
+            $this->Orders->saveOrder($order);
+
+            // отправляем пересчитанные детали заказа
+            $response = $this->prepareOrderUpdateJSON($order);
+        }
+        catch (Exception $e)
+        {
+            $response['is_error'] = TRUE;
+            $response['message'] = $e->getMessage();
+        }
+
+        print(json_encode($response));
+    }
+
+    public function update_new_joint_pricedelivery($order_id, $joint_id, $cost)
+    {
+        parent::update_joint_pricedelivery($order_id, $joint_id, $cost);
+    }
+
+    public function update_new_order_dealer_id($order_id, $dealer_id)
+    {
+        try
+        {
+            if ( ! is_numeric($order_id) OR
+                ! is_numeric($dealer_id))
+            {
+                throw new Exception('Доступ запрещен.');
+            }
+
+            // роли и разграничение доступа
+            $order = $this->getNewOrder(
+                $order_id,
+                "Заказ недоступен.");
+
+            $this->load->model('OrderModel', 'Orders');
+
+            $order->order_manager = $dealer_id;
+
+            $this->Orders->saveOrder($order);
+
+            // отправляем пересчитанные детали заказа
+            $response = $this->prepareOrderUpdateJSON($order);
+        }
+        catch (Exception $e)
+        {
+            $response['is_error'] = TRUE;
+            $response['message'] = $e->getMessage();
+        }
+
+        print(json_encode($response));
+        exit();
     }
 }

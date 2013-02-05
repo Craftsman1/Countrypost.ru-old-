@@ -30,6 +30,7 @@ endfor;
                     <span class="label dealer_number_box">Номер посредника*:</span>
                     <input class="textbox dealer_number_box" maxlength="255" type='text' id='dealer_id_ac_mail_forwarding' style='width:180px;' value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>" >
                     <input type='hidden' id='dealer_id_mail_forwarding' name="dealer_id" value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>">
+                    <img src="/static/images/lightbox-ico-loading.gif" style="margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
                 </div>
                 <div style="clear:both;" ></div>
                 <div>
@@ -41,10 +42,6 @@ endfor;
         </form>
     </div>
     <h3>Добавить товар:</h3>
-    <div class="h2_link">
-        <img src="/static/images/mini_help.gif" style="float:right;margin-left: 7px;" />
-        <a href="javascript: void(0);" class="excel_switcher" style="">Массовая загрузка товаров</a>
-    </div>
     <form class='admin-inside' action="<?= $selfurl ?>addProductManualAjax" id="mail_forwardingItemForm" method="POST">
         <input type='hidden' name="order_id" class="order_id" value="<?= ($order) ? (int) $order->order_id : 0 ?>" />
         <input type='hidden' name="order_type" class="order_type" value="mail_forwarding" />

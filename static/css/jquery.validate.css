@@ -22,14 +22,14 @@ input:focus, select:focus {
 }
 
 span.ValidationErrors {
+    color: #DD0000;
     display: inline-block;
     font-size: 12px;
-    color: #D00;
-    padding-left: 10px;
-	margin-bottom: 4px !important;
     font-style: italic;
-	width: 300px !important;
-	/*float: left;*/
+    margin-bottom: 4px !important;
+    margin-top: 4px;
+    padding-left: 10px;
+    width: 300px !important;
 }
 
 .profile_box span.ValidationErrors {

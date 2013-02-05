@@ -143,7 +143,7 @@
                                 <b>Наименование</b>:
                                 <textarea class="name" name="name"></textarea>
                                 <br>
-                                <b>Количество</b>:
+                                <b>Количество:</b>
                                 <textarea class="amount int" name="amount"></textarea>
                                 <br>
                                 <b>Размер</b>:
@@ -160,9 +160,9 @@
                         case 'offline' :
                             ?>
                             <span class="plaintext">
-                                <b><?= $odetail->odetail_product_name ?></b><br>
+                                <b><?= $odetail->odetail_product_name ?></b>
+                                <? if ($odetail->odetail_foto_requested) : ?>(требуется фото товара)<? endif; ?><br>
                                 <b>Магазин</b>: <?= $odetail->odetail_shop ?>
-                                <? if ($odetail->odetail_foto_requested) : ?>(требуется фото товара)<? endif; ?>
                                 <br>
                                 <b>Количество</b>: <?= $odetail->odetail_product_amount ?>
                                 <b>Размер</b>: <?= $odetail->odetail_product_size ?>
@@ -338,6 +338,9 @@
                     </span>
                 </td>
             <? else : ?>
+
+
+
                 <td>
                     <input type="text"
                        order-id="<?= $order->order_id ?>"
@@ -348,18 +351,39 @@
                        value="<?= $odetail->odetail_price ?>"
                        style="width:60px"
                        maxlength="11">
+
                 </td>
-                <td>
-                    <input type="text"
-                       order-id="<?= $order->order_id ?>"
-                       odetail-id="<?= $odetail->odetail_id ?>"
-                       id="odetail_pricedelivery<?= $odetail->odetail_id ?>"
-                       class="odetail_pricedelivery int"
-                       name="odetail_pricedelivery<?= $odetail->odetail_id ?>"
-                       value="<?= $odetail->odetail_pricedelivery ?>"
-                       style="width:60px"
-                       maxlength="11">
-                </td>
+
+                <? if ($odetail_joint_id != $odetail->odetail_joint_id AND isset($joints[$odetail->odetail_joint_id])) :
+                    $odetail_joint_id = $odetail->odetail_joint_id; ?>
+                    <td rowspan="<?= $joints[$odetail->odetail_joint_id]->count ?>">
+
+                        <input type="text"
+                               id="joint_pricedelivery<?= $odetail->odetail_joint_id ?>"
+                               name="joint_price<?= $odetail->odetail_joint_id ?>"
+                               class="int"
+                               value="<?= $joints[$odetail->odetail_joint_id]->cost ?>"
+                               style="width:60px"
+                               maxlength="11"
+                               onchange="update_joint_pricedelivery('<?= $order->order_id ?>',
+                                       '<?= $odetail->odetail_joint_id ?>');">
+                        <br>
+                        <a href="javascript:removeJoint(<?= $odetail->odetail_joint_id ?>);">Отменить<br>объединение</a>
+
+                    </td>
+                <? elseif ( ! $odetail->odetail_joint_id) : ?>
+                    <td>
+                        <input type="text"
+                               order-id="<?= $order->order_id ?>"
+                               odetail-id="<?= $odetail->odetail_id ?>"
+                               id="odetail_pricedelivery<?= $odetail->odetail_id ?>"
+                               class="odetail_pricedelivery int"
+                               name="odetail_pricedelivery<?= $odetail->odetail_id ?>"
+                               value="<?= $odetail->odetail_pricedelivery ?>"
+                               style="width:60px"
+                               maxlength="11">
+                    </td>
+                <? endif; ?>
 
                 <? if ($order_type != 'service') : ?>
                 <td>
@@ -380,23 +404,23 @@
             <? endif; ?>
 
             <td>
-                <a href="#"
+                <a href="javascript:void(0)"
                    odetail-id="<?= $odetail->odetail_id ?>"
                    class="edit">
                     <img border="0" src="/static/images/comment-edit.png" title="Редактировать"></a>
                 <br>
-                <a href="#"
+                <a href="javascript:void(0)"
                    odetail-id="<?= $odetail->odetail_id ?>"
                    class="delete">
                     <img border="0" src="/static/images/delete.png" title="Удалить"></a>
                 <br>
-                <a href="#"
+                <a href="javascript:void(0)"
                    odetail-id="<?= $odetail->odetail_id ?>"
                    class="cancel"
                    style="display: none;">
                     <img border="0" src="/static/images/comment-delete.png" title="Отменить"></a>
                 <br>
-                <a href="#"
+                <a href="javascript:void(0)"
                    odetail-id="<?= $odetail->odetail_id ?>"
                    class="save"
                    style="display: none;">
@@ -443,7 +467,7 @@
             <tr class='last-row'>
                 <td colspan='2' style="border: none;">
                     <div class='floatleft'>
-                        <div class='submit'><div><input type='submit' value='Объединить доставку' /></div></div>
+                        <div class='submit'><div><input type='submit' class="joint_delivery_submit" value='Объединить доставку' /></div></div>
                         <img src="/static/images/lightbox-ico-loading.gif" style="display:none;" class="float" id="joint_progress">
                     </div>
                     <img class="tooltip_join" style="float:left" src="/static/images/mini_help.gif" />

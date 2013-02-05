@@ -1,11 +1,11 @@
 <?
-$order = null;
+/*$order = null;
 for ($i = 0, $n = count($orders); $i<$n; $i++) :
     if ($orders[$i]->order_type == 'offline') :
         $order = $orders[$i];
         break;
     endif;
-endfor;
+endfor;*/
 ?>
 <div class="offline_order_form">
     <div class='table' style="position:relative;">
@@ -27,7 +27,7 @@ endfor;
                         <option
                                 value="<?= $country->country_id ?>"
                                 title="/static/images/flags/<?= $country->country_name_en ?>.png"
-                            <? if (isset($filter->country_from) AND $filter->country_from == $country->country_id OR ($order AND $order->order_country_from == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
+                            <? if (isset($filter->country_from) AND $filter->country_from == $country->country_id OR ($order AND $order->order_country_from == $country->country_name)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
                         <? endforeach; ?>
                     </select>
                 </div>
@@ -41,7 +41,7 @@ endfor;
                         <option
                                 value="<?= $country->country_id ?>"
                                 title="/static/images/flags/<?= $country->country_name_en ?>.png"
-                            <? if (isset($filter->country_to) AND $filter->country_to == $country->country_id OR ($order AND $order->order_country_to == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
+                            <? if (isset($filter->country_to) AND $filter->country_to == $country->country_id OR ($order AND $order->order_country_to == $country->country_name)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
                         <? endforeach; ?>
                     </select>
                 </div>
@@ -65,6 +65,7 @@ endfor;
                     <input type='hidden' id='dealer_id_offline' name="dealer_id" value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>">
 					<span class="label dealer_number_box" style='<?= (!$order OR empty($order->order_manager)) ? 'display:none;' : '' ?>'>
 						<img border="0" src="/static/images/delete.png" title="Удалить">
+                        <img src="/static/images/lightbox-ico-loading.gif" style="position: absolute; margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
 					</span>
                 </div>
                 <div style="clear:both;" ></div>
@@ -72,10 +73,6 @@ endfor;
         </form>
     </div>
     <h3>Добавить товар:</h3>
-    <div class="h2_link">
-        <img src="/static/images/mini_help.gif" style="float:right;margin-left: 7px;" />
-        <a href="javascript: void(0);" class="excel_switcher" style="">Массовая загрузка товаров</a>
-    </div>
     <form class='admin-inside' action="<?= $selfurl ?>addProductManualAjax" id="offlineItemForm" method="POST">
         <input type='hidden' name="order_id" class="order_id" value="<?= ($order) ? (int) $order->order_id : 0 ?>" />
         <input type='hidden' name="order_type" class="order_type" value="offline" />
@@ -164,7 +161,7 @@ endfor;
                 <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Нужно ли фото товара?</span>
-                    <input type='checkbox' id='foto_requested' name="foto_requested" />
+                    <input type='checkbox' id='foto_requested' name="foto_requested" value="1" />
                 </div>
                 <div style="clear:both;" ></div>
                 <div>

@@ -700,20 +700,53 @@ class OrderModel extends BaseModel implements IModel{
 	public function getClientOrderById($order_id, $client_id)
 	{
 		$order = $this->getById($order_id);
+
+        $temp_client_id = UserModel::getTemporaryKey(false);
 		
 		// Если пользователь создавший заказ совпадает с авторизованным пользователем в рамках текущей сессии
 		if ($order AND
-			$order->order_status != 'deleted' AND
-			($order->order_client == $client_id OR (
-				isset($_SESSION['temporary_user_id']) AND
-				 $order->order_client == $_SESSION['temporary_user_id'])))
+            $order->order_status != 'deleted' AND
+                ($order->order_client == $client_id OR
+                    ($temp_client_id AND
+                     $order->order_client == $temp_client_id)))
 		{
 			// Заменяем временное значение ID клиента на ID реального клиента 
 			// если пользователь авторизовался в процессе оформления заказа
-			if (isset($_SESSION['temporary_user_id']) AND
-				$order->order_client == $_SESSION['temporary_user_id'])
+			if ($temp_client_id AND
+				$order->order_client == $temp_client_id)
 			{
 				$order->order_client = $client_id;
+
+                // то-же проделать с деталями заказа.
+                $this->db->query(
+                    "
+                    UPDATE  `odetails` SET
+                      `odetails`.`odetail_client` = {$order->order_client},
+                      `odetails`.`odetail_manager` = {$order->order_manager},
+                      `odetails`.`odetail_country` = {$order->order_country_from}
+                    WHERE  `odetails`.`odetail_order` = {$order->order_id}
+                    "
+                );
+
+                // перекидываем картинки в папку пользователя
+                $details = $this->db->query(
+                    "
+                    SELECT `odetail_id`, `odetail_img` FROM  `odetails`
+                    WHERE  `odetail_order` = {$order->order_id}
+                    "
+                )->result();
+
+                if ($details)
+                {
+                    foreach ($details as $odetail) :
+                        if ($odetail->odetail_img === null AND
+                            file_exists('{$_SERVER["DOCUMENT_ROOT"]}/upload/orders/{$client_id}/{$odetail->odetail_id}.jpg'))
+                        {
+                            copy('{$_SERVER["DOCUMENT_ROOT"]}/upload/orders/{$client_id}/{$odetail->odetail_id}.jpg',
+                                '{$_SERVER["DOCUMENT_ROOT"]}/upload/orders/{$odetail->odetail_client}/{$odetail->odetail_id}.jpg');
+                        }
+                    endforeach;
+                }
 			}
 			
 			return $order;
@@ -727,8 +760,17 @@ class OrderModel extends BaseModel implements IModel{
      *
      * @return object
      */
-    public function getClientBlankOrders($client_id)
+    public function getClientBlankOrders($client_id, $order_type = '')
     {
+        $where = " AND `orders`.`order_client` = '".$client_id."'";
+
+        $temp_client_id = UserModel::getTemporaryKey(true);
+
+        if ($client_id != $temp_client_id)
+        {
+            $where .= ' OR `orders`.`order_client` = '.$temp_client_id;
+        }
+
         // выборка
         $orders = $this->db->query(
             "SELECT
@@ -736,45 +778,46 @@ class OrderModel extends BaseModel implements IModel{
                 `users`.`user_login` AS `client_login` ,
                 `countries`.`country_currency` AS `order_currency`
             FROM `orders`
-            INNER JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
+            LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
             INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'online'
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'online' {$where}
             UNION ALL
             SELECT
                 `orders` . * ,
                 `users`.`user_login` AS `client_login` ,
                 `countries`.`country_currency` AS `order_currency`
             FROM `orders`
-            INNER JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
+            LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
             INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'offline'
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'offline' {$where}
             UNION ALL
             SELECT
                 `orders` . * ,
                 `users`.`user_login` AS `client_login` ,
                 `countries`.`country_currency` AS `order_currency`
             FROM `orders`
-            INNER JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
+            LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
             INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'delivery'
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'delivery' {$where}
             UNION ALL
             SELECT
                 `orders` . * ,
                 `users`.`user_login` AS `client_login` ,
                 `countries`.`country_currency` AS `order_currency`
             FROM `orders`
-            INNER JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
+            LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
             INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'service'
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'service' {$where}
             UNION ALL
             SELECT
                 `orders` . * ,
                 `users`.`user_login` AS `client_login` ,
                 `countries`.`country_currency` AS `order_currency`
             FROM `orders`
-            INNER JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
+            LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
             LEFT JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'mail_forwarding'
+            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'mail_forwarding' {$where}
+            ORDER BY order_id DESC
             "
         )->result();
 

@@ -307,7 +307,7 @@ class OdetailModel extends BaseModel implements IModel{
 	{
 		$result = $this->db->query("
 			SELECT
-				`odetails`.*, `odetail_joints`.`cost`, `odetail_joints`.`count`
+				`odetails`.*, `odetail_joints`.`cost` as `odetail_joint_cost`, `odetail_joints`.`count` AS `odetail_joint_count`
 			FROM
 				`odetails`
 			LEFT OUTER JOIN `odetail_joints` ON
@@ -364,6 +364,7 @@ class OdetailModel extends BaseModel implements IModel{
 		$totals->order_product_weight = 0;
 		$totals->odetail_joint_id = 0;
 		$totals->odetail_joint_count = 0;
+        $odetail_joint_id = 0;
 		
 		foreach($order_details_array as $odetail) :			
 			$totals->order_products_cost += $odetail->odetail_price;
@@ -372,6 +373,7 @@ class OdetailModel extends BaseModel implements IModel{
 			if (!$odetail->odetail_joint_id) : 
 				$totals->order_delivery_cost += $odetail->odetail_pricedelivery;
 			elseif ($odetail_joint_id != $odetail->odetail_joint_id) :
+                $odetail_joint_id = $odetail->odetail_joint_id;
 				$totals->odetail_joint_id = $odetail->odetail_joint_id;
 				$totals->odetail_joint_count = $odetail->odetail_joint_count;
 				$totals->order_delivery_cost += $odetail->odetail_joint_cost;
@@ -432,19 +434,37 @@ class OdetailModel extends BaseModel implements IModel{
 		return ;
 	}
 
-	public function getPrivilegedOdetail($order_id, $odetail_id, $user_id, $user_group)
-	{
-		if ($user_group == 'client')
-		{
-			return $this->getClientOdetailById($order_id, $odetail_id, $user_id);
-		}
-		else if ($user_group == 'manager')
-		{
-			return $this->getManagerOdetailById($order_id, $odetail_id, $user_id);
-		}
+    public function getPrivilegedOdetail($order_id, $odetail_id, $user_id, $user_group)
+    {
+        if ($user_group == 'client')
+        {
+            return $this->getClientOdetailById($order_id, $odetail_id, $user_id);
+        }
+        else if ($user_group == 'manager')
+        {
+            return $this->getManagerOdetailById($order_id, $odetail_id, $user_id);
+        }
 
-		return FALSE;
-	}
+        return FALSE;
+    }
+
+    public function getNewOdetail($order_id, $odetail_id, $user_id, $user_group)
+    {
+        $odetail = FALSE;
+
+        if ($user_group == 'client')
+        {
+            $odetail = $this->getClientOdetailById($order_id, $odetail_id, $user_id);
+
+            if (!$odetail)
+            {
+                $user_id = UserModel::getTemporaryKey(true);
+                $odetail = $this->getClientOdetailById($order_id, $odetail_id, $user_id);
+            }
+        }
+
+        return $odetail;
+    }
 
 	public function getClientOdetailById($order_id, $odetail_id, $client_id)
 	{

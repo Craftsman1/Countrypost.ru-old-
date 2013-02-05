@@ -533,12 +533,19 @@ class ManagerModel extends BaseModel implements IModel{
 	
 	public static function getFullName($manager, $user = NULL) 
 	{
-		$fullname = trim("{$manager->manager_surname} {$manager->manager_name}  {$manager->manager_otc}");
+        if ($manager)
+        {
+            $fullname = trim("{$manager->manager_surname} {$manager->manager_name}  {$manager->manager_otc}");
 
-		if (empty($fullname))
-		{
-			$fullname = $manager->user_login;
-		}
+            if (empty($fullname))
+            {
+                $fullname = $manager->user_login;
+            }
+        }
+        else
+        {
+            $fullname = '';
+        }
 		
 		return $fullname;
 	}
@@ -546,7 +553,7 @@ class ManagerModel extends BaseModel implements IModel{
 	public function getStatistics($manager_id)
 	{
 		$statistics = $this->getById($manager_id);
-		
+
 		// counters
 		$result = $this->db->query(
 			"SELECT 
@@ -592,7 +599,7 @@ class ManagerModel extends BaseModel implements IModel{
 			$statistics->neutral_reviews = $user->neutral_reviews;
 			$statistics->negative_reviews = $user->negative_reviews;
 		}
-		
+
 		$statistics->fullname = $this->getFullName($statistics);
 		
 		$result = $this->db->query(

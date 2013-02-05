@@ -84,6 +84,44 @@
         $('div.mail_forwarding_order').bind('click', function() {
             document.location = '<?= $this->viewpath ?>createorder/mailforwarding';
         });
+
+
+        $('.submit .joint_delivery_submit').bind('click', function () {
+            var data_items = $('#new_products input[name="odetail_id"]:checked'),
+                post_data = {},
+                order_id = parseInt($('input.order_id').val(), 10);
+
+
+            if (order_id && !isNaN(order_id))
+            {
+                $('#joint_progress').show();
+
+                $.each(data_items, function(k, v) {
+                    post_data['join'+ $(v).val()] = $(v).val();
+                });
+
+                $.post( "/main/joinNewProducts/" + order_id,
+                        post_data,
+                        function (responce)
+                        {
+                            if (!responce.is_error)
+                            {
+                                success('top', responce.message);
+                                document.location.reload();
+                            }
+                            else
+                            {
+                                error('top', responce.message);
+                            }
+
+                            $('#joint_progress').hide();
+                        },
+                        'json'
+                );
+            }
+
+        });
+
     })(jQuery)
 
 
@@ -199,10 +237,12 @@
     }
 
 
-    var orderData = <?= ($json = json_encode($orders)) ? $json : '{}' ?>;
+    var orderData = <?= ($order AND ($json = json_encode(array($order)))) ? $json : 'null' ?>;
+    var orderJoints = <?= ($joints AND ($json = json_encode($joints))) ? $json : 'null' ?>;
     var currencies = <?= json_encode($countries); ?>;
     var selectedCurrency = '<?= $order_currency ?>';
     //var countryFrom = '';
     var countryTo = '';
     var cityTo = '';
+    var user = '<?= (!empty($this->user)) ? $this->user->user_group : '' ?>';
 </script>

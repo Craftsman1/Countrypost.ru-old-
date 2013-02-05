@@ -1,11 +1,14 @@
 <?
-    $order = null;
-    for ($i = 0, $n = count($orders); $i<$n; $i++) :
-        if ($orders[$i]->order_type == 'online') :
-            $order = $orders[$i];
-            break;
-        endif;
-    endfor;
+/*$order = null;
+for ($i = 0, $n = count($orders); $i<$n; $i++) :
+    if ($orders[$i]->order_type == 'online') :
+        $order = $orders[$i];
+        break;
+    endif;
+endfor;*/
+//echo "<pre>";
+//print_r($order);
+//echo "</pre>";
 ?>
 <div class="online_order_form">
 	<div class='table' style="position:relative;">
@@ -27,7 +30,7 @@
 						<option 
 							value="<?= $country->country_id ?>"
 							title="/static/images/flags/<?= $country->country_name_en ?>.png" 
-							<? if (isset($filter->country_from) AND $filter->country_from == $country->country_id OR ($order AND $order->order_country_from == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
+							<? if (isset($filter->country_from) AND $filter->country_from == $country->country_id OR ($order AND $order->order_country_from == $country->country_name)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
 						<? endforeach; ?>
 					</select>
 				</div>
@@ -41,7 +44,7 @@
 						<option
                                 value="<?= $country->country_id ?>"
                                 title="/static/images/flags/<?= $country->country_name_en ?>.png"
-                                <? if (isset($filter->country_to) AND $filter->country_to == $country->country_id OR ($order AND $order->order_country_to == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
+                                <? if (isset($filter->country_to) AND $filter->country_to == $country->country_id OR ($order AND $order->order_country_to == $country->country_name)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
 						<? endforeach; ?>
 					</select>
 				</div>
@@ -65,6 +68,7 @@
                     <input type='hidden' id='dealer_id_online' name="dealer_id" value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>">
 					<span class="label dealer_number_box" style='<?= (!$order OR empty($order->order_manager)) ? 'display:none;' : '' ?>'>
 						<img border="0" src="/static/images/delete.png" title="Удалить">
+                        <img src="/static/images/lightbox-ico-loading.gif" style="position: absolute; margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
 					</span>
 				</div>
 				<div style="clear:both;" ></div>
@@ -83,7 +87,7 @@
         <input type='hidden' name="ocountry_to" class="countryTo" value="<?= ($order) ? (int) $order->order_country_to : '' ?>" />
         <input type='hidden' name="city_to" class="cityTo" value="<?= ($order) ? (int) $order->order_city_to : '' ?>" />
         <input type='hidden' name="dealer_id" class="dealerId" value="<?= ($order) ? (int) $order->order_manager : '' ?>" />
-		<input type='hidden' name="userfileimg" value="12345" />
+
 		<div class='table add_detail_box' style="position:relative;">
 			<div class='angle angle-lt'></div>
 			<div class='angle angle-rt'></div>
@@ -164,7 +168,7 @@
 				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Нужно ли фото товара?</span>
-					<input type='checkbox' id='foto_requested' name="foto_requested" />
+					<input type='checkbox' id='foto_requested' name="foto_requested" value="1" />
 				</div>
 				<div style="clear:both;" ></div>
 				<div>
@@ -192,36 +196,6 @@
             var order = new $.cpOrder(orderData);
             order.init("online");
 		});
-
-        $('.submit input[type="submit"]').bind('click', function () {
-            var data_items = $('#new_products input[name="odetail_id"]:checked'),
-                    post_data = {};
-
-            $('#joint_progress').show();
-
-            $.each(data_items, function(k, v) {
-                post_data['join'+ $(v).val()] = $(v).val();
-            });
-
-            $.post( "/main/joinNewProducts/<?= $order->order_id ?>",
-                    post_data,
-                    function (responce)
-                    {
-                        if (!responce.is_error)
-                        {
-                            success('top', responce.message);
-                        }
-                        else
-                        {
-                            error('top', responce.message);
-                        }
-
-                        $('#joint_progress').hide();
-                    },
-                    'json'
-            );
-        });
-
 
 		// номер посредника
 		$('.dealer_number_switch a').click(function() {

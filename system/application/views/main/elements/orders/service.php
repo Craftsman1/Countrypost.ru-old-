@@ -1,11 +1,11 @@
 <?
-$order = null;
+/*$order = null;
 for ($i = 0, $n = count($orders); $i<$n; $i++) :
     if ($orders[$i]->order_type == 'service') :
         $order = $orders[$i];
         break;
     endif;
-endfor;
+endfor;*/
 ?>
 <div class="service_order_form">
     <div class='table' style="position:relative;">
@@ -27,7 +27,7 @@ endfor;
                         <option
                                 value="<?= $country->country_id ?>"
                                 title="/static/images/flags/<?= $country->country_name_en ?>.png"
-                            <? if (isset($filter->country_from) AND $filter->country_from == $country->country_id OR ($order AND $order->order_country_from == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
+                            <? if (isset($filter->country_from) AND $filter->country_from == $country->country_id OR ($order AND $order->order_country_from == $country->country_name)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
                         <? endforeach; ?>
                     </select>
                 </div>
@@ -46,7 +46,7 @@ endfor;
                         <option
                                 value="<?= $country->country_id ?>"
                                 title="/static/images/flags/<?= $country->country_name_en ?>.png"
-                            <? if (isset($filter->country_to) AND $filter->country_to == $country->country_id OR ($order AND $order->order_country_to == $country->country_id)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
+                            <? if (isset($filter->country_to) AND $filter->country_to == $country->country_id OR ($order AND $order->order_country_to == $country->country_name)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
                         <? endforeach; ?>
                     </select>
                 </div>
@@ -70,6 +70,7 @@ endfor;
                     <input type='hidden' id='dealer_id_service' name="dealer_id" value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>">
 					<span class="label dealer_number_box" style='<?= (!$order OR empty($order->order_manager)) ? 'display:none;' : '' ?>'>
 						<img border="0" src="/static/images/delete.png" title="Удалить">
+                        <img src="/static/images/lightbox-ico-loading.gif" style="position: absolute; margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
 					</span>
                 </div>
                 <div style="clear:both;" ></div>
@@ -77,10 +78,6 @@ endfor;
         </form>
     </div>
     <h3>Добавить услугу:</h3>
-    <div class="h2_link">
-        <img src="/static/images/mini_help.gif" style="float:right;margin-left: 7px;" />
-        <a href="javascript: void(0);" class="excel_switcher" style="">Массовая загрузка товаров</a>
-    </div>
     <form class='admin-inside' action="<?= $selfurl ?>addProductManualAjax" id="serviceItemForm" method="POST">
         <input type='hidden' name="order_id" class="order_id" value="<?= ($order) ? (int) $order->order_id : 0 ?>" />
         <input type='hidden' name="order_type" class="order_type" value="service" />
@@ -101,7 +98,7 @@ endfor;
                 </div>
                 <div style="clear:both;" ></div>
                 <div>
-                    <span class="label">Подробное описание что нужно сделать*:</span>
+                    <span class="label">Подробное описание что<br/> нужно сделать*:</span>
                     <textarea style="width:180px;resize:auto!important;" class="textbox" maxlength="255" id='ocomment' name="ocomment"></textarea>
                 </div>
                 <div style="clear:both;" ></div>
@@ -116,13 +113,7 @@ endfor;
                     <input style="width:180px;" class="textbox" maxlength="11" type='text' id='odeliveryprice' name="odeliveryprice" />
                     <span class="label currency"><?= $order_currency ?></span>
                 </div>
-                <div style="clear:both;" ></div>
-            </div>
-        </div>
-        <div class='add_detail_box' style="position:relative;">
-            <div class='new_order_box'>
-                <br/>
-                <div style="clear:both;" ></div>
+                <div style="clear:both;" ></div><br/>
                 <div>
                     <span class="label">
                         Скриншот (max. 3 Mb):
@@ -136,6 +127,12 @@ endfor;
                         <img border="0" src="/static/images/delete.png" title="Удалить">
                     </span>
                 </div>
+                <div style="clear:both;" ></div>
+            </div>
+        </div>
+        <div class='add_detail_box' style="position:relative;">
+            <div class='new_order_box'>
+
                 <div style="clear:both;" ></div>
             </div>
         </div>
