@@ -856,7 +856,6 @@ class Manager extends ManagerBaseController {
 			$manager->foto_tax = Check::int('foto_tax');
 			$manager->insurance_tax = Check::int('insurance_tax');
 			$manager->pricelist_description = Check::str('pricelist_message', 65535, 1);
-print_r($manager);die();
 			$empties = Check::get_empties();
 
 			if ($empties)
@@ -874,6 +873,7 @@ print_r($manager);die();
 		}
 		catch (Exception $e)
 		{
+			//print_r($e);die();
 		}
 	}
 

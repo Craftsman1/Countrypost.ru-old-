@@ -1234,10 +1234,17 @@ class OrderModel extends BaseModel implements IModel{
 
 		// расчитываем комиссии
 		// 1. комиссия посредника
-		$order->manager_tax = ceil(
-			($order->order_products_cost + $order->order_delivery_cost) *
-			$manager->order_tax *
-			0.01);
+		if ($order->order_type == 'mail_forwarding')
+		{
+			$order->manager_tax = $manager->order_mail_forwarding_tax;
+		}
+		else
+		{
+			$order->manager_tax = ceil(
+				($order->order_products_cost + $order->order_delivery_cost) *
+				$manager->order_tax *
+				0.01);
+		}
 
 		if ($order->manager_tax < $manager->min_order_tax)
 		{

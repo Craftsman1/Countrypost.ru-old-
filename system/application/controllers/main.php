@@ -1187,7 +1187,7 @@ Email: {$this->user->user_email}";
 					$manager->manager_status != 2 OR
 					($order->order_country_from > 0 AND
 						$order->order_country_from != $manager->manager_country) OR
-					($manager->is_mailforwarding == 0 AND
+					($manager->is_mail_forwarding == 0 AND
 						$order->order_type == 'mail_forwarding'))
 				{
 					throw new Exception('Посредник не найден. Попробуйте еще раз.');

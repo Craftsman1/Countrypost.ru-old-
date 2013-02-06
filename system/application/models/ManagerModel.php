@@ -34,7 +34,6 @@ class ManagerModel extends BaseModel implements IModel{
     	$this->properties	= new stdClass();
     	$this->properties->manager_user				='';
     	$this->properties->manager_country			='';
-    	$this->properties->manager_max_clients		='';
     	$this->properties->manager_max_orders		='';
     	$this->properties->manager_name				='';
     	$this->properties->manager_surname			='';
@@ -351,6 +350,74 @@ class ManagerModel extends BaseModel implements IModel{
 		)->result();
 		
 		return ($result) ? $result : FALSE;		
+	}
+
+	public function getManagerDeliveries($manager_id)
+	{
+		$result = $this->db->query(
+			"SELECT description, country_id
+			FROM manager_pricelists
+			WHERE
+				manager_id = $manager_id
+			ORDER BY country_id"
+		)->result();
+
+		if ($result)
+		{
+			$ordered_result = array();
+
+			foreach ($result as $delivery)
+			{
+				$ordered_result[$delivery->country_id] = $delivery->description;
+			}
+		}
+
+		return ($result) ? $ordered_result : FALSE;
+	}
+
+	public function isOrdersLimitReached($manager_id)
+	{
+		$active_orders = $this->db->query(
+			"SELECT COUNT(*) as c
+			FROM orders
+			WHERE
+				order_manager = $manager_id
+				AND order_status IN ('proccessing', 'not_available', 'not_payed', 'payed', 'not_delivered')"
+		)->result();
+
+		if ($active_orders AND count($active_orders))
+		{
+			$active_orders = $active_orders[0];
+			$active_orders = $active_orders->c;
+		}
+		else
+		{
+			$acttive_orders = 0;
+		}
+
+		$manager_limit = $this->db->query(
+			"SELECT manager_max_orders
+			FROM managers
+			WHERE
+				manager_user = $manager_id"
+		)->result();
+
+		if ($manager_limit AND count($manager_limit))
+		{
+			$manager_limit = $manager_limit[0];
+			$manager_limit = $manager_limit->manager_max_orders;
+		}
+		else
+		{
+			$manager_limit = 0;
+		}
+
+		if ($manager_limit == NULL)
+		{
+			return FALSE;
+		}
+
+		return (($manager_limit - $active_orders) <= 0);
 	}
 	
 	public static function getFullName($manager, $user = NULL)
