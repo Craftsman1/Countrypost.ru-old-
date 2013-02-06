@@ -56,14 +56,11 @@ class ManagerModel extends BaseModel implements IModel{
 		$this->properties->manager_balance_local	=0;
 		$this->properties->manager_description		='';
 		$this->properties->order_tax				='';
+		$this->properties->order_mail_forwarding_tax				='';
 		$this->properties->min_order_tax			='';
 		$this->properties->join_tax					='';
 		$this->properties->foto_tax					='';
 		$this->properties->insurance_tax			='';
-		$this->properties->package_tax				='';
-		$this->properties->package_disconnected_tax	='';
-		$this->properties->package_foto_tax			='';
-		$this->properties->package_foto_system_tax	='';
 		$this->properties->pricelist_description	='';
 		$this->properties->payments_description		='';
 		$this->properties->rating	='';
@@ -189,19 +186,6 @@ class ManagerModel extends BaseModel implements IModel{
 		')->result();
 	}
 	
-	public function getManagerData($id) {
-		$result = $this->db->query('
-			SELECT `'.$this->table.'`.*, `users`.`user_login`, `users`.`user_email`, `users`.`user_coints`, COUNT(c2m.manager_id) AS `clients_count`
-			FROM `'.$this->table.'`
-				LEFT JOIN `c2m` ON `c2m`.`manager_id` = `'.$this->table.'`.`manager_user`
-				INNER JOIN `users` ON `users`.`user_id` = `'.$this->table.'`.`manager_user`				
-			WHERE `users`.`user_deleted` = 0 AND `users`.`user_id` = '.$id.'
-			GROUP BY `'.$this->table.'`.`manager_user`
-		')->result();
-		
-		return ((count($result==1) &&  $result) ? array_shift($result) : FALSE);
-	}
-	
 	public function getById($id){
 		$r = $this->select(array(
 			$this->getPK()	=> (int) $id,
@@ -233,56 +217,6 @@ class ManagerModel extends BaseModel implements IModel{
 		return FALSE;
 	}
 	
-	/**
-	 * Список партенров с незаполненными до максимума клиентами по странам
-	 */
-	public function getIncompleteManagers() {
-		$managers = array();
-	 
-		$rows = $this->db->query('
-			SELECT *
-			FROM 	(
-						SELECT `'.$this->table.'`.`manager_user`, `'.$this->table.'`.`manager_country`, `'.$this->table.'`.`manager_max_clients`, COUNT(c2m.manager_id) AS `clients_count`, `'.$this->table.'`.`last_client_added`
-						FROM `'.$this->table.'`
-							LEFT JOIN `c2m` ON `c2m`.`manager_id` = `'.$this->table.'`.`manager_user`
-						WHERE `'.$this->table.'`.`manager_status` = 1
-						GROUP BY `'.$this->table.'`.`manager_user`
-					) AS `managers_data`
-			WHERE manager_max_clients > clients_count
-		')->result();
-		
-		foreach ($rows as $row) {
-			if (!array_key_exists($row->manager_country, $managers) || $managers[$row->manager_country]->last_client_added > $row->last_client_added)
-				$managers[$row->manager_country] = $row;
-		}
-		return $managers;
-	}
-	
-	public function getCompleteManagers($ids) {
-		$managers = array();
-		$rows = $this->db->query('
-			SELECT `'.$this->table.'`.`manager_user`, 
-				`'.$this->table.'`.`manager_country`, 
-				`'.$this->table.'`.`manager_max_clients`, 
-				COUNT(c2m.manager_id) AS `clients_count`, 
-				`'.$this->table.'`.`last_client_added`
-				FROM `'.$this->table.'`
-					LEFT JOIN `c2m` ON `c2m`.`manager_id` = `'.$this->table.'`.`manager_user`
-				WHERE `'.$this->table.'`.`manager_status` = 1 AND `'.$this->table.'`.`manager_country` IN ('.implode(', ', $ids).')
-				GROUP BY `'.$this->table.'`.`manager_user`
-		')->result();
-		
-		foreach ($rows as $row) 
-		{
-			if (!array_key_exists($row->manager_country, $managers) || $managers[$row->manager_country]->last_client_added > $row->last_client_added)
-			{
-				$managers[$row->manager_country] = $row;
-			}
-		}
-		
-		return $managers;
-	}
-
 	/**
 	 * Список партнеров
 	 */
@@ -373,50 +307,6 @@ class ManagerModel extends BaseModel implements IModel{
 		return $this->updateManager($manager);
 	}
 	
-	public function getClientManagersById($client_id)
-	{
-		$result = $this->db->query('
-			SELECT DISTINCT `'.$this->table.'`.*, `users`.`user_login`, `countries`.`country_name`
-			FROM `'.$this->table.'`
-				LEFT JOIN `c2m` ON `c2m`.`manager_id` = `'.$this->table.'`.`manager_user`
-				INNER JOIN `users` ON `users`.`user_id` = `'.$this->table.'`.`manager_user`				
-				INNER JOIN `countries` ON `countries`.`country_id` = `'.$this->table.'`.`manager_country`
-				INNER JOIN `pricelist` pl ON `pl`.`pricelist_country_from` = `managers`.`manager_country` and `pl`.`pricelist_country_to` = (
-					SELECT client_country FROM clients WHERE client_user='.$client_id.'
-				)
-			WHERE `users`.`user_deleted` = 0
-				AND `c2m`.`client_id` = \''.$client_id.'\'
-		')->result();
-		return ($result) ? $result : FALSE;		
-	}
-	
-	public function fixMaxClientsCount($manager_id)
-	{
-		$manager = $this->db->query('
-			SELECT `'.$this->table.'`.*, COUNT(c2m.manager_id) AS `clients_count`
-			FROM `'.$this->table.'`
-				LEFT JOIN `c2m` ON `c2m`.`manager_id` = `'.$this->table.'`.`manager_user`
-				INNER JOIN `users` ON `users`.`user_id` = `'.$this->table.'`.`manager_user`				
-			WHERE `users`.`user_deleted` = 0 AND `users`.`user_id` = \''.$manager_id.'\'
-			GROUP BY `'.$this->table.'`.`manager_user`
-		')->result();
-		
-		if ($manager && count($manager) == 1)
-		{
-			$manager = $manager[0];
-			if ($manager->clients_count > $manager->manager_max_clients)
-			{
-				$manager->manager_max_clients = $manager->clients_count;
-				unset($manager->clients_count);
-				$manager = $this->updateManager($manager);
-			}
-		
-			return $manager;
-		}
-		
-		return FALSE;		
-	}
-
 	public function isOrdersAllowed($manager)
 	{
 		// быстрая проверка
@@ -463,75 +353,7 @@ class ManagerModel extends BaseModel implements IModel{
 		return ($result) ? $result : FALSE;		
 	}
 	
-	public function getManagerDeliveries($manager_id)
-	{
-		$result = $this->db->query(
-			"SELECT description, country_id
-			FROM manager_pricelists
-			WHERE 
-				manager_id = $manager_id
-			ORDER BY country_id"
-		)->result();
-		
-		if ($result)
-		{
-			$ordered_result = array();
-			
-			foreach ($result as $delivery)
-			{
-				$ordered_result[$delivery->country_id] = $delivery->description;
-			}			
-		}
-		
-		return ($result) ? $ordered_result : FALSE;		
-	}
-	
-	public function isOrdersLimitReached($manager_id)
-	{
-		$active_orders = $this->db->query(
-			"SELECT COUNT(*) as c
-			FROM orders
-			WHERE 
-				order_manager = $manager_id
-				AND order_status IN ('proccessing', 'not_available', 'not_payed', 'payed', 'not_delivered')"
-		)->result();
-		
-		if ($active_orders AND count($active_orders))
-		{
-			$active_orders = $active_orders[0];
-			$active_orders = $active_orders->c;
-		}
-		else
-		{
-			$acttive_orders = 0;
-		}
-		
-		$manager_limit = $this->db->query(
-			"SELECT manager_max_orders
-			FROM managers
-			WHERE 
-				manager_user = $manager_id"
-		)->result();
-		
-		if ($manager_limit AND count($manager_limit))
-		{
-			$manager_limit = $manager_limit[0];
-			$manager_limit = $manager_limit->manager_max_orders;
-		}
-		else
-		{
-			$manager_limit = 0;
-		}
-		
-		if ($manager_limit == NULL)
-		{
-			return FALSE;
-		}
-		
-		return (($manager_limit - $active_orders) <= 0);
-	}
-	
-	public static function getFullName($manager, $user = NULL) 
+	public static function getFullName($manager, $user = NULL)
 	{
         if ($manager)
         {

@@ -107,7 +107,8 @@ abstract class BaseController extends Controller
 		$this->load->model('ClientModel', '__Clients');
 		$this->__client	= $this->__Clients->getById($this->user->user_id);
 		View::$data['client'] = $this->__client;
-		
+
+		/*
 		// подгружаем партнеров
 		$this->load->model('ManagerModel', '__Managers');
 		$this->__partners = $this->__Managers->getClientManagersById($this->user->user_id);
@@ -127,6 +128,7 @@ abstract class BaseController extends Controller
 		}
 		
 		View::$data['partners']	= $this->__partners;
+		*/
 	}	
 	
 	protected function showOrders($orderStatus = NULL, $pageName = NULL)
@@ -2526,6 +2528,7 @@ abstract class BaseController extends Controller
 				'Заказ не найден.');
 
 			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joint	s');
 
 			// погнали
 			$this->db->trans_begin();

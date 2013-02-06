@@ -11,11 +11,20 @@
 		</div>
 		<div>
 			<span>
-				Комиссия за заказ:
+				Комиссия за обычный заказ:
 			</span>
 			<span>
-				<input class="textbox" maxlength="3" type='text' id='order_tax' name="order_tax" value="<?=
+				<input class="textbox" maxlength="6" type='text' id='order_tax' name="order_tax" value="<?=
 				$manager->order_tax ?>" /> %
+			</span>
+		</div>
+		<div>
+			<span>
+				Комиссия за заказ Mail Forwarding:
+			</span>
+			<span>
+				<input class="textbox" maxlength="11" type='text' id='mf_tax' name="mf_tax" value="<?=
+				$manager->order_mail_forwarding_tax ?>" /> <?= $manager->statistics->currency ?>
 			</span>
 		</div>
 		<div>
@@ -23,7 +32,7 @@
 				Минимальная комиссия за заказ:
 			</span>
 			<span>
-				<input class="textbox" maxlength="11" type='text' id='min_order_tax' name="min_order_tax" value="<?=
+				<input class="textbox" maxlength="4" type='text' id='min_order_tax' name="min_order_tax" value="<?=
 				$manager->min_order_tax ?>" /> <?= $manager->statistics->currency ?>
 			</span>
 		</div>

@@ -1067,28 +1067,77 @@ class Client extends ClientBaseController {
 		$this->showOrders($status);
 	}
 
-	public function payOrder()
+	function payOrder($order_id)
+	{
+		$this->load->model('CurrencyModel', 'Currencies');
+		$this->load->model('Order2InModel', 'Order2in');
+		$this->load->model('PaymentServiceModel', 'Services');
+
+		$Orders = $this->Order2in->getFilteredOrders(array('order2in_user' => $this->user->user_id), 'open');
+
+		/* пейджинг */
+		$this->per_page = $this->per_page_o2o;
+		$this->init_paging();
+		$this->paging_count = count($Orders);
+
+		if ($Orders)
+		{
+			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
+		}
+
+		$view = array (
+			'Orders2In' => $Orders,
+			'Orders2InStatuses'	=> $this->Order2in->getStatuses(),
+			'Orders2InFoto' => $this->Order2in->getOrders2InFoto($Orders),
+			'services'	=> $this->Services->getInServices(),
+			'usd' => ceil($this->Currencies->getRate('USD') * 100) * 0.01,
+			'kzt' => ceil($this->Currencies->getCrossRate('KZT') * 100) * 0.01,
+			'uah' => ceil($this->Currencies->getCrossRate('UAH') * 100) * 0.01,
+			'pager' => $this->get_paging()
+		);
+
+
+		// парсим шаблон
+		if ($this->uri->segment(4) == 'ajax')
+		{
+			$view['selfurl'] = BASEURL.$this->cname.'/';
+			$view['viewpath'] = $this->viewpath;
+			$this->load->view('/client/ajax/showOpenOrders2In', $view);
+		}
+		else
+		{
+			View::showChild('/client/pages/payOrder', $view);
+		}
+	}
+
+	public function payOrderDirect($order_id)
 	{
 		try
 		{
-			if (!$this->user ||
-				!$this->user->user_id ||
-				!is_numeric($this->uri->segment(3)))
+			if (! is_numeric($order_id))
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
-			// безопасность: проверяем связку клиента и заказа
-			$this->load->model('OrderModel', 'Orders');
-			$order = $this->Orders->getClientOrderById($this->uri->segment(3), $this->user->user_id);
 
-			if (!$order)
+			// заказ
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				'Заказ недоступен.');
+
+			// позволяет ли текущий статус оплату
+			$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
+
+			if ( ! in_array($order->order_status, $view['payable_statuses']))
 			{
-				throw new Exception('Заказ не найден. Попробуйте еще раз.');
-			}			
+				throw new Exception('Текущий статус заказа не позволяет его оплатить.');
+			}
 
 			// находим местную валюту
 			$this->load->model('CurrencyModel', 'Currency');
+			$this->load->model('ClientModel', 'Clients');
+			$this->load->model('AddressModel', 'Addresses');
+			$this->load->model('ManagerModel', 'Managers');
+
 			$currency = $this->Currency->getCurrencyByCountry($order->order_country);
 			
 			// добавление платежа партнеру
@@ -1166,10 +1215,8 @@ class Client extends ClientBaseController {
 			$this->result->m = 'Заказ успешно оплачен.';
 
 			// уведомления
-			$this->load->model('ManagerModel', 'Managers');
 			$this->load->model('UserModel', 'Users');
-			$this->load->model('ClientModel', 'Clients');
-
+/*
 			Mailer::sendAdminNotification(
 				Mailer::SUBJECT_NEW_ORDER_STATUS, 
 				Mailer::NEW_ORDER_STATUS_NOTIFICATION,
@@ -1200,6 +1247,7 @@ class Client extends ClientBaseController {
 				"http://countrypost.ru/client/showOpenOrders/{$order->order_id}",
 				$this->Clients,
 				'Оплачен');
+*/
 		}
 		catch (Exception $e)
 		{
@@ -1209,9 +1257,15 @@ class Client extends ClientBaseController {
 			$this->result->m = $e->getMessage();
 		}
 		
-		// открываем заказы
-		Stack::push('result', $this->result);
-		Func::redirect(BASEURL.$this->cname.'/showOpenOrders');
+		// открываем детали заказа
+		if (isset($order_id))
+		{
+			Func::redirect(BASEURL . $this->cname . '/order/' . $order_id);
+		}
+		else
+		{
+			Func::redirect(BASEURL . $this->cname);
+		}
 	}
 	
 	// доплата за новые товары в заказе

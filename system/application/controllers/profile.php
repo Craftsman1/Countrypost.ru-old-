@@ -169,7 +169,7 @@ class Profile extends BaseController {
 			$view['blogs']	= $this->Blogs->getBlogsByUserId($manager->manager_user);
 
 			// доставка
-			$view['deliveries']	= $this->Managers->getManagerDeliveries($manager->manager_user);			
+			$view['deliveries']	= $this->Managers->getManagerDeliveries($manager->manager_user);
 			
 			// отзывы
 			$statistics = array();

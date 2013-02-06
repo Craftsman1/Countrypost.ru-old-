@@ -1131,8 +1131,8 @@ Email: {$this->user->user_email}";
 				throw new Exception('Невозможно создать заказ.');
 			}
 			
-			$this->load->model('OrderModel', 'OrderModel');
-			$order = $this->OrderModel->getClientOrderById($order_id, $this->user->user_id);
+			$this->load->model('OrderModel', 'Orders');
+			$order = $this->Orders->getClientOrderById($order_id, $this->user->user_id);
 
 			if (empty($order))
 			{				
@@ -1148,7 +1148,7 @@ Email: {$this->user->user_email}";
             // TODO : отыскать все товары и поменять временный клиент айди на реальный
 
             // Поставляем статус заказу
-            $order->order_status = 'proccessing';
+            $order->order_status = 'pending';
 
 			Check::reset_empties();
 
@@ -1174,8 +1174,29 @@ Email: {$this->user->user_email}";
                 $order->order_city_to = Check::str('city_to', 255, 1);
             }
 
+			// валидируем выбранного посредника и привязываем заказ к его стране (для mail_forwarding)
 			$order->order_manager = Check::int('dealer_id');
-			$order->order_status = 'pending';
+
+			if ($order->order_manager)
+			{
+				$this->load->model('ManagerModel', 'Managers');
+
+				$manager = $this->Managers->getById($order->order_manager);
+
+				if (empty($manager) OR
+					$manager->manager_status != 2 OR
+					($order->order_country_from > 0 AND
+						$order->order_country_from != $manager->manager_country) OR
+					($manager->is_mailforwarding == 0 AND
+						$order->order_type == 'mail_forwarding'))
+				{
+					throw new Exception('Посредник не найден. Попробуйте еще раз.');
+				}
+
+				$order->order_country_from = $manager->manager_country;
+			}
+
+			$order->order_status = ($order->order_manager ? 'processing' : 'pending');
 			$order->order_date = date('Y-m-d H:i:s');			
 			$order->is_creating = 0;
 
@@ -1199,12 +1220,14 @@ Email: {$this->user->user_email}";
 				//$odetails_total->odetail_joint_count;			
 			}
 
-			if ( ! ($Order = $this->OrderModel->addOrder($order)))
+			if ( ! ($Order = $this->Orders->addOrder($order)))
 			{
 				throw new Exception('Ошибка создания заказа.');
 			}
 
-            if ($order->order_type == 'mail_forwarding')
+            //if ($order->order_type == 'mail_forwarding')
+			// если выбрали посредника, генерируем его предложение
+            if ($order->order_manager)
             {
                 $this->load->model('BidModel', 'Bids');
 
@@ -1215,6 +1238,13 @@ Email: {$this->user->user_email}";
                 $bid->delivery_name = $order->preferred_delivery;
                 $bid->status = 'active';
                 $bid->created = $order->order_date;
+
+				$this->Orders->prepareNewBidView($order, $order->order_manager);
+
+				$bid->total_cost = $order->order_total_cost;
+				$bid->manager_tax = $order->manager_tax;
+				$bid->foto_tax = $order->foto_tax;
+				$bid->delivery_cost = $order->order_delivery_cost;
 
                 if ( ! ($bid = $this->Bids->addBid($bid)))
                 {

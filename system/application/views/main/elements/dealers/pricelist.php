@@ -10,10 +10,18 @@
 	</div>
 	<div>
 		<span>
-			Комиссия за заказ:
+			Комиссия за обычный заказ:
 		</span>
 		<span>
 			<b><?= $manager->order_tax ?>%</b>
+		</span>
+	</div>
+	<div>
+		<span>
+			Комиссия за заказ Mail Forwarding:
+		</span>
+		<span>
+			<b><?= $manager->order_mail_forwarding_tax ?> <?= $manager->statistics->currency ?></b>
 		</span>
 	</div>
 	<div>
