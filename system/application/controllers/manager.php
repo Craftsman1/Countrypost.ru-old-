@@ -531,21 +531,20 @@ class Manager extends ManagerBaseController {
 				throw new Exception('Невозможно добавить предложение.');
 			}
 						
-			// роли и разграничение доступа
+			// 1. роли и разграничение доступа
 			$order = $this->getPublicOrder(
 				$order_id,
 				'Заказ не найден. Попробуйте еще раз.');
 
-			// погнали
+			// 2. погнали
 			$bid = new stdClass();
 			$bid->order_id = $order_id;
 			$bid->manager_id = $this->user->user_id;
 			$bid->client_id = $order->order_client;
 			$bid->foto_tax = Check::int('foto_tax');
 
-			// допрасходы
+			// 3. допрасходы
 			$extra_tax_counter = Check::int('extra_tax_counter');
-			$bid->extra_tax = 0;
 
 			for ($i = 0; $i < $extra_tax_counter; $i++)
 			{
@@ -556,14 +555,18 @@ class Manager extends ManagerBaseController {
 
 				if ($bid_extra->extra_tax)
 				{
-					$bid->extra_tax += $bid_extra->extra_tax;
 					$bid_extras[] = $bid_extra;
 				}
 			}
 
+			if (isset($bid_extras))
+			{
+				$bid->bid_extras = $bid_extras;
+			}
+
 			Check::reset_empties();
 
-			// доставка
+			// 4. доставка
 			if ($order->order_country_to)
 			{
 				$bid->delivery_cost = Check::int('delivery_cost');
@@ -575,6 +578,7 @@ class Manager extends ManagerBaseController {
 				$bid->delivery_name = '';
 			}
 
+			// 5. комиссия
 			$bid->manager_tax = Check::int('manager_tax');
 
 			$empties = Check::get_empties();
@@ -584,16 +588,14 @@ class Manager extends ManagerBaseController {
 				throw new Exception('Некоторые поля не заполнены. Попробуйте еще раз.');
 			}
 
-			$bid->total_cost =
-				$order->order_products_cost +
-				$order->order_delivery_cost +
-				$bid->manager_tax +
-				$bid->foto_tax +
-				$bid->extra_tax +
-				$bid->delivery_cost;
-
+			// 6. пересчитываем и сохраняем предложение
 			$this->load->model('BidModel', 'Bids');
-			
+
+			if ( ! $this->Bids->recalculate($bid, $order))
+			{
+				throw new Exception('Невозможно вычислить стоимость предложения. Попоробуйте еще раз.');
+			}
+
 			if ( ! ($bid = $this->Bids->addBid($bid)))
 			{
 				throw new Exception('Ошибка создания предложения. Обратитесь к администрации сервиса.');
@@ -602,18 +604,16 @@ class Manager extends ManagerBaseController {
 			$this->load->model('ManagerModel', 'Managers');
 			$this->processStatistics($bid, array(), 'manager_id', $this->user->user_id, 'manager');
 
-			// сохраняем допрасходы
+			// 7. сохраняем допрасходы
 			if (isset($bid_extras))
 			{
 				$this->Bids->addBidExtras($bid, $bid_extras);
-				$bid->bid_extras = $bid_extras;
 			}
 
-			// комменты
+			// 8. комменты
 			$comment = new stdClass();
 			$comment->message = Check::txt('comment', 8096, 1);
 
-			// сохранение результатов
 			if ( ! empty($comment->message) AND
 				$comment->message != '<p></p>')
 			{
@@ -634,7 +634,7 @@ class Manager extends ManagerBaseController {
 				$bid->comments[] = $new_comment;
 			}
 
-			// отрисовка предложения
+			// 9. отрисовка предложения
 			$this->load->model('CountryModel', 'Countries');
 			$this->load->model('OdetailModel', 'Odetails');
 
@@ -703,6 +703,16 @@ class Manager extends ManagerBaseController {
 			{
 				$order->order_status = 'pending';
 				$order->order_manager = 0;
+
+				// пересчитываем заказ
+				$this->load->model('OrderModel', 'Orders');
+				$this->load->model('OdetailModel', 'Odetails');
+				$this->load->model('OdetailJointModel', 'Joints');
+
+				if ( ! $this->Orders->recalculate($order))
+				{
+					throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				}
 
 				$this->Orders->saveOrder($order);
 			}
@@ -1121,7 +1131,7 @@ class Manager extends ManagerBaseController {
 			$this->Odetails->addOdetail($odetail);
 
 			// пересчитываем заказ
-			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			if ( ! $this->Orders->recalculate($order))
 			{
 				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}

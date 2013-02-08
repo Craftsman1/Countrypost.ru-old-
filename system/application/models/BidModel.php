@@ -211,5 +211,57 @@ class BidModel extends BaseModel implements IModel{
 		
 		return ((count($result) > 0 &&  $result) ? $result[0] : FALSE);
 	}
+
+	public function recalculate($bid, $order)
+	{
+		try
+		{
+			// 1. собираем допрасходы
+			$bid->extra_tax = 0;
+
+			if (is_array($bid->bid_extras))
+			{
+				foreach (($bid->bid_extras) as $bid_extra)
+				{
+					$bid->extra_tax += $bid_extra->extra_tax;
+				}
+			}
+
+			// 2. комиссия посредника
+			$ci = get_instance();
+			$ci->load->model('ManagerModel', 'Managers');
+
+			if ( ! ($manager = $ci->Managers->getById($bid->manager_id)))
+			{
+				return FALSE;
+			}
+
+			$bid->manager_tax = ceil(
+				$manager->order_tax *
+				($order->order_products_cost +
+					$order->order_delivery_cost) *
+				0.01);
+
+			if ($bid->manager_tax < $manager->min_order_tax)
+			{
+				$bid->manager_tax = $manager->min_order_tax;
+			}
+
+			// 3. подбиваем сумму
+			$bid->total_cost =
+				$order->order_products_cost +
+					$order->order_delivery_cost +
+					$bid->manager_tax +
+					$bid->foto_tax +
+					$bid->extra_tax +
+					$bid->delivery_cost;
+		}
+		catch (Exception $e)
+		{
+			return FALSE;
+		}
+
+		return $bid;
+	}
 }
 ?>

@@ -1788,11 +1788,17 @@ class Client extends ClientBaseController {
 				throw new Exception('Доступ запрещен.');
 			}
 
-			// сохраняем заказ
+			// пересчитываем заказ
 			$order->order_manager = $bid->manager_id;
 			$order->order_status = 'processing';
 
-			if ( ! ($new_order = $this->Orders->addOrder($order)))
+			if ( ! $this->Orders->recalculate($order))
+			{
+				throw new Exception('Предложение не выбрано. Ошибка расчета стоимости заказа.');
+			}
+
+			// сохраняем заказ
+			if ( ! $this->Orders->saveOrder($order))
 			{
 				throw new Exception('Предложение не выбрано. Обновите страницу и попробуйте еще раз.');
 			}
@@ -1808,17 +1814,7 @@ class Client extends ClientBaseController {
 			$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
 
 			$this->processStatistics($order, array(), 'order_manager', $order->order_manager, 'manager');
-			//$order->bid = $bid;
-
-			//$order_country_from = $this->Countries->getById($order->order_country_from);
-			//$order->order_currency = $order_country_from ? $order_country_from->country_currency : '';
 			$view['order'] = $order;
-
-			/*$this->load->model('OdetailModel', 'Odetails');
-			$view['odetails'] = $this->Odetails->getOrderDetails($view['order']->order_id);
-			$this->load->model('CountryModel', 'Countries');
-			$view['order_country_from'] = '';
-			*/
 
 			$this->Orders->prepareOrderView($view);
 
@@ -1857,7 +1853,13 @@ class Client extends ClientBaseController {
 			$order->order_manager = 0;
 			$order->order_status = 'pending';
 
-			if ( ! ($order = $this->Orders->addOrder($order)))
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			if ( ! ($order = $this->Orders->saveOrder($order)))
 			{
 				throw new Exception('Посредник до сих пор выбран. Обновите страницу и попробуйте еще раз.');
 			}

@@ -2626,20 +2626,20 @@ div.new_bid_box span.bold,div.new_bid_box span.bold b {
 }
 
 div.new_bid_box span {
-	width: 270px;
+	width: 350px;
 	height: 36px;
 	vertical-align: baseline;
 	display: inline-block;
 }
 
 div.new_bid_box b.currency  {
-	left: 420px;
+	left: 500px;
 	position: absolute;
 	margin-top: 7px;
 }
 
 div.new_bid_box b.percent  {
-	left: 494px;
+	left: 602px;
 	position: absolute;
 	margin-top: 7px;
 }
@@ -2654,7 +2654,7 @@ div.new_bid_box .textbox  {
 
 div.new_bid_box textarea  {
 	resize: vertical;
-	width: 425px;
+	width: 505px;
 	display: block;
 }
 

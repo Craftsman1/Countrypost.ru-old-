@@ -15,7 +15,7 @@
 			</span>
 			<span>
 				<input class="textbox" maxlength="6" type='text' id='order_tax' name="order_tax" value="<?=
-				$manager->order_tax ?>" /> %
+				$manager->order_tax ?>" /> % от общей стоимости товаров и местной доставки
 			</span>
 		</div>
 		<div>
@@ -53,7 +53,7 @@
 		</div>
 		<div>
 			<span>
-				Комиссия за фото:
+				Комиссия за одно фото:
 			</span>
 			<span>
 				<input class="textbox" maxlength="11" type='text' id='foto_tax' name="foto_tax" value="<?=

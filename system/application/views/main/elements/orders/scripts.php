@@ -4268,7 +4268,7 @@
                     }
                     else {
                         var order_id = $('input.order_id').val();
-                        success('top', 'Заказ №' + order_id + ' добавлен! Дождитесь предложений от посредников и выберите лучшее из них.');
+                        success('top', 'Заказ №' + order_id + ' добавлен!');
                         window.location = '/client/order/' + order_id;
                     }
                 },

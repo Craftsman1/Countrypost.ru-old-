@@ -1225,8 +1225,7 @@ Email: {$this->user->user_email}";
 				throw new Exception('Ошибка создания заказа.');
 			}
 
-            //if ($order->order_type == 'mail_forwarding')
-			// если выбрали посредника, генерируем его предложение
+            // если выбрали посредника, генерируем его предложение
             if ($order->order_manager)
             {
                 $this->load->model('BidModel', 'Bids');
@@ -1652,7 +1651,7 @@ Email: {$this->user->user_email}";
             $this->Odetails->addOdetail($odetail);
 
             // пересчитываем заказ
-            if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+            if ( ! $this->Orders->recalculate($order))
             {
                 throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
             }
@@ -1725,12 +1724,13 @@ Email: {$this->user->user_email}";
             $this->Odetails->addOdetail($odetail);
 
             // пересчитываем заказ
-            if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+            if ( ! $this->Orders->recalculate($order))
             {
                 throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
             }
 
             $this->Orders->saveOrder($order);
+            $this->Bids->saveBids($order->bids);
 
             // отправляем пересчитанные детали заказа
             $response = $this->prepareOrderUpdateJSON($order);
@@ -1798,7 +1798,7 @@ Email: {$this->user->user_email}";
             $this->Odetails->addOdetail($odetail);
 
             // пересчитываем заказ
-            if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+            if ( ! $this->Orders->recalculate($order))
             {
                 throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
             }

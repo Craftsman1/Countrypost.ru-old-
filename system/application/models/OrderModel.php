@@ -755,12 +755,8 @@ class OrderModel extends BaseModel implements IModel{
 		return FALSE;
 	}
 
-    /**
-     * Возвращает заказ, если он есть у клиента
-     *
-     * @return object
-     */
-    public function getClientBlankOrders($client_id, $order_type = '')
+    // TODO: расчистить говнокод!!!!
+	public function getClientBlankOrders($client_id, $order_type = '')
     {
         $where = " AND `orders`.`order_client` = '".$client_id."'";
 
@@ -900,97 +896,6 @@ class OrderModel extends BaseModel implements IModel{
 	}
 	
 	/**
-	 * Рассчитывает стоимость заказа
-	 *
-	 * @return array
-	 */
-	public function calculateCost($order)
-	{
-		$ci = get_instance();
-		$ci->load->model('CurrencyModel', 'Currencies');
-		$ci->load->model('CountryModel', 'Countries');
-		$ci->load->model('ManagerModel', 'Manager');
-		$ci->load->model('TaxModel', 'Taxes');
-			
-		$country = $ci->Countries->getById($order->order_country);
-		$cross_rate = $ci->Currencies->getById($country->country_currency);
-			
-		// комиссии для страны
-		$tax = $ci->Taxes->getByCountryId($order->order_country);
-			
-		if ($tax === FALSE)
-		{
-			throw new Exception('Невозможно рассчитать стоимость заказа. Данные для расчета недоступны.');
-		}		
-		
-		// комиссия партнера, %
-		$manager = $ci->Manager->getById($order->order_manager);
-		
-		if ( ! $manager)
-		{
-			throw new Exception('Невозможно рассчитать стоимость заказа. Менеджер не найден.');
-		}
-
-		$manager_tax = isset($manager->order_tax) ? $manager->order_tax : 0.5 * $tax->order;
-
-		// полная комиссия
-		$order->order_comission = ceil(
-			($order->order_products_cost + $order->order_delivery_cost) * 
-			$tax->order *
-			0.01);
-			
-		// минимальные комиссии: пополам админу и партнеру
-		if ($order->order_comission < $tax->min_order)
-		{
-			$order->order_comission = $tax->min_order;
-			
-			$order->order_manager_comission = 
-				$tax->min_order * 
-				0.5;
-			
-			$order->order_manager_comission_local = 
-				$order->order_manager_comission *
-				$cross_rate->cbr_cross_rate;
-		}
-		// простые комиссии: партнеру его %, админу все остальное
-		else
-		{
-			$order->order_manager_comission = 
-				($order->order_products_cost + $order->order_delivery_cost) * 
-				$manager_tax * 
-				0.01;
-			
-			$order->order_manager_comission_local = 
-				($order->order_products_cost_local + $order->order_delivery_cost_local) * 
-				$manager_tax *
-				0.01;
-		}
-		
-		// комиссия системы
-		$order->order_system_comission = $order->order_comission - $order->order_manager_comission;
-		
-		// стоимость, которую оплатит клиент
-		$order->order_cost = 
-			$order->order_products_cost +
-			$order->order_delivery_cost +
-			$order->order_comission;
-				
-		// стоимость для выплаты партнеру		
-		$order->order_manager_cost = 
-			$order->order_products_cost +
-			$order->order_delivery_cost +
-			$order->order_manager_comission;
-						
-		// она же в местной валюте
-		$order->order_manager_cost_local = 
-			$order->order_products_cost_local +
-			$order->order_delivery_cost_local +
-			$order->order_manager_comission_local;
-						
-		return $order->order_cost ? $order : FALSE;
-	}
-	
-	/**
 	 * Вычисляет статус заказа
 	 *
 	 * @return string
@@ -1020,23 +925,72 @@ class OrderModel extends BaseModel implements IModel{
 	
 	// полный пересчет стоимости заказа
 	// например, при удалении товара
-	public function recalculate($order, $OdetailModel, $OdetailJointModel)
+	public function recalculate($order)
 	{
 		try
 		{
-			$order = $this->calculateTotals($order, $OdetailModel, $OdetailJointModel);
+			// 1. пробегаем по товарам, собираем суммы
+			$order = $this->calculateTotals($order);
 		
 			if (empty($order))
 			{
 				return FALSE;
 			}
 
-			// Дописать пересчет стоимости заказа
-			//$order = $this->calculateCost($order, $config);
+			// 2. находим предложение, если оно выбрано
+			$ci = get_instance();
+			$ci->load->model('BidModel', 'Bids');
 
-			if (empty($order))
+			$manager_id = $order->order_manager;
+
+			if (isset($manager_id) AND
+				intval($manager_id) > 0)
 			{
-				return FALSE;
+				$selected_bid = $this->getSelectedBid($order->order_id, $order->order_manager);
+
+				if (empty($selected_bid))
+				{
+					return $order;
+				}
+
+				$order->bids[] = $selected_bid;
+			}
+			// 2.1 или все предложения заказа, если посредник не выбран
+			else
+			{
+				$order->bids = $ci->Bids->getBids($order->order_id);
+
+				if (empty($order->bids))
+				{
+					return $order;
+				}
+			}
+
+			// 3. пересчитываем предложения
+			foreach ($order->bids as $bid)
+			{
+				$bid->bid_extras = $ci->Bids->getBidExtras($bid->bid_id);
+
+				if ( ! $ci->Bids->recalculate($bid, $order))
+				{
+					return FALSE;
+				}
+
+				if ( ! $ci->Bids->addBid($bid))
+				{
+					return FALSE;
+				}
+			}
+
+			// 4. переносим данные из выбранного предложения в заказ
+			if (isset($selected_bid))
+			{
+				$order = $this->calculateCost($order, $selected_bid);
+
+				if (empty($order))
+				{
+					return FALSE;
+				}
 			}
 		}
 		catch (Exception $e) 
@@ -1046,15 +1000,53 @@ class OrderModel extends BaseModel implements IModel{
 		
 		return TRUE;
 	}
-	
-	private function calculateTotals($order, $OdetailModel, $OdetailJointModel)
+
+	public function calculateCost($order, $bid)
 	{
+		$order->manager_tax = $bid->manager_tax;
+		$order->foto_tax = $bid->foto_tax;
+		$order->delivery_cost = $bid->delivery_cost;
+		$order->delivery_name = $bid->delivery_name;
+		$order->extra_tax = $bid->extra_tax;
+
+		$order->order_cost = $bid->total_cost;
+
+		return $order->order_cost ? $order : FALSE;
+	}
+
+	public function getSelectedBid($order_id, $manager_id)
+	{
+		$bids = $this->db->query("
+			SELECT `bids`.*
+			FROM `bids`
+			WHERE
+				order_id = '$order_id' AND
+				manager_id = '$manager_id' AND
+				status != 'deleted'
+			ORDER BY created DESC
+			LIMIT 1
+		")->result();
+
+		return ((count($bids == 1) &&  $bids) ? $bids[0] : FALSE);
+	}
+
+	private function calculateTotals($order)
+	{
+		$ci = get_instance();
+
+		$ci->load->model('CurrencyModel', 'Currencies');
+		$ci->load->model('CountryModel', 'Countries');
+		$ci->load->model('ManagerModel', 'Manager');
+		$ci->load->model('OdetailModel', 'Odetails');
+		$ci->load->model('OdetailJointModel', 'Joints');
+
+
 		$total_price = 0;
 		$total_pricedelivery = 0;
 		$total_weight = 0;
 		$joints = array();
 	
-		$odetails = $OdetailModel->getOrderDetails($order->order_id);
+		$odetails = $ci->Odetails->getOrderDetails($order->order_id);
 		$total_status = $order->order_status;
 
 		// вычисляем статус, если выбран посредник
@@ -1129,7 +1121,7 @@ class OrderModel extends BaseModel implements IModel{
 		// объединенные товары
 		foreach ($joints as $joint_id)
 		{
-			$joint = $OdetailJointModel->getById($joint_id);
+			$joint = $ci->Joints->getById($joint_id);
 			if (empty($joint))
 			{
 				throw new Exception('Некоторые товары не найдены.');

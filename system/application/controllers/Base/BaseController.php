@@ -2483,7 +2483,7 @@ abstract class BaseController extends Controller
 			$this->Joints->addOdetailJoint($joint);
 
 			// пересчитываем заказ
-			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			if ( ! $this->Orders->recalculate($order))
 			{
 				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
@@ -2536,7 +2536,7 @@ abstract class BaseController extends Controller
 			$this->Odetails->clearJoints($joint_id);
 
 			// пересчитываем заказ
-			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			if ( ! $this->Orders->recalculate($order))
 			{
 				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
@@ -2653,7 +2653,7 @@ abstract class BaseController extends Controller
             $this->Joints->addOdetailJoint($joint);
 
             // пересчитываем заказ
-            if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+            if ( ! $this->Orders->recalculate($order))
             {
                 throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
             }
@@ -2702,7 +2702,7 @@ abstract class BaseController extends Controller
             $this->Odetails->clearJoints($joint_id);
 
             // пересчитываем заказ
-            if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+            if ( ! $this->Orders->recalculate($order))
             {
                 throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
             }
@@ -3494,7 +3494,7 @@ abstract class BaseController extends Controller
 			$this->Odetails->addOdetail($odetail);
 
 			// пересчитываем заказ
-			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			if ( ! $this->Orders->recalculate($order))
 			{
 				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
@@ -3559,7 +3559,7 @@ abstract class BaseController extends Controller
 			$this->Odetails->addOdetail($odetail);
 
 			// пересчитываем заказ
-			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			if ( ! $this->Orders->recalculate($order))
 			{
 				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
@@ -3623,7 +3623,7 @@ abstract class BaseController extends Controller
 			$this->Odetails->addOdetail($odetail);
 
 			// пересчитываем заказ
-			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			if ( ! $this->Orders->recalculate($order))
 			{
 				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
@@ -3698,7 +3698,7 @@ abstract class BaseController extends Controller
 			$this->Odetails->addOdetail($odetail);
 
 			// пересчитываем заказ
-			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			if ( ! $this->Orders->recalculate($order))
 			{
 				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
@@ -3763,7 +3763,7 @@ abstract class BaseController extends Controller
 			$this->Joints->addOdetailJoint($joint);
 
 			// пересчитываем заказ
-			if ( ! $this->Orders->recalculate($order, $this->Odetails, $this->Joints))
+			if ( ! $this->Orders->recalculate($order))
 			{
 				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}

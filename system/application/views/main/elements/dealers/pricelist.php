@@ -13,7 +13,7 @@
 			Комиссия за обычный заказ:
 		</span>
 		<span>
-			<b><?= $manager->order_tax ?>%</b>
+			<b><?= $manager->order_tax ?>%</b> от общей стоимости товаров и местной доставки
 		</span>
 	</div>
 	<div>
@@ -32,6 +32,8 @@
 			<b><?= $manager->min_order_tax ?> <?= $manager->statistics->currency ?></b>
 		</span>
 	</div>
+	<br>
+	<br>
 	<div>
 		<span>
 			<b>ДОПОЛНИТЕЛЬНЫЕ УСЛУГИ:</b>
@@ -47,7 +49,7 @@
 	</div>
 	<div>
 		<span>
-			Комиссия за фото:
+			Комиссия за одно фото:
 		</span>
 		<span>
 			<b><?= $manager->foto_tax ?> <?= $manager->statistics->currency ?></b>
