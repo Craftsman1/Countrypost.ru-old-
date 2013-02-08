@@ -167,32 +167,5 @@
 			 src="/static/images/lightbox-ico-loading.gif"/>
 	</div>
 	<? endif ?>
-	<script>
-		function prepareOrderFormHandlers()
-		{
-			$('#orderForm').ajaxForm({
-				dataType: 'html',
-				iframe: true,
-				beforeSubmit: function(formData, jqForm, options)
-				{
-					$("#orderProgress").show();
-				},
-				success: function(response)
-				{
-					$("#orderProgress").hide();
-					success('top', 'Заказ успешно сохранен!');
-				},
-				error: function(response)
-				{
-					$("#orderProgress").hide();
-					error('top', 'Заказ не сохранен. Попробуйте еще раз.');
-				}
-			});
-		}
-
-		$(function() {
-			prepareOrderFormHandlers();
-		});
-	</script>
 <? endif; ?>
 </form>

@@ -219,7 +219,8 @@ class BidModel extends BaseModel implements IModel{
 			// 1. собираем допрасходы
 			$bid->extra_tax = 0;
 
-			if (is_array($bid->bid_extras))
+			if (isset($bid->bid_extras) AND
+				is_array($bid->bid_extras))
 			{
 				foreach (($bid->bid_extras) as $bid_extra)
 				{

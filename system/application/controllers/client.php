@@ -1818,7 +1818,7 @@ class Client extends ClientBaseController {
 
 			$this->Orders->prepareOrderView($view);
 
-			$this->load->view("/client/ajax/showOrderInfo", $view);
+			$this->load->view("/client/ajax/showOrderInfoAjax", $view);
 		}
 		catch (Exception $e)
 		{
