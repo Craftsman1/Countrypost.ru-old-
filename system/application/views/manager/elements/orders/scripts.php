@@ -128,6 +128,46 @@ function refreshOrderTotals(order, success_message, error_message)
 	$('.total_delivery_cost').html(order['delivery_cost']);
 	$('.total_weight').html(order['weight']);
 	$('.order_status').val(order['status']);
+
+	if ($.isArray(order['bids']))
+	{
+		refreshBidTotals(order);
+	}
+
+	if (order['order_details'])
+	{
+		$('form#orderForm').replaceWith(order['order_details']);
+	}
+}
+
+function refreshBidTotals(order)
+{
+	for (id in order['bids'])
+	{
+		var bid = order['bids'][id];
+
+		$('div#bid' + bid['id'])
+			.find('span.order_total_cost')
+			.html(bid['total'])
+			.end()
+			.find('span.order_products_cost')
+			.html(order['products_cost'] + order['delivery_cost'])
+			.end()
+			.find('span.manager_tax')
+			.html(bid['tax'])
+			.end()
+			.find('span.manager_foto_tax')
+			.html(bid['foto'])
+			.end()
+			.find('span.order_delivery_cost')
+			.html(bid['delivery'])
+			.end()
+			.find('span.order_delivery_cost')
+			.html(bid['delivery'])
+			.end()
+			.find('span.extra_tax')
+			.html(bid['extra']);
+	}
 }
 // EOF: сохранение статуса, веса, стоимости и местной доставки
 

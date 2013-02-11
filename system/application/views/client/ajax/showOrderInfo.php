@@ -180,12 +180,12 @@
 				success: function(response)
 				{
 					$("#orderProgress").hide();
-					success('top', 'Заказ успешно сохранен!');
+					success('top', 'Заказ №<?= $order->order_id ?> успешно сохранен!');
 				},
 				error: function(response)
 				{
 					$("#orderProgress").hide();
-					error('top', 'Заказ не сохранен. Попробуйте еще раз.');
+					error('top', 'Заказ №<?= $order->order_id ?> не сохранен. Попробуйте еще раз.');
 				}
 			});
 		}

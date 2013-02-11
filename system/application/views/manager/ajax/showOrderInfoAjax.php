@@ -1,5 +1,5 @@
 <form id="orderForm" action="<?= $selfurl ?>updateOrder/<?= $order->order_id ?>" method="POST">
-<? if (in_array($order->order_status, $editable_statuses)) : ?>
+	<? if (in_array($order->order_status, $editable_statuses)) : ?>
 	<div class="pricelist pricelist_main table clientOrderInfo">
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>
@@ -26,10 +26,8 @@
 					Оплатить:
 				</td>
 				<td>
-					<? //if (in_array($order->order_status, $payable_statuses)) : ?>
 					<?= $order->order_cost ?>
 					<?= $order->order_currency ?>
-					<? //endif; ?>
 				</td>
 			</tr>
 			<tr>
@@ -123,56 +121,3 @@
 	</div>
 	<? endif; ?>
 </form>
-<script>
-	var is_closing_order = false;
-	var noty_message = 'сохранен';
-
-	function prepareOrderFormHandlers()
-	{
-		$("#close_order").click(function() {
-			is_closing_order = true;
-			noty_message = 'отправлен';
-			$('#orderForm').attr('action', '<?= $selfurl ?>closeOrder/<?= $order->order_id ?>');
-			$('#orderForm').submit();
-		});
-
-		$("#save_order").click(function() {
-			is_closing_order = false;
-			noty_message = 'сохранен';
-			$('#orderForm').attr('action', '<?= $selfurl ?>updateOrder/<?= $order->order_id ?>');
-			$('#orderForm').submit();
-		});
-
-		$("textarea#tracking_no").change(function() {
-			$('div#close_order').show();
-		});
-
-		$('#orderForm').ajaxForm({
-			dataType: 'html',
-			iframe: true,
-			beforeSubmit: function(formData, jqForm, options)
-			{
-				$("#orderProgress").show();
-			},
-			success: function(response)
-			{
-				$("#orderProgress").hide();
-				success('top', 'Заказ №<?= $order->order_id ?> успешно ' + noty_message + '!');
-
-				if (is_closing_order)
-				{
-					$('select.order_status').val('completed');
-				}
-			},
-			error: function(response)
-			{
-				$("#orderProgress").hide();
-				error('top', 'Заказ №<?= $order->order_id ?> не ' + noty_message + '. Попробуйте еще раз.');
-			}
-		});
-	}
-
-	$(function() {
-		prepareOrderFormHandlers();
-	});
-</script>

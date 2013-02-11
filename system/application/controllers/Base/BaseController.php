@@ -841,7 +841,7 @@ abstract class BaseController extends Controller
 			$this->db->trans_commit();
 			
 			// уведомления
-			if (isset($is_new_status) AND $is_new_status)
+/*			if (isset($is_new_status) AND $is_new_status)
 			{
 				$this->load->model('ManagerModel', 'Managers');
 				$this->load->model('UserModel', 'Users');
@@ -878,7 +878,7 @@ abstract class BaseController extends Controller
 					$this->Clients,
 					$status_caption);
 			}
-			
+*/
 			// возвращаем json с инфой по заказу и товару
             $result = new stdClass();
             $result->order_id = $order->order_id;
@@ -3644,11 +3644,46 @@ abstract class BaseController extends Controller
 
 	protected function prepareOrderUpdateJSON($order)
 	{
+		$this->load->model('AddressModel', 'Addresses');
+
+		$view['addresses'] = $this->Addresses->getAddressesByUserId($this->user->user_id);
+		$view['statuses'] = $this->Orders->getAllStatuses();
+		$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
+		$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
+		$view['order'] = $order;
+
+		// пакуем предложения
+		foreach($order->bids as $bid)
+		{
+			$bids[] = array(
+				'id' => $bid->bid_id,
+				'total' => $bid->total_cost,
+				'tax' => $bid->manager_tax,
+				'foto' => $bid->foto_tax,
+				'delivery' => $bid->delivery_cost,
+				'extra' => $bid->extra_tax);
+		}
+
+		// находим клиента
+		if ($this->user->user_group == 'manager')
+		{
+			$this->load->model('ClientModel', 'Clients');
+			$view['client'] = $this->Clients->getClientById($view['order']->order_client);
+			$this->processStatistics($view['client'], array(), 'client_user', $view['client']->client_user, 'client');
+		}
+
+		// рисуем новую форму заказа
+		$this->Orders->prepareOrderView($view);
+		$order_details = View::get("/{$this->user->user_group}/ajax/showOrderInfoAjax", $view);
+
+		// собираем все вместе
 		return array(
+			'order_details' => $order_details,
 			'products_cost' => $order->order_products_cost,
 			'delivery_cost' => $order->order_delivery_cost,
 			'weight' => $order->order_weight,
-			'status' => $order->order_status
+			'status' => $order->order_status,
+			'bids' => $bids
 		);
 	}
 

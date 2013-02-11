@@ -1813,7 +1813,6 @@ class Client extends ClientBaseController {
 			$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
 			$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
 
-			$this->processStatistics($order, array(), 'order_manager', $order->order_manager, 'manager');
 			$view['order'] = $order;
 
 			$this->Orders->prepareOrderView($view);
@@ -1859,14 +1858,30 @@ class Client extends ClientBaseController {
 				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
-			if ( ! ($order = $this->Orders->saveOrder($order)))
+			if ( ! $this->Orders->saveOrder($order))
 			{
-				throw new Exception('Посредник до сих пор выбран. Обновите страницу и попробуйте еще раз.');
+				throw new Exception('Заказ не сохранен. Обновите страницу и попробуйте еще раз.');
 			}
+
+			// показываем новую форму заказа
+			//$this->load->model('ClientModel', 'Clients');
+			$this->load->model('AddressModel', 'Addresses');
+			//$this->load->model('ManagerModel', 'Managers');
+
+			$view['addresses'] = $this->Addresses->getAddressesByUserId($this->user->user_id);
+			$view['statuses'] = $this->Orders->getAllStatuses();
+			$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
+			$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
+
+			$view['order'] = $order;
+
+			$this->Orders->prepareOrderView($view);
+
+			$this->load->view("/client/ajax/showOrderInfoAjax", $view);
 		}
 		catch (Exception $e)
 		{
-			echo $e->getMessage();
+			//echo $e->getMessage();
 		}
 	}
 
