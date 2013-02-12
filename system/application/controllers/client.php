@@ -1069,6 +1069,23 @@ class Client extends ClientBaseController {
 
 	function payOrder($order_id)
 	{
+		if (empty($order_id) OR
+			! is_numeric($order_id))
+		{
+			throw new Exception('Доступ запрещен.');
+		}
+
+		// крошки
+		Breadcrumb::setCrumb(array('/client/orders' => 'Мои заказы'), 1, TRUE);
+		Breadcrumb::setCrumb(array("/client/order/$order_id" => "Заказ №$order_id"	), 2, TRUE);
+		Breadcrumb::setCrumb(array("/client/payOrder/$order_id" => "Оплата"), 3, TRUE);
+
+		// заказ
+		$order = $this->getPrivilegedOrder(
+			$order_id,
+			'Заказ недоступен.');
+
+		// заявки на пополнение
 		$this->load->model('CurrencyModel', 'Currencies');
 		$this->load->model('Order2InModel', 'Order2in');
 		$this->load->model('PaymentServiceModel', 'Services');
@@ -1086,6 +1103,7 @@ class Client extends ClientBaseController {
 		}
 
 		$view = array (
+			'order' => $order,
 			'Orders2In' => $Orders,
 			'Orders2InStatuses'	=> $this->Order2in->getStatuses(),
 			'Orders2InFoto' => $this->Order2in->getOrders2InFoto($Orders),
@@ -1095,7 +1113,6 @@ class Client extends ClientBaseController {
 			'uah' => ceil($this->Currencies->getCrossRate('UAH') * 100) * 0.01,
 			'pager' => $this->get_paging()
 		);
-
 
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
@@ -2220,7 +2237,7 @@ class Client extends ClientBaseController {
 		parent::deleteProduct($odid);
 	}
 
-	public function showO2iComments()
+	public function payment()
 	{
 		parent::showO2iComments();
 	}
@@ -2280,4 +2297,25 @@ class Client extends ClientBaseController {
 		parent::removeJoint($order_id, $joint_id);
 	}
 	// EOF: перенаправление обработчиков в базовый контроллер
+
+	protected function init_paging()
+	{
+		$this->load->helper('url');
+		$this->load->library('pagination');
+
+		if ($this->uri->segment(2) == 'payOrder')
+		{
+			$this->paging_base_url =
+				'/client/' .
+				($this->uri->segment(2) ? $this->uri->segment(2) : 0) . '/' .
+				($this->uri->segment(3) ? $this->uri->segment(3) : 0);
+
+			$this->paging_uri_segment = 4;
+			$this->paging_offset = $this->uri->segment(4);
+		}
+		else
+		{
+			parent::init_paging();
+		}
+	}
 }

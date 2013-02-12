@@ -1000,6 +1000,13 @@ abstract class BaseController extends Controller
 			else if ($this->user->user_group == 'client')
 			{
 				$o2i = $this->O2i->getClientsO2iById($this->uri->segment(3), $this->user->user_id);
+
+				// крошки
+				Breadcrumb::setCrumb(array("/client/order/" . $o2i->order_id => "Заказ №" . $o2i->order_id), 2);
+				Breadcrumb::setCrumb(array("/client/payOrder/" . $o2i->order_id => "Оплата"), 3);
+				Breadcrumb::setCrumb(array(
+					"/client/payment/" . $this->uri->segment(3) => "Заявка на оплату №" . $this->uri->segment(3)), 4,
+					TRUE);
 			}
 			
 			if ( ! $o2i)
@@ -1041,7 +1048,8 @@ abstract class BaseController extends Controller
 		}
 
 		// отображаем комментарии
-		View::showChild($this->viewpath.'/pages/showO2iComments', $view);
+		//View::showChild($this->viewpath.'/pages/showO2iComments', $view);
+		View::showChild($this->viewpath.'/pages/showPayment', $view);
 	}
 	
 	protected function addBidComment($bid_id, $comment_id = NULL)
@@ -1288,7 +1296,8 @@ abstract class BaseController extends Controller
 		}
 		
 		// открываем комментарии к посылке
-		Func::redirect(BASEURL.$this->cname.'/showO2iComments/'.$this->uri->segment(3));
+		//Func::redirect(BASEURL.$this->cname.'/showO2iComments/'.$this->uri->segment(3));
+		Func::redirect(BASEURL.$this->cname.'/payment/'.$this->uri->segment(3));
 	}
 
 	protected function filter($filterType, $pageName)

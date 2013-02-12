@@ -22,12 +22,9 @@ class Order2InModel extends BaseModel implements IModel{
     {
     	$this->properties	= new stdClass();
     	$this->properties->order2in_id				= '';
+    	$this->properties->order_id					= '';
     	$this->properties->order2in_user			= '';
     	$this->properties->order2in_amount			= '';
-    	$this->properties->order2in_amount_local	= '';
-    	$this->properties->order2in_amount_rur		= '';
-    	$this->properties->order2in_amount_kzt		= '';
-    	$this->properties->order2in_tax				= '';
     	$this->properties->order2in_createtime		= '';
     	$this->properties->order2in_lastchange		= '';
     	$this->properties->order2in_status			= '';
@@ -35,7 +32,9 @@ class Order2InModel extends BaseModel implements IModel{
     	$this->properties->order2in_2admincomment	= '';
     	$this->properties->order2in_isnew			= '';
 		$this->properties->order2in_payment_service	= '';
+		$this->properties->payment_service_name		= '';
 		$this->properties->order2in_from			= '';
+		$this->properties->order2in_to				= '';
 		$this->properties->order2in_details			= '';
 		$this->properties->order2in_currency		= '';
 		

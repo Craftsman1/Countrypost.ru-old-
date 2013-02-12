@@ -1,13 +1,10 @@
-<div class='content'>
-	<? View::show('/admin/elements/div_submenu'); ?>
-	<h3>Новые заявки на пополнение</h3>
+<div class='content syspay'>
+	<? Breadcrumb::showCrumbs(); ?>
+	<h2>Оплата заказа №<?= $order->order_id ?> (через Countrypost.ru)</h2>
+	<? View::show('/syspay/elements/client_payment_box'); ?>
+	<h3>Все заявки на оплату</h3>
 	<br />
-	<? View::show('/admin/ajax/showClientOpenOrders2In', array(
-		'Orders2In' => $Orders2In,
-		'Orders2InStatuses'	=> $Orders2InStatuses,
-		'Orders2InFoto' => $Orders2InFoto,
-		'services'	=> $services,
-		'pager' => $pager)); ?>
+	<? View::show('/client/ajax/showOpenOrders2In'); ?>
 </div>
 <script>
 	function setRel(id){
