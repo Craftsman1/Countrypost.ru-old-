@@ -1273,7 +1273,7 @@ body {
 				background:url(../images/comment-delete.png) 100% 0 no-repeat;
 				}
 .add-comment {
-	margin-top:19px;
+	/*margin-top:19px;*/
 	overflow:hidden;
 	}
 	.add-comment .textarea {

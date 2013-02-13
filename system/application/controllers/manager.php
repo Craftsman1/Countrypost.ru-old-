@@ -734,6 +734,11 @@ class Manager extends ManagerBaseController {
 		parent::addBidComment($bid_id, $comment_id);
 	}
 
+	public function addPaymentComment($payment_id, $comment_id = NULL)
+	{
+		parent::addPaymentComment($payment_id, $comment_id);
+	}
+
 	public function saveProfile()
 	{
 		try

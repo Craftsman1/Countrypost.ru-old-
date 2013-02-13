@@ -37,7 +37,8 @@ class Order2InModel extends BaseModel implements IModel{
 		$this->properties->order2in_to				= '';
 		$this->properties->order2in_details			= '';
 		$this->properties->order2in_currency		= '';
-		
+		$this->properties->order_id					= '';
+
         parent::__construct();
     }
     

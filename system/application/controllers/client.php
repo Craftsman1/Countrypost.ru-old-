@@ -1761,11 +1761,16 @@ class Client extends ClientBaseController {
 		}
 	}
 
-	public function addBidComment($bid_id, $comment_id = null)
+	public function addBidComment($bid_id, $comment_id = NULL)
 	{
 		parent::addBidComment($bid_id, $comment_id);
 	}
 	
+	public function addPaymentComment($payment_id, $comment_id = NULL)
+	{
+		parent::addPaymentComment($payment_id, $comment_id);
+	}
+
 	public function chooseBid($bid_id)
 	{
 		try 
@@ -2242,7 +2247,7 @@ class Client extends ClientBaseController {
 		parent::showO2iComments();
 	}
 
-	public function addOrderComment($order_id, $comment_id = null)
+	public function addOrderComment($order_id, $comment_id = NULL)
 	{
 		parent::addOrderComment($order_id, $comment_id);
 	}

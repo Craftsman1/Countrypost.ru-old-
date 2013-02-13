@@ -1000,13 +1000,6 @@ abstract class BaseController extends Controller
 			else if ($this->user->user_group == 'client')
 			{
 				$o2i = $this->O2i->getClientsO2iById($this->uri->segment(3), $this->user->user_id);
-
-				// крошки
-				Breadcrumb::setCrumb(array("/client/order/" . $o2i->order_id => "Заказ №" . $o2i->order_id), 2);
-				Breadcrumb::setCrumb(array("/client/payOrder/" . $o2i->order_id => "Оплата"), 3);
-				Breadcrumb::setCrumb(array(
-					"/client/payment/" . $this->uri->segment(3) => "Заявка на оплату №" . $this->uri->segment(3)), 4,
-					TRUE);
 			}
 			
 			if ( ! $o2i)
@@ -1014,16 +1007,6 @@ abstract class BaseController extends Controller
 				throw new Exception('Невозможно отобразить комментарии. Соответствующая заявка недоступна.');
 			}
 
-			// показываем комментарии к заявке
-			$this->load->model('O2ICommentsModel', 'Comments');
-			$view['comments'] = $this->Comments->getCommentsByO2iId($this->uri->segment(3));
-			$view['o2i'] = $o2i;
-
-			if ( ! $view['o2i'])
-			{
-				throw new Exception('Ошибка отображения комментариев. Попробуйте еще раз.');
-			}
-			
 			// сбрасываем флаг нового комментария
 			if ($this->user->user_group == 'client' AND
 				$o2i->order2in_2clientcomment)
@@ -1037,6 +1020,68 @@ abstract class BaseController extends Controller
 				$o2i->order2in_2admincomment = 0;
 				$this->O2i->addOrder($o2i);
 			}
+
+			// показываем комментарии к заявке
+			$this->load->model('O2ICommentsModel', 'Comments');
+			$view['comments'] = $this->Comments->getCommentsByO2iId($this->uri->segment(3));
+			$view['o2i'] = $o2i;
+
+			if ( ! $view['o2i'])
+			{
+				throw new Exception('Ошибка отображения комментариев. Попробуйте еще раз.');
+			}
+
+			// крошки
+			Breadcrumb::setCrumb(array(
+				"/{$this->user->user_group}/order/{$o2i->order_id}"  =>
+				"Заказ №{$o2i->order_id}"), 2);
+			Breadcrumb::setCrumb(array(
+				"/{$this->user->user_group}/payOrder/{$o2i->order_id}" =>
+				"Оплата"), 3);
+			Breadcrumb::setCrumb(array(
+				"/{$this->user->user_group}/payment/" . $this->uri->segment(3) =>
+				"Заявка на оплату №" . $this->uri->segment(3)), 4,	TRUE);
+
+			// находим данные комментатора для каждого коммента
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('ClientModel', 'Clients');
+			$this->load->model('ManagerModel', 'Managers');
+			$statistics = array();
+
+			foreach ($view['comments'] as $comment)
+			{
+				if (($comment->o2icomment_user == $this->user->user_id AND
+						$this->user->user_group == 'client') OR
+					($comment->o2icomment_user != $this->user->user_id AND
+						$this->user->user_group == 'manager'))
+				{
+					$this->processStatistics($comment, $statistics, 'o2icomment_user', $comment->o2icomment_user, 'client');
+				}
+				else if (($comment->o2icomment_user == $this->user->user_id AND
+					$this->user->user_group == 'manager') OR
+					($comment->o2icomment_user != $this->user->user_id AND
+						$this->user->user_group == 'client'))
+				{
+					$this->processStatistics($comment, $statistics, 'o2icomment_user', $comment->o2icomment_user, 'manager');
+				}
+			}
+
+			// находим заказ, посредника и клиента
+			$order = $this->getPrivilegedOrder(
+				$o2i->order_id,
+				'Заказ не найден. Попробуйте еще раз.');
+
+			$client = new stdClass();
+			$client->client_id = $order->order_client;
+
+			$this->processStatistics($client, $statistics, 'client_id', $client->client_id, 'client');
+			$view['client'] = $client;
+
+			$manager = new stdClass();
+			$manager->manager_id = $order->order_manager;
+
+			$this->processStatistics($manager, $statistics, 'manager_id', $manager->manager_id, 'manager');
+			$view['manager'] = $manager;
 		}
 		catch (Exception $e) 
 		{
@@ -1140,164 +1185,95 @@ abstract class BaseController extends Controller
 		}
 	}
 
-	protected function addO2oComment()
+	//protected function addO2iComment($bid_id, $comment_id = NULL)
+	protected function addPaymentComment($o2i_id, $comment_id = null)
 	{
 		try
 		{
-			// безопасность
-			if ( ! $this->user OR
-				 ! $this->user->user_id OR
-				!is_numeric($this->uri->segment(3)))
+			if ( ! is_numeric($o2i_id) OR
+				empty($o2i_id))
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-		
-			$this->load->model('Order2outModel', 'O2o');
-			
+
 			// роли и разграничение доступа
-			if ($this->user->user_group == 'admin')
-			{
-				$o2o = $this->O2o->getById($this->uri->segment(3));
-			}
-			else// if ($this->user->user_group == 'client')
-			{
-				$o2o = $this->O2o->getClientsO2oById($this->uri->segment(3), $this->user->user_id);
-			}
-
-			if ( ! $o2o)
-			{
-				throw new Exception('Невозможно добавить комментарий. Соответствующая заявка недоступна.');
-			}
-
-			// валидация пользовательского ввода
-			$o2comment						= new stdClass();
-			$o2comment->o2comment_comment	= Check::txt('comment', 8096, 1);
-			$o2comment->o2comment_order2out	= $this->uri->segment(3);
-			$o2comment->o2comment_user		= $this->user->user_id;
-			$empties						= Check::get_empties();
-
-			if ($empties) 
-			{
-				throw new Exception('Текст комментария отсутствует. Попробуйте еще раз.');
-			}
-			
-			// сохранение результатов
-			$this->load->model('O2CommentModel', 'Comments');
-			
-			$this->db->trans_begin();
-			$new_comment = $this->Comments->addComment($o2comment);
-			
-			if ( ! $new_comment)
-			{
-				throw new Exception('Комментарий не добавлен. Попробуйте еще раз.');
-			}			
-			
-			// выставляем флаг нового комментария
-			if ($this->user->user_group == 'admin')
-			{
-				$o2o->comment_for_client = TRUE;
-			}
-			else
-			{
-				$o2o->comment_for_admin = TRUE;
-			}
-			
-			$o2o = $this->O2o->addOrder($o2o);
-
-			$this->db->trans_commit();
-		}
-		catch (Exception $e) 
-		{
-			$this->db->trans_rollback();
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-		
-		// открываем комментарии к посылке
-		Func::redirect(BASEURL.$this->cname.'/showO2oComments/'.$this->uri->segment(3));
-	}
-
-	protected function addO2iComment()
-	{
-		try
-		{
-			// безопасность
-			if ( ! $this->user OR
-				 ! $this->user->user_id OR
-				!is_numeric($this->uri->segment(3)))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-		
-			$this->load->model('Order2InModel', 'O2i');
-			
-			// роли и разграничение доступа
-			if ($this->user->user_group == 'admin')
-			{
-				$o2i = $this->O2i->getById($this->uri->segment(3));
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$o2i = $this->O2i->getClientsO2iById($this->uri->segment(3), $this->user->user_id);
-			}
-
-			if ( ! $o2i)
-			{
-				throw new Exception('Невозможно добавить комментарий. Соответствующая заявка недоступна.');
-			}
-
-			// валидация пользовательского ввода
-			$o2comment						= new stdClass();
-			$o2comment->o2icomment_text	= Check::txt('comment', 8096, 1);
-			$o2comment->o2icomment_time	= date('Y-m-d H:i:s');
-			$o2comment->o2icomment_order2in	= $this->uri->segment(3);
-			$o2comment->o2icomment_user		= $this->user->user_id;
-			$empties						= Check::get_empties();
-
-			if ($empties) 
-			{
-				throw new Exception('Текст комментария отсутствует. Попробуйте еще раз.');
-			}
-			
-			// сохранение результатов
+			$this->load->model('Order2InModel', 'Payments');
 			$this->load->model('O2ICommentsModel', 'Comments');
-			
-			$this->db->trans_begin();
-			$new_comment = $this->Comments->addComment($o2comment);
-			
-			if ( ! $new_comment)
+
+			if ( ! ($payment = $this->Payments->getById($o2i_id)))
 			{
-				throw new Exception('Комментарий не добавлен. Попробуйте еще раз.');
-			}			
-			
-			// выставляем флаг нового комментария
-			if ($this->user->user_group == 'admin')
+				throw new Exception('Невозможно сохранить комментарий. Заявка не найдена.');
+			}
+			$order = $this->getPrivilegedOrder(
+				$payment->order_id,
+				'Невозможно сохранить комментарий. Заказ не найден.');
+
+			if ($order->order_client != $this->user->user_id AND
+				$order->order_manager != $this->user->user_id)
 			{
-				$o2i->order2in_2clientcomment = TRUE;
+				throw new Exception('Невозможно сохранить комментарий. Заявка не найдена.');
+			}
+
+			// валидация пользовательского ввода
+			if (is_numeric($comment_id))
+			{
+				$comment = $this->Comments->getById($comment_id);
+				if ( ! $comment OR
+					$comment->user_id != $this->user->user_id)
+				{
+					throw new Exception('Невозможно сохранить комментарий. Комментарий не найден.');
+				}
+
+				$comment->o2icomment_text = Check::txt('comment_update', 8096, 1);
 			}
 			else
 			{
-				$o2i->order2in_2admincomment = TRUE;
+				$comment = new stdClass();
+				$comment->o2icomment_order2in = $o2i_id;
+				$comment->o2icomment_text = Check::txt('comment', 8096, 1);
+				$comment->o2icomment_user = $this->user->user_id;
 			}
-			
-			$o2i = $this->O2i->addOrder($o2i);
 
-			$this->db->trans_commit();
+			$empties = Check::get_empties();
+
+			if ($empties)
+			{
+				throw new Exception('Текст комментария отсутствует. Введите текст и попробуйте еще раз.');
+			}
+
+			// сохранение результатов
+			$comment = $this->Comments->addComment($comment);
+
+			if ( ! $comment AND
+				! is_numeric($comment_id))
+			{
+				throw new Exception('Комментарий не добавлен. Попробуйте еще раз.');
+			}
+
+			// выставляем флаг нового комментария
+			if ($this->user->user_group == 'manager')
+			{
+				$payment->order2in_2clientcomment = TRUE;
+			}
+			else
+			{
+				$payment->order2in_2admincomment = TRUE;
+			}
+
+			$this->Payments->addOrder($payment);
+
+			// отрисовка коммента
+			$this->load->model('ClientModel', 'Clients');
+			$this->load->model('ManagerModel', 'Managers');
+			$this->processStatistics($comment, array(), 'o2icomment_user', $this->user->user_id, $this->user->user_group);
+
+			$view['comment'] = $comment;
+			$this->load->view('/main/elements/payments/comment', $view);
 		}
 		catch (Exception $e) 
 		{
-			$this->db->trans_rollback();
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
+			print_r($e);
 		}
-		
-		// открываем комментарии к посылке
-		//Func::redirect(BASEURL.$this->cname.'/showO2iComments/'.$this->uri->segment(3));
-		Func::redirect(BASEURL.$this->cname.'/payment/'.$this->uri->segment(3));
 	}
 
 	protected function filter($filterType, $pageName)
