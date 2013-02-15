@@ -267,7 +267,7 @@
 	{
 		if (window.currentPay == 'bm')
 		{
-			target.action = '/client/addOrder2in';
+			target.action = '/client/addOrder2in/<?= $order->order_id ?>';
 		}
 		
 		return true;
@@ -382,7 +382,16 @@
 			<div class="immediate" style="display:block;">
 				<div class="amount" style="display:block;">
 					<span>Введите сумму пополнения* :</span>
-					<input type="text" rel="immediate" name="total_usd" value=""/><span>$</span>
+					<input
+						type="text"
+						rel="immediate"
+						name="total_usd"
+						value="<?= ($order->order_cost > $order->order_cost_payed) ?
+							($order->order_cost - $order->order_cost_payed) :
+							'' ?>" >
+					<span>
+						<?= $order->order_currency ?>
+					</span>
 				</div>
 				<div class="amount" style="display:block;">
 					<span>Выберите валюту, которой будeте оплачивать:</span>

@@ -25,6 +25,7 @@ class Order2InModel extends BaseModel implements IModel{
     	$this->properties->order_id					= '';
     	$this->properties->order2in_user			= '';
     	$this->properties->order2in_amount			= '';
+    	$this->properties->order2in_amount_local	= '';
     	$this->properties->order2in_createtime		= '';
     	$this->properties->order2in_lastchange		= '';
     	$this->properties->order2in_status			= '';
@@ -38,6 +39,7 @@ class Order2InModel extends BaseModel implements IModel{
 		$this->properties->order2in_details			= '';
 		$this->properties->order2in_currency		= '';
 		$this->properties->order_id					= '';
+		$this->properties->is_countrypost			= '';
 
         parent::__construct();
     }

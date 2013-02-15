@@ -27,7 +27,7 @@
 				<th>Статус</th>
 				<th></th>
 			</tr>
-			<? foreach ($Orders2In as $order) : ?>
+			<? $o = $order; foreach ($Orders2In as $order) : ?>
 			<tr>
 				<td>
 					<b>№ <?= $order->order2in_id ?></b>
@@ -37,78 +37,30 @@
 				<td>
 					<a href="/client/order/<?= $order->order_id ?>">№<?= $order->order_id ?></a>
 					<br>
-					<a href="/dealers/<?= $order->order2in_to ?>"><?= $order->order2in_to ?></a>
+					<?= $order_types[$o->order_type] ?>
+					<br>
+					<a href="/<?= $order->statistics->login ?>"><?= $order->statistics->fullname ?></a>
+					(<?= $order->statistics->login ?>)
 				</td>
 				<td>
 					<?= $order->order2in_amount ?>
-					<?= $order->order2in_currency ?>
+					<?= $o->order_currency ?>
 				</td>
 				<td>
-					<?= $order->order2in_amount ?>
-					<?= $order->order2in_currency ?>
-				</td>
-				<td>
-					<? foreach ($services as $service) :
-					if ($service->payment_service_id == $order->order2in_payment_service) : ?>
-						<u><?= $service->payment_service_name ?></u>
-						<br />
-						<? break; endif; endforeach; ?>
-					<? if ($order->order2in_payment_service == 'bm' OR
-					$order->order2in_payment_service == 'pb' OR
-					$order->order2in_payment_service == 'bta' OR
-					$order->order2in_payment_service == 'ccr' OR
-					$order->order2in_payment_service == 'kkb' OR
-					$order->order2in_payment_service == 'nb' OR
-					$order->order2in_payment_service == 'tb' OR
-					$order->order2in_payment_service == 'atf' OR
-					$order->order2in_payment_service == 'ab' OR
-					$order->order2in_payment_service == 'sv' OR
-					$order->order2in_payment_service == 'vtb') : ?>
-					<b>Номер карты:</b>
-					<?= $order->order2in_details ?>
-					<br />
-					<? elseif ($order->order2in_payment_service == 'rbk' OR
-					$order->order2in_payment_service == 'qw') : ?>
-					<b>Номер кошелька:</b>
-					<?= $order->order2in_details ?>
-					<br />
-					<? elseif ($order->order2in_payment_service == 'mb') : ?>
-					<b>Email отправителя:</b>
-					<?= $order->order2in_details ?>
-					<br />
+					<? if ($order->is_countrypost == 0) : ?>
+					перевод
+					<br>
+					напрямую
+					<br>
+					посреднику
 					<? else : ?>
-					<?= $order->order2in_details ?>
-					<br />
+					<?= $order->order2in_amount_local ?>
+					<?= $order->order2in_currency ?>
 					<? endif; ?>
-
-					<? if ($order->order2in_payment_service == 'bm' OR
-					$order->order2in_payment_service == 'cc' OR
-					$order->order2in_payment_service == 'so' OR
-					$order->order2in_payment_service == 'op' OR
-					$order->order2in_payment_service == 'pb' OR
-					$order->order2in_payment_service == 'bta' OR
-					$order->order2in_payment_service == 'ccr' OR
-					$order->order2in_payment_service == 'kkb' OR
-					$order->order2in_payment_service == 'nb' OR
-					$order->order2in_payment_service == 'tb' OR
-					$order->order2in_payment_service == 'atf' OR
-					$order->order2in_payment_service == 'ab' OR
-					$order->order2in_payment_service == 'sv' OR
-					$order->order2in_payment_service == 'vtb') : ?>
-					<b>Скриншот:</b>
-					<? if (isset($Orders2InFoto[$order->order2in_id])) : ?>
-						<a href="javascript:void(0)" onclick="setRel(<?= $order->order2in_id ?>)">
-							Посмотреть&nbsp;(<?= count($Orders2InFoto[$order->order2in_id]); ?>)<?
-							foreach ($Orders2InFoto[$order->order2in_id] as $o2iFoto) : ?><a rel="lightbox_<?= $order->order2in_id ?>" href="/client/showOrder2InFoto/<?= $order->order2in_id ?>/<?= $o2iFoto ?>" style="display:none;">Посмотреть</a><? endforeach; ?></a>
-						<br />
-						<? endif; ?>
-					<a href="javascript:uploadBillFoto(<?= $order->order2in_id ?>);">Добавить</a>
-					<div style="line-height:21px;display:none;padding-top:10px;" id="scans_<?= $order->order2in_id ?>">
-						<? if (isset($Orders2InFoto[$order->order2in_id])): ?>
-						&nbsp;<? foreach ($Orders2InFoto[$order->order2in_id] as $o2iFoto): ?><a href="/client/deleteBillFoto/<?= $order->order2in_id ?>/<?= $o2iFoto ?>" style="margin-right:8px;"><? $file = parse_url($o2iFoto); echo $file['path']; ?><img src="/static/images/delete.png"/></a>&nbsp;<? endforeach; ?>
-						<? endif; ?>
-					</div>
-					<? endif; ?>
+				</td>
+				<td>
+					<? View::show('/main/elements/payments/payment_description',
+						array('payment' => $order)); ?>
 				</td>
 				<td>
 					<?= $Orders2InStatuses[$order->order2in_status] ?>
@@ -121,7 +73,8 @@
 					<? if ($order->order2in_status != 'payed') : ?>
 					<br>
 					<br>
-					<a href="/client/deleteOrder2In/<?= $order->order2in_id ?>"><img title="Удалить" border="0" src="/static/images/delete.png"></a>
+					<a href="/client/deletePayment/<?= $order->order2in_id ?>"><img title="Удалить" border="0"
+																			  src="/static/images/delete.png"></a>
 					<? endif; ?>
 				</td>
 			</tr>

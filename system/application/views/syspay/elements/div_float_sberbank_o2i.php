@@ -10,7 +10,7 @@
 		Вам нужно перевести <b><b class="sberbank_amount_ru"></b> рублей</b> на карту <?= BM_IN_ACCOUNT ?> (Москва). После перевода сохраните квитанцию.
 	</p>
 	<br />
-	<form class='admin-inside' action="/client/addOrder2In/" enctype="multipart/form-data" method="POST">
+	<form class='admin-inside' action="/client/addOrder2In/<?= $order->order_id ?>" enctype="multipart/form-data" method="POST">
 		<input type="hidden" name="payment_service" value="bm" />
 		<input type="hidden" name="total_ru" class="sberbank_amount_ru" value="" />
 		<input type="hidden" name="total_usd" class="sberbank_amount_usd" value="" />

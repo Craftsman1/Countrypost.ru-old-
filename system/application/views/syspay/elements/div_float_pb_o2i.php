@@ -10,7 +10,7 @@
 		Вам нужно перевести <b><b class="pb_amount_uah"></b> гривен</b> на карту <?= PB_IN_ACCOUNT ?> (Украина). После перевода сохраните квитанцию.
 	</p>
 	<br />
-	<form class='admin-inside' action="/client/addOrder2In/" enctype="multipart/form-data" method="POST">
+	<form class='admin-inside' action="/client/addOrder2In/<?= $order->order_id ?>" enctype="multipart/form-data" method="POST">
 		<input type="hidden" name="payment_service" value="pb" />
 		<input type="hidden" name="total_uah" class="pb_amount_uah" value="" />
 		<input type="hidden" name="total_usd" class="pb_amount_usd" value="" />

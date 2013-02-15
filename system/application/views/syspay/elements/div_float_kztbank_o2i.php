@@ -10,7 +10,7 @@
         Вам нужно перевести <b><b class="kzt_amount"></b> тенге</b> на карту <b class="kzt_account"></b>. После перевода сохраните квитанцию.
     </p>
     <br />
-    <form class='admin-inside' action="/client/addOrder2In/" enctype="multipart/form-data" method="POST">
+    <form class='admin-inside' action="/client/addOrder2In/<?= $order->order_id ?>" enctype="multipart/form-data" method="POST">
         <input type="hidden" name="payment_service" class="kzt_payment_service" value="" />
         <input type="hidden" name="total_kzt" class="kzt_amount" value="" />
         <input type="hidden" name="total_usd" class="kzt_amount_usd" value="" />

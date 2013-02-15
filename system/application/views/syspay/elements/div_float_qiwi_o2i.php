@@ -10,7 +10,7 @@
 		Вам нужно перевести <b><b class="qiwi_amount_ru"></b> рублей</b> на кошелек <?= QW_IN_ACCOUNT ?>. В примечании к переводу обязательно указать: <b>"Пополнение на <b class="qiwi_amount_usd"></b>$. Клиент <b class="qiwi_user_id"></b>"</b> (<i><b class="qiwi_user_id" style="font-weight:normal;"></b> - это Ваш номер на сайте</i>).
 	</p>
 	<br />
-	<form class='admin-inside' action="/client/addOrder2In/" enctype="multipart/form-data" method="POST">
+	<form class='admin-inside' action="/client/addOrder2In/<?= $order->order_id ?>" enctype="multipart/form-data" method="POST">
 		<input type="hidden" name="payment_service" value="qw" />
 		<input type="hidden" name="total_ru" class="qiwi_amount_ru" value="" />
 		<input type="hidden" name="total_usd" class="qiwi_amount_usd" value="" />

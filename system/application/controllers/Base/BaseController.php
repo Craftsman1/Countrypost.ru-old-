@@ -1036,11 +1036,8 @@ abstract class BaseController extends Controller
 				"/{$this->user->user_group}/order/{$o2i->order_id}"  =>
 				"Заказ №{$o2i->order_id}"), 2);
 			Breadcrumb::setCrumb(array(
-				"/{$this->user->user_group}/payOrder/{$o2i->order_id}" =>
-				"Оплата"), 3);
-			Breadcrumb::setCrumb(array(
 				"/{$this->user->user_group}/payment/" . $this->uri->segment(3) =>
-				"Заявка на оплату №" . $this->uri->segment(3)), 4,	TRUE);
+				"Заявка на оплату №" . $this->uri->segment(3)), 3,	TRUE);
 
 			// находим данные комментатора для каждого коммента
 			$this->load->model('OrderModel', 'Orders');
@@ -1048,21 +1045,24 @@ abstract class BaseController extends Controller
 			$this->load->model('ManagerModel', 'Managers');
 			$statistics = array();
 
-			foreach ($view['comments'] as $comment)
+			if ($view['comments'])
 			{
-				if (($comment->o2icomment_user == $this->user->user_id AND
-						$this->user->user_group == 'client') OR
-					($comment->o2icomment_user != $this->user->user_id AND
-						$this->user->user_group == 'manager'))
+				foreach ($view['comments'] as $comment)
 				{
-					$this->processStatistics($comment, $statistics, 'o2icomment_user', $comment->o2icomment_user, 'client');
-				}
-				else if (($comment->o2icomment_user == $this->user->user_id AND
-					$this->user->user_group == 'manager') OR
-					($comment->o2icomment_user != $this->user->user_id AND
-						$this->user->user_group == 'client'))
-				{
-					$this->processStatistics($comment, $statistics, 'o2icomment_user', $comment->o2icomment_user, 'manager');
+					if (($comment->o2icomment_user == $this->user->user_id AND
+							$this->user->user_group == 'client') OR
+						($comment->o2icomment_user != $this->user->user_id AND
+							$this->user->user_group == 'manager'))
+					{
+						$this->processStatistics($comment, $statistics, 'o2icomment_user', $comment->o2icomment_user, 'client');
+					}
+					else if (($comment->o2icomment_user == $this->user->user_id AND
+						$this->user->user_group == 'manager') OR
+						($comment->o2icomment_user != $this->user->user_id AND
+							$this->user->user_group == 'client'))
+					{
+						$this->processStatistics($comment, $statistics, 'o2icomment_user', $comment->o2icomment_user, 'manager');
+					}
 				}
 			}
 
@@ -1082,6 +1082,16 @@ abstract class BaseController extends Controller
 
 			$this->processStatistics($manager, $statistics, 'manager_id', $manager->manager_id, 'manager');
 			$view['manager'] = $manager;
+
+			// рисуем заявку
+			$this->load->model('PaymentServiceModel', 'Services');
+
+			$view['order'] = $order;
+			$this->Orders->prepareOrderView($view);
+			$view['order_types'] = $this->Orders->getOrderTypes();
+			$view['statuses'] = $this->O2i->getStatuses();
+			$view['orders2InFoto'] = $this->O2i->getOrders2InFoto(array($o2i));
+			$view['services'] = $this->Services->getInServices();
 		}
 		catch (Exception $e) 
 		{
@@ -2193,7 +2203,7 @@ abstract class BaseController extends Controller
 			
 			if ( ! $this->Order2in->addOrder($o2o)) 
 			{
-				throw new Exception('Ошибка удаления заявки на вывод. Попробуйте еще раз.');
+				throw new Exception('Заявка не удалена. Попробуйте еще раз.');
 			}		
 			
 			$this->db->trans_commit();
@@ -2219,12 +2229,102 @@ abstract class BaseController extends Controller
 		}
 	}
 
-	public function getPayments(){
-		
+	protected function deletePayment($payment_id)
+	{
+		try
+		{
+			// безопасность
+			if (!isset($payment_id) OR
+				!is_numeric($payment_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// валидация пользовательского ввода
+			$this->load->model('Order2InModel', 'Payments');
+
+			$payment = $this->Payments->getById((int) $payment_id);
+
+			// роли и доступ
+			if ($this->user->user_group == 'admin')
+			{
+				if ( ! $payment)
+				{
+					throw new Exception('Заявка не найдена. Попробуйте еще раз.');
+				}
+			}
+			else if ( ! $payment OR $payment->order2in_status != 'processing' OR $payment->order2in_user != $this->user->user_id)
+			{
+				throw new Exception('Заявка не найдена. Попробуйте еще раз.');
+			}
+
+			// сохранение результата
+			$this->db->trans_begin();
+			/*
+			if ($this->user->user_group == 'admin' AND $payment->order2in_status == 'payed')
+			{
+				$payment_obj = new stdClass();
+				$payment_obj->payment_from			= $payment->order2in_user;
+				$payment_obj->payment_to			= 0;
+				$payment_obj->payment_amount_from	= $payment->order2in_amount;
+				$payment_obj->payment_amount_to		= $payment->order2in_amount;
+				$payment_obj->payment_amount_tax	= 0;
+				$payment_obj->payment_purpose		= 'отмена заявки на ввод';
+				$payment_obj->payment_comment		= '№ '.$payment->order2in_id;
+
+				$this->load->model('PaymentModel', 'Payment');
+
+				if ( ! $this->Payment->makePayment($payment_obj))
+				{
+					throw new Exception('Ошибка снятия денег со счета клиента. Попробуйте еще раз.');
+				}
+
+				// сохраняем результат в сессии
+				if ($this->user->user_group == 'admin')
+				{
+					$this->session->set_userdata(array('user_coints' => $this->user->user_coints + $payment_obj->payment_amount_from));
+				}
+				else
+				{
+					$this->session->set_userdata(array('user_coints' => $this->user->user_coints - $payment_obj->payment_amount_from));
+				}
+			}*/
+
+			$payment->order2in_status = 'deleted';
+
+			if ( ! $this->Payments->addOrder($payment))
+			{
+				throw new Exception('Заявка не удалена. Попробуйте еще раз.');
+			}
+
+			$this->db->trans_commit();
+			$this->result->r = 1;
+			$this->result->message = 'Заявка успешно удалена.';
+		}
+		catch (Exception $e)
+		{
+			$this->db->trans_rollback();
+			$this->result->r = $e->getCode();
+			$this->result->message = $e->getMessage();
+		}
+
+		Stack::push('result', $this->result);
+
+		if ($this->user->user_group == 'admin')
+		{
+			Func::redirect(BASEURL.'syspay/showClientOpenOrders2In');
+		}
+		else
+		{
+			Func::redirect($_SERVER['HTTP_REFERER']);
+		}
+	}
+
+	public function getPayments()
+	{
 		if ( ! $this->user)	return FALSE;
 		
 		$this->load->model('PaymentModel', 'Payment');
-		
 	}
 
 	protected function delOrderComment($order_id, $comment_id){
@@ -2235,7 +2335,7 @@ abstract class BaseController extends Controller
 			(int)	$comment_id;
 			
 			// роли и разграничение доступа
-			$order = $this->getPrivilegedOrder(
+			$this->getPrivilegedOrder(
 				$order_id, 
 				'Невозможно удалить комментарий. Соответствующий заказ недоступен.');
 			

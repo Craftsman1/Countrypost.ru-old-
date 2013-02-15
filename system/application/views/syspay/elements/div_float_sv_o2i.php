@@ -10,7 +10,7 @@
 		Вам нужно перевести <b><b class="sv_amount_ru"></b> рублей</b> на карту <?= SV_IN_ACCOUNT ?> (Москва). Для пополнения через терминал в Связном № карты: 5163310501426881 После перевода сохраните квитанцию.
 	</p>
 	<br />
-	<form class='admin-inside' action="/client/addOrder2In/" enctype="multipart/form-data" method="POST">
+	<form class='admin-inside' action="/client/addOrder2In/<?= $order->order_id ?>" enctype="multipart/form-data" method="POST">
 		<input type="hidden" name="payment_service" value="sv" />
 		<input type="hidden" name="total_ru" class="sv_amount_ru" value="" />
 		<input type="hidden" name="total_usd" class="sv_amount_usd" value="" />

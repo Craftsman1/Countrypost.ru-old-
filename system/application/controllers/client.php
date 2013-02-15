@@ -287,7 +287,7 @@ class Client extends ClientBaseController {
 		parent::addProductManualAjax();
 	}
 
-	public function addBillFoto()
+	public function addPaymentFoto()
 	{
 		Check::reset_empties();
 		$userfile	= isset($_FILES['userfile']) && !$_FILES['userfile']['error'];
@@ -328,8 +328,8 @@ class Client extends ClientBaseController {
 			$this->result->m = $e->getMessage();		
 			Stack::push('result', $this->result);
 		}
-		
-		Func::redirect(BASEURL.'syspay/showOpenOrders2In');
+
+		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
 	
 	public function deleteBillFoto($o2i_id, $filename) 
@@ -780,56 +780,67 @@ class Client extends ClientBaseController {
 		Func::redirect(BASEURL.$this->cname.'/showOutMoney');
 	}
 	
-	public function addOrder2In() 
+	public function addOrder2In($order_id)
 	{
-		Check::reset_empties();
-		
-		$order2in = new stdClass();
-		$order2in->order2in_createtime = date('Y-m-d H:i:s');
-		$order2in->order2in_amount = Check::float('total_usd');
-		$order2in->order2in_payment_service = Check::txt('payment_service', 3, 2);
-		$order2in->order2in_details = Check::txt('account', 20, 1);
-		
-		// input validation
-		if (isset($order2in->order2in_payment_service))
-		{
-			$service = $order2in->order2in_payment_service;
-			
-			$this->load->model('CurrencyModel', 'Currencies');
-			
-			switch ($service)
-			{
-				case 'bm' :
-				case 'qw' :
-				case 'sv' :
-				case 'vtb' :
-					$order2in->order2in_amount_local = Check::int('total_ru');
-					$currency = $this->Currencies->getById('RUR');
-					$order2in->order2in_currency = 'руб.';
-					break;
-				case 'bta' :
-				case 'ccr' :
-				case 'kkb' :
-				case 'nb' :
-				case 'tb' :
-				case 'atf' :
-				case 'ab' :
-					$order2in->order2in_amount_local = Check::int('total_kzt');
-					$currency = $this->Currencies->getById('KZT');
-					$order2in->order2in_currency = '<em class="tenge">&nbsp;&nbsp;&nbsp;</em>';
-					break;
-				case 'pb' :
-					$order2in->order2in_amount_local = Check::int('total_uah');
-					$currency = $this->Currencies->getById('UAH');
-					$order2in->order2in_currency = '<em class="grivna">&nbsp;&nbsp;&nbsp;</em>';
-					break;
-			}
-		}
-		
-		$empties = Check::get_empties();
-
 		try
 		{
+			// валидация
+			if (empty($order_id) OR
+				! is_numeric($order_id))
+			{
+				throw new Exception('Доступ запрешен.');
+			}
+
+			// заказ
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				'Заказ недоступен.');
+
+			// погнали
+			$order2in = new stdClass();
+			$order2in->order_id = $order_id;
+			$order2in->is_countrypost = 1;
+			$order2in->order2in_to = $order->order_manager;
+			$order2in->order2in_createtime = date('Y-m-d H:i:s');
+			$order2in->order2in_amount = Check::float('total_usd');
+			$order2in->order2in_payment_service = Check::txt('payment_service', 3, 2);
+			$order2in->order2in_details = Check::txt('account', 20, 1);
+
+			//$currency = $order->
+
+			// input validation
+			if (isset($order2in->order2in_payment_service))
+			{
+				$service = $order2in->order2in_payment_service;
+
+				$this->load->model('CurrencyModel', 'Currencies');
+
+				switch ($service)
+				{
+					case 'bm' :
+					case 'qw' :
+					case 'sv' :
+					case 'vtb' :
+						$order2in->order2in_amount_local = Check::int('total_ru');
+						$order2in->order2in_currency = 'RUR';
+						break;
+					case 'bta' :
+					case 'ccr' :
+					case 'kkb' :
+					case 'nb' :
+					case 'tb' :
+					case 'atf' :
+					case 'ab' :
+						$order2in->order2in_amount_local = Check::int('total_kzt');
+						$order2in->order2in_currency = 'KZT';
+						break;
+					case 'pb' :
+						$order2in->order2in_amount_local = Check::int('total_uah');
+						$order2in->order2in_currency = 'UAH';
+						break;
+				}
+			}
+
 			if ($order2in->order2in_amount <= 0 OR
 				$order2in->order2in_amount_local <= 0)
 			{
@@ -845,10 +856,10 @@ class Client extends ClientBaseController {
 
 			if ( ! $order2in) 
 			{
-				throw new Exception('Ошибка создания заявки на вывод.');
+				throw new Exception('Ошибка создания заявки.');
 			}
 			
-			$this->result->m = 'Заявка на пополнение счета успешно добавлена.';
+			$this->result->m = 'Заявка успешно добавлена.';
 			
 			// грузим скриншот
 			if ($service == 'bm' OR
@@ -865,8 +876,7 @@ class Client extends ClientBaseController {
 			{
 				$userfile	= isset($_FILES['userfile']) && ! $_FILES['userfile']['error'];
 				$o2i_id		= $order2in->order2in_id;
-				$empties	= Check::get_empties();		
-				
+
 				if ($userfile)
 				{
 					// загружаем файл
@@ -905,31 +915,11 @@ class Client extends ClientBaseController {
 		}
 		catch (Exception $e)
 		{
-			$this->result->e	= $e->getCode();			
-			$this->result->m	= $e->getMessage();
+
 		}
 		
 		Stack::push('result', $this->result);
 		Func::redirect(BASEURL.'syspay/showOpenOrders2In');
-	}
-	
-	private function getOrder2outDetails()
-	{
-		$order2out = new stdClass();
-		$order2out->ammount = $_POST['ammount_raw'];
-		$order2out->payment_service = $_POST['payment_service'];
-		
-		$order2out->wm_number = $_POST['wm_number'];
-		$order2out->lp_number = $_POST['lp_number'];
-		$order2out->qw_number = $_POST['qw_number'];
-		$order2out->bm_surname = $_POST['bm_surname'];
-		$order2out->bm_name = $_POST['bm_name'];
-		$order2out->bm_otc = $_POST['bm_otc'];
-		$order2out->bm_bik = $_POST['bm_bik'];
-		$order2out->bm_target = $_POST['bm_target'];
-		$order2out->bm_number = $_POST['bm_number'];
-		
-		return $order2out;
 	}
 	
 	private function getOrder2inDetails()
@@ -947,23 +937,9 @@ class Client extends ClientBaseController {
 		return $order2in;
 	}
 	
-	public function deleteOrder2out($oid) 
+	public function deletePayment($oid)
 	{
-		parent::deleteOrder2out($oid);
-	}
-	
-	public function deleteOrder2in($oid) 
-	{
-		parent::deleteOrder2in($oid);
-	}
-	
-	public function createOrder2out() {
-		
-		// ищем макс id заказа на вывод
-		$this->load->model('Order2outModel', 'Order2out');
-		$last_id = $this->Order2out->getMaxId();		
-		echo($last_id[0]->max ? $last_id[0]->max + 1 : 1);
-		die();
+		parent::deletePayment($oid);
 	}
 	
 	public function getScreenshot($fname)
@@ -1100,19 +1076,41 @@ class Client extends ClientBaseController {
 		if ($Orders)
 		{
 			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
+
+			$this->load->model('ManagerModel', 'Managers');
+			$statistics = array();
+
+			foreach ($Orders as $o2i)
+			{
+				if ( ! empty($o2i->order2in_to) AND
+					is_numeric($o2i->order2in_to))
+				{
+					$this->processStatistics(
+						$o2i,
+						$statistics,
+						'order2in_to',
+						$o2i->order2in_to,
+						'manager');
+
+					//print_r($o2i);
+				}
+			}
 		}
 
 		$view = array (
 			'order' => $order,
 			'Orders2In' => $Orders,
 			'Orders2InStatuses'	=> $this->Order2in->getStatuses(),
-			'Orders2InFoto' => $this->Order2in->getOrders2InFoto($Orders),
+			'order_types' => $this->Orders->getOrderTypes(),
+			'orders2InFoto' => $this->Order2in->getOrders2InFoto($Orders),
 			'services'	=> $this->Services->getInServices(),
 			'usd' => ceil($this->Currencies->getRate('USD') * 100) * 0.01,
 			'kzt' => ceil($this->Currencies->getCrossRate('KZT') * 100) * 0.01,
 			'uah' => ceil($this->Currencies->getCrossRate('UAH') * 100) * 0.01,
 			'pager' => $this->get_paging()
 		);
+
+		$this->Orders->prepareOrderView($view);
 
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')

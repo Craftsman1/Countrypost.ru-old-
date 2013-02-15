@@ -1,6 +1,6 @@
 <div class='table' id="lay5_block" style="width:400px; position:fixed; z-index: 1000; display:none; top:200px;">
 	<h2>Добавление подтверждения</h2>
-	<form class='admin-inside' action="/client/addBillFoto/" enctype="multipart/form-data" method="POST">
+	<form class='admin-inside' action="/client/addPaymentFoto/" enctype="multipart/form-data" method="POST">
 		<table>
 			<tr>
 				<td colspan="2">

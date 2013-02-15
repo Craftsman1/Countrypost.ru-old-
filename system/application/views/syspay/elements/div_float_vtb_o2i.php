@@ -10,7 +10,7 @@
 		Вам нужно перевести <b><b class="vtb_amount_ru"></b> рублей</b>. Для перевода через Телебанк. Получатель:<?= VTB_IN_ACCOUNT ?> (Москва). Для пополнения через кассу - № карты : 4272291380323368 После перевода сохраните квитанцию.
 	</p>
 	<br />
-	<form class='admin-inside' action="/client/addOrder2In/" enctype="multipart/form-data" method="POST">
+	<form class='admin-inside' action="/client/addOrder2In/<?= $order->order_id ?>" enctype="multipart/form-data" method="POST">
 		<input type="hidden" name="payment_service" value="vtb" />
 		<input type="hidden" name="total_ru" class="vtb_amount_ru" value="" />
 		<input type="hidden" name="total_usd" class="vtb_amount_usd" value="" />
