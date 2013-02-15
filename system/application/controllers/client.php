@@ -806,8 +806,6 @@ class Client extends ClientBaseController {
 			$order2in->order2in_payment_service = Check::txt('payment_service', 3, 2);
 			$order2in->order2in_details = Check::txt('account', 20, 1);
 
-			//$currency = $order->
-
 			// input validation
 			if (isset($order2in->order2in_payment_service))
 			{
@@ -919,7 +917,7 @@ class Client extends ClientBaseController {
 		}
 		
 		Stack::push('result', $this->result);
-		Func::redirect(BASEURL.'syspay/showOpenOrders2In');
+		Func::redirect(BASEURL . "client/order/$order_id");
 	}
 	
 	private function getOrder2inDetails()
@@ -1063,51 +1061,14 @@ class Client extends ClientBaseController {
 
 		// заявки на пополнение
 		$this->load->model('CurrencyModel', 'Currencies');
-		$this->load->model('Order2InModel', 'Order2in');
 		$this->load->model('PaymentServiceModel', 'Services');
-
-		$Orders = $this->Order2in->getFilteredOrders(array('order2in_user' => $this->user->user_id), 'open');
-
-		/* пейджинг */
-		$this->per_page = $this->per_page_o2o;
-		$this->init_paging();
-		$this->paging_count = count($Orders);
-
-		if ($Orders)
-		{
-			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
-
-			$this->load->model('ManagerModel', 'Managers');
-			$statistics = array();
-
-			foreach ($Orders as $o2i)
-			{
-				if ( ! empty($o2i->order2in_to) AND
-					is_numeric($o2i->order2in_to))
-				{
-					$this->processStatistics(
-						$o2i,
-						$statistics,
-						'order2in_to',
-						$o2i->order2in_to,
-						'manager');
-
-					//print_r($o2i);
-				}
-			}
-		}
 
 		$view = array (
 			'order' => $order,
-			'Orders2In' => $Orders,
-			'Orders2InStatuses'	=> $this->Order2in->getStatuses(),
-			'order_types' => $this->Orders->getOrderTypes(),
-			'orders2InFoto' => $this->Order2in->getOrders2InFoto($Orders),
 			'services'	=> $this->Services->getInServices(),
 			'usd' => ceil($this->Currencies->getRate('USD') * 100) * 0.01,
 			'kzt' => ceil($this->Currencies->getCrossRate('KZT') * 100) * 0.01,
-			'uah' => ceil($this->Currencies->getCrossRate('UAH') * 100) * 0.01,
-			'pager' => $this->get_paging()
+			'uah' => ceil($this->Currencies->getCrossRate('UAH') * 100) * 0.01
 		);
 
 		$this->Orders->prepareOrderView($view);
@@ -2306,11 +2267,16 @@ class Client extends ClientBaseController {
 		$this->load->helper('url');
 		$this->load->library('pagination');
 
-		if ($this->uri->segment(2) == 'payOrder')
+		$handler = $this->uri->segment(2);
+
+		if ($handler == 'order' OR
+			$handler == 'showOpenPayments' OR
+			$handler == 'showPayedPayments')
 		{
 			$this->paging_base_url =
 				'/client/' .
-				($this->uri->segment(2) ? $this->uri->segment(2) : 0) . '/' .
+				($this->uri->segment(2) ? $this->uri->segment(2) : 0) .
+				'/' .
 				($this->uri->segment(3) ? $this->uri->segment(3) : 0);
 
 			$this->paging_uri_segment = 4;
@@ -2320,5 +2286,15 @@ class Client extends ClientBaseController {
 		{
 			parent::init_paging();
 		}
+	}
+
+	public function showOpenPayments($order_id)
+	{
+		parent::showPayments($order_id, 'open');
+	}
+
+	public function showPayedPayments($order_id)
+	{
+		parent::showPayments($order_id, 'payed');
 	}
 }

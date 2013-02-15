@@ -196,3 +196,9 @@
 	</script>
 <? endif; ?>
 </form>
+<? if ( ! empty($open_orders2in) OR
+	! empty($payed_orders2in)) : ?>
+<a name="pagerScroll"></a>
+<h3>Заявки на оплату</h3>
+<? View::show('/client/ajax/showOpenOrders2In'); ?>
+<? endif; ?>

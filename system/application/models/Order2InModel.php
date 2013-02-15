@@ -212,6 +212,43 @@ class Order2InModel extends BaseModel implements IModel{
 		')->result();
 	}
 	
+	public function getClientCounters($order_id, $client_id)
+	{
+		$where_open = "`order2in_status` IN ('not_delivered', 'processing', 'not_confirmed')";
+
+		$open = $this->db->query("
+			SELECT COUNT(*) AS 'counter'
+			FROM `{$this->table}`
+				INNER JOIN `users` ON `{$this->table}`.`order2in_user` = `users`.`user_id`
+				INNER JOIN `clients` ON `{$this->table}`.`order2in_user` = `clients`.`client_user`
+			WHERE $where_open
+				AND `{$this->table}`.`order2in_user` = '$client_id'
+				AND `{$this->table}`.`order_id` = '$order_id'
+		")->result();
+
+		$result['open'] = (count($open == 1) AND $open) ?
+			$open[0]->counter :
+			0;
+
+		$where_payed = "`order2in_status` = 'payed'";
+
+		$payed = $this->db->query("
+			SELECT COUNT(*) AS 'counter'
+			FROM `{$this->table}`
+				INNER JOIN `users` ON `{$this->table}`.`order2in_user` = `users`.`user_id`
+				INNER JOIN `clients` ON `{$this->table}`.`order2in_user` = `clients`.`client_user`
+			WHERE $where_payed
+				AND `{$this->table}`.`order2in_user` = '$client_id'
+				AND `{$this->table}`.`order_id` = '$order_id'
+		")->result();
+
+		$result['payed'] = (count($payed == 1) AND $payed) ?
+			$payed[0]->counter :
+			0;
+
+		return $result;
+	}
+
 	public function getOrdersByIds($ids) {
 		return $this->db->query('
 			SELECT `'.$this->table.'`.*

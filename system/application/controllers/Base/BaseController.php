@@ -438,6 +438,10 @@ abstract class BaseController extends Controller
 			$view['order_types'] = $this->Orders->getOrderTypes();
 			$view['joinable_types'] = $this->Orders->getJoinableTypes();
 
+			// заявки на оплату
+			$view = $this->getOrders2In($view, 'open');
+			//print_r($view['Orders2In']);
+
 			// кнопка добавить предложение для посредника
 			$view['bids_accepted'] = (empty($chosen_bid) AND ($this->user->user_group == 'manager'));
 
@@ -489,6 +493,191 @@ abstract class BaseController extends Controller
 
 		// показываем заказ
 		View::showChild($this->viewpath.'/pages/showOrderDetails', $view);
+	}
+
+	protected function getOrders2In($view, $status = 'open')
+	{
+		$this->load->model('CurrencyModel', 'Currencies');
+		$this->load->model('Order2InModel', 'Order2in');
+		$this->load->model('PaymentServiceModel', 'Services');
+
+		$Orders = $this->Order2in->getFilteredOrders(array(
+			'order2in_user' => $this->user->user_id,
+			'order_id' => $view['order']->order_id
+		), $status);
+
+		/* пейджинг */
+		$this->per_page = $this->per_page_o2o;
+		$this->init_paging();
+		$this->paging_count = count($Orders);
+
+		// заявки на пополнение
+		if ($Orders)
+		{
+			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
+
+			$this->load->model('ManagerModel', 'Managers');
+			$statistics = array();
+
+			foreach ($Orders as $o2i)
+			{
+				if ( ! empty($o2i->order2in_to) AND
+					is_numeric($o2i->order2in_to))
+				{
+					$this->processStatistics(
+						$o2i,
+						$statistics,
+						'order2in_to',
+						$o2i->order2in_to,
+						'manager');
+				}
+			}
+		}
+
+		// отдаем результат
+		$payments_counters = $this->Order2in->getClientCounters(
+			$view['order']->order_id,
+			$this->user->user_id);
+
+		$view += array (
+			'Orders2In' => $Orders,
+			'Orders2InStatuses'	=> $this->Order2in->getStatuses(),
+			'orders2InFoto' => $this->Order2in->getOrders2InFoto($Orders),
+			'services'	=> $this->Services->getInServices(),
+			'usd' => ceil($this->Currencies->getRate('USD') * 100) * 0.01,
+			'kzt' => ceil($this->Currencies->getCrossRate('KZT') * 100) * 0.01,
+			'uah' => ceil($this->Currencies->getCrossRate('UAH') * 100) * 0.01,
+			'open_orders2in' => $payments_counters['open'],
+			'payed_orders2in' => $payments_counters['payed'],
+			'pager' => $this->get_paging()
+		);
+
+		//print_r($view['pager']);die();
+		return $view;
+	}
+
+	protected function showPayments($order_id, $status)
+	{
+		try
+		{
+			// безопасность
+			if ( ! is_numeric($order_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$view['order'] = $this->getPrivilegedOrder(
+				$order_id,
+				'Заказ не найден. Попробуйте еще раз.');
+
+			// подгружаем модели
+			$this->load->model('BidModel', 'Bids');
+			$this->load->model('BidCommentModel', 'Comments');
+			$this->load->model('ManagerModel', 'Managers');
+			$this->load->model('ClientModel', 'Clients');
+			$this->load->model('OdetailModel', 'Odetails');
+			$this->load->model('OdetailJointModel', 'Joints');
+			$this->load->model('CountryModel', 'Countries');
+			$this->load->model('AddressModel', 'Addresses');
+
+			$chosen_bid = FALSE;
+			$statistics = array();
+
+			// детали заказа
+			$view['odetails'] = $this->Odetails->getOrderDetails($view['order']->order_id);
+			$view['joints'] = $this->Joints->getOrderJoints($view['order']->order_id);
+			$this->Orders->prepareOrderView($view);
+
+			// страны
+			$view['Countries'] = $this->Countries->getClientAvailableCountries($view['order']->order_client);
+
+			// предложения: никаких ограничений доступа, показываем все
+			$view['bids'] = $this->Bids->getBids($view['order']->order_id);
+
+			foreach ($view['bids'] as $bid)
+			{
+				// находим допрасходы
+				$bid->extra_taxes = $this->Bids->getBidExtras($bid->bid_id);
+
+				// статистика предложения
+				$this->processStatistics($bid, $statistics, 'manager_id', $bid->manager_id, 'manager');
+
+				// выбранное клиентом предложение
+				if ($bid->manager_id == $view['order']->order_manager)
+				{
+					$chosen_bid = $bid;
+				}
+
+				// комментарии
+				$bid->comments = $this->Comments->getCommentsByBidId($bid->bid_id);
+
+				if (empty($bid->comments))
+				{
+					continue;
+				}
+
+				// находим данные комментатора для каждого коммента
+				foreach ($bid->comments as $comment)
+				{
+					if ($comment->user_id == $bid->client_id)
+					{
+						$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'client');
+					}
+					else if ($comment->user_id == $bid->manager_id)
+					{
+						$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'manager');
+					}
+				}
+			}
+
+			$view['order']->bid = $chosen_bid;
+
+			// находим клиента
+			$view['client'] = $this->Clients->getClientById($view['order']->order_client);
+
+			$this->processStatistics($view['client'], $statistics, 'client_user', $view['client']->client_user, 'client');
+
+			// если клиент выбрал предложение, достаем для него данные посредника
+			if ($this->user->user_group == 'client' AND
+				$chosen_bid)
+			{
+				$this->processStatistics($view['order'], $statistics, 'order_manager', $view['order']->order_manager, 'manager');
+			}
+
+			// адреса клиента
+			$view['addresses'] = $this->Addresses->getAddressesByUserId($view['order']->order_client);
+
+			// статусы, в которых можно редактировать заказ
+			if (isset($this->user->user_group))
+			{
+				$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
+				$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
+			}
+
+			// статусы заказов и товаров, сгруппированные по типу заказа
+			$view['statuses'] = $this->Orders->getAllStatuses();
+			$view['odetail_statuses'] = $this->Odetails->getAllStatuses();
+			$view['order_types'] = $this->Orders->getOrderTypes();
+			$view['joinable_types'] = $this->Orders->getJoinableTypes();
+
+			// статусы заказов и товаров, сгруппированные по типу заказа
+			$view['order_types'] = $this->Orders->getOrderTypes();
+
+			// заявки на оплату
+			$view = $this->getOrders2In($view, $status);
+
+			// отрисовка
+			$view['selfurl'] = BASEURL . $this->cname . '/';
+			$view['viewpath'] = $this->viewpath;
+
+			$status = ucfirst($status);
+			$this->load->view($this->viewpath . "ajax/show{$status}Orders2In", $view);
+		}
+		catch (Exception $e)
+		{
+			//
+		}
 	}
 
 	protected function showPublicOrder()

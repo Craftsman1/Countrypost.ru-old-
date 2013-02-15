@@ -144,7 +144,7 @@ function goto_page(page_url)
 		url: page_url,
 		success: function (response){
 			$('.pages').remove();
-			$('#pagerForm,#packagesForm,#ordersForm,#partnersForm,#clientsForm,#unassignedOrders').before(response).remove();
+			$('#pagerForm,#packagesForm,#ordersForm,#partnersForm,#clientsForm,#unassignedOrders,#payments').before(response).remove();
 		}});
 }
 
