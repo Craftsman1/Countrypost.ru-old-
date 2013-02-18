@@ -2692,3 +2692,8 @@ div.new_bid_box textarea  {
 {
     background: #dddddd;
 }
+
+h3.o2i_header
+{
+	margin-top: 25px;
+}

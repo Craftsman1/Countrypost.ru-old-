@@ -3,7 +3,7 @@
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
 	<div class='angle angle-rb'></div>
-	<? if (isset($Orders2In) && count($Orders2In)): ?>
+	<? if (isset($Orders2In) AND $Orders2In): ?>
 	<table>
 		<col width='auto' />
 		<col width='auto' />
@@ -67,7 +67,7 @@
 				<br>
 				новый
 				<br>
-				коментарий
+				комментарий
 				<? endif; ?>
 				<? if ($o2i->order2in_status != 'payed') : ?>
 				<br>

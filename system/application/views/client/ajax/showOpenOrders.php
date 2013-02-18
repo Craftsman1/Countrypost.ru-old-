@@ -56,31 +56,10 @@
 					</pre>
 				</td>
 				<td>
-					<? foreach ($statuses[$order->order_type] as $status => $status_name)
-					{
-						if ($order->order_status == $status)
-						{
-							echo $status_name;
-							break;
-						}
-					} ?>
+					<?= $statuses[$order->order_type][$order->order_status] ?>
+					<? $order->order_currency = $order->currency; ?>
 					<? if ($order->order_status == 'not_payed') : ?>
-					<div class='float'>
-						<div class='submit' style="margin-right:0;">
-							<div>
-								<input type='button' onclick="payItem('<?=$order->order_id?>');" value='Оплатить' />
-							</div>
-						</div>
-					</div>
-					<? endif; ?>
-					<? if ($order->order_status == 'payed' && $order->order_cost > $order->order_cost_payed) : ?><br />$<?=$order->order_cost_payed?>
-					<div class='float'>	
-						<div class='submit' style="margin-right:0;">
-							<div>
-								<input type='button' onclick="repayItem('<?=$order->order_id?>');" value='Доплатить $<?=$order->order_cost - $order->order_cost_payed?>' />
-							</div>
-						</div>
-					</div>
+					<? View::show("/client/elements/orders/payButton", array('order' => $order)); ?>
 					<? endif; ?>
 				</td>
 				<td>

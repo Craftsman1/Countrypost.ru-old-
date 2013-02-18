@@ -56,14 +56,7 @@
 					</pre>
 				</td>
 				<td>
-					<? foreach ($statuses[$order->order_type] as $status => $status_name)
-					{
-						if ($order->order_status == $status)
-						{
-							echo $status_name;
-							break;
-						}
-					} ?>
+					<?= $statuses[$order->order_type][$order->order_status] ?>
 				</td>
 				<td>
 					<a href="<?= "{$selfurl}order/{$order->order_id}" ?>"><?= $order->comment_for_client ? "1234 комментариев" : "Посмотреть" ?></a>

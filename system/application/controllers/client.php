@@ -332,28 +332,28 @@ class Client extends ClientBaseController {
 		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
 	
-	public function deleteBillFoto($o2i_id, $filename) 
+	public function deletePaymentFoto($o2i_id, $filename)
 	{
-		Check::reset_empties();
-		$detail		= new stdClass();
-		
-		try 
+		try
 		{
-			$path = $_SERVER['DOCUMENT_ROOT']."/upload/orders2in/$o2i_id/$filename";
+			$path = "{$_SERVER['DOCUMENT_ROOT']}/upload/orders2in/$o2i_id/$filename";
 			$this->load->model('Order2InModel', 'Order2in');
 		
-			if ($o2i = $this->Order2in->getInfo(array('order2in_user' => $this->user->user_id, 'order2in_id' => intval($o2i_id)))
+			if ($o2i = $this->Order2in->getInfo(array(
+					'order2in_user' => $this->user->user_id,
+					'order2in_id' => intval($o2i_id)))
 				&& is_file($path))
 			{
 				unlink($path);
 			}
 		}
-		catch (Exception $e){
+		catch (Exception $e)
+		{
 			$this->result->m = $e->getMessage();		
 			Stack::push('result', $this->result);
 		}
-		
-		Func::redirect(BASEURL.'syspay/showOpenOrders2In');
+
+		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
 	
 	public function addProduct() {
@@ -537,12 +537,18 @@ class Client extends ClientBaseController {
 		die();*/
 	}
 	
-	public function showOrder2InFoto($oid, $filename) {
-		header('Content-type: image/jpg');
+	public function showPaymentFoto($oid, $filename)
+	{
 		$this->load->model('Order2InModel', 'Order2in');
-		if ($o2i = $this->Order2in->getInfo(array('order2in_user' => $this->user->user_id, 'order2in_id' => intval($oid)))) {
-			readfile($_SERVER['DOCUMENT_ROOT'].'/upload/orders2in/'.$oid.'/'.$filename);
+
+		if ($o2i = $this->Order2in->getInfo(array(
+			'order2in_user' => $this->user->user_id,
+			'order2in_id' => intval($oid))))
+		{
+			header('Content-type: image/jpg');
+			readfile($_SERVER['DOCUMENT_ROOT'] . "/upload/orders2in/$oid/$filename");
 		}
+
 		die();
 	}
 	

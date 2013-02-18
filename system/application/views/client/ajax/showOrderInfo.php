@@ -26,22 +26,7 @@
 					Оплатить:
 				</td>
 				<td>
-					<? if (in_array($order->order_status, $payable_statuses) AND
-					$order->order_cost > $order->order_cost_payed) : ?>
-					<div class="admin-inside" style="height:50px;" id='save_order_button'>
-						<div class="submit">
-							<div>
-								<input type="button" onclick="window.location = '/client/payOrder/<?= $order->order_id
-									?>';"
-									   value="Оплатить <?= $order->order_cost - $order->order_cost_payed ?> <?=
-										   $order->order_currency ?>">
-							</div>
-						</div>
-					</div>
-					<? else : ?>
-					<?= $order->order_cost ?>
-					<?= $order->order_currency ?>
-					<? endif; ?>
+					<? View::show("/client/elements/orders/payButton", array('show_caption' => TRUE)); ?>
 				</td>
 			</tr>
 			<tr id="address_box">
@@ -199,6 +184,6 @@
 </form>
 <? if ( ! empty($open_orders2in) OR
 	! empty($payed_orders2in)) : ?>
-<h3>Заявки на оплату</h3>
+<h3 class="o2i_header">Заявки на оплату</h3>
 <? View::show("/client/ajax/showOpenOrders2In"); ?>
 <? endif; ?>

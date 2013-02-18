@@ -3,7 +3,7 @@
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
 	<div class='angle angle-rb'></div>
-	<? if (isset($Orders2In) && count($Orders2In)): ?>
+	<? if (isset($Orders2In) AND $Orders2In) : ?>
 	<table>
 		<col width='auto' />
 		<col width='auto' />
@@ -61,8 +61,13 @@
 			</td>
 			<td>
 				<a href="/client/payment/<?= $o2i->order2in_id ?>">Посмотреть</a>
-				<? if ((isset($client) && $o2i->order2in_2clientcomment) OR ($this->user->user_group == 'admin' && $o2i->order2in_2admincomment)): ?>
-				<br />Добавлен новый коментарий
+				<? if ($o2i->order2in_2clientcomment) : ?>
+				<br>
+				Добавлен
+				<br>
+				новый
+				<br>
+				комментарий
 				<? endif; ?>
 				<? if ($o2i->order2in_status != 'payed') : ?>
 				<br>

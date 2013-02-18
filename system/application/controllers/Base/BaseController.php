@@ -206,6 +206,8 @@ abstract class BaseController extends Controller
 				// общие суммы активных товаров и заказов
 				$this->load->model('ClientModel', 'Client');
 				$view['hasActiveOrdersOrPackages'] = $this->Client->hasActiveOrdersOrPackages($this->user->user_id);
+
+				$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
 			}
 
 			$view['order_types'] = $this->Orders->getOrderTypes();
@@ -341,7 +343,7 @@ abstract class BaseController extends Controller
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
+
 			// роли и разграничение доступа
 			// на этом этапе незалогиненные пользователи попадают на главную страницу
 			$view['order'] = $this->getPrivilegedOrder(
@@ -499,7 +501,7 @@ abstract class BaseController extends Controller
 		$this->load->model('CurrencyModel', 'Currencies');
 		$this->load->model('PaymentServiceModel', 'Services');
 
-		$Orders = $this->getPrivilegedOrders2In($view, $status);
+		$Orders = $this->getPrivilegedOrders2In($view, $status, FALSE);
 
 		/* пейджинг */
 		$this->init_paging();
@@ -1468,7 +1470,7 @@ abstract class BaseController extends Controller
 		}
 		catch (Exception $e) 
 		{
-			print_r($e);
+			print($e->getMessage());
 		}
 	}
 
@@ -3457,6 +3459,38 @@ abstract class BaseController extends Controller
 		}
 
 		return $orders;
+	}
+
+    protected function getPrivilegedOrder2In($o2i_id, $validate = TRUE)
+	{
+		$o2i = FALSE;
+		$model = $this->getOrder2InModel();
+
+		// залогиненным показываем только их заказ, либо заказ с их предложением
+		if (isset($this->user->user_group))
+		{
+			switch ($this->user->user_group)
+			{
+				case 'manager' :
+					$o2i = $model->getManagersO2iById($o2i_id, $this->user->user_id);
+					break;
+				case 'client' :
+					$o2i = $model->getClientsO2iById($o2i_id, $this->user->user_id);
+					break;
+				case 'admin' :
+					$o2i = $model->getById($o2i_id);
+					break;
+			}
+		}
+
+		// валидация
+		if ($validate AND
+			empty($o2i))
+		{
+			throw new Exception($validate);
+		}
+
+		return $o2i;
 	}
 
     protected function getNewOrder($order_id, $validate = TRUE)

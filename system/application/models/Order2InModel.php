@@ -9,9 +9,9 @@ class Order2InModel extends BaseModel implements IModel{
 	
 	private $statuses = array(
 		'processing'		=> 'Обрабатывается',
-		'payed'				=> 'Выполнена',
-		'not_delivered'		=> 'Не получено',
-		'not_confirmed'		=> 'Нет скриншота'
+		'payed'				=> 'Выплачена',
+		'not_delivered'		=> 'Не получена',
+		'no_screenshot'		=> 'Нет скриншота'
 	);
 	
 	/**
@@ -40,6 +40,7 @@ class Order2InModel extends BaseModel implements IModel{
 		$this->properties->order2in_currency		= '';
 		$this->properties->order_id					= '';
 		$this->properties->is_countrypost			= '';
+		$this->properties->is_money_sent			= '';
 
         parent::__construct();
     }
@@ -146,22 +147,29 @@ class Order2InModel extends BaseModel implements IModel{
 		')->result();
 	}
 	
-	public function getUserOrders($user_id) {
+	/*public function getUserOrders($user_id) {
 		return $this->db->query('
 			SELECT *
 			FROM `'.$this->table.'`
 			WHERE `order2in_user` = '.intval($user_id).'
 			ORDER BY `order2in_id` DESC
 		')->result();
-	}
+	}*/
 	
 	public function getStatuses() {
 		return $this->statuses;
 	}
 	
-	public function updateStatus($order_id, $new_status){
+	public function updateStatus($order_id, $new_status)
+	{
 		$this->_set($this->PK, (int) $order_id);
 		$this->_set('order2in_status', $new_status);
+
+		if ($new_status == 'payed')
+		{
+			$this->_set('is_money_sent', 1);
+		}
+
 		return $this->save();
 	}
 	
@@ -182,8 +190,8 @@ class Order2InModel extends BaseModel implements IModel{
 		return $this->save();
 	}
 	
-	public function getFilteredOrders($filter, $status=null) {
-		
+	public function getFilteredOrders($filter, $status = null)
+	{
 		$where = 1;
 		if (isset($filter) && count($filter)) {
 			$where = '';			
@@ -208,8 +216,9 @@ class Order2InModel extends BaseModel implements IModel{
 		{
 			$where .= " AND `order2in_status` <> 'deleted'";
 		}
-		
-		return $this->db->query('
+		//print_r($where);die();
+
+		$result = $this->db->query('
 			SELECT `'.$this->table.'`.*,
 				`users`.`user_login`, 
 				`clients`.`client_name`, 
@@ -222,6 +231,8 @@ class Order2InModel extends BaseModel implements IModel{
 				AND `'.$this->table.'`.`order2in_status` <> "deleted"
 			ORDER BY `order2in_id` DESC
 		')->result();
+
+		return ((count($result == 1) AND $result) ? $result : FALSE);
 	}
 	
 	public function getCounters($order_id, $user_id, $user_group)
@@ -330,7 +341,13 @@ class Order2InModel extends BaseModel implements IModel{
 	 *
 	 * @param object $arrayOfOrderObject
 	 */
-	public function getOrders2InFoto( array $arrayOfOrder2InObject){
+	public function getOrders2InFoto($arrayOfOrder2InObject)
+	{
+		if (empty($arrayOfOrder2InObject) OR
+			! is_array($arrayOfOrder2InObject))
+		{
+			return array();
+		}
 		
 		$o2iFotos	= array();
 		foreach ($arrayOfOrder2InObject as $o2i){

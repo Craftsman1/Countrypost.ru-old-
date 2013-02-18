@@ -19,3 +19,11 @@ ALTER TABLE  `orders2in` CHANGE  `order_id`  `order_id` INT( 11 ) NOT NULL DEFAU
 
 ALTER TABLE  `orders2in` CHANGE  `order2in_to`  `order2in_to` INT( 11 ) NOT NULL DEFAULT  '1',
 CHANGE  `order_id`  `order_id` INT( 11 ) NOT NULL;
+
+ALTER TABLE  `orders2in` CHANGE  `order2in_status`  `order2in_status` ENUM(  'processing',  'payed',
+'not_delivered',  'deleted' ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  'processing';
+
+ALTER TABLE  `orders2in` CHANGE  `order2in_status`  `order2in_status` ENUM(  'processing',  'payed',
+'not_delivered',  'no_screenshot',  'deleted' ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  'processing';
+
+ALTER TABLE  `orders2in` ADD  `is_money_sent` TINYINT( 1 ) NOT NULL DEFAULT  '0';

@@ -7,7 +7,7 @@
 		<div class='angle angle-rb'></div>
 		<table>
 			<tr>
-				<th nowrap>
+				<th>
 					Статус:
 				</th>
 				<th nowrap>
@@ -26,10 +26,10 @@
 					Оплатить:
 				</td>
 				<td>
-					<? //if (in_array($order->order_status, $payable_statuses)) : ?>
-					<?= $order->order_cost ?>
+					<?= ($order->order_cost > $order->order_cost_payed) ?
+					$order->order_cost - $order->order_cost_payed :
+					0 ?>
 					<?= $order->order_currency ?>
-					<? //endif; ?>
 				</td>
 			</tr>
 			<tr>
@@ -37,7 +37,8 @@
 					Клиент:
 				</td>
 				<td>
-					<a href="/<?= $client->statistics->login ?>"><?= $client->statistics->fullname ?> (<?= $client->statistics->login ?>)</a>
+					<a href="/<?= $client->statistics->login ?>"><?= $client->statistics->fullname ?></a>
+					(<?= $client->statistics->login ?>)
 				</td>
 			</tr>
 			<tr <? if (empty($order->order_manager)) : ?>style="display: none;"<? endif; ?>>
@@ -179,6 +180,6 @@
 </form>
 <? if ( ! empty($open_orders2in) OR
 	! empty($payed_orders2in)) : ?>
-<h3>Заявки на оплату</h3>
+<h3 class="o2i_header">Заявки на оплату</h3>
 <? View::show('/client/ajax/showOpenOrders2In'); ?>
 <? endif; ?>
