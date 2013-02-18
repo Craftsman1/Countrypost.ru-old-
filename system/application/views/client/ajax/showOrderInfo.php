@@ -1,4 +1,4 @@
-<form id="orderForm" action="/client/updateOrder/<?= $order->order_id ?>" method="POST">
+<form id="orderForm" action="<?= $selfurl ?>updateOrder/<?= $order->order_id ?>" method="POST">
 	<? if ($order->order_client != $this->user->user_id) : ?>
 	<div class='clientOrderInfo' style="display:none;"></div>
 	<? else :
@@ -166,7 +166,8 @@
 		<img class="float" id="orderProgress" style="display:none;margin:0px;margin-top:5px;"
 			 src="/static/images/lightbox-ico-loading.gif"/>
 	</div>
-	<? endif ?>
+	<a name="pagerScroll"></a>
+	<? endif; ?>
 	<script>
 		function prepareOrderFormHandlers()
 		{
@@ -194,11 +195,10 @@
 			prepareOrderFormHandlers();
 		});
 	</script>
-<? endif; ?>
+	<? endif; ?>
 </form>
 <? if ( ! empty($open_orders2in) OR
 	! empty($payed_orders2in)) : ?>
-<a name="pagerScroll"></a>
 <h3>Заявки на оплату</h3>
-<? View::show('/client/ajax/showOpenOrders2In'); ?>
+<? View::show("/client/ajax/showOpenOrders2In"); ?>
 <? endif; ?>

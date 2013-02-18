@@ -440,7 +440,6 @@ abstract class BaseController extends Controller
 
 			// заявки на оплату
 			$view = $this->getOrders2In($view, 'open');
-			//print_r($view['Orders2In']);
 
 			// кнопка добавить предложение для посредника
 			$view['bids_accepted'] = (empty($chosen_bid) AND ($this->user->user_group == 'manager'));
@@ -498,16 +497,11 @@ abstract class BaseController extends Controller
 	protected function getOrders2In($view, $status = 'open')
 	{
 		$this->load->model('CurrencyModel', 'Currencies');
-		$this->load->model('Order2InModel', 'Order2in');
 		$this->load->model('PaymentServiceModel', 'Services');
 
-		$Orders = $this->Order2in->getFilteredOrders(array(
-			'order2in_user' => $this->user->user_id,
-			'order_id' => $view['order']->order_id
-		), $status);
+		$Orders = $this->getPrivilegedOrders2In($view, $status);
 
 		/* пейджинг */
-		$this->per_page = $this->per_page_o2o;
 		$this->init_paging();
 		$this->paging_count = count($Orders);
 
@@ -535,14 +529,15 @@ abstract class BaseController extends Controller
 		}
 
 		// отдаем результат
-		$payments_counters = $this->Order2in->getClientCounters(
+		$payments_counters = $this->Orders2In->getCounters(
 			$view['order']->order_id,
-			$this->user->user_id);
+			$this->user->user_id,
+			$this->user->user_group);
 
 		$view += array (
 			'Orders2In' => $Orders,
-			'Orders2InStatuses'	=> $this->Order2in->getStatuses(),
-			'orders2InFoto' => $this->Order2in->getOrders2InFoto($Orders),
+			'Orders2InStatuses'	=> $this->Orders2In->getStatuses(),
+			'orders2InFoto' => $this->Orders2In->getOrders2InFoto($Orders),
 			'services'	=> $this->Services->getInServices(),
 			'usd' => ceil($this->Currencies->getRate('USD') * 100) * 0.01,
 			'kzt' => ceil($this->Currencies->getCrossRate('KZT') * 100) * 0.01,
@@ -552,7 +547,6 @@ abstract class BaseController extends Controller
 			'pager' => $this->get_paging()
 		);
 
-		//print_r($view['pager']);die();
 		return $view;
 	}
 
@@ -1190,6 +1184,10 @@ abstract class BaseController extends Controller
 			{
 				$o2i = $this->O2i->getClientsO2iById($this->uri->segment(3), $this->user->user_id);
 			}
+			else if ($this->user->user_group == 'manager')
+			{
+				$o2i = $this->O2i->getManagersO2iById($this->uri->segment(3), $this->user->user_id);
+			}
 			
 			if ( ! $o2i)
 			{
@@ -1203,7 +1201,7 @@ abstract class BaseController extends Controller
 				$o2i->order2in_2clientcomment = 0;
 				$this->O2i->addOrder($o2i);
 			}
-			else if ($this->user->user_group == 'admin' AND
+			else if ($this->user->user_group == 'manager' AND
 				$o2i->order2in_2admincomment)
 			{
 				$o2i->order2in_2admincomment = 0;
@@ -1292,8 +1290,7 @@ abstract class BaseController extends Controller
 		}
 
 		// отображаем комментарии
-		//View::showChild($this->viewpath.'/pages/showO2iComments', $view);
-		View::showChild($this->viewpath.'/pages/showPayment', $view);
+		View::showChild($this->viewpath.'pages/showPayment', $view);
 	}
 	
 	protected function addBidComment($bid_id, $comment_id = NULL)
@@ -3393,138 +3390,6 @@ abstract class BaseController extends Controller
 		$view['bid_orders'] = intval($view['bid_orders']) ? count($view['bid_orders']) : 0;
 	}
 	
-	protected function joinPackageFotos()
-	{
-		try
-		{
-			$this->load->model('PackageModel', 'Packages');
-			$this->load->model('PdetailModel', 'Pdetails');
-			$this->load->model('PdetailJointModel', 'Joints');
-
-			// итерируем по посылкам
-			$joined_pdetails = 0;
-			$pdetail_ids = array();
-			$joint = FALSE;
-			
-			// валидация
-			Check::reset_empties();
-			$package_id = Check::int('package_id');
-			if (Check::get_empties())
-			{
-				throw new Exception('Невозможно объединить фото посылок. Посылка не найдена.');
-			}
-			
-			$this->db->trans_begin();
-							
-			foreach($_POST as $key=>$value)
-			{
-				if (stripos($key, 'pdetail_id') === 0) 
-				{
-					// находим посылку
-					$pdetail_id = str_ireplace('pdetail_id', '', $key);
-					
-					if ( ! is_numeric($pdetail_id)) 
-					{
-						continue;
-					}
-
-					// роли и разграничение доступа
-					if ($this->user->user_group == 'admin')
-					{
-						$pdetail = $this->Pdetails->getById($pdetail_id);
-					}
-					else if ($this->user->user_group == 'manager')
-					{
-						$pdetail = $this->Pdetails->getManagerpdetailById($pdetail_id, $this->user->user_id);
-					}
-					else if ($this->user->user_group == 'client')
-					{
-						$pdetail = $this->Pdetails->getClientpdetailById($pdetail_id, $this->user->user_id);
-					}
-
-					if (empty($pdetail))
-					{
-						throw new Exception('Невозможно объединить фото товаров. Некоторые товары не найдены.');
-					}
-
-					// генерим объединенное фото
-					if (empty($joint))
-					{
-						$joint = $this->Joints->generate($package_id);
-
-						if (empty($joint))
-						{
-							throw new Exception('Невозможно объединить фото товаров. Попробуйте еще раз.');
-						}
-					}
-					
-					// убираем товар из предыдущего объединения
-					if ( ! empty($pdetail->pdetail_joint_id))
-					{
-						$prevJoint = $this->Joints->getById($pdetail->pdetail_joint_id);
-						
-						if ( ! empty($prevJoint))
-						{
-							$prevJoint->pdetail_joint_count = intval($prevJoint->pdetail_joint_count) - 1;
-							$this->Joints->saveJoint($prevJoint);					
-						}
-					}
-					
-					// сохраняем товар
-					$pdetail->pdetail_joint_id = $joint->pdetail_joint_id;
-					$this->Pdetails->updatepdetail($pdetail);
-					$joined_pdetails++;
-				}
-			}
-			
-			// счетчик товаров
-			$joint->pdetail_joint_count = $joined_pdetails;
-			$this->Joints->saveJoint($joint);
-			
-			// зачистка: сносим объединения в которых не осталось товаров
-			$this->Joints->cleanupJoints($package_id);
-			
-			// вычисляем статус и стоимость объединенной посылки
-			if ($this->user->user_group == 'admin')
-			{
-			    $package = $this->Packages->getById($package_id);
-			}
-			else if ($this->user->user_group == 'manager')
-			{
-				$package = $this->Packages->getManagerPackageById($package_id, $this->user->user_id);
-			}
-			else if ($this->user->user_group == 'client')
-			{
-				$package = $this->Packages->getClientPackageById($package_id, $this->user->user_id);
-			}
-			
-			if (empty($package))
-			{
-				throw new Exception('Невозможно вычислить стоимость посылки. Попробуйте еще раз.');
-			}
-			
-			$this->Packages->recalculatePackage($package);
-			
-			// закрываем транзакцию
-			$this->db->trans_commit();
-		
-			$this->result->m = "Фото товаров успешно объединены.";
-			$this->result->e = 1;
-			Stack::push('result', $this->result);
-			
-			// открываем посылки
-			Func::redirect($_SERVER['HTTP_REFERER']);
-		}
-		catch (Exception $e) 
-		{
-			$this->db->trans_rollback();			
-			$this->result->e = -1;
-			$this->result->m = $e->getMessage();
-			print($this->result->m);
-			Stack::push('result', $this->result);
-		}
-	}
-	
 	protected function getPrivilegedOrder($order_id, $validate = TRUE)
 	{
 		$order = FALSE;
@@ -3555,6 +3420,43 @@ abstract class BaseController extends Controller
 		}
 		
 		return $order;
+	}
+
+    protected function getPrivilegedOrders2In($view, $status = 'open', $validate = TRUE)
+	{
+		$orders = FALSE;
+		$model = $this->getOrder2InModel();
+
+		// залогиненным показываем только их заказ, либо заказ с их предложением
+		if (isset($this->user->user_group))
+		{
+			switch ($this->user->user_group)
+			{
+				case 'manager' :
+					$orders = $model->getFilteredOrders(array(
+						'order2in_to' => $this->user->user_id,
+						'order_id' => $view['order']->order_id
+					), $status);
+					break;
+				case 'client' :
+					$orders = $model->getFilteredOrders(array(
+						'order2in_user' => $this->user->user_id,
+						'order_id' => $view['order']->order_id
+					), $status);
+					break;
+				case 'admin' :
+					break;
+			}
+		}
+
+		// валидация
+		if ($validate AND
+			empty($orders))
+		{
+			throw new Exception($validate);
+		}
+
+		return $orders;
 	}
 
     protected function getNewOrder($order_id, $validate = TRUE)
@@ -3644,6 +3546,16 @@ abstract class BaseController extends Controller
 		return $this->Orders;
 	}
 	
+	private function getOrder2InModel()
+	{
+		if (empty($this->Orders2In))
+		{
+			$this->load->model('Order2InModel', 'Orders2In');
+		}
+
+		return $this->Orders2In;
+	}
+
 	protected function processStatistics($personal_data, $statistics, $id_field_name = 'user_id', $user_id = 0, $user_group = 'manager')
 	{
 		if (isset($statistics[$personal_data->$id_field_name]))

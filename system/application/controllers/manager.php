@@ -1,5 +1,4 @@
-<?php
-require_once BASE_CONTROLLERS_PATH.'ManagerBaseController'.EXT;
+<? require_once BASE_CONTROLLERS_PATH.'ManagerBaseController'.EXT;
 
 class Manager extends ManagerBaseController {
 
@@ -385,11 +384,6 @@ class Manager extends ManagerBaseController {
 	public function showO2oComments()
 	{
 		parent::showO2oComments();
-	}
-	
-	public function showO2iComments()
-	{
-		parent::showO2iComments();
 	}
 	
 	public function addO2oComment()
@@ -1196,4 +1190,55 @@ class Manager extends ManagerBaseController {
 		parent::removeJoint($order_id, $joint_id);
 	}
 	// EOF: перенаправление обработчиков в базовый контроллер
+
+	protected function init_paging()
+	{
+		$this->load->helper('url');
+		$this->load->library('pagination');
+
+		$handler = $this->uri->segment(2);
+
+		if ($handler == 'order' OR
+			$handler == 'showOpenPayments' OR
+			$handler == 'showPayedPayments')
+		{
+			if ($handler == 'order')
+			{
+				$this->paging_base_url =
+					'/manager/showOpenPayments' .
+						'/' .
+						($this->uri->segment(3) ? $this->uri->segment(3) : 0);
+			}
+			else
+			{
+				$this->paging_base_url =
+					'/manager/' .
+						($this->uri->segment(2) ? $this->uri->segment(2) : 0) .
+						'/' .
+						($this->uri->segment(3) ? $this->uri->segment(3) : 0);
+			}
+
+			$this->paging_uri_segment = 4;
+			$this->paging_offset = $this->uri->segment(4);
+		}
+		else
+		{
+			parent::init_paging();
+		}
+	}
+
+	public function showOpenPayments($order_id)
+	{
+		parent::showPayments($order_id, 'open');
+	}
+
+	public function showPayedPayments($order_id)
+	{
+		parent::showPayments($order_id, 'payed');
+	}
+
+	public function payment()
+	{
+		parent::showO2iComments();
+	}
 }

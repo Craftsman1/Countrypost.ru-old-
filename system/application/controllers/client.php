@@ -49,9 +49,9 @@ class Client extends ClientBaseController {
 		View::showChild($this->viewpath.'/pages/main', array(
 			'news'					=> $news,
 			'just_registered'		=> Stack::shift('just_registered', true),
-			'package_open'			=> ($openp?count($openp):0),
-			'package_payed'			=> ($payedp?count($payedp):0),
-			'package_sent'			=> ($sentp?count($sentp):0),
+			'package_open'			=> ($openp ? count($openp) : 0),
+			'package_payed'			=> ($payedp ? count($payedp) : 0),
+			'package_sent'			=> ($sentp ? count($sentp) : 0),
 			'taobao_register_tax'	=> $config['taobao_register_tax']->config_value,
 			'alipay_refill_tax'		=> $config['alipay_refill_tax']->config_value,
 			'taobao_payment_tax'	=> $config['taobao_payment_tax']->config_value,
@@ -2273,11 +2273,21 @@ class Client extends ClientBaseController {
 			$handler == 'showOpenPayments' OR
 			$handler == 'showPayedPayments')
 		{
-			$this->paging_base_url =
-				'/client/' .
-				($this->uri->segment(2) ? $this->uri->segment(2) : 0) .
-				'/' .
-				($this->uri->segment(3) ? $this->uri->segment(3) : 0);
+			if ($handler == 'order')
+			{
+				$this->paging_base_url =
+					'/client/showOpenPayments' .
+					'/' .
+					($this->uri->segment(3) ? $this->uri->segment(3) : 0);
+			}
+			else
+			{
+				$this->paging_base_url =
+					'/client/' .
+					($this->uri->segment(2) ? $this->uri->segment(2) : 0) .
+					'/' .
+					($this->uri->segment(3) ? $this->uri->segment(3) : 0);
+			}
 
 			$this->paging_uri_segment = 4;
 			$this->paging_offset = $this->uri->segment(4);

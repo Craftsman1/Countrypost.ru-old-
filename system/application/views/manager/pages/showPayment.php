@@ -4,7 +4,6 @@
 		'напрямую посреднику' :
 		'через Countrypost.ru' ?>)</h2>
 	<? View::show('/main/elements/payments/payment_info'); ?>
-	<? View::show('/client/elements/div_float_upload_bill'); ?>
 	<h3>Комментарии</h3>
 	<? View::show('/main/elements/payments/comments'); ?>
 </div>
