@@ -10,7 +10,7 @@ class Order2InModel extends BaseModel implements IModel{
 	private $statuses = array(
 		'processing'		=> 'Обрабатывается',
 		'payed'				=> 'Выплачена',
-		'not_delivered'		=> 'Не получена',
+		'not_delivered'		=> 'Не получено',
 		'no_screenshot'		=> 'Нет скриншота'
 	);
 	
@@ -115,7 +115,9 @@ class Order2InModel extends BaseModel implements IModel{
 	{
 		$o2o = $this->getById($id);
 
-		if ($o2o && $o2o->order2in_to == $manager_id)
+		if ($o2o &&
+			$o2o->order2in_to == $manager_id &&
+			$o2o->is_countrypost == 0)
 		{
 			return $o2o;
 		}
@@ -205,7 +207,7 @@ class Order2InModel extends BaseModel implements IModel{
 		{
 			if ($status == 'open')
 			{
-				$where .= " AND `order2in_status` IN ('not_delivered', 'processing', 'not_confirmed')";
+				$where .= " AND `order2in_status` IN ('not_delivered', 'processing', 'no_screenshot')";
 			}
 			else
 			{
@@ -255,7 +257,7 @@ class Order2InModel extends BaseModel implements IModel{
 
 	protected function getClientCounters($order_id, $client_id)
 	{
-		$where_open = "`order2in_status` IN ('not_delivered', 'processing', 'not_confirmed')";
+		$where_open = "`order2in_status` IN ('not_delivered', 'processing', 'no_screenshot')";
 
 		$open = $this->db->query("
 			SELECT COUNT(*) AS 'counter'
@@ -292,7 +294,7 @@ class Order2InModel extends BaseModel implements IModel{
 
 	protected function getManagerCounters($order_id, $manager_id)
 	{
-		$where_open = "`order2in_status` IN ('not_delivered', 'processing', 'not_confirmed')";
+		$where_open = "`order2in_status` IN ('not_delivered', 'processing', 'no_screenshot')";
 
 		$open = $this->db->query("
 			SELECT COUNT(*) AS 'counter'
@@ -302,6 +304,7 @@ class Order2InModel extends BaseModel implements IModel{
 			WHERE $where_open
 				AND `{$this->table}`.`order2in_to` = '$manager_id'
 				AND `{$this->table}`.`order_id` = '$order_id'
+				AND `{$this->table}`.`is_countrypost` = 0
 		")->result();
 
 		$result['open'] = (count($open == 1) AND $open) ?
@@ -318,6 +321,7 @@ class Order2InModel extends BaseModel implements IModel{
 			WHERE $where_payed
 				AND `{$this->table}`.`order2in_to` = '$manager_id'
 				AND `{$this->table}`.`order_id` = '$order_id'
+				AND `{$this->table}`.`is_countrypost` = 0
 		")->result();
 
 		$result['payed'] = (count($payed == 1) AND $payed) ?

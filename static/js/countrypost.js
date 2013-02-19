@@ -1,6 +1,8 @@
 $(function() {
-	$('span.ratings_plugin').each(function() {
-		$(this).find('div').each(function(index, star) {
+	$('span.ratings_plugin').each(function()
+	{
+		$(this).find('div').each(function(index, star)
+		{
 			$(this).click(function() {
 				processStarClick(index, star);
 			});
@@ -192,6 +194,32 @@ function order_status_handler(uri, page_status)
 		var order_id = $(this).attr('name').substring(12);
 
 		update_order_status($url, order_id);
+	});
+}
+
+function update_payment_status(url, o2i_id)
+{
+	goto_page_message(url,
+		'paymentForm',
+		'Статус заявки №' + o2i_id + ' успешно изменен.',
+		'Не удалось изменить статус заявки №' + o2i_id + '. Попробуйте еще раз.');
+}
+
+function payment_status_handler(uri)
+{
+	$('select.o2i_status').change(function() {
+		$(this)
+			.parent()
+			.find('img.status_progress')
+			.show();
+
+		var $url = uri +
+			'updatePayment/0/ajax/' +
+			$(this).attr('name') +
+			'/' +
+			$(this).val();
+
+		update_payment_status($url, o2i_id);
 	});
 }
 

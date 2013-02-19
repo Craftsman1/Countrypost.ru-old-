@@ -2422,8 +2422,8 @@ abstract class BaseController extends Controller
 		try
 		{
 			// безопасность
-			if (!isset($payment_id) OR
-				!is_numeric($payment_id))
+			if ( ! isset($payment_id) OR
+				! is_numeric($payment_id))
 			{
 				throw new Exception('Доступ запрещен.');
 			}
@@ -2431,19 +2431,15 @@ abstract class BaseController extends Controller
 			// валидация пользовательского ввода
 			$this->load->model('Order2InModel', 'Payments');
 
-			$payment = $this->Payments->getById((int) $payment_id);
+			// роли и разграничение доступа
+			$payment = $this->getPrivilegedOrder2In(
+				$payment_id,
+				'Заявка не найдена. Попробуйте еще раз.');
 
-			// роли и доступ
-			if ($this->user->user_group == 'admin')
+			if ($payment->order2in_status == 'payed' AND
+				$this->user->user_group != 'admin')
 			{
-				if ( ! $payment)
-				{
-					throw new Exception('Заявка не найдена. Попробуйте еще раз.');
-				}
-			}
-			else if ( ! $payment OR $payment->order2in_status != 'processing' OR $payment->order2in_user != $this->user->user_id)
-			{
-				throw new Exception('Заявка не найдена. Попробуйте еще раз.');
+				throw new Exception('Невозможно удалить выплаченную заявку.');
 			}
 
 			// сохранение результата
@@ -3437,7 +3433,8 @@ abstract class BaseController extends Controller
 				case 'manager' :
 					$orders = $model->getFilteredOrders(array(
 						'order2in_to' => $this->user->user_id,
-						'order_id' => $view['order']->order_id
+						'order_id' => $view['order']->order_id,
+						'is_countrypost' => 0
 					), $status);
 					break;
 				case 'client' :

@@ -1307,4 +1307,9 @@ class Manager extends ManagerBaseController {
 			print_r($e);
 		}
 	}
+
+	public function deletePayment($oid)
+	{
+		parent::deletePayment($oid);
+	}
 }
