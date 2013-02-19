@@ -1096,9 +1096,11 @@ class Client extends ClientBaseController {
 	{
 		try
 		{
-			if (! is_numeric($order_id))
+			// валидация
+			if (empty($order_id) OR
+				! is_numeric($order_id))
 			{
-				throw new Exception('Доступ запрещен.');
+				throw new Exception('Доступ запрешен.');
 			}
 
 			// заказ
@@ -1106,148 +1108,49 @@ class Client extends ClientBaseController {
 				$order_id,
 				'Заказ недоступен.');
 
-			// позволяет ли текущий статус оплату
-			$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
-
-			if ( ! in_array($order->order_status, $view['payable_statuses']))
-			{
-				throw new Exception('Текущий статус заказа не позволяет его оплатить.');
-			}
-
-			// находим местную валюту
-			$this->load->model('CurrencyModel', 'Currency');
-			$this->load->model('ClientModel', 'Clients');
-			$this->load->model('AddressModel', 'Addresses');
-			$this->load->model('ManagerModel', 'Managers');
-
-			$currency = $this->Currency->getCurrencyByCountry($order->order_country);
-			
-			// добавление платежа партнеру
-			$payment_manager = new stdClass();
-			$payment_manager->payment_from				= $order->order_client;
-			$payment_manager->payment_to				= $order->order_manager;
-			$payment_manager->payment_amount_from		= $order->order_cost;
-			$payment_manager->payment_amount_to			= 
-				$order->order_products_cost +
-				$order->order_delivery_cost + 
-				$order->order_manager_comission;
-			$payment_manager->payment_amount_tax		= $order->order_manager_comission;
-			$payment_manager->payment_tax				= $order->order_comission;
-			$payment_manager->payment_purpose			= 'оплата заказа';
-			$payment_manager->payment_comment			= '№ '.$order->order_id;
-			$payment_manager->payment_type				= 'order';
-			$payment_manager->payment_transfer_order_id	= $this->user->user_id.date('Y').date('m').date('d').date('h').date('i').date('s');
-			
-			// добавление платежа партнеру в местной валюте
-			$payment_manager_local = new stdClass();
-			$payment_manager_local->payment_from		= $order->order_client;
-			$payment_manager_local->payment_to			= $order->order_manager;
-			$payment_manager_local->payment_amount_from	= 0;
-			$payment_manager_local->payment_amount_to	= $order->order_manager_cost_local;
-			$payment_manager_local->payment_amount_tax	= $order->order_manager_comission_local;
-			$payment_manager_local->payment_tax			= 0;
-			$payment_manager_local->payment_purpose		= 'оплата заказа в местной валюте';
-			$payment_manager_local->payment_comment		= '№ '.$order->order_id;
-			$payment_manager_local->payment_type		= 'order';
-			$payment_manager_local->payment_currency	= $currency->currency_symbol;
-			$payment_manager_local->payment_transfer_order_id	= '';
-			
-			// добавление платежа системе
-			$payment_system = new stdClass();
-			$payment_system->payment_from				= $order->order_client;
-			$payment_system->payment_to					= 1;
-			$payment_system->payment_amount_from		= 0;
-			$payment_system->payment_amount_to			= $order->order_system_comission;
-			$payment_system->payment_amount_tax			= $order->order_system_comission;
-			$payment_system->payment_purpose			= 'комиссия системы за оплату заказа';
-			$payment_system->payment_comment			= '№ '.$order->order_id;
-			$payment_system->payment_type				= 'order';
-			$payment_system->payment_transfer_order_id	= '';
-			
-			$this->load->model('PaymentModel', 'Payment');
-			
 			// погнали
-			$this->db->trans_begin();
+			$order2in = new stdClass();
+			$order2in->order_id = $order_id;
+			$order2in->is_countrypost = 0;
+			$order2in->order2in_to = $order->order_manager;
+			$order2in->order2in_createtime = date('Y-m-d H:i:s');
+			$order2in->order2in_amount = Check::float('amount');
+			$order2in->payment_service_name = Check::txt('service', 255, 1);
+			$order2in->order2in_details = Check::txt('comment', 20, 1);
 
-			if (!$this->Payment->makePayment($payment_manager, true) ||
-				!$this->Payment->makePayment($payment_system, true) ||
-				!$this->Payment->makePaymentLocal($payment_manager_local, true)) 
+			$order2in->order2in_user = $this->user->user_id;
+			$order2in->order2in_status = 'processing';
+
+			$this->load->model('Order2InModel', 'Order2in');
+			$order2in = $this->Order2in->addOrder($order2in);
+
+			if ( ! $order2in)
 			{
-				throw new Exception('Ошибка оплаты заказа. Попробуйте еще раз.');
-			}			
-			
-			// ставим статус оплачен заказу
-			// и сохраняем детали платежа для последующей доплаты или возврата средств
-			$order->order_status = 'payed';
-			$order->order_cost_payed = $order->order_cost;
-			$order->order_manager_comission_payed = $order->order_manager_comission;
-			$order->order_system_comission_payed = $order->order_system_comission;
-			
-			$order->order_manager_cost_payed_local = $order->order_manager_cost_local;
-			$order->order_manager_comission_payed_local = $order->order_manager_comission_local;
-			
-			$this->Orders->saveOrder($order);
-			
-			if ($this->db->trans_status() !== FALSE)
-			{
-				$this->db->trans_commit();
+				throw new Exception('Ошибка создания заявки.');
 			}
-			
-			$this->session->set_userdata(array('user_coints' => $this->user->user_coints - $order->order_cost));
-			$this->result->m = 'Заказ успешно оплачен.';
+
+			$this->result->m = 'Заявка успешно добавлена.';
 
 			// уведомления
+			/*
 			$this->load->model('UserModel', 'Users');
-/*
+
 			Mailer::sendAdminNotification(
-				Mailer::SUBJECT_NEW_ORDER_STATUS, 
-				Mailer::NEW_ORDER_STATUS_NOTIFICATION,
+				Mailer::SUBJECT_NEW_ORDER2IN,
+				Mailer::NEW_ORDER2IN_CLIENT_NOTIFICATION,
 				0,
-				$order->order_id, 
-				0,
-				"http://countrypost.ru/admin/showPayedOrders/{$order->order_id}",
+				$order2in->order2in_id,
+				$order2in->order2in_user,
+				"http://countrypost.ru/syspay/showOpenOrders2In",
 				null,
-				null,
-				'Оплачен');
-
-			Mailer::sendManagerNotification(
-				Mailer::SUBJECT_NEW_ORDER_STATUS, 
-				Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-				$order->order_manager, 
-				$order->order_id, 
-				0,
-				"http://countrypost.ru/manager/showPayedOrders/{$order->order_id}",
-				$this->Managers,
-				null,
-				'Оплачен');
-
-			Mailer::sendClientNotification(
-				Mailer::SUBJECT_NEW_ORDER_STATUS, 
-				Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-				$order->order_id, 
-				$order->order_client, 
-				"http://countrypost.ru/client/showOpenOrders/{$order->order_id}",
-				$this->Clients,
-				'Оплачен');
-*/
+				$this->Users);*/
 		}
 		catch (Exception $e)
 		{
-			$this->db->trans_rollback();
-		
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
+
 		}
-		
-		// открываем детали заказа
-		if (isset($order_id))
-		{
-			Func::redirect(BASEURL . $this->cname . '/order/' . $order_id);
-		}
-		else
-		{
-			Func::redirect(BASEURL . $this->cname);
-		}
+
+		Func::redirect(BASEURL . "client/order/$order_id");
 	}
 	
 	// доплата за новые товары в заказе

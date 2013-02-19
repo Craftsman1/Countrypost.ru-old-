@@ -27,3 +27,4 @@ ALTER TABLE  `orders2in` CHANGE  `order2in_status`  `order2in_status` ENUM(  'pr
 'not_delivered',  'no_screenshot',  'deleted' ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  'processing';
 
 ALTER TABLE  `orders2in` ADD  `is_money_sent` TINYINT( 1 ) NOT NULL DEFAULT  '0';
+ALTER TABLE  `orders2in` ADD  `is_countrypost` TINYINT( 1 ) NOT NULL DEFAULT  '0' AFTER  `order_id` ;

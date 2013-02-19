@@ -1752,7 +1752,7 @@ div.syspay div.total .submit
 
 div.syspay div.total .submit input 
 {
-	width:91px;margin:0 8px;
+	margin:0 8px;
 }
 
 div.syspay div.notice
@@ -2416,16 +2416,26 @@ div.profile_box  div.cashback_box span.cashback_span {
 	font-weight: bold;
 }
 
-div.profile_box .textbox,div.blog_box .textbox,div.mail_forwarding .textbox {
+div.profile_box .textbox,
+div.blog_box .textbox,
+div.manager_payment_box .textbox,
+div.mail_forwarding .textbox
+{
 	width: 188px;
 	float: left;
 	padding:4px 4px 3px;
 	background:#f7f7f7;
 	border: 1px solid #afafaf;
 	color:#000;
-	font: 13px sans-serif;
 	margin-bottom: 15px;
-	}
+}
+
+div.profile_box .textbox,
+div.blog_box .textbox,
+div.mail_forwarding .textbox
+{
+	font: 13px sans-serif;
+}
 
 div.client_ratings label {
 	font: 13px sans-serif;
@@ -2696,4 +2706,30 @@ div.new_bid_box textarea  {
 h3.o2i_header
 {
 	margin-top: 25px;
+}
+
+div.manager_payment_box {
+	font-size: 14px;
+	font-family: Arial;
+}
+
+div.manager_payment_box b.currency  {
+	left: 365px;
+	position: absolute;
+	margin-top: 7px;
+	font-weight: normal;
+}
+
+div.manager_payment_box span.label {
+	width: 190px;
+	margin-top:3px;
+	margin-bottom: 20px;
+}
+
+div.manager_payment_box div.submit {
+	margin-left: 187px;
+}
+
+div.manager_payment_box textarea {
+	margin-bottom: 5px!important;
 }
