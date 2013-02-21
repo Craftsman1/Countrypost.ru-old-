@@ -42,18 +42,9 @@
 					<? endif; ?>
 				</td>
 				<td>
-					<?= $order->order_cost ?> <?= $order->currency ?>
-					<a href="javascript:void(0)" onclick="$('#pre_<?=$order->order_id?>').toggle()">Подробнее</a>
-					<pre class="pre-href" id="pre_<?=$order->order_id?>">
-						<?= $order->order_products_cost ?> <?= $order->currency ?>
-						<? if ($order->order_products_cost) : ?>
-						+
-						* <?= $order->order_delivery_cost ?> <?= $order->currency ?>
-						<? endif; if ($order->order_comission) : ?>
-						+
-						** <?= $order->order_comission ?> <?= $order->currency ?>
-						<? endif; ?>
-					</pre>
+					<? View::show('client/elements/orders/price_description', array(
+						'order' => $order
+				)); ?>
 				</td>
 				<td>
 					<?= $statuses[$order->order_type][$order->order_status] ?>

@@ -9,4 +9,5 @@
 	<? View::show('client/ajax/showOrderDetails'); ?>
 	<? View::show('main/elements/orders/bids'); ?>
 </div>
+<? View::show('/client/elements/div_float_upload_bill'); ?>
 <? View::show('client/elements/orders/scripts'); ?>

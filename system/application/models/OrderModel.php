@@ -230,7 +230,13 @@ class OrderModel extends BaseModel implements IModel{
     	$this->properties->order_weight				= '';
     	$this->properties->order_cost				= '';
     	$this->properties->order_cost_payed			= '';
-    	$this->properties->order_date				= '';
+    	$this->properties->manager_tax				= '';
+    	$this->properties->foto_tax					= '';
+    	$this->properties->delivery_cost			= '';
+    	$this->properties->delivery_name			= '';
+    	$this->properties->extra_tax				= '';
+
+		$this->properties->order_date				= '';
     	$this->properties->order_status				= '';
     	$this->properties->order_shop_name			= '';
     	$this->properties->comment_for_manager		= '';
@@ -241,7 +247,7 @@ class OrderModel extends BaseModel implements IModel{
     	$this->properties->order_comission			= '';
 		$this->properties->order_manager_comission	= '';
 		$this->properties->order_system_comission	= '';
-		$this->properties->order_manager_comission_payed	= '';
+		$this->properties->order_manager_comission_payed = '';
 		$this->properties->order_system_comission_payed	= '';
     	$this->properties->order_country_from		= '';
     	$this->properties->order_country_to			= '';
@@ -1008,7 +1014,6 @@ class OrderModel extends BaseModel implements IModel{
 		$order->delivery_cost = $bid->delivery_cost;
 		$order->delivery_name = $bid->delivery_name;
 		$order->extra_tax = $bid->extra_tax;
-
 		$order->order_cost = $bid->total_cost;
 
 		return $order->order_cost ? $order : FALSE;

@@ -28,7 +28,7 @@
 				<th>Номер заказа</th>
 				<th>Клиент</th>
 				<th>Доставка в</th>
-				<th>Общая стоимость</th>
+				<th>Полная стоимость</th>
 				<th>Статус</th>
 				<th></th>
 			</tr>
@@ -59,18 +59,9 @@
 					<? endif; ?>
 				</td>
 				<td>
-					<?= $order->order_manager_cost ?> <?= $order->currency ?>
-					<a href="javascript:void(0)" onclick="$('#pre_<?= $order->order_id ?>').toggle()">Подробнее</a>
-					<pre class="pre-href" id="pre_<?= $order->order_id ?>">
-						<?= $order->order_products_cost ?> <?= $order->currency ?>
-						<? if ($order->order_products_cost) : ?>
-						+
-						* <?= $order->order_delivery_cost ?> <?= $order->currency ?>
-						<? endif; if ($order->order_manager_comission) : ?>
-						+
-						** <?= $order->order_manager_comission ?> <?= $order->currency ?>
-						<? endif; ?>
-					</pre>
+					<? View::show('manager/elements/orders/price_description', array(
+						'order' => $order
+					)); ?>
 				</td>
 				<td>
 					<select name="order_status<?= $order->order_id ?>" class="order_status">
@@ -86,7 +77,7 @@
 				</td>
 				<td>
 					<a href="<?= $selfurl ?>order/<?= $order->order_id ?>"><?= $order->comment_for_manager ?
-						"1234 комментариев" : "Посмотреть" ?></a>
+						"добавлен новый комментарий" : "Посмотреть" ?></a>
 				</td>
 			</tr>
 			<? endforeach; else : ?>
