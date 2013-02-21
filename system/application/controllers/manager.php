@@ -1189,6 +1189,16 @@ class Manager extends ManagerBaseController {
 	{
 		parent::removeJoint($order_id, $joint_id);
 	}
+
+	public function update_payment_amount($order_id, $payment_id, $amount)
+	{
+		parent::update_payment_amount($order_id, $payment_id, $amount);
+	}
+
+	public function update_payment_status($order_id, $payment_id, $status)
+	{
+		parent::update_payment_status($order_id, $payment_id, $status);
+	}
 	// EOF: перенаправление обработчиков в базовый контроллер
 
 	protected function init_paging()

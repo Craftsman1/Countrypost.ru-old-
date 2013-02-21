@@ -998,6 +998,21 @@ class OrderModel extends BaseModel implements IModel{
 					return FALSE;
 				}
 			}
+
+			// 5. вычисляем статус заказа по найденным суммам. к этому моменту его статус рассчитан по статусам товаров
+			// если в заказ деньги уже переводились, статус может быть только оплачен или не оплачен
+			if ($order->order_cost_payed > 0)
+			{
+				if ($order->order_cost > $order->order_cost_payed)
+				{
+					$order->order_status = 'not_payed';
+				}
+				else
+				{
+					$order->order_status = 'payed';
+				}
+				//print_r($total_status);die();
+			}
 		}
 		catch (Exception $e) 
 		{
@@ -1050,11 +1065,54 @@ class OrderModel extends BaseModel implements IModel{
 		$total_pricedelivery = 0;
 		$total_weight = 0;
 		$joints = array();
-	
 		$odetails = $ci->Odetails->getOrderDetails($order->order_id);
+
+		// одиночные товары
+		foreach ($odetails as $odetail)
+		{
+			// подсчет сумм цен
+			$total_price += $odetail->odetail_price;
+			$total_weight += $odetail->odetail_weight;
+
+			// для объединенных товаров доставку считаем ниже
+			if ($odetail->odetail_joint_id)
+			{
+				if ( ! in_array($odetail->odetail_joint_id, $joints))
+				{
+					$joints[] = $odetail->odetail_joint_id;
+				}
+			}
+			else
+			{
+				$total_pricedelivery += $odetail->odetail_pricedelivery;
+			}
+		}
+
+		// объединенные товары
+		foreach ($joints as $joint_id)
+		{
+			$joint = $ci->Joints->getById($joint_id);
+			if (empty($joint))
+			{
+				throw new Exception('Некоторые товары не найдены.');
+			}
+			
+			// суммируем доставку
+			$total_pricedelivery += $joint->cost;
+		}
+
+		// считаем стоимость заказа
+		$order->order_weight = $total_weight;
+
+		$order->order_products_cost = $total_price;
+		$order->order_delivery_cost = $total_pricedelivery;
+		$order->order_cost =
+			$order->order_products_cost +
+			$order->order_delivery_cost;
+
 		$total_status = $order->order_status;
 
-		// вычисляем статус, если выбран посредник
+		// вычисляем статус, только если выбран посредник
 		if ($order->order_status != 'pending')
 		{
 			$has_not_available_status = FALSE;
@@ -1102,50 +1160,7 @@ class OrderModel extends BaseModel implements IModel{
 			}
 		}
 
-		// одиночные товары
-		foreach ($odetails as $odetail)
-		{
-			// подсчет сумм цен
-			$total_price += $odetail->odetail_price;
-			$total_weight += $odetail->odetail_weight;
-
-			// для объединенных товаров доставку считаем ниже
-			if ($odetail->odetail_joint_id)
-			{
-				if ( ! in_array($odetail->odetail_joint_id, $joints))
-				{
-					$joints[] = $odetail->odetail_joint_id;
-				}
-			}
-			else
-			{
-				$total_pricedelivery += $odetail->odetail_pricedelivery;
-			}
-		}
-
-		// объединенные товары
-		foreach ($joints as $joint_id)
-		{
-			$joint = $ci->Joints->getById($joint_id);
-			if (empty($joint))
-			{
-				throw new Exception('Некоторые товары не найдены.');
-			}
-			
-			// суммируем доставку
-			$total_pricedelivery += $joint->cost;
-		}
-
-		// считаем стоимость заказа
-		$order->order_weight = $total_weight;
 		$order->order_status = $total_status;
-
-		$order->order_products_cost = $total_price;
-		$order->order_delivery_cost = $total_pricedelivery;
-		$order->order_cost =
-			$order->order_products_cost +
-			$order->order_delivery_cost;
-
 
 		return $order;
 	}

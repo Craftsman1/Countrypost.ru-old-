@@ -14,3 +14,4 @@
 	<? View::show('main/elements/orders/bids'); ?>
 </div>
 <? View::show('manager/elements/orders/scripts'); ?>
+<? View::show('manager/elements/payments/scripts'); ?>

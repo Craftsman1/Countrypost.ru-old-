@@ -175,10 +175,19 @@ class Order2InModel extends BaseModel implements IModel{
 		return $this->save();
 	}
 	
+	public function updateAmount($order_id, $new_amount)
+	{
+		$this->_set($this->PK, (int) $order_id);
+		$this->_set('order2in_amount', $new_amount);
+
+		return $this->save();
+	}
+
 	public function updateCommentStatus($Order2InId, $new_status, $usertype){
 		
 		$o2i	= $this->getById((int) $Order2InId);
-		if ($o2i){
+		if ($o2i)
+		{
 			$this->_set($this->PK, (int) $Order2InId);
 			$this->_set("order2in_2{$usertype}comment", (int) $new_status);
 			return $this->save(true);

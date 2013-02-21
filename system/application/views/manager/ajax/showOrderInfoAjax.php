@@ -26,7 +26,9 @@
 					Оплатить:
 				</td>
 				<td>
-					<?= $order->order_cost ?>
+					<?= ($order->order_cost > $order->order_cost_payed) ?
+					$order->order_cost - $order->order_cost_payed :
+					0 ?>
 					<?= $order->order_currency ?>
 				</td>
 			</tr>
@@ -35,7 +37,8 @@
 					Клиент:
 				</td>
 				<td>
-					<a href="/<?= $client->statistics->login ?>"><?= $client->statistics->fullname ?> (<?= $client->statistics->login ?>)</a>
+					<a href="/<?= $client->statistics->login ?>"><?= $client->statistics->fullname ?></a>
+						(<?= $client->statistics->login ?>)
 				</td>
 			</tr>
 			<tr <? if (empty($order->order_manager)) : ?>style="display: none;"<? endif; ?>>

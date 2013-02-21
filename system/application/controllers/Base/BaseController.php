@@ -4034,6 +4034,131 @@ abstract class BaseController extends Controller
 		print(json_encode($response));
 	}
 
+	protected function update_payment_status($order_id, $payment_id, $status)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				! is_numeric($payment_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('Order2InModel', 'Payments');
+
+			// валидация пользовательского ввода
+			$statuses = $this->Payments->getStatuses();
+
+			if (empty($statuses[$status]))
+			{
+				throw new Exception('Некорректный статус.');
+			}
+
+			// роли и разграничение доступа
+			$payment = $this->getPrivilegedOrder2In(
+				$payment_id,
+				'Заявка не найдена. Попробуйте еще раз.');
+
+			if ($payment->order2in_status == 'payed' AND
+				$this->user->user_group != 'admin')
+			{
+				throw new Exception('Выплаченные заявки запрещено изменять.');
+			}
+
+			$payment->order2in_status = $status;
+
+			// проверяем переводились ли уже деньги
+			$is_money_sent = $payment->is_money_sent;
+
+			// сохранение результатов
+			$this->Orders2In->updateStatus($payment_id, $payment->order2in_status);
+
+			// оплата заказа
+			// ВНИМАНИЕ!! деньги переводятся только 1 раз, а статус заявки меняется неограниченно
+			if ( ! $is_money_sent AND $payment->order2in_status == 'payed')
+			{
+				$order->order_cost_payed += $payment->order2in_amount;
+			}
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
+	}
+
+
+	protected function update_payment_amount($order_id, $payment_id, $amount)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				! is_numeric($payment_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('Order2InModel', 'Payments');
+
+			// роли и разграничение доступа
+			$payment = $this->getPrivilegedOrder2In(
+				$payment_id,
+				'Заявка не найдена. Попробуйте еще раз.');
+
+			if ($payment->order2in_status == 'payed' AND
+				$this->user->user_group != 'admin')
+			{
+				throw new Exception('Выплаченные заявки запрещено изменять.');
+			}
+
+			$payment->order2in_amount = $amount;
+
+			// сохранение результатов
+			$this->Orders2In->updateAmount($payment_id, $payment->order2in_amount);
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
+	}
+
 	public function updateProduct($order_id, $odetail_id)
 	{
 		try

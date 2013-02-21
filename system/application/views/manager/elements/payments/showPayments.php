@@ -16,17 +16,25 @@
 			<th>№ заявки</th>
 			<th>№ заказа / посредник</th>
 			<th>Сумма оплаты</th>
-			<th>Сумма перевода</th>
 			<th>Способ оплаты</th>
 			<th>Статус</th>
 			<th></th>
 		</tr>
-		<? foreach ($Orders2In as $o2i) : ?>
+		<? foreach ($Orders2In as $o2i) :
+			$is_editable = ($o2i->order2in_status != 'payed') ;
+		?>
 		<tr>
 			<td>
 				<b>№ <?= $o2i->order2in_id ?></b>
 				<br />
 				<?= date("d.m.Y H:i", strtotime($o2i->order2in_createtime)) ?>
+				<? if ($is_editable) : ?>
+				<br>
+				<img id="payment_progress<?= $o2i->order2in_id ?>"
+					 class="float"
+					 style="display:none;"
+					 src="/static/images/lightbox-ico-loading.gif"/>
+				<? endif; ?>
 			</td>
 			<td>
 				<a href="/manager/order/<?= $o2i->order_id ?>">№<?= $o2i->order_id ?></a>
@@ -37,19 +45,19 @@
 				(<?= $o2i->statistics->login ?>)
 			</td>
 			<td>
+				<? if ($is_editable) : ?>
+				<input type="text"
+					   id="payment_amount<?= $o2i->order2in_id ?>"
+					   name="payment_amount<?= $o2i->order2in_id ?>"
+					   class="int"
+					   value="<?= $o2i->order2in_amount ?>"
+					   style="width:60px"
+					   maxlength="11"
+					   onchange="update_payment_amount('<?= $order->order_id ?>',
+							   '<?= $o2i->order2in_id ?>');">
+				<? else : ?>
 				<?= $o2i->order2in_amount ?>
 				<?= $order->order_currency ?>
-			</td>
-			<td>
-				<? if ($o2i->is_countrypost == 0) : ?>
-				перевод
-				<br>
-				напрямую
-				<br>
-				посреднику
-				<? else : ?>
-				<?= $o2i->order2in_amount_local ?>
-				<?= $o2i->order2in_currency ?>
 				<? endif; ?>
 			</td>
 			<td>
@@ -57,19 +65,20 @@
 				array('payment' => $o2i)); ?>
 			</td>
 			<td>
-				<? if ($o2i->order2in_status == 'payed') : ?>
-				<?= $Orders2InStatuses[$o2i->order2in_status] ?>
-				<? else : ?>
-				<select name="o2i_status<?= $o2i->order2in_id ?>" class="order_status">
-					<? foreach ($Orders2InStatuses as $status => $status_name) : ?>
+				<? if ($is_editable) : ?>
+				<select name="payment_status<?= $o2i->order2in_id ?>"
+						id="payment_status<?= $o2i->order2in_id ?>"
+						class="order_status"
+						onchange="update_payment_status('<?= $order->order_id ?>',
+								'<?= $o2i->order2in_id ?>');">
+				<? foreach ($Orders2InStatuses as $status => $status_name) : ?>
 					<option value="<?= $status ?>" <? if ($o2i->order2in_status == $status) :
 						?>selected="selected"<? endif; ?>><?= $status_name ?></option>
 					<? endforeach; ?>
 				</select>
-				<img class="float o2i_progress" style="display:none;margin-left: 5px;;"
-					 src="/static/images/lightbox-ico-loading.gif"/>
+				<? else : ?>
+				<?= $Orders2InStatuses[$o2i->order2in_status] ?>
 				<? endif; ?>
-
 			</td>
 			<td>
 				<a href="/manager/payment/<?= $o2i->order2in_id ?>">Посмотреть</a>
