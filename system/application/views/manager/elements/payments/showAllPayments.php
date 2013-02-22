@@ -26,7 +26,7 @@
 		<tr>
 			<td>
 				<b>№ <?= $o2i->order2in_id ?></b>
-				<br />
+				<br>
 				<?= date("d.m.Y H:i", strtotime($o2i->order2in_createtime)) ?>
 				<? if ($is_editable) : ?>
 				<br>
@@ -39,7 +39,7 @@
 			<td>
 				<a href="/manager/order/<?= $o2i->order_id ?>">№<?= $o2i->order_id ?></a>
 				<br>
-				<?= $order_types[$order->order_type] ?>
+				<?= $order_types[$o2i->order_type] ?>
 				<br>
 				<a href="/<?= $o2i->statistics->login ?>"><?= $o2i->statistics->fullname ?></a>
 				(<?= $o2i->statistics->login ?>)
@@ -53,11 +53,11 @@
 					   value="<?= $o2i->order2in_amount ?>"
 					   style="width:60px"
 					   maxlength="11"
-					   onchange="update_payment_amount('<?= $order->order_id ?>',
+					   onchange="update_payment_amount('<?= $o2i->order_id ?>',
 							   '<?= $o2i->order2in_id ?>');">
 				<? else : ?>
 				<?= $o2i->order2in_amount ?>
-				<?= $order->order_currency ?>
+				<?= $o2i->order2in_currency ?>
 				<? endif; ?>
 			</td>
 			<td>
@@ -69,7 +69,7 @@
 				<select name="payment_status<?= $o2i->order2in_id ?>"
 						id="payment_status<?= $o2i->order2in_id ?>"
 						class="order_status"
-						onchange="update_payment_status('<?= $order->order_id ?>',
+						onchange="update_payment_status('<?= $o2i->order_id ?>',
 								'<?= $o2i->order2in_id ?>');">
 				<? foreach ($Orders2InStatuses as $status => $status_name) : ?>
 					<option value="<?= $status ?>" <? if ($o2i->order2in_status == $status) :
@@ -111,5 +111,17 @@
 function status_handler(tab_status)
 {
 	payment_status_handler('<?= $selfurl ?>');
+}
+
+function refreshOrderTotals(order, success_message, error_message)
+{
+	if (order['is_error'])
+	{
+		error('top', error_message);
+	}
+	else
+	{
+		success('top', success_message);
+	}
 }
 </script>

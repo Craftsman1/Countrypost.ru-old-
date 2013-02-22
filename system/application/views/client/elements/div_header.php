@@ -20,7 +20,7 @@
                 </div>
                 <? if ( ! empty($partners)) : ?>
                 <div class='right-block right-block-client'>
-                    <h3>
+                    <!--h3>
                         Ваш адрес в: 
                     </h3>
                     <? foreach ($partners as $partner) : ?>
@@ -38,16 +38,14 @@
                     <? endforeach; ?>
                     <p>
                         <a href='<?= $selfurl ?>showAddresses'>Другие адреса</a>
-                    </p>
+                    </p-->
                 </div>
                 <? endif; ?>
                 <div class='center-block'>
                     <h3>ВАШ НОМЕР НА САЙТЕ: <?= $this->user->user_id ?></h3>
                     <p>Общий баланс: <span class='big-text'>$<?=$this->user->user_coints;?></span></p>
-                    <p><a href='/<?=$this->user->user_group?>/showAddBalance'>Пополнить</a></p>
                     <p>(<a href='/syspay/showPays/' class='anthracite-color'>Как пополнить?</a>)</p>
-                    <p><a href='/<?=$this->user->user_group?>/showPaymentHistory'>Статистика платежей</a></p>
-                    <p><a href='/<?=$this->user->user_group?>/showOutMoney'>Заявка на вывод денег</a></p>
+                    <p><a href='/<?= $this->user->user_group ?>/history'>Статистика платежей</a></p>
                 </div>
             </div>
         </div>

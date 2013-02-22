@@ -1,4 +1,4 @@
-<?php require_once BASE_CONTROLLERS_PATH.'ClientBaseController'.EXT;
+<? require_once BASE_CONTROLLERS_PATH.'ClientBaseController'.EXT;
 
 class Client extends ClientBaseController {
 	function Client()
@@ -1108,6 +1108,11 @@ class Client extends ClientBaseController {
 				$order_id,
 				'Заказ недоступен.');
 
+			// валюта
+			$this->Orders->prepareOrderView(array(
+				'order' => $order
+			));
+
 			// погнали
 			$order2in = new stdClass();
 			$order2in->order_id = $order_id;
@@ -1117,6 +1122,7 @@ class Client extends ClientBaseController {
 			$order2in->order2in_amount = Check::float('amount');
 			$order2in->payment_service_name = Check::txt('service', 255, 1);
 			$order2in->order2in_details = Check::txt('comment', 20, 1);
+			$order2in->order2in_currency = $order->order_currency;
 
 			$order2in->order2in_user = $this->user->user_id;
 			$order2in->order2in_status = 'processing';
@@ -2215,5 +2221,10 @@ class Client extends ClientBaseController {
 	public function showPayedPayments($order_id)
 	{
 		parent::showPayments($order_id, 'payed');
+	}
+
+	public function history()
+	{
+		parent::showPaymentHistory();
 	}
 }

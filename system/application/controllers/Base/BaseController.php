@@ -520,12 +520,24 @@ abstract class BaseController extends Controller
 				if ( ! empty($o2i->order2in_to) AND
 					is_numeric($o2i->order2in_to))
 				{
-					$this->processStatistics(
-						$o2i,
-						$statistics,
-						'order2in_to',
-						$o2i->order2in_to,
-						'manager');
+					if ($this->user->user_group == 'client')
+					{
+						$this->processStatistics(
+							$o2i,
+							$statistics,
+							'order2in_to',
+							$o2i->order2in_to,
+							'manager');
+					}
+					else
+					{
+						$this->processStatistics(
+							$o2i,
+							$statistics,
+							'order2in_user',
+							$o2i->order2in_user,
+							'client');
+					}
 				}
 			}
 		}
@@ -669,6 +681,103 @@ abstract class BaseController extends Controller
 
 			$status = ucfirst($status);
 			$this->load->view($this->viewpath . "ajax/show{$status}Orders2In", $view);
+		}
+		catch (Exception $e)
+		{
+			//
+		}
+	}
+
+	protected function showAllPayments($status = 'open')
+	{
+		try
+		{
+			// подгружаем модели
+			$this->load->model('ManagerModel', 'Managers');
+			$this->load->model('ClientModel', 'Clients');
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('CountryModel', 'Countries');
+			$this->load->model('PaymentServiceModel', 'Services');
+
+			// страны
+			$view = array();
+			$view['Countries'] = $this->Countries->getList();
+
+			// статусы заказов и товаров, сгруппированные по типу заказа
+			$view['order_types'] = $this->Orders->getOrderTypes();
+
+			// заявки на оплату
+			$Orders = $this->getAllPrivilegedOrders2In($view, $status, FALSE);
+
+			/* пейджинг */
+			$this->init_paging();
+			$this->paging_count = count($Orders);
+
+			$statistics = array();
+
+			if ($Orders)
+			{
+				$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
+
+				$this->load->model('ManagerModel', 'Managers');
+				$statistics = array();
+
+				foreach ($Orders as $o2i)
+				{
+					if ( ! empty($o2i->order2in_to) AND
+						is_numeric($o2i->order2in_to))
+					{
+						$this->processStatistics(
+							$o2i,
+							$statistics,
+							'order2in_user',
+							$o2i->order2in_user,
+							'client');
+					}
+
+					// роли и разграничение доступа
+					$order = $this->getPrivilegedOrder(
+						$o2i->order_id,
+						"Заявка недоступна.");
+
+					$o2i->order_type = $order->order_type;
+				}
+			}
+
+			// готовим результат к отрисовке
+			$payments_counters = $this->Orders2In->getCounters(
+				0,
+				$this->user->user_id,
+				$this->user->user_group);
+
+			$view += array (
+				'Orders2In' => $Orders,
+				'Orders2InStatuses'	=> $this->Orders2In->getStatuses(),
+				'orders2InFoto' => $this->Orders2In->getOrders2InFoto($Orders),
+				'services'	=> $this->Services->getInServices(),
+				'open_orders2in' => $payments_counters['open'],
+				'payed_orders2in' => $payments_counters['payed'],
+				'pager' => $this->get_paging()
+			);
+
+			// крошки
+			Breadcrumb::setCrumb(array(
+				"/{$this->user->user_group}/payments"  =>
+				"Заявки на оплату"), 1,	TRUE);
+
+			// отрисовка
+			$status = ucfirst($status);
+
+			if ($this->uri->segment(4) == 'ajax')
+			{
+				$view['selfurl'] = BASEURL.$this->cname.'/';
+				$view['viewpath'] = $this->viewpath;
+				$this->load->view($this->viewpath."ajax/showAll{$status}Payments", $view);
+			}
+			else
+			{
+				View::showChild("{$this->viewpath}/pages/showAllPayments", $view);
+			}
 		}
 		catch (Exception $e)
 		{
@@ -2617,13 +2726,15 @@ abstract class BaseController extends Controller
 		return $price == 0 ? 0 : ($price / $cross_rate->cbr_cross_rate);
 	}
 	
-	public function showPaymentHistory()
+	protected function showPaymentHistory()
 	{
 		$this->load->model('PaymentModel', 'Payment');
 		
 		if ($this->user->user_group == 'client')
 		{
-			$view['Payments'] = $this->Payment->getFilteredPayments("(user_to.user_id={$this->user->user_id} OR user_from.user_id={$this->user->user_id}) AND (ISNULL(payment_currency) OR payment_type = 'salary') AND (payment_amount_from <> 0 OR payment_amount_to <> 0 OR (payment_type <> 'order' AND payment_type <> 'package' AND payment_type <> 'extra_payment'))");
+			$view['Payments'] = $this->Payment->getFilteredPayments("(user_to.user_id={$this->user->user_id} OR
+			user_from.user_id = '{$this->user->user_id}')
+			AND payment_type = 'order'");
 		}
 		else if ($this->user->user_group == 'manager')
 		{
@@ -3458,6 +3569,42 @@ abstract class BaseController extends Controller
 		return $orders;
 	}
 
+    protected function getAllPrivilegedOrders2In($view, $status = 'open', $validate = TRUE)
+	{
+		$orders = FALSE;
+		$model = $this->getOrder2InModel();
+
+		// залогиненным показываем только их заказ, либо заказ с их предложением
+		if (isset($this->user->user_group))
+		{
+			switch ($this->user->user_group)
+			{
+				case 'manager' :
+					$orders = $model->getFilteredOrders(array(
+						'order2in_to' => $this->user->user_id,
+						'is_countrypost' => 0
+					), $status);
+					break;
+				case 'client' :
+					$orders = $model->getFilteredOrders(array(
+						'order2in_user' => $this->user->user_id,
+					), $status);
+					break;
+				case 'admin' :
+					break;
+			}
+		}
+
+		// валидация
+		if ($validate AND
+			empty($orders))
+		{
+			throw new Exception($validate);
+		}
+
+		return $orders;
+	}
+
     protected function getPrivilegedOrder2In($o2i_id, $validate = TRUE)
 	{
 		$o2i = FALSE;
@@ -4083,7 +4230,11 @@ abstract class BaseController extends Controller
 			// ВНИМАНИЕ!! деньги переводятся только 1 раз, а статус заявки меняется неограниченно
 			if ( ! $is_money_sent AND $payment->order2in_status == 'payed')
 			{
+				$is_repay = ($order->order_cost_payed > 0);
 				$order->order_cost_payed += $payment->order2in_amount;
+
+				// записываем платеж в историю
+				$this->processDirectPayment($order, $payment, $is_repay);
 			}
 
 			// пересчитываем заказ
@@ -4106,6 +4257,30 @@ abstract class BaseController extends Controller
 		print(json_encode($response));
 	}
 
+	protected function processDirectPayment($order, $payment, $is_repay)
+	{
+		$payment_manager = new stdClass();
+		$payment_manager->payment_from				= $order->order_client;
+		$payment_manager->payment_to				= $order->order_manager;
+		$payment_manager->payment_amount_from		= $payment->order2in_amount;
+		$payment_manager->payment_amount_to			= $payment->order2in_amount;
+		$payment_manager->payment_purpose			= $is_repay ?
+		'доплата заказа' :
+		'оплата заказа';
+		$payment_manager->payment_comment			= '№ ' . $order->order_id;
+		$payment_manager->payment_type				= 'order';
+		$payment_manager->payment_transfer_order_id	= $this->user->user_id.date('Y').date('m').date('d').date('h').date('i').date('s');
+		$payment_manager->payment_currency			= strval($payment->order2in_currency);
+		$payment_manager->order_id					= $payment->order_id;
+
+		$this->load->model('PaymentModel', 'Payment');
+
+			// погнали
+		if ( ! $this->Payment->makePayment($payment_manager, true))
+		{
+			throw new Exception('Ошибка оплаты заказа. Попробуйте еще раз.');
+		}
+	}
 
 	protected function update_payment_amount($order_id, $payment_id, $amount)
 	{

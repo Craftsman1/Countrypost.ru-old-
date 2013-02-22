@@ -35,7 +35,8 @@ class PaymentModel extends BaseModel implements IModel{
     	$this->properties->payment_transfer_sign		='';
     	$this->properties->payment_service_id			='';
     	$this->properties->payment_currency				='';
-    	
+    	$this->properties->order_id						='';
+
         parent::__construct();
     }
     
@@ -137,12 +138,7 @@ class PaymentModel extends BaseModel implements IModel{
 			if ($ufrom)
 			{
 				// если $ufrom->user_id == 1 - значит это системный аккаунт, на нем баланс не проверяем
-				if ($ufrom->user_id != 1 && $ufrom->user_coints < $this->_get('payment_amount_from'))
-				{
-					throw new Exception('Недостаточно денег на счету!', -1);
-				}
-				if ($ufrom->user_coints < 0 || 
-					$this->_get('payment_amount_from') < 0)
+				if ($this->_get('payment_amount_from') < 0)
 				{
 					throw new Exception('Сумма не может быть отрицательной', -2);
 				}

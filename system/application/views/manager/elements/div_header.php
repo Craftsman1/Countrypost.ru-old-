@@ -26,7 +26,7 @@
 		<div class='right-block'>
 		<?	$credit = $this->session->userdata('manager_credit');
 			$credit_date = $this->session->userdata('manager_credit_date');
-			if (isset($credit) && $credit && isset($credit_date) && $credit_date) : ?>
+			if (FALSE && isset($credit) && $credit && isset($credit_date) && $credit_date) : ?>
 			<p>
 				<? $date = new DateTime($credit_date); echo $date->format('d.m.Y');?>
 				Кредит на
@@ -40,24 +40,12 @@
 			<h3>
 				ВАШ НОМЕР НА САЙТЕ: <?= $this->user->user_id ?>
 			</h3>
+			<br>
 			<p>
-				Общий баланс в местной валюте:
-				<span class='big-text'>
-					<?= $this->session->userdata('manager_currency') ?><?=$this->session->userdata
-				('manager_balance_local')?>
-				</span>
+				<a href='/<?= $this->user->user_group ?>/history'>Статистика платежей</a>
 			</p>
 			<p>
-				Баланс в долларах:
-				<span class='big-text'>
-					$<?= $this->user->user_coints ?>
-				</span>
-			</p>
-			<p>
-				<a href='/<?= $this->user->user_group ?>/showPaymentHistory'>Статистика платежей</a>
-			</p>
-			<p>
-				<a href='/<?= $this->user->user_group ?>/showOutMoney'>Заявка на вывод денег</a>
+				<a href='/<?= $this->user->user_group ?>/payments'>Заявки на оплату заказов</a>
 			</p>
 		</div>
 	</div>

@@ -227,7 +227,6 @@ class Order2InModel extends BaseModel implements IModel{
 		{
 			$where .= " AND `order2in_status` <> 'deleted'";
 		}
-		//print_r($where);die();
 
 		$result = $this->db->query('
 			SELECT `'.$this->table.'`.*,
@@ -304,6 +303,13 @@ class Order2InModel extends BaseModel implements IModel{
 	protected function getManagerCounters($order_id, $manager_id)
 	{
 		$where_open = "`order2in_status` IN ('not_delivered', 'processing', 'no_screenshot')";
+		$where_payed = "`order2in_status` = 'payed'";
+
+		if ($order_id)
+		{
+			$where_open .= " AND `{$this->table}`.`order_id` = '$order_id'";
+			$where_payed .= " AND `{$this->table}`.`order_id` = '$order_id'";
+		}
 
 		$open = $this->db->query("
 			SELECT COUNT(*) AS 'counter'
@@ -312,15 +318,12 @@ class Order2InModel extends BaseModel implements IModel{
 				INNER JOIN `managers` ON `{$this->table}`.`order2in_to` = `managers`.`manager_user`
 			WHERE $where_open
 				AND `{$this->table}`.`order2in_to` = '$manager_id'
-				AND `{$this->table}`.`order_id` = '$order_id'
 				AND `{$this->table}`.`is_countrypost` = 0
 		")->result();
 
 		$result['open'] = (count($open == 1) AND $open) ?
 			$open[0]->counter :
 			0;
-
-		$where_payed = "`order2in_status` = 'payed'";
 
 		$payed = $this->db->query("
 			SELECT COUNT(*) AS 'counter'
@@ -329,7 +332,6 @@ class Order2InModel extends BaseModel implements IModel{
 				INNER JOIN `managers` ON `{$this->table}`.`order2in_to` = `managers`.`manager_user`
 			WHERE $where_payed
 				AND `{$this->table}`.`order2in_to` = '$manager_id'
-				AND `{$this->table}`.`order_id` = '$order_id'
 				AND `{$this->table}`.`is_countrypost` = 0
 		")->result();
 

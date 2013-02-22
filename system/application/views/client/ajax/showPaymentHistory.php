@@ -15,26 +15,26 @@
 			<col width='auto' />
 			<?if ($Payments):?>
 				<tr>
-					<th>Номер / Дата</th>
+					<th>№ / Дата</th>
 					<th>Отправитель</th>
 					<th>Получатель</th>
-					<th>Способ оплаты</th>
 					<th>Назначение платежа</th>
+					<!--th>Способ оплаты</th-->
 					<th>Комментарий</th>
-					<th>Сумма перевода ($)</th>
-					<th>Сумма перевода (руб.)</th>
-					<th>Комиссия</th>
+					<th>Сумма оплаты</th>
+					<th>Сумма USD</th>
+					<th>Статус</th>
 				</tr>
 				<?foreach ($Payments as $Payment):?>
 				<tr  <?= ($Payment->payment_purpose == 'отмена дополнительного платежа') ?
 						'style="background-color:red;"' : '' ?>>
 					<td><b><?=$Payment->payment_id?></b> <?=date('d-m-Y H:i', strtotime($Payment->payment_time))?></td>
 					<td>
-					<? if (isset($Payment->user_from)) : ?>
-						<?=$Payment->payment_from == 1 ? 'Countrypost.ru' : $Payment->user_from ?>
-					<? else :?>
-						<?=$Payment->payment_from?>
-					<? endif; ?>
+						<? if (isset($Payment->user_from)) : ?>
+							<?=$Payment->payment_from == 1 ? 'Countrypost.ru' : $Payment->user_from ?>
+						<? else :?>
+							<?=$Payment->payment_from?>
+						<? endif; ?>
 					</td>
 					<td>
 					<? if (isset($Payment->user_to)) : ?>
@@ -43,20 +43,22 @@
 						<?=$Payment->payment_to?>
 					<? endif; ?>
 					</td>
-					<td>
+					<td><?=$Payment->payment_purpose?></td>
+					<!--td>
 						<? if (isset($Payment->payment_service_id)) : foreach ($services as $service) : 
 						if ($service->payment_service_id == $Payment->payment_service_id) : 
 							echo $service->payment_service_name;
 						break; endif; endforeach; endif; ?>
-					</td>
-					<td><?=$Payment->payment_purpose?></td>
-					<td><?=$Payment->payment_comment?></td>
-					<td>$<?= $Payment->payment_to == $user->user_id ? $Payment->payment_amount_to : $Payment->payment_amount_from?></td>
-					<td><?=$Payment->payment_amount_rur ? $Payment->payment_amount_rur.' руб.' : ''?></td>
+					</td-->
+					<td><?= $Payment->payment_comment ?></td>
 					<td>
-					<? if ($Payment->payment_type != 'order' || $Payment->payment_purpose == 'оплата заказа') : ?>				
-					$<?=isset($Payment->payment_tax) && $Payment->payment_tax != '' ? $Payment->payment_tax : $Payment->payment_amount_tax?></td>
-					<? endif; ?>
+						<?= $Payment->payment_to == $user->user_id ? $Payment->payment_amount_to : $Payment->payment_amount_from ?>
+						<?= isset($Payment->payment_currency) ? $Payment->payment_currency : '$' ?>
+					</td>
+					<td>-</td>
+					<td>
+						Выплачено
+					</td>
 				</tr>
 				<?endforeach;?>	
 			<?else:?>

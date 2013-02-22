@@ -12,7 +12,7 @@
 			<col width='auto' />
 			<col width='auto' />
 			<col width='auto' />
-			<?if ($Payments):?>
+			<? if ($Payments) : ?>
 				<tr class='last-row'>
 					<td colspan='9'>
 						<div style="margin:0 0 10px 0;">
@@ -29,12 +29,13 @@
 					</td>
 				</tr>
 				<tr>
-					<th>Номер / Дата</th>
-					<th>Отправитель</th>
-					<th>Получатель</th>
+					<th>№ / Дата</th>
+					<th>Клиент</th>
 					<th>Назначение платежа</th>
 					<th>Комментарий</th>
-					<th>Сумма перевода</th>
+					<th>Сумма оплаты</th>
+					<th>Сумма USD</th>
+					<th>Статус</th>
 				</tr>
 				<?foreach ($Payments as $Payment):?>
 				<tr <?= ($Payment->payment_purpose == 'отмена дополнительного платежа' ||
@@ -48,16 +49,18 @@
 						<?=$Payment->payment_from?>
 					<? endif; ?>
 					</td>
-					<td>
-					<? if (isset($Payment->user_to)) : ?>
-						<?=$Payment->payment_to == 1 ? 'Countrypost.ru' : $Payment->user_to ?>
-					<? else :?>
-						<?=$Payment->payment_to?>
-					<? endif; ?>
-					</td>
 					<td><?=$Payment->payment_purpose?></td>
 					<td><?=$Payment->payment_comment?></td>
-					<td><?= isset($Payment->payment_currency) ? $Payment->payment_currency : '$'?><?= $Payment->payment_to == $user->user_id ? $Payment->payment_amount_to : $Payment->payment_amount_from ?></td>
+					<td>
+						<?= $Payment->payment_to == $user->user_id ? $Payment->payment_amount_to : $Payment->payment_amount_from ?>
+						<?= isset($Payment->payment_currency) ? $Payment->payment_currency : '$'?>
+					</td>
+					<td>
+						-
+					</td>
+					<td>
+						Выплачено
+					</td>
 				</tr>
 				<?endforeach;?>	
 				<tr class='last-row'>

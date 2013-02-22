@@ -512,7 +512,12 @@ class Manager extends ManagerBaseController {
 	
 	public function filterPaymentHistory()
 	{
-		$this->filter('paymentHistory', 'showPaymentHistory');
+		$this->filter('paymentHistory', 'filterPaymentHistory');
+	}
+
+	public function history()
+	{
+		parent::showPaymentHistory();
 	}
 
 	public function addBid($order_id)
@@ -1247,6 +1252,21 @@ class Manager extends ManagerBaseController {
 		parent::showPayments($order_id, 'payed');
 	}
 
+	public function showAllOpenPayments()
+	{
+		parent::showAllPayments('open');
+	}
+
+	public function showAllPayedPayments()
+	{
+		parent::showAllPayments('payed');
+	}
+
+	public function payments()
+	{
+		parent::showAllPayments();
+	}
+
 	public function payment()
 	{
 		parent::showO2iComments();
@@ -1307,7 +1327,11 @@ class Manager extends ManagerBaseController {
 					'Невозможно оплатить заказ. Заказ не найден.'
 				);
 
+				$is_repay = ($order->order_cost_payed > 0);
 				$order->order_cost_payed += $payment->order2in_amount;
+
+				// записываем платеж в историю
+				$this->processDirectPayment($order, $payment, $is_repay);
 
 				$this->Orders->saveOrder($order);
 			}
