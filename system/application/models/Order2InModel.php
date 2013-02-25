@@ -183,6 +183,14 @@ class Order2InModel extends BaseModel implements IModel{
 		return $this->save();
 	}
 
+	public function updateAmountLocal($order_id, $new_amount_local)
+	{
+		$this->_set($this->PK, (int) $order_id);
+		$this->_set('order2in_amount_local', $new_amount_local);
+
+		return $this->save();
+	}
+
 	public function updateCommentStatus($Order2InId, $new_status, $usertype){
 		
 		$o2i	= $this->getById((int) $Order2InId);
@@ -247,20 +255,23 @@ class Order2InModel extends BaseModel implements IModel{
 	
 	public function getCounters($order_id, $user_id, $user_group)
 	{
-		if ($user_group == 'client')
+		/*if ($user_group == 'client')
 		{
 			return $this->getClientCounters($order_id, $user_id);
 		}
-
-		if ($user_group == 'manager')
+		else if ($user_group == 'manager')
 		{
 			return $this->getManagerCounters($order_id, $user_id);
 		}
+		else if ($user_group == 'admin')
+		{
+			return $this->getAdminCounters($order_id, $user_id);
+		}*/
 
-		return array(
-			'open' => 0,
-			'payed' => 0
-		);
+		$role = ucfirst($user_group);
+		$method = "get{$role}Counters";
+
+		return $this->$method($order_id, $user_id);
 	}
 
 	protected function getClientCounters($order_id, $client_id)
@@ -333,6 +344,34 @@ class Order2InModel extends BaseModel implements IModel{
 			WHERE $where_payed
 				AND `{$this->table}`.`order2in_to` = '$manager_id'
 				AND `{$this->table}`.`is_countrypost` = 0
+		")->result();
+
+		$result['payed'] = (count($payed == 1) AND $payed) ?
+			$payed[0]->counter :
+			0;
+
+		return $result;
+	}
+
+	protected function getAdminCounters()
+	{
+		$where_open = "`order2in_status` IN ('not_delivered', 'processing', 'no_screenshot')";
+		$where_payed = "`order2in_status` = 'payed'";
+
+		$open = $this->db->query("
+			SELECT COUNT(*) AS 'counter'
+			FROM `{$this->table}`
+			WHERE $where_open
+		")->result();
+
+		$result['open'] = (count($open == 1) AND $open) ?
+			$open[0]->counter :
+			0;
+
+		$payed = $this->db->query("
+			SELECT COUNT(*) AS 'counter'
+			FROM `{$this->table}`
+			WHERE $where_payed
 		")->result();
 
 		$result['payed'] = (count($payed == 1) AND $payed) ?

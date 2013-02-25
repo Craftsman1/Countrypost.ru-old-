@@ -287,75 +287,6 @@ class Client extends ClientBaseController {
 		parent::addProductManualAjax();
 	}
 
-	public function addPaymentFoto()
-	{
-		Check::reset_empties();
-		$userfile	= isset($_FILES['userfile']) && !$_FILES['userfile']['error'];
-		$o2i_id		= Check::int('order_id');
-		$empties	= Check::get_empties();		
-		
-		try 
-		{
-			if ($empties)
-				throw new Exception('Заявка не найдена.');
-				
-			if (!$userfile)
-			{
-				throw new Exception('Файл не загружен.');
-			}
-			
- 			// загружаем файл
-			if ($userfile)
-			{
-				$old = umask(0);
-
-				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/orders2in/$o2i_id")){
-					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/orders2in/$o2i_id",0777);
-				}
-
-				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT'].'/upload/orders2in/'.$o2i_id;
-				$config['allowed_types']		= 'gif|jpg|png';
-				$config['max_size']				= '4096';
-				$config['encrypt_name'] 		= false;
-				$this->load->library('upload', $config);
-
-				if (!$this->upload->do_upload()) {
-					throw new Exception(strip_tags(trim($this->upload->display_errors())));
-				}
-			}
-		}
-		catch (Exception $e){
-			$this->result->m = $e->getMessage();		
-			Stack::push('result', $this->result);
-		}
-
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-	
-	public function deletePaymentFoto($o2i_id, $filename)
-	{
-		try
-		{
-			$path = "{$_SERVER['DOCUMENT_ROOT']}/upload/orders2in/$o2i_id/$filename";
-			$this->load->model('Order2InModel', 'Order2in');
-		
-			if ($o2i = $this->Order2in->getInfo(array(
-					'order2in_user' => $this->user->user_id,
-					'order2in_id' => intval($o2i_id)))
-				&& is_file($path))
-			{
-				unlink($path);
-			}
-		}
-		catch (Exception $e)
-		{
-			$this->result->m = $e->getMessage();		
-			Stack::push('result', $this->result);
-		}
-
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-	
 	public function addProduct() {
 		
 		Check::reset_empties();
@@ -1069,15 +1000,16 @@ class Client extends ClientBaseController {
 		$this->load->model('CurrencyModel', 'Currencies');
 		$this->load->model('PaymentServiceModel', 'Services');
 
-		$view = array (
-			'order' => $order,
-			'services'	=> $this->Services->getInServices(),
-			'usd' => ceil($this->Currencies->getRate('USD') * 100) * 0.01,
-			'kzt' => ceil($this->Currencies->getCrossRate('KZT') * 100) * 0.01,
-			'uah' => ceil($this->Currencies->getCrossRate('UAH') * 100) * 0.01
-		);
-
+		$view['order'] = $order;
 		$this->Orders->prepareOrderView($view);
+
+		$view += array (
+			'services'	=> $this->Services->getInServices(),
+			'rate_usd' => ceil($this->Currencies->getExchangeRate($order->order_currency, 'USD') * 100) * 0.01,
+			'rate_kzt' => ceil($this->Currencies->getExchangeRate($order->order_currency, 'KZT') * 100) * 0.01,
+			'rate_uah' => ceil($this->Currencies->getExchangeRate($order->order_currency, 'UAH') * 100) * 0.01,
+			'rate_rur' => ceil($this->Currencies->getExchangeRate($order->order_currency, 'RUR') * 100) * 0.01
+		);
 
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
@@ -2226,5 +2158,15 @@ class Client extends ClientBaseController {
 	public function history()
 	{
 		parent::showPaymentHistory();
+	}
+
+	public function addPaymentFoto()
+	{
+		parent::addPaymentFoto();
+	}
+
+	public function deletePaymentFoto($o2i_id, $filename)
+	{
+		parent::deletePaymentFoto($o2i_id, $filename);
 	}
 }

@@ -5,12 +5,14 @@ class Admin extends AdminBaseController {
 
 	function __construct()
 	{
-		parent::__construct();	
+		parent::__construct();
+
+		Breadcrumb::setCrumb(array('/' => 'Главная'), 0, TRUE);
 	}
 	
 	function index()
 	{
-		$this->showNewPackages();
+		Func::redirect(BASEURL);
 	}
 	
 	public function autocompleteClient($query)
@@ -2165,40 +2167,6 @@ class Admin extends AdminBaseController {
 		$this->filter('paymentHistory', 'showPaymentHistory');
 	}
 	
-	public function showNewPackages()
-	{		
-		//Breadcrumb::setCrumb(array('showNewPackages'=> 'Новые посылки'), 1, true);
-		$this->showPackages('open', 'showNewPackages');
-	}
-	
-	public function showPayedPackages()
-	{
-		$this->showPackages('payed', 'showPayedPackages');
-	}
-	
-	public function showSentPackages()
-	{
-		$this->showPackages('sent', 'showSentPackages');
-	}
-	
-	public function updateNewPackagesStatus()
-	{
-		parent::updateWeight(FALSE);
-		$this->updateStatus('not_payed', 'showNewPackages', 'PackageModel');
-	}
-	
-	public function updatePayedPackagesStatus()
-	{
-		parent::updateWeight(FALSE);
-		$this->updateStatus('payed', 'showPayedPackages', 'PackageModel');
-	}
-	
-	public function updateSentPackagesStatus()
-	{
-		parent::updateWeight(FALSE);
-		$this->updateStatus('sent', 'showSentPackages', 'PackageModel');
-	}
-	
 	public function updateOpenOrdersStatus()
 	{
 		$this->updateStatus('open', 'showOpenOrders', 'OrderModel');
@@ -2212,16 +2180,6 @@ class Admin extends AdminBaseController {
 	public function updateSentOrdersStatus()
 	{
 		$this->updateStatus('sended', 'showSentOrders', 'OrderModel');
-	}
-	
-	public function showAddPackage()
-	{
-		parent::showAddPackage();
-	}
-	
-	public function addPackage()
-	{
-		parent::addPackage();
 	}
 	
 	public function updateOdetailStatuses()
@@ -3072,11 +3030,6 @@ class Admin extends AdminBaseController {
 	public function addO2iComment()
 	{
 		parent::addO2iComment();
-	}
-	
-	public function showO2iComments()
-	{
-		parent::showO2iComments();
 	}
 	
 	public function addInsurance($add = 1)
@@ -3975,5 +3928,137 @@ class Admin extends AdminBaseController {
 	public function updateProductAjax() 
 	{
 		parent::updateProductAjax();
+	}
+
+	public function payments()
+	{
+		parent::showAllPayments();
+	}
+
+	public function showOpenPayments($order_id)
+	{
+		parent::showPayments($order_id, 'open');
+	}
+
+	public function showPayedPayments($order_id)
+	{
+		parent::showPayments($order_id, 'payed');
+	}
+
+	public function showAllOpenPayments()
+	{
+		parent::showAllPayments('open');
+	}
+
+	public function showAllPayedPayments()
+	{
+		parent::showAllPayments('payed');
+	}
+
+	public function update_payment_amount($order_id, $payment_id, $amount)
+	{
+		parent::update_payment_amount($order_id, $payment_id, $amount);
+	}
+
+	public function update_payment_status($order_id, $payment_id, $status)
+	{
+		parent::update_payment_status($order_id, $payment_id, $status);
+	}
+
+	public function deletePayment($oid)
+	{
+		parent::deletePayment($oid);
+	}
+
+	public function payment()
+	{
+		parent::showO2iComments();
+	}
+
+	public function showPaymentFoto($oid, $filename)
+	{
+		$this->load->model('Order2InModel', 'Order2in');
+
+		if ($o2i = $this->Order2in->getInfo(array(
+			'order2in_to' => $this->user->user_id,
+			'order2in_id' => intval($oid))))
+		{
+			header('Content-type: image/jpg');
+			readfile($_SERVER['DOCUMENT_ROOT'] . "/upload/orders2in/$oid/$filename");
+		}
+
+		die();
+	}
+
+	public function updatePayment($o2i_id)
+	{
+		parent::updatePayment($o2i_id);
+	}
+
+	public function addPaymentComment($payment_id, $comment_id = NULL)
+	{
+		parent::addPaymentComment($payment_id, $comment_id);
+	}
+
+	public function addPaymentFoto()
+	{
+		parent::addPaymentFoto();
+	}
+
+	public function deletePaymentFoto($o2i_id, $filename)
+	{
+		parent::deletePaymentFoto($o2i_id, $filename);
+	}
+
+	public function update_payment_amount_local($order_id, $payment_id, $amount_local)
+	{
+		try
+		{
+			if ( ! is_numeric($order_id) OR
+				! is_numeric($payment_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$order_id,
+				"Заказ недоступен.");
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('Order2InModel', 'Payments');
+
+			// роли и разграничение доступа
+			$payment = $this->getPrivilegedOrder2In(
+				$payment_id,
+				'Заявка не найдена. Попробуйте еще раз.');
+
+			if ($payment->order2in_status == 'payed' AND
+				$this->user->user_group != 'admin')
+			{
+				throw new Exception('Выплаченные заявки запрещено изменять.');
+			}
+
+			$payment->order2in_amount_local = $amount_local;
+
+			// сохранение результатов
+			$this->Orders2In->updateAmountLocal($payment_id, $payment->order2in_amount_local);
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
 	}
 }

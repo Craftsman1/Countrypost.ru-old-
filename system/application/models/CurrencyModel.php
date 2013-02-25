@@ -139,6 +139,20 @@ class CurrencyModel extends BaseModel implements IModel{
 		return ((count($result) > 0 &&  $result) ? $result[0] : false);		
 	}
 	
+	public function getExchangeRate($currency_from, $currency_to, $default_rate = 1)
+	{
+		$result = $this->db->query("
+			SELECT `exchange_rates`.rate
+			FROM `exchange_rates`
+			WHERE
+				`exchange_rates`.`currency_from` = '$currency_from' AND
+				`exchange_rates`.`currency_to` = '$currency_to'
+			LIMIT 1"
+		)->result();
+
+		return ((count($result) == 1 &&  $result) ? $result[0]->rate : $default_rate);
+	}
+
 	public function getRate($currency)
 	{
 		$currency = $this->getById($currency);

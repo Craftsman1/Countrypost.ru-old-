@@ -55,7 +55,7 @@ abstract class BaseController extends Controller
 		}
 		
 		View::$main_view	= '/'.$this->cname.'/index';
-		
+
 		// Обновляем баланс
 		if ($this->user)
 		{
@@ -719,11 +719,15 @@ abstract class BaseController extends Controller
 			{
 				$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
 
-				$this->load->model('ManagerModel', 'Managers');
 				$statistics = array();
 
 				foreach ($Orders as $o2i)
 				{
+					// роли и разграничение доступа
+					$order = $this->getPrivilegedOrder(
+						$o2i->order_id,
+						"Заявка недоступна.");
+
 					if ( ! empty($o2i->order2in_to) AND
 						is_numeric($o2i->order2in_to))
 					{
@@ -735,12 +739,24 @@ abstract class BaseController extends Controller
 							'client');
 					}
 
-					// роли и разграничение доступа
-					$order = $this->getPrivilegedOrder(
-						$o2i->order_id,
-						"Заявка недоступна.");
+					$client = new stdClass();
+					$client->client_id = $order->order_client;
+
+					$this->processStatistics($client, $statistics, 'client_id', $client->client_id, 'client');
+					$o2i->client = $client;
+
+					$manager = new stdClass();
+					$manager->manager_id = $order->order_manager;
+
+					$this->processStatistics($manager, $statistics, 'manager_id', $manager->manager_id, 'manager');
+					$o2i->manager = $manager;
+
+					$this->Orders->prepareOrderView(array(
+						'order' => $order
+					));
 
 					$o2i->order_type = $order->order_type;
+					$o2i->order_currency = $order->order_currency;
 				}
 			}
 
@@ -1330,15 +1346,25 @@ abstract class BaseController extends Controller
 			}
 
 			// крошки
-			Breadcrumb::setCrumb(array(
-				"/{$this->user->user_group}/order/{$o2i->order_id}"  =>
-				"Заказ №{$o2i->order_id}"), 2);
+			if ($this->user->user_group == 'admin')
+			{
+				Breadcrumb::setCrumb(array(
+					"/admin/payments"  =>
+					"Заявки на оплату"), 2);
+			}
+			else
+			{
+				Breadcrumb::setCrumb(array(
+					"/{$this->user->user_group}/order/{$o2i->order_id}"  =>
+					"Заказ №{$o2i->order_id}"), 2);
+			}
 			Breadcrumb::setCrumb(array(
 				"/{$this->user->user_group}/payment/" . $this->uri->segment(3) =>
 				"Заявка на оплату №" . $this->uri->segment(3)), 3,	TRUE);
 
 			// находим данные комментатора для каждого коммента
 			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('UserModel', 'Users');
 			$this->load->model('ClientModel', 'Clients');
 			$this->load->model('ManagerModel', 'Managers');
 			$statistics = array();
@@ -1347,17 +1373,31 @@ abstract class BaseController extends Controller
 			{
 				foreach ($view['comments'] as $comment)
 				{
+					if ($comment->o2icomment_user == 1)
+					{
+						continue;
+					}
+
+					if ($this->user->user_group == 'admin')
+					{
+						$user = $this->Users->getById($comment->o2icomment_user);
+					}
+
 					if (($comment->o2icomment_user == $this->user->user_id AND
 							$this->user->user_group == 'client') OR
 						($comment->o2icomment_user != $this->user->user_id AND
-							$this->user->user_group == 'manager'))
+							$this->user->user_group == 'manager') OR
+						($this->user->user_group == 'admin' AND
+							$user->user_group == 'client'))
 					{
 						$this->processStatistics($comment, $statistics, 'o2icomment_user', $comment->o2icomment_user, 'client');
 					}
 					else if (($comment->o2icomment_user == $this->user->user_id AND
 						$this->user->user_group == 'manager') OR
 						($comment->o2icomment_user != $this->user->user_id AND
-							$this->user->user_group == 'client'))
+							$this->user->user_group == 'client') OR
+						($this->user->user_group == 'admin' AND
+							$user->user_group == 'manager'))
 					{
 						$this->processStatistics($comment, $statistics, 'o2icomment_user', $comment->o2icomment_user, 'manager');
 					}
@@ -1516,7 +1556,8 @@ abstract class BaseController extends Controller
 				'Невозможно сохранить комментарий. Заказ не найден.');
 
 			if ($order->order_client != $this->user->user_id AND
-				$order->order_manager != $this->user->user_id)
+				$order->order_manager != $this->user->user_id AND
+				$this->user->user_group != 'admin')
 			{
 				throw new Exception('Невозможно сохранить комментарий. Заявка не найдена.');
 			}
@@ -1525,8 +1566,10 @@ abstract class BaseController extends Controller
 			if (is_numeric($comment_id))
 			{
 				$comment = $this->Comments->getById($comment_id);
+
 				if ( ! $comment OR
-					$comment->user_id != $this->user->user_id)
+					($comment->user_id != $this->user->user_id AND
+						$this->user->user_group != 'admin'))
 				{
 					throw new Exception('Невозможно сохранить комментарий. Комментарий не найден.');
 				}
@@ -1558,7 +1601,12 @@ abstract class BaseController extends Controller
 			}
 
 			// выставляем флаг нового комментария
-			if ($this->user->user_group == 'manager')
+			if ($this->user->user_group == 'admin')
+			{
+				$payment->order2in_2clientcomment = TRUE;
+				$payment->order2in_2admincomment = TRUE;
+			}
+			else if ($this->user->user_group == 'manager')
 			{
 				$payment->order2in_2clientcomment = TRUE;
 			}
@@ -1572,7 +1620,11 @@ abstract class BaseController extends Controller
 			// отрисовка коммента
 			$this->load->model('ClientModel', 'Clients');
 			$this->load->model('ManagerModel', 'Managers');
-			$this->processStatistics($comment, array(), 'o2icomment_user', $this->user->user_id, $this->user->user_group);
+
+			if ($this->user->user_group != 'admin')
+			{
+				$this->processStatistics($comment, array(), 'o2icomment_user', $this->user->user_id, $this->user->user_group);
+			}
 
 			$view['comment'] = $comment;
 			$this->load->view('/main/elements/payments/comment', $view);
@@ -2552,65 +2604,18 @@ abstract class BaseController extends Controller
 			}
 
 			// сохранение результата
-			$this->db->trans_begin();
-			/*
-			if ($this->user->user_group == 'admin' AND $payment->order2in_status == 'payed')
-			{
-				$payment_obj = new stdClass();
-				$payment_obj->payment_from			= $payment->order2in_user;
-				$payment_obj->payment_to			= 0;
-				$payment_obj->payment_amount_from	= $payment->order2in_amount;
-				$payment_obj->payment_amount_to		= $payment->order2in_amount;
-				$payment_obj->payment_amount_tax	= 0;
-				$payment_obj->payment_purpose		= 'отмена заявки на ввод';
-				$payment_obj->payment_comment		= '№ '.$payment->order2in_id;
-
-				$this->load->model('PaymentModel', 'Payment');
-
-				if ( ! $this->Payment->makePayment($payment_obj))
-				{
-					throw new Exception('Ошибка снятия денег со счета клиента. Попробуйте еще раз.');
-				}
-
-				// сохраняем результат в сессии
-				if ($this->user->user_group == 'admin')
-				{
-					$this->session->set_userdata(array('user_coints' => $this->user->user_coints + $payment_obj->payment_amount_from));
-				}
-				else
-				{
-					$this->session->set_userdata(array('user_coints' => $this->user->user_coints - $payment_obj->payment_amount_from));
-				}
-			}*/
-
 			$payment->order2in_status = 'deleted';
 
 			if ( ! $this->Payments->addOrder($payment))
 			{
 				throw new Exception('Заявка не удалена. Попробуйте еще раз.');
 			}
-
-			$this->db->trans_commit();
-			$this->result->r = 1;
-			$this->result->message = 'Заявка успешно удалена.';
 		}
 		catch (Exception $e)
 		{
-			$this->db->trans_rollback();
-			$this->result->r = $e->getCode();
-			$this->result->message = $e->getMessage();
 		}
 
-		Stack::push('result', $this->result);
-
-		if ($this->user->user_group == 'admin')
-		{
-			Func::redirect(BASEURL.'syspay/showClientOpenOrders2In');
-		}
-		else
-		{
-			Func::redirect($_SERVER['HTTP_REFERER']);
-		}
+		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
 
 	public function getPayments()
@@ -3591,6 +3596,7 @@ abstract class BaseController extends Controller
 					), $status);
 					break;
 				case 'admin' :
+					$orders = $model->getFilteredOrders(NULL, $status);
 					break;
 			}
 		}
@@ -4012,9 +4018,14 @@ abstract class BaseController extends Controller
 
 		$view['addresses'] = $this->Addresses->getAddressesByUserId($this->user->user_id);
 		$view['statuses'] = $this->Orders->getAllStatuses();
-		$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
-		$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
 		$view['order'] = $order;
+
+		if (isset($this->user->user_group) AND
+			$this->user->user_group != 'admin')
+		{
+			$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
+			$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
+		}
 
 		// пакуем предложения
 		foreach($order->bids as $bid)
@@ -4038,7 +4049,9 @@ abstract class BaseController extends Controller
 
 		// рисуем новую форму заказа
 		$this->Orders->prepareOrderView($view);
-		$order_details = View::get("/{$this->user->user_group}/ajax/showOrderInfoAjax", $view);
+		$order_details = $this->user->user_group == 'admin' ?
+			'' :
+			View::get("/{$this->user->user_group}/ajax/showOrderInfoAjax", $view);
 
 		// собираем все вместе
 		return array(
@@ -4442,6 +4455,143 @@ abstract class BaseController extends Controller
 		}
 
 		print(json_encode($response));
+	}
+
+	protected function updatePayment($o2i_id)
+	{
+		try
+		{
+			if ( ! is_numeric($o2i_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$payment = $this->getPrivilegedOrder2In(
+				$o2i_id,
+				'Невозможно сохранить статус заявки. Заявка недоступна.');
+
+			// валидация пользовательского ввода
+			$payment->order2in_status = Check::str('payment_status', 20, 1, '');
+
+			// валидируем статус
+			$statuses = $this->Orders2In->getStatuses();
+
+			if (empty($statuses[$payment->order2in_status]))
+			{
+				throw new Exception('Некорректный статус.');
+			}
+
+			// проверяем переводились ли уже деньги
+			$is_money_sent = $payment->is_money_sent;
+
+			// сохранение результатов
+			$this->Orders2In->updateStatus($o2i_id, $payment->order2in_status);
+
+			// оплата заказа
+			// ВНИМАНИЕ!! деньги переводятся только 1 раз, а статус заявки меняется неограниченно
+			if ( ! $is_money_sent AND $payment->order2in_status == 'payed')
+			{
+				$order = $this->getPrivilegedOrder(
+					$payment->order_id,
+					'Невозможно оплатить заказ. Заказ не найден.'
+				);
+
+				$is_repay = ($order->order_cost_payed > 0);
+				$order->order_cost_payed += $payment->order2in_amount;
+
+				// записываем платеж в историю
+				$this->processDirectPayment($order, $payment, $is_repay);
+
+				$this->Orders->saveOrder($order);
+			}
+		}
+		catch (Exception $e)
+		{
+			print_r($e);
+		}
+	}
+
+	protected function addPaymentFoto()
+	{
+		try
+		{
+			$userfile	= isset($_FILES['userfile']) && ! $_FILES['userfile']['error'];
+
+			Check::reset_empties();
+			$o2i_id		= Check::int('order_id');
+			$empties	= Check::get_empties();
+
+			if ($empties)
+			{
+				throw new Exception('Заявка не найдена.');
+			}
+
+			if ( ! $this->getPrivilegedOrder2In($o2i_id))
+			{
+				throw new Exception('Заявка не найдена.');
+			}
+
+			if ( ! $userfile)
+			{
+				throw new Exception('Файл не загружен.');
+			}
+
+			// загружаем файл
+			if ($userfile)
+			{
+				$old = umask(0);
+
+				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/orders2in/$o2i_id")){
+					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/orders2in/$o2i_id",0777);
+				}
+
+				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT'].'/upload/orders2in/'.$o2i_id;
+				$config['allowed_types']		= 'gif|jpg|png';
+				$config['max_size']				= '4096';
+				$config['encrypt_name'] 		= false;
+				$this->load->library('upload', $config);
+
+				if (!$this->upload->do_upload()) {
+					throw new Exception(strip_tags(trim($this->upload->display_errors())));
+				}
+			}
+		}
+		catch (Exception $e){
+			$this->result->m = $e->getMessage();
+			Stack::push('result', $this->result);
+		}
+
+		Func::redirect($_SERVER['HTTP_REFERER']);
+	}
+
+	protected function deletePaymentFoto($o2i_id, $filename)
+	{
+		try
+		{
+			if (empty($o2i_id) OR
+				empty($filename))
+			{
+				throw new Exception('Заявка не найдена.');
+			}
+
+			$path = "{$_SERVER['DOCUMENT_ROOT']}/upload/orders2in/$o2i_id/$filename";
+			$this->load->model('Order2InModel', 'Order2in');
+
+			// роли и разграничение доступа
+			if ($this->getPrivilegedOrder2In(
+					$o2i_id,
+					'Заявка не найдена. Попробуйте еще раз.') AND
+				is_file($path))
+			{
+				unlink($path);
+			}
+		}
+		catch (Exception $e)
+		{
+		}
+
+		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
 }
 ?>

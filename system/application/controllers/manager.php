@@ -1287,63 +1287,13 @@ class Manager extends ManagerBaseController {
 		die();
 	}
 
-	public function updatePayment($o2i_id)
+	public function deletePayment($o2i_id)
 	{
-		try
-		{
-			if ( ! is_numeric($o2i_id))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-
-			// роли и разграничение доступа
-			$payment = $this->getPrivilegedOrder2In(
-				$o2i_id,
-				'Невозможно сохранить статус заявки. Заявка недоступна.');
-
-			// валидация пользовательского ввода
-			$payment->order2in_status = Check::str('payment_status', 20, 1, '');
-
-			// валидируем статус
-			$statuses = $this->Orders2In->getStatuses();
-
-			if (empty($statuses[$payment->order2in_status]))
-			{
-				throw new Exception('Некорректный статус.');
-			}
-
-			// проверяем переводились ли уже деньги
-			$is_money_sent = $payment->is_money_sent;
-
-			// сохранение результатов
-			$this->Orders2In->updateStatus($o2i_id, $payment->order2in_status);
-
-			// оплата заказа
-			// ВНИМАНИЕ!! деньги переводятся только 1 раз, а статус заявки меняется неограниченно
-			if ( ! $is_money_sent AND $payment->order2in_status == 'payed')
-			{
-				$order = $this->getPrivilegedOrder(
-					$payment->order_id,
-					'Невозможно оплатить заказ. Заказ не найден.'
-				);
-
-				$is_repay = ($order->order_cost_payed > 0);
-				$order->order_cost_payed += $payment->order2in_amount;
-
-				// записываем платеж в историю
-				$this->processDirectPayment($order, $payment, $is_repay);
-
-				$this->Orders->saveOrder($order);
-			}
-		}
-		catch (Exception $e)
-		{
-			print_r($e);
-		}
+		parent::deletePayment($o2i_id);
 	}
 
-	public function deletePayment($oid)
+	public function updatePayment($o2i_id)
 	{
-		parent::deletePayment($oid);
+		parent::updatePayment($o2i_id);
 	}
 }

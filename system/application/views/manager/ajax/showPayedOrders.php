@@ -76,16 +76,7 @@
 						 src="/static/images/lightbox-ico-loading.gif"/>
 					<? if ($order->order_cost < $order->order_cost_payed) : ?>
 					<br />
-					<?= $order->order_cost_payed - $order->order_system_comission_payed ?> <?= $order->currency ?>
-					<br />
-					<div class='float'>
-						<div class='submit' style="margin-right:0;">
-							<div>
-								<input type='button' onclick="refundItem('<?= $order->order_id ?>');"
-									   value='Возместить <?= $order->order_cost_payed - $order->order_cost - $order->order_system_comission_payed + $order->order_system_comission ?>  <?= $order->currency ?>' />
-							</div>
-						</div>
-					</div>
+					<?= $order->order_cost_payed - $order->order_cost ?> <?= $order->currency ?>
 					<? endif; ?>
 					<? if ($order->order_cost > $order->order_cost_payed) : ?><br /><?= $order->order_cost_payed - $order->order_system_comission_payed ?> <?= $order->currency ?>
 					<br />Доплатить <?= $order->order_manager_cost - $order->order_cost_payed + $order->order_system_comission_payed ?> <?= $order->currency ?>

@@ -1,8 +1,9 @@
 <script type="text/javascript">
-	var rate = <?= $usd ?>;
-    var rate_kzt = <?= $kzt ?>;
-    var rate_uah = <?= $uah ?>;
-	
+	var rate_usd = <?= $rate_usd ?>;
+    var rate_kzt = <?= $rate_kzt ?>;
+    var rate_uah = <?= $rate_uah ?>;
+    var rate_rur = <?= $rate_rur ?>;
+
 	function getTax(service)
 	{
 		var tax = 0;
@@ -152,35 +153,12 @@
 
 		var amount = $('.' + id + ' .amount input:text').val();
 		amount = parseFloat(amount);
-		amount = (isNaN(amount) ? 0 : amount) * rate;
+		amount = (isNaN(amount) ? 0 : amount) * rate_rur;
 
 		var ru_amount = Math.ceil(amount + percentage * amount * 0.01);
 		
 		$('#' + id + '_ru').val(ru_amount);
-		$('.' + id + ' .total b').html(ru_amount + ' руб.');
-		
-		if (id == 'delayed')
-		{
-			if (ru_amount > <?= MAX_O2I_RU ?> && service != 'bm')
-			{
-				$('.delayed em').addClass('red-color');
-				$('.delayed div.submit').hide();
-			}
-			else
-			{
-				$('.delayed em').removeClass('red-color');
-				$('.delayed div.submit').show();
-			}
-			
-			if (service == 'bm')
-			{
-				$('.delayed em').hide();
-			}
-			else
-			{
-				$('.delayed em').show();
-			}
-		}
+		$('.' + id + ' .total b').html(ru_amount + ' RUR');
 	}
 
 	function calculateTotalUSD(id) 
@@ -192,12 +170,12 @@
 
 		var amount = $('.' + id + ' .amount input:text').val();
 		amount = parseFloat(amount);
-		amount = (isNaN(amount) ? 0 : amount);
+		amount = (isNaN(amount) ? 0 : amount) * rate_usd;
 
 		var total = Math.ceil(amount + percentage*amount*0.01 + extra);
 		
 		$('.' + id + ' #total_usd').val(total);
-		$('.' + id + ' .total b').html('$' + total);
+		$('.' + id + ' .total b').html(total + 'USD');
 	}
 
     function calculateTotalKZT(id) 
@@ -214,7 +192,7 @@
         var total = Math.ceil(amount + percentage*amount*0.01 + extra);
         
         $('.' + id + ' #total_kzt').val(total);
-        $('.' + id + ' .total b').html(total+' тенге');        
+        $('.' + id + ' .total b').html(total + ' KZT');
         $('#delayed_kzt').val(total);
     }
 	
@@ -232,7 +210,7 @@
         var total = Math.ceil(amount + percentage*amount*0.01 + extra);
         
         $('.' + id + ' #total_uah').val(total);
-        $('.' + id + ' .total b').html(total+' гривен');        
+        $('.' + id + ' .total b').html(total + ' UAH');
         $('#uah').val(total);
     }
 	
@@ -389,9 +367,12 @@
 						value="<?= ($order->order_cost > $order->order_cost_payed) ?
 							($order->order_cost - $order->order_cost_payed) :
 							'' ?>" >
-					<span>
+					<b class="currency">
 						<?= $order->order_currency ?>
-					</span>
+					</b>
+					<!--span>
+						<?= $order->order_currency ?>
+					</span-->
 				</div>
 				<div class="amount" style="display:block;">
 					<span>Выберите валюту, которой будeте оплачивать:</span>
@@ -615,7 +596,7 @@
 				</label>
 			</div>
 			<div class="total">
-				<span>Итого к оплате: <b>0 руб.</b> <em>(максимальная сумма одной заявки <?= MAX_O2I_RU ?> руб.)</em></span>
+				<span>Итого к оплате: <b>0 руб.</b></span>
 				<div>	
 					<div class='submit'>
 						<div>

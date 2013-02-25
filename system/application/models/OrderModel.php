@@ -28,6 +28,13 @@ class OrderModel extends BaseModel implements IModel{
 			'not_available',
 			'payed',
 			'bought',
+			'completed'),
+		'admin' => array(
+			'processing',
+			'not_payed',
+			'not_available',
+			'payed',
+			'bought',
 			'completed')
 	);
 
