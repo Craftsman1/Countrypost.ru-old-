@@ -149,20 +149,32 @@ class Main extends BaseController {
 	
 	function refreshExchangeRates()
 	{
-		$this->load->library('cbr');
-		$this->load->model('CurrencyModel', 'Currencies');
-		$this->load->model('PricelistModel', 'Pricelist');
-		
-		if ($this->cbr->getRates($this->Currencies))
+		$this->load->library('openexchangerates');
+
+		if ($this->openexchangerates->getRates())
 		{
 			print("Курсы валют успешно обновлены.");			
-			$this->Pricelist->convertAll();		
-			print("\nТарифы на доставку успешно обновлены.");
 		}
 		else 
 		{
-			print("Ошибка обновления курсов валют. Попробуйте еще раз через несколько минут.");
+			print("Ошибка обновления курсов валют через OpenExchangeRates. Попробуйте еще раз через несколько минут.");
 		}
+
+		/*
+		$this->load->library('cbr');
+		$this->load->model('CurrencyModel', 'Currencies');
+		$this->load->model('PricelistModel', 'Pricelist');
+
+		if ($this->cbr->getRates($this->Currencies))
+		{
+			print("Курсы валют успешно обновлены.");
+			$this->Pricelist->convertAll();
+			print("\nТарифы на доставку успешно обновлены.");
+		}
+		else
+		{
+			print("Ошибка обновления курсов валют. Попробуйте еще раз через несколько минут.");
+		}*/
 	}
 	
 	public function showPays()
