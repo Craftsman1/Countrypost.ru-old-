@@ -7,8 +7,10 @@
 		</div>
 		<div class='center-block'>
 			<h3>ВАШ НОМЕР НА САЙТЕ: <?=$user->user_id;?></h3>
-			<p>Общий баланс: <span class='big-text'><?=$user->user_coints;?> $</span></p>
+			<br>
+			<br>
 			<p><a href='<?=BASEURL?>admin/showPaymentHistory'>Статистика платежей</a></p>
+			<p><a href='<?=BASEURL?>admin/payments'>Заявки на оплату</a></p>
 		</div>
 	</div>
 </div>

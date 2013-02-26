@@ -56,7 +56,10 @@
 						<?= isset($Payment->payment_currency) ? $Payment->payment_currency : '$'?>
 					</td>
 					<td>
-						-
+						<? if ( ! empty($Payment->amount_usd)) : ?>
+						<?= $Payment->amount_usd ?>
+						(<?= $Payment->usd_conversion_rate ?>)
+						<? endif; ?>
 					</td>
 					<td>
 						Выплачено

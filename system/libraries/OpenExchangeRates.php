@@ -27,9 +27,12 @@ class OpenExchangeRates {
 				return FALSE;
 			}
 
-			$rates = $json->rates;
-
+			$rates = self::objectToArray($json->rates);
+//print_r($rates);die();
 			// формируем кросскурсы
+			$ci	= get_instance();
+			$ci->load->model("ExchangeRateModel", "Rates");
+
 			foreach ($currencies as $currency)
 			{
 				foreach ($rates as $rate_currency => $rate)
@@ -39,26 +42,31 @@ class OpenExchangeRates {
 						continue;
 					}
 
-					$all_rates []= array(
-						'currency_from' => $currency,
-						'currency_to' => $rate_currency,
-						'rate' => $rates->$currency / $rate,
-						'service_name' => 'openexchangerates'
+					// прямой курс
+					$db_rate = $ci->Rates->getByCurrencies(
+						$currency,
+						$rate_currency
 					);
 
-					$all_rates []= array(
-						'currency_from' => $rate_currency,
-						'currency_to' => $currency,
-						'rate' => $rate / $rates->$currency,
-						'service_name' => 'openexchangerates'
+					$db_rate->rate = ($rates[$rate_currency] / $rates[$currency]);
+					$db_rate->service_name = 'openexchangerates';
+
+					$all_rates []= $db_rate;
+
+					// обратный
+					$db_rate = $ci->Rates->getByCurrencies(
+						$rate_currency,
+						$currency
 					);
+
+					$db_rate->rate = ($rates[$currency] / $rates[$rate_currency]);
+					$db_rate->service_name = 'openexchangerates';
+
+					$all_rates []= $db_rate;
 				}
 			}
 
 			// сохраняем все в базу
-			$ci	= get_instance();
-			$ci->load->model("ExchangeRateModel", "Rates");
-
 			if ( ! $ci->Rates->updateRates($all_rates))
 			{
 				return FALSE;
@@ -67,9 +75,21 @@ class OpenExchangeRates {
 			return TRUE;
 		}
 		catch (Exception $ex)
-		{
+		{print_r($ex->getMessage());
 			return FALSE;
 		}
+	}
+
+	private static function objectToArray($d)
+	{
+		if (is_object($d))
+		{
+			// Gets the properties of the given object
+			// with get_object_vars function
+			$d = get_object_vars($d);
+		}
+
+		return $d;
 	}
 }
 ?>

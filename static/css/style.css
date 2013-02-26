@@ -2733,3 +2733,10 @@ div.manager_payment_box div.submit {
 div.manager_payment_box textarea {
 	margin-bottom: 5px!important;
 }
+
+div.syspay div.payment_system b.currency {
+	font-weight: normal;
+	left: 250px;
+	position: absolute;
+	margin-top: 7px;
+}

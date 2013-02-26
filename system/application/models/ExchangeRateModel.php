@@ -23,7 +23,8 @@ class ExchangeRateModel extends BaseModel implements IModel{
 	function __construct()
     {
     	$this->properties	= new stdClass();
-    	$this->properties->exchange_rates	= '';
+    	$this->properties->exchange_rate_id	= '';
+    	$this->properties->rate				= '';
     	$this->properties->currency_from	= '';
     	$this->properties->currency_to		= '';
     	$this->properties->service_name		= '';
@@ -90,6 +91,31 @@ class ExchangeRateModel extends BaseModel implements IModel{
 		{
 			$this->saveRate($rate);
 		}
+
+		return TRUE;
+	}
+
+	public function getByCurrencies($currency_from, $currency_to)
+	{
+		$result = $this->db->query("
+			SELECT `exchange_rates`.*
+			FROM `exchange_rates`
+			WHERE
+				`exchange_rates`.`currency_from` = '$currency_from' AND
+				`exchange_rates`.`currency_to` = '$currency_to'
+			LIMIT 1"
+		)->result();
+
+		$bulk_rate = new stdClass();
+
+		$bulk_rate->exchange_rate_id = 0;
+		$bulk_rate->currency_from = $currency_from;
+		$bulk_rate->currency_to = $currency_to;
+
+		return ((count($result) == 1 AND  $result) ?
+			$result[0] :
+			$bulk_rate
+		);
 	}
 }
 ?>

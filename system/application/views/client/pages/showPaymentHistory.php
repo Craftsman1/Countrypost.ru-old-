@@ -1,5 +1,5 @@
 <div class='content'>
-	<h2>История платежей</h2>
+	<h2>Статистика платежей</h2>
 	<br />
 	<?View::show($viewpath.'ajax/showPaymentHistory', array(
 		'Payments' => $Payments,

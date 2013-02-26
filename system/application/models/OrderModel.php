@@ -1209,9 +1209,41 @@ class OrderModel extends BaseModel implements IModel{
 		$order_country_from = $ci->Countries->getById($view['order']->order_country_from);
 		$order_country_to = $ci->Countries->getById($view['order']->order_country_to);
 
-		$view['order']->order_currency = strval($order_country_from->country_currency);
-		$view['order']->order_country_from = strval($order_country_from->country_name);
-		$view['order']->order_country_to = $order_country_to ? strval($order_country_to->country_name) : '';
+		//if (isset($order_country_from->country_currency))
+		//{
+			$view['order']->order_currency = strval($order_country_from->country_currency);
+		//}
+
+		//if (isset($order_country_from->country_name))
+		//{
+			$view['order']->order_country_from = strval($order_country_from->country_name);
+		//}
+
+		//if (isset($order_country_to->country_name))
+		//{
+			$view['order']->order_country_to = $order_country_to ? strval($order_country_to->country_name) : '';
+		//}
+	}
+
+	public function getOrderCurrency($order_id)
+	{
+		$result = $this->db->query("
+				SELECT currency_name
+				FROM `countries`.currency_name 'currency'
+				INNER JOIN orders
+					ON orders.order_country_from = countries.country_id
+				WHERE
+					orders.`order_id` = $order_id
+				LIMIT 1
+			")->result();
+
+		// отдаем результат
+		if ((count($result == 1) AND  $result))
+		{
+			return $result[0]->currency_name;
+		}
+
+		return FALSE;
 	}
 
 	public function prepareNewBidView($order, $manager_id, $just_logged_in = FALSE)

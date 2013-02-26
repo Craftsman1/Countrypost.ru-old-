@@ -141,11 +141,11 @@
 		} 
 		else
 		{
-			calculateTotalRUR(id);
+			calculateTotalRUB(id);
 		}
 	}
 	
-	function calculateTotalRUR(id) 
+	function calculateTotalRUB(id)
 	{			
 		var payment_option = $('.' + id + ' input:radio').filter(':checked').attr('id');
 		var service = getService(payment_option);
@@ -158,7 +158,7 @@
 		var ru_amount = Math.ceil(amount + percentage * amount * 0.01);
 		
 		$('#' + id + '_ru').val(ru_amount);
-		$('.' + id + ' .total b').html(ru_amount + ' RUR');
+		$('.' + id + ' .total b').html(ru_amount + ' RUB');
 	}
 
 	function calculateTotalUSD(id) 
@@ -175,7 +175,7 @@
 		var total = Math.ceil(amount + percentage*amount*0.01 + extra);
 		
 		$('.' + id + ' #total_usd').val(total);
-		$('.' + id + ' .total b').html(total + 'USD');
+		$('.' + id + ' .total b').html(total + ' USD');
 	}
 
     function calculateTotalKZT(id) 
@@ -359,7 +359,7 @@
 			<input type="hidden" name="total_ru" id="immediate_ru" value="">
 			<div class="immediate" style="display:block;">
 				<div class="amount" style="display:block;">
-					<span>Введите сумму пополнения* :</span>
+					<span>Сумма к оплате* :</span>
 					<input
 						type="text"
 						rel="immediate"
@@ -527,8 +527,12 @@
 		</form>
 		<div class="delayed">
 			<div class="amount delayed" style="display:none;">
-				<span>Введите сумму пополнения* :</span>
-				<input type="text" rel="delayed" name="total_usd" value=""/><span>$</span>
+				<span>Сумма к оплате* :</span>
+				<input type="text" rel="delayed" name="total_usd" value=""/>
+				<!--span>$</span-->
+				<b class="currency">
+					<?= $order->order_currency ?>
+				</b>
 				<input type="hidden" id="delayed_ru" value="" />
 			</div>
 			<div class="amount delayed" style="display:none;">
@@ -612,8 +616,12 @@
 			<input type="hidden" name="section" value="usd">
 			<input type="hidden" name="total_usd" id="total_usd">
 			<div class="amount">
-				<span>Введите сумму пополнения* :</span>
-				<input type="text" rel="usd" name="total_ru" value=""/><span>$</span>
+				<span>Сумма к оплате* :</span>
+				<input type="text" rel="usd" name="total_ru" value=""/>
+				<!--span>$</span-->
+				<b class="currency">
+					<?= $order->order_currency ?>
+				</b>
 			</div>
 			<div class="amount">
 				<span>Выберите валюту, которой будeте оплачивать:</span>
@@ -665,8 +673,12 @@
 		<input type="hidden" name="section" value="kzt">
 		<input type="hidden" name="total_kzt" id="delayed_kzt" value="">
 		<div class="amount">
-			<span>Введите сумму пополнения* :</span>
-			<input type="text" rel="kzt" name="total_kzt" value="1"/><span>$</span>
+			<span>Сумма к оплате* :</span>
+			<input type="text" rel="kzt" name="total_kzt" value="1"/>
+			<!--span>$</span-->
+			<b class="currency">
+				<?= $order->order_currency ?>
+			</b>
 		</div>
 		<div class="amount">
 			<span>Выберите валюту, которой будeте оплачивать:</span>
@@ -775,8 +787,12 @@
 	</div>
 	<div class="uah payment_system">
 		<div class="amount uah" style="display:none;">
-			<span>Введите сумму пополнения* :</span>
-			<input type="text" rel="uah" name="total_usd" value=""/><span>$</span>
+			<span>Сумма к оплате* :</span>
+			<input type="text" rel="uah" name="total_usd" value=""/>
+			<!--span>$</span-->
+			<b class="currency">
+				<?= $order->order_currency ?>
+			</b>
 			<input type="hidden" id="uah" value="" />
 		</div>
 		<div class="amount uah" style="display:none;">

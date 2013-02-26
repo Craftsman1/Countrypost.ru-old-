@@ -506,217 +506,6 @@ class Client extends ClientBaseController {
 		return;
 	}
 	
-	public function showOutMoney() 
-	{
-		$this->load->model('Order2outModel', 'Order2out');
-		$this->load->model('CurrencyModel', 'Currencies');
-		$this->load->model('PaymentServiceModel', 'Services');
-		
-		$Orders = $this->Order2out->getUserOrders($this->user->user_id);
-		
-		/* пейджинг */
-		$this->per_page = $this->per_page_o2o;
-		$this->init_paging();		
-		$this->paging_count = count($Orders);
-		
-		if ($Orders)
-		{
-			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
-		}
-		
-		$view = array (
-			'Orders' => $Orders,
-			'statuses'	=> $this->Order2out->getStatuses(),
-			'services'	=> $this->Services->getOutServices(),
-			'usd' => (float) ceil($this->Currencies->getRate('USD') * 100) / 100,
-			'pager' => $this->get_paging()
-		);
-		
-		// парсим шаблон
-		if ($this->uri->segment(4) == 'ajax')
-		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
-			$view['viewpath'] = $this->viewpath;
-			$this->load->view($this->viewpath."ajax/showOutMoney", $view);
-		}
-		else
-		{
-			View::showChild($this->viewpath."pages/showOutMoney", $view);
-		}
-	}
-	
-	public function order2out() 
-	{
-		Check::reset_empties();	
-		$order2out	= new stdClass();
-		$order2out->order2out_ammount = Check::int('ammount_raw');
-		$order2out->order2out_ammount_rur = Check::int('ammount');
-		$order2out->order2out_payment_service = Check::txt('payment_service', 2, 2);
-		
-		// input validation
-		if (isset($order2out->order2out_payment_service))
-		{
-			$service = $order2out->order2out_payment_service;
-			// webmoney
-			if ($service == 'wm')
-			{
-				$order2out->order2out_details = 'Номер кошелька: '.Check::txt('wm_number', 12, 12);
-			}
-			// liqpay
-			else if ($service == 'lp')
-			{
-				$order2out->order2out_details = 'Номер телефона: '.Check::txt('lp_number', 9, 9);
-			}
-			// qiwi
-			else if ($service == 'qw')
-			{
-				$order2out->order2out_details = 'Номер телефона (кошелька): '.Check::txt('qw_number', 10, 10);
-			}
-			// sberbank
-			else if ($service == 'bm')
-			{
-				$bm_surname = Check::txt('bm_surname', 127, 1);
-				$bm_name = Check::txt('bm_name', 127, 1);
-				$bm_otc = Check::txt('bm_otc', 127, 1);
-				$bm_bik = Check::txt('bm_bik', 9, 9);
-				$bm_target = Check::txt('bm_target', 127, 1);
-				$bm_number = Check::txt('bm_number', 20, 20);
-			}
-		}
-		
-		$empties = Check::get_empties();
-		
-		try
-		{
-			if ($order2out->order2out_ammount <= 0)
-			{
-				throw new Exception('Введите сумму платежа.');
-			}
-			else if ($this->user->user_coints < $order2out->order2out_ammount)
-			{
-				throw new Exception('У Вас недостаточно средств для вывода.');
-			}
-			
-			if ($empties)
-			{
-				if ($service == 'lp')
-				{
-					throw new Exception('Номер телефона имеет неправильный формат.');
-				}
-				else if ($service == 'qw')
-				{
-					throw new Exception('Номер телефона (кошелька) имеет неправильный формат.');
-				}
-				else if ($service == 'wm')
-				{
-					throw new Exception('Номер кошелька имеет неправильный формат.');
-				}
-				else if ($service == 'bm')
-				{
-					if (!$bm_surname)
-					{
-						throw new Exception('Фамилия не заполнена.');
-					}
-					else if (!$bm_surname)
-					{
-						throw new Exception('Имя не заполнено.');
-					}
-					else if (!$bm_otc)
-					{
-						throw new Exception('Отчество не заполнено.');
-					}
-					else if (!$bm_number)
-					{
-						throw new Exception('Счет имеет неправильный формат.');
-					}
-					else if (!$bm_bik)
-					{
-						throw new Exception('БИК банка имеет неправильный формат.');
-					}
-					else if (!$bm_target)
-					{
-						throw new Exception('Назначение платежа не заполнено.');
-					}
-				}
-				else
-				{
-					throw new Exception('Выберите способ вывода.');
-				}
-			}
-			
-			if ($service == 'bm')
-			{
-				$order2out->order2out_details = 
-					'ФИО: '.$bm_surname.' '.$bm_name.' '.$bm_otc.'<br />'.
-					'Счет: '.$bm_number.'<br />'.
-					'БИК: '.$bm_bik.'<br />'.
-					'Назначение: '.$bm_target;
-			}
-			
-			$order2out->order2out_tax = 0;
-			$order2out->order2out_user = $this->user->user_id;
-			$order2out->order2out_status = 'processing';
-			
-			$this->db->trans_begin();
-			
-			$this->load->model('Order2outModel', 'Order2out');
-			$order2out = $this->Order2out->addOrder($order2out);
-
-			if (!$order2out) 
-			{
-				throw new Exception('Ошибка создания заявки на вывод.');
-			}
-			
-			$tax = strtoupper($service).'_OUT_TAX'; 
-			
-			$payment_obj = new stdClass();
-			$payment_obj->payment_from			= $this->user->user_id;
-			$payment_obj->payment_to			= $order2out->order2out_details;
-			$payment_obj->payment_amount_from	= $order2out->order2out_ammount;
-			$payment_obj->payment_amount_to		= 0;
-			$payment_obj->payment_amount_tax	= $order2out->order2out_ammount * constant($tax) / 100;
-			$payment_obj->payment_amount_rur	= $order2out->order2out_ammount_rur;
-			$payment_obj->payment_purpose		= 'заявка на вывод';
-			$payment_obj->payment_type			= 'out';
-			$payment_obj->payment_service_id	= $service;
-			$payment_obj->payment_comment		= '№ '.$order2out->order2out_id;
-
-			$this->load->model('PaymentModel', 'Payment');
-			
-			if (!$this->Payment->makePayment($payment_obj)) 
-			{
-				throw new Exception('Ошибка перевода средств между счетами. Попробуйте еще раз.');
-			}			
-			
-			$this->session->set_userdata(array('user_coints' => $this->user->user_coints - $payment_obj->payment_amount_from));
-			$this->db->trans_commit();
-			$this->result->m = 'Заявка на вывод денег успешно добавлена.';
-
-			// уведомления
-			$this->load->model('UserModel', 'Users');
-			
-			Mailer::sendAdminNotification(
-				Mailer::SUBJECT_NEW_ORDER2OUT, 
-				Mailer::NEW_ORDER2OUT_CLIENT_NOTIFICATION, 
-				0,
-				$order2out->order2out_id, 
-				$order2out->order2out_user,
-				"http://countrypost.ru/admin/showClientOrdersToOut",
-				null,
-				$this->Users);
-		}
-		catch (Exception $e)
-		{
-			$this->db->trans_rollback();
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			$this->result->order_details = $this->getOrder2outDetails();
-		}
-		
-		Stack::push('result', $this->result);		
-		Func::redirect(BASEURL.$this->cname.'/showOutMoney');
-	}
-	
 	public function addOrder2In($order_id)
 	{
 		try
@@ -1005,10 +794,10 @@ class Client extends ClientBaseController {
 
 		$view += array (
 			'services'	=> $this->Services->getInServices(),
-			'rate_usd' => ceil($this->Currencies->getExchangeRate($order->order_currency, 'USD') * 100) * 0.01,
-			'rate_kzt' => ceil($this->Currencies->getExchangeRate($order->order_currency, 'KZT') * 100) * 0.01,
-			'rate_uah' => ceil($this->Currencies->getExchangeRate($order->order_currency, 'UAH') * 100) * 0.01,
-			'rate_rur' => ceil($this->Currencies->getExchangeRate($order->order_currency, 'RUR') * 100) * 0.01
+			'rate_usd' => $this->Currencies->getExchangeRate($order->order_currency, 'USD'),
+			'rate_kzt' => $this->Currencies->getExchangeRate($order->order_currency, 'KZT'),
+			'rate_uah' => $this->Currencies->getExchangeRate($order->order_currency, 'UAH'),
+			'rate_rur' => $this->Currencies->getExchangeRate($order->order_currency, 'RUB')
 		);
 
 		// парсим шаблон
@@ -1055,9 +844,9 @@ class Client extends ClientBaseController {
 			$order2in->payment_service_name = Check::txt('service', 255, 1);
 			$order2in->order2in_details = Check::txt('comment', 20, 1);
 			$order2in->order2in_currency = $order->order_currency;
-
 			$order2in->order2in_user = $this->user->user_id;
 			$order2in->order2in_status = 'processing';
+			$order2in->usd_amount = 'processing';
 
 			$this->load->model('Order2InModel', 'Order2in');
 			$order2in = $this->Order2in->addOrder($order2in);
@@ -1245,45 +1034,6 @@ class Client extends ClientBaseController {
 	public function showAddImage()
 	{
 		View::showChild($this->viewpath.'/pages/showAddImage');
-	}
-	
-	public function showPayedOutMoney()
-	{
-		$this->load->model('Order2outModel', 'Order2out');
-		$this->load->model('CurrencyModel', 'Currencies');
-		$this->load->model('PaymentServiceModel', 'Services');
-
-		$Orders = $this->Order2out->getPayedUserOrders($this->user->user_id);
-		
-		/* пейджинг */
-		$this->per_page = $this->per_page_o2o;
-		$this->init_paging();		
-		$this->paging_count = count($Orders);
-		
-		if ($Orders)
-		{
-			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
-		}
-		
-		$view = array (
-			'Orders' => $Orders,
-			'statuses'	=> $this->Order2out->getStatuses(),
-			'services'	=> $this->Services->getOutServices(),
-			'usd' => (float) ceil($this->Currencies->getRate('USD') * 100) / 100,
-			'pager' => $this->get_paging()
-		);
-		
-		// парсим шаблон
-		if ($this->uri->segment(4) == 'ajax')
-		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
-			$view['viewpath'] = $this->viewpath;
-			$this->load->view($this->viewpath."ajax/showPayedOutMoney", $view);
-		}
-		else
-		{
-			View::showChild($this->viewpath."pages/showPayedOutMoney", $view);
-		}
 	}
 	
 	public function taobaoRegister()

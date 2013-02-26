@@ -1,4 +1,4 @@
-	<div id="pagerForm" class='table admin-inside'>
+	<div id="pagerForm" class='table admin-inside centered_th'>
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>
 		<div class='angle angle-lb'></div>
@@ -35,9 +35,9 @@
 					<th>Способ оплаты</th>
 					<th>Назначение платежа</th>
 					<th>Комментарий</th>
-					<th>Сумма перевода ($)</th>
-					<th>Сумма перевода (руб.)</th>
-					<th>Комиссия</th>
+					<th>Сумма оплаты</th>
+					<th>Сумма USD</th>
+					<th>Статус</th>
 				</tr>
 				<?foreach ($Payments as $Payment):?>
 				<tr <?= ($Payment->payment_purpose == 'отмена дополнительного платежа' ||
@@ -66,8 +66,8 @@
 					</td>
 					<td><?=$Payment->payment_purpose?></td>
 					<td><?=$Payment->payment_comment?></td>
-					<td><?= isset($Payment->payment_currency) ? $Payment->payment_currency.'' : '$'?><? 
-						if ($Payment->payment_type == 'order') 
+					<td>
+						<? if ($Payment->payment_type == 'order')
 						{
 							if ($Payment->payment_from == 1 || $Payment->payment_to == 1) 
 							{
@@ -87,38 +87,6 @@
 								echo $Payment->payment_amount_from;
 							}
 						}
-						else if ($Payment->payment_type == 'package') 
-						{
-							if ($Payment->payment_from == 1 || $Payment->payment_to == 1) 
-							{
-								echo $Payment->payment_amount_tax;
-							}
-							else if ($Payment->payment_purpose == 'оплата посылки' ||
-								$Payment->payment_purpose == 'оплата посылки в местной валюте' ||
-								$Payment->payment_purpose == 'комиссия системы за оплату посылки')
-							{
-								echo $Payment->payment_amount_to;
-							}
-							else if ($Payment->payment_purpose == 'доплата посылки в местной валюте')
-							{
-								echo ($Payment->payment_amount_to + $Payment->payment_amount_from);
-							}
-							else
-							{
-								echo $Payment->payment_amount_from;
-							}
-						}
-						else if ($Payment->payment_type == 'salary') 
-						{
-							if ($Payment->payment_from == 0) 
-							{
-								echo $Payment->payment_amount_to;
-							}
-							else
-							{
-								echo $Payment->payment_amount_from;
-							}
-						}
 						else if ($Payment->payment_type == 'extra_payment')
 						{
 							echo ($Payment->payment_amount_to ? $Payment->payment_amount_to : $Payment->payment_amount_from);
@@ -126,10 +94,18 @@
 						else
 						{
 							echo $Payment->payment_amount_from;
-						}
-					?></td>
-					<td><?= $Payment->payment_amount_rur ? $Payment->payment_amount_rur.' руб.' : '' ?></td>
-					<td><?= isset($Payment->payment_currency) ? $Payment->payment_currency : '$' ?><?= $Payment->payment_amount_tax ?></td>
+						} ?>
+						<?= $Payment->payment_currency ?>
+					</td>
+					<td>
+						<? if ( ! empty($Payment->amount_usd)) : ?>
+						<?= $Payment->amount_usd ?>
+						(<?= $Payment->usd_conversion_rate ?>)
+						<? endif; ?>
+					</td>
+					<td>
+						Выплачено
+					</td>
 				</tr>
 				<?endforeach;?>	
 				<tr class='last-row'>

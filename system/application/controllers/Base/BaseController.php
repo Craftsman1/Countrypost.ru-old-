@@ -553,9 +553,10 @@ abstract class BaseController extends Controller
 			'Orders2InStatuses'	=> $this->Orders2In->getStatuses(),
 			'orders2InFoto' => $this->Orders2In->getOrders2InFoto($Orders),
 			'services'	=> $this->Services->getInServices(),
-			'usd' => ceil($this->Currencies->getRate('USD') * 100) * 0.01,
+			/*'usd' => ceil($this->Currencies->getRate('USD') * 100) * 0.01,
 			'kzt' => ceil($this->Currencies->getCrossRate('KZT') * 100) * 0.01,
 			'uah' => ceil($this->Currencies->getCrossRate('UAH') * 100) * 0.01,
+			*/
 			'open_orders2in' => $payments_counters['open'],
 			'payed_orders2in' => $payments_counters['payed'],
 			'pager' => $this->get_paging()
@@ -4245,7 +4246,6 @@ abstract class BaseController extends Controller
 			{
 				$is_repay = ($order->order_cost_payed > 0);
 				$order->order_cost_payed += $payment->order2in_amount;
-
 				// записываем платеж в историю
 				$this->processDirectPayment($order, $payment, $is_repay);
 			}
@@ -4278,17 +4278,30 @@ abstract class BaseController extends Controller
 		$payment_manager->payment_amount_from		= $payment->order2in_amount;
 		$payment_manager->payment_amount_to			= $payment->order2in_amount;
 		$payment_manager->payment_purpose			= $is_repay ?
-		'доплата заказа' :
-		'оплата заказа';
+			'доплата заказа' :
+			'оплата заказа';
 		$payment_manager->payment_comment			= '№ ' . $order->order_id;
 		$payment_manager->payment_type				= 'order';
 		$payment_manager->payment_transfer_order_id	= $this->user->user_id.date('Y').date('m').date('d').date('h').date('i').date('s');
 		$payment_manager->payment_currency			= strval($payment->order2in_currency);
 		$payment_manager->order_id					= $payment->order_id;
 
+		$this->load->model('CurrencyModel', 'Currencies');
+
+		if ($order->order_country_from AND
+			$order->order_country_to)
+		{
+			$order->order_currency = $this->Orders->getOrderCurrency($order->order_id);
+			$payment_manager->payment_currency = $order->order_currency;
+			$exchange_rate = $this->Currencies->getExchangeRate($order->order_currency, 'USD');
+
+			$payment_manager->amount_usd = $payment->order2in_amount * $exchange_rate;
+			$payment_manager->usd_conversion_rate = $exchange_rate;
+		}
+
 		$this->load->model('PaymentModel', 'Payment');
 
-			// погнали
+		// погнали
 		if ( ! $this->Payment->makePayment($payment_manager, true))
 		{
 			throw new Exception('Ошибка оплаты заказа. Попробуйте еще раз.');

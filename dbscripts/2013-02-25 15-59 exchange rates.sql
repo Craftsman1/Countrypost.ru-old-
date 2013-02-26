@@ -74,3 +74,41 @@ INSERT INTO `exchange_rates` (`exchange_rate_id`, `rate`, `currency_from`, `curr
 (17, 0.160413, 'CNY', 'USD', 'Google', '2013-02-25 12:12:53'),
 (18, 1.30592, 'CNY', 'UAH', 'Google', '2013-02-25 12:23:45'),
 (19, 24.1119, 'CNY', 'KZT', 'Google', '2013-02-25 12:24:07');
+
+TRUNCATE TABLE  `exchange_rates`;
+
+UPDATE  `countrypost.service`.`countries` SET  `country_name_en` =  'Malta',
+`country_currency` =  'EUR' WHERE  `countries`.`country_id` =136;
+
+SELECT *
+FROM  `countries`
+WHERE NOT
+EXISTS (
+
+SELECT 1
+FROM exchange_rates
+WHERE exchange_rates.currency_from =  `countries`.country_currency
+);
+
+/*UPDATE  `countrypost.service`.`countries` SET  `country_currency` =  'USD' WHERE  `countries`.`country_id` =52;
+*/
+
+ALTER TABLE  `orders2in` ADD  `amount_usd` INT( 11 ) NOT NULL DEFAULT  '0',
+ADD  `usd_conversion_date` TIMESTAMP NOT NULL;
+
+ALTER TABLE  `orders2in` CHANGE  `order2in_lastchange`  `order2in_lastchange` TIMESTAMP NULL;
+
+ALTER TABLE  `orders2in` CHANGE  `usd_conversion_date`  `usd_conversion_date` TIMESTAMP NOT NULL DEFAULT
+CURRENT_TIMESTAMP;
+
+ALTER TABLE `orders2in`
+  DROP `amount_usd`,
+  DROP `usd_conversion_date`;
+
+  ALTER TABLE  `payments` ADD  `amount_usd` INT( 11 ) NOT NULL DEFAULT  '0',
+ADD  `usd_conversion_date` TIMESTAMP NOT NULL;
+ALTER TABLE  `payments` CHANGE  `usd_conversion_date`  `usd_conversion_rate` FLOAT( 11 ) NOT NULL;
+
+TRUNCATE TABLE  `payments`;
+TRUNCATE TABLE  `orders2in`;
+

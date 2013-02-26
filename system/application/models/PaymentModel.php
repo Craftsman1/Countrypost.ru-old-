@@ -36,6 +36,8 @@ class PaymentModel extends BaseModel implements IModel{
     	$this->properties->payment_service_id			='';
     	$this->properties->payment_currency				='';
     	$this->properties->order_id						='';
+		$this->properties->amount_usd					= '';
+		$this->properties->usd_conversion_rate			= '';
 
         parent::__construct();
     }

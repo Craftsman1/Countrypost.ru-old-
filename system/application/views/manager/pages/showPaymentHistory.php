@@ -1,6 +1,6 @@
 <div class='content'>
 	<a name="pagerScroll"></a>
-	<h3>История платежей</h3>
+	<h3>Статистика платежей</h3>
 	<? View::show($viewpath.'elements/payment_filter'); ?>
 	<br />
 	<? View::show($viewpath.'ajax/showPaymentHistory'); ?>

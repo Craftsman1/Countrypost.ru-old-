@@ -16,26 +16,25 @@
 			<?if ($Payments):?>
 				<tr>
 					<th>№ / Дата</th>
-					<th>Отправитель</th>
+					<!--th>Отправитель</th-->
 					<th>Получатель</th>
 					<th>Назначение платежа</th>
 					<!--th>Способ оплаты</th-->
 					<th>Комментарий</th>
 					<th>Сумма оплаты</th>
-					<th>Сумма USD</th>
-					<th>Статус</th>
+					<!--th>Статус</th-->
 				</tr>
 				<?foreach ($Payments as $Payment):?>
 				<tr  <?= ($Payment->payment_purpose == 'отмена дополнительного платежа') ?
 						'style="background-color:red;"' : '' ?>>
 					<td><b><?=$Payment->payment_id?></b> <?=date('d-m-Y H:i', strtotime($Payment->payment_time))?></td>
-					<td>
+					<!--td>
 						<? if (isset($Payment->user_from)) : ?>
 							<?=$Payment->payment_from == 1 ? 'Countrypost.ru' : $Payment->user_from ?>
 						<? else :?>
 							<?=$Payment->payment_from?>
 						<? endif; ?>
-					</td>
+					</td-->
 					<td>
 					<? if (isset($Payment->user_to)) : ?>
 						<?=$Payment->payment_to == 1 ? 'Countrypost.ru' : $Payment->user_to ?>
@@ -55,10 +54,9 @@
 						<?= $Payment->payment_to == $user->user_id ? $Payment->payment_amount_to : $Payment->payment_amount_from ?>
 						<?= isset($Payment->payment_currency) ? $Payment->payment_currency : '$' ?>
 					</td>
-					<td>-</td>
-					<td>
+					<!--td>
 						Выплачено
-					</td>
+					</td-->
 				</tr>
 				<?endforeach;?>	
 			<?else:?>
