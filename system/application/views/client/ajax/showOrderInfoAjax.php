@@ -1,4 +1,4 @@
-<form id="orderForm" action="/client/updateOrder/<?= $order->order_id ?>" method="POST">
+<form id="orderForm" action="<?= $selfurl ?>updateOrder/<?= $order->order_id ?>" method="POST">
 	<? if ($order->order_client != $this->user->user_id) : ?>
 	<div class='clientOrderInfo' style="display:none;"></div>
 	<? else :
@@ -17,8 +17,12 @@
 				</th>
 				<th nowrap>
 					<b>
-					<?= $statuses[$order->order_type][$order->order_status] ?>
+						<?= $statuses[$order->order_type][$order->order_status] ?>
 					</b>
+					<img class="float"
+						 id="orderProgress"
+						 style="display:none; margin:0 0 0 5px; vertical-align: middle;"
+						 src="/static/images/lightbox-ico-loading.gif">
 				</th>
 			</tr>
 			<tr>
@@ -38,10 +42,13 @@
 					<? if (empty($addresses)) : ?>
 						<textarea name="address_text"
 								  id="address_text"
-								  style="width:188px;resize:vertical;
-					"><?= $order->order_address ?></textarea>
+								  style="width:188px;resize:vertical;"
+								  onchange="updateOrder();"><?= $order->order_address ?></textarea>
 						<? else : ?>
-						<select id="address" name="address" style="width: 610px!important;clear: both;">
+						<select id="address"
+								name="address"
+								style="width: 610px!important;clear: both;"
+								onchange="updateOrder();">
 							<option value="0" >выберите адрес...</option>
 							<? foreach ($addresses as $address) :
 							if ($address->is_generated)
@@ -86,16 +93,20 @@
 					Способ международной доставки:
 				</td>
 				<td>
-					<? if ($is_editable) : ?>
+					<? $delivery_name = empty($order->preferred_delivery) ?
+					(empty($order->bid->delivery_name) ?
+						'' :
+						$order->bid->delivery_name) :
+					$order->preferred_delivery;
+
+					if ($is_editable) : ?>
 					<textarea name="delivery"
 							  id="delivery"
-							  style="width:188px;resize: vertical;"><?=	empty($order->preferred_delivery) ?
-						(empty($order->bid->delivery_name) ?
-							'' :
-							$order->bid->delivery_name) :
-						$order->preferred_delivery ?></textarea>
+							  style="width:188px;resize: vertical;"
+							  onchange="updateOrder();"
+							><?= $delivery_name ?></textarea>
 					<? else : ?>
-					<?= empty($order->bid) ? '' : $order->bid->delivery_name ?>
+					<?= $delivery_name ?>
 					<? endif; ?>
 				</td>
 			</tr>
@@ -139,7 +150,8 @@
 			<? endif ?>
 		</table>
 	</div>
-	<? if ($is_editable) : ?>
+	<a name="pagerScroll"></a>
+	<? if (FALSE AND $is_editable) : ?>
 	<div style="height:50px;">
 		<div class="admin-inside float-left">
 			<div class="submit">
@@ -148,9 +160,16 @@
 				</div>
 			</div>
 		</div>
-		<img class="float" id="orderProgress" style="display:none;margin:0px;margin-top:5px;"
-			 src="/static/images/lightbox-ico-loading.gif"/>
 	</div>
 	<? endif ?>
-<? endif; ?>
+	<? endif; ?>
 </form>
+<? if ( ! empty($open_orders2in) OR ! empty($payed_orders2in)) : ?>
+<h3>Заявки на оплату</h3>
+<? View::show("/client/ajax/showOpenOrders2In"); ?>
+<? endif; ?>
+<script>
+	$(function() {
+		prepareOrderFormHandlers();
+	});
+</script>

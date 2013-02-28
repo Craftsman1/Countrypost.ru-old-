@@ -21,6 +21,8 @@ if (in_array($order->order_status, $payable_statuses) AND
 	</div>
 </div>
 <? elseif (isset($show_caption)) : ?>
-	<?= $payableAmount ?>
-	<?= $order->order_currency ?>
+<?= $payableAmount ?> <?= $order->order_currency ?>
+<? endif; ?>
+<? if ($order->order_cost_payed) : ?>
+ (оплачено <?= $order->order_cost_payed ?> <?= $order->order_currency ?>)
 <? endif; ?>

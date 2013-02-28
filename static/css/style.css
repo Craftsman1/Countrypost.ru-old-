@@ -2740,3 +2740,7 @@ div.syspay div.payment_system b.currency {
 	position: absolute;
 	margin-top: 7px;
 }
+
+a.pagerScroll {
+	line-height: 0;height: 0;
+}

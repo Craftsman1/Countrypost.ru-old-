@@ -10,15 +10,32 @@
 				<th nowrap>
 					Статус:
 				</th>
-				<th nowrap>
-					<select id="order_status" name="order_status" class="order_status">
+				<th nowrap style="vertical-align: middle;">
+					<select id="order_status"
+							name="order_status"
+							class="order_status float-left"
+							onchange="updateOrder();">
 						<? foreach ($statuses[$order->order_type] as $status => $status_name) :
-						if ($status == 'pending') continue;
-						?>
+						if ($status == 'pending') continue; ?>
 						<option value="<?= $status ?>" <? if ($order->order_status == $status) :
 							?>selected<? endif; ?>><?= $status_name ?></option>
 						<? endforeach; ?>
 					</select>
+					<? if (empty($order->sent_date)) : ?>
+					<input id="close_order"
+						   class="float-left"
+						   style="display:none; vertical-align: middle; margin-top: 4px;"
+						   type="checkbox"
+						   onchange="closeOrder();">
+					<label for="close_order"
+						   class="float-left"
+						   style="display:none; margin-top: 4px;">Закрыть заказ?</label>
+					<? endif ?>
+					<img class="float-left"
+						 id="orderProgress"
+						 style="display:none; margin:0 0 0 5px; vertical-align: middle;"
+						 src="/static/images/lightbox-ico-loading.gif">
+
 				</th>
 			</tr>
 			<tr>
@@ -26,10 +43,7 @@
 					Оплатить:
 				</td>
 				<td>
-					<?= ($order->order_cost > $order->order_cost_payed) ?
-					$order->order_cost - $order->order_cost_payed :
-					0 ?>
-					<?= $order->order_currency ?>
+					<? View::show("/manager/elements/orders/payButton", array('show_caption' => TRUE)); ?>
 				</td>
 			</tr>
 			<tr>
@@ -58,7 +72,7 @@
 					(empty($order->bid->delivery_name) ?
 						'' :
 						$order->bid->delivery_name) :
-					$order->preferred_delivery ?>
+					$order->preferred_delivery; ?>
 				</td>
 			</tr>
 			<tr>
@@ -68,7 +82,8 @@
 				<td>
 					<textarea name="tracking_no"
 							  id="tracking_no"
-							  style="width:188px;resize: vertical;"><?=
+							  style="width:188px;resize: vertical;"
+							  onchange="updateOrder();"><?=
 						$order->tracking_no ?></textarea>
 				</td>
 			</tr>
@@ -102,25 +117,14 @@
 			<? endif ?>
 		</table>
 	</div>
-	<div style="height:50px;">
-		<div id="save_order" class="admin-inside float-left">
-			<div class="submit">
-				<div>
-					<input type="button" value="Сохранить">
-				</div>
-			</div>
-		</div>
-		<? if (empty($order->sent_date)) : ?>
-		<div id="close_order" class="admin-inside float-left" style="display:none;">
-			<div class="submit">
-				<div>
-					<input type="button" value="Закрыть заказ">
-				</div>
-			</div>
-		</div>
-		<? endif ?>
-		<img class="float" id="orderProgress" style="display:none;margin:0px;margin-top:5px;"
-			 src="/static/images/lightbox-ico-loading.gif"/>
-	</div>
 	<? endif; ?>
 </form>
+<? if ( ! empty($open_orders2in) OR ! empty($payed_orders2in)) : ?>
+<h3>Заявки на оплату</h3>
+<? View::show("/client/ajax/showOpenOrders2In"); ?>
+<? endif; ?>
+<script>
+	$(function() {
+		prepareOrderFormHandlers();
+	});
+</script>

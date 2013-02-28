@@ -304,9 +304,7 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 			<td class="weight_total">
 				<b class="total_weight"><?= $order->order_weight ?></b> г
 			</td>
-			<? if ($is_editable) : ?>
-			<td colspan="2">&nbsp;</td>
-			<? endif; ?>
+			<td <? if ($is_editable) : ?>colspan="2"<? endif; ?>>&nbsp;</td>
 		</tr>
 		<? endif; ?>
 	</table>
