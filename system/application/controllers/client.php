@@ -794,10 +794,10 @@ class Client extends ClientBaseController {
 
 		$view += array (
 			'services'	=> $this->Services->getInServices(),
-			'rate_usd' => $this->Currencies->getExchangeRate($order->order_currency, 'USD'),
-			'rate_kzt' => $this->Currencies->getExchangeRate($order->order_currency, 'KZT'),
-			'rate_uah' => $this->Currencies->getExchangeRate($order->order_currency, 'UAH'),
-			'rate_rur' => $this->Currencies->getExchangeRate($order->order_currency, 'RUB')
+			'rate_usd' => $this->Currencies->getExchangeRate($order->order_currency, 'USD', 'client'),
+			'rate_kzt' => $this->Currencies->getExchangeRate($order->order_currency, 'KZT', 'client'),
+			'rate_uah' => $this->Currencies->getExchangeRate($order->order_currency, 'UAH', 'client'),
+			'rate_rur' => $this->Currencies->getExchangeRate($order->order_currency, 'RUB', 'client')
 		);
 
 		// парсим шаблон

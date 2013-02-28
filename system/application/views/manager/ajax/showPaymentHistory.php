@@ -57,12 +57,12 @@
 					</td>
 					<td>
 						<? if ( ! empty($Payment->amount_usd)) : ?>
-						<?= $Payment->amount_usd ?>
+						<?= $Payment->amount_usd ?> USD
 						(<?= $Payment->usd_conversion_rate ?>)
 						<? endif; ?>
 					</td>
 					<td>
-						Выплачено
+						<?= $statuses[$Payment->status] ?>
 					</td>
 				</tr>
 				<?endforeach;?>	
@@ -81,7 +81,7 @@
 						</div>
 					</td>
 				</tr>
-			<?else:?>
+			<? else : ?>
 				<tr>
 					<td colspan="8">Платежи не найдены</td>
 				</tr>

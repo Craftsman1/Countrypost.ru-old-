@@ -1,5 +1,4 @@
-<?php
-require_once BASE_CONTROLLERS_PATH.'AdminBaseController'.EXT;
+<? require_once BASE_CONTROLLERS_PATH.'AdminBaseController'.EXT;
 
 class Admin extends AdminBaseController {
 
@@ -81,7 +80,12 @@ class Admin extends AdminBaseController {
 			View::showChild($this->viewpath.'pages/showPaymentHistory', $view);
 		}
 	}
-	
+
+	public function history()
+	{
+		parent::showPaymentHistory();
+	}
+
 	public function extraPayments()
 	{
 		$this->load->model('ManagerModel', 'Managers');
@@ -4052,6 +4056,50 @@ class Admin extends AdminBaseController {
 
 			// отправляем пересчитанные детали заказа
 			$response = $this->prepareOrderUpdateJSON($order);
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
+	}
+
+	public function update_payment_history_status($payment_id, $status)
+	{
+		try
+		{
+			if ( ! is_numeric($payment_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$this->load->model('PaymentModel', 'Payments');
+
+			// роли и разграничение доступа
+			$payment = $this->Payments->getById($payment_id);
+
+			if (empty($payment))
+			{
+				throw new Exception('Выплаченные заявки запрещено изменять.');
+			}
+
+			$payment->status = $status;
+
+			// сохранение результатов
+			$this->Payments->updatePayment($payment);
+
+			// отправляем итого
+			$filter = $this->initFilter('paymentHistory');
+			$payments = $this->Payments->getFilteredPayments(
+				$filter->condition,
+				$filter->from,
+				$filter->to);
+
+			$response['total_usd'] = $this->Payments->getTotalUSD($payments);
+			$response['is_error'] = FALSE;
 		}
 		catch (Exception $e)
 		{

@@ -8,9 +8,9 @@
 		<div class='center-block'>
 			<h3>ВАШ НОМЕР НА САЙТЕ: <?=$user->user_id;?></h3>
 			<br>
-			<br>
-			<p><a href='<?=BASEURL?>admin/showPaymentHistory'>Статистика платежей</a></p>
+			<p><a href='<?=BASEURL?>admin/history'>Статистика платежей</a></p>
 			<p><a href='<?=BASEURL?>admin/payments'>Заявки на оплату</a></p>
+			<p><a href="<?=BASEURL?>admin/showEditFAQ">Редактировать F.A.Q.</a></p>
 		</div>
 	</div>
 </div>

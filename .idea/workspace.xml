@@ -6,13 +6,19 @@
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\23\00_-_USAliens.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\35\00_-_USAliens.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\47\00_-_USAliens.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfo.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfoAjax.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfoAjax.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/orders/payButton.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/orders/payButton.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfo.php" afterPath="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfoAjax.php" afterPath="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfoAjax.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbscripts/2013-02-25 15-59 exchange rates.sql" afterPath="$PROJECT_DIR$/dbscripts/2013-02-25 15-59 exchange rates.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" afterPath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/admin.php" afterPath="$PROJECT_DIR$/system/application/controllers/admin.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/client.php" afterPath="$PROJECT_DIR$/system/application/controllers/client.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/CurrencyModel.php" afterPath="$PROJECT_DIR$/system/application/models/CurrencyModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/ExchangeRateModel.php" afterPath="$PROJECT_DIR$/system/application/models/ExchangeRateModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OrderModel.php" afterPath="$PROJECT_DIR$/system/application/models/OrderModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/PaymentModel.php" afterPath="$PROJECT_DIR$/system/application/models/PaymentModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/admin/ajax/showPaymentHistory.php" afterPath="$PROJECT_DIR$/system/application/views/admin/ajax/showPaymentHistory.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/admin/elements/div_header.php" afterPath="$PROJECT_DIR$/system/application/views/admin/elements/div_header.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/admin/pages/showPaymentHistory.php" afterPath="$PROJECT_DIR$/system/application/views/admin/pages/showPaymentHistory.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/ajax/showPaymentHistory.php" afterPath="$PROJECT_DIR$/system/application/views/manager/ajax/showPaymentHistory.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,78 +44,183 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="div_header.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/admin/elements/div_header.php">
+      <file leaf-file-name="admin.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/admin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="8" selection-start="515" selection-end="515" vertical-scroll-proportion="-7.586207">
+            <state line="4100" column="52" selection-start="112918" selection-end="112918" vertical-scroll-proportion="-6.898734">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="showOrderInfo.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfo.php">
+      <file leaf-file-name="BaseController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="5" selection-start="522" selection-end="581" vertical-scroll-proportion="-17.931034">
+            <state line="2757" column="4" selection-start="78665" selection-end="78927" vertical-scroll-proportion="-9.24138">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="showOrderInfoAjax.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfoAjax.php">
+      <file leaf-file-name="showPaymentHistory.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/admin/ajax/showPaymentHistory.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="174" column="9" selection-start="4221" selection-end="4449" vertical-scroll-proportion="-20.793104">
+            <state line="141" column="43" selection-start="5140" selection-end="5140" vertical-scroll-proportion="-16.827587">
               <folding>
-                <element signature="n#style#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#th#1;n#tr#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#textarea#0;n#td#1;n#tr#2;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#select#0;n#td#1;n#tr#2;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#textarea#0;n#td#1;n#tr#3;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#form#0;n#!!top" expanded="true" />
+                <element signature="e#478#504#0" expanded="true" />
+                <element signature="e#1832#1893#0" expanded="true" />
+                <marker date="1362067571238" expanded="true" signature="3544:3689" placeholder="..." />
+                <element signature="e#4269#4311#0" expanded="true" />
+                <element signature="e#5010#5090#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="showOrderInfo.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfo.php">
+      <file leaf-file-name="showPayments.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/payments/showPayments.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="8" selection-start="834" selection-end="947" vertical-scroll-proportion="0.71428573">
+            <state line="32" column="16" selection-start="822" selection-end="974" vertical-scroll-proportion="-17.931034">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="showOrderInfoAjax.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfoAjax.php">
+      <file leaf-file-name="scripts.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/payments/scripts.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="40" selection-start="1219" selection-end="1219" vertical-scroll-proportion="-16.448277">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scripts.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/system/application/views/admin/elements/history/scripts.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="33" selection-start="849" selection-end="849" vertical-scroll-proportion="0.5762712">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="showAllPayments.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/manager/pages/showAllPayments.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="54" selection-start="188" selection-end="242" vertical-scroll-proportion="-4.137931">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PaymentModel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/models/PaymentModel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="488" column="9" selection-start="11184" selection-end="11184" vertical-scroll-proportion="-9.314815">
               <folding>
-                <element signature="n#style#0;n#th#1;n#tr#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#th#1;n#tr#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#th#1;n#tr#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#tr#3;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#textarea#0;n#td#1;n#tr#5;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+                <element signature="e#51#78#0" expanded="false" />
+                <element signature="e#541#569#0" expanded="false" />
+                <element signature="e#2028#2107#0" expanded="false" />
+                <element signature="n#getPK#0;n#PaymentModel#0;n#!!top" expanded="false" />
+                <element signature="e#2169#2248#0" expanded="false" />
+                <element signature="n#getTable#0;n#PaymentModel#0;n#!!top" expanded="false" />
+                <element signature="e#2326#2365#0" expanded="false" />
+                <element signature="n#getList#0;n#PaymentModel#0;n#!!top" expanded="false" />
+                <element signature="e#2462#2514#0" expanded="false" />
+                <element signature="n#getPropertyList#0;n#PaymentModel#0;n#!!top" expanded="false" />
+                <element signature="n#getPaymentsByUser#0;n#PaymentModel#0;n#!!top" expanded="false" />
+                <element signature="e#2779#2899#0" expanded="false" />
+                <element signature="e#2793#2843#0" expanded="false" />
+                <element signature="e#2854#2898#0" expanded="false" />
+                <element signature="e#2927#3125#0" expanded="false" />
+                <element signature="e#3257#3359#0" expanded="false" />
+                <element signature="e#3777#4017#0" expanded="false" />
+                <element signature="e#3890#4012#0" expanded="false" />
+                <element signature="e#4025#4178#0" expanded="false" />
+                <element signature="e#4044#4173#0" expanded="false" />
+                <element signature="e#4224#4513#0" expanded="false" />
+                <element signature="e#4267#4508#0" expanded="false" />
+                <element signature="e#4367#4444#0" expanded="false" />
+                <element signature="e#4449#4508#0" expanded="false" />
+                <element signature="e#4548#4618#0" expanded="false" />
+                <element signature="e#4977#5197#0" expanded="false" />
+                <element signature="e#5293#5390#0" expanded="false" />
+                <element signature="e#5461#5642#0" expanded="false" />
+                <element signature="e#5681#5830#0" expanded="false" />
+                <element signature="e#5737#5809#0" expanded="false" />
+                <element signature="e#5838#6036#0" expanded="false" />
+                <element signature="e#6560#6903#0" expanded="false" />
+                <element signature="e#6581#6745#0" expanded="false" />
+                <element signature="e#6750#6898#0" expanded="false" />
+                <element signature="e#6911#7081#0" expanded="false" />
+                <element signature="e#6930#7076#0" expanded="false" />
+                <element signature="e#8020#8275#0" expanded="false" />
+                <element signature="e#8059#8270#0" expanded="false" />
+                <element signature="e#8173#8270#0" expanded="false" />
+                <element signature="e#8309#8458#0" expanded="false" />
+                <element signature="e#8365#8437#0" expanded="false" />
+                <element signature="e#8466#8605#0" expanded="false" />
+                <element signature="n#makeCharge#0;n#PaymentModel#0;n#!!top" expanded="false" />
+                <element signature="e#8685#10704#0" expanded="false" />
+                <element signature="e#8724#8783#0" expanded="false" />
+                <element signature="e#9234#9301#0" expanded="false" />
+                <element signature="e#9309#9412#0" expanded="false" />
+                <element signature="e#9444#9514#0" expanded="false" />
+                <element signature="e#9595#9763#0" expanded="false" />
+                <element signature="e#9812#10032#0" expanded="false" />
+                <element signature="e#10128#10221#0" expanded="false" />
+                <element signature="e#10256#10477#0" expanded="false" />
+                <element signature="e#10295#10472#0" expanded="false" />
+                <element signature="e#10409#10472#0" expanded="false" />
+                <element signature="e#10511#10704#0" expanded="false" />
+                <element signature="e#10565#10637#0" expanded="false" />
+                <element signature="e#10712#10759#0" expanded="false" />
+                <element signature="e#11448#11501#0" expanded="false" />
+                <element signature="n#getSummaryStat#0;n#PaymentModel#0;n#!!top" expanded="false" />
+                <element signature="e#11581#11931#0" expanded="false" />
+                <element signature="e#11955#12026#0" expanded="false" />
+                <element signature="n#getStatForPeriod#0;n#PaymentModel#0;n#!!top" expanded="false" />
+                <element signature="e#12084#12254#0" expanded="false" />
+                <element signature="e#12328#12496#0" expanded="false" />
+                <element signature="e#12935#12986#0" expanded="false" />
+                <element signature="e#13426#13683#0" expanded="false" />
+                <element signature="e#13468#13678#0" expanded="false" />
+                <element signature="e#13523#13614#0" expanded="false" />
+                <element signature="e#13625#13678#0" expanded="false" />
+                <element signature="e#13709#13797#0" expanded="false" />
+                <element signature="e#13831#13893#0" expanded="false" />
+                <element signature="e#14739#14826#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/style.css">
+      <file leaf-file-name="DeclarationModel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/models/DeclarationModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2743" column="15" selection-start="49222" selection-end="49222" vertical-scroll-proportion="-26.36">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CountryModel.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/models/CountryModel.php">
+      <file leaf-file-name="ExchangeRateModel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/models/ExchangeRateModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="118" column="17" selection-start="2707" selection-end="2712" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="68" column="0" selection-start="1476" selection-end="1642" vertical-scroll-proportion="-15.206897">
+              <folding>
+                <element signature="e#51#363#0" expanded="false" />
+                <element signature="e#608#636#0" expanded="false" />
+                <element signature="n#__construct#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+                <element signature="n#getPK#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+                <element signature="n#getTable#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+                <element signature="n#getList#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+                <element signature="n#getPropertyList#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+                <element signature="n#updateRates#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+                <element signature="e#2048#2108#0" expanded="false" />
+                <element signature="n#getByCurrencies#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+                <element signature="e#2207#2416#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -131,22 +242,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/views/client/pages/showPaymentHistory.php" />
-        <option value="$PROJECT_DIR$/system/application/views/manager/pages/showPaymentHistory.php" />
-        <option value="$PROJECT_DIR$/system/application/views/admin/elements/div_header.php" />
-        <option value="$PROJECT_DIR$/dbscripts/2013-02-25 15-59 exchange rates.sql" />
-        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
-        <option value="$PROJECT_DIR$/system/application/models/OrderModel.php" />
-        <option value="$PROJECT_DIR$/system/application/views/manager/ajax/showPaymentHistory.php" />
-        <option value="$PROJECT_DIR$/system/application/views/client/ajax/showPaymentHistory.php" />
-        <option value="$PROJECT_DIR$/system/application/views/client/elements/orders/payButton.php" />
-        <option value="$PROJECT_DIR$/system/application/views/manager/elements/orders/payButton.php" />
-        <option value="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" />
-        <option value="$PROJECT_DIR$/static/css/style.css" />
-        <option value="$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfoAjax.php" />
         <option value="$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfo.php" />
         <option value="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfo.php" />
         <option value="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfoAjax.php" />
+        <option value="$PROJECT_DIR$/system/application/models/ExchangeRateModel.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
+        <option value="$PROJECT_DIR$/system/application/models/CurrencyModel.php" />
+        <option value="$PROJECT_DIR$/system/application/models/OrderModel.php" />
+        <option value="$PROJECT_DIR$/dbscripts/2013-02-25 15-59 exchange rates.sql" />
+        <option value="$PROJECT_DIR$/system/application/views/admin/elements/div_header.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/ajax/showPaymentHistory.php" />
+        <option value="$PROJECT_DIR$/system/application/views/admin/pages/showPaymentHistory.php" />
+        <option value="$PROJECT_DIR$/system/application/models/PaymentModel.php" />
+        <option value="$PROJECT_DIR$/system/application/views/admin/ajax/showPaymentHistory.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/admin.php" />
+        <option value="$PROJECT_DIR$/system/application/views/admin/elements/history/scripts.php" />
       </list>
     </option>
   </component>
@@ -282,7 +393,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="manager" />
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -296,23 +407,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ajax" />
+              <option name="myItemId" value="dbscripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -349,11 +444,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\admin\elements\history" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\manager\elements\orders" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\models" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\libraries" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\admin\elements" />
-      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\admin\ajax" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\payments" />
@@ -493,14 +588,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="916" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1616" height="916" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47826087" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27606177" sideWeight="0.6700767" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27606177" sideWeight="0.6700767" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21428572" sideWeight="0.4347826" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.78516626" sideWeight="0.4980695" order="7" side_tool="true" content_ui="tabs" />
@@ -509,7 +605,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -580,122 +675,207 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/views/admin/ajax/showPaymentHistory.php">
+    <entry file="file://$PROJECT_DIR$/dbscripts/2013-02-25 15-59 exchange rates.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="36" selection-start="3522" selection-end="3663" vertical-scroll-proportion="-15.24138" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showPaymentHistory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="36" selection-start="2417" selection-end="2417" vertical-scroll-proportion="0.53672314" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/manager/pages/showPaymentHistory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="18" selection-start="65" selection-end="65" vertical-scroll-proportion="0.056497175" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/admin/pages/showPaymentHistory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="18" selection-start="118" selection-end="118" vertical-scroll-proportion="0.082417585" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showPaymentHistory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="26" selection-start="2009" selection-end="2009" vertical-scroll-proportion="0.5947802">
+        <state line="71" column="66" selection-start="2836" selection-end="2836" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/admin/elements/div_header.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="8" selection-start="515" selection-end="515" vertical-scroll-proportion="-7.586207">
+        <state line="10" column="12" selection-start="508" selection-end="508" vertical-scroll-proportion="-6.8965516">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showPaymentHistory.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1245" column="21" selection-start="31757" selection-end="31757" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="306" column="76" selection-start="10442" selection-end="10442" vertical-scroll-proportion="2.6271186">
+        <state line="81" column="25" selection-start="3291" selection-end="3291" vertical-scroll-proportion="0.5879121">
           <folding>
-            <element signature="e#595#616#0" expanded="true" />
-            <element signature="e#642#661#0" expanded="true" />
+            <element signature="e#2585#2627#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/orders/payButton.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/admin/elements/payments/showAllPayments.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="6" selection-start="123" selection-end="123" vertical-scroll-proportion="0.084745765">
+        <state line="96" column="25" selection-start="2511" selection-end="2996" vertical-scroll-proportion="-22.758621">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/orders/payButton.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/admin/elements/payments/showPayments.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="1" selection-start="794" selection-end="794" vertical-scroll-proportion="0.7344633">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="41.793102">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/pages/showAllPayments.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="54" selection-start="188" selection-end="242" vertical-scroll-proportion="-4.137931">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/payments/scripts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/models/DeclarationModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/models/ExchangeRateModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="0" selection-start="1476" selection-end="1642" vertical-scroll-proportion="-15.206897">
+          <folding>
+            <element signature="e#51#363#0" expanded="false" />
+            <element signature="e#608#636#0" expanded="false" />
+            <element signature="n#__construct#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+            <element signature="n#getPK#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+            <element signature="n#getTable#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+            <element signature="n#getList#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+            <element signature="n#getPropertyList#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+            <element signature="n#updateRates#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+            <element signature="e#2048#2108#0" expanded="false" />
+            <element signature="n#getByCurrencies#0;n#ExchangeRateModel#0;n#!!top" expanded="false" />
+            <element signature="e#2207#2416#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/models/PaymentModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="488" column="9" selection-start="11184" selection-end="11184" vertical-scroll-proportion="-9.314815">
+          <folding>
+            <element signature="e#51#78#0" expanded="false" />
+            <element signature="e#541#569#0" expanded="false" />
+            <element signature="e#2028#2107#0" expanded="false" />
+            <element signature="n#getPK#0;n#PaymentModel#0;n#!!top" expanded="false" />
+            <element signature="e#2169#2248#0" expanded="false" />
+            <element signature="n#getTable#0;n#PaymentModel#0;n#!!top" expanded="false" />
+            <element signature="e#2326#2365#0" expanded="false" />
+            <element signature="n#getList#0;n#PaymentModel#0;n#!!top" expanded="false" />
+            <element signature="e#2462#2514#0" expanded="false" />
+            <element signature="n#getPropertyList#0;n#PaymentModel#0;n#!!top" expanded="false" />
+            <element signature="n#getPaymentsByUser#0;n#PaymentModel#0;n#!!top" expanded="false" />
+            <element signature="e#2779#2899#0" expanded="false" />
+            <element signature="e#2793#2843#0" expanded="false" />
+            <element signature="e#2854#2898#0" expanded="false" />
+            <element signature="e#2927#3125#0" expanded="false" />
+            <element signature="e#3257#3359#0" expanded="false" />
+            <element signature="e#3777#4017#0" expanded="false" />
+            <element signature="e#3890#4012#0" expanded="false" />
+            <element signature="e#4025#4178#0" expanded="false" />
+            <element signature="e#4044#4173#0" expanded="false" />
+            <element signature="e#4224#4513#0" expanded="false" />
+            <element signature="e#4267#4508#0" expanded="false" />
+            <element signature="e#4367#4444#0" expanded="false" />
+            <element signature="e#4449#4508#0" expanded="false" />
+            <element signature="e#4548#4618#0" expanded="false" />
+            <element signature="e#4977#5197#0" expanded="false" />
+            <element signature="e#5293#5390#0" expanded="false" />
+            <element signature="e#5461#5642#0" expanded="false" />
+            <element signature="e#5681#5830#0" expanded="false" />
+            <element signature="e#5737#5809#0" expanded="false" />
+            <element signature="e#5838#6036#0" expanded="false" />
+            <element signature="e#6560#6903#0" expanded="false" />
+            <element signature="e#6581#6745#0" expanded="false" />
+            <element signature="e#6750#6898#0" expanded="false" />
+            <element signature="e#6911#7081#0" expanded="false" />
+            <element signature="e#6930#7076#0" expanded="false" />
+            <element signature="e#8020#8275#0" expanded="false" />
+            <element signature="e#8059#8270#0" expanded="false" />
+            <element signature="e#8173#8270#0" expanded="false" />
+            <element signature="e#8309#8458#0" expanded="false" />
+            <element signature="e#8365#8437#0" expanded="false" />
+            <element signature="e#8466#8605#0" expanded="false" />
+            <element signature="n#makeCharge#0;n#PaymentModel#0;n#!!top" expanded="false" />
+            <element signature="e#8685#10704#0" expanded="false" />
+            <element signature="e#8724#8783#0" expanded="false" />
+            <element signature="e#9234#9301#0" expanded="false" />
+            <element signature="e#9309#9412#0" expanded="false" />
+            <element signature="e#9444#9514#0" expanded="false" />
+            <element signature="e#9595#9763#0" expanded="false" />
+            <element signature="e#9812#10032#0" expanded="false" />
+            <element signature="e#10128#10221#0" expanded="false" />
+            <element signature="e#10256#10477#0" expanded="false" />
+            <element signature="e#10295#10472#0" expanded="false" />
+            <element signature="e#10409#10472#0" expanded="false" />
+            <element signature="e#10511#10704#0" expanded="false" />
+            <element signature="e#10565#10637#0" expanded="false" />
+            <element signature="e#10712#10759#0" expanded="false" />
+            <element signature="e#11448#11501#0" expanded="false" />
+            <element signature="n#getSummaryStat#0;n#PaymentModel#0;n#!!top" expanded="false" />
+            <element signature="e#11581#11931#0" expanded="false" />
+            <element signature="e#11955#12026#0" expanded="false" />
+            <element signature="n#getStatForPeriod#0;n#PaymentModel#0;n#!!top" expanded="false" />
+            <element signature="e#12084#12254#0" expanded="false" />
+            <element signature="e#12328#12496#0" expanded="false" />
+            <element signature="e#12935#12986#0" expanded="false" />
+            <element signature="e#13426#13683#0" expanded="false" />
+            <element signature="e#13468#13678#0" expanded="false" />
+            <element signature="e#13523#13614#0" expanded="false" />
+            <element signature="e#13625#13678#0" expanded="false" />
+            <element signature="e#13709#13797#0" expanded="false" />
+            <element signature="e#13831#13893#0" expanded="false" />
+            <element signature="e#14739#14826#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/admin/pages/showPaymentHistory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="37" selection-start="481" selection-end="481" vertical-scroll-proportion="0.42372882">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/payments/showPayments.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="16" selection-start="822" selection-end="974" vertical-scroll-proportion="-17.931034">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4293" column="85" selection-start="122028" selection-end="122028" vertical-scroll-proportion="1.2637362">
+        <state line="2757" column="4" selection-start="78665" selection-end="78927" vertical-scroll-proportion="-9.24138">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/style.css">
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/admin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2743" column="15" selection-start="49222" selection-end="49222" vertical-scroll-proportion="-26.36">
+        <state line="4100" column="52" selection-start="112918" selection-end="112918" vertical-scroll-proportion="-6.898734">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfo.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/admin/ajax/showPaymentHistory.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="5" selection-start="522" selection-end="581" vertical-scroll-proportion="-17.931034">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderInfoAjax.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="174" column="9" selection-start="4221" selection-end="4449" vertical-scroll-proportion="-20.793104">
+        <state line="141" column="43" selection-start="5140" selection-end="5140" vertical-scroll-proportion="-16.827587">
           <folding>
-            <element signature="n#style#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#th#1;n#tr#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#textarea#0;n#td#1;n#tr#2;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#select#0;n#td#1;n#tr#2;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#textarea#0;n#td#1;n#tr#3;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#form#0;n#!!top" expanded="true" />
+            <element signature="e#478#504#0" expanded="true" />
+            <element signature="e#1832#1893#0" expanded="true" />
+            <marker date="1362067571238" expanded="true" signature="3544:3689" placeholder="..." />
+            <element signature="e#4269#4311#0" expanded="true" />
+            <element signature="e#5010#5090#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfoAjax.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/admin/elements/history/scripts.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="40" selection-start="1219" selection-end="1219" vertical-scroll-proportion="-16.448277">
-          <folding>
-            <element signature="n#style#0;n#th#1;n#tr#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#th#1;n#tr#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#th#1;n#tr#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#3;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#textarea#0;n#td#1;n#tr#5;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showOrderInfo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="8" selection-start="834" selection-end="947" vertical-scroll-proportion="0.71428573">
+        <state line="28" column="33" selection-start="849" selection-end="849" vertical-scroll-proportion="0.5762712">
           <folding />
         </state>
       </provider>

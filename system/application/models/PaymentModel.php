@@ -9,7 +9,18 @@ class PaymentModel extends BaseModel implements IModel{
 	protected 	$properties			= NULL;				// array of properties
 	protected	$table				= 'payments';		// table name
 	protected	$PK					= 'payment_id';		// primary key name	
-	
+
+	private $statuses				= array(
+		'sent_by_client' => 'Переведено клиентом',
+		'not_payed' => 'К выплате',
+		'payed' => 'Выплачено'
+	);
+
+	private $countrypost_statuses	= array(
+		'not_payed' => 'К выплате',
+		'payed' => 'Выплачено'
+	);
+
 	/**
 	 * конструктор
 	 *
@@ -26,6 +37,7 @@ class PaymentModel extends BaseModel implements IModel{
     	$this->properties->payment_amount_to			='';
     	$this->properties->payment_amount_tax			='';
     	$this->properties->payment_purpose				='';
+    	$this->properties->payment_details				='';
     	$this->properties->payment_time					='';
     	$this->properties->payment_comment				='';
     	$this->properties->payment_type					='';
@@ -34,14 +46,27 @@ class PaymentModel extends BaseModel implements IModel{
     	$this->properties->payment_transfer_order_id	='';
     	$this->properties->payment_transfer_sign		='';
     	$this->properties->payment_service_id			='';
+    	$this->properties->payment_service_name			='';
     	$this->properties->payment_currency				='';
     	$this->properties->order_id						='';
+    	$this->properties->order2in_id					='';
 		$this->properties->amount_usd					= '';
 		$this->properties->usd_conversion_rate			= '';
+		$this->properties->status						= '';
 
         parent::__construct();
     }
+
+	public function getStatuses()
+	{
+		return $this->statuses;
+	}
     
+	public function getCountrypostStatuses()
+	{
+		return $this->countrypost_statuses;
+	}
+
    /**
      * @see IModel
      * Инкапсуляция
@@ -449,8 +474,36 @@ class PaymentModel extends BaseModel implements IModel{
 		}
 		
 		return false;
-	}	
-	
+	}
+
+	public function updatePayment($payment)
+	{
+		$props = $this->getPropertyList();
+
+		foreach ($props as $prop)
+		{
+			if (isset($payment->$prop))
+			{
+				$this->_set($prop, $payment->$prop);
+			}
+		}
+
+		$new_id = $this->save(true);
+
+		if ( ! $new_id) return false;
+
+		return $this->getById($new_id);
+	}
+
+	public function getById($id)
+	{
+		$r = $this->select(array(
+			$this->getPK()	=> $id,
+		));
+
+		return ((count($r==1) &&  $r) ? array_shift($r) : false);
+	}
+
 	/**
 	 * Сводка по статистике платежей для админа
 	 */
@@ -500,7 +553,25 @@ class PaymentModel extends BaseModel implements IModel{
 		')->result();
 	}
 
-	public function getFilteredPayments($filter = array(), $from = NULL, $to = NULL, $extra_where = NULL) 
+	/**
+	 * Получаем платежи пользователей системе
+	 */
+	public function getTotalUSD($payments)
+	{
+		$total_usd = 0;
+
+		foreach ($payments as $payment)
+		{
+			if ($payment->status == 'not_payed')
+			{
+				$total_usd += $payment->amount_usd;
+			}
+		}
+
+		return $total_usd;
+	}
+
+	public function getFilteredPayments($filter = array(), $from = NULL, $to = NULL, $extra_where = NULL)
 	{
 		$where = '1';
 		

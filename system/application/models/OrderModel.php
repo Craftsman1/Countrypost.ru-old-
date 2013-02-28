@@ -1228,19 +1228,17 @@ class OrderModel extends BaseModel implements IModel{
 	public function getOrderCurrency($order_id)
 	{
 		$result = $this->db->query("
-				SELECT currency_name
-				FROM `countries`.currency_name 'currency'
-				INNER JOIN orders
-					ON orders.order_country_from = countries.country_id
-				WHERE
-					orders.`order_id` = $order_id
-				LIMIT 1
-			")->result();
+			SELECT countries.country_currency
+			FROM countries
+			INNER JOIN orders
+			ON orders.order_country_from = countries.country_id
+			WHERE orders.`order_id` = $order_id LIMIT 1"
+		)->result();
 
 		// отдаем результат
 		if ((count($result == 1) AND  $result))
 		{
-			return $result[0]->currency_name;
+			return $result[0]->country_currency;
 		}
 
 		return FALSE;

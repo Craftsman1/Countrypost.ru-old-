@@ -553,10 +553,6 @@ abstract class BaseController extends Controller
 			'Orders2InStatuses'	=> $this->Orders2In->getStatuses(),
 			'orders2InFoto' => $this->Orders2In->getOrders2InFoto($Orders),
 			'services'	=> $this->Services->getInServices(),
-			/*'usd' => ceil($this->Currencies->getRate('USD') * 100) * 0.01,
-			'kzt' => ceil($this->Currencies->getCrossRate('KZT') * 100) * 0.01,
-			'uah' => ceil($this->Currencies->getCrossRate('UAH') * 100) * 0.01,
-			*/
 			'open_orders2in' => $payments_counters['open'],
 			'payed_orders2in' => $payments_counters['payed'],
 			'pager' => $this->get_paging()
@@ -2753,14 +2749,20 @@ abstract class BaseController extends Controller
 				AND (payment_amount_from <> 0 
 					OR payment_amount_to <> 0 
 					OR (payment_type <> 'order' AND payment_type <> 'package' AND payment_type <> 'extra_payment'))");
-					
-			$per_page = isset($this->session->userdata['payments_per_page']) ? $this->session->userdata['payments_per_page'] : $this->per_page;
-			$this->per_page = $per_page;
-			$view['per_page'] = $per_page;
+		}
+		else if ($this->user->user_group == 'admin')
+		{
+			$view['filter'] = $this->initFilter('paymentHistory');
+			$view['Payments'] = $this->Payment->getFilteredPayments($view['filter']->condition, $view['filter']->from, $view['filter']->to);
+			$view['total_usd'] = $this->Payment->getTotalUSD($view['Payments']);
 		}
 
 		/* пейджинг */
-		$this->init_paging();		
+		$per_page = isset($this->session->userdata['payments_per_page']) ? $this->session->userdata['payments_per_page'] : $this->per_page;
+		$this->per_page = $per_page;
+		$view['per_page'] = $per_page;
+
+		$this->init_paging();
 		$this->paging_count = count($view['Payments']);
 	
 		if (isset($view['Payments']) AND $view['Payments'])
@@ -2773,6 +2775,8 @@ abstract class BaseController extends Controller
 		// собираем платежные системы
 		$this->load->model('PaymentServiceModel', 'Services');
 		$view['services'] = $this->Services->getList();		
+		$view['statuses'] = $this->Payment->getStatuses();
+		$view['countrypost_statuses'] = $this->Payment->getCountrypostStatuses();
 		$view['user'] = $this->user;
 		
 		// парсим шаблон
@@ -4248,6 +4252,8 @@ abstract class BaseController extends Controller
 				$order->order_cost_payed += $payment->order2in_amount;
 				// записываем платеж в историю
 				$this->processDirectPayment($order, $payment, $is_repay);
+
+
 			}
 
 			// пересчитываем заказ
@@ -4256,7 +4262,13 @@ abstract class BaseController extends Controller
 				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
+			//print_r($order);die();
+			//$bids = $order->bids;
+			//unset($order->bids);
 			$this->Orders->saveOrder($order);
+
+			//print_r($order);die();
+			//$order->bids = $bids;
 
 			// отправляем пересчитанные детали заказа
 			$response = $this->prepareOrderUpdateJSON($order);
@@ -4277,6 +4289,7 @@ abstract class BaseController extends Controller
 		$payment_manager->payment_to				= $order->order_manager;
 		$payment_manager->payment_amount_from		= $payment->order2in_amount;
 		$payment_manager->payment_amount_to			= $payment->order2in_amount;
+		$payment_manager->payment_details			= $payment->order2in_details;
 		$payment_manager->payment_purpose			= $is_repay ?
 			'доплата заказа' :
 			'оплата заказа';
@@ -4285,7 +4298,20 @@ abstract class BaseController extends Controller
 		$payment_manager->payment_transfer_order_id	= $this->user->user_id.date('Y').date('m').date('d').date('h').date('i').date('s');
 		$payment_manager->payment_currency			= strval($payment->order2in_currency);
 		$payment_manager->order_id					= $payment->order_id;
+		$payment_manager->order2in_id				= $payment->order2in_id;
+		$payment_manager->payment_service_id		= $payment->order2in_payment_service;
+		$payment_manager->payment_service_name		= $payment->payment_service_name;
 
+		if ($payment->is_countrypost)
+		{
+			$payment_manager->status = 'not_payed';
+		}
+		else
+		{
+			$payment_manager->status = 'sent_by_client';
+		}
+
+		// собираем валюты и курсы
 		$this->load->model('CurrencyModel', 'Currencies');
 
 		if ($order->order_country_from AND
@@ -4293,9 +4319,15 @@ abstract class BaseController extends Controller
 		{
 			$order->order_currency = $this->Orders->getOrderCurrency($order->order_id);
 			$payment_manager->payment_currency = $order->order_currency;
-			$exchange_rate = $this->Currencies->getExchangeRate($order->order_currency, 'USD');
+			$exchange_rate = $this->Currencies->getExchangeRate($order->order_currency, 'USD', 'manager');
 
-			$payment_manager->amount_usd = $payment->order2in_amount * $exchange_rate;
+			// округляем до центов в пользу посредника
+			$payment_manager->amount_usd = ceil(
+				floatval($payment->order2in_amount) *
+				floatval($exchange_rate) *
+				100) *
+				0.01;
+
 			$payment_manager->usd_conversion_rate = $exchange_rate;
 		}
 
@@ -4515,6 +4547,12 @@ abstract class BaseController extends Controller
 
 				// записываем платеж в историю
 				$this->processDirectPayment($order, $payment, $is_repay);
+
+				// пересчитываем заказ
+				if ( ! $this->Orders->recalculate($order))
+				{
+					throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				}
 
 				$this->Orders->saveOrder($order);
 			}

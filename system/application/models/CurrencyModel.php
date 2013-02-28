@@ -139,10 +139,10 @@ class CurrencyModel extends BaseModel implements IModel{
 		return ((count($result) > 0 &&  $result) ? $result[0] : false);		
 	}
 	
-	public function getExchangeRate($currency_from, $currency_to, $default_rate = 1)
+	public function getExchangeRate($currency_from, $currency_to, $user_group, $default_rate = 1)
 	{
 		$result = $this->db->query("
-			SELECT `exchange_rates`.rate
+			SELECT `exchange_rates`.*
 			FROM `exchange_rates`
 			WHERE
 				`exchange_rates`.`currency_from` = '$currency_from' AND
@@ -150,7 +150,24 @@ class CurrencyModel extends BaseModel implements IModel{
 			LIMIT 1"
 		)->result();
 
-		return ((count($result) == 1 &&  $result) ? $result[0]->rate : $default_rate);
+		if (count($result) == 1 AND  $result)
+		{
+			$min_rate_caption = "min_{$user_group}_rate";
+			$extra_tax_caption = "{$user_group}_extra_tax";
+
+			$rate = $result[0]->rate *
+				(100 + $result[0]->$extra_tax_caption) *
+				0.01;
+
+			if ($rate < $result[0]->$min_rate_caption)
+			{
+				return $result[0]->$min_rate_caption;
+			}
+
+			return $rate;
+		}
+
+		return $default_rate;
 	}
 
 	public function getRate($currency)

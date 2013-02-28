@@ -23,11 +23,15 @@ class ExchangeRateModel extends BaseModel implements IModel{
 	function __construct()
     {
     	$this->properties	= new stdClass();
-    	$this->properties->exchange_rate_id	= '';
-    	$this->properties->rate				= '';
-    	$this->properties->currency_from	= '';
-    	$this->properties->currency_to		= '';
-    	$this->properties->service_name		= '';
+    	$this->properties->exchange_rate_id		= '';
+    	$this->properties->rate					= '';
+    	$this->properties->min_client_rate		= '';
+    	$this->properties->min_manager_rate		= '';
+    	$this->properties->client_extra_tax		= '';
+    	$this->properties->manager_extra_tax	= '';
+    	$this->properties->currency_from		= '';
+    	$this->properties->currency_to			= '';
+    	$this->properties->service_name			= '';
     	
         parent::__construct();
     }

@@ -13,3 +13,4 @@
 		window.location.href = '<?= $selfurl ?>updatePaymentsPerPage/' + id;
 	}
 </script>
+<? View::show('admin/elements/history/scripts'); ?>
