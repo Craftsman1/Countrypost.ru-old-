@@ -2720,6 +2720,32 @@ div.manager_payment_box b.currency  {
 	font-weight: normal;
 }
 
+div.manager_payment_box b.excess_amount,
+div.countrypost_payment_box b.excess_amount {
+	position: relative;
+	font-weight: normal;
+	margin-left: 5px;
+}
+
+div.manager_payment_box b.excess_amount,
+div.manager_payment_box img.tooltip,
+div.countrypost_payment_box img.tooltip
+{
+	top: 3px;
+}
+
+div.countrypost_payment_box img.tooltip,
+div.manager_payment_box img.tooltip
+{
+	position: relative;
+}
+
+div.countrypost_payment_box b.total_local_amount,
+div.manager_payment_box b.total_local_amount
+{
+	font-weight: normal;
+}
+
 div.manager_payment_box span.label {
 	width: 190px;
 	margin-top:3px;

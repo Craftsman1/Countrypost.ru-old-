@@ -36,6 +36,7 @@ class PaymentModel extends BaseModel implements IModel{
     	$this->properties->payment_amount_from			='';
     	$this->properties->payment_amount_to			='';
     	$this->properties->payment_amount_tax			='';
+    	$this->properties->excess_amount				='';
     	$this->properties->payment_purpose				='';
     	$this->properties->payment_details				='';
     	$this->properties->payment_time					='';
@@ -663,6 +664,7 @@ class PaymentModel extends BaseModel implements IModel{
 		$history->order2in_id				= $o2i->order2in_id;
 		$history->payment_service_id		= $o2i->order2in_payment_service;
 		$history->payment_service_name		= $o2i->payment_service_name;
+		$history->excess_amount			= $o2i->excess_amount;
 
 		if ($o2i->is_countrypost)
 		{

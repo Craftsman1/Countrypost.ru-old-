@@ -99,6 +99,10 @@
 						echo $Payment->payment_amount_from;
 					} ?>
 					<?= $Payment->payment_currency ?>
+					<? if ($Payment->excess_amount) : ?>
+					(+<?= $Payment->excess_amount ?>
+					<?= $Payment->payment_currency ?>)
+					<? endif; ?>
 				</td>
 				<td>
 					<? if ( ! empty($Payment->amount_usd)) : ?>

@@ -531,6 +531,7 @@ class Client extends ClientBaseController {
 			$order2in->order2in_amount = Check::float('total_usd');
 			$order2in->order2in_payment_service = Check::txt('payment_service', 3, 2);
 			$order2in->order2in_details = Check::txt('account', 20, 1);
+			$order2in->excess_amount = $this->Orders->processExcessAmountTransfer($order);
 
 			// input validation
 			if (isset($order2in->order2in_payment_service))
@@ -785,6 +786,8 @@ class Client extends ClientBaseController {
 			$order_id,
 			'Заказ недоступен.');
 
+		$order->excess_amount = $this->Orders->getExcessOrdersAmount($order->order_client, $order->order_manager);
+
 		// заявки на пополнение
 		$this->load->model('CurrencyModel', 'Currencies');
 		$this->load->model('PaymentServiceModel', 'Services');
@@ -829,11 +832,6 @@ class Client extends ClientBaseController {
 				$order_id,
 				'Заказ недоступен.');
 
-			// валюта
-			$this->Orders->prepareOrderView(array(
-				'order' => $order
-			));
-
 			// погнали
 			$order2in = new stdClass();
 			$order2in->order_id = $order_id;
@@ -843,10 +841,13 @@ class Client extends ClientBaseController {
 			$order2in->order2in_amount = Check::float('amount');
 			$order2in->payment_service_name = Check::txt('service', 255, 1);
 			$order2in->order2in_details = Check::txt('comment', 20, 1);
-			$order2in->order2in_currency = $order->order_currency;
 			$order2in->order2in_user = $this->user->user_id;
 			$order2in->order2in_status = 'processing';
 			$order2in->usd_amount = 'processing';
+			$order2in->excess_amount = $this->Orders->processExcessAmountTransfer($order);
+
+			// валюта
+			$order2in->order2in_currency = $this->Orders->getOrderCurrency($order->order_id);
 
 			$this->load->model('Order2InModel', 'Order2in');
 			$order2in = $this->Order2in->addOrder($order2in);

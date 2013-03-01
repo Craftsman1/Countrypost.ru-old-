@@ -41,6 +41,7 @@ class Order2InModel extends BaseModel implements IModel{
 		$this->properties->order_id					= '';
 		$this->properties->is_countrypost			= '';
 		$this->properties->is_money_sent			= '';
+		$this->properties->excess_amount			= '';
 
         parent::__construct();
     }

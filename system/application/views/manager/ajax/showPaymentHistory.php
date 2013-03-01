@@ -53,7 +53,11 @@
 					<td><?=$Payment->payment_comment?></td>
 					<td>
 						<?= $Payment->payment_to == $user->user_id ? $Payment->payment_amount_to : $Payment->payment_amount_from ?>
-						<?= isset($Payment->payment_currency) ? $Payment->payment_currency : '$'?>
+						<?= $Payment->payment_currency ?>
+						<? if ($Payment->excess_amount) : ?>
+						(+<?= $Payment->excess_amount ?>
+						<?= $Payment->payment_currency ?>)
+						<? endif; ?>
 					</td>
 					<td>
 						<? if ( ! empty($Payment->amount_usd)) : ?>

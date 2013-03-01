@@ -58,6 +58,10 @@
 							   '<?= $o2i->order2in_id ?>');">
 				<br>
 				<?= $o2i->order_currency ?>
+				<? if ($o2i->excess_amount) : ?>
+				(+<?= $o2i->excess_amount ?>
+				<?= $o2i->order_currency ?>)
+				<? endif; ?>
 			</td>
 			<td>
 				<? if ($o2i->is_countrypost) : ?>

@@ -1314,5 +1314,63 @@ class OrderModel extends BaseModel implements IModel{
 		$order->manager_tax_percentage = $manager->order_tax;
 		$order->manager_foto_tax_percentage = $manager->foto_tax;
 	}
+
+	public function processExcessAmountTransfer($order)
+	{
+		$excess_amount = 0;
+		$excess_orders = $this->getExcessOrders($order->order_client, $order->order_manager);
+
+		if (empty($excess_orders))
+		{
+			return 0;
+		}
+
+		foreach ($excess_orders as $excess_order)
+		{
+			$excess_amount += $excess_order->order_cost_payed - $excess_order->order_cost;
+			$excess_order->order_cost_payed = $excess_order->order_cost;
+
+			$this->addOrder($excess_order);
+		}
+
+		$order->order_cost_payed += $excess_amount;
+
+		//print_r($order);die();
+		$this->addOrder($order);
+
+		return $excess_amount;
+	}
+
+	public function getExcessOrders($client_id, $manager_id)
+	{
+		return $this->db->query("
+			SELECT `{$this->table}`.*
+			FROM `{$this->table}`
+			WHERE
+				order_status = 'completed' AND
+				order_client = $client_id AND
+				order_manager = $manager_id AND
+				order_cost_payed > order_cost
+		")->result();
+	}
+
+	public function getExcessOrdersAmount($client_id, $manager_id)
+	{
+		$result = $this->db->query("
+			SELECT SUM(order_cost_payed - order_cost) total
+			FROM `{$this->table}`
+			WHERE
+				order_status = 'completed' AND
+				order_client = $client_id AND
+				order_manager = $manager_id AND
+				order_cost_payed > order_cost
+		")->result();
+
+		if (empty($result)) {
+			return 0;
+		}
+
+		return $result[0]->total;
+	}
 }
 ?>

@@ -1,3 +1,9 @@
+<?
+$payable_amount =
+	($order->order_cost > ($order->order_cost_payed + $order->excess_amount)) ?
+		($order->order_cost - $order->order_cost_payed - $order->excess_amount) :
+		'';
+?>
 <script type="text/javascript">
 	var rate_usd = <?= $rate_usd ?>;
     var rate_kzt = <?= $rate_kzt ?>;
@@ -109,6 +115,16 @@
 		}
 	}
 
+	function updateExcessAmount(id)
+	{
+		var excess_amount = <?= $order->excess_amount ?>;
+		var amount = $('.' + id + ' .amount input:text').val();
+		amount = parseFloat(amount);
+		amount = (isNaN(amount) ? 0 : amount);
+
+		$('div.countrypost_payment_box b.total_local_amount').html(excess_amount + amount);
+	}
+
 	function calculateTotals(section) 
 	{
 		if (section)
@@ -127,6 +143,8 @@
 	
 	function calculateTotal(id) 
 	{
+		updateExcessAmount(id);
+
 		if (id == 'usd')
 		{
 			calculateTotalUSD(id);
@@ -216,7 +234,7 @@
 	
 	function openO2iPopup(x) 
 	{
-		var payment_option = $('.'+x+' input:radio').filter(':checked').attr('id');
+		var payment_option = $('.' + x + ' input:radio').filter(':checked').attr('id');
         var service = getService(payment_option);
 		var amount_usd = $('.' + x + ' input:text').val();
 		var user_id = '<?= isset($user->user_id) ? $user->user_id : '' ?>';
@@ -266,8 +284,6 @@
 			calculateTotals($(this).attr('name'));
 		});
 
-		calculateTotals();
-	
 		// переключение валют
 		$('select.currency_selector').change(function() {
 			var usd_amount = $(this).parent().parent().find('div.amount input:text').val();
@@ -346,9 +362,11 @@
 			
 			calculateTotals();
 		});
+
+		calculateTotalRUB('immediate');
 	});
 </script>
-<div class='table'>
+<div class='table countrypost_payment_box'>
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
@@ -364,15 +382,25 @@
 						type="text"
 						rel="immediate"
 						name="total_usd"
-						value="<?= ($order->order_cost > $order->order_cost_payed) ?
-							($order->order_cost - $order->order_cost_payed) :
-							'' ?>" >
+						value="<?= $payable_amount ?>" >
 					<b class="currency">
 						<?= $order->order_currency ?>
 					</b>
-					<!--span>
+					<? if ($order->excess_amount) : ?>
+					<b class="excess_amount">
+						+
+						<?= $order->excess_amount ?>
 						<?= $order->order_currency ?>
-					</span-->
+						<img class="tooltip"
+							 src="/static/images/mini_help.gif"
+							 title="Доступный остаток от предыдущих заказов">
+						=
+						<b class="total_local_amount">
+							<?= $payable_amount + $order->excess_amount ?>
+						</b>
+						<?= $order->order_currency ?>
+					</b>
+					<? endif; ?>
 				</div>
 				<div class="amount" style="display:block;">
 					<span>Выберите валюту, которой будeте оплачивать:</span>
@@ -529,10 +557,24 @@
 			<div class="amount delayed" style="display:none;">
 				<span>Сумма к оплате* :</span>
 				<input type="text" rel="delayed" name="total_usd" value=""/>
-				<!--span>$</span-->
 				<b class="currency">
 					<?= $order->order_currency ?>
 				</b>
+				<? if ($order->excess_amount) : ?>
+				<b class="excess_amount">
+					+
+					<?= $order->excess_amount ?>
+					<?= $order->order_currency ?>
+					<img class="tooltip"
+						 src="/static/images/mini_help.gif"
+						 title="Доступный остаток от предыдущих заказов">
+					=
+					<b class="total_local_amount">
+						<?= $payable_amount + $order->excess_amount ?>
+					</b>
+					<?= $order->order_currency ?>
+				</b>
+				<? endif; ?>
 				<input type="hidden" id="delayed_ru" value="" />
 			</div>
 			<div class="amount delayed" style="display:none;">
@@ -618,10 +660,24 @@
 			<div class="amount">
 				<span>Сумма к оплате* :</span>
 				<input type="text" rel="usd" name="total_ru" value=""/>
-				<!--span>$</span-->
 				<b class="currency">
 					<?= $order->order_currency ?>
 				</b>
+				<? if ($order->excess_amount) : ?>
+				<b class="excess_amount">
+					+
+					<?= $order->excess_amount ?>
+					<?= $order->order_currency ?>
+					<img class="tooltip"
+						 src="/static/images/mini_help.gif"
+						 title="Доступный остаток от предыдущих заказов">
+					=
+					<b class="total_local_amount">
+						<?= $payable_amount + $order->excess_amount ?>
+					</b>
+					<?= $order->order_currency ?>
+				</b>
+				<? endif; ?>
 			</div>
 			<div class="amount">
 				<span>Выберите валюту, которой будeте оплачивать:</span>
@@ -675,10 +731,24 @@
 		<div class="amount">
 			<span>Сумма к оплате* :</span>
 			<input type="text" rel="kzt" name="total_kzt" value="1"/>
-			<!--span>$</span-->
 			<b class="currency">
 				<?= $order->order_currency ?>
 			</b>
+			<? if ($order->excess_amount) : ?>
+			<b class="excess_amount">
+				+
+				<?= $order->excess_amount ?>
+				<?= $order->order_currency ?>
+				<img class="tooltip"
+					 src="/static/images/mini_help.gif"
+					 title="Доступный остаток от предыдущих заказов">
+				=
+				<b class="total_local_amount">
+					<?= $payable_amount + $order->excess_amount ?>
+				</b>
+				<?= $order->order_currency ?>
+			</b>
+			<? endif; ?>
 		</div>
 		<div class="amount">
 			<span>Выберите валюту, которой будeте оплачивать:</span>
@@ -789,10 +859,24 @@
 		<div class="amount uah" style="display:none;">
 			<span>Сумма к оплате* :</span>
 			<input type="text" rel="uah" name="total_usd" value=""/>
-			<!--span>$</span-->
 			<b class="currency">
 				<?= $order->order_currency ?>
 			</b>
+			<? if ($order->excess_amount) : ?>
+			<b class="excess_amount">
+				+
+				<?= $order->excess_amount ?>
+				<?= $order->order_currency ?>
+				<img class="tooltip"
+					 src="/static/images/mini_help.gif"
+					 title="Доступный остаток от предыдущих заказов">
+				=
+				<b class="total_local_amount">
+					<?= $payable_amount + $order->excess_amount ?>
+				</b>
+				<?= $order->order_currency ?>
+			</b>
+			<? endif; ?>
 			<input type="hidden" id="uah" value="" />
 		</div>
 		<div class="amount uah" style="display:none;">

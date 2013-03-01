@@ -8,7 +8,7 @@
 	<meta name="author" content="">
 	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
 	<link rel="apple-touch-icon" href="<?=IMG_PATH?>apple-touch-icon.png">
-	<link rel="stylesheet" type="text/css" media="all" href="<?= CSS_PATH ?>style.css?v=20120510">
+	<link rel="stylesheet" type="text/css" media="all" href="<?= CSS_PATH ?>style.css?v=20130301">
 	<link rel="stylesheet" type="text/css" media="handheld" href="<?= CSS_PATH ?>handheld.css?v=1">
 	<link rel="stylesheet" type="text/css" href="<?= CSS_PATH ?>jquery.lightbox-0.5.css" media="screen" />
 	<script src="<?= JS_PATH ?>jquery-1.4.3.min.js"></script>

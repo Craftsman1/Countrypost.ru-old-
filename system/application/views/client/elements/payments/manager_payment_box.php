@@ -1,3 +1,9 @@
+<?
+$payable_amount =
+	($order->order_cost > ($order->order_cost_payed + $order->excess_amount)) ?
+	($order->order_cost - $order->order_cost_payed - $order->excess_amount) :
+	'';
+?>
 <div class="manager_payment_box">
 	<form action="/client/payOrderDirect/<?= $order->order_id ?>" id="paymentForm" method="POST">
 		<div class="table">
@@ -7,23 +13,36 @@
 			<div class='angle angle-rb'></div>
 			<div class="admin-inside">
 				<div>
-					<span class="label" style="float:left">Сумма к оплате *:</span>
+					<span class="label" style="float:left">Сумма к оплате* :</span>
 					<input style="width:180px;"
 						   class="textbox"
 						   maxlength="11"
 						   id="amount"
 						   name="amount"
-						   value="<?= ($order->order_cost > $order->order_cost_payed) ?
-							   ($order->order_cost - $order->order_cost_payed) :
-							   '' ?>"
+						   value="<?= $payable_amount ?>"
 						   type="text">
 					<b class="currency">
 						<?= $order->order_currency ?>
 					</b>
+					<? if ($order->excess_amount) : ?>
+					<b class="excess_amount">
+						+
+						<?= $order->excess_amount ?>
+						<?= $order->order_currency ?>
+						<img class="tooltip"
+							 src="/static/images/mini_help.gif"
+							 title="Доступный остаток от предыдущих заказов">
+						=
+						<b class="total_local_amount">
+							<?= $payable_amount + $order->excess_amount ?>
+						</b>
+						<?= $order->order_currency ?>
+					</b>
+					<? endif; ?>
 				</div>
 				<br style="clear:both;">
 				<div>
-					<span class="label" style="float:left">Способ оплаты *:</span>
+					<span class="label" style="float:left">Способ оплаты* :</span>
 					<input style="width:180px;"
 						   class="textbox"
 						   maxlength="255"
@@ -34,7 +53,7 @@
 				</div>
 				<br style="clear:both;">
 				<div>
-					<span class="label" style="float:left">Комментарий:</span>
+					<span class="label" style="float:left">Комментарий :</span>
 					<textarea
 							style="width:180px;
 							height: 60px;"
@@ -56,11 +75,26 @@
 </div>
 <br style="clear:both;">
 <script>
+function updateExcessAmountDirect()
+{
+	var excess_amount = <?= $order->excess_amount ?>;
+	var amount = $('div.manager_payment_box input#amount').val();
+	amount = parseFloat(amount);
+	amount = (isNaN(amount) ? 0 : amount);
+
+	$('div.manager_payment_box b.total_local_amount').html(excess_amount + amount);
+}
+
 $(function()
 {
-	$('#amount').keypress(function(event) {
-		validate_number(event);
-	});
+	$('div.manager_payment_box input#amount')
+		.keypress(function(event) {
+			validate_number(event);
+		})
+		.bind('keypress keydown mouseup keyup blur', function() {
+			updateExcessAmountDirect();
+		});
+
 
 	var addPaymentItemProgress = function(obj)
 	{
@@ -78,7 +112,7 @@ $(function()
 		field = null,
 		errorCount = 0;
 
-		field = $('#amount');
+		field = $('div.manager_payment_box input#amount');
 
 		if (isNaN(field.val()) || field.val() == '0')
 		{
@@ -90,7 +124,7 @@ $(function()
 			$.fn.removeProfileFieldError(field);
 		}
 
-		field = $('#service');
+		field = $('div.manager_payment_box input#service');
 
 		if (field.val() == '')
 		{
@@ -102,7 +136,7 @@ $(function()
 			$.fn.removeProfileFieldError(field);
 		}
 
-		field = $('#comment');
+		field = $('div.manager_payment_box input#comment');
 		if (field.val().length > 4096)
 		{
 			$.fn.addProfileFieldError(field, 'Комментарий слишком длинный');

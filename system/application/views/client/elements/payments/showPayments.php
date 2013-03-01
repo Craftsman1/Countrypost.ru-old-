@@ -39,6 +39,10 @@
 			<td>
 				<?= $o2i->order2in_amount ?>
 				<?= $order->order_currency ?>
+				<? if ($o2i->excess_amount) : ?>
+				(+<?= $o2i->excess_amount ?>
+				<?= $order->order_currency ?>)
+				<? endif; ?>
 			</td>
 			<td>
 				<? if ($o2i->is_countrypost == 0) : ?>

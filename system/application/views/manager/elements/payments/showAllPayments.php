@@ -59,6 +59,11 @@
 				<?= $o2i->order2in_amount ?>
 				<?= $o2i->order2in_currency ?>
 				<? endif; ?>
+				<? if ($o2i->excess_amount) : ?>
+				<br>
+				(+<?= $o2i->excess_amount ?>
+				<?= $o2i->order_currency ?>)
+				<? endif; ?>
 			</td>
 			<td>
 				<? View::show('/main/elements/payments/payment_description',
