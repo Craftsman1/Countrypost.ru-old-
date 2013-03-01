@@ -27,10 +27,14 @@
 			</tr>
 			<tr>
 				<td>
+					<? if ($order->order_status == 'pending') : ?>
 					Оплатить:
+					<? else : ?>
+					Оплачено:
+					<? endif; ?>
 				</td>
 				<td>
-					<? View::show("/client/elements/orders/payButton", array('show_caption' => TRUE)); ?>
+					<? View::show("/client/elements/orders/payButton"); ?>
 				</td>
 			</tr>
 			<tr id="address_box">

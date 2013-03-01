@@ -48,12 +48,8 @@
 				</td>
 				<td>
 					<?= $statuses[$order->order_type][$order->order_status] ?>
-					<? if ($order->order_status == 'payed' && $order->order_cost > $order->order_cost_payed) : ?>
-					<?= $order->order_cost_payed ?>
-					<?= $order->currency ?>
 					<? $order->order_currency = $order->currency; ?>
-					<? View::show("/client/elements/orders/payButton", array('order' => $order)); ?>
-					<? endif; ?>
+					<? View::show("/client/elements/orders/payButtonAjax", array('order' => $order)); ?>
 				</td>
 				<td>
 					<a href="<?= "{$selfurl}order/{$order->order_id}" ?>"><?= $order->comment_for_client ? "1234 комментариев" : "Посмотреть" ?></a>

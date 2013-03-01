@@ -48,6 +48,8 @@
 				</td>
 				<td>
 					<?= $statuses[$order->order_type][$order->order_status] ?>
+					<? $order->order_currency = $order->currency; ?>
+					<? View::show("/client/elements/orders/payButtonAjax", array('order' => $order)); ?>
 				</td>
 				<td>
 					<a href="<?= "{$selfurl}order/{$order->order_id}" ?>"><?= $order->comment_for_client ? "1234 комментариев" : "Посмотреть" ?></a>

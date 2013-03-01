@@ -1,6 +1,7 @@
 <div class='content'>
+	<?  Breadcrumb::showCrumbs(); ?>
 	<a name="pagerScroll"></a>
-	<h3>Статистика платежей</h3>
+	<h2>Статистика платежей</h2>
 	<? View::show($viewpath.'elements/payment_filter'); ?>
 	<br />
 	<? View::show($viewpath.'ajax/showPaymentHistory'); ?>

@@ -149,7 +149,7 @@ class Main extends BaseController {
 	
 	function refreshExchangeRates()
 	{
-		$this->load->library('openexchangerates');
+		$this->load->library('OpenExchangeRates');
 
 		if ($this->openexchangerates->getRates())
 		{

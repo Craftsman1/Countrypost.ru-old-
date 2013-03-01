@@ -1392,9 +1392,10 @@ class Client extends ClientBaseController {
 			$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
 
 			$view['order'] = $order;
-
 			$this->Orders->prepareOrderView($view);
 
+			$view['selfurl'] = BASEURL.$this->cname.'/';
+			$view['viewpath'] = $this->viewpath;
 			$this->load->view("/client/ajax/showOrderInfoAjax", $view);
 		}
 		catch (Exception $e)

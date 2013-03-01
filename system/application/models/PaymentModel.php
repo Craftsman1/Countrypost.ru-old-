@@ -643,5 +643,63 @@ class PaymentModel extends BaseModel implements IModel{
 		
 		return $payment;
 	}
+
+	public function processOrderPayment($order, $o2i, $is_repay)
+	{
+		$history = new stdClass();
+		$history->payment_from				= $order->order_client;
+		$history->payment_to				= $order->order_manager;
+		$history->payment_amount_from		= $o2i->order2in_amount;
+		$history->payment_amount_to			= $o2i->order2in_amount;
+		$history->payment_details			= $o2i->order2in_details;
+		$history->payment_purpose			= $is_repay ?
+			'доплата заказа' :
+			'оплата заказа';
+		$history->payment_comment			= '№ ' . $order->order_id;
+		$history->payment_type				= 'order';
+		$history->payment_transfer_order_id	= $this->user->user_id.date('Y').date('m').date('d').date('h').date('i').date('s');
+		$history->payment_currency			= strval($o2i->order2in_currency);
+		$history->order_id					= $o2i->order_id;
+		$history->order2in_id				= $o2i->order2in_id;
+		$history->payment_service_id		= $o2i->order2in_payment_service;
+		$history->payment_service_name		= $o2i->payment_service_name;
+
+		if ($o2i->is_countrypost)
+		{
+			$history->status = 'not_payed';
+		}
+		else
+		{
+			$history->status = 'sent_by_client';
+		}
+
+		// собираем валюты и курсы
+		$ci = get_instance();
+		$ci->load->model('OrderModel', 'Orders');
+		$ci->load->model('CurrencyModel', 'Currencies');
+
+		if ($order->order_country_from AND
+			$order->order_country_to)
+		{
+			$order->order_currency = $ci->Orders->getOrderCurrency($order->order_id);
+			$history->payment_currency = $order->order_currency;
+			$exchange_rate = $ci->Currencies->getExchangeRate('USD', $order->order_currency, 'manager');
+
+			// округляем до центов в пользу посредника
+			$history->amount_usd = ceil(
+				floatval($o2i->order2in_amount) /
+					floatval($exchange_rate) *
+					100) *
+				0.01;
+
+			$history->usd_conversion_rate = $exchange_rate;
+		}
+
+		// погнали
+		if ( ! $this->makePayment($history, true))
+		{
+			throw new Exception('Ошибка оплаты заказа. Попробуйте еще раз.');
+		}
+	}
 }
 ?>

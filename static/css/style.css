@@ -2744,3 +2744,7 @@ div.syspay div.payment_system b.currency {
 a.pagerScroll {
 	line-height: 0;height: 0;
 }
+
+div.payButton,div.payButton div {
+	margin: 0px!important;
+}

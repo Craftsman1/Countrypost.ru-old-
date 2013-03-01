@@ -9,7 +9,7 @@ WHERE ISNULL( c1.currency_name ) =1;
 
 ALTER TABLE  `currencies` ADD  `exchange_service` ENUM(  'CBR',  'Google',  '',  '' ) NULL DEFAULT  'CBR';
 
-UPDATE  `countrypost.service`.`countries` SET  `country_name_en` =  'Malta',
+UPDATE  `countries` SET  `country_name_en` =  'Malta',
 `country_currency` =  'EUR' WHERE  `countries`.`country_id` =136;
 
 

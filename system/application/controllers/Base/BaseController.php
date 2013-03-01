@@ -2778,7 +2778,12 @@ abstract class BaseController extends Controller
 		$view['statuses'] = $this->Payment->getStatuses();
 		$view['countrypost_statuses'] = $this->Payment->getCountrypostStatuses();
 		$view['user'] = $this->user;
-		
+
+		// крошки
+		Breadcrumb::setCrumb(array(
+			"/{$this->user->user_group}/history"  =>
+			"Статистика платежей"), 1,	TRUE);
+
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
@@ -4250,10 +4255,10 @@ abstract class BaseController extends Controller
 			{
 				$is_repay = ($order->order_cost_payed > 0);
 				$order->order_cost_payed += $payment->order2in_amount;
+
 				// записываем платеж в историю
-				$this->processDirectPayment($order, $payment, $is_repay);
-
-
+				$this->load->model('PaymentModel', 'History');
+				$this->History->processOrderPayment($order, $payment, $is_repay);
 			}
 
 			// пересчитываем заказ
@@ -4262,13 +4267,7 @@ abstract class BaseController extends Controller
 				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
-			//print_r($order);die();
-			//$bids = $order->bids;
-			//unset($order->bids);
 			$this->Orders->saveOrder($order);
-
-			//print_r($order);die();
-			//$order->bids = $bids;
 
 			// отправляем пересчитанные детали заказа
 			$response = $this->prepareOrderUpdateJSON($order);
@@ -4280,64 +4279,6 @@ abstract class BaseController extends Controller
 		}
 
 		print(json_encode($response));
-	}
-
-	protected function processDirectPayment($order, $payment, $is_repay)
-	{
-		$payment_manager = new stdClass();
-		$payment_manager->payment_from				= $order->order_client;
-		$payment_manager->payment_to				= $order->order_manager;
-		$payment_manager->payment_amount_from		= $payment->order2in_amount;
-		$payment_manager->payment_amount_to			= $payment->order2in_amount;
-		$payment_manager->payment_details			= $payment->order2in_details;
-		$payment_manager->payment_purpose			= $is_repay ?
-			'доплата заказа' :
-			'оплата заказа';
-		$payment_manager->payment_comment			= '№ ' . $order->order_id;
-		$payment_manager->payment_type				= 'order';
-		$payment_manager->payment_transfer_order_id	= $this->user->user_id.date('Y').date('m').date('d').date('h').date('i').date('s');
-		$payment_manager->payment_currency			= strval($payment->order2in_currency);
-		$payment_manager->order_id					= $payment->order_id;
-		$payment_manager->order2in_id				= $payment->order2in_id;
-		$payment_manager->payment_service_id		= $payment->order2in_payment_service;
-		$payment_manager->payment_service_name		= $payment->payment_service_name;
-
-		if ($payment->is_countrypost)
-		{
-			$payment_manager->status = 'not_payed';
-		}
-		else
-		{
-			$payment_manager->status = 'sent_by_client';
-		}
-
-		// собираем валюты и курсы
-		$this->load->model('CurrencyModel', 'Currencies');
-
-		if ($order->order_country_from AND
-			$order->order_country_to)
-		{
-			$order->order_currency = $this->Orders->getOrderCurrency($order->order_id);
-			$payment_manager->payment_currency = $order->order_currency;
-			$exchange_rate = $this->Currencies->getExchangeRate($order->order_currency, 'USD', 'manager');
-
-			// округляем до центов в пользу посредника
-			$payment_manager->amount_usd = ceil(
-				floatval($payment->order2in_amount) *
-				floatval($exchange_rate) *
-				100) *
-				0.01;
-
-			$payment_manager->usd_conversion_rate = $exchange_rate;
-		}
-
-		$this->load->model('PaymentModel', 'Payment');
-
-		// погнали
-		if ( ! $this->Payment->makePayment($payment_manager, true))
-		{
-			throw new Exception('Ошибка оплаты заказа. Попробуйте еще раз.');
-		}
 	}
 
 	protected function update_payment_amount($order_id, $payment_id, $amount)
@@ -4546,7 +4487,8 @@ abstract class BaseController extends Controller
 				$order->order_cost_payed += $payment->order2in_amount;
 
 				// записываем платеж в историю
-				$this->processDirectPayment($order, $payment, $is_repay);
+				$this->load->model('PaymentModel', 'History');
+				$this->History->processOrderPayment($order, $payment, $is_repay);
 
 				// пересчитываем заказ
 				if ( ! $this->Orders->recalculate($order))
