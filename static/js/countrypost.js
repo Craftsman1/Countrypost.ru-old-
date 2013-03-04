@@ -184,9 +184,7 @@ function order_status_handler(uri, page_status)
 			.show();
 
 		var $url = uri +
-			'update' +
-			page_status +
-			'OrderStatus/0/ajax/' +
+			'updateOrderStatus/0/ajax/' +
 			$(this).attr('name') +
 			'/' +
 			$(this).val();

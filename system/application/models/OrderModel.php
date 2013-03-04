@@ -140,6 +140,19 @@ class OrderModel extends BaseModel implements IModel{
 				'bought'),
 			'sent' => array(
 				'completed')
+		),
+		'admin' => array(
+			'bid' => array(
+				'pending'),
+			'open' => array(
+				'processing',
+				'not_payed',
+				'not_available'),
+			'payed' => array(
+				'payed',
+				'bought'),
+			'sent' => array(
+				'completed')
 		)
 	);
 
@@ -163,7 +176,6 @@ class OrderModel extends BaseModel implements IModel{
 					return $view_status;
 				}
 			}
-
 		}
 
 		return 'open';
@@ -1366,7 +1378,8 @@ class OrderModel extends BaseModel implements IModel{
 				order_cost_payed > order_cost
 		")->result();
 
-		if (empty($result)) {
+		if (empty($result[0]->total))
+		{
 			return 0;
 		}
 

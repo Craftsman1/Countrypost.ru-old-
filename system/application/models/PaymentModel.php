@@ -702,6 +702,11 @@ class PaymentModel extends BaseModel implements IModel{
 		{
 			throw new Exception('Ошибка оплаты заказа. Попробуйте еще раз.');
 		}
+
+		if (empty($order->payed_date))
+		{
+			$order->payed_date = date('Y-m-d H:i:s');
+		}
 	}
 }
 ?>

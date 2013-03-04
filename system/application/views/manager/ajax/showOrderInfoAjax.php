@@ -40,10 +40,10 @@
 			</tr>
 			<tr>
 				<td>
-					Оплатить:
+					Оплачено:
 				</td>
 				<td>
-					<? View::show("/manager/elements/orders/payButton", array('show_caption' => TRUE)); ?>
+					<? View::show("/manager/elements/orders/payButton"); ?>
 				</td>
 			</tr>
 			<tr>

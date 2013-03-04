@@ -1457,6 +1457,8 @@ class Client extends ClientBaseController {
 
 			$this->Orders->prepareOrderView($view);
 
+			$view['selfurl'] = BASEURL.$this->cname.'/';
+			$view['viewpath'] = $this->viewpath;
 			$this->load->view("/client/ajax/showOrderInfoAjax", $view);
 		}
 		catch (Exception $e)

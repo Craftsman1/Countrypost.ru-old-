@@ -2168,7 +2168,7 @@ class Admin extends AdminBaseController {
 	
 	public function filterPaymentHistory()
 	{
-		$this->filter('paymentHistory', 'showPaymentHistory');
+		$this->filter('paymentHistory', 'history');
 	}
 	
 	public function updateOpenOrdersStatus()
@@ -3969,6 +3969,11 @@ class Admin extends AdminBaseController {
 		parent::update_payment_status($order_id, $payment_id, $status);
 	}
 
+	public function update_all_payment_status($payment_id, $status)
+	{
+		parent::update_all_payment_status($payment_id, $status);
+	}
+
 	public function deletePayment($oid)
 	{
 		parent::deletePayment($oid);
@@ -4108,5 +4113,30 @@ class Admin extends AdminBaseController {
 		}
 
 		print(json_encode($response));
+	}
+
+	protected function init_paging()
+	{
+		$this->load->helper('url');
+		$this->load->library('pagination');
+
+		$handler = $this->uri->segment(2);
+
+		if ($handler == 'update_payment_status')
+		{
+			$page_status = ucfirst($this->uri->segment(5));
+			$this->paging_base_url = "/admin/show{$page_status}Payments/" . $this->uri->segment(3);
+			$this->paging_offset = 0;
+		}
+		elseif ($handler == 'update_all_payment_status')
+		{
+			$page_status = ucfirst($this->uri->segment(4));
+			$this->paging_base_url = "/admin/showAll{$page_status}Payments/";
+			$this->paging_offset = 0;
+		}
+		else
+		{
+			parent::init_paging();
+		}
 	}
 }

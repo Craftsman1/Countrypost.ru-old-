@@ -27,11 +27,7 @@
 			</tr>
 			<tr>
 				<td>
-					<? if ($order->order_status == 'pending') : ?>
-					Оплатить:
-					<? else : ?>
 					Оплачено:
-					<? endif; ?>
 				</td>
 				<td>
 					<? View::show("/client/elements/orders/payButton"); ?>

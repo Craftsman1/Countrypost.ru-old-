@@ -561,7 +561,7 @@ abstract class BaseController extends Controller
 		return $view;
 	}
 
-	protected function showPayments($order_id, $status)
+	protected function showPayments($order_id, $status, $is_silent = FALSE)
 	{
 		try
 		{
@@ -677,7 +677,15 @@ abstract class BaseController extends Controller
 			$view['viewpath'] = $this->viewpath;
 
 			$status = ucfirst($status);
-			$this->load->view($this->viewpath . "ajax/show{$status}Orders2In", $view);
+
+			if ($is_silent)
+			{
+				return View::get("{$this->viewpath}ajax/show{$status}Orders2In", $view);
+			}
+			else
+			{
+				$this->load->view($this->viewpath . "ajax/show{$status}Orders2In", $view);
+			}
 		}
 		catch (Exception $e)
 		{
@@ -685,7 +693,7 @@ abstract class BaseController extends Controller
 		}
 	}
 
-	protected function showAllPayments($status = 'open')
+	protected function showAllPayments($status = 'open', $is_silent = FALSE)
 	{
 		try
 		{
@@ -786,6 +794,10 @@ abstract class BaseController extends Controller
 				$view['selfurl'] = BASEURL.$this->cname.'/';
 				$view['viewpath'] = $this->viewpath;
 				$this->load->view($this->viewpath."ajax/showAll{$status}Payments", $view);
+			}
+			elseif ($is_silent)
+			{
+				return View::get("{$this->viewpath}/ajax/showAll{$status}Payments", $view);
 			}
 			else
 			{
@@ -953,7 +965,7 @@ abstract class BaseController extends Controller
 		return $new_bid;
 	}
 
-    protected function addBlankOrder ($client, $country_from, $country_to, $city_to, $preferred_delivery, $order_manager, $order_type)
+    protected function addBlankOrder($client, $country_from, $country_to, $city_to, $preferred_delivery, $order_manager, $order_type)
     {
         // типы заказов
         $this->load->model('OrderModel', 'Orders');
@@ -1197,92 +1209,6 @@ abstract class BaseController extends Controller
 		{
 			echo $e->getMessage();
 		}
-	}
-	
-	protected function showO2oComments()
-	{
-		try
-		{
-			// безопасность
-			if ( ! $this->user OR
-				 ! $this->user->user_id OR
-				!is_numeric($this->uri->segment(3)))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-		
-			$this->load->model('Order2outModel', 'O2o');
-			
-			// роли и разграничение доступа
-			if ($this->user->user_group == 'admin')
-			{
-			    $o2o = $this->O2o->getById($this->uri->segment(3));
-			}
-			else// if ($this->user->user_group == 'client')
-			{
-				$o2o = $this->O2o->getClientsO2oById($this->uri->segment(3), $this->user->user_id);
-			}
-			
-			if ( ! $o2o)
-			{
-				throw new Exception('Невозможно отобразить комментарии. Соответствующая заявка недоступна.');
-			}
-
-			// определяем роль создателя заявки на вывод
-			$this->load->model('ClientModel', 'Clients');
-			
-			if ($this->Clients->getById($o2o->order2out_user))
-			{
-				$o2o->is_client_o2o = TRUE;
-			}
-			else
-			{
-				$this->load->model('ManagerModel', 'Managers');
-				
-				if ($this->Managers->getById($o2o->order2out_user))
-				{
-					$o2o->is_manager_o2o = TRUE;
-				}
-			}
-
-			// показываем комментарии к заявке
-			$this->load->model('O2CommentModel', 'Comments');
-			$view['comments'] = $this->Comments->getCommentsByO2oId($this->uri->segment(3));
-			$view['o2o'] = $o2o;
-
-			if ( ! $view['o2o'])
-			{
-				throw new Exception('Ошибка отображения комментариев. Попробуйте еще раз.');
-			}
-			
-			// сбрасываем флаг нового комментария
-			if ($this->user->user_group == 'client' AND
-				$o2o->comment_for_client)
-			{
-				$o2o->comment_for_client = 0;
-				$this->O2o->addOrder($o2o);
-			}
-			else if ($this->user->user_group == 'admin' AND
-				$o2o->comment_for_admin)
-			{
-				$o2o->comment_for_admin = 0;
-				$this->O2o->addOrder($o2o);
-			}
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-
-			// открываем новые заказы
-			//Func::redirect(BASEURL.$this->cname.'/showNewOrders');
-			return;
-		}
-
-		// отображаем комментарии
-		View::showChild($this->viewpath.'/pages/showO2oComments', $view);
 	}
 	
 	protected function showO2iComments()
@@ -1529,7 +1455,6 @@ abstract class BaseController extends Controller
 		}
 	}
 
-	//protected function addO2iComment($bid_id, $comment_id = NULL)
 	protected function addPaymentComment($o2i_id, $comment_id = null)
 	{
 		try
@@ -1659,7 +1584,7 @@ abstract class BaseController extends Controller
 			switch ($filterType)
 			{
 				case ('paymentHistory') :
-					$filter = $this->processPaymentHistoryFilter($filter);
+					$filter = $this->processPaymentHistoryFilter();
 					break;
 				case ('UnassignedOrders') :
 					$filter = $this->processUnassignedOrdersFilter($filter);
@@ -1695,7 +1620,7 @@ abstract class BaseController extends Controller
 	protected function initFilter($filterType)
 	{
 		// если ничего не фильтровали, инициализируем фильтр
-		if ( ! isset($_SESSION[$filterType.'Filter']))
+		//if ( ! isset($_SESSION[$filterType.'Filter']))
 		{
 			// инициализируем общие для всех фильтров параметры (прочистить)
 			$filter = new stdClass();
@@ -1706,45 +1631,36 @@ abstract class BaseController extends Controller
 			$filter->search_client			= '';
 			$filter->id_type				= '';
 			$filter->id_status				= '';
-			$filter->our_pricelist			= '';
 			$filter->pricelist_country_from	= '';
 			$filter->pricelist_country_to	= '';
-			$filter->pricelist_delivery		= '';
+			//$filter->our_pricelist			= '';
+			//$filter->pricelist_delivery		= '';
 
 			// погнали
 			switch ($filterType)
 			{
-				case ('openClientO2o') :
-					$filter->order2out_status = 'processing';
-					break;
-				case ('payedClientO2o') :
-					$filter->order2out_status = 'payed';
-					break;
-				case ($filterType == 'openManagerO2o') :
-					$filter->order2out_status = 'processing';
-					break;
-				case ($filterType == 'payedManagerO2o') :
-					$filter->order2out_status = 'payed';
-					break;
 				case ($filterType == 'Orders') :
 					$filter->search_id = '';
 					$filter->id_type = '';
 					$filter->id_status = '';
 					$filter->country_to = '';
 					break;
-				/*		case ($filterType == 'paymentHistory') :
-							$filter = $this->initPaymentHistoryFilter($filter);*/
+				case ($filterType == 'paymentHistory') :
+					$filter = $this->initPaymentHistoryFilter($filter);
+					break;
 			}
 
 			// кладем фильтр в сессию
 			$_SESSION[$filterType.'Filter'] = $filter;
 		}
 
+		//print_r($_SESSION[$filterType.'Filter']);die();
 		return $_SESSION[$filterType.'Filter'];
 	}
-	
-	private function processPaymentHistoryFilter(&$filter)
+
+	protected function initPaymentHistoryFilter()
 	{
+		$filter = new stdClass();
 		$filter->payment_from = '';
 		$filter->user_from = '';
 		$filter->user_to = '';
@@ -1758,12 +1674,20 @@ abstract class BaseController extends Controller
 		$filter->svalue		= '';
 		$filter->sservice	= '';
 
+		return $filter;
+	}
+
+
+	protected function processPaymentHistoryFilter()
+	{
+		$filter = $this->initPaymentHistoryFilter();
+
 		// сброс фильтра
 		if (isset($_POST['resetFilter']) AND $_POST['resetFilter'] == '1')
 		{
 			return $filter;
 		}
-		
+
 		if (isset($_POST['sdate']))
 		{
 			switch ($_POST['sdate']) {
@@ -1778,18 +1702,18 @@ abstract class BaseController extends Controller
 					break;
 			}
 		}
-		
+
 		if ($filter->from)
 		{
 			$filter->to = date('Y-m-d H:i:s');
 		}
-	
+
 		$filter->sfield		= Check::str('sfield',64,1);
 		$filter->sdate		= Check::str('sdate',5,3);
 		$filter->stype		= Check::str('stype',7,2);
 		$filter->svalue		= Check::str('svalue',64,1);
 		$filter->sservice	= Check::str('sservice',7,2);
-				
+
 		if ($filter->sfield == 'id')
 		{
 			switch ($filter->stype)
@@ -1806,17 +1730,13 @@ abstract class BaseController extends Controller
 						$column = "user_to.user_id";
 					}
 					break;
-				case 'package' :
-					$filter->condition['payment_type'] = 'package';
-					$filter->condition['like'] = array('payment_comment' => $filter->svalue);
-					break;
 				case 'order' :
 					$filter->condition['payment_type'] = 'order';
 					$filter->condition['like'] = array('payment_comment' => $filter->svalue);
 					break;
 			}
 		}
-		
+
 		if ($filter->sfield == 'login')
 		{
 			$column = "user_{$filter->stype}.user_login";
@@ -1826,49 +1746,15 @@ abstract class BaseController extends Controller
 		{
 			$filter->condition[$column] = $filter->svalue;
 		}
-		
+
 		// тип услуги, за которую произведена оплата
 		if (isset($filter->sservice) AND
-			($filter->sservice == 'package' OR 
-			$filter->sservice == 'order' OR 
-			$filter->sservice == 'in' OR 
-			$filter->sservice == 'out' OR 
-			$filter->sservice == 'salary'))
+			($filter->sservice == 'order' OR
+				$filter->sservice == 'in' OR
+				$filter->sservice == 'out' OR
+				$filter->sservice == 'salary'))
 		{
 			$filter->condition['payment_type'] = $filter->sservice;
-		}
-		
-		return $filter;
-	}
-	
-	private function initO2oFilter(&$filter)
-	{
-		if (isset($_POST['clientO2oSearchType']))
-		{
-			unset($filter->order2out_id);
-			unset($filter->user_login);
-			unset($filter->order2out_user);
-
-			$clientO2oSearchType			= Check::txt('clientO2oSearchType', 14, 10, '');
-			$clientO2oSearchValue			= Check::txt('clientO2oSearchValue', 32, 1, '');
-
-			if ($clientO2oSearchValue)
-			{
-				if ($clientO2oSearchType == 'order2out_id')
-				{
-					$filter->order2out_id	= $clientO2oSearchValue;
-				}
-				else if ($clientO2oSearchType == 'user_login')
-				{
-					$filter->user_login	= $clientO2oSearchValue;
-				}
-				else if ($clientO2oSearchType == 'order2out_user')
-				{
-					$filter->order2out_user	= $clientO2oSearchValue;
-				}
-			}
-
-			$filter->order2out_status		= Check::txt('order2out_status', 32, 1, '');
 		}
 
 		return $filter;
@@ -2356,135 +2242,7 @@ abstract class BaseController extends Controller
 		}
 	}
 	
-	protected function deleteOrder2out($oid)
-	{
-		try 
-		{
-			// безопасность
-			if (!isset($oid) OR
-				!is_numeric($oid))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-		
-			// валидация пользовательского ввода
-			$this->load->model('Order2outModel', 'Order2out');
-		
-			$o2o = $this->Order2out->getById((int) $oid);
-			
-			// роли и доступ
-			if ($this->user->user_group == 'admin')
-			{
-				if ( ! $o2o)
-				{
-					throw new Exception('Заявка не найдена. Попробуйте еще раз.');
-				}
-			}
-			else if ( ! $o2o OR 
-				$o2o->order2out_user != $this->user->user_id OR
-				$o2o->order2out_status != 'processing')
-			{
-				throw new Exception('Заявка не найдена. Попробуйте еще раз.');
-			}
-			
-			// долларовый счет или в местной валюте
-			$is_usd_account = !empty($o2o->order2out_ammount) AND (empty($o2o->order2out_currency) OR !empty($o2o->order2out_ammount_local));
-			$is_local_account = isset($o2o->order2out_currency);
-			
-			$this->load->model('ManagerModel', 'Manager');
-			$this->load->model('PaymentModel', 'Payment');
-
-			$tax = 0;
-			$payment_obj = new stdClass();
-			
-			// партнерская заявка
-			if ($this->Manager->getById($o2o->order2out_user))
-			{
-				$payment_obj->payment_from		= 0;
-				$payment_obj->payment_type		= 'salary';
-			}
-			// клиентская заявка
-			else
-			{
-				$payment_obj->payment_from		= $o2o->order2out_details;
-				$payment_obj->payment_type		= 'out';
-				$tax = isset($o2o->order2out_payment_service) ? constant(strtoupper($o2o->order2out_payment_service).'_OUT_TAX') : 0;
-			}
-			
-			// заполняем структуру
-			$payment_obj->payment_to			= $o2o->order2out_user;
-			$payment_obj->payment_amount_from	= 0;
-			$payment_obj->payment_amount_to		= $o2o->order2out_ammount;
-			$payment_obj->payment_amount_tax	= $tax * $o2o->order2out_ammount / 100;
-			$payment_obj->payment_amount_rur	= $o2o->order2out_ammount_rur;
-			$payment_obj->payment_service_id	= $o2o->order2out_payment_service;
-			$payment_obj->payment_purpose		= 'отмена заявки на вывод';
-			$payment_obj->payment_comment		= '№ '.$o2o->order2out_id;
-			
-			$this->db->trans_begin();
-
-			//платеж в долларах
-			if ($is_usd_account)
-			{
-				if ( ! $this->Payment->makePayment($payment_obj)) 
-				{
-					throw new Exception('Невозможно отменить заявку на вывод. Попробуйте еще раз.');
-				}
-				
-				// сохраняем результат в сессии
-				if ($this->user->user_group != 'admin')
-				{
-					$this->session->set_userdata(array('user_coints' => $this->user->user_coints + $payment_obj->payment_amount_to));
-				}
-			}
-			
-			//платеж в местной валюте
-			if ($is_local_account)
-			{
-				$payment_obj->payment_currency = $o2o->order2out_currency;
-				// поддерживаем старые заявки
-				$payment_obj->payment_amount_to	= empty($o2o->order2out_ammount_local) ?
-					$o2o->order2out_ammount :
-					$o2o->order2out_ammount_local;
-			
-				if ( ! $this->Payment->makePaymentLocal($payment_obj)) 
-				{
-					throw new Exception('Невозможно отменить заявку на вывод. Попробуйте еще раз.');
-				}
-				
-				// сохраняем результат в сессии
-				if ($this->user->user_group == 'manager')
-				{
-					$this->session->set_userdata(array('manager_balance_local' => 
-						$this->session->userdata('manager_balance_local') + 
-						$payment_obj->payment_amount_to));
-				}
-			}
-			
-			// удаляем заявку
-			$o2o->order2out_status = 'deleted';
-			
-			if ( ! $this->Order2out->addOrder($o2o)) 
-			{
-				throw new Exception('Ошибка удаления заявки на вывод. Попробуйте еще раз.');
-			}		
-			
-			$this->db->trans_commit();
-			$this->result->r = 1;
-			$this->result->message = 'Заявка успешно удалена.';
-		}
-		catch (Exception $e)
-		{
-			$this->db->trans_rollback();
-			$this->result->r = -1;
-			$this->result->message = $e->getMessage();
-		}
-
-		Stack::push('result', $this->result);		
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-	
-	protected function deleteOrder2in($oid) 
+	protected function deleteOrder2in($oid)
 	{
 		try 
 		{
@@ -2675,12 +2433,6 @@ abstract class BaseController extends Controller
 
 	protected function init_paging()
 	{
-		/*
-		типы урлов без пейджинга:
-		http://countrypost.ru/client/showOpenPackages	
-		с пейджингом +1 сегмент
-		*/
-		
 		$this->load->helper('url');
 		$this->load->library('pagination');
 
@@ -2723,11 +2475,6 @@ abstract class BaseController extends Controller
 		}
 	}
 	
-	protected function convert($cross_rate, $price)
-	{
-		return $price == 0 ? 0 : ($price / $cross_rate->cbr_cross_rate);
-	}
-	
 	protected function showPaymentHistory()
 	{
 		$this->load->model('PaymentModel', 'Payment');
@@ -2749,6 +2496,7 @@ abstract class BaseController extends Controller
 				AND (payment_amount_from <> 0 
 					OR payment_amount_to <> 0 
 					OR (payment_type <> 'order' AND payment_type <> 'package' AND payment_type <> 'extra_payment'))");
+			$view['total_usd'] = $this->Payment->getTotalUSD($view['Payments']);
 		}
 		else if ($this->user->user_group == 'admin')
 		{
@@ -3476,18 +3224,6 @@ abstract class BaseController extends Controller
         //Func::redirect($_SERVER['HTTP_REFERER']);
     }
 	
-	private static function getOrderBackHandler($order, $user_group)
-	{
-		switch ($order->order_status) 
-		{
-			case 'sended' : return 'showSentOrders';
-			case 'payed' : return 'showPayedOrders';
-			default : return 'showOpenOrders';
-		}
-		
-		return '';
-	}
-	
 	private function putStatistics(&$view)
 	{
 		// TODO: оптимизировать. выборка всех заказов не нужна, только счетчики
@@ -4022,58 +3758,6 @@ abstract class BaseController extends Controller
 		print(json_encode($response));
 	}
 
-	protected function prepareOrderUpdateJSON($order)
-	{
-		$this->load->model('AddressModel', 'Addresses');
-
-		$view['addresses'] = $this->Addresses->getAddressesByUserId($this->user->user_id);
-		$view['statuses'] = $this->Orders->getAllStatuses();
-		$view['order'] = $order;
-
-		if (isset($this->user->user_group) AND
-			$this->user->user_group != 'admin')
-		{
-			$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
-			$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
-		}
-
-		// пакуем предложения
-		foreach($order->bids as $bid)
-		{
-			$bids[] = array(
-				'id' => $bid->bid_id,
-				'total' => $bid->total_cost,
-				'tax' => $bid->manager_tax,
-				'foto' => $bid->foto_tax,
-				'delivery' => $bid->delivery_cost,
-				'extra' => $bid->extra_tax);
-		}
-
-		// находим клиента
-		if ($this->user->user_group == 'manager')
-		{
-			$this->load->model('ClientModel', 'Clients');
-			$view['client'] = $this->Clients->getClientById($view['order']->order_client);
-			$this->processStatistics($view['client'], array(), 'client_user', $view['client']->client_user, 'client');
-		}
-
-		// рисуем новую форму заказа
-		$this->Orders->prepareOrderView($view);
-		$order_details = $this->user->user_group == 'admin' ?
-			'' :
-			View::get("/{$this->user->user_group}/ajax/showOrderInfoAjax", $view);
-
-		// собираем все вместе
-		return array(
-			'order_details' => $order_details,
-			'products_cost' => $order->order_products_cost,
-			'delivery_cost' => $order->order_delivery_cost,
-			'weight' => $order->order_weight,
-			'status' => $order->order_status,
-			'bids' => $bids
-		);
-	}
-
 	protected function update_odetail_pricedelivery($order_id, $odetail_id, $pricedelivery)
 	{
 		try
@@ -4271,6 +3955,94 @@ abstract class BaseController extends Controller
 
 			// отправляем пересчитанные детали заказа
 			$response = $this->prepareOrderUpdateJSON($order);
+
+			$view_status = $this->Orders->getViewStatus($this->user->user_group, $status);
+
+			$response['snippet'] = $this->showPayments(
+				$order->order_id,
+				$view_status,
+				TRUE);
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
+	}
+
+	protected function update_all_payment_status($payment_id, $status)
+	{
+		try
+		{
+			if ( ! is_numeric($payment_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$payment = $this->getPrivilegedOrder2In(
+				$payment_id,
+				'Заявка не найдена. Попробуйте еще раз.');
+
+			if ($payment->order2in_status == 'payed' AND
+				$this->user->user_group != 'admin')
+			{
+				throw new Exception('Выплаченные заявки запрещено изменять.');
+			}
+
+			$payment->order2in_status = $status;
+
+			// роли и разграничение доступа
+			$order = $this->getPrivilegedOrder(
+				$payment->order_id,
+				"Заказ недоступен.");
+
+			// валидация пользовательского ввода
+			$this->load->model('Order2InModel', 'Payments');
+			$statuses = $this->Payments->getStatuses();
+
+			if (empty($statuses[$status]))
+			{
+				throw new Exception('Некорректный статус.');
+			}
+
+
+			// проверяем переводились ли уже деньги
+			$is_money_sent = $payment->is_money_sent;
+
+			// сохранение результатов
+			$this->Orders2In->updateStatus($payment_id, $payment->order2in_status);
+
+			// оплата заказа
+			// ВНИМАНИЕ!! деньги переводятся только 1 раз, а статус заявки меняется неограниченно
+			if ( ! $is_money_sent AND $payment->order2in_status == 'payed')
+			{
+				$is_repay = ($order->order_cost_payed > 0);
+				$order->order_cost_payed += $payment->order2in_amount;
+
+				// записываем платеж в историю
+				$this->load->model('PaymentModel', 'History');
+				$this->History->processOrderPayment($order, $payment, $is_repay);
+			}
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+
+			// отправляем пересчитанные детали заказа
+			$response = $this->prepareOrderUpdateJSON($order);
+
+			$view_status = $this->Orders->getViewStatus($this->user->user_group, $status);
+
+			$response['snippet'] = $this->showAllPayments(
+				$view_status,
+				TRUE);
 		}
 		catch (Exception $e)
 		{
@@ -4585,6 +4357,58 @@ abstract class BaseController extends Controller
 		}
 
 		Func::redirect($_SERVER['HTTP_REFERER']);
+	}
+
+	protected function prepareOrderUpdateJSON($order)
+	{
+		$this->load->model('AddressModel', 'Addresses');
+
+		$view['addresses'] = $this->Addresses->getAddressesByUserId($this->user->user_id);
+		$view['statuses'] = $this->Orders->getAllStatuses();
+		$view['order'] = $order;
+
+		if (isset($this->user->user_group) AND
+			$this->user->user_group != 'admin')
+		{
+			$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
+			$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
+		}
+
+		// пакуем предложения
+		foreach($order->bids as $bid)
+		{
+			$bids[] = array(
+				'id' => $bid->bid_id,
+				'total' => $bid->total_cost,
+				'tax' => $bid->manager_tax,
+				'foto' => $bid->foto_tax,
+				'delivery' => $bid->delivery_cost,
+				'extra' => $bid->extra_tax);
+		}
+
+		// находим клиента
+		if ($this->user->user_group == 'manager')
+		{
+			$this->load->model('ClientModel', 'Clients');
+			$view['client'] = $this->Clients->getClientById($view['order']->order_client);
+			$this->processStatistics($view['client'], array(), 'client_user', $view['client']->client_user, 'client');
+		}
+
+		// рисуем новую форму заказа
+		$this->Orders->prepareOrderView($view);
+		$order_details = $this->user->user_group == 'admin' ?
+			'' :
+			View::get("/{$this->user->user_group}/ajax/showOrderInfoAjax", $view);
+
+		// собираем все вместе
+		return array(
+			'order_details' => $order_details,
+			'products_cost' => $order->order_products_cost,
+			'delivery_cost' => $order->order_delivery_cost,
+			'weight' => $order->order_weight,
+			'status' => $order->order_status,
+			'bids' => $bids
+		);
 	}
 }
 ?>

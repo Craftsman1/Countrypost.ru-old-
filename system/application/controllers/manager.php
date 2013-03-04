@@ -55,22 +55,12 @@ class Manager extends ManagerBaseController {
 		parent::updateOrderDetails();
 	}
 
-	public function updateOpenOrderStatus($param1, $param2, $order, $status)
+	public function updateOrderStatus($param1, $param2, $order, $status)
 	{
 		parent::updateOrderStatus($order, $status);
-		$this->showOpenOrders();
-	}
 
-	public function updatePayedOrderStatus($param1, $param2, $order, $status)
-	{
-		parent::updateOrderStatus($order, $status);
-		$this->showPayedOrders();
-	}
-
-	public function updateSentOrderStatus($param1, $param2, $order, $status)
-	{
-		parent::updateOrderStatus($order, $status);
-		$this->showSentOrders();
+		$view_status = $this->Orders->getViewStatus($this->user->user_group, $status);
+		parent::showOrders($view_status);
 	}
 
 	public function orders()
@@ -512,7 +502,7 @@ class Manager extends ManagerBaseController {
 	
 	public function filterPaymentHistory()
 	{
-		$this->filter('paymentHistory', 'filterPaymentHistory');
+		$this->filter('paymentHistory', 'history');
 	}
 
 	public function history()
@@ -1204,6 +1194,11 @@ class Manager extends ManagerBaseController {
 	{
 		parent::update_payment_status($order_id, $payment_id, $status);
 	}
+
+	public function update_all_payment_status($payment_id, $status)
+	{
+		parent::update_all_payment_status($payment_id, $status);
+	}
 	// EOF: перенаправление обработчиков в базовый контроллер
 
 	protected function init_paging()
@@ -1235,6 +1230,18 @@ class Manager extends ManagerBaseController {
 
 			$this->paging_uri_segment = 4;
 			$this->paging_offset = $this->uri->segment(4);
+		}
+		elseif ($handler == 'update_payment_status')
+		{
+			$page_status = ucfirst($this->uri->segment(5));
+			$this->paging_base_url = "/manager/show{$page_status}Payments/" . $this->uri->segment(3);
+			$this->paging_offset = 0;
+		}
+		elseif ($handler == 'update_all_payment_status')
+		{
+			$page_status = ucfirst($this->uri->segment(4));
+			$this->paging_base_url = "/manager/showAll{$page_status}Payments/";
+			$this->paging_offset = 0;
 		}
 		else
 		{

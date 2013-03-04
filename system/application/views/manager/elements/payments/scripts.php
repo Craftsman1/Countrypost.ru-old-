@@ -34,6 +34,20 @@ function update_payment_status(order_id, payment_id)
 	updateCustomPayment(uri, success_message, error_message, progress);
 }
 
+function update_all_payment_status(payment_id)
+{
+	var status = $('select#payment_status' + payment_id).val();
+	var uri = '<?= $selfurl ?>update_all_payment_status/' +
+			payment_id + '/' +
+			status;
+
+	var success_message = 'Статус заявки №' + payment_id + ' сохранен.';
+	var error_message = 'Статус заявки №' + payment_id + ' не сохранен.';
+	var progress = 'img#payment_progress' + payment_id;
+
+	updateCustomPayment(uri, success_message, error_message, progress);
+}
+
 function updateCustomPayment(uri, success_message, error_message, progress)
 {
 	$.ajax({
@@ -45,6 +59,11 @@ function updateCustomPayment(uri, success_message, error_message, progress)
 		},
 		success: function(data) {
 			refreshOrderTotals(data, success_message, error_message);
+
+			if (data['snippet'] != '')
+			{
+				$('div#payments').replaceWith(data['snippet']);
+			}
 		},
 		error: function(data) {
 			error('top', error_message);

@@ -74,8 +74,7 @@
 				<select name="payment_status<?= $o2i->order2in_id ?>"
 						id="payment_status<?= $o2i->order2in_id ?>"
 						class="order_status"
-						onchange="update_payment_status('<?= $o2i->order_id ?>',
-								'<?= $o2i->order2in_id ?>');">
+						onchange="update_all_payment_status('<?= $o2i->order2in_id ?>');">
 				<? foreach ($Orders2InStatuses as $status => $status_name) : ?>
 					<option value="<?= $status ?>" <? if ($o2i->order2in_status == $status) :
 						?>selected="selected"<? endif; ?>><?= $status_name ?></option>

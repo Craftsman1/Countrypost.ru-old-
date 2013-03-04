@@ -1,10 +1,6 @@
-<? if ($order->order_status != 'pending') : ?>
 <div class="float-left payButton" style="vertical-align: bottom;height: 23px;padding-top: 9px;margin-right: 5px!important;">
 	<?= $order->order_cost_payed ?> <?= $order->order_currency ?>
 </div>
-<? else : ?>
-	<?= $order->order_cost ?> <?= $order->order_currency ?>
-<? endif; ?>
 <? $payableAmount =
 	($order->order_cost > $order->order_cost_payed) ?
 	$order->order_cost - $order->order_cost_payed :
@@ -26,6 +22,4 @@ if (in_array($order->order_status, $payable_statuses) AND
 					   $order->order_currency ?>">
 		</div>
 </div>
-<? elseif (isset($show_caption)) : ?>
-Оплатить <?= $payableAmount ?> <?= $order->order_currency ?>
 <? endif; ?>
