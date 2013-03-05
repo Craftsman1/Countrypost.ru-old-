@@ -6,12 +6,12 @@ class Admin extends AdminBaseController {
 	{
 		parent::__construct();
 
-		Breadcrumb::setCrumb(array('/' => 'Главная'), 0, TRUE);
+		Breadcrumb::setCrumb(array(BASEURL => 'Главная'), 0, TRUE);
 	}
 	
 	function index()
 	{
-		Func::redirect(BASEURL);
+		Func::redirect(BASEURL . "admin/history");
 	}
 	
 	public function autocompleteClient($query)
@@ -44,43 +44,6 @@ class Admin extends AdminBaseController {
 		}
 	}
 	
-	public function showPaymentHistory()
-	{
-		$this->load->model('PaymentModel', 'Payments');
-		$view['filter'] = $this->initFilter('paymentHistory');
-		$view['Payments'] = $this->Payments->getFilteredPayments($view['filter']->condition, $view['filter']->from, $view['filter']->to);
-
-		/* пейджинг */
-		$this->init_paging();		
-		$this->paging_count = count($view['Payments']);
-		$per_page = isset($this->session->userdata['payments_per_page']) ? $this->session->userdata['payments_per_page'] : $this->per_page;
-		$this->per_page = $per_page;
-		$view['per_page'] = $per_page;
-	
-		if (isset($view['Payments']) && $view['Payments'])
-		{
-			$view['Payments'] = array_slice($view['Payments'], $this->paging_offset, $this->per_page);
-		}			
-			
-		$view['pager'] = $this->get_paging();
-
-		// собираем платежные системы
-		$this->load->model('PaymentServiceModel', 'Services');
-		$view['services'] = $this->Services->getList();		
-		
-		// парсим шаблон
-		if ($this->uri->segment(4) == 'ajax')
-		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
-			$view['viewpath'] = $this->viewpath;
-			$this->load->view($this->viewpath."ajax/showPaymentHistory", $view);
-		}
-		else
-		{
-			View::showChild($this->viewpath.'pages/showPaymentHistory', $view);
-		}
-	}
-
 	public function history()
 	{
 		parent::showPaymentHistory();
@@ -2111,44 +2074,9 @@ class Admin extends AdminBaseController {
 		parent::deleteOrder();
 	}
 	
-	public function filterNewPackages()
-	{
-		$this->filter('openPackages', 'showNewPackages');
-	}
-	
-	public function filterPayedPackages()
-	{
-		$this->filter('payedPackages', 'showPayedPackages');
-	}
-	
-	public function filterSentPackages()
-	{
-		$this->filter('sentPackages', 'showSentPackages');
-	}
-	
 	public function filterOpenOrders()
 	{
 		$this->filter('not_payedOrders', 'showOpenOrders');
-	}
-	
-	public function filterOpenClientO2o()
-	{
-		$this->filter('openClientO2o', 'showClientOrdersToOut');
-	}
-	
-	public function filterPayedClientO2o()
-	{
-		$this->filter('payedClientO2o', 'showClientPayedOrdersToOut');
-	}
-	
-	public function filterOpenManagerO2o()
-	{
-		$this->filter('openManagerO2o', 'showManagerOrdersToOut');
-	}
-	
-	public function filterPayedManagerO2o()
-	{
-		$this->filter('payedManagerO2o', 'showManagerPayedOrdersToOut');
 	}
 	
 	public function filterSentOrders()
@@ -2165,12 +2093,12 @@ class Admin extends AdminBaseController {
 	{
 		$this->filter('clients', 'showClients');
 	}
-	
+
 	public function filterPaymentHistory()
 	{
-		$this->filter('paymentHistory', 'history');
+		$this->filter('paymentHistory', 'history/0/ajax');
 	}
-	
+
 	public function updateOpenOrdersStatus()
 	{
 		$this->updateStatus('open', 'showOpenOrders', 'OrderModel');

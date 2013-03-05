@@ -25,7 +25,10 @@
 	<script type="text/javascript" src="<?= JS_PATH ?>noty/layouts/top.js"></script>
 	<script type="text/javascript" src="<?= JS_PATH ?>noty/themes/default.js"></script>
 	<script type='text/javascript' src='/system/plugins/fckeditor/fckeditor.js'></script>
-  	<!--[if IE]>
+	<script src="<?= JS_PATH ?>jquery.ui.datepicker-ru.js"></script>
+	<script src="<?= JS_PATH ?>jquery-ui.min.1.10.1.js"></script>
+	<link rel="stylesheet" type="text/css" href="<?= CSS_PATH ?>jquery-ui.css" />
+	<!--[if IE]>
 		<link rel="stylesheet" type="text/css" href="<?= CSS_PATH ?>/ie.css">
 	<![endif]-->
 </head>

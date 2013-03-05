@@ -14,6 +14,9 @@
 	<script src="<?= JS_PATH ?>jquery-1.4.3.min.js"></script>
 	<script src="<?= JS_PATH ?>jquery.lightbox-0.5.js"></script>
 	<script src="<?= JS_PATH ?>easyTooltip.js"></script>
+	<script src="<?= JS_PATH ?>jquery.ui.datepicker-ru.js"></script>
+	<script src="<?= JS_PATH ?>jquery-ui.min.1.10.1.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
 	<!--[if IE]>
 		<link rel="stylesheet" type="text/css" href="<?= CSS_PATH ?>ie.css">
 	<![endif]-->

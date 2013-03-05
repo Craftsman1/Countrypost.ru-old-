@@ -1,48 +1,129 @@
-<form class='admin-inside' id="filterForm" action='<?=$selfurl?>filterPaymentHistory' method='POST'>
+<? //print_r($filter);die(); ?>
+
+<form class='admin-inside'
+	  id="filterForm"
+	  action='<?=$selfurl?>filterPaymentHistory'
+	  method='POST'
+	  style="position: relative;">
 	<input type='hidden' name='resetFilter' id='resetFilter' value='' />
-	<b>Поиск платежа:</b> <input type='text' name='svalue' value="<?= isset($filter->svalue)? $filter->svalue : '' ?>"></input> по 
-	<select name='sfield'>
-		<option value='id' <?= isset($filter->sfield) && $filter->sfield=='id' ? 'selected' : '' ?>>Номеру</option>
-		<option value='login' <?= isset($filter->sfield) && $filter->sfield=='login' ? 'selected' : '' ?>>Логину</option>	
+	<b>Поиск платежа:</b>
+	<input type='text'
+		   name='svalue'
+		   value="<?= isset($filter->svalue)? $filter->svalue : '' ?>"
+		   id="search_string"
+		   onchange="processFilter();">
+	по
+	<select name='sfield'
+			onchange="processFilter();">
+		<option value='manager_id'
+			<?= (isset($filter->sfield) AND $filter->sfield == 'manager_id') ?
+			'selected' :
+			'' ?>>номеру посредника</option>
+		<option value='manager_login'
+			<?= (isset($filter->sfield) AND $filter->sfield == 'manager_login') ?
+			'selected' :
+			'' ?>>логину посредника</option>
+		<option value='client_id'
+			<?= (isset($filter->sfield) AND $filter->sfield == 'client_id') ?
+			'selected' :
+			'' ?>>номеру клиента</option>
+		<option value='client_login'
+			<?= (isset($filter->sfield) AND $filter->sfield == 'client_login') ?
+			'selected' :
+			'' ?>>логину клиента</option>
+		<option value='order_id'
+			<?= (isset($filter->sfield) AND $filter->sfield == 'order_id') ?
+			'selected' :
+			'' ?>>номеру заказа</option>
+		<option value='payment_id'
+			<?= (isset($filter->sfield) AND $filter->sfield == 'payment_id') ?
+			'selected' :
+			'' ?>>номеру платежа</option>
+		<option value='payment_amount'
+			<?= (isset($filter->sfield) AND $filter->sfield == 'payment_amount') ?
+			'selected' :
+			'' ?>>сумме оплаты</option>
 	</select>
-	<select name='stype'>
-		<option value='from' <?= isset($filter->stype) && $filter->stype == 'from' ? 'selected' : '' ?>>Отправителя</option>
-		<option value='to' <?= isset($filter->stype) && $filter->stype == 'to' ? 'selected' : '' ?>>Получателя</option>	
-		<option value='package' <?= isset($filter->stype) && $filter->stype == 'package' ? 'selected' : '' ?>>Посылки</option>	
-		<option value='order' <?= isset($filter->stype) && $filter->stype == 'order' ? 'selected' : '' ?>>Заказа</option>	
+	дата
+	<input type="text"
+		   id="from"
+		   name="from"
+		   value="<?= $filter->from ?>"
+		   onchange="processFilter();">
+	-
+	<input type="text"
+		   id="to"
+		   name="to"
+		   value="<?= $filter->to ?>"
+		   onchange="processFilter();" >
+	статус
+	<select name='status'
+			onchange="processFilter();">
+		<option value='' <?= empty($filter->status) ? 'selected' : '' ?>></option>
+		<option value='sent_by_client'
+			<?= (isset($filter->status) AND $filter->status == 'sent_by_client') ?
+			'selected' :
+			'' ?>>Переведено клиентом</option>
+		<option value='not_payed'
+			<?= (isset($filter->status) AND $filter->status == 'not_payed') ?
+			'selected' :
+			'' ?>>К выплате</option>
+		<option value='payed'
+			<?= (isset($filter->status) AND $filter->status == 'payed') ?
+			'selected' :
+			'' ?>>Выплачено</option>
 	</select>
-	за
-	<select name='sdate'>
-		<option value='all' <?= isset($filter->sdate) && $filter->sdate == 'all' ? 'selected' : '' ?>>Весь период</option>
-		<option value='day' <?= isset($filter->sdate) && $filter->sdate == 'day' ? 'selected' : '' ?>>День</option>	
-		<option value='week' <?= isset($filter->sdate) && $filter->sdate == 'week' ? 'selected' : '' ?>>Неделю</option>
-		<option value='month' <?= isset($filter->sdate) && $filter->sdate == 'month' ? 'selected' : '' ?>>Месяц</option>
-	</select>
-	<select name='sservice'>
-		<option value='all'>Все платежи</option>
-		<option value='package' <?= isset($filter->sservice) && $filter->sservice == 'package' ? 'selected' : '' ?>>Оплата посылки</option>
-		<option value='order' <?= isset($filter->sservice) && $filter->sservice == 'order' ? 'selected' : '' ?>>Оплата заказа</option>	
-		<option value='in' <?= isset($filter->sservice) && $filter->sservice == 'in' ? 'selected' : '' ?>>Пополнение счета</option>
-		<option value='out' <?= isset($filter->sservice) && $filter->sservice == 'out' ? 'selected' : '' ?>>Заявки на вывод (клиенты)</option>
-		<option value='salary' <?= isset($filter->sservice) && $filter->sservice == 'salary' ? 'selected' : '' ?>>Заявки на вывод (партнеры)</option>
-	</select>
-	<? if ($result->e < 0) : ?>
-		<em style="color:red;"><?= $result->m ?></em>
-	<? endif; ?>
-	<div class='submit historySearch'>
-		<div>
-			<input type='submit' value='Искать' />
-		</div>
-	</div>
+	<br>
 	<a href='#' id='reset_filter'>Все платежи</a>
+	<br>
+	<img class="float-left"
+		 id="filterProgress"
+		 style="display: none; right: 0; position: absolute; top: 0;"
+		 src="/static/images/lightbox-ico-loading.gif"/>
 </form>
 <script>
+	function processFilter()
+	{
+		$("#resetFilter").val("0");
+		$("#filterForm").submit();
+	}
+
+	function resetFilter(e)
+	{
+		e.preventDefault();
+
+		$("#resetFilter").val("1");
+		$("input#search_string,input#to,input#from,#filterForm select").val('');
+		$("#filterForm").submit();
+	}
+
 	$(function() {
+		$.datepicker.setDefaults( $.datepicker.regional[ "" ] );
+		$( "#from,#to" ).datepicker( $.datepicker.regional[ "ru" ] );
+
 		$('a#reset_filter').click(function(e) {
-			e.preventDefault();
-			
-			$("#resetFilter").val("1");
-			$("#filterForm").submit();
+			resetFilter(e);
+		});
+
+		$('#filterForm').ajaxForm({
+			target: '<?= $selfurl ?>filterOrders/0/ajax/',
+			type: 'POST',
+			dataType: 'html',
+			iframe: true,
+			beforeSubmit: function(formData, jqForm, options)
+			{
+				$("#filterProgress").show();
+			},
+			success: function(response)
+			{
+				$("div.pages").remove();
+				$('div#pagerForm').replaceWith(response);
+				$("#filterProgress").hide();
+			},
+			error: function(response)
+			{
+				$("#filterProgress").hide();
+			}
 		});
 	});
 </script>

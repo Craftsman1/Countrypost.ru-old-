@@ -603,8 +603,30 @@ class PaymentModel extends BaseModel implements IModel{
 		// фильтр дат
 		if ($from && $to) 
 		{
-			$where .= " AND `payment_time` BETWEEN '$from' AND '$to'";
+			$from_date = DateTime::createFromFormat('j.m.Y', $from);
+			$from_date = $from_date->format('Y-m-d H:i:s');
+			$to_date = DateTime::createFromFormat('j.m.Y', $to);
+			$to_date->modify('+1 day');
+			$to_date = $to_date->format('Y-m-d H:i:s');
+
+			$where .= " AND `payment_time` BETWEEN '$from_date' AND '$to_date'";
 		}
+		else if ($from)
+		{
+			$from_date = DateTime::createFromFormat('j.m.Y', $from);
+			$from_date = $from_date->format('Y-m-d H:i:s');
+
+			$where .= " AND `payment_time` >= '$from_date'";
+		}
+		else if ($to)
+		{
+			$to_date = DateTime::createFromFormat('j.m.Y', $to);
+			$to_date->modify('+1 day');
+			$to_date = $to_date->format('Y-m-d H:i:s');
+
+			$where .= " AND `payment_time` < '$to_date'";
+		}
+
 		
 		// дополнительные условия
 		if ( ! empty($extra_where))

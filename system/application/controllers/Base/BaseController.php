@@ -1569,8 +1569,8 @@ abstract class BaseController extends Controller
 			if (isset($_POST['client_country'])) $filter->client_country					= Check::int('client_country');
 			if (isset($_POST['search_id'])) $filter->search_id								= Check::txt('search_id', 11, 1, '');
 			if (isset($_POST['search_client'])) $filter->search_client						= Check::txt('search_client', 11, 1, '');
-			if (isset($_POST['pricelist_delivery'])) $filter->pricelist_delivery			= Check::int('pricelist_delivery');
-			if (isset($_POST['period'])) $filter->period									= Check::txt('period', 5, 3, '');
+			//if (isset($_POST['pricelist_delivery'])) $filter->pricelist_delivery			= Check::int('pricelist_delivery');
+			//if (isset($_POST['period'])) $filter->period									= Check::txt('period', 5,3, '');
 			if (isset($_POST['id_type'])) $filter->id_type									= Check::txt('id_type', 13, 5, '');
 			if (isset($_POST['id_status'])) $filter->id_status								= Check::txt('id_status', 20, 1, '');
 
@@ -1598,12 +1598,6 @@ abstract class BaseController extends Controller
 				case ('Orders') :
 					$filter = $this->processOrdersFilter($filter);
 					break;
-				case ('openClientO2o') :
-				case ('payedClientO2o') :
-				case ('openManagerO2o') :
-				case ('payedManagerO2o') :
-					$filter = $this->initO2oFilter($filter);
-					break;
 			}
 
 			// кладем фильтрацию назад сессию
@@ -1612,7 +1606,7 @@ abstract class BaseController extends Controller
 		catch (Exception $e) 
 		{
 		}
-		
+
 		// уходим на страницу с результатами фильтрации
 		Func::redirect(BASEURL.$this->cname.'/'.$pageName);
 	}
@@ -1620,7 +1614,7 @@ abstract class BaseController extends Controller
 	protected function initFilter($filterType)
 	{
 		// если ничего не фильтровали, инициализируем фильтр
-		//if ( ! isset($_SESSION[$filterType.'Filter']))
+		if ( ! isset($_SESSION[$filterType.'Filter']))
 		{
 			// инициализируем общие для всех фильтров параметры (прочистить)
 			$filter = new stdClass();
@@ -1673,6 +1667,9 @@ abstract class BaseController extends Controller
 		$filter->stype		= '';
 		$filter->svalue		= '';
 		$filter->sservice	= '';
+		$filter->status		= '';
+		$filter->from		= '';
+		$filter->to			= '';
 
 		return $filter;
 	}
@@ -1688,73 +1685,53 @@ abstract class BaseController extends Controller
 			return $filter;
 		}
 
-		if (isset($_POST['sdate']))
-		{
-			switch ($_POST['sdate']) {
-				case 'day':
-					$filter->from = date('Y-m-d 00:00:00');
-					break;
-				case 'week':
-					$filter->from = intval(date('w')) ? date('Y-m-d 00:00:00', time()-(intval(date('w'))-1)*24*60*60) : date('Y-m-d 00:00:00', time()-6*24*60*60);
-					break;
-				case 'month':
-					$filter->from = date('Y-m-01 00:00:00');
-					break;
-			}
-		}
+		$filter->svalue		= Check::str('svalue', 255, 1, '');
+		$filter->sfield		= Check::str('sfield', 20, 1, 'manager_id');
+		$filter->status		= Check::str('status', 20, 1, '');
+		$filter->from		= Check::str('from', 10, 10, '');
+		$filter->to			= Check::str('to', 10, 10, '');
 
-		if ($filter->from)
+		if ($filter->sfield)
 		{
-			$filter->to = date('Y-m-d H:i:s');
-		}
-
-		$filter->sfield		= Check::str('sfield',64,1);
-		$filter->sdate		= Check::str('sdate',5,3);
-		$filter->stype		= Check::str('stype',7,2);
-		$filter->svalue		= Check::str('svalue',64,1);
-		$filter->sservice	= Check::str('sservice',7,2);
-
-		if ($filter->sfield == 'id')
-		{
-			switch ($filter->stype)
+			switch ($filter->sfield)
 			{
-				case 'from' :
+				case 'client_id' :
 					if (is_numeric($filter->svalue))
 					{
-						$column = "user_from.user_id";
+						$filter->condition['like'] = array('payment_from' => $filter->svalue);
 					}
 					break;
-				case 'to' :
+				case 'manager_id' :
 					if (is_numeric($filter->svalue))
 					{
-						$column = "user_to.user_id";
+						$filter->condition['like'] = array('payment_to' => $filter->svalue);
 					}
 					break;
-				case 'order' :
+				case 'order_id' :
 					$filter->condition['payment_type'] = 'order';
 					$filter->condition['like'] = array('payment_comment' => $filter->svalue);
 					break;
+				case 'client_login' :
+					$filter->condition['like'] = array('user_from.user_login' => $filter->svalue);
+					break;
+				case 'manager_login' :
+					if (is_numeric($filter->svalue))
+					{
+						$filter->condition['like'] = array('user_to.user_login' => $filter->svalue);
+					}
+					break;
+				case 'payment_id' :
+					$filter->condition['like'] = array('payment_id' => $filter->svalue);
+					break;
+				case 'payment_amount' :
+					$filter->condition["payment_amount_from"] = $filter->svalue;
+					break;
 			}
 		}
 
-		if ($filter->sfield == 'login')
+		if ($filter->status)
 		{
-			$column = "user_{$filter->stype}.user_login";
-		}
-
-		if (isset($column))
-		{
-			$filter->condition[$column] = $filter->svalue;
-		}
-
-		// тип услуги, за которую произведена оплата
-		if (isset($filter->sservice) AND
-			($filter->sservice == 'order' OR
-				$filter->sservice == 'in' OR
-				$filter->sservice == 'out' OR
-				$filter->sservice == 'salary'))
-		{
-			$filter->condition['payment_type'] = $filter->sservice;
+			$filter->condition["status"] = $filter->status;
 		}
 
 		return $filter;
@@ -2478,7 +2455,7 @@ abstract class BaseController extends Controller
 	protected function showPaymentHistory()
 	{
 		$this->load->model('PaymentModel', 'Payment');
-		
+
 		if ($this->user->user_group == 'client')
 		{
 			$view['Payments'] = $this->Payment->getFilteredPayments("(user_to.user_id={$this->user->user_id} OR
@@ -2500,7 +2477,9 @@ abstract class BaseController extends Controller
 		}
 		else if ($this->user->user_group == 'admin')
 		{
+			//print_r($_SESSION['paymentHistoryFilter']);die();
 			$view['filter'] = $this->initFilter('paymentHistory');
+			//print_r('!!' . $view['filter']);die();
 			$view['Payments'] = $this->Payment->getFilteredPayments($view['filter']->condition, $view['filter']->from, $view['filter']->to);
 			$view['total_usd'] = $this->Payment->getTotalUSD($view['Payments']);
 		}
