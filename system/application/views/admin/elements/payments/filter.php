@@ -1,12 +1,11 @@
 <? //print_r($filter);die(); ?>
-
 <form class='admin-inside'
 	  id="filterForm"
-	  action='<?=$selfurl?>filterPaymentHistory'
+	  action='<?=$selfurl?>filterAllPayments'
 	  method='POST'
 	  style="position: relative;">
 	<input type='hidden' name='resetFilter' id='resetFilter' value='' />
-	<b>Поиск платежа:</b>
+	<b>Поиск заявки:</b>
 	<input type='text'
 		   name='svalue'
 		   value="<?= isset($filter->svalue)? $filter->svalue : '' ?>"
@@ -15,34 +14,15 @@
 	по
 	<select name='sfield'
 			onchange="processFilter();">
-		<option value='manager_id'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'manager_id') ?
-			'selected' :
-			'' ?>>номеру посредника</option>
-		<option value='manager_login'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'manager_login') ?
-			'selected' :
-			'' ?>>логину посредника</option>
+		<option value=''>все</option>
 		<option value='client_id'
 			<?= (isset($filter->sfield) AND $filter->sfield == 'client_id') ?
 			'selected' :
 			'' ?>>номеру клиента</option>
-		<option value='client_login'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'client_login') ?
+		<option value='order2in_id'
+			<?= (isset($filter->sfield) AND $filter->sfield == 'order2in_id') ?
 			'selected' :
-			'' ?>>логину клиента</option>
-		<option value='order_id'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'order_id') ?
-			'selected' :
-			'' ?>>номеру заказа</option>
-		<option value='payment_id'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'payment_id') ?
-			'selected' :
-			'' ?>>номеру платежа</option>
-		<option value='payment_amount'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'payment_amount') ?
-			'selected' :
-			'' ?>>сумме оплаты</option>
+			'' ?>>номеру заявки</option>
 	</select>
 	дата
 	<input type="text"
@@ -56,25 +36,8 @@
 		   name="to"
 		   value="<?= $filter->to ?>"
 		   onchange="processFilter();" >
-	статус
-	<select name='status'
-			onchange="processFilter();">
-		<option value='' <?= empty($filter->status) ? 'selected' : '' ?>></option>
-		<option value='sent_by_client'
-			<?= (isset($filter->status) AND $filter->status == 'sent_by_client') ?
-			'selected' :
-			'' ?>>Переведено клиентом</option>
-		<option value='not_payed'
-			<?= (isset($filter->status) AND $filter->status == 'not_payed') ?
-			'selected' :
-			'' ?>>К выплате</option>
-		<option value='payed'
-			<?= (isset($filter->status) AND $filter->status == 'payed') ?
-			'selected' :
-			'' ?>>Выплачено</option>
-	</select>
 	<br>
-	<a href='#' id='reset_filter'>Все платежи</a>
+	<a href='#' id='reset_filter'>Все заявки</a>
 	<br>
 	<img class="float-left"
 		 id="filterProgress"
@@ -115,8 +78,7 @@
 			},
 			success: function(response)
 			{
-				$("div.pages").remove();
-				$('div#pagerForm').replaceWith(response);
+				$('div#payments').replaceWith(response);
 				$("#filterProgress").hide();
 			},
 			error: function(response)

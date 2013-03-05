@@ -1923,4 +1923,61 @@ class Client extends ClientBaseController {
 	{
 		parent::deletePaymentFoto($o2i_id, $filename);
 	}
+
+	public function filterBalance()
+	{
+		$this->filter('Balance', 'balance');
+	}
+
+	protected function processBalanceFilter()
+	{
+		$filter = $this->initBalanceFilter();
+
+		// сброс фильтра
+		if (isset($_POST['resetFilter']) AND $_POST['resetFilter'] == '1')
+		{
+			return $filter;
+		}
+
+		$filter->svalue		= Check::str('svalue', 255, 1, '');
+
+		if ($filter->sfield)
+		{
+			$filter->condition['like'] = array(
+				'manager_id' => $filter->svalue,
+				'manager_login' => $filter->svalue
+			);
+		}
+
+		return $filter;
+	}
+
+	protected function initBalanceFilter()
+	{
+		$filter = new stdClass();
+		$filter->svalue		= '';
+
+		return $filter;
+	}
+
+	public function balance()
+	{
+		try
+		{
+			$filter = $this->initFilter('Balance');
+			$this->load->model('OrderModel', 'Orders');
+
+			$view['balance'] = $this->Orders->getFilteredBalance($this->user->user_id, $filter->svalue);
+
+			// парсим шаблон
+			$view['selfurl'] = BASEURL.$this->cname.'/';
+			$view['viewpath'] = $this->viewpath;
+
+			$this->load->view($this->viewpath."ajax/showBalance", $view);
+		}
+		catch (Exception $e)
+		{
+			//$error->m	= $e->getMessage();
+		}
+	}
 }

@@ -1,5 +1,8 @@
-<div class='table' id="lay5_block" style="width:400px; position:fixed; z-index: 1000; display:none; top:200px;">
-	<h2>Добавление подтверждения</h2>
+<div class='table' id="upload_foto_block" style="width:550px; position:fixed; z-index: 1000; display:none; top:200px;">
+	<center>
+		<h3 style="margin-top:0;margin-bottom:20px;">Добавление подтверждения</h3>
+	</center>
+	<br>
 	<form class='admin-inside' action="/client/addPaymentFoto/" enctype="multipart/form-data" method="POST">
 		<table>
 			<tr>
@@ -21,6 +24,7 @@
 				</td>
 			</tr>
 		</table>
+		<br>
 		<p>
 			Чтобы мы смогли найти Ваш платеж (перевод), Вам нужно сделать и добавить подтверждение.
 			<br />
@@ -28,24 +32,24 @@
 			Подтверждение - это скан, фото или скриншот квитанции.
 			<br />
 			<br />
-			Если Вы перевели деньги через банкомат, сделайте фото или скан квитанции, которую дал Вам банкомат.
+			Если Вы перевели деньги через банкомат, сделайте фото или скан квитанции, которую выдал Вам банкомат.
 			<br />
 			<br />
-			Если Вы веревели деньги через Сбербанк Онл@айн, то сделайте скриншот квитанции, которая появится после перевода.
+			Если Вы перевели деньги через Сбербанк Онл@айн, сделайте скриншот квитанции,
+			которая появилась после перевода.
 		</p>
 	</form>
 </div>
 
 <script type="text/javascript">
 	var fmclick = 0;
-	function lay5(order_id){
-		
-		var $offsetLeft	= 430;
-		
+	function upload_foto(order_id){
+		var offsetLeft = window.innerWidth / 2 - 280;
+
 		var scans = $('#scans_' + order_id);
 		
-		$('#lay5_block').css({
-			'left'	:$offsetLeft
+		$('#upload_foto_block').css({
+			'left' : offsetLeft
 		}).find('#delete').html(scans).find('div').css('display', 'block');
 		
 		var scans = $('#scans_' + order_id);
@@ -56,19 +60,19 @@
 		});
 		
 		$('#lay').fadeIn("slow");
-		$('#lay5_block').fadeIn("slow");
+		$('#upload_foto_block').fadeIn("slow");
 		
 		if (!fmclick){
 			fmclick = 1;
 			$('#lay').click(function(){
 				$('#lay').fadeOut("slow");
-				$('#lay5_block').fadeOut("slow");
+				$('#upload_foto_block').fadeOut("slow");
 			})
 		}
 	}
 	
 	function uploadBillFoto(order_id){
 		document.getElementById('order_id').value = order_id;
-		lay5(order_id);
+		upload_foto(order_id);
 	}
 </script>

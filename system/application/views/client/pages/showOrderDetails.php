@@ -8,6 +8,6 @@
 	</h3>
 	<? View::show('client/ajax/showOrderDetails'); ?>
 	<? View::show('main/elements/orders/bids'); ?>
+	<? View::show('/client/elements/div_float_upload_bill'); ?>
 </div>
-<? View::show('/client/elements/div_float_upload_bill'); ?>
 <? View::show('client/elements/orders/scripts'); ?>

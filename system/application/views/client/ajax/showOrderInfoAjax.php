@@ -47,7 +47,7 @@
 						<? else : ?>
 						<select id="address"
 								name="address"
-								style="width: 610px!important;clear: both;"
+								style="width: 100%!important;clear: both;"
 								onchange="updateOrder();">
 							<option value="0" >выберите адрес...</option>
 							<? foreach ($addresses as $address) :
@@ -102,7 +102,7 @@
 					if ($is_editable) : ?>
 					<textarea name="delivery"
 							  id="delivery"
-							  style="width:188px;resize: vertical;"
+							  style="width: 100%;resize: vertical;"
 							  onchange="updateOrder();"
 							><?= $delivery_name ?></textarea>
 					<? else : ?>

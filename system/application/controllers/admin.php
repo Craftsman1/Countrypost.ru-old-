@@ -2099,6 +2099,11 @@ class Admin extends AdminBaseController {
 		$this->filter('paymentHistory', 'history/0/ajax');
 	}
 
+	public function filterAllPayments()
+	{
+		$this->filter('allPayments', 'showAllOpenPayments/0/ajax');
+	}
+
 	public function updateOpenOrdersStatus()
 	{
 		$this->updateStatus('open', 'showOpenOrders', 'OrderModel');

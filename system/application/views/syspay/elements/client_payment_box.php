@@ -6,4 +6,4 @@
 <? View::show('/syspay/elements/div_float_pb_o2i'); ?>
 <? View::show('/syspay/elements/div_float_sv_o2i'); ?>
 <? View::show('/syspay/elements/div_float_vtb_o2i'); ?>
-<? View::show('/client/elements/div_float_upload_bill'); ?>
+<? //View::show('/client/elements/div_float_upload_bill'); ?>

@@ -1347,7 +1347,6 @@ class OrderModel extends BaseModel implements IModel{
 
 		$order->order_cost_payed += $excess_amount;
 
-		//print_r($order);die();
 		$this->addOrder($order);
 
 		return $excess_amount;
@@ -1384,6 +1383,44 @@ class OrderModel extends BaseModel implements IModel{
 		}
 
 		return $result[0]->total;
+	}
+
+	public function getFilteredBalance($client_id, $search_value = '')
+	{
+		$where = "order_status = 'completed' AND order_cost_payed > order_cost AND order_client = '$client_id'";
+		$filter_where = '';
+
+		if ($search_value)
+		{
+			$filter_where .= "AND (order_manager LIKE '%$search_value%' OR " .
+				"user_login LIKE '%$search_value%' OR " .
+				"manager_name LIKE '%$search_value%')";
+
+		}
+
+		$result = $this->db->query("
+			SELECT SUM(order_cost_payed - order_cost) balance,
+				manager_country,
+				manager_name,
+				user_login,
+				country_currency,
+				country_name
+			FROM orders
+			INNER JOIN managers
+				ON order_manager = manager_user
+			INNER JOIN users
+				ON user_id = manager_user
+			INNER JOIN countries
+				ON country_id = manager_country
+			WHERE
+				$where $filter_where
+			GROUP BY
+				order_manager, manager_country, user_login, country_currency
+			ORDER BY
+				country_name, manager_name
+				")->result();
+
+		return (count($result > 0) AND $result) ? $result : FALSE;
 	}
 }
 ?>

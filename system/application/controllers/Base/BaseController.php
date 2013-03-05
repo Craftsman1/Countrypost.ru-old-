@@ -712,7 +712,8 @@ abstract class BaseController extends Controller
 			$view['order_types'] = $this->Orders->getOrderTypes();
 
 			// заявки на оплату
-			$Orders = $this->getAllPrivilegedOrders2In($view, $status, FALSE);
+			$view['filter'] = $this->initFilter('allPayments');
+			$Orders = $this->getAllPrivilegedOrders2In($view['filter'], $status, FALSE);
 
 			/* пейджинг */
 			$this->init_paging();
@@ -769,7 +770,8 @@ abstract class BaseController extends Controller
 			$payments_counters = $this->Orders2In->getCounters(
 				0,
 				$this->user->user_id,
-				$this->user->user_group);
+				$this->user->user_group,
+				$view['filter']);
 
 			$view += array (
 				'Orders2In' => $Orders,
@@ -1586,6 +1588,9 @@ abstract class BaseController extends Controller
 				case ('paymentHistory') :
 					$filter = $this->processPaymentHistoryFilter();
 					break;
+				case ('allPayments') :
+					$filter = $this->processAllPaymentsFilter();
+					break;
 				case ('UnassignedOrders') :
 					$filter = $this->processUnassignedOrdersFilter($filter);
 					break;
@@ -1597,6 +1602,9 @@ abstract class BaseController extends Controller
 					break;
 				case ('Orders') :
 					$filter = $this->processOrdersFilter($filter);
+					break;
+				case ('Balance') :
+					$filter = $this->processBalanceFilter($filter);
 					break;
 			}
 
@@ -1642,6 +1650,9 @@ abstract class BaseController extends Controller
 				case ($filterType == 'paymentHistory') :
 					$filter = $this->initPaymentHistoryFilter($filter);
 					break;
+				case 'allPayments' :
+					$filter = $this->initAllPaymentsFilter($filter);
+					break;
 			}
 
 			// кладем фильтр в сессию
@@ -1659,14 +1670,10 @@ abstract class BaseController extends Controller
 		$filter->user_from = '';
 		$filter->user_to = '';
 		$filter->payment_to = '';
-		$filter->from = NULL;
-		$filter->to = NULL;
 		$filter->condition = array();
 		$filter->sfield		= '';
 		$filter->sdate		= '';
-		$filter->stype		= '';
 		$filter->svalue		= '';
-		$filter->sservice	= '';
 		$filter->status		= '';
 		$filter->from		= '';
 		$filter->to			= '';
@@ -1674,6 +1681,16 @@ abstract class BaseController extends Controller
 		return $filter;
 	}
 
+	protected function initAllPaymentsFilter()
+	{
+		$filter = new stdClass();
+		$filter->sfield		= '';
+		$filter->svalue		= '';
+		$filter->from		= '';
+		$filter->to			= '';
+
+		return $filter;
+	}
 
 	protected function processPaymentHistoryFilter()
 	{
@@ -1732,6 +1749,40 @@ abstract class BaseController extends Controller
 		if ($filter->status)
 		{
 			$filter->condition["status"] = $filter->status;
+		}
+
+		return $filter;
+	}
+
+	protected function processAllPaymentsFilter()
+	{
+		$filter = $this->initPaymentHistoryFilter();
+
+		// сброс фильтра
+		if (isset($_POST['resetFilter']) AND $_POST['resetFilter'] == '1')
+		{
+			return $filter;
+		}
+
+		$filter->svalue		= Check::str('svalue', 255, 1, '');
+		$filter->sfield		= Check::str('sfield', 20, 1, '');
+		$filter->from		= Check::str('from', 10, 10, '');
+		$filter->to			= Check::str('to', 10, 10, '');
+
+		if ($filter->sfield)
+		{
+			switch ($filter->sfield)
+			{
+				case 'client_id' :
+					if (is_numeric($filter->svalue))
+					{
+						$filter->condition['like'] = array('order2in_user' => $filter->svalue);
+					}
+					break;
+				case 'order2in_id' :
+					$filter->condition['like'] = array('order2in_id' => $filter->svalue);
+					break;
+			}
 		}
 
 		return $filter;
@@ -2477,10 +2528,11 @@ abstract class BaseController extends Controller
 		}
 		else if ($this->user->user_group == 'admin')
 		{
-			//print_r($_SESSION['paymentHistoryFilter']);die();
 			$view['filter'] = $this->initFilter('paymentHistory');
-			//print_r('!!' . $view['filter']);die();
-			$view['Payments'] = $this->Payment->getFilteredPayments($view['filter']->condition, $view['filter']->from, $view['filter']->to);
+			$view['Payments'] = $this->Payment->getFilteredPayments(
+				$view['filter']->condition,
+				$view['filter']->from,
+				$view['filter']->to);
 			$view['total_usd'] = $this->Payment->getTotalUSD($view['Payments']);
 		}
 
@@ -3299,7 +3351,7 @@ abstract class BaseController extends Controller
 		return $orders;
 	}
 
-    protected function getAllPrivilegedOrders2In($view, $status = 'open', $validate = TRUE)
+    protected function getAllPrivilegedOrders2In($filter, $status = 'open', $validate = TRUE)
 	{
 		$orders = FALSE;
 		$model = $this->getOrder2InModel();
@@ -3321,7 +3373,10 @@ abstract class BaseController extends Controller
 					), $status);
 					break;
 				case 'admin' :
-					$orders = $model->getFilteredOrders(NULL, $status);
+					$orders = $model->getFilteredOrders($filter->condition,
+						$status,
+						$filter->from,
+						$filter->to);
 					break;
 			}
 		}

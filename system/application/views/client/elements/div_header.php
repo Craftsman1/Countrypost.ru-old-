@@ -43,13 +43,19 @@
                 <? endif; ?>
                 <div class='center-block'>
                     <h3>ВАШ НОМЕР НА САЙТЕ: <?= $this->user->user_id ?></h3>
-                    <p>Общий баланс: <span class='big-text'>$<?=$this->user->user_coints;?></span></p>
-                    <p>(<a href='/syspay/showPays/' class='anthracite-color'>Как пополнить?</a>)</p>
-                    <p><a href='/<?= $this->user->user_group ?>/history'>Статистика платежей</a></p>
+					<br>
+					<p>
+						Баланс Countrypost.ru: <span class='big-text'><?=$this->user->user_coints;?> USD</span></p>
+                    <p>
+						<a href='javascript:showBalanceWindow();'>Баланс по посредникам</a>
+					</p>
+                    <p>
+						<a href='/<?= $this->user->user_group ?>/history'>Статистика платежей</a>
+					</p>
                 </div>
             </div>
         </div>
-
+		<? View::show('/client/elements/payments/balance_block'); ?>
     <script>
         user = '<?= (!empty($this->user)) ? $this->user->user_group : '' ?>';
     </script>

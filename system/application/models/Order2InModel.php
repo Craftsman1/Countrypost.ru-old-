@@ -209,18 +209,69 @@ class Order2InModel extends BaseModel implements IModel{
 		$this->_set("order2in_isnew", 0);
 		return $this->save();
 	}
-	
-	public function getFilteredOrders($filter, $status = null)
+
+	private function initWhere($filter, $from = NULL, $to = NULL)
 	{
-		$where = 1;
-		if (isset($filter) && count($filter)) {
-			$where = '';			
-			foreach ($filter as $key=>$val) {
-				$where .= "`$key` = '$val' AND ";
-			}
-			$where = substr($where, 0, strlen($where)-5);
+		$where = '1';
+
+		// обход полей фильтра
+		if (is_string($filter))
+		{
+			$where	= $filter;
 		}
-		
+		else
+		{
+			foreach ($filter as $key=>$val)
+			{
+				if ($key == 'like' AND
+					is_array($val))
+				{
+					foreach ($val as $key1 => $val1)
+					{
+						$where .= " AND $key1 LIKE '%$val1%'";
+					}
+				}
+				else
+				{
+					$where .= " AND $key = '$val'";
+				}
+			}
+		}
+
+		// фильтр дат
+		if ($from AND $to)
+		{
+			$from_date = DateTime::createFromFormat('j.m.Y', $from);
+			$from_date = $from_date->format('Y-m-d H:i:s');
+			$to_date = DateTime::createFromFormat('j.m.Y', $to);
+			$to_date->modify('+1 day');
+			$to_date = $to_date->format('Y-m-d H:i:s');
+
+			$where .= " AND `order2in_createtime` BETWEEN '$from_date' AND '$to_date'";
+		}
+		else if ($from)
+		{
+			$from_date = DateTime::createFromFormat('j.m.Y', $from);
+			$from_date = $from_date->format('Y-m-d H:i:s');
+
+			$where .= " AND `order2in_createtime` >= '$from_date'";
+		}
+		else if ($to)
+		{
+			$to_date = DateTime::createFromFormat('j.m.Y', $to);
+			$to_date->modify('+1 day');
+			$to_date = $to_date->format('Y-m-d H:i:s');
+
+			$where .= " AND `order2in_createtime` < '$to_date'";
+		}
+
+		return $where;
+	}
+
+	public function getFilteredOrders($filter = array(), $status = NULL, $from = NULL, $to = NULL)
+	{
+		$where = $this->initWhere($filter, $from, $to);
+
 		if (isset($status))
 		{
 			if ($status == 'open')
@@ -254,25 +305,12 @@ class Order2InModel extends BaseModel implements IModel{
 		return ((count($result == 1) AND $result) ? $result : FALSE);
 	}
 	
-	public function getCounters($order_id, $user_id, $user_group)
+	public function getCounters($order_id, $user_id, $user_group, $filter = NULL)
 	{
-		/*if ($user_group == 'client')
-		{
-			return $this->getClientCounters($order_id, $user_id);
-		}
-		else if ($user_group == 'manager')
-		{
-			return $this->getManagerCounters($order_id, $user_id);
-		}
-		else if ($user_group == 'admin')
-		{
-			return $this->getAdminCounters($order_id, $user_id);
-		}*/
-
 		$role = ucfirst($user_group);
 		$method = "get{$role}Counters";
 
-		return $this->$method($order_id, $user_id);
+		return $this->$method($order_id, $user_id, $filter);
 	}
 
 	protected function getClientCounters($order_id, $client_id)
@@ -354,15 +392,19 @@ class Order2InModel extends BaseModel implements IModel{
 		return $result;
 	}
 
-	protected function getAdminCounters()
+	protected function getAdminCounters($order_id, $user_id, $filter)
 	{
+		$where_filter = $this->initWhere($filter->condition,
+			$filter->from,
+			$filter->to);
+
 		$where_open = "`order2in_status` IN ('not_delivered', 'processing', 'no_screenshot')";
 		$where_payed = "`order2in_status` = 'payed'";
 
 		$open = $this->db->query("
 			SELECT COUNT(*) AS 'counter'
 			FROM `{$this->table}`
-			WHERE $where_open
+			WHERE $where_open AND $where_filter
 		")->result();
 
 		$result['open'] = (count($open == 1) AND $open) ?
@@ -372,7 +414,7 @@ class Order2InModel extends BaseModel implements IModel{
 		$payed = $this->db->query("
 			SELECT COUNT(*) AS 'counter'
 			FROM `{$this->table}`
-			WHERE $where_payed
+			WHERE $where_payed AND $where_filter
 		")->result();
 
 		$result['payed'] = (count($payed == 1) AND $payed) ?
