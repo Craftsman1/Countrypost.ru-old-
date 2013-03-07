@@ -261,7 +261,7 @@ body {
 	
 .top-block {
 	margin:9px 0 0 0;
-	min-height:283px;
+/*	min-height:283px;*/
 	}
 	.top-block .step-by-step {
 		float:left;
@@ -318,10 +318,10 @@ body {
 			text-decoration:none;
 			}
 		.autorization .submit {	
-			width:169px;
+			width:228px;
 			margin:-3px 0 0 17px;
 			}.autorization .submit div input {
-				width:153px;
+				width:212px;
 				}
 		
 	.top-block .autorization-ok {
@@ -976,13 +976,13 @@ body {
 		}
 		
 .autorization-inner {
-	height:98px;
+	height:48px;
 	position:relative;
-	background: url(../images/block-user-autorization.png) 0 0 no-repeat;
+	background: url(../images/autorization_main.png) 0 0 no-repeat;
 	}
 	.autorization-inner .text-field {
 		float:left;
-		margin:15px 20px 0 0;		
+		margin:12.5px 20px 0 0;
 		}
 		.autorization-inner .text-field input {
 			width:206px;
@@ -1002,19 +1002,26 @@ body {
 		}
 	.autorization-inner .submit {
 		float:left;
-		margin:12px 0 0;
+		margin:10px 0 0;
 		}
 		.autorization-inner .submit input {
 			width:89px;
 			}
-	.autorization-inner .remember-password {
+	.autorization-inner .remember-password,.autorization-inner .register {
 		display:block;
 		position:absolute;
-		left:419px;
-		top:58px;
+		top: 18px;
 		text-decoration:none;
 		}
 		
+	.autorization-inner .remember-password {
+		left: 514px;
+		}
+
+	.autorization-inner .register {
+		left: 267px;
+		}
+
 	.top-block .autorization-inner .registration {
 		margin: -24px -8px 0 0;
 		}
@@ -1317,7 +1324,7 @@ body {
 			text-indent:-5000px;
 			}
 .registration h2 {
-	margin:41px 0 0 326px;
+	margin:0 0 0 326px;
 	font:bold 20px Arial;
 	}
 .registration h3 {
@@ -2773,4 +2780,22 @@ a.pagerScroll {
 
 div.payButton,div.payButton div {
 	margin: 0px!important;
+}
+
+div.signup h3 {
+	margin-top: 0;
+}
+
+div.signup td {
+	white-space: normal;
+}
+
+div.signup div.signup_button {
+	height: 50px;
+	margin-left: 98px;
+	font-size: 14px;
+}
+
+div.signup div.box {
+	width:420px;
 }

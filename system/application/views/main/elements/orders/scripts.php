@@ -1,6 +1,6 @@
 <script type="text/javascript" src="/static/js/jquery.autocomplete.js"></script>
 <script type="text/javascript">
-(function ($) {
+$(function() {
     /*
     $.cpImage = function (oid, id, value) {
         var iObj = this;
@@ -362,11 +362,11 @@
 
         var blankOrderData = (blankOrderData) ? blankOrderData : null;
 
-        var fieldByName = function (fields, name) {
+		var fieldByName = function (fields, name) {
             var f = null;
             $.each(fields, function (k, v) {
                 if (v.name == name) {
-                    f = v;
+					f = v;
                 }
             });
             return f;
@@ -494,7 +494,8 @@
                 onItemSelect: function (suggestion) {
                     $('#dealer_id_ac_' + order_type).val(suggestion.extra.id);
                     $('#dealer_id_' + order_type).val(suggestion.extra.id);
-                    if (oObj.options.order_id)
+
+					if (oObj.options.order_id)
                     {
                         $('.progress_ac').show();
                         $.post('<?= $selfurl ?>update_new_order_dealer_id/' + oObj.options.order_id + '/' + suggestion.extra.id,
@@ -3642,7 +3643,7 @@
 
         var initMailforwarding = function ()
         {
-            oObj.options.type = 'mail_forwarding';
+			oObj.options.type = 'mail_forwarding';
             oObj.options.title = 'Добавление нового заказа MailForwarding';
             oObj.options.cart = new $.cpCart();
 
@@ -3854,7 +3855,7 @@
                     var orderId = oObj.options.order_id;
                     var itemId = $(this).attr('odetail-id');
 
-                    if (confirm("Вы уверены, что хотите товар №" + itemId + "?")) {
+                    if (confirm("Вы уверены, что хотите удалить товар №" + itemId + "?")) {
                         var order = this;
                         $.post('<?= $selfurl ?>deleteNewProduct/' + orderId + '/' + itemId, {}, function () {
                         }, 'json')
@@ -4210,11 +4211,11 @@
                 {
                     updateProductForm();
                 }
-            });
+            });/*
             dealer_id.validate({
                 expression:'if (VAL == 0) { return false; } else { return true; }',
                 message:'Необходимо выбрать посредника'
-            });
+            });*/
             oObj.fields.push(dealer_id);
 
             // Cпособ доставки, поле "Cпособ доставки"
@@ -4245,8 +4246,7 @@
             $('div.order_type_selector').hide();
             $('h2#page_title').html(oObj.options.title);
             $("div."+oObj.options.type+"_order_form").show('slow');
-
-        }
+		}
         // End initMailforwarding
 
         var saveOrder = function () {
@@ -4356,12 +4356,11 @@
             $('#new_products input[type="checkbox"]').removeAttr('checked');
         }
     }
+
     $(window).load(function() {
         $('#select_all').bind('click', selectAll);
     });
-
-
-})(jQuery)
+});
 
 
 function joinProducts()

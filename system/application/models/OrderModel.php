@@ -1221,10 +1221,10 @@ class OrderModel extends BaseModel implements IModel{
 		$order_country_from = $ci->Countries->getById($view['order']->order_country_from);
 		$order_country_to = $ci->Countries->getById($view['order']->order_country_to);
 
-		//if (isset($order_country_from->country_currency))
-		//{
+		if (isset($order_country_from->country_currency))
+		{
 			$view['order']->order_currency = strval($order_country_from->country_currency);
-		//}
+		}
 
 		//if (isset($order_country_from->country_name))
 		//{

@@ -4,8 +4,6 @@
 		<h2>Авторизация</h2>
 		<div class='text-field'><div><input type='text' name="login" value='Логин' onfocus='javascript: if (this.value == "Логин") this.value = "";' onblur='javascript: if (this.value == "") this.value = "Логин";' /></div></div>
 		<div class='text-field'><div><div class='password'><input type='password' name="password" id="password" value='Пароль' onfocus='javascript: if (this.value == "Пароль") this.value = "";' onblur='javascript: if (this.value == "") this.value = "Пароль";' /></div></div></div>
-		<div id=vkontakte style="float:right; margin-right:20px;"><a href='http://oauth.vkontakte.ru/authorize?client_id=<?=VK_APP_ID; ?>&redirect_uri=http://<?=$_SERVER["HTTP_HOST"]; ?>/user/vkontakte&scope=0&response_type=code' target=_blank><img src="/static/images/vkontakte.png" /></a></div>
-		<div id=facebook style="float:right; margin-right:5px;"><a href='https://www.facebook.com/dialog/oauth?client_id=<?=FB_APP_ID; ?>&redirect_uri=http://<?=$_SERVER["HTTP_HOST"]; ?>/user/facebook&scope=email,read_stream,user_location' target=_blank><img src="/static/images/facebook.png" /></a></div>
 		<div class='submit'>
 			<div>
 				<input type='submit' value='Войти' />

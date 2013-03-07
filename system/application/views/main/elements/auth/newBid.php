@@ -15,12 +15,6 @@
 				</div>
 			</div>
 		</div>
-		<div id=vkontakte style="float:right; margin-right:20px;">
-			<a href='http://oauth.vkontakte.ru/authorize?client_id=<?=VK_APP_ID; ?>&redirect_uri=http://<?=$_SERVER["HTTP_HOST"]; ?>/user/vkontakte&scope=0&response_type=code' target=_blank><img src="/static/images/vkontakte.png" /></a>
-		</div>
-		<div id=facebook style="float:right; margin-right:5px;">
-			<a href='https://www.facebook.com/dialog/oauth?client_id=<?=FB_APP_ID; ?>&redirect_uri=http://<?=$_SERVER["HTTP_HOST"]; ?>/user/facebook&scope=email,read_stream,user_location' target=_blank><img src="/static/images/facebook.png" /></a>
-		</div>
 		<div class='submit'>
 			<div>
 				<input type='submit' value='Войти' />

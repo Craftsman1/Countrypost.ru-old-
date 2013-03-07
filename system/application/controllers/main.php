@@ -1849,9 +1849,15 @@ Email: {$this->user->user_email}";
                 $order_id,
                 "Заказ недоступен.");
 
+			$this->load->model('ManagerModel', 'Managers');
+
+			$dealer = $this->Managers->getById($dealer_id);
+			$dealer_country = $dealer->manager_country;
+
             $this->load->model('OrderModel', 'Orders');
 
             $order->order_manager = $dealer_id;
+            $order->order_country_from = $dealer_country;
 
             $this->Orders->saveOrder($order);
 

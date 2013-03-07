@@ -1,9 +1,7 @@
 <div class='content smallheader'>
-<? Breadcrumb::showCrumbs(); ?>
-
-<? if (!$order_type) : ?>
+	<? Breadcrumb::showCrumbs(); ?>
+	<? if ( ! $order_type) : ?>
     <h2 id='page_title'>Выберите вид заказа:</h2>
-
     <div class="order_type_selector">
         <div class="online_order order">
             <div>
@@ -42,33 +40,14 @@
             </div>
         </div>
     </div>
-<? else : ?>
+	<? else : ?>
     <h2 id='page_title'></h2>
     <? View::show('main/elements/orders/scripts'); ?>
-    <?
-    switch ($order_type) :
-        case 'online' :
-            View::show('main/elements/orders/online');
-            break;
-        case 'offline' :
-            View::show('main/elements/orders/offline');
-            break;
-        case 'service' :
-            View::show('main/elements/orders/service');
-            break;
-        case 'delivery' :
-            View::show('main/elements/orders/delivery');
-            break;
-        case 'mailforwarding' :
-            View::show('main/elements/orders/mailforwarding');
-            break;
-    endswitch;
-    ?>
-<? endif; ?>
-
+    <? View::show("main/elements/orders/$order_type"); ?>
+	<? endif; ?>
 </div>
 <script>
-    (function($){
+    $(function() {
         $('div.online_order').bind('click', function() {
             document.location = '<?= $this->viewpath ?>createorder/online';
         });
@@ -85,12 +64,10 @@
             document.location = '<?= $this->viewpath ?>createorder/mailforwarding';
         });
 
-
         $('.submit .joint_delivery_submit').bind('click', function () {
             var data_items = $('#new_products input[name="odetail_id"]:checked'),
                 post_data = {},
                 order_id = parseInt($('input.order_id').val(), 10);
-
 
             if (order_id && !isNaN(order_id))
             {
@@ -100,30 +77,27 @@
                     post_data['join'+ $(v).val()] = $(v).val();
                 });
 
-                $.post( "/main/joinNewProducts/" + order_id,
-                        post_data,
-                        function (responce)
-                        {
-                            if (!responce.is_error)
-                            {
-                                success('top', responce.message);
-                                document.location.reload();
-                            }
-                            else
-                            {
-                                error('top', responce.message);
-                            }
+                $.post("/main/joinNewProducts/" + order_id,
+					post_data,
+					function (responce)
+					{
+						if (!responce.is_error)
+						{
+							success('top', responce.message);
+							document.location.reload();
+						}
+						else
+						{
+							error('top', responce.message);
+						}
 
-                            $('#joint_progress').hide();
-                        },
-                        'json'
+						$('#joint_progress').hide();
+					},
+					'json'
                 );
             }
-
         });
-
-    })(jQuery)
-
+    });
 
     // скриншот
     function showScreenshotLink() {
@@ -241,8 +215,8 @@
     var orderJoints = <?= ($joints AND ($json = json_encode($joints))) ? $json : 'null' ?>;
     var currencies = <?= json_encode($countries); ?>;
     var selectedCurrency = '<?= $order_currency ?>';
-    //var countryFrom = '';
+    var countryFrom = '';
     var countryTo = '';
     var cityTo = '';
-    var user = '<?= (!empty($this->user)) ? $this->user->user_group : '' ?>';
+    var user = '<?= empty($this->user) ? '' : $this->user->user_group ?>';
 </script>

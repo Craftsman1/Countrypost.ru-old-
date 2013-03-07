@@ -4409,15 +4409,19 @@ abstract class BaseController extends Controller
 		}
 
 		// пакуем предложения
-		foreach($order->bids as $bid)
+		if (isset($order->bids) AND
+			is_array($order->bids))
 		{
-			$bids[] = array(
-				'id' => $bid->bid_id,
-				'total' => $bid->total_cost,
-				'tax' => $bid->manager_tax,
-				'foto' => $bid->foto_tax,
-				'delivery' => $bid->delivery_cost,
-				'extra' => $bid->extra_tax);
+			foreach($order->bids as $bid)
+			{
+				$bids[] = array(
+					'id' => $bid->bid_id,
+					'total' => $bid->total_cost,
+					'tax' => $bid->manager_tax,
+					'foto' => $bid->foto_tax,
+					'delivery' => $bid->delivery_cost,
+					'extra' => $bid->extra_tax);
+			}
 		}
 
 		// находим клиента
@@ -4441,7 +4445,7 @@ abstract class BaseController extends Controller
 			'delivery_cost' => $order->order_delivery_cost,
 			'weight' => $order->order_weight,
 			'status' => $order->order_status,
-			'bids' => $bids
+			'bids' => (isset($bids) ? $bids : FALSE)
 		);
 	}
 }

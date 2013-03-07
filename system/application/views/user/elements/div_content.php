@@ -1,3 +1,2 @@
-
-	<?View::showFromData('content');?>
+<?View::showFromData('content');?>
 	

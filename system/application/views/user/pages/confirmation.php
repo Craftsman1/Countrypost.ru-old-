@@ -7,10 +7,8 @@
 		<a href='<?=BASEURL?>user/showRegistration' class='registration'>Регистрация</a>
 		<a href='<?=BASEURL?>user/showPasswordRecovery' class='remember-password'>Напомнить</a>
 	</form>
-	
 </div>
-
 <div class='content'>
 	<h2>подтверждение регистрации</h2>
-	<p><?=$result->m;?></p>
+	<p><?= $result->m ?></p>
 </div>

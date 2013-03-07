@@ -1,20 +1,16 @@
-<?
-$order = null;
+<? $order = null;
+
 for ($i = 0, $n = count($orders); $i<$n; $i++) :
     if ($orders[$i]->order_type == 'mail_forwarding') :
         $order = $orders[$i];
         break;
     endif;
-endfor;
-?>
-
+endfor; ?>
 <div class="mail_forwarding_order_form">
-
     <ol style="padding: 10px 0px; font-size: 14px; line-height: 26px;">
         <li>Выберите посредника на адрес которого вы будите самостоятельно заказывать.</li>
         <li>Добавьте ниже все товары заказанные на адрес посредника (для каждого товара укажите номер посылки - Tracking номер).</li>
     </ol>
-
     <div class='table' style="position:relative;">
         <div class='angle angle-lt'></div>
         <div class='angle angle-rt'></div>
@@ -130,7 +126,6 @@ endfor;
             </div>
         </div>
     </div>
-
 	<? View::show('main/ajax/showNewOrderDetails', array('order_type' => 'mail_forwarding', 'order' => $order)); ?>
 </div>
 <script type="text/javascript">

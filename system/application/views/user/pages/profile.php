@@ -82,13 +82,14 @@
 		var key = theEvent.keyCode || theEvent.which;
 		key = String.fromCharCode( key );
 		var regex = /[0-9]|\./;
+
 		if( !regex.test(key) ) {
 			theEvent.returnValue = false;
 			theEvent.preventDefault();
 		}
 	}
 
-	$(document).ready(function() {
+	$(function() {
 		$('#phone_country,#phone_city,#phone_value').keypress(function(event){validate_number(event);});
 	});
 </script>
