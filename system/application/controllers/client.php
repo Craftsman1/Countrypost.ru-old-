@@ -812,6 +812,13 @@ class Client extends ClientBaseController {
 		}
 		else
 		{
+			$view += array (
+				'rate_usd_rur' => $this->Currencies->getExchangeRate('USD', 'RUB', 'client'),
+				'rate_eur_rur' => $this->Currencies->getExchangeRate('EUR', 'RUB', 'client'),
+				'rate_usd_kzt' => $this->Currencies->getExchangeRate('USD', 'KZT', 'client'),
+				'rate_usd_uah' => $this->Currencies->getExchangeRate('USD', 'UAH', 'client'),
+			);
+
 			View::showChild('/client/pages/payOrder', $view);
 		}
 	}
@@ -1941,7 +1948,8 @@ class Client extends ClientBaseController {
 
 		$filter->svalue		= Check::str('svalue', 255, 1, '');
 
-		if ($filter->sfield)
+		if (isset($filter->sfield) AND
+			$filter->sfield)
 		{
 			$filter->condition['like'] = array(
 				'manager_id' => $filter->svalue,
