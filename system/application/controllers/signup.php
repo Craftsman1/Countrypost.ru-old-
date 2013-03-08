@@ -2,6 +2,20 @@
 require_once CONTROLERS_PATH.'User'.EXT;
 
 class Signup extends User {
+	const FATAL_ERROR = -12;
+	const LOGIN_ERROR = -1;
+	const PASSWORD_ERROR = -3;
+	const EMAIL_ERROR = -2;
+	const COUNTRY_ERROR = -25;
+	const CAPTCHA_ERROR = -5;
+	const LATIN_ERROR = -14;
+	const TERMS_ERROR = -33;
+	const FIO_ERROR = -100;
+
+	const SHORT_PASSWORD_ERROR = -200;
+	const DUPLICATE_LOGIN_ERROR = -17;
+	const DUPLICATE_EMAIL_ERROR = -16;
+	const CAPTCHA_MISMATCH_ERROR = -18;
 
 	function Signup()
 	{
@@ -11,18 +25,22 @@ class Signup extends User {
 		View::$main_view	= '/main/index';
 
 		Breadcrumb::setCrumb(array(BASEURL => 'Главная'), 0);
-		Breadcrumb::setCrumb(array("{BASEURL}signup" => 'Регистрация'), 1, TRUE);
+		Breadcrumb::setCrumb(array(BASEURL . "signup" => 'Регистрация'), 1, TRUE);
 	}
-	
+
 	public function index()
 	{
 		try
 		{
+			// регистрируем только если незалогинен
 			if (isset($this->user->user_id) AND
 				$this->user->user_id)
 			{
 				Func::redirect(BASEURL);
 			}
+
+			// находим куда редиректить после логина
+			$this->prepareRedirect();
 
 			View::showChild('/main/pages/signup');
 		}
@@ -31,260 +49,234 @@ class Signup extends User {
 			Func::redirect(BASEURL);
 		}
 	}
-	
-	public function checkRegFields()
-	{
-		error_reporting(0);
-		Check::reset_empties();
-		$user					= new stdClass();
-		$user->user_login		= Check::latin('login',32,1);
-		$user->user_password	= Check::latin('password',32,1);
-		$user->repassword		= Check::latin('repassword',32,1);
-		$user->user_email		= Check::email(Check::str('email',128,6));
-		$user->user_deleted		= 2; // ожидается подтверждение регистрации
-		$user->user_group		= 'client';
-		$terms_accepted 		= Check::chkbox('terms_accepted');
-		
-		$c						= new stdClass();
-		$c->client_country		= Check::int('country');
-		$empties				= Check::get_empties();
-		$this->load->model('UserModel', 'User');
 
+	private function processValidateClient($user, $client)
+	{
+		$this->load->model('UserModel', 'User');
+		$this->load->model('ClientModel', 'Clients');
+		$this->load->library('alcaptcha');
+
+		Check::reset_empties();
+
+		$user->user_login		= Check::latin('login', 32, 1);
+		$user->user_password	= Check::latin('password', 32, 1);
+		$user->user_email		= Check::email(Check::str('email', 128, 6));
+
+		$terms_accepted 		= Check::chkbox('terms_accepted');
+		$captcha = $this->input->post('captchacode');
+
+		$client->client_country	= Check::int('country');
+		$client->client_name	= Check::str('fio', 255, 1, '');
+		$user->user_group		= 'client';
+
+		// проверка на пустоту
+		if (empty($user->user_login))
+		{
+			throw new Exception('Введите логин.', Signup::LOGIN_ERROR);
+		}
+		else if ($this->User->select(array(
+			'user_login'=> $user->user_login,
+			'user_deleted' => '0')))
+		{
+			throw new Exception('Пользователь с таким логином уже существует.', Signup::DUPLICATE_LOGIN_ERROR);
+		}
+		else if (empty($user->user_password))
+		{
+			throw new Exception('Введите пароль.', Signup::PASSWORD_ERROR);
+		}
+		else if (strlen($user->user_password) < 6)
+		{
+			throw new Exception('Пароль слишком короткий.', Signup::SHORT_PASSWORD_ERROR);
+		}
+		else if (empty($user->user_email))
+		{
+			throw new Exception('Введите E-mail.', Signup::EMAIL_ERROR);
+		}
+		else if (empty($client->client_name))
+		{
+			throw new Exception('Введите ваше имя.', Signup::FIO_ERROR);
+		}
+		else if (empty($client->client_country))
+		{
+			throw new Exception('Выберите страну.', Signup::COUNTRY_ERROR);
+		}
+		else if ( ! empty($user->user_email) AND
+			$this->User->select(array(
+				'user_email' => $user->user_email,
+				'user_deleted' => 0
+			)))
+		{
+			throw new Exception('Пользователь с такой электронной почтой уже существует.', Signup::DUPLICATE_EMAIL_ERROR);
+		}
+		else if (empty($captcha))
+		{
+			throw new Exception('Введите текст на картинке.', Signup::CAPTCHA_ERROR);
+		}
+		else if ($this->input->post('captchacode') != "" AND
+			! $this->alcaptcha->check($this->input->post('captchacode')))
+		{
+			throw new Exception('Текст не совпадает с картинкой.', Signup::CAPTCHA_MISMATCH_ERROR);
+		}
+		else if ( ! $terms_accepted)
+		{
+			throw new Exception('Вы не приняли условия предоставления услуг.', Signup::TERMS_ERROR);
+		}
+	}
+
+	public function validateClientAjax()
+	{
 		try
 		{
-			// проверка на пустоту
-			if ($empties OR empty($c->client_country)) 
-			{
-				if (empty($user->user_login))
-				{
-					throw new Exception('Введите логин.', -1);
-				}
-				else if ($this->User->select(array('user_login'=> $user->user_login, 'user_deleted'=>'0')))
-				{
-					throw new Exception('Пользователь с таким логином уже существует.', -17);
-				}
-				else if (empty($user->user_password))
-				{
-					throw new Exception('Введите пароль.', -3);
-				}					
-				else if (empty($user->repassword))
-				{
-					throw new Exception('Подтвердите пароль.', -4);
-				}					
-				else if (empty($user->user_email))
-				{
-					throw new Exception('Введите E-mail.', -2);
-				}
-				else if (empty($c->client_country))
-				{
-					throw new Exception('Выберите страну.', -25);
-				}					
-			}
-				
-			// кастомные проверки
-			if ($empties && in_array('_latin',$empties))
-			{
-				throw new Exception('Данные должны быть введены латиницей.', -14);
-			}
-			
-			if ($this->User->select(array('user_login'=> $user->user_login, 'user_deleted'=>'0')))
-			{
-				throw new Exception('Пользователь с таким логином уже существует.', -17);
-			}
-			
-			if ($user->user_email!="" && $this->User->select(array('user_email'=> $user->user_email)))
-			{
-				throw new Exception('Пользователь с такой электронной почтой уже существует.', -16);
-			}
-			
-			$captcha = $this->input->post('captchacode');
-			if (empty($captcha))
-			{
-				throw new Exception('Введите текст на картинке.', -5);
-			}
-			
-			$this->load->library('alcaptcha');
-			if ($this->input->post('captchacode')!="" && !$this->alcaptcha->check($this->input->post('captchacode'))) 
-			{
-				throw new Exception('Текст не совпадает с картинкой.', -18);
-			}
-			
-			if (!$terms_accepted)
-			{
-				throw new Exception('Вы не приняли условия предоставления услуг.', -33);
-			}
+			$user = new stdClass();
+			$client	= new stdClass();
+
+			$this->processValidateClient($user, $client);
 		}
 		catch (Exception $e)
 		{			
-			ob_end_clean();
-			echo '{"code":'.$e->getCode().',"text":"'.$e->getMessage().'"}';
+			//ob_end_clean();
+			echo '{"code":' . $e->getCode().',"text":"' . $e->getMessage() . '"}';
 			exit(0);
 		}
-		ob_end_clean();
+
+		//ob_end_clean();
 		echo '{"code":1,"text":""}';
 		exit(0);
-		
 	}
 	
-	/**
-	 * Регистрация пользователя
-	 */
 	public function client()
 	{
 		try
 		{
-			$countries = '';
-	
-			if (Stack::size('all_countries') > 0)
-			{
-				$countries	= Stack::last('all_countries');
-			}
-			else
-			{
-				$this->load->model('CountryModel', 'Country');
-				$countries	= $this->Country->getList();
-			}
+			$this->load->model('CountryModel', 'Country');
+			$view['Countries'] = $this->Country->getList();
 
-			Check::reset_empties();
-			$user					= new stdClass();
-			$user->user_login		= Check::latin('login',32,1);
-			$user->user_password	= Check::latin('password',32,1);
-			$user->user_email		= Check::email(Check::str('email',128,6));
-			$user->user_deleted		= 0; // ожидается подтверждение регистрации
-			$user->user_group		= 'client';
-
-			$c						= new stdClass();
-			$c->client_country		= Check::int('country');
-			$c->client_phone_country= "";
-			$c->client_phone_city	= "";
-			$c->client_phone_value	= "";
-
-			$terms_accepted 		= Check::chkbox('terms_accepted');
-			$empties				= Check::get_empties();
-
-			/**
-			 * код ошибки регистрации
-			 * <0	- ошибка регистрации
-			 * 0	- регистрация не происходила
-			 * >0	- регистрация успешна
-			*//*
-			$result		= new stdClass();
-			$result->e	= 0;
-			$result->m	= '';	// сообщение
-			$result->d	= '';	// возвращаемые данные
-			*/
-		
-			// проверка на пустоту
-			if ($empties OR empty($c->client_country)) 
-			{
-				if (empty($user->user_login))
-				{
-					throw new Exception('Введите логин.', -1);
-				}
-				else if ($this->User->select(array('user_login'=> $user->user_login, 'user_deleted'=>'0')))
-				{
-					throw new Exception('Пользователь с таким логином уже существует.', -17);
-				}
-				else if (empty($user->user_password))
-				{
-					throw new Exception('Введите пароль.', -3);
-				}					
-				else if (empty($user->user_email))
-				{
-					throw new Exception('Введите E-mail.', -2);
-				}
-				else if (empty($c->client_country))
-				{
-					throw new Exception('Выберите страну.', -25);
-				}					
-			}
-				
-			// кастомные проверки
-			if ($empties && in_array('_latin', $empties))
-			{
-				throw new Exception('Данные должны быть введены латиницей.', -14);
-			}
-			
-			if ($this->User->select(array('user_login'=> $user->user_login, 'user_deleted'=>'0')))
-			{
-				throw new Exception('Пользователь с таким логином уже существует.', -17);
-			}
-			
-			if ($user->user_email != "" && $this->User->select(array('user_email'=> $user->user_email)))
-			{
-				throw new Exception('Пользователь с такой электронной почтой уже существует.', -16);
-			}
-			
-			$captcha = $this->input->post('captchacode');
-
-			if (empty($captcha))
-			{
-				throw new Exception('Введите текст на картинке.', -5);
-			}
-			
-			$this->load->library('alcaptcha');
-			if ($this->input->post('captchacode')!="" && !$this->alcaptcha->check($this->input->post('captchacode'))) 
-			{
-				throw new Exception('Текст не совпадает с картинкой.', -18);
-			}
-			
-			if (!$terms_accepted)
-			{
-				throw new Exception('Вы не приняли условия предоставления услуг.', -33);
-			}
-			
-			$this->load->model('ClientModel', 'Client');
-			$user->user_password = md5($user->user_password);
-			
-			// something same to lazzy load
-			$u = $this->User->addUser($user);
-			
-			if ($u && $this->Client->addClientData($u->user_id, $c))
-			{
-				Stack::push('user_confirm', $u);
-
-				$this->loginInternal();
-				Func::redirect(BASEURL . '/profile');
-			}
-			else
-			{
-				throw new Exception('Регистрация невозможна.', -12);
-			}				
+			Breadcrumb::setCrumb(array(BASEURL . "signup/client" => 'Клиент'), 2, TRUE);
+			View::showChild('/client/pages/signup', $view);
 		}
 		catch (Exception $e)
 		{
-			
-			$this->result->e	= $e->getCode();			
-			$this->result->m	= $e->getMessage();
-			
-			switch ($this->result->e){
-				case -1:	$user->user_login		= '';	break;	
-				break;
-				case -2:
-				case -13:	$user->user_email		= '';	break;
-				case -11:
-				case -12:
-					 break;
-			}
-		
-			$this->result->terms_accepted = $terms_accepted;
-			$this->result->d	= $user;
+			$this->result->e = $e->getCode();
+			$this->result->m = $e->getMessage();
+
+			$this->result->d = FALSE;
+			Func::redirect(BASEURL);
 		}
-		
-		$view = array(
-			'client'		=> $c,
-			'Countries'		=> $countries,
-			'empties'		=> $empties,
-		);
-		
-		if (isset($u) && $u)	$view['user'] = $u;
-		
-		View::showChild('/client/pages/signup', $view);
 	}
 	
+	public function dealer()
+	{
+		try
+		{
+			$this->load->model('CountryModel', 'Country');
+			$view['Countries'] = $this->Country->getList();
+
+			Breadcrumb::setCrumb(array(BASEURL . "signup/dealer" => 'Посредник'), 2, TRUE);
+			View::showChild('/manager/pages/signup', $view);
+		}
+		catch (Exception $e)
+		{
+			$this->result->e = $e->getCode();
+			$this->result->m = $e->getMessage();
+
+			$this->result->d = FALSE;
+			Func::redirect(BASEURL);
+		}
+	}
+
+	public function signupClient()
+	{
+		try
+		{
+			$user = new stdClass();
+			$client	= new stdClass();
+
+			$this->processValidateClient($user, $client);
+
+			// Хешируем пароль (ДОБАВИТЬ СОЛЬ!!!)
+			$user->user_password = md5($user->user_password);
+
+			// добавляем клиента и пользователя
+			$u = $this->User->addUser($user);
+
+			if ($u AND $this->Clients->addClientData($u->user_id, $client))
+			{
+				if ($this->loginInternal())
+				{
+					Stack::push('just_registered', 1);
+					$this->processRedirect();
+				}
+				else
+				{
+					throw new Exception('Регистрация невозможна.', Signup::FATAL_ERROR);
+				}
+			}
+			else
+			{
+				throw new Exception('Регистрация невозможна.', Signup::FATAL_ERROR);
+			}
+		}
+		catch (Exception $e)
+		{
+			$this->result->e = $e->getCode();
+			$this->result->m = $e->getMessage();
+
+			$this->result->terms_accepted = (self::TERMS_ERROR == $this->result->e);
+			$this->result->d = $user;
+		}
+
+		$this->load->model('CountryModel', 'Country');
+
+		$view = array(
+			'client' => $client,
+			'Countries' => $this->Country->getList()
+		);
+
+		if (isset($u) AND $u)
+		{
+			$view['user'] = $u;
+		}
+
+		Breadcrumb::setCrumb(array(BASEURL . "signup/client" => 'Клиент'), 2, TRUE);
+		View::showChild('/client/pages/signup', $view);
+	}
+
 	public function showCaptchaImage()
 	{
         $this->load->library('alcaptcha');
 		echo $this->alcaptcha->image();
+	}
+
+	private function prepareRedirect()
+	{
+		// любая страница Countrypost.ru кроме регистрации
+		$referer = isset($_SERVER['HTTP_REFERER']) ?
+			$_SERVER['HTTP_REFERER'] :
+			'';
+
+		if (stripos($referer, BASEURL) !== FALSE AND
+			stripos($referer, 'signup') === FALSE)
+		{
+			$_SESSION['signup_redirect'] = $referer;
+		}
+		else
+		{
+			unset($_SESSION['signup_redirect']);
+		}
+	}
+
+	private function processRedirect()
+	{
+		if ($_SESSION['signup_redirect'])
+		{
+			$redirect = $_SESSION['signup_redirect'];
+		}
+		else
+		{
+			$redirect = BASEURL . 'profile';
+		}
+
+		unset($_SESSION['signup_redirect']);
+		Func::redirect($redirect);
 	}
 }

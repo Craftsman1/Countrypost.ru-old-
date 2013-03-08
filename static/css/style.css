@@ -1334,7 +1334,7 @@ body {
 	text-transform:uppercase;
 	}
 .registration p {
-	margin:-3px 0 47px 326px;
+	margin:-3px 0 20px 326px;
 	color:#BF0090;	
 	}
 .registration .hr {
@@ -1372,7 +1372,7 @@ body {
 		}
 	.registration em{
 		display:block;
-		margin:0 0 -3px 327px;
+		margin:0 0 -3px 318px;
 		padding:4px 0 0;
 		clear:both;
 		color:#BF0090;
@@ -1393,10 +1393,8 @@ body {
 	margin:-3px 0 0 315px;
 	float:left;
 	}
-	.registration .submit input {
-		width:88px;
-		}
-/* 
+
+/*
  * print styles
  */
 @media print {

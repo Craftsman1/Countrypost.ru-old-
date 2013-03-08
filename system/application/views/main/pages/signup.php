@@ -53,7 +53,7 @@
 							<div>
 								<input type="button"
 									   value="ЗАРЕГИСТРИРОВАТЬСЯ"
-									   onclick="window.location='<?= BASEURL ?>signup/manager'">
+									   onclick="window.location='<?= BASEURL ?>signup/dealer'">
 							</div>
 						</div>
 					</div>

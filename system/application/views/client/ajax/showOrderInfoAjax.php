@@ -42,7 +42,7 @@
 					<? if (empty($addresses)) : ?>
 						<textarea name="address_text"
 								  id="address_text"
-								  style="width:188px;resize:vertical;"
+								  style="width: 100%;resize: vertical;"
 								  onchange="updateOrder();"><?= $order->order_address ?></textarea>
 						<? else : ?>
 						<select id="address"

@@ -3,7 +3,7 @@
 	<form id='registration'
 		  name='registration'
 		  class='registration'
-		  action='<?= BASEURL ?>signup/signupClient'
+		  action='<?= BASEURL ?>signup/signupDealer'
 		  method="POST">
 		<h2 style="left:50px;position:relative;">регистрация</h2>
 		<br>
