@@ -11,6 +11,7 @@ class Signup extends User {
 	const LATIN_ERROR = -14;
 	const TERMS_ERROR = -33;
 	const FIO_ERROR = -100;
+	const CITY_ERROR = -300;
 
 	const SHORT_PASSWORD_ERROR = -200;
 	const DUPLICATE_LOGIN_ERROR = -17;
@@ -54,7 +55,7 @@ class Signup extends User {
 	{
 		$this->load->model('UserModel', 'User');
 		$this->load->model('ClientModel', 'Clients');
-		$this->load->library('alcaptcha');
+		//$this->load->library('alcaptcha');
 
 		Check::reset_empties();
 
@@ -63,7 +64,7 @@ class Signup extends User {
 		$user->user_email		= Check::email(Check::str('email', 128, 6));
 
 		$terms_accepted 		= Check::chkbox('terms_accepted');
-		$captcha = $this->input->post('captchacode');
+		//$captcha = $this->input->post('captchacode');
 
 		$client->client_country	= Check::int('country');
 		$client->client_name	= Check::str('fio', 255, 1, '');
@@ -86,7 +87,7 @@ class Signup extends User {
 		}
 		else if (strlen($user->user_password) < 6)
 		{
-			throw new Exception('Пароль слишком короткий.', Signup::SHORT_PASSWORD_ERROR);
+			throw new Exception('Пароль слишком короткий (от 6 символов).', Signup::SHORT_PASSWORD_ERROR);
 		}
 		else if (empty($user->user_email))
 		{
@@ -108,7 +109,7 @@ class Signup extends User {
 		{
 			throw new Exception('Пользователь с такой электронной почтой уже существует.', Signup::DUPLICATE_EMAIL_ERROR);
 		}
-		else if (empty($captcha))
+		/*else if (empty($captcha))
 		{
 			throw new Exception('Введите текст на картинке.', Signup::CAPTCHA_ERROR);
 		}
@@ -116,7 +117,85 @@ class Signup extends User {
 			! $this->alcaptcha->check($this->input->post('captchacode')))
 		{
 			throw new Exception('Текст не совпадает с картинкой.', Signup::CAPTCHA_MISMATCH_ERROR);
+		}*/
+		else if ( ! $terms_accepted)
+		{
+			throw new Exception('Вы не приняли условия предоставления услуг.', Signup::TERMS_ERROR);
 		}
+	}
+
+	private function processValidateDealer($user, $manager)
+	{
+		$this->load->model('UserModel', 'User');
+		$this->load->model('ManagerModel', 'Managers');
+		//$this->load->library('alcaptcha');
+
+		Check::reset_empties();
+
+		$user->user_login		= Check::latin('login', 32, 1);
+		$user->user_password	= Check::latin('password', 32, 1);
+		$user->user_email		= Check::email(Check::str('email', 128, 6));
+
+		$terms_accepted 		= Check::chkbox('terms_accepted');
+		//$captcha = $this->input->post('captchacode');
+
+		$manager->manager_country	= Check::int('country');
+		$manager->manager_name	= Check::str('fio', 255, 1, '');
+		$manager->city = Check::str('city', 255, 1, '');
+		$user->user_group		= 'manager';
+
+		// проверка на пустоту
+		if (empty($user->user_login))
+		{
+			throw new Exception('Введите логин.', Signup::LOGIN_ERROR);
+		}
+		else if ($this->User->select(array(
+			'user_login'=> $user->user_login,
+			'user_deleted' => '0')))
+		{
+			throw new Exception('Пользователь с таким логином уже существует.', Signup::DUPLICATE_LOGIN_ERROR);
+		}
+		else if (empty($user->user_password))
+		{
+			throw new Exception('Введите пароль.', Signup::PASSWORD_ERROR);
+		}
+		else if (strlen($user->user_password) < 6)
+		{
+			throw new Exception('Пароль слишком короткий (от 6 символов).', Signup::SHORT_PASSWORD_ERROR);
+		}
+		else if (empty($user->user_email))
+		{
+			throw new Exception('Введите E-mail.', Signup::EMAIL_ERROR);
+		}
+		else if (empty($manager->manager_name))
+		{
+			throw new Exception('Введите ваше имя.', Signup::FIO_ERROR);
+		}
+		else if (empty($manager->manager_country))
+		{
+			throw new Exception('Выберите страну.', Signup::COUNTRY_ERROR);
+		}
+		else if (empty($manager->city))
+		{
+			throw new Exception('Добавьте город.', Signup::CITY_ERROR);
+		}
+		else if ( ! empty($user->user_email) AND
+			$this->User->select(array(
+				'user_email' => $user->user_email,
+				'user_deleted' => 0
+			)))
+		{
+			throw new Exception('Пользователь с такой электронной почтой уже существует.', Signup::DUPLICATE_EMAIL_ERROR);
+		}
+		/*else if (empty($captcha))
+		{
+			throw new Exception('Введите текст на картинке.', Signup::CAPTCHA_ERROR);
+		}
+		else if ($this->input->post('captchacode') != "" AND
+			! $this->alcaptcha->check($this->input->post('captchacode')))
+		{
+			throw new Exception('Текст не совпадает с картинкой.', Signup::CAPTCHA_MISMATCH_ERROR);
+		}*/
 		else if ( ! $terms_accepted)
 		{
 			throw new Exception('Вы не приняли условия предоставления услуг.', Signup::TERMS_ERROR);
@@ -125,21 +204,37 @@ class Signup extends User {
 
 	public function validateClientAjax()
 	{
+		$this->validateAjax('client');
+	}
+
+	public function validateDealerAjax()
+	{
+		$this->validateAjax('manager');
+	}
+
+	private function validateAjax($user_group)
+	{
 		try
 		{
 			$user = new stdClass();
-			$client	= new stdClass();
 
-			$this->processValidateClient($user, $client);
+			if ($user_group == 'client')
+			{
+				$client	= new stdClass();
+				$this->processValidateClient($user, $client);
+			}
+			else if ($user_group == 'manager')
+			{
+				$manager = new stdClass();
+				$this->processValidateDealer($user, $manager);
+			}
 		}
 		catch (Exception $e)
 		{			
-			//ob_end_clean();
 			echo '{"code":' . $e->getCode().',"text":"' . $e->getMessage() . '"}';
 			exit(0);
 		}
 
-		//ob_end_clean();
 		echo '{"code":1,"text":""}';
 		exit(0);
 	}
@@ -221,7 +316,7 @@ class Signup extends User {
 			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
 
-			$this->result->terms_accepted = (self::TERMS_ERROR == $this->result->e);
+
 			$this->result->d = $user;
 		}
 
@@ -237,8 +332,66 @@ class Signup extends User {
 			$view['user'] = $u;
 		}
 
+		$this->result->terms_accepted = (self::TERMS_ERROR != $this->result->e);
 		Breadcrumb::setCrumb(array(BASEURL . "signup/client" => 'Клиент'), 2, TRUE);
 		View::showChild('/client/pages/signup', $view);
+	}
+
+	public function signupDealer()
+	{
+		try
+		{
+			$user = new stdClass();
+			$manager = new stdClass();
+
+			$this->processValidateDealer($user, $manager);
+
+			// Хешируем пароль (ДОБАВИТЬ СОЛЬ!!!)
+			$user->user_password = md5($user->user_password);
+
+			// добавляем клиента и пользователя
+			$u = $this->User->addUser($user);
+
+			if ($u AND $this->Managers->addManagerData($u->user_id, $manager))
+			{
+				if ($this->loginInternal())
+				{
+					Stack::push('just_registered', 1);
+					$this->processRedirect();
+				}
+				else
+				{
+					throw new Exception('Регистрация невозможна.', Signup::FATAL_ERROR);
+				}
+			}
+			else
+			{
+				throw new Exception('Регистрация невозможна.', Signup::FATAL_ERROR);
+			}
+		}
+		catch (Exception $e)
+		{
+			$this->result->e = $e->getCode();
+			$this->result->m = $e->getMessage();
+
+			$this->result->d = $user;
+		}
+
+		$this->load->model('CountryModel', 'Country');
+
+		$view = array(
+			'manager' => $manager,
+			'Countries' => $this->Country->getList()
+		);
+
+		if (isset($u) AND $u)
+		{
+			$view['user'] = $u;
+		}
+
+		$this->result->terms_accepted = (self::TERMS_ERROR != $this->result->e);
+		Breadcrumb::setCrumb(array(BASEURL . "signup/dealer" => 'Посредник'), 2, TRUE);
+		View::showChild('/manager/pages/signup', $view);
 	}
 
 	public function showCaptchaImage()
@@ -267,7 +420,9 @@ class Signup extends User {
 
 	private function processRedirect()
 	{
-		if ($_SESSION['signup_redirect'])
+		if ($_SESSION['signup_redirect'] AND
+			isset($this->user->user_group) AND
+			$this->user->user_group == 'client')
 		{
 			$redirect = $_SESSION['signup_redirect'];
 		}

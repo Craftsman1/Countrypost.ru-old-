@@ -147,7 +147,8 @@ class Profile extends BaseController {
 				
 			$view['manager_user'] = $manager->manager_user;
 			$view['manager'] = $manager;
-			$view['manager']->currency_symbol = $this->Currencies->getCurrencyByCountry($view['manager']->manager_country)->currency_symbol;
+			//$view['manager']->currency_symbol = $this->Currencies->getCurrencyByCountry
+			//($view['manager']->manager_country)->currency_symbol;
 			
 			$this->load->model('CountryModel', 'Country');
 			$view['Countries'] = $this->Country->getList();

@@ -79,7 +79,7 @@
 				<? endforeach; endif; ?>
 			</select>
 		</div>
-		<div class='hr'></div>
+		<!--div class='hr'></div>
 		<div class='captcha'>
 			<img src='<?= BASEURL . 'signup/showCaptchaImage/' . rand(0, 255) ?>'>
 		</div>
@@ -90,7 +90,7 @@
 					<input type='text' id='captchacode' name='captchacode' value=''>
 				</div>
 			</div>
-		</div>
+		</div-->
 		<div class='field <?= empty($result->terms_accepted) ? '' : 'done' ?>'
 			 id='terms'>
 			<span></span>
@@ -130,7 +130,7 @@
 				var d = $.parseJSON(data);
 
 				// капча
-				if (d.code == -18 || d.code == -5)
+				/*if (d.code == -18 || d.code == -5)
 				{
 					$('div#captcha')
 						.toggleClass('done', false)
@@ -141,7 +141,7 @@
 					$('div#captcha')
 						.toggleClass('done', true)
 						.toggleClass('error', false);
-				}
+				}*/
 
 				// логин
 				if (d.code == -17 || d.code == -1)

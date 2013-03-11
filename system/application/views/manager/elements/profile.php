@@ -1,4 +1,4 @@
-<div class="profile table dealer_tab" style="height: 828px;">
+<div class="profile table dealer_tab" style="height: 700px;">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
@@ -13,7 +13,7 @@
 	</div>
 	<div class='profile_box admin-inside'>
 		<form id="profileForm" action="/manager/saveProfile">
-			<div class="cashback_box" style=" width: 337px; ">
+			<!--div class="cashback_box" style=" width: 337px; ">
 				<span class="cashback_span" style=" float: left; width: 160px; margin-top: 4px;">
 					Статус: 100% CASHBACK
 				</span>
@@ -28,7 +28,7 @@
 				<span class="label" style=" margin-left: 0; width: 170px; margin-bottom: 0; ">Лимит на заказы*:</span>
 				<input style="width:155px;" class="textbox" maxlength="11" type='text' id='limit' name="limit" value="<?= $manager->cashback_limit ?>" />
 			</div>
-			<br style="clear:both;" />
+			<br style="clear:both;" /-->
 			<div>
                 <span class="label">Логин:</span>
                 <span class="label" style="margin-left: 0;"><b><?= $manager->statistics->login ?></b></span>

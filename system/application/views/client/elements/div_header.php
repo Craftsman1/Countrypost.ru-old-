@@ -44,8 +44,8 @@
                 <div class='center-block'>
                     <h3>ВАШ НОМЕР НА САЙТЕ: <?= $this->user->user_id ?></h3>
 					<br>
-					<p>
-						Баланс Countrypost.ru: <span class='big-text'><?=$this->user->user_coints;?> USD</span></p>
+					<!--p>
+						Баланс Countrypost.ru: <span class='big-text'><?=$this->user->user_coints;?> USD</span></p-->
                     <p>
 						<a href='javascript:showBalanceWindow();'>Баланс по посредникам</a>
 					</p>

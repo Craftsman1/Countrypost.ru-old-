@@ -120,16 +120,21 @@ class Stack
 		
 		self::create($stack_name);
 		
-		if (count(self::$stack[self::$stack_name])>0){
+		if (count(self::$stack[self::$stack_name]) > 0)
+		{
 			$data = array_shift(self::$stack[self::$stack_name]);
-			if ($clear){
+
+			if ($clear)
+			{
 				self::clear($stack_name);
 			}
+
 			return $data;
-		}else{
+		}
+		else
+		{
 			return false;			
-		}		
-		
+		}
 	}
 	
 	

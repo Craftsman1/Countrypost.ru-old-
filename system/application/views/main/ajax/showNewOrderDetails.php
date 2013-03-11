@@ -489,23 +489,19 @@
 
     </table>
 </div>
-
-
-<div style="height: 50px; <?= ((empty($this->user->user_group) OR !($order AND count($order->details))) ? 'display:none;' : '')?>" class="admin-inside checkOutOrderBlock">
+<div style="height: 50px;<?= ((empty($this->user->user_group) OR !($order AND count($order->details))) ? 'display:none;' : '')?>"
+	 class="admin-inside checkOutOrderBlock">
     <div class="submit">
         <div>
             <input type="button" value="Готово" id="<?= $order_type ?>checkoutOrder" name="checkout" onclick="/*checkout();*/">
         </div>
     </div>
 </div>
-
-<? if (empty($this->user->user_group)) : ?>
+<? if (FALSE AND empty($this->user->user_group)) : ?>
 <br><br>
 <? View::show('main/elements/auth/new_order'); ?>
 <? endif; ?>
-    
 <script>
-
 	function setRel(id){
 		$("a[rel*='lightbox_"+id+"']").lightBox();
 		var aa = $("a[rel*='lightbox_"+id+"']");

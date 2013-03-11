@@ -186,9 +186,7 @@ endfor;*/
 			</div>
 		</div>
 	</div>
-
     <? View::show('main/ajax/showNewOrderDetails', array('order_type' => 'online', 'order' => $order)); ?>
-
 </div>
 <script type="text/javascript">
 	$(function() {

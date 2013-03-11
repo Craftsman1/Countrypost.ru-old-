@@ -32,7 +32,7 @@
 				</div>
 				<br />
 				<br />
-				<div>
+				<!--div>
 					<span class="label">Cashback:</span>
 					<input style="" class="order_check" maxlength="6" type='checkbox' id='is_cashback' name="is_cashback" value="1" <? if (isset($filter->is_cashback) AND $filter->is_cashback == 1) : ?>checked="checked"<? endif; ?>/>
 					<span class="label checkwrap">
@@ -40,7 +40,7 @@
 					</span>
 				</div>
 				<br />
-				<br />
+				<br /-->
 				<div>
 					<span class="label">Отзывы:</span>
 					<input style="" class="order_check" maxlength="6" type='checkbox' id='order_number' name="order_number" value="<?= empty($filter->order_id) ? '' : $filter->order_id ?>"/>

@@ -30,7 +30,7 @@ class User extends BaseController {
 	
 	function index()
 	{
-		echo "<center><b>User->index</b></center>";
+		Func::redirect(BASEURL);
 	}
 	
 	public function login ($l=null, $p=null, $redirect = true, $vk = false)
@@ -195,49 +195,77 @@ class User extends BaseController {
 
 	public function showPasswordRecovery()
 	{
-		View::showChild($this->viewpath.'pages/recovery');
+		Func::redirect(BASEURL . 'user/remindpassword');
 	}	
-	
+
+	public function remindpassword()
+	{
+		Breadcrumb::setCrumb(array(BASEURL => 'Главная'), 0);
+		Breadcrumb::setCrumb(array(BASEURL . 'user/remindpassword' => 'Восстановление пароля'), 1, TRUE);
+
+		View::showChild($this->viewpath.'pages/recovery');
+	}
+
 	public function passwordRecovery()
 	{
-		$email		= Check::email(Check::str('email', 128,4));
-		
-		$result		= new stdClass();
-		$result->e	= 0;
-		$result->m	= '';	// сообщение
-		$result->d	= '';	// возвращаемые данные		
-		
-		if ($email){
-			$this->load->model('UserModel', 'User');
-			$user = $this->User->getUserByEmail($email);
-			
-			if ($user){
-				
-				$new_passwd = Func::randStr(6,8);
-				$this->User->_load($user);
-				$this->User->_set('user_password', md5($new_passwd));
-				
-				$headers = 'From: info@countrypost.ru' . "\r\n" .
-					'Reply-To: info@countrypost.ru' . "\r\n" .
-					'X-Mailer: PHP/' . phpversion();
-				
-				if (mail($user->user_email,"Восстановление пароля", "Ваш новый пароль: $new_passwd", $headers) && $this->User->save()){
-					$result->m	=	'Новый пароль установлен и выслан на указанный Вами адрес электронной почты.';
-					$result->e	=	1;
-				}else {
-					$result->m	=	'Не возможно восстановить пароль. Вероятно, указанный Вами почтовый ящик не существует или не работает';
-					$result->e	=	-1;
+		$result = new stdClass();
+		$result->e = 0;
+		$result->m = '';	// сообщение
+		$result->d = '';	// возвращаемые данные
+
+		try
+		{
+			$email = Check::email(Check::str('email', 128, 4));
+
+			if ($email)
+			{
+				$this->load->model('UserModel', 'User');
+				$user = $this->User->getUserByEmail($email);
+
+				if ($user)
+				{
+					$new_passwd = Func::randStr(6, 8);
+					$this->User->_load($user);
+					$this->User->_set('user_password', md5($new_passwd));
+
+					$headers = 'From: info@countrypost.ru' . "\r\n" .
+						'Reply-To: info@countrypost.ru' . "\r\n" .
+						'X-Mailer: PHP/' . phpversion();
+
+					if (mail($user->user_email,"Восстановление пароля", "Ваш новый пароль: $new_passwd", $headers) AND
+						$this->User->save())
+					{
+						$result->m = 'Новый пароль установлен и выслан на указанный Вами адрес электронной почты.';
+						$result->e = 1;
+					}
+					else
+					{
+						$result->m = 'Невозможно восстановить пароль.<br>
+								Вероятно, указанный Вами почтовый ящик не существует<br>
+								или не работает.';
+						$result->e = -1;
+					}
 				}
-			}else{
-				$result->e	= -2;
-				$result->m	= 'Такой e-mail в системе не зарегистрирован';				
+				else
+				{
+					$result->e = -2;
+					$result->m = 'Такой e-mail в системе не зарегистрирован.';
+				}
 			}
-		}else{
-			$result->e	= -3;
-			$result->m	= 'Вы ввели не правильный адрес электронной почты';
+			else
+			{
+				$result->e = -3;
+				$result->m = 'Вы ввели неправильный адрес электронной почты.';
+			}
 		}
-		
-		View::showChild($this->viewpath.'pages/recovery', array('result'=>$result));
+		catch (Exception $ex)
+		{
+			$result->e	= -5;
+			$result->m	= 'Попытка восстановления пароля не удалась.<br>
+				Обновите страницу и попробуйте еще раз.';
+		}
+
+		View::showChild($this->viewpath.'pages/recovery', array('result' => $result));
 	}
 	
 	public function showProfile(){ 

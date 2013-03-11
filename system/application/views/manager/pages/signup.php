@@ -7,8 +7,8 @@
 		  method="POST">
 		<h2 style="left:50px;position:relative;">регистрация</h2>
 		<br>
-		<p style="left:-100px;position:relative;">
-			Зарегистрируйтесь и найдите максимально быстро исполнителя для Вашего заказа.
+		<p style="left:-33px;position:relative;">
+			Зарегистрируйтесь и получайте каждый день новые заказы.
 		</p>
 		<em id='errortext' class='red-color'>
 			<?= $result->m ?>&nbsp;
@@ -54,32 +54,46 @@
 		</div>
 		<div id='fio_div'
 			 class='field <?= ($result->d  AND
-				 $client AND
-				 $client->client_name AND
+				 $manager AND
+				 $manager->manager_name AND
 				 $result->e != -100) ? 'done' : '' ?>' >
-			<span>Ф.И.О.* :</span>
+			<span>Имя или название компании* :</span>
 			<div class='text-field'>
 				<div>
 					<input type='text'
 						   id='fio'
 						   name="fio"
-						   value="<?= ($result->d AND isset($client)) ? $client->client_name : '' ?>" />
+						   value="<?= ($result->d AND isset($manager)) ? $manager->manager_name : '' ?>" />
 				</div>
 			</div>
 		</div>
-		<div class='field <?= $result->d && $client->client_country ? 'done' : '' ?>' id='country'>
+		<div class='field <?= $result->d && $manager->manager_country ? 'done' : '' ?>' id='country'>
 			<span>Страна* :</span>
 			<select class="select" name="country">
 				<option value="0">выбрать&hellip;</option>
 				<? if ($Countries) : foreach ($Countries as $country) : ?>
-					<option value="<?= $country->country_id ?>" <?= (isset($client)
-						AND $client->client_country == $country->country_id) ?
+					<option value="<?= $country->country_id ?>" <?= (isset($manager)
+						AND $manager->manager_country == $country->country_id) ?
 						'selected' :
 						'' ?>><?= $country->country_name ?></option>
 				<? endforeach; endif; ?>
 			</select>
 		</div>
-		<div class='hr'></div>
+		<div id='city_div'
+			 class='field <?= ($result->d  AND $manager AND $manager->city AND $result->e != -300) ? 'done' :
+				 ''?>' >
+			<span>Город* :</span>
+			<div class='text-field'>
+				<div>
+					<input type='text'
+						   id='city'
+						   name="city"
+						   maxlength="255"
+						   value="<?= ($result->d AND isset($manager)) ? $manager->city : '' ?>" />
+				</div>
+			</div>
+		</div>
+		<!--div class='hr'></div>
 		<div class='captcha'>
 			<img src='<?= BASEURL . 'signup/showCaptchaImage/' . rand(0, 255) ?>'>
 		</div>
@@ -90,7 +104,7 @@
 					<input type='text' id='captchacode' name='captchacode' value=''>
 				</div>
 			</div>
-		</div>
+		</div-->
 		<div class='field <?= empty($result->terms_accepted) ? '' : 'done' ?>'
 			 id='terms'>
 			<span></span>
@@ -124,13 +138,13 @@
 	{
 		$.ajax({
 			type: 'POST',
-			url: '/signup/validateClientAjax',
+			url: '/signup/validateDealerAjax',
 			data: $("#registration").serialize(),
 			success: function(data) {
 				var d = $.parseJSON(data);
 
 				// капча
-				if (d.code == -18 || d.code == -5)
+				/*if (d.code == -18 || d.code == -5)
 				{
 					$('div#captcha')
 						.toggleClass('done', false)
@@ -142,7 +156,7 @@
 						.toggleClass('done', true)
 						.toggleClass('error', false);
 				}
-
+*/
 				// логин
 				if (d.code == -17 || d.code == -1)
 				{
@@ -167,6 +181,20 @@
 				else if (element == 'country')
 				{
 					$('div#country')
+						.toggleClass('done', true)
+						.toggleClass('error', false);
+				}
+
+				// город
+				if (d.code == -300)
+				{
+					$('div#city_div')
+						.toggleClass('done', false)
+						.toggleClass('error', true);
+				}
+				else if (element == 'city')
+				{
+					$('div#city_div')
 						.toggleClass('done', true)
 						.toggleClass('error', false);
 				}

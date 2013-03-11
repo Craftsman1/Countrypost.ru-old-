@@ -5,7 +5,7 @@
 		</span>
 		<span>
 			<img src="/static/images/flags/<?= $countries_en[$manager->manager_country] ?>.png" />
-			<b><?=$countries[$manager->manager_country]?></b>
+			<b><?= $countries[$manager->manager_country] ?> (<?= $manager->city ?>)</b>
 		</span>
 	</div>
 	<div>
