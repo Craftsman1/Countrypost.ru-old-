@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="order price calculation">
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\dbscripts\2012-02-06 22-39 mf tax.sql" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\terms\body.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\terms\header.php" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\23\00_-_USAliens.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\31\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\33\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
@@ -19,28 +17,7 @@
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\57\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\58\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\59\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
-      <change type="MOVED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\terms\elements\div_content.php" afterPath="$PROJECT_DIR$/system/application/views/terms/elements [DELETE IT]/div_content.php" />
-      <change type="MOVED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\terms\elements\div_debug.php" afterPath="$PROJECT_DIR$/system/application/views/terms/elements [DELETE IT]/div_debug.php" />
-      <change type="MOVED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\terms\elements\div_header.php" afterPath="$PROJECT_DIR$/system/application/views/terms/elements [DELETE IT]/div_header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/profile.php" afterPath="$PROJECT_DIR$/system/application/controllers/profile.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/signup.php" afterPath="$PROJECT_DIR$/system/application/controllers/signup.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/terms.php" afterPath="$PROJECT_DIR$/system/application/controllers/terms.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/user.php" afterPath="$PROJECT_DIR$/system/application/controllers/user.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/System/Stack.php" afterPath="$PROJECT_DIR$/system/application/models/System/Stack.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/div_header.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/div_header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/pages/signup.php" afterPath="$PROJECT_DIR$/system/application/views/client/pages/signup.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showNewOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showNewOrderDetails.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/filter.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/filter.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/div_header.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/div_header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/online.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/online.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/profile.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/profile.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/pages/signup.php" afterPath="$PROJECT_DIR$/system/application/views/manager/pages/signup.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/terms/index.php" afterPath="$PROJECT_DIR$/system/application/views/terms/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/terms/pages/index.php" afterPath="$PROJECT_DIR$/system/application/views/terms/pages/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/user/pages/recovery.php" afterPath="$PROJECT_DIR$/system/application/views/user/pages/recovery.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,10 +43,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="signup.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="signup.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/signup.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="0" selection-start="611" selection-end="745" vertical-scroll-proportion="-15.75862">
+            <state line="1" column="31" selection-start="34" selection-end="34" vertical-scroll-proportion="0.027285129">
               <folding>
                 <element signature="n#index#0;n#Signup#0;n#!!top" expanded="false" />
                 <element signature="e#1899#1989#0" expanded="false" />
@@ -151,30 +128,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="terms.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="terms.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/terms.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="78" selection-start="282" selection-end="282" vertical-scroll-proportion="0.23904383">
+            <state line="9" column="78" selection-start="282" selection-end="282" vertical-scroll-proportion="-6.206897">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile.php">
+      <file leaf-file-name="2013-03-08 18-56 signup.sql" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dbscripts/2013-03-08 18-56 signup.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="0" column="0" selection-start="0" selection-end="128" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile_about.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php">
+      <file leaf-file-name="2013-03-11 20-00 cashback.sql" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dbscripts/2013-03-11 20-00 cashback.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="65" selection-start="221" selection-end="221" vertical-scroll-proportion="-4.827586">
+            <state line="12" column="79" selection-start="0" selection-end="754" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -205,7 +180,6 @@
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/filter.php" />
         <option value="$PROJECT_DIR$/system/application/views/client/elements/div_header.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/signup.php" />
         <option value="$PROJECT_DIR$/dbscripts/2013-03-11 20-00 cashback.sql" />
         <option value="$PROJECT_DIR$/system/application/models/System/Stack.php" />
         <option value="$PROJECT_DIR$/system/application/views/terms/body.php" />
@@ -213,6 +187,7 @@
         <option value="$PROJECT_DIR$/system/application/views/terms/pages/index.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/div_header.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/terms.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/signup.php" />
       </list>
     </option>
   </component>
@@ -413,6 +388,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbscripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -679,13 +668,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/div_header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="116" selection-start="2378" selection-end="2378" vertical-scroll-proportion="-22.068966">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="73" column="21" selection-start="1374" selection-end="1374" vertical-scroll-proportion="-8.413794">
@@ -712,13 +694,6 @@
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="65" selection-start="221" selection-end="221" vertical-scroll-proportion="-4.827586">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dbscripts/2013-03-11 20-00 cashback.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="93" selection-start="754" selection-end="754" vertical-scroll-proportion="0.31496063">
           <folding />
         </state>
       </provider>
@@ -794,9 +769,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/terms.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="78" selection-start="282" selection-end="282" vertical-scroll-proportion="-6.206897">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbscripts/2013-03-08 18-56 signup.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="128" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbscripts/2013-03-11 20-00 cashback.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="79" selection-start="0" selection-end="754" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/signup.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="611" selection-end="745" vertical-scroll-proportion="-15.75862">
+        <state line="1" column="31" selection-start="34" selection-end="34" vertical-scroll-proportion="0.027285129">
           <folding>
             <element signature="n#index#0;n#Signup#0;n#!!top" expanded="false" />
             <element signature="e#1899#1989#0" expanded="false" />
@@ -807,13 +803,6 @@
             <element signature="n#prepareRedirect#0;n#Signup#0;n#!!top" expanded="false" />
             <element signature="n#processRedirect#0;n#Signup#0;n#!!top" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/terms.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="78" selection-start="282" selection-end="282" vertical-scroll-proportion="0.23904383">
-          <folding />
         </state>
       </provider>
     </entry>

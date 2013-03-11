@@ -1,5 +1,5 @@
 <?
-require_once CONTROLERS_PATH.'User'.EXT;
+require_once CONTROLERS_PATH.'user'.EXT;
 
 class Signup extends User {
 	const FATAL_ERROR = -12;
