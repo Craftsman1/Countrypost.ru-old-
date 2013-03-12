@@ -110,11 +110,11 @@ class UserModel extends BaseModel implements IModel {
 		
 		return ((count($r==1) &&  $r) ? array_shift($r) : false);		
 	}
-	public function getUserForLogin($login,$password,$vk=false){
+	public function getUserForLogin($login, $password, $vk=false){
 		
-		if(!$vk) {
+		if (!$vk) {
 			$r = $this->select(array(
-			'user_login'		=> $login,
+			'user_login' => $login,
 			'user_password'	=> $password,
 			'user_deleted' => '0'
 			));	

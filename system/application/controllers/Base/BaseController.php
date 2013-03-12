@@ -33,12 +33,12 @@ abstract class BaseController extends Controller
 	{
 		header("Content-Type: text/html; charset=UTF-8");
 		parent::Controller();
-		
+
 		$this->user			= Check::user();
 		$this->cname		= $this->uri->rsegment(1) ? $this->uri->rsegment(1) : 'main';
 		$this->viewpath		= '/'.$this->cname.'/';
 		$this->load->helper('humanForm');
-		
+
 		/**
 		 * получаем данные из стека, если они там есть
 		 */
@@ -59,8 +59,7 @@ abstract class BaseController extends Controller
 		// Обновляем баланс
 		if ($this->user)
 		{
-			$this->load->model('UserModel', 'User');
-			$user = $this->User->getById($this->user->user_id); 
+			$user = $this->User->getById($this->user->user_id);
 			$this->session->set_userdata((array) $user);
 			$this->user	= Check::user();
 		}
@@ -90,7 +89,7 @@ abstract class BaseController extends Controller
 			// добавляем информацию для счётчиков в меню
 			'user_count' => $this->User->getUserCount(),
 		);
-		
+
 		//подгружаем доп данные для клиента
 		if ($this->user AND $this->user->user_group	== 'client'){
 			$this->loadClientData();

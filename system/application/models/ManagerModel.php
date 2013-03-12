@@ -161,25 +161,24 @@ class ManagerModel extends BaseModel implements IModel{
 	{
 		$where = '';
 		
-		if (!empty($filters->country_from) OR
-			!empty($filters->is_mail_forwarding) OR
-			!empty($filters->is_cashback)) :
+		if ( ! empty($filters->country_from) OR
+			! empty($filters->is_mail_forwarding) OR
+			! empty($filters->is_cashback))
+		{
 			$where = ((!empty($filters->country_from)) ? ' AND `'.$this->table.'`.manager_country = '.$filters->country_from.' ' : '').
 				((!empty($filters->is_mail_forwarding)) ? ' AND `'.$this->table.'`.is_mail_forwarding = 1 ' : '').
 				((!empty($filters->is_cashback)) ? ' AND `'.$this->table.'`.is_cashback = 1 ' : '');
-		endif;
+		}
 
 		return $this->db->query('
 			SELECT `'.$this->table.'`.*, 
 				`users`.`user_login`, 
 				`users`.`user_coints`, 
-				COUNT(c2m.manager_id) AS `clients_count`,
-				`currencies`.`currency_symbol`
+				12345 AS `clients_count`,
+				`countries`.`country_currency`
 			FROM `'.$this->table.'`
-				LEFT JOIN `c2m` ON `c2m`.`manager_id` = `'.$this->table.'`.`manager_user`
-				INNER JOIN `users` ON `users`.`user_id` = `'.$this->table.'`.`manager_user`				
+				INNER JOIN `users` ON `users`.`user_id` = `'.$this->table.'`.`manager_user`
 				INNER JOIN `countries` ON `countries`.`country_id` = `'.$this->table.'`.`manager_country`				
-				INNER JOIN `currencies` ON `currencies`.`currency_name` = `countries`.`country_currency`
 			WHERE `users`.`user_deleted` = 0 '.$where.'
 			GROUP BY `'.$this->table.'`.`manager_user`
 		')->result();

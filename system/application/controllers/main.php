@@ -1589,12 +1589,12 @@ Email: {$this->user->user_email}";
         {
             throw new Exception('Добавьте наименование товара.');
         }
-
+/*
         if (empty($detail->odetail_tracking))
         {
             throw new Exception('Добавьте tracking номер.');
         }
-    }
+*/    }
 
     protected function mailforwardProductCheck ($detail)
     {

@@ -64,7 +64,7 @@ class User extends BaseController {
 			{
 				$this->session->set_userdata((array) $user);
 				$this->user = Check::user();
-				
+
 				// запоминаем в сессию статистику по платежам для админа
 				if ($user->user_group == 'admin') 
 				{
@@ -94,7 +94,7 @@ class User extends BaseController {
 					$this->session->set_userdata('manager_name', $this->Managers->getFullName($manager_summary, $user));
 					$this->session->set_userdata('manager_login', $login);
 				}
-				
+
 				if ($redirect)
 				{
 					header('Location: '.BASEURL.$user->user_group);
@@ -141,7 +141,50 @@ class User extends BaseController {
 			$this->getLoginData($handler, $id, $view);
 		}
 
-		$this->load->view("/{$this->user->user_group}/elements/div_header", $view);
+		if (isset($handler))
+		{
+			$this->load->view("/{$this->user->user_group}/elements/div_header", $view);
+		}
+		else if (isset($is_main_page))
+		{
+			$this->load->view("/main/elements/auth/success", $view);
+		}
+		else
+		{
+			$this->load->view("/{$this->user->user_group}/elements/auth/success", $view);
+		}
+	}
+
+	public function loginAjaxMain()
+	{
+		$view['is_manager'] = 0;
+		$view['is_client'] = 0;
+		$view['allowed_segments'] = array();
+		$view['segment'] = Check::str('segment', 32, 1);
+
+		if ( ! $this->loginInternal(NULL, NULL, FALSE))
+		{
+			return;
+		}
+
+		if ($this->user->user_group == 'manager')
+		{
+			$view['is_manager'] = 1;
+			$view['allowed_segments'][] = 'order';
+
+		}
+		elseif ($this->user->user_group == 'client')
+		{
+			$view['is_client'] = 1;
+            $view['allowed_segments'][] = 'createorder';
+            $view['allowed_segments'][] = 'online';
+            $view['allowed_segments'][] = 'offline';
+            $view['allowed_segments'][] = 'service';
+            $view['allowed_segments'][] = 'delivery';
+            $view['allowed_segments'][] = 'mailforwarding';
+		}
+
+		$this->load->view("/main/elements/auth/success", $view);
 	}
 
 	private function getLoginData($handler, $id, &$view)
@@ -149,11 +192,6 @@ class User extends BaseController {
 		if ($this->user->user_group == 'manager')
 		{
 			return $this->getManagerLoginData($handler, $id, $view);
-		}
-		elseif ($this->user->user_group == 'client')
-		{
-			// TODO: вставить сюда получение доп.информации при логине клиента, когда возникнет такая необходимость
-			//return $this->getClientLoginData($handler, $id, $view);
 		}
 	}
 

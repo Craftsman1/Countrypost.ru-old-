@@ -476,13 +476,11 @@ class ClientModel extends BaseModel implements IModel{
 			SELECT `'.$this->table.'`.*, 
 				`users`.`user_login`, 
 				`users`.`user_coints`, 
-				COUNT(c2m.manager_id) AS `clients_count`,
-				`currencies`.`currency_symbol`
+				12345 AS `clients_count`,
+				`countries`.`country_currency`
 			FROM `'.$this->table.'`
-				LEFT JOIN `c2m` ON `c2m`.`client_id` = `'.$this->table.'`.`client_user`
-				INNER JOIN `users` ON `users`.`user_id` = `'.$this->table.'`.`client_user`				
+				INNER JOIN `users` ON `users`.`user_id` = `'.$this->table.'`.`client_user`
 				INNER JOIN `countries` ON `countries`.`country_id` = `'.$this->table.'`.`client_country`				
-				INNER JOIN `currencies` ON `currencies`.`currency_name` = `countries`.`country_currency`
 			WHERE `users`.`user_deleted` = 0 '.$where.'
 			GROUP BY `'.$this->table.'`.`client_user`
 		')->result();

@@ -11,7 +11,7 @@
 		<div class='text-field'>
 			<div>
 				<div class='password'>
-					<input type='password' name="password" id="password" value='Пароль' onfocus='javascript: if (this.value == "Пароль") this.value = "";' onblur='javascript: if (this.value == "") this.value = "Пароль";' />
+					<input type='password' name="password" id="password" value='Пароль' />
 				</div>
 			</div>
 		</div>
