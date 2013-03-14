@@ -1,10 +1,18 @@
-<? require_once BASE_CONTROLLERS_PATH.'ManagerBaseController'.EXT;
+<? require_once BASE_CONTROLLERS_PATH . 'BaseController' . EXT;
 
-class Manager extends ManagerBaseController {
+class Manager extends BaseController {
 
 	function __construct()
 	{
 		parent::__construct();
+
+		$user = Check::user();
+
+		if (empty($user) OR $user->user_group !== 'manager')
+		{
+			Func::redirect(BASEURL);
+		}
+
 		Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
 		Breadcrumb::setCrumb(array('/manager/orders/' => 'Мои заказы'), 1, TRUE);
 	}
@@ -14,21 +22,6 @@ class Manager extends ManagerBaseController {
 		Func::redirect(BASEURL.$this->cname.'/orders');
 	}
 
-	public function autocompleteClient($query)
-	{
-		$this->load->model('ClientModel', 'Clients');
-		$ids = $this->Clients->autocompleteManager(intval($query), $this->user->user_id);
-		
-		if ($ids)
-		{
-			echo "[$ids]";
-		}
-		else
-		{
-			echo '[]';
-		}
-	}
-	
 	public function updateOdetailStatuses()
 	{
 		parent::updateOdetailStatuses();
@@ -118,7 +111,7 @@ class Manager extends ManagerBaseController {
 			"/manager/order/{$order->order_id}" => "Заказ №{$order->order_id}"
 		), $index, TRUE);
 	}
-
+/*
 	public function showScreen($oid = null)
 	{
 		header('Content-type: image/jpg');
@@ -129,372 +122,7 @@ class Manager extends ManagerBaseController {
 		}
 		die();
 	}
-	
-	public function showOutMoney()
-	{
-		$this->load->model('Order2outModel', 'Order2out');
-		$this->load->model('CurrencyModel', 'Currencies');
-		$this->load->model('CountryModel', 'Countries');
-		$this->load->model('ManagerModel', 'Managers');
-		
-		$Orders = $this->Order2out->getUserOrders($this->user->user_id);
-		
-		/* пейджинг */
-		$this->per_page = $this->per_page_o2o;
-		$this->init_paging();		
-		$this->paging_count = count($Orders);
-		
-		if ($Orders)
-		{
-			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
-		}
-		
-		$manager = $this->Managers->getById($this->user->user_id);
-		$country = $this->Countries->getById($manager->manager_country);
-		
-		$view = array (
-			'Orders' => $Orders,
-			'statuses'	=> $this->Order2out->getStatuses(),
-			'rate' => $this->Currencies->getCrossRate($country->country_currency),
-			'pager' => $this->get_paging()
-		);
-		
-		// парсим шаблон
-		if ($this->uri->segment(4) == 'ajax')
-		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
-			$view['viewpath'] = $this->viewpath;
-			$this->load->view($this->viewpath."ajax/showOutMoney", $view);
-		}
-		else
-		{
-			View::showChild($this->viewpath."pages/showOutMoney", $view);
-		}
-	}
-	
-	public function showPayedOutMoney() 
-	{
-		$this->load->model('Order2outModel', 'Order2out');
-		$this->load->model('CurrencyModel', 'Currencies');
-		$this->load->model('CountryModel', 'Countries');
-		$this->load->model('ManagerModel', 'Managers');
-		
-		$Orders = $this->Order2out->getPayedUserOrders($this->user->user_id);
-		
-		/* пейджинг */
-		$this->per_page = $this->per_page_o2o;
-		$this->init_paging();		
-		$this->paging_count = count($Orders);
-		
-		if ($Orders)
-		{
-			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
-		}
-		
-		$manager = $this->Managers->getById($this->user->user_id);
-		$country = $this->Countries->getById($manager->manager_country);
-		
-		$view = array (
-			'Orders' => $Orders,
-			'statuses'	=> $this->Order2out->getStatuses(),
-			'rate' => $this->Currencies->getCrossRate($country->country_currency),
-			'pager' => $this->get_paging()
-		);
-		
-		// парсим шаблон
-		if ($this->uri->segment(4) == 'ajax')
-		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
-			$view['viewpath'] = $this->viewpath;
-			$this->load->view($this->viewpath."ajax/showPayedOutMoney", $view);
-		}
-		else
-		{
-			View::showChild($this->viewpath."pages/showPayedOutMoney", $view);
-		}
-	}
-	
-	public function order2out() 
-	{
-		// превалидация
-		$is_local_account = empty($_POST['ignore_local']);
-		$is_usd_account = empty($_POST['ignore_usd']);
-		
-		if (!$is_local_account &&
-			!$is_usd_account)
-		{
-			throw new Exception('Введите сумму платежа.');
-		}
-		
-		Check::reset_empties();	
-		$order2out = new stdClass();
-	
-		// сначала проверяем доллары
-		if ($is_usd_account)
-		{
-			$order2out->order2out_ammount = Check::int('ammount');
-			$empties = Check::get_empties();
-		}
-			
-		// потом местную валюту
-		if ($is_local_account)
-		{
-			$order2out->order2out_currency = $this->session->userdata('manager_currency');
-			$order2out->order2out_ammount_local = Check::int('ammount_local');
-		}
-		
-		$empties = Check::get_empties();
-		
-		try
-		{
-			// валидация
-			if ($empties)
-			{
-				throw new Exception('Введите сумму платежа.');
-			}
-			
-			if ($is_local_account)
-			{
-				$this->load->model('ManagerModel', 'Managers');
-				$manager = $this->Managers->getById($this->user->user_id);
-				
-				if ($manager->manager_balance_local < $order2out->order2out_ammount_local)
-				{
-					throw new Exception('У Вас недостаточно средств в местной валюте для вывода.');
-				}
-			}
-			
-			if ($is_usd_account)
-			{
-				$this->load->model('UserModel', 'Users');
-				$user = $this->Users->getById($this->user->user_id);
-				
-				if ($user->user_coints < $order2out->order2out_ammount)
-				{
-					throw new Exception('У Вас недостаточно средств для вывода.');
-				}
-			}
-			
-			// добавляем заявку
-			$order2out->order2out_tax = 0;
-			$order2out->order2out_user = $this->user->user_id;
-			$order2out->order2out_status = 'processing';
-			
-			$this->db->trans_begin();
-			
-			$this->load->model('Order2outModel', 'Order2out');
-			$order2out = $this->Order2out->addOrder($order2out);
-
-			if (!$order2out) 
-			{
-				throw new Exception('Ошибка создания заявки на вывод.');
-			}
-
-			// создаем платеж в долларах
-			$this->load->model('PaymentModel', 'Payment');
-
-			if ($is_usd_account)
-			{
-				$payment_obj = new stdClass();
-				$payment_obj->payment_from			= $this->user->user_id;
-				$payment_obj->payment_to			= 0;
-				$payment_obj->payment_amount_from	= $order2out->order2out_ammount;
-				$payment_obj->payment_amount_to		= 0;
-				$payment_obj->payment_amount_tax	= 0;
-				$payment_obj->payment_purpose		= 'заявка на вывод';
-				$payment_obj->payment_type			= 'salary';
-				$payment_obj->payment_comment		= '№ '.$order2out->order2out_id;
-
-				if (!$this->Payment->makePayment($payment_obj)) 
-				{
-					throw new Exception('Ошибка перевода средств. Попробуйте еще раз.');
-				}			
-				
-				$this->session->set_userdata(array('user_coints' => $this->user->user_coints - $payment_obj->payment_amount_from));
-			}
-			
-			// создаем платеж в местной валюте
-			if ($is_local_account)
-			{
-				$payment_obj = new stdClass();
-				$payment_obj->payment_from			= $this->user->user_id;
-				$payment_obj->payment_to			= 0;
-				$payment_obj->payment_amount_from	= $order2out->order2out_ammount_local;
-				$payment_obj->payment_amount_to		= 0;
-				$payment_obj->payment_amount_tax	= 0;
-				$payment_obj->payment_purpose		= 'заявка на вывод';
-				$payment_obj->payment_type			= 'salary';
-				$payment_obj->payment_comment		= '№ '.$order2out->order2out_id;
-
-				$payment_obj->payment_currency = $order2out->order2out_currency;
-			
-				if (!$this->Payment->makePaymentLocal($payment_obj)) 
-				{
-					throw new Exception('Ошибка перевода средств в местной валюте. Попробуйте еще раз.');
-				}			
-				
-				$this->session->set_userdata(array('manager_balance_local' => $this->session->userdata('manager_balance_local') - $payment_obj->payment_amount_from));
-			}
-
-			$this->db->trans_commit();
-			$this->result->type = 1;
-			$this->result->m = 'Заявка на вывод денег успешно добавлена.';
-			$this->result->e = 1;
-			
-			// уведомления
-			$this->load->model('ManagerModel', 'Managers');
-			
-			Mailer::sendAdminNotification(
-				Mailer::SUBJECT_NEW_ORDER2OUT, 
-				Mailer::NEW_ORDER2OUT_MANAGER_NOTIFICATION, 
-				$order2out->order2out_user,
-				$order2out->order2out_id, 
-				0,
-				"http://countrypost.ru/admin/showManagerOrdersToOut",
-				$this->Managers,
-				null);
-		}
-		catch (Exception $e)
-		{
-			$this->db->trans_rollback();
-			$this->result->type = 1;
-			$this->result->e	= -1;
-			$this->result->m	= $e->getMessage();
-		}
-		
-		Stack::push('result', $this->result);		
-		Func::redirect(BASEURL.$this->cname.'/showOutMoney');
-	}
-	
-	public function deleteOrder2out($oid) 
-	{
-		parent::deleteOrder2out($oid);
-	}
-	
-	public function showO2oComments()
-	{
-		parent::showO2oComments();
-	}
-	
-	public function addO2oComment()
-	{
-		parent::addO2oComment();
-	}
-	
-	public function refundOrder()
-	{
-		try
-		{
-			if ( ! is_numeric($this->uri->segment(3)))
-			{
-				throw new Exception('Доступ запрещен.');
-			}
-			
-			// безопасность: проверяем связку клиента и заказа
-			$this->load->model('OrderModel', 'Orders');
-			$order = $this->Orders->getManagerOrderById($this->uri->segment(3), $this->user->user_id);
-
-			if (!$order)
-			{
-				throw new Exception('Заказ не найден. Попробуйте еще раз.');
-			}			
-			
-			// находим местную валюту
-			$this->load->model('CurrencyModel', 'Currency');
-			$currency = $this->Currency->getCurrencyByCountry($order->order_country);
-			
-			// добавление платежа партнера клиенту
-			$payment_manager = new stdClass();
-			$payment_manager->payment_from				= $order->order_manager;
-			$payment_manager->payment_to				= $order->order_client;
-			$payment_manager->payment_amount_from		= $order->order_cost_payed - $order->order_cost - $order->order_system_comission_payed + $order->order_system_comission;
-			$payment_manager->payment_amount_to			= $order->order_cost_payed - $order->order_cost - $order->order_system_comission_payed + $order->order_system_comission;
-			$payment_manager->payment_amount_tax		= $order->order_cost_payed - $order->order_cost - $order->order_system_comission_payed + $order->order_system_comission;
-			$payment_manager->payment_purpose			= 'возмещение недоставленных товаров';
-			$payment_manager->payment_comment			= '№ '.$order->order_id;
-			$payment_manager->payment_type				= 'order';
-			$payment_manager->payment_transfer_order_id	= $this->user->user_id.date('Y').date('m').date('d').date('h').date('i').date('s');
-			
-			// добавление платежа партнеру в местной валюте
-			$payment_manager_local = new stdClass();
-			$payment_manager_local->payment_from		= $order->order_manager;
-			$payment_manager_local->payment_to			= $order->order_client;
-			$payment_manager_local->payment_amount_from	= $order->order_manager_cost_payed_local - $order->order_manager_cost_local;
-			$payment_manager_local->payment_amount_to	= 0;
-			$payment_manager_local->payment_amount_tax	= $order->order_manager_comission_payed_local - $order->order_manager_comission_local;
-			$payment_manager_local->payment_purpose		= 'возмещение недоставленных товаров в местной валюте';
-			$payment_manager_local->payment_comment		= '№ '.$order->order_id;
-			$payment_manager_local->payment_type		= 'order';
-			$payment_manager_local->payment_currency	= $currency->currency_symbol;
-			$payment_manager_local->payment_transfer_order_id	= '';
-
-			// добавление платежа системы клиенту
-			$payment_system = new stdClass();
-			$payment_system->payment_from				= 1;
-			$payment_system->payment_to					= $order->order_client;
-			$payment_system->payment_amount_from		= 0;
-			$payment_system->payment_amount_to			= $order->order_system_comission_payed - $order->order_system_comission;
-			$payment_system->payment_amount_tax			= $order->order_system_comission_payed - $order->order_system_comission;
-			$payment_system->payment_purpose			= 'возмещение недоставленных товаров';
-			$payment_system->payment_comment			= '№ '.$order->order_id;
-			$payment_system->payment_type				= 'order';
-			$payment_system->payment_transfer_order_id	= '';
-			
-			$this->load->model('PaymentModel', 'Payment');
-			
-			// погнали
-			$this->db->trans_begin();
-
-			if ( ! $this->Payment->makePayment($payment_manager, true) ||
-				! $this->Payment->makePayment($payment_system, true) ||
-				! $this->Payment->makePaymentLocal($payment_manager_local, true)) 
-			{
-				throw new Exception('Ошибка возмещения средств. Попробуйте еще раз.');
-			}			
-			
-			// сохраняем данные об оплате
-			$order->order_cost_payed = $order->order_cost;
-			$order->order_manager_comission_payed = $order->order_manager_comission;
-			$order->order_system_comission_payed = $order->order_system_comission;
-
-			$order->order_manager_cost_payed_local = $order->order_manager_cost_local;
-			$order->order_manager_comission_payed_local = $order->order_manager_comission_local;
-			
-			$payed_order = $this->Orders->saveOrder($order);
-			
-			if ($this->db->trans_status() !== FALSE)
-			{
-				$this->db->trans_commit();
-			}
-			
-			$this->session->set_userdata(array('user_coints' => ($this->user->user_coints - $payment_manager->payment_amount_from)));
-			$this->session->set_userdata(array('manager_balance_local' => ($this->session->userdata('manager_balance_local') - $payment_manager_local->payment_amount_from)));
-			$this->result->m = 'Недоставленные товары успешно возмещены клиенту.';
-
-		}
-		catch (Exception $e)
-		{
-			$this->db->trans_rollback();
-		
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-		}
-		
-		// открываем заказы
-		Stack::push('result', $this->result);
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-
-	public function sendOrderConfirmation($order_id)
-	{
-		parent::sendOrderConfirmation((int) $order_id);
-	}
-	
-	public function addProductManualAjax() 
-	{
-		parent::addProductManualAjax();
-	}
-	
+*/
 	public function filterOrders()
 	{
 		$this->filter('Orders', 'orders/0/ajax');
@@ -1302,5 +930,55 @@ class Manager extends ManagerBaseController {
 	public function updatePayment($o2i_id)
 	{
 		parent::updatePayment($o2i_id);
+	}
+
+	public function getNewBid($order_id)
+	{
+		try
+		{
+			// безопасность
+			if ( ! is_numeric($order_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			// роли и разграничение доступа
+			$view['order'] = $this->getPublicOrder(
+				$order_id,
+				'Заказ не найден. Попробуйте еще раз.');
+
+			// фото
+			$view['order']->requested_foto_count = 0;
+
+			$this->load->model('OdetailModel', 'Odetails');
+			$odetails = $this->Odetails->getOrderDetails($view['order']->order_id);
+
+			if ($odetails)
+			{
+				foreach($odetails as $odetail)
+				{
+					if ($odetail->odetail_foto_requested)
+					{
+						$view['order']->requested_foto_count++;
+					}
+				}
+			}
+
+			// посредник
+			$this->load->model('ManagerModel', 'Managers');
+			$view['manager'] = $this->Managers->getById($this->user->user_id);
+
+			// юзер
+			$this->load->model('UserModel', 'Users');
+			$view['user'] = $this->Users->getById($this->user->user_id);
+
+			// отрисовка
+			$view['viewpath'] = $this->viewpath;
+			$this->load->view($this->viewpath.'ajax/showNewBid', $view);
+		}
+		catch (Exception $e)
+		{
+			print_r($e);
+		}
 	}
 }

@@ -60,3 +60,7 @@ if (isset($extra_view))
 	}
 }
 ?>
+<script>
+var user_id = <?= $this->user->user_id ?>;
+var user_group = '<?= $this->user->user_group ?>';
+</script>

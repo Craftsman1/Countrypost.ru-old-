@@ -1,9 +1,19 @@
-<? require_once BASE_CONTROLLERS_PATH.'ClientBaseController'.EXT;
+<? require_once BASE_CONTROLLERS_PATH . 'BaseController' . EXT;
 
-class Client extends ClientBaseController {
+class Client extends BaseController {
+	protected $__partners;
+	protected $__client;
+
 	function Client()
 	{
 		parent::__construct();
+
+		$user = Check::user();
+
+		if (empty($user) OR $user->user_group !== 'client')
+		{
+			Func::redirect(BASEURL);
+		}
 
 		Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
 		Breadcrumb::setCrumb(array('/client/orders' => 'Мои заказы'), 1, TRUE);
@@ -61,7 +71,8 @@ class Client extends ClientBaseController {
 	
 	public function showShop()
 	{	
-		foreach ($_POST as $key => $val){
+		foreach ($_POST as $key => $val)
+		{
 			$$key = $val;
 		}
 		
@@ -69,18 +80,24 @@ class Client extends ClientBaseController {
 		$error->m	= '';
 		$shop = array();
 		
-		try{								
-			if (!$sname || !$surl) 
-				throw new Exception(iconv('UTF-8', 'Windows-1251', 'Пожалуйста, введите название магазина!'));
-				
+		try
+		{
+			if (empty($sname) OR empty($surl))
+			{
+				throw new Exception('Пожалуйста, введите название магазина!');
+			}
+
 			$shop['name'] = $sname;
 				
-			if (!Check::url($surl))
-				throw new Exception(iconv('UTF-8', 'Windows-1251', 'Пожалуйста, введите адрес магазина!'));
+			if ( ! Check::url($surl))
+			{
+				throw new Exception('Пожалуйста, введите адрес магазина!');
+			}
 			
 			$shop['url'] = substr($surl, 7);
-			
-		}catch (Exception $e){	
+		}
+		catch (Exception $e)
+		{
 			$error->m	= $e->getMessage();				
 		}
 		
@@ -92,10 +109,12 @@ class Client extends ClientBaseController {
 		$this->load->model('OdetailModel', 'OdetailModel');
 		$Odetails = $this->OdetailModel->getFilteredDetails(array('odetail_client' => $this->user->user_id, 'odetail_order' => 0));
 		
-		if (count($Odetails)) {
+		if (count($Odetails))
+		{
 			$view['country'] = false;
 		}
-		else {
+		else
+		{
 			$view['country'] = true;
 			$this->load->model('CountryModel', 'CountryModel');
 			$view['countries'] = $this->CountryModel->getClientAvailableCountries($this->user->user_id);

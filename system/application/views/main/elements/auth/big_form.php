@@ -49,8 +49,24 @@ $(function() {
 
 			if (response)
 			{
-				success('top', 'Вы успешно залогинились в Countrypost.ru.');
+				success('top', 'Вы успешно вошли в Countrypost.ru.');
 				$('div.top-block').replaceWith(response);
+
+				try
+				{
+					if (login_handler != undefined)
+					{
+						login_handler();
+					}
+					else
+					{
+						alert('111');
+					}
+				}
+				catch (e)
+				{
+					alert('222');
+				}
 			}
 			else
 			{

@@ -21,8 +21,7 @@
 				<input type='password'
 					   name="password"
 					   id="password"
-					   value='Пароль'
-					   onfocus='javascript: if (this.value == "Пароль") this.value = "";'>
+					   value='Пароль'>
 			</div>
 		</div>
 		<div class='submit'>
@@ -50,7 +49,7 @@
 
 				if (response)
 				{
-					success('top', 'Вы успешно залогинились в Countrypost.ru.');
+					success('top', 'Вы успешно вошли в Countrypost.ru.');
 					$('form.smallAuthForm').replaceWith(response);
 				}
 				else
