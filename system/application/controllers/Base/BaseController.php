@@ -3,10 +3,6 @@ if (!defined('BASEPATH'))
 {
     exit('No direct script access allowed');
 }
-/**
- * Базовый контроллер
- *
- */
 
 abstract class BaseController extends Controller 
 {
@@ -25,8 +21,7 @@ abstract class BaseController extends Controller
 	/**
 	 * специальная переменная, что-то вроде интерфейсного обекта,
 	 * служит для унифицированной передачи данных по какой либо операции
-	 * 
-	 */	
+	 */
 	public $result;
 	
 	public function __construct()
@@ -1100,8 +1095,6 @@ abstract class BaseController extends Controller
             {
                 $detail->odetail_img = 0;
             }
-				
-			//$Odetails = $this->OdetailModel->getFilteredDetails(array('odetail_client' => $client_id, 'odetail_order' => 0));
 				
 			// открываем транзакцию
 			$this->db->trans_begin();

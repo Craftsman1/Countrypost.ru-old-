@@ -1013,7 +1013,7 @@ Email: {$this->user->user_email}";
             $view['order_type'] = $order_type;
 
 			// крошки
-            if (!$order_type)
+            if ( ! $order_type)
             {
                 Breadcrumb::setCrumb(array('http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => 'Добавление нового заказа'), 1, TRUE);
             }

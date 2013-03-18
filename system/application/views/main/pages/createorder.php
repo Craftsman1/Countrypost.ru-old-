@@ -130,21 +130,26 @@
 
         // Check Prefix
         var prefRgx = new RegExp(/^([A-Za-z]{3,5})?\:\/\//),
-                prefRes = prefRgx.exec(str);
-        if (prefRes !== null) {
+            prefRes = prefRgx.exec(str);
+
+        if (prefRes !== null)
+		{
             var allowed = Array('https', 'http', 'ftp');
-            for (var i = 0, s = allowed.length; i < s; i++) {
-                if (allowed[i] === prefRes[1]) {
+            for (var i = 0, s = allowed.length; i < s; i++)
+			{
+                if (allowed[i] === prefRes[1])
+				{
                     hasPrefix = true;
                     prefix = prefRes[1];
                     str = str.replace(prefRgx, '');
                     break;
                 }
             }
-            if (!hasPrefix) {
+            if ( ! hasPrefix)
+			{
                 str = str.replace(prefRgx, '');
                 hasErrors = true;
-                message = "Сетевой протокол не может быть: <b>'" + prefRes[1] + "'</b>. Укажите ссылку с одним из следующих протоколов: (" + allowed.join(', ') + ")";
+                message = "Ссылка на товар не похожа на ссылку";
             }
         }
 
@@ -157,38 +162,39 @@
                 hasWww = true;
                 str = str.replace(wwwRgx, '');
             }
-            else {
+            else
+			{
                 hasErrors = true;
-                message = "Префикс не может быть: <b>'" + wwwRes_ + "'</b>.";
-                if (wwwRes_.length > 4) {
-                    message += " Если адрес домена введен верно - укажите перед ним префикс <b>'www.'</b>.";
-                }
-                else {
-                    message += " Укажите префикс из трёх символов <b>'www.'</b>.";
-                }
+                message = "Ссылка на товар не похожа на ссылку";
             }
         }
 
         // Check Domain
         var domainRgx = new RegExp(/^([^\/]*)/),
-                domainRes = domainRgx.exec(str);
-        if (fileRes !== null) {
+            domainRes = domainRgx.exec(str);
+
+        if (fileRes !== null)
+		{
             // TODO: Проверка находится ли домен в списке разрешенных\запрещенных
             var segments = domainRes[1].split('.');
-            if (segments.length > 1) {
+            if (segments.length > 1)
+			{
                 domain = domainRes[1];
                 str = str.replace(domainRgx, '');
             }
-            else {
+            else
+			{
                 hasErrors = true;
-                message = "Доменное имя не может быть: <b>'" + domainRes[1] + "'</b>. Укажите ссылку с доменным именем, состоящим из, не менее 2-х сегментов.";
+                message = "Ссылка на товар не похожа на ссылку";
             }
         }
 
         // Check File
         var fileRgx = new RegExp(/\/?([^\?]*)/),
-                fileRes = fileRgx.exec(str);
-        if (fileRes !== null) {
+            fileRes = fileRgx.exec(str);
+
+        if (fileRes !== null)
+		{
             hasFile = true;
             file = fileRes[1];
             str = str.replace(fileRgx, '');
@@ -196,20 +202,22 @@
 
         // Check Query
         var queryRgx = new RegExp(/\?(.*)$/),
-                queryRes = queryRgx.exec(str);
-        if (queryRes !== null) {
+            queryRes = queryRgx.exec(str);
+
+        if (queryRes !== null)
+		{
             hasQuery = true;
             query = queryRes[1];
             str = str.replace(queryRgx, '');
         }
 
-        if (hasErrors) {
+        if (hasErrors)
+		{
             return message;
         }
 
         return true;
     }
-
 
     var orderData = <?= ($order AND ($json = json_encode(array($order)))) ? $json : 'null' ?>;
     var orderJoints = <?= ($joints AND ($json = json_encode($joints))) ? $json : 'null' ?>;

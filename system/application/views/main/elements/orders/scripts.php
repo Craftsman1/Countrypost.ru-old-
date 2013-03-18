@@ -739,15 +739,18 @@ $(function() {
                         dataType:'json',
                         iframe:true,
                         beforeSubmit:function (formData, jqForm, options) {
-                            if (!checkOrder() || !checkItem(iObj, errorFields)) {
+                            if ( ! checkOrder() ||
+									! checkItem(iObj, errorFields))
+							{
                                 scrollFirstError();
                                 bindAddItem();
                                 row.remove();
                                 // Если товаров больше нет сворачиваем таблицу товаров
-                                if (oObj.options.cart.items.length == 0) {
+                                if (oObj.options.cart.items.length == 0)
+								{
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().hide('slow');
-                                    $('.checkOutOrderBlock').hide('slow');
-                                }
+									$('.' + oObj.options.type + '_order_form h3.cart_header').hide('slow');
+								}
                                 return false;
                             }
 
@@ -793,9 +796,9 @@ $(function() {
                                         formFieldsClear(iObj);
                                     }//debug only
 
-                                    // Отображаем список товаров
-                                    $('.' + oObj.options.type + '_order_form #new_products').parent().show();
-                                    $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
+									// Отображаем список товаров
+									$('.' + oObj.options.type + '_order_form #new_products').parent().show();
+									$('.' + oObj.options.type + '_order_form h3.cart_header').show();
                                 }
                             }
                             // Ответ не был получен
@@ -840,10 +843,12 @@ $(function() {
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
                                         // Если товаров больше нет сворачиваем таблицу товаров
-                                        if (oObj.options.cart.items.length == 0) {
+                                        if (oObj.options.cart.items.length == 0)
+										{
                                             $('.' + oObj.options.type + '_order_form #new_products').parent().hide('slow');
-                                            $('.checkOutOrderBlock').hide('slow');
-                                        }
+											$('.' + oObj.options.type + '_order_form h3.cart_header').hide('slow');
+
+										}
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
@@ -1535,15 +1540,20 @@ $(function() {
                         dataType:'json',
                         iframe:true,
                         beforeSubmit:function (formData, jqForm, options) {
-                            if (!checkOrder() || !checkItem(iObj, errorFields)) {
+							if ( ! checkOrder() ||
+								! checkItem(iObj, errorFields))
+							{
                                 scrollFirstError();
                                 bindAddItem();
                                 row.remove();
+
                                 // Если товаров больше нет сворачиваем таблицу товаров
-                                if (oObj.options.cart.items.length == 0) {
+                                if (oObj.options.cart.items.length == 0)
+								{
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().hide('slow');
-                                    $('.checkOutOrderBlock').hide('slow');
+									$('.' + oObj.options.type + '_order_form h3.cart_header').hide('slow');
                                 }
+
                                 return false;
                             }
 
@@ -1552,11 +1562,13 @@ $(function() {
                         success:function (response) {
                             if (response) {
                                 // Ответ не является числовым значением
-                                if (isNaN(response.odetail_id) || isNaN(response.order_id)) {
+                                if (isNaN(response.odetail_id) || isNaN(response.order_id))
+								{
                                     error('top', response);
                                 }
                                 // Все в порядке, добавляем товар
-                                else {
+                                else
+								{
                                     // проставляем всюду Id заказа
                                     $('input.order_id').val(response.order_id);
                                     oObj.options.order_id = response.order_id;
@@ -1590,14 +1602,12 @@ $(function() {
 
                                     // Отображаем список товаров
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().show();
-                                    if (user != '')
-                                    {
-                                        $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
-                                    }
+                                    $('.' + oObj.options.type + '_order_form h3.cart_header').show();
                                 }
                             }
                             // Ответ не был получен
-                            else {
+                            else
+							{
                                 removeItemProgress(item.id);
                                 error('top', 'Товар не добавлен. Заполните все поля и попробуйте еще раз.');
                             }
@@ -1636,10 +1646,11 @@ $(function() {
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
                                         // Если товаров больше нет сворачиваем таблицу товаров
-                                        if (oObj.options.cart.items.length == 0) {
+                                        if (oObj.options.cart.items.length == 0)
+										{
                                             $('.' + oObj.options.type + '_order_form #new_products').parent().hide('slow');
-                                            $('.checkOutOrderBlock').hide('slow');
-                                        }
+											$('.' + oObj.options.type + '_order_form h3.cart_header').hide('slow');
+										}
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
@@ -2269,10 +2280,12 @@ $(function() {
                                 bindAddItem();
                                 row.remove();
                                 // Если товаров больше нет сворачиваем таблицу товаров
-                                if (oObj.options.cart.items.length == 0) {
+                                if (oObj.options.cart.items.length == 0)
+								{
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().hide('slow');
-                                    $('.checkOutOrderBlock').hide('slow');
-                                }
+									$('.' + oObj.options.type + '_order_form h3.cart_header').hide('slow');
+								}
+
                                 return false;
                             }
 
@@ -2319,10 +2332,7 @@ $(function() {
 
                                     // Отображаем список товаров
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().show();
-                                    if (user != '')
-                                    {
-                                        $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
-                                    }
+									$('.' + oObj.options.type + '_order_form h3.cart_header').show();
                                 }
                             }
                             // Ответ не был получен
@@ -2365,10 +2375,11 @@ $(function() {
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
                                         // Если товаров больше нет сворачиваем таблицу товаров
-                                        if (oObj.options.cart.items.length == 0) {
+                                        if (oObj.options.cart.items.length == 0)
+										{
                                             $('.' + oObj.options.type + '_order_form #new_products').parent().hide('slow');
-                                            $('.checkOutOrderBlock').hide('slow');
-                                        }
+											$('.' + oObj.options.type + '_order_form h3.cart_header').hide('slow');
+										}
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
@@ -3027,10 +3038,11 @@ $(function() {
                                 bindAddItem();
                                 row.remove();
                                 // Если товаров больше нет сворачиваем таблицу товаров
-                                if (oObj.options.cart.items.length == 0) {
+                                if (oObj.options.cart.items.length == 0)
+								{
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().hide('slow');
-                                    $('.checkOutOrderBlock').hide('slow');
-                                }
+									$('.' + oObj.options.type + '_order_form h3.cart_header').hide('slow');
+								}
                                 return false;
                             }
 
@@ -3077,10 +3089,7 @@ $(function() {
 
                                     // Отображаем список товаров
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().show();
-                                    if (user != '')
-                                    {
-                                        $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
-                                    }
+									$('.' + oObj.options.type + '_order_form h3.cart_header').show();
                                 }
                             }
                             // Ответ не был получен
@@ -3123,10 +3132,11 @@ $(function() {
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
                                         // Если товаров больше нет сворачиваем таблицу товаров
-                                        if (oObj.options.cart.items.length == 0) {
+                                        if (oObj.options.cart.items.length == 0)
+										{
                                             $('.' + oObj.options.type + '_order_form #new_products').parent().hide('slow');
-                                            $('.checkOutOrderBlock').hide('slow');
-                                        }
+											$('.' + oObj.options.type + '_order_form h3.cart_header').hide('slow');
+										}
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
@@ -3774,10 +3784,11 @@ $(function() {
                                 bindAddItem();
                                 row.remove();
                                 // Если товаров больше нет сворачиваем таблицу товаров
-                                if (oObj.options.cart.items.length == 0) {
+                                if (oObj.options.cart.items.length == 0)
+								{
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().hide('slow');
-                                    $('.checkOutOrderBlock').hide('slow');
-                                }
+									$('.' + oObj.options.type + '_order_form h3.cart_header').hide('slow');
+								}
                                 return false;
                             }
 
@@ -3824,10 +3835,7 @@ $(function() {
 
                                     // Отображаем список товаров
                                     $('.' + oObj.options.type + '_order_form #new_products').parent().show();
-                                    if (user != '')
-                                    {
-                                        $('.' + oObj.options.type + '_order_form .checkOutOrderBlock').show('slow');
-                                    }
+									$('.' + oObj.options.type + '_order_form h3.cart_header').show();
                                 }
                             }
                             // Ответ не был получен
@@ -3870,10 +3878,11 @@ $(function() {
                                         // Удаляем строку товара
                                         $('tr#product' + itemId + '').remove();
                                         // Если товаров больше нет сворачиваем таблицу товаров
-                                        if (oObj.options.cart.items.length == 0) {
+                                        if (oObj.options.cart.items.length == 0)
+										{
                                             $('.' + oObj.options.type + '_order_form #new_products').parent().hide('slow');
-                                            $('.checkOutOrderBlock').hide('slow');
-                                        }
+											$('.' + oObj.options.type + '_order_form h3.cart_header').hide('slow');
+										}
                                         oObj.updateTotals();
 
                                         success('top', responce.m);
@@ -4256,10 +4265,17 @@ $(function() {
                 dataType:'html',
                 iframe:true,
                 beforeSubmit:function (formData, jqForm, options) {
-                    if (!checkOrder()) {
+                    if ( ! authValidation())
+					{
+                        return false;
+                    }
+
+                    if ( ! checkOrder())
+					{
                         scrollFirstError();
                         return false;
                     }
+
                     return true;
                 },
                 success:function (response) {

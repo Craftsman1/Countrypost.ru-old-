@@ -138,7 +138,7 @@ class Manager extends BaseController {
 		parent::showPaymentHistory();
 	}
 
-	public function addBid($order_id)
+	public function addBid($order_id, $bid_id = 0)
 	{
 		try 
 		{
@@ -148,17 +148,42 @@ class Manager extends BaseController {
 				throw new Exception('Невозможно добавить предложение.');
 			}
 						
-			// 1. роли и разграничение доступа
-			$order = $this->getPublicOrder(
+			// 1. роли и разграничение доступа: новое предложение можно добавлять только в публичный заказ,
+			// а редактировать можно любой
+			if (empty($bid_id) OR
+				! is_numeric($bid_id))
+			{
+				$order = $this->getPublicOrder(
 				$order_id,
 				'Заказ не найден. Попробуйте еще раз.');
+			}
+			else if ( ! ($order = $this->getPublicOrder($order_id, FALSE)))
+			{
+				$order = $this->getPrivilegedOrder(
+					$order_id,
+					'Заказ не найден. Попробуйте еще раз.');
+			}
+
+			$this->getOrderFotoCount($order);
 
 			// 2. погнали
-			$bid = new stdClass();
+			$this->load->model('BidModel', 'Bids');
+
+			if (empty($bid_id) OR
+				! is_numeric($bid_id))
+			{
+				$bid = new stdClass();
+			}
+			else
+			{
+				$bid = $this->Bids->getById($bid_id);
+			}
+
 			$bid->order_id = $order_id;
 			$bid->manager_id = $this->user->user_id;
 			$bid->client_id = $order->order_client;
 			$bid->foto_tax = Check::int('foto_tax');
+			$bid->requested_foto_count = $order->requested_foto_count;
 
 			// 3. допрасходы
 			$extra_tax_counter = Check::int('extra_tax_counter');
@@ -168,7 +193,6 @@ class Manager extends BaseController {
 				$bid_extra = new stdClass();
 				$bid_extra->extra_name = Check::str('extra_tax_name' . $i, 255, 1, 'Дополнительные расходы');
 				$bid_extra->extra_tax = Check::int('extra_tax_value' . $i);
-
 
 				if ($bid_extra->extra_tax)
 				{
@@ -197,6 +221,7 @@ class Manager extends BaseController {
 
 			// 5. комиссия
 			$bid->manager_tax = Check::int('manager_tax');
+			$bid->manager_tax_percentage = Check::int('manager_tax_percentage');
 
 			$empties = Check::get_empties();
 
@@ -206,16 +231,20 @@ class Manager extends BaseController {
 			}
 
 			// 6. пересчитываем и сохраняем предложение
-			$this->load->model('BidModel', 'Bids');
-
-			if ( ! $this->Bids->recalculate($bid, $order))
+			if ( ! $this->Bids->recalculate($bid, $order, TRUE))
 			{
 				throw new Exception('Невозможно вычислить стоимость предложения. Попоробуйте еще раз.');
 			}
 
 			if ( ! ($bid = $this->Bids->addBid($bid)))
 			{
-				throw new Exception('Ошибка создания предложения. Обратитесь к администрации сервиса.');
+				throw new Exception('Ошибка сохранения предложения. Обратитесь к администрации сервиса.');
+			}
+
+			// костыль
+			if ($bid_id)
+			{
+				$bid->bid_id = $bid_id;
 			}
 
 			$this->load->model('ManagerModel', 'Managers');
@@ -225,6 +254,10 @@ class Manager extends BaseController {
 			if (isset($bid_extras))
 			{
 				$this->Bids->addBidExtras($bid, $bid_extras);
+			}
+			else
+			{
+				$this->Bids->addBidExtras($bid, FALSE);
 			}
 
 			// 8. комменты
@@ -257,6 +290,12 @@ class Manager extends BaseController {
 
 			$view['selfurl'] = BASEURL.$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
+
+			if (isset($bid_extras))
+			{
+				$bid->extra_taxes = $bid_extras;
+			}
+
 			$view['bid'] = $bid;
 			$view['order'] = $order;
 			$view['odetails'] = $this->Odetails->getOrderDetails($order_id);
@@ -948,25 +987,17 @@ class Manager extends BaseController {
 				'Заказ не найден. Попробуйте еще раз.');
 
 			// фото
-			$view['order']->requested_foto_count = 0;
-
-			$this->load->model('OdetailModel', 'Odetails');
-			$odetails = $this->Odetails->getOrderDetails($view['order']->order_id);
-
-			if ($odetails)
-			{
-				foreach($odetails as $odetail)
-				{
-					if ($odetail->odetail_foto_requested)
-					{
-						$view['order']->requested_foto_count++;
-					}
-				}
-			}
+			$this->getOrderFotoCount($view['order']);
 
 			// посредник
 			$this->load->model('ManagerModel', 'Managers');
 			$view['manager'] = $this->Managers->getById($this->user->user_id);
+
+			$this->processStatistics($view['manager'],
+				array(),
+				'manager_user',
+				$view['manager']->manager_user,
+				'manager');
 
 			// юзер
 			$this->load->model('UserModel', 'Users');
@@ -979,6 +1010,25 @@ class Manager extends BaseController {
 		catch (Exception $e)
 		{
 			print_r($e);
+		}
+	}
+
+	private function getOrderFotoCount($order)
+	{
+		$order->requested_foto_count = 0;
+
+		$this->load->model('OdetailModel', 'Odetails');
+		$odetails = $this->Odetails->getOrderDetails($order->order_id);
+
+		if ($odetails)
+		{
+			foreach($odetails as $odetail)
+			{
+				if ($odetail->odetail_foto_requested)
+				{
+					$order->requested_foto_count++;
+				}
+			}
 		}
 	}
 }

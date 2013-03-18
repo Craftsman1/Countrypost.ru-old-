@@ -60,12 +60,12 @@ $(function() {
 					}
 					else
 					{
-						alert('111');
+						//alert('111');
 					}
 				}
 				catch (e)
 				{
-					alert('222');
+					//alert('222');
 				}
 			}
 			else

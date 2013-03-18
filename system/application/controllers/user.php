@@ -33,7 +33,7 @@ class User extends BaseController {
 		Func::redirect(BASEURL);
 	}
 	
-	public function login ($l=null, $p=null, $redirect = true, $vk = false)
+	public function login($l = null, $p = null, $redirect = true, $vk = false)
 	{
 		// Дорефакторить этот огрызок
 		if ($this->loginInternal())
@@ -82,6 +82,7 @@ class User extends BaseController {
 					$this->load->model('CurrencyModel', 'Currency');
 					$currency = $this->Currency->getCurrencyByCountry($manager_summary->manager_country);
 					
+					$this->session->set_userdata('manager_country', $manager_summary->manager_country);
 					$this->session->set_userdata('manager_credit', $manager_summary->manager_credit);
 					$this->session->set_userdata('manager_credit_date', $manager_summary->manager_credit_date);
 					$this->session->set_userdata('manager_credit_local', $manager_summary->manager_credit_local);

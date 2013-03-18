@@ -561,6 +561,7 @@ class OrderModel extends BaseModel implements IModel{
 				`orders`.*, 
 				@package_day:=TIMESTAMPDIFF(DAY, `orders`.`order_date`, NOW()) as package_day,
 				''  as `order_manager_login`, 
+				c.`country_id` as `order_country`,
 				c.`country_name` as `order_country_from`,
 				c.`country_name_en` as `order_country_from_en`,
 				c.`country_currency` as currency,	
@@ -1228,6 +1229,7 @@ class OrderModel extends BaseModel implements IModel{
 
 		//if (isset($order_country_from->country_name))
 		//{
+			$view['order']->order_country = $view['order']->order_country_from;
 			$view['order']->order_country_from = strval($order_country_from->country_name);
 		//}
 

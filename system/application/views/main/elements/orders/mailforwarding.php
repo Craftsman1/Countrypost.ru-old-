@@ -8,8 +8,9 @@ for ($i = 0, $n = count($orders); $i<$n; $i++) :
 endfor; ?>
 <div class="mail_forwarding_order_form">
     <ol style="padding: 10px 0px; font-size: 14px; line-height: 26px;">
-        <li>Выберите посредника на адрес которого вы будите самостоятельно заказывать.</li>
-        <li>Добавьте ниже все товары заказанные на адрес посредника (для каждого товара укажите номер посылки - Tracking номер).</li>
+        <li>Выберите посредника на адрес которого вы будете самостоятельно заказывать товары.</li>
+        <li>Добавьте ниже все товары, заказанные на адрес посредника (для каждого товара укажите номер посылки -
+			Tracking номер).</li>
     </ol>
     <div class='table' style="position:relative;">
         <div class='angle angle-lt'></div>

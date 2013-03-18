@@ -25,7 +25,10 @@ class BidModel extends BaseModel implements IModel{
     	$this->properties->total_cost	='';
     	$this->properties->status	='';
     	$this->properties->created	='';
-    	
+    	$this->properties->manager_tax_percentage	='';
+    	$this->properties->foto_tax_percentage	='';
+    	$this->properties->requested_foto_count	='';
+
         parent::__construct();
     }
     
@@ -92,21 +95,30 @@ class BidModel extends BaseModel implements IModel{
 	}
 
 	public function addBidExtras($bid, $extras)
-	{
-		foreach ($extras as $extra)
+	{//print_r($bid);die();
+		$this->db->query("
+			DELETE FROM `bid_extras`
+			WHERE
+				bid_id = $bid->bid_id
+		");
+
+		if ( ! empty($extras))
 		{
-			$this->db->query("
-				INSERT INTO `bid_extras` (
-					bid_id,
-					extra_name,
-					extra_tax
-				)
-				VALUES (
-					$bid->bid_id,
-					'$extra->extra_name',
-					'$extra->extra_tax'
-				)
-			");
+			foreach ($extras as $extra)
+			{
+				$this->db->query("
+					INSERT INTO `bid_extras` (
+						bid_id,
+						extra_name,
+						extra_tax
+					)
+					VALUES (
+						$bid->bid_id,
+						'$extra->extra_name',
+						'$extra->extra_tax'
+					)
+				");
+			}
 		}
 	}
 
@@ -212,7 +224,7 @@ class BidModel extends BaseModel implements IModel{
 		return ((count($result) > 0 &&  $result) ? $result[0] : FALSE);
 	}
 
-	public function recalculate($bid, $order)
+	public function recalculate($bid, $order, $skip_manager_tax = FALSE)
 	{
 		try
 		{
@@ -237,11 +249,15 @@ class BidModel extends BaseModel implements IModel{
 				return FALSE;
 			}
 
-			$bid->manager_tax = ceil(
-				$manager->order_tax *
-				($order->order_products_cost +
-					$order->order_delivery_cost) *
-				0.01);
+			// при добавлении и редактировании предложения пропускаем пересчет комиссии, оставляем то что он ввел
+			if ( ! $skip_manager_tax)
+			{
+				$bid->manager_tax = ceil(
+					$manager->order_tax *
+					($order->order_products_cost +
+						$order->order_delivery_cost) *
+					0.01);
+			}
 
 			if ($bid->manager_tax < $manager->min_order_tax)
 			{

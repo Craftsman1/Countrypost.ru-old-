@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="order price calculation">
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\dbscripts\2012-02-06 22-39 mf tax.sql" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\controllers\Base\ClientBaseController.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\controllers\Base\ManagerBaseController.php" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\23\00_-_USAliens.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\31\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\33\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
@@ -19,16 +17,29 @@
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\57\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\58\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\59\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
-      <change type="MOVED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\controllers\Base\UpdateController.php" afterPath="$PROJECT_DIR$/system/application/controllers/Base/[delete] UpdateController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/client.php" afterPath="$PROJECT_DIR$/system/application/controllers/client.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" afterPath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/main.php" afterPath="$PROJECT_DIR$/system/application/controllers/main.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/manager.php" afterPath="$PROJECT_DIR$/system/application/controllers/manager.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/user.php" afterPath="$PROJECT_DIR$/system/application/controllers/user.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/BidModel.php" afterPath="$PROJECT_DIR$/system/application/models/BidModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OrderModel.php" afterPath="$PROJECT_DIR$/system/application/models/OrderModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/auth/success.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/auth/success.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showNewOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showNewOrderDetails.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/auth/big_form.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/auth/big_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/auth/small_form.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/auth/small_form.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/mailforwarding.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/mailforwarding.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/pages/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/main/pages/showOrderDetails.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/auth/success.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/auth/success.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/online.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/online.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" afterPath="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/ajax/showNewBid.php" afterPath="$PROJECT_DIR$/system/application/views/manager/ajax/showNewBid.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,38 +65,41 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="newBid.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php">
+      <file leaf-file-name="bids.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="281" column="11" selection-start="7738" selection-end="7738" vertical-scroll-proportion="0.6452933">
-              <folding>
-                <element signature="n#style#0;n#span#1;n#div#1;n#div#4;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#7;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#div#2;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="203" column="23" selection-start="4105" selection-end="4120" vertical-scroll-proportion="-0.6896552">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="newbidinfo.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newbidinfo.php">
+      <file leaf-file-name="bid.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="34" selection-start="2407" selection-end="2429" vertical-scroll-proportion="-12.862069">
-              <folding>
-                <element signature="n#style#0;n#center#0;n#span#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="165" column="6" selection-start="6032" selection-end="6032" vertical-scroll-proportion="-90.344826">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="showNewBid.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showNewBid.php">
+      <file leaf-file-name="editBidForm.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/editBidForm.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="37" selection-start="1243" selection-end="1243" vertical-scroll-proportion="-20.0">
+            <state line="167" column="19" selection-start="3462" selection-end="3462" vertical-scroll-proportion="-21.068966">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="editBid.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="51" selection-start="323" selection-end="323" vertical-scroll-proportion="-1.4814814">
               <folding>
-                <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#span#0;n#div#1;n#div#2;n#div#0;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#span#1;n#div#1;n#div#2;n#div#0;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#span#0;n#div#2;n#div#2;n#div#0;n#form#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -94,151 +108,7 @@
       <file leaf-file-name="manager.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="974" column="24" selection-start="22883" selection-end="22883" vertical-scroll-proportion="-19.068966">
-              <folding>
-                <element signature="n#index#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#updateOdetailStatuses#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#processOrdersFilter#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#846#942#0" expanded="false" />
-                <element signature="n#updateOrderDetails#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#updateOrderStatus#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#orders#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#showOpenOrders#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#showPayedOrders#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#showSentOrders#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#showBidOrders#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#order#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#showOrderBreadcrumb#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#1759#2022#0" expanded="false" />
-                <element signature="e#1840#2022#0" expanded="false" />
-                <element signature="e#1894#2018#0" expanded="false" />
-                <element signature="e#1927#2013#0" expanded="false" />
-                <element signature="e#2026#2142#0" expanded="false" />
-                <element signature="e#2047#2127#0" expanded="false" />
-                <element signature="e#2147#2486#0" expanded="false" />
-                <element signature="n#filterOrders#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#filterPaymentHistory#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#history#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#2782#2909#0" expanded="false" />
-                <element signature="e#2967#3048#0" expanded="false" />
-                <element signature="e#3338#3664#0" expanded="false" />
-                <element signature="e#3588#3659#0" expanded="false" />
-                <element signature="e#3669#3738#0" expanded="false" />
-                <element signature="e#3789#4023#0" expanded="false" />
-                <element signature="e#3950#4023#0" expanded="false" />
-                <element signature="e#4134#4235#0" expanded="false" />
-                <element signature="e#4331#4480#0" expanded="false" />
-                <element signature="e#4485#4630#0" expanded="false" />
-                <element signature="e#4808#4891#0" expanded="false" />
-                <element signature="e#5000#5512#0" expanded="false" />
-                <element signature="e#5279#5385#0" expanded="false" />
-                <element signature="e#5972#6000#0" expanded="false" />
-                <element signature="n#removeBid#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#6057#7652#0" expanded="false" />
-                <element signature="e#6068#6241#0" expanded="false" />
-                <element signature="e#6334#6378#0" expanded="false" />
-                <element signature="e#6384#6514#0" expanded="false" />
-                <element signature="e#6421#6508#0" expanded="false" />
-                <element signature="e#6519#6635#0" expanded="false" />
-                <element signature="e#6647#6745#0" expanded="false" />
-                <element signature="e#6751#6864#0" expanded="false" />
-                <element signature="e#6970#7460#0" expanded="false" />
-                <element signature="e#7271#7416#0" expanded="false" />
-                <element signature="e#7547#7652#0" expanded="false" />
-                <element signature="n#addBidComment#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#addPaymentComment#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#saveProfile#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#7971#9912#0" expanded="false" />
-                <element signature="e#8433#8665#0" expanded="false" />
-                <element signature="e#8561#8660#0" expanded="false" />
-                <element signature="e#9247#9357#0" expanded="false" />
-                <element signature="e#9531#9637#0" expanded="false" />
-                <element signature="e#9671#9808#0" expanded="false" />
-                <element signature="e#9851#9912#0" expanded="false" />
-                <element signature="n#saveBlog#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#9950#10756#0" expanded="false" />
-                <element signature="e#10069#10183#0" expanded="false" />
-                <element signature="e#10141#10183#0" expanded="false" />
-                <element signature="e#10444#10554#0" expanded="false" />
-                <element signature="e#10623#10720#0" expanded="false" />
-                <element signature="e#10727#10756#0" expanded="false" />
-                <element signature="n#savePricelist#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#11460#11570#0" expanded="false" />
-                <element signature="e#11648#11747#0" expanded="false" />
-                <element signature="e#11754#11806#0" expanded="false" />
-                <element signature="n#savePaymentTypes#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#saveDelivery#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#12552#13110#0" expanded="false" />
-                <element signature="e#12790#12900#0" expanded="false" />
-                <element signature="e#13082#13110#0" expanded="false" />
-                <element signature="n#saveAddress#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#13151#14029#0" expanded="false" />
-                <element signature="e#13685#13795#0" expanded="false" />
-                <element signature="e#13873#13972#0" expanded="false" />
-                <element signature="e#13979#14029#0" expanded="false" />
-                <element signature="n#updatePerPage#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#14081#14162#0" expanded="false" />
-                <element signature="n#updateOrder#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#14328#15488#0" expanded="false" />
-                <element signature="e#14339#14423#0" expanded="false" />
-                <element signature="e#14472#14574#0" expanded="false" />
-                <element signature="e#14763#14876#0" expanded="false" />
-                <element signature="e#15207#15370#0" expanded="false" />
-                <element signature="e#15444#15488#0" expanded="false" />
-                <element signature="n#closeOrder#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#15537#16391#0" expanded="false" />
-                <element signature="e#15548#15632#0" expanded="false" />
-                <element signature="e#15681#15783#0" expanded="false" />
-                <element signature="e#15972#16085#0" expanded="false" />
-                <element signature="e#16347#16391#0" expanded="false" />
-                <element signature="n#update_odetail_status#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#16473#18106#0" expanded="false" />
-                <element signature="e#16484#16601#0" expanded="false" />
-                <element signature="e#16650#16716#0" expanded="false" />
-                <element signature="e#17010#17124#0" expanded="false" />
-                <element signature="e#17220#17329#0" expanded="false" />
-                <element signature="e#17365#17490#0" expanded="false" />
-                <element signature="e#17496#17571#0" expanded="false" />
-                <element signature="e#17714#17856#0" expanded="false" />
-                <element signature="e#18001#18106#0" expanded="false" />
-                <element signature="n#update_odetail_weight#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#update_odetail_price#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#update_odetail_tracking#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#update_odetail_pricedelivery#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#update_joint_pricedelivery#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#updateProduct#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#joinProducts#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#removeJoint#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#update_payment_amount#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#update_payment_status#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#update_all_payment_status#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#19886#20933#0" expanded="false" />
-                <element signature="e#19993#20365#0" expanded="false" />
-                <element signature="e#20168#20365#0" expanded="false" />
-                <element signature="e#20457#20682#0" expanded="false" />
-                <element signature="e#20685#20892#0" expanded="false" />
-                <element signature="e#20895#20933#0" expanded="false" />
-                <element signature="n#showOpenPayments#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#showPayedPayments#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#showAllOpenPayments#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#showAllPayedPayments#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#payments#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#payment#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#showPaymentFoto#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="e#21539#21647#0" expanded="false" />
-                <element signature="e#21564#21646#1" expanded="false" />
-                <element signature="e#21528#21771#0" expanded="false" />
-                <element signature="n#deletePayment#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#updatePayment#0;n#Manager#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="client.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="146" column="8" selection-start="4066" selection-end="4066" vertical-scroll-proportion="-24.137932">
+            <state line="163" column="60" selection-start="3394" selection-end="3394" vertical-scroll-proportion="-11.148149">
               <folding />
             </state>
           </provider>
@@ -247,51 +117,45 @@
       <file leaf-file-name="BaseController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="464" column="52" selection-start="13329" selection-end="13346" vertical-scroll-proportion="-11.724138">
+            <state line="3452" column="23" selection-start="99891" selection-end="99891" vertical-scroll-proportion="-3.3703704">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OrderModel.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
+      <file leaf-file-name="BidModel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/models/BidModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1298" column="9" selection-start="33148" selection-end="33148" vertical-scroll-proportion="-10.407408">
+            <state line="97" column="7" selection-start="1980" selection-end="1980" vertical-scroll-proportion="-2.7407408">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="showOrders.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/client/pages/showOrders.php">
+      <file leaf-file-name="2013-03-18 18-52 bid editor.sql" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dbscripts/2013-03-18 18-52 bid editor.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="32" selection-start="491" selection-end="491" vertical-scroll-proportion="-10.344828">
+            <state line="2" column="109" selection-start="311" selection-end="311" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="newBid.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="145" column="29" selection-start="4020" selection-end="4020" vertical-scroll-proportion="-22.068966">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="managerinfo.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="51" selection-start="429" selection-end="429" vertical-scroll-proportion="0.23904383">
               <folding>
-                <marker date="1353665732955" expanded="true" signature="20:457" placeholder="..." />
-                <marker date="1353665732955" expanded="false" signature="154:166" placeholder="..." />
-                <marker date="1353665732955" expanded="true" signature="189:346" placeholder="..." />
-                <marker date="1353665732955" expanded="true" signature="212:338" placeholder="..." />
-                <marker date="1353665732955" expanded="true" signature="221:329" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="scripts.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="98" column="7" selection-start="2892" selection-end="3225" vertical-scroll-proportion="-13.793103">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="newBidForm.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="35" selection-start="133" selection-end="164" vertical-scroll-proportion="-1.4814814">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#center#0;n#span#0;n#div#1;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -314,22 +178,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/div_header.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/auth/header.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/main.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/pages/showOrderDetails.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/auth/success.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php" />
-        <option value="$PROJECT_DIR$/system/application/views/manager/elements/auth/success.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/auth/small_form.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/auth/big_form.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/Base/ClientBaseController.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/elements/auth/success.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/ajax/showNewOrderDetails.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/mailforwarding.php" />
+        <option value="$PROJECT_DIR$/static/css/style.css" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" />
+        <option value="$PROJECT_DIR$/dbscripts/2013-03-18 18-52 bid editor.sql" />
         <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/newbidinfo.php" />
-        <option value="$PROJECT_DIR$/system/application/views/manager/ajax/showNewBid.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/editBidForm.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php" />
+        <option value="$PROJECT_DIR$/system/application/models/BidModel.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
       </list>
     </option>
   </component>
@@ -371,74 +235,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="All">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="application">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="application">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="models">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -603,6 +399,74 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="All">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="system">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="system">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="application">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="system">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="application">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="models">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -633,11 +497,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\manager\ajax" />
+      <recent name="C:\Program Files\wamp\www\countrypost.service\dbscripts" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\orders" />
+      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\manager\ajax" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\auth" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\admin\elements" />
-      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\manager\elements" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\payments" />
@@ -782,18 +646,18 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47826087" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.231875" sideWeight="0.34076828" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.263125" sideWeight="0.6703841" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.263125" sideWeight="0.6703841" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.238125" sideWeight="0.33375958" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.78516626" sideWeight="0.4980695" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.497426" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.497426" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.9258312" sideWeight="0.494852" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -864,289 +728,112 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/success.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showNewOrderDetails.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="6" selection-start="676" selection-end="676" vertical-scroll-proportion="-16.551723">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
+        <state line="4" column="38" selection-start="315" selection-end="315" vertical-scroll-proportion="-1.4814814" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/auth/success.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/mailforwarding.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="5" selection-start="1495" selection-end="1495" vertical-scroll-proportion="-18.37931">
-          <folding>
-            <marker date="1363250273796" expanded="true" signature="22:1263" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="48:1256" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="75:505" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="106:263" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="152:255" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="270:328" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="352:496" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="362:486" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="533:941" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="755:915" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="873:906" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="970:1248" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="978:1039" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="1054:1140" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="1147:1239" placeholder="..." />
-            <marker date="1363250273796" expanded="true" signature="1508:1612" placeholder="..." />
-          </folding>
-        </state>
+        <state line="11" column="37" selection-start="440" selection-end="440" vertical-scroll-proportion="-7.586207" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/small_form.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="36" selection-start="1499" selection-end="1499" vertical-scroll-proportion="-17.931034">
+        <state line="887" column="27" selection-start="33345" selection-end="33348" vertical-scroll-proportion="0.79280573" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/createorder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="187" column="62" selection-start="6044" selection-end="6044" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/big_form.php">
+    <entry file="file://$PROJECT_DIR$/static/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="21" selection-start="1654" selection-end="1654" vertical-scroll-proportion="-20.448277">
-          <folding>
-            <element signature="n#style#0;n#img#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="7" selection-start="2892" selection-end="3225" vertical-scroll-proportion="-13.793103">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/pages/showOrders.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="32" selection-start="491" selection-end="491" vertical-scroll-proportion="-10.344828">
-          <folding>
-            <marker date="1353665732955" expanded="true" signature="20:457" placeholder="..." />
-            <marker date="1353665732955" expanded="false" signature="154:166" placeholder="..." />
-            <marker date="1353665732955" expanded="true" signature="189:346" placeholder="..." />
-            <marker date="1353665732955" expanded="true" signature="212:338" placeholder="..." />
-            <marker date="1353665732955" expanded="true" signature="221:329" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/clients.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/[delete] UpdateController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="8" selection-start="4066" selection-end="4066" vertical-scroll-proportion="-24.137932">
+        <state line="2231" column="50" selection-start="42208" selection-end="42208" vertical-scroll-proportion="0.5193592">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="35" selection-start="133" selection-end="164" vertical-scroll-proportion="-1.4814814">
+        <state line="12" column="29" selection-start="271" selection-end="271" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbscripts/2013-03-18 18-52 bid editor.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="109" selection-start="311" selection-end="311" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="145" column="29" selection-start="4020" selection-end="4020" vertical-scroll-proportion="-22.068966">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="203" column="23" selection-start="4105" selection-end="4120" vertical-scroll-proportion="-0.6896552">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="165" column="6" selection-start="6032" selection-end="6032" vertical-scroll-proportion="-90.344826">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/editBidForm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="167" column="19" selection-start="3462" selection-end="3462" vertical-scroll-proportion="-21.068966">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="51" selection-start="323" selection-end="323" vertical-scroll-proportion="-1.4814814">
           <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#span#0;n#div#1;n#div#2;n#div#0;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#span#1;n#div#1;n#div#2;n#div#0;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#span#0;n#div#2;n#div#2;n#div#0;n#form#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/models/BidModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="97" column="7" selection-start="1980" selection-end="1980" vertical-scroll-proportion="-2.7407408">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="464" column="52" selection-start="13329" selection-end="13346" vertical-scroll-proportion="-11.724138">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1298" column="9" selection-start="33148" selection-end="33148" vertical-scroll-proportion="-10.407408">
+        <state line="3452" column="23" selection-start="99891" selection-end="99891" vertical-scroll-proportion="-3.3703704">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="974" column="24" selection-start="22883" selection-end="22883" vertical-scroll-proportion="-19.068966">
-          <folding>
-            <element signature="n#index#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#updateOdetailStatuses#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#processOrdersFilter#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#846#942#0" expanded="false" />
-            <element signature="n#updateOrderDetails#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#updateOrderStatus#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#orders#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#showOpenOrders#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#showPayedOrders#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#showSentOrders#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#showBidOrders#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#order#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#showOrderBreadcrumb#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#1759#2022#0" expanded="false" />
-            <element signature="e#1840#2022#0" expanded="false" />
-            <element signature="e#1894#2018#0" expanded="false" />
-            <element signature="e#1927#2013#0" expanded="false" />
-            <element signature="e#2026#2142#0" expanded="false" />
-            <element signature="e#2047#2127#0" expanded="false" />
-            <element signature="e#2147#2486#0" expanded="false" />
-            <element signature="n#filterOrders#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#filterPaymentHistory#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#history#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#2782#2909#0" expanded="false" />
-            <element signature="e#2967#3048#0" expanded="false" />
-            <element signature="e#3338#3664#0" expanded="false" />
-            <element signature="e#3588#3659#0" expanded="false" />
-            <element signature="e#3669#3738#0" expanded="false" />
-            <element signature="e#3789#4023#0" expanded="false" />
-            <element signature="e#3950#4023#0" expanded="false" />
-            <element signature="e#4134#4235#0" expanded="false" />
-            <element signature="e#4331#4480#0" expanded="false" />
-            <element signature="e#4485#4630#0" expanded="false" />
-            <element signature="e#4808#4891#0" expanded="false" />
-            <element signature="e#5000#5512#0" expanded="false" />
-            <element signature="e#5279#5385#0" expanded="false" />
-            <element signature="e#5972#6000#0" expanded="false" />
-            <element signature="n#removeBid#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#6057#7652#0" expanded="false" />
-            <element signature="e#6068#6241#0" expanded="false" />
-            <element signature="e#6334#6378#0" expanded="false" />
-            <element signature="e#6384#6514#0" expanded="false" />
-            <element signature="e#6421#6508#0" expanded="false" />
-            <element signature="e#6519#6635#0" expanded="false" />
-            <element signature="e#6647#6745#0" expanded="false" />
-            <element signature="e#6751#6864#0" expanded="false" />
-            <element signature="e#6970#7460#0" expanded="false" />
-            <element signature="e#7271#7416#0" expanded="false" />
-            <element signature="e#7547#7652#0" expanded="false" />
-            <element signature="n#addBidComment#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#addPaymentComment#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#saveProfile#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#7971#9912#0" expanded="false" />
-            <element signature="e#8433#8665#0" expanded="false" />
-            <element signature="e#8561#8660#0" expanded="false" />
-            <element signature="e#9247#9357#0" expanded="false" />
-            <element signature="e#9531#9637#0" expanded="false" />
-            <element signature="e#9671#9808#0" expanded="false" />
-            <element signature="e#9851#9912#0" expanded="false" />
-            <element signature="n#saveBlog#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#9950#10756#0" expanded="false" />
-            <element signature="e#10069#10183#0" expanded="false" />
-            <element signature="e#10141#10183#0" expanded="false" />
-            <element signature="e#10444#10554#0" expanded="false" />
-            <element signature="e#10623#10720#0" expanded="false" />
-            <element signature="e#10727#10756#0" expanded="false" />
-            <element signature="n#savePricelist#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#11460#11570#0" expanded="false" />
-            <element signature="e#11648#11747#0" expanded="false" />
-            <element signature="e#11754#11806#0" expanded="false" />
-            <element signature="n#savePaymentTypes#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#saveDelivery#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#12552#13110#0" expanded="false" />
-            <element signature="e#12790#12900#0" expanded="false" />
-            <element signature="e#13082#13110#0" expanded="false" />
-            <element signature="n#saveAddress#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#13151#14029#0" expanded="false" />
-            <element signature="e#13685#13795#0" expanded="false" />
-            <element signature="e#13873#13972#0" expanded="false" />
-            <element signature="e#13979#14029#0" expanded="false" />
-            <element signature="n#updatePerPage#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#14081#14162#0" expanded="false" />
-            <element signature="n#updateOrder#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#14328#15488#0" expanded="false" />
-            <element signature="e#14339#14423#0" expanded="false" />
-            <element signature="e#14472#14574#0" expanded="false" />
-            <element signature="e#14763#14876#0" expanded="false" />
-            <element signature="e#15207#15370#0" expanded="false" />
-            <element signature="e#15444#15488#0" expanded="false" />
-            <element signature="n#closeOrder#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#15537#16391#0" expanded="false" />
-            <element signature="e#15548#15632#0" expanded="false" />
-            <element signature="e#15681#15783#0" expanded="false" />
-            <element signature="e#15972#16085#0" expanded="false" />
-            <element signature="e#16347#16391#0" expanded="false" />
-            <element signature="n#update_odetail_status#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#16473#18106#0" expanded="false" />
-            <element signature="e#16484#16601#0" expanded="false" />
-            <element signature="e#16650#16716#0" expanded="false" />
-            <element signature="e#17010#17124#0" expanded="false" />
-            <element signature="e#17220#17329#0" expanded="false" />
-            <element signature="e#17365#17490#0" expanded="false" />
-            <element signature="e#17496#17571#0" expanded="false" />
-            <element signature="e#17714#17856#0" expanded="false" />
-            <element signature="e#18001#18106#0" expanded="false" />
-            <element signature="n#update_odetail_weight#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#update_odetail_price#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#update_odetail_tracking#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#update_odetail_pricedelivery#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#update_joint_pricedelivery#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#updateProduct#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#joinProducts#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#removeJoint#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#update_payment_amount#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#update_payment_status#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#update_all_payment_status#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#19886#20933#0" expanded="false" />
-            <element signature="e#19993#20365#0" expanded="false" />
-            <element signature="e#20168#20365#0" expanded="false" />
-            <element signature="e#20457#20682#0" expanded="false" />
-            <element signature="e#20685#20892#0" expanded="false" />
-            <element signature="e#20895#20933#0" expanded="false" />
-            <element signature="n#showOpenPayments#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#showPayedPayments#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#showAllOpenPayments#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#showAllPayedPayments#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#payments#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#payment#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#showPaymentFoto#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="e#21539#21647#0" expanded="false" />
-            <element signature="e#21564#21646#1" expanded="false" />
-            <element signature="e#21528#21771#0" expanded="false" />
-            <element signature="n#deletePayment#0;n#Manager#0;n#!!top" expanded="false" />
-            <element signature="n#updatePayment#0;n#Manager#0;n#!!top" expanded="false" />
-          </folding>
+        <state line="163" column="60" selection-start="3394" selection-end="3394" vertical-scroll-proportion="-11.148149">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showNewBid.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="37" selection-start="1243" selection-end="1243" vertical-scroll-proportion="-20.0">
-          <folding>
-            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#1;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newbidinfo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="34" selection-start="2407" selection-end="2429" vertical-scroll-proportion="-12.862069">
+        <state line="9" column="51" selection-start="429" selection-end="429" vertical-scroll-proportion="0.23904383">
           <folding>
             <element signature="n#style#0;n#center#0;n#span#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="281" column="11" selection-start="7738" selection-end="7738" vertical-scroll-proportion="0.6452933">
-          <folding>
-            <element signature="n#style#0;n#span#1;n#div#1;n#div#4;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#7;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#2;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

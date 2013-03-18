@@ -18,8 +18,8 @@ window.extra_tax_counter = 0;
 
 $('.bidinfo_name')
 	.attr('href', '<?= BASEURL . $user->user_login ?>')
-	.html(<?= $manager->manager_name ?>)
-	.after('(<?= $user->user_login ?>)');
+	.html('<?= $manager->manager_name ?>')
+	.after(' (<?= $user->user_login ?>)');
 
 $('.bidinfo_rating')
 	.find('span.review_count')
@@ -27,5 +27,9 @@ $('.bidinfo_rating')
 
 
 $('.bidinfo_completed_orders')
-	.html('Выполненных заказов: 12345');
+	.html('Выполненных заказов: <?= $manager->statistics->completed_orders ?>');
+
+$('.manager_url')
+	.attr('href', '<?= $manager->website ?>')
+	.html('<?= $manager->website ?>');
 

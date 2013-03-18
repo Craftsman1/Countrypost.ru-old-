@@ -45,22 +45,24 @@
 				<?= round($order->order_weight/1000, 3) ?>кг<br />
 			</td>
 			<td>
-				<? if (empty($order->request_count)) : ?>
+				<? // 1. счетчик
+				if (empty($order->request_count)) : ?>
 				нет предложений
 				<? else : ?>
-				<a href="<?=$order_link?><?=$order->order_id?>"><?=$order->request_count?></a>
+				<a href="<?= $order_link ?><?= $order->order_id ?>"><?= $order->request_count ?></a>
 				<? endif; ?>
-				
-				<? if (empty($this->user)) : ?>
+				<? // 2. ссылка
+				if (empty($this->user) OR
+					($this->user->user_group == 'manager' AND
+					empty($order->request_sent) AND
+					$this->session->userdata['manager_country'] == $order->order_country)) : ?>
 				<br />
 				<a href="<?=$order_link?><?=$order->order_id?>">Добавить предложение</a>
-				<? elseif ($this->user->user_group == 'manager') : ?>
+				<? endif; ?>
+				<? // 3. поздравления
+				if ( ! empty($order->request_sent)) : ?>
 				<br />
-				<? if (empty($order->request_sent)) : ?>
-				<a href="<?=$order_link?><?=$order->order_id?>">Добавить предложение</a>
-				<? else : ?>
 				Вы уже добавили<br>предложение
-				<? endif; ?>
 				<? endif; ?>
 			</td>
 		</tr>

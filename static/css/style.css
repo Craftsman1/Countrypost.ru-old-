@@ -2229,7 +2229,7 @@ div.biddetails div
 	display: none;
 }
 
-div.biddetails div.expand
+div.biddetails div.expand, div.biddetails div.edit
 {
 	display:block;
 }

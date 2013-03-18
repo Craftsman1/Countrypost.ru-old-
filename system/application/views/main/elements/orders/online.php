@@ -1,15 +1,3 @@
-<?
-/*$order = null;
-for ($i = 0, $n = count($orders); $i<$n; $i++) :
-    if ($orders[$i]->order_type == 'online') :
-        $order = $orders[$i];
-        break;
-    endif;
-endfor;*/
-//echo "<pre>";
-//print_r($order);
-//echo "</pre>";
-?>
 <div class="online_order_form">
 	<div class='table' style="position:relative;">
 		<div class='angle angle-lt'></div>
@@ -23,8 +11,7 @@ endfor;*/
 			<div class='new_order_box'>
 				<div>
 					<span class="label">Заказать из*:</span>
-                    <!--onchange="setCountryFrom(this.value)"-->
-					<select id="country_from_online" name="country_from" class="textbox" >
+                    <select id="country_from_online" name="country_from" class="textbox" >
 						<option value="0">выберите страну...</option>
 						<? foreach ($countries as $country) : ?>
 						<option 
@@ -37,8 +24,7 @@ endfor;*/
 				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">В какую страну доставить*:</span>
-                    <!--onchange="setCountryTo(this.value)"-->
-					<select id="country_to_online" name="country_to" class="textbox" >
+                    <select id="country_to_online" name="country_to" class="textbox" >
 						<option value="0">выберите страну...</option>
 						<? foreach ($countries as $country) : ?>
 						<option
@@ -87,7 +73,6 @@ endfor;*/
         <input type='hidden' name="ocountry_to" class="countryTo" value="<?= ($order) ? (int) $order->order_country_to : '' ?>" />
         <input type='hidden' name="city_to" class="cityTo" value="<?= ($order) ? (int) $order->order_city_to : '' ?>" />
         <input type='hidden' name="dealer_id" class="dealerId" value="<?= ($order) ? (int) $order->order_manager : '' ?>" />
-
 		<div class='table add_detail_box' style="position:relative;">
 			<div class='angle angle-lt'></div>
 			<div class='angle angle-rt'></div>
@@ -182,43 +167,41 @@ endfor;*/
 	<div style="height: 50px;" class="admin-inside">
 		<div class="submit">
 			<div>
-				<input type="button" value="Добавить товар" id="addItemOnline" name="add" onclick="/*addItem();*/">
+				<input type="button" value="Добавить товар" id="addItemOnline" name="add">
 			</div>
 		</div>
 	</div>
     <? View::show('main/ajax/showNewOrderDetails', array('order_type' => 'online', 'order' => $order)); ?>
 </div>
 <script type="text/javascript">
-	$(function() {
-		$(window).load(function() {
-            var order = new $.cpOrder(orderData);
-            order.init("online");
-		});
-
-		// номер посредника
-		$('.dealer_number_switch a').click(function() {
-			$('.dealer_number_switch').hide('slow');
-			$('.dealer_number_box').show('slow');
-		});
-		
-		$('.dealer_number_box img').click(function() {
-			$('.dealer_number_switch').show('slow');
-            $('.dealer_number_box').hide('slow');
-            $('.dealer_number_box').val('');
-            $('#dealer_id').val('');
-		});
-
-		// ссылка на скриншот
-		$('.screenshot_link_box img').click(function() {
-			$('.screenshot_link_box,.screenshot_uploader_box').hide('slow');
-			$('.screenshot_switch').show('slow');
-		});
-		
-		$('.excel_switcher').click(function() {
-			$('.excel_box').show('slow');
-			$('.add_detail_box').hide('slow');
-		});
-
+$(function() {
+	$(window).load(function() {
+		var order = new $.cpOrder(orderData);
+		order.init("online");
 	});
 
+	// номер посредника
+	$('.dealer_number_switch a').click(function() {
+		$('.dealer_number_switch').hide('slow');
+		$('.dealer_number_box').show('slow');
+	});
+
+	$('.dealer_number_box img').click(function() {
+		$('.dealer_number_switch').show('slow');
+		$('.dealer_number_box').hide('slow');
+		$('.dealer_number_box').val('');
+		$('#dealer_id').val('');
+	});
+
+	// ссылка на скриншот
+	$('.screenshot_link_box img').click(function() {
+		$('.screenshot_link_box,.screenshot_uploader_box').hide('slow');
+		$('.screenshot_switch').show('slow');
+	});
+
+	$('.excel_switcher').click(function() {
+		$('.excel_box').show('slow');
+		$('.add_detail_box').hide('slow');
+	});
+});
 </script>

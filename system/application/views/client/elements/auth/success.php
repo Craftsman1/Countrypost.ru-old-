@@ -34,4 +34,5 @@
 <? View::show('/client/elements/payments/balance_block'); ?>
 <script>
 	user = '<?= empty($this->user->user_group) ? '' : $this->user->user_group ?>';
+	window.user_group = '<?= empty($this->user->user_group) ? '' : $this->user->user_group ?>';
 </script>
