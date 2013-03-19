@@ -1838,11 +1838,6 @@ class Client extends BaseController {
 		parent::addOrderComment($order_id, $comment_id);
 	}
 
-	public function updateProductAjax()
-	{
-		parent::updateProductAjax();
-	}
-
 	public function order()
 	{
 		parent::showOrderDetails();

@@ -4175,8 +4175,12 @@ abstract class BaseController extends Controller
 			$odetail->odetail_product_name		= Check::str('name', 255, 0, '');
 			$odetail->odetail_product_color		= Check::str('color', 255, 0, '');
 			$odetail->odetail_product_size		= Check::str('size', 255, 0, '');
+			$odetail->odetail_volume			= Check::float('volume');
+			$odetail->odetail_tnved				= Check::int('tnved');
 			$odetail->odetail_product_amount	= Check::int('amount');
 			$odetail->odetail_comment			= Check::str('comment', 255, 1, '');
+			$odetail->odetail_foto_requested	= Check::chkbox('foto_requested');
+			$odetail->odetail_insurance			= Check::chkbox('odetail_insurance');
 
 			// проверяем, загружается картинка или ссылка
 			$img_selector = Check::str('img_selector', 4, 4, '');

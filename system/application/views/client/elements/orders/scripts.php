@@ -178,8 +178,29 @@ function editItem(id)
 		$tr.find('textarea.amount').val(odetail['amount']);
 		$tr.find('textarea.size').val(odetail['size']);
 		$tr.find('textarea.color').val(odetail['color']);
+		$tr.find('textarea.volume').val(odetail['volume']);
+		$tr.find('textarea.tnved').val(odetail['tnved']);
 		$tr.find('textarea.ocomment').val(odetail['comment']);
 		$tr.find('textarea.image').val(odetail['img']);
+
+		if (odetail['foto_requested'] == 1)
+		{
+			$tr.find('input.foto_requested').attr('checked', 'checked');
+		}
+		else
+		{
+			$tr.find('input.foto_requested').removeAttr('checked');
+		}
+
+		if (odetail['insurance'] == 1)
+		{
+			$tr.find('input.insurance').attr('checked', 'checked');
+		}
+		else
+		{
+			$tr.find('input.insurance').removeAttr('checked');
+		}
+
 		$tr.find('input.img_file').val(odetail['img_file']);
 		$tr.find('input.img_selector[value="' + odetail['img_selector'] + '"]').attr('checked', 'checked');
 	}
@@ -217,6 +238,7 @@ function saveItem(id)
 		odetail['color'] = $tr.find('textarea.color').val();
 		odetail['comment'] = $tr.find('textarea.ocomment').val();
 		odetail['img_selector'] = $tr.find('input.img_selector:checked').val();
+		odetail['foto_requested'] = $tr.find('input.foto_requested:checked').length;
 
 		if (odetail['img_selector'] == 'link')
 		{
@@ -249,13 +271,13 @@ function submitItem(id, data)
 		var snippet_first =
 				'<a target="_blank" href="' + odetail['link'] + '">' +
 						odetail['name'] +'</a>' +
-						(odetail['foto_requested'] == 1 ? ' (требуется фото товара)' : '') +
 						'<br><b>Количество</b>: ' +
 						odetail['amount'] +
 						' <b>Размер</b>: ' +
 						odetail['size'] +
 						' <b>Цвет</b>: ' +
 						odetail['color'] +
+						(odetail['foto_requested'] == 1 ? '<br><b>Фото полученного товара:</b> сделать фото' : '') +
 						'<br><b>Комментарий</b>: ' +
 						odetail['comment'];
 
