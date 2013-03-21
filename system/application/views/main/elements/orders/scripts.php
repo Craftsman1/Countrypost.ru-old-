@@ -411,13 +411,15 @@ $(function() {
             return oimg;
         } // End getImageSnippet
 
-        var getLink = function (item)
+        var getLink = function (item, skip_validation)
         {
+			skip_validation = skip_validation || 0; // default is 0
+
             var link = '';
             if (!item.olink) {
                 link = '';
             }
-            else if (item.olink) {
+            else if (item.olink && ( ! skip_validation)) {
                 var link = item.olink;
                 if (!link.match(/http:\/\//g)) {
                     link = 'http://' + src;
@@ -3654,7 +3656,7 @@ $(function() {
         var initMailforwarding = function ()
         {
 			oObj.options.type = 'mail_forwarding';
-            oObj.options.title = 'Добавление нового заказа MailForwarding';
+            oObj.options.title = 'Добавление нового заказа Mail Forwarding';
             oObj.options.cart = new $.cpCart();
 
             var itemMailforwarding = function ()
@@ -3720,7 +3722,11 @@ $(function() {
                     olink.init({
                         object:$('#'+oObj.options.type+'ItemForm #olink')
                     });
-                    iObj.fields.push(olink);
+					olink.validate({
+						expression:'if (false) { return false; } else { return true; }',
+						message:'!'
+					});
+					iObj.fields.push(olink);
 
                     // Количество
                     amount = new $.cpField();
@@ -4048,9 +4054,8 @@ $(function() {
 
                 iObj.getRow = function (item)
                 {
-
                     var oimg = getImageSnippet(item);
-                    var link = getLink(item);
+                    var link = getLink(item, 1);
 
                     // Рисуем новый товар
                     var snippet = $('' +
@@ -4212,7 +4217,35 @@ $(function() {
             }
             // начинаем инициализацию
 
-            // Посредник, поле "Номер посредника"
+			// Страна доставки, поле "В какую страну доставить"
+			country_to = new $.cpField();
+			country_to.init({
+				object:$('#country_to_mail_forwarding'),
+				useDd:true,
+				onChange:function () {
+					var id = $(this).val();
+					for (var index in currencies) {
+						var currency = currencies[index];
+
+						if (id == currency['country_id']) {
+							$('.' + oObj.options.type + '_order_form input.countryTo').val(id);
+							countryTo = currency['country_name'];
+							oObj.updateTotals();
+							break;
+						}
+					}
+
+					updateProductForm();
+				}
+			});
+			country_to.validate({
+				expression:'if (VAL == 0) { return false; } else { return true; }',
+				message:'Необходимо выбрать страну доставки'
+			});
+			oObj.fields.push(country_to);
+
+
+			// Посредник, поле "Номер посредника"
             dealer_id = new $.cpField();
             dealer_id.init({
                 object:$('#dealer_id_mail_forwarding'),

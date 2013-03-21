@@ -89,7 +89,7 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 				  method="POST">
 			<? endif; ?>
 			<td style="text-align: left; vertical-align: middle;">
-				<? View::show("client/elements/details/{$order->order_type}", array(
+				<? View::show("main/elements/details/{$order->order_type}", array(
 					'odetail' => $odetail,
 					'is_editable' => $is_editable)); ?>
 			</td>

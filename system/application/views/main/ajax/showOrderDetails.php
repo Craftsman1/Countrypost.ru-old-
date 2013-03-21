@@ -1,4 +1,5 @@
-<? $is_offer_accepted = (empty($this->user->user_group) OR
+<?
+$is_offer_accepted = (empty($this->user->user_group) OR
 	($this->user->user_group == 'manager' AND
 	$this->session->userdata['manager_country'] == $order->order_country)); ?>
 <div class='table centered_td centered_th'>
@@ -14,6 +15,8 @@
 			<col style="width: 85px;">
 			<col style="width: 85px;">
 			<col style="width: 85px;">
+			<col style="width: 169px;">
+			<col style="width: 44px">
 		</colgroup>
 		<tr>
 			<th nowrap style="width:1px;">№	</th>
@@ -53,21 +56,30 @@
 			<td>
 				<?= $odetail->odetail_id ?>
 			</td>
-			<td style="text-align: left; vertical-align: bottom;">
+			<td style="text-align: left; vertical-align: middle;">
+				<? View::show("main/elements/details/{$order->order_type}", array(
+				'odetail' => $odetail,
+				'is_editable' => FALSE)); ?>
+			</td>
+			<td>
 				<span class="plaintext">
-					<a target="_blank" href="<?= $odetail->odetail_link ?>"><?= $odetail->odetail_product_name ?></a>
-					<? if ($odetail->odetail_foto_requested) : ?>(требуется фото товара)<? endif; ?>
-					<br>
-					<b>Количество</b>: <?= $odetail->odetail_product_amount ?>
-					<b>Размер</b>: <?= $odetail->odetail_product_size ?>
-					<b>Цвет</b>: <?= $odetail->odetail_product_color ?>
-					<br>
-					<b>Комментарий</b>: <?= $odetail->odetail_comment ?>
+					<? if (isset($odetail->odetail_img)) : ?>
+					<a target="_blank" href="<?= $odetail->odetail_img ?>"><?=
+						(strlen($odetail->odetail_img) > 17 ?
+							substr($odetail->odetail_img, 0, 17) . '...' :
+							$odetail->odetail_img) ?></a>
+					<? else : ?>
+					<a href="javascript:void(0)" onclick="setRel(<?= $odetail->odetail_id ?>);">
+						<img src='/manager/showScreen/<?= $odetail->odetail_id ?>' width="55px" height="55px">
+						<a rel="lightbox_<?= $odetail->odetail_id ?>" href="/manager/showScreen/<?=
+							$odetail->odetail_id ?>" style="display:none;">Посмотреть</a>
+					</a>
+					<? endif; ?>
 				</span>
 			</td>
 			<? if ($order->order_type == 'mail_forwarding') : ?>
 			<td>
-				<?= $odetail->odetail_tracking_no ?>
+				<?= $odetail->odetail_tracking ?>
 			</td>
 			<? else : ?>
 			<td>

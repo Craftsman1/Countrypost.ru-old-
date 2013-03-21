@@ -132,6 +132,8 @@ FCKConfig.ToolbarSets["PackageComment"] = [
 	['FontName','FontSize'],
 ] ;
 
+FCKConfig.ToolbarSets["BidComment"] = [] ;
+
 FCKConfig.EnterMode = 'p' ;			// p | div | br
 FCKConfig.ShiftEnterMode = 'br' ;	// p | div | br
 

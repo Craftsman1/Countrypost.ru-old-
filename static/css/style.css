@@ -325,8 +325,7 @@ body {
 				}
 		
 	.top-block .autorization-ok {
-		margin-top: 11px;
-		min-height:246px;
+		/*min-height:246px;*/
 		background:url(../images/autorization-ok.png) 0 0px no-repeat;
 		}
 		.top-block .autorization-ok p {
@@ -2180,7 +2179,7 @@ div.managerinfo img, div.clientinfo img
 {
 	float:left;
 	margin-right:10px;
-	margin-bottom:10px;
+	margin-bottom:0px;
 }
 
 div.rating
@@ -2245,6 +2244,11 @@ div.biddetails img
 tr.comment
 {
 	display:none;
+}
+
+tr.comment td
+{
+	padding-left: 6px;
 }
 
 div.clientOrderInfo  .order_totals
@@ -2546,6 +2550,10 @@ div.centered_th th,div.centered_td td
 {
 	text-align:center;
 	vertical-align:middle;
+}
+
+div.centered_th th
+{
 	white-space: nowrap;
 }
 

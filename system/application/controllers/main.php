@@ -944,6 +944,12 @@ Email: {$this->user->user_email}";
 	{
 		try
 		{
+			if (isset($this->user->user_group) AND
+				$this->user->user_group == 'manager')
+			{
+				Func::redirect(BASEURL);
+			}
+
 			// страны
 			$this->load->model('CountryModel', 'Country');
 			$view['countries'] = $this->Country->getList();

@@ -77,19 +77,6 @@ class CountryModel extends BaseModel implements IModel{
 	}
 	
 	/**
-	 * Получаем список стран с существующими партнерами для текущего пользователя
-	 */
-	public function getClientAvailableCountries($client_id) {
-		return $this->db->query('
-			SELECT `'.$this->table.'`.*, `managers`.`manager_user`
-			FROM `'.$this->table.'`
-				INNER JOIN `managers` ON `managers`.`manager_country` = `'.$this->table.'`.`country_id`
-				INNER JOIN `c2m` ON `c2m`.`manager_id` = `managers`.`manager_user` AND `c2m`.`client_id` = '.intval($client_id).'
-			ORDER BY `country_name`
-		')->result();
-	}
-	
-	/**
 	 * Get country by id
 	 *
 	 * @return array
@@ -231,6 +218,27 @@ class CountryModel extends BaseModel implements IModel{
 		if (!$new_id) return false;
 		
 		return $this->getInfo(array($new_id));
+	}
+
+	public function getArray()
+	{
+		$list = $this->getList();
+		$result = array();
+
+		if ($list)
+		{
+			foreach ($list as $country)
+			{
+				$result[$country->country_id] = $country->country_name_en;
+			}
+		}
+
+		return $result;
+	}
+
+	public function getClientAvailableCountries($client_id)
+	{
+		return $this->getList();
 	}
 }
 ?>

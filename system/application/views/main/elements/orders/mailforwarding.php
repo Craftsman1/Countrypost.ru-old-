@@ -24,13 +24,26 @@ endfor; ?>
             <div class='new_order_box'>
                 <div style="clear:both;" ></div>
                 <div>
-                    <span class="label dealer_number_box">Номер посредника*:</span>
+                    <span class="label dealer_number_box">Посредник*:</span>
                     <input class="textbox dealer_number_box" maxlength="255" type='text' id='dealer_id_ac_mail_forwarding' style='width:180px;' value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>" >
                     <input type='hidden' id='dealer_id_mail_forwarding' name="dealer_id" value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>">
                     <img src="/static/images/lightbox-ico-loading.gif" style="margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
                 </div>
                 <div style="clear:both;" ></div>
-                <div>
+				<div>
+					<span class="label">В какую страну доставить*:</span>
+					<select id="country_to_mail_forwarding" name="country_to" class="textbox" >
+						<option value="0">выберите страну...</option>
+						<? foreach ($countries as $country) : ?>
+						<option
+								value="<?= $country->country_id ?>"
+								title="/static/images/flags/<?= $country->country_name_en ?>.png"
+							<? if (isset($filter->country_to) AND $filter->country_to == $country->country_id OR ($order AND $order->order_country_to == $country->country_name)) : ?>selected<? endif; ?>><?= $country->country_name ?></option>
+						<? endforeach; ?>
+					</select>
+				</div>
+				<div style="clear:both;" ></div>
+				<div>
                     <span class="label">Cпособ доставки*:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='requested_delivery_mail_forwarding' name="requested_delivery" />
                 </div>

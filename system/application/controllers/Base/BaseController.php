@@ -363,7 +363,7 @@ abstract class BaseController extends Controller
 			$this->Orders->prepareOrderView($view);
 
 			// страны
-			$view['Countries'] = $this->Countries->getClientAvailableCountries($view['order']->order_client);
+			$view['countries'] = $this->Countries->getArray();
 
 			// предложения: никаких ограничений доступа, показываем все
 			$view['bids'] = $this->Bids->getBids($view['order']->order_id);
@@ -1416,9 +1416,12 @@ abstract class BaseController extends Controller
 
 			$this->load->model('ClientModel', 'Clients');
 			$this->load->model('ManagerModel', 'Managers');
+			$this->load->model('CountryModel', 'Countries');
 			$this->processStatistics($comment, array(), 'user_id', $this->user->user_id, $this->user->user_group);
 			
 			$view['comment'] = $comment;
+			$view['countries'] = $this->Countries->getArray();
+
 			$this->load->view('/main/elements/orders/comment', $view);
 			
 			/*
@@ -4180,7 +4183,7 @@ abstract class BaseController extends Controller
 			$odetail->odetail_product_amount	= Check::int('amount');
 			$odetail->odetail_comment			= Check::str('comment', 255, 1, '');
 			$odetail->odetail_foto_requested	= Check::chkbox('foto_requested');
-			$odetail->odetail_insurance			= Check::chkbox('odetail_insurance');
+			$odetail->odetail_insurance			= Check::chkbox('insurance');
 
 			// проверяем, загружается картинка или ссылка
 			$img_selector = Check::str('img_selector', 4, 4, '');

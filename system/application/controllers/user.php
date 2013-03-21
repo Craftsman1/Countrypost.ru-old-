@@ -64,10 +64,15 @@ class User extends BaseController {
 			{
 				$this->session->set_userdata((array) $user);
 				$this->user = Check::user();
+				$this->load->model('CountryModel', 'Countries');
+
 
 				// запоминаем в сессию статистику по платежам для админа
 				if ($user->user_group == 'admin') 
 				{
+					$this->session->set_userdata('user_name', 'Администрация Countrypost.ru');
+					$this->session->set_userdata('user_country_name_en', 'Russia');
+
 					$this->load->model('PaymentModel', 'Payment');
 					$stat = $this->Payment->getSummaryStat();
 					Stack::push('admin_summary_stat', $stat);
@@ -81,8 +86,14 @@ class User extends BaseController {
 					// находим местную валюту
 					$this->load->model('CurrencyModel', 'Currency');
 					$currency = $this->Currency->getCurrencyByCountry($manager_summary->manager_country);
-					
-					$this->session->set_userdata('manager_country', $manager_summary->manager_country);
+
+					$country = $this->Countries->getById($manager_summary->manager_country);
+
+					$this->session->set_userdata('user_country_name_en', $country->country_name_en);
+					$this->session->set_userdata('user_name', $this->Managers->getFullName($manager_summary, $user));
+
+						$this->session->set_userdata('manager_country', $manager_summary->manager_country);
+					$this->session->set_userdata('country_name_en', $manager_summary->manager_country);
 					$this->session->set_userdata('manager_credit', $manager_summary->manager_credit);
 					$this->session->set_userdata('manager_credit_date', $manager_summary->manager_credit_date);
 					$this->session->set_userdata('manager_credit_local', $manager_summary->manager_credit_local);
@@ -94,6 +105,15 @@ class User extends BaseController {
 					$this->session->set_userdata('manager_status', $manager_summary->website);
 					$this->session->set_userdata('manager_name', $this->Managers->getFullName($manager_summary, $user));
 					$this->session->set_userdata('manager_login', $login);
+				}
+				else if ($user->user_group == 'client')
+				{
+					$this->load->model('ClientModel', 'Clients');
+					$client_summary = $this->Clients->getById($user->user_id);
+					$country = $this->Countries->getById($client_summary->client_country);
+
+					$this->session->set_userdata('user_country_name_en', $country->country_name_en);
+					$this->session->set_userdata('user_name', $this->Clients->getFullName($client_summary));
 				}
 
 				if ($redirect)
