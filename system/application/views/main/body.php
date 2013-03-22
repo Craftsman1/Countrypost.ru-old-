@@ -13,6 +13,7 @@
 	<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
 	<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
 	<!--[if (gt IE 9)|!(IE)]><!--><body <? if ($pageinfo['mname'] != 'index') : ?>class="inner"<? endif; ?>><!--<![endif]-->
+	<div id="lay" style="position:absolute; z-index: 999; background: #787878; width:100%; height:100%; display:none; opacity:0.3;"></div>
 	<div class='layout'><? View::show('main/elements/div_header'); ?><? View::show('main/elements/div_content'); ?></div><? View::show('elements/div_bottom'); ?><? View::show('elements/div_footer'); ?><script type="text/javascript">
 	reformal_wdg_domain    = "Countrypost";
 	reformal_wdg_mode    = 0;

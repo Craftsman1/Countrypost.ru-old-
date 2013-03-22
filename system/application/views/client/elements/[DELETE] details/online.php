@@ -1,7 +1,5 @@
 <span class="plaintext">
-	<b><?= $odetail->odetail_shop ?></b>
-	<br>
-	<b><?= $odetail->odetail_product_name ?></b>
+	<a target="_blank" href="<?= $odetail->odetail_link ?>"><?= $odetail->odetail_product_name ?></a>
 	<br>
 	<b>Количество</b>: <?= $odetail->odetail_product_amount ?>
 	<b>Размер</b>: <?= $odetail->odetail_product_size ?>
@@ -16,7 +14,6 @@
 <script>
 	var odetail<?= $odetail->odetail_id ?> = {
 		"link":"<?= $odetail->odetail_link ?>",
-		"shop":"<?= $odetail->odetail_shop ?>",
 		"name":"<?= $odetail->odetail_product_name ?>",
 		"color":"<?= $odetail->odetail_product_color ?>",
 		"size":"<?= $odetail->odetail_product_size ?>",
@@ -50,10 +47,9 @@
 	});
 </script>
 <span class="producteditor" style="display: none;">
-	<input type="hidden" name="link" class="link" value="<?= BASEURL ?>" />
 	<br>
-	<b>Магазин</b>:
-	<textarea class="shop" name="shop"></textarea>
+	<b>Ссылка</b>:
+	<textarea class="link" name="link"></textarea>
 	<br>
 	<b>Наименование</b>:
 	<textarea class="name" name="name"></textarea>

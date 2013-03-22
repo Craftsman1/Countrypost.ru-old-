@@ -287,6 +287,7 @@ class Manager extends BaseController {
 			// 9. отрисовка предложения
 			$this->load->model('CountryModel', 'Countries');
 			$this->load->model('OdetailModel', 'Odetails');
+			$view['countries'] = $this->Countries->getArray();
 
 			$view['selfurl'] = BASEURL.$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;

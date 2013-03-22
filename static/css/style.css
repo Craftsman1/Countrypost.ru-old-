@@ -1298,9 +1298,9 @@ body {
 		border:none;
 		}
 	.add-comment .submit {
-		float:left;
-		margin:-28px 0 0 618px;
-		clear:both;
+		float: left;
+		margin-left: 568px;
+		margin-top: -65px;
 		}
 		.add-comment .submit input {
 			width:89px;

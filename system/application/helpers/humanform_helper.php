@@ -49,6 +49,22 @@
 		return $text;
 	}
 
+	function shortenCountryName($text, $style = '')
+	{
+		$trimmed_text = mb_strimwidth($text, 0 , 10, '...', 'UTF-8');
+
+		if ($text != $trimmed_text)
+		{
+			$result = "<b style='$style' title='$text'>$trimmed_text</b>";
+		}
+		else
+		{
+			$result = "<b style='$style'>$text</b>";
+		}
+
+		return $result;
+	}
+
 	/*
 	// режем текст на слова по 15 символов (последние 3 символа будут '...'):
 	// длинные слова обрезаем, оборачиваем ссылкой

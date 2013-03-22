@@ -1683,6 +1683,7 @@ abstract class BaseController extends Controller
 		$filter->svalue		= '';
 		$filter->from		= '';
 		$filter->to			= '';
+		$filter->condition = array();
 
 		return $filter;
 	}
@@ -1751,7 +1752,7 @@ abstract class BaseController extends Controller
 
 	protected function processAllPaymentsFilter()
 	{
-		$filter = $this->initPaymentHistoryFilter();
+		$filter = $this->initAllPaymentsFilter();
 
 		// сброс фильтра
 		if (isset($_POST['resetFilter']) AND $_POST['resetFilter'] == '1')

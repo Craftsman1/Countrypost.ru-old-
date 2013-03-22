@@ -1,22 +1,12 @@
 <span class="plaintext">
-	<b><?= $odetail->odetail_shop ?></b>
-	<br>
 	<b><?= $odetail->odetail_product_name ?></b>
 	<br>
-	<b>Количество</b>: <?= $odetail->odetail_product_amount ?>
-	<b>Размер</b>: <?= $odetail->odetail_product_size ?>
-	<b>Цвет</b>: <?= $odetail->odetail_product_color ?>
-	<? if ($odetail->odetail_foto_requested) : ?>
-	<br><b>Фото полученного товара:</b> сделать фото
-	<? endif; ?>
-	<br>
-	<b>Комментарий</b>: <?= $odetail->odetail_comment ?>
+	<b>Описание</b>: <?= $odetail->odetail_comment ?>
 </span>
 <? if ($is_editable) : ?>
 <script>
 	var odetail<?= $odetail->odetail_id ?> = {
 		"link":"<?= $odetail->odetail_link ?>",
-		"shop":"<?= $odetail->odetail_shop ?>",
 		"name":"<?= $odetail->odetail_product_name ?>",
 		"color":"<?= $odetail->odetail_product_color ?>",
 		"size":"<?= $odetail->odetail_product_size ?>",
@@ -50,28 +40,13 @@
 	});
 </script>
 <span class="producteditor" style="display: none;">
-	<input type="hidden" name="link" class="link" value="<?= BASEURL ?>" />
-	<br>
-	<b>Магазин</b>:
-	<textarea class="shop" name="shop"></textarea>
+	<textarea class="link" name="link" style="display: none;"></textarea>
 	<br>
 	<b>Наименование</b>:
 	<textarea class="name" name="name"></textarea>
 	<br>
-	<b>Количество</b>:
-	<textarea class="amount int" name="amount"></textarea>
-	<br>
-	<b>Размер</b>:
-	<textarea class="size" name="size"></textarea>
-	<br>
-	<b>Цвет</b>:
-	<textarea class="color" name="color"></textarea>
-	<br>
-	<b>Комментарий</b>:
+	<b>Описание</b>:
 	<textarea class="ocomment" name="comment"></textarea>
-	<br>
-	<b>Требуется фото</b>:
-	<input type="checkbox" class="foto_requested" name="foto_requested">
 	<br>
 </span>
 <? endif; ?>

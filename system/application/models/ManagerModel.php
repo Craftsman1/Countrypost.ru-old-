@@ -421,18 +421,16 @@ class ManagerModel extends BaseModel implements IModel{
 	
 	public static function getFullName($manager, $user = NULL)
 	{
+		$fullname = '';
+
         if ($manager)
         {
             $fullname = trim("{$manager->manager_surname} {$manager->manager_name}  {$manager->manager_otc}");
 
-            if (empty($fullname))
+            if (empty($fullname) AND isset($manager->user_login))
             {
                 $fullname = $manager->user_login;
             }
-        }
-        else
-        {
-            $fullname = '';
         }
 		
 		return $fullname;

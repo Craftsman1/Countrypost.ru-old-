@@ -92,7 +92,7 @@ class User extends BaseController {
 					$this->session->set_userdata('user_country_name_en', $country->country_name_en);
 					$this->session->set_userdata('user_name', $this->Managers->getFullName($manager_summary, $user));
 
-						$this->session->set_userdata('manager_country', $manager_summary->manager_country);
+					$this->session->set_userdata('manager_country', $manager_summary->manager_country);
 					$this->session->set_userdata('country_name_en', $manager_summary->manager_country);
 					$this->session->set_userdata('manager_credit', $manager_summary->manager_credit);
 					$this->session->set_userdata('manager_credit_date', $manager_summary->manager_credit_date);

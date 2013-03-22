@@ -248,8 +248,8 @@ function getSnippetByType(odetail, order_type)
 	}
 	else if (order_type == 'offline')
 	{
-		snippet = '<a target="_blank" href="' + odetail['link'] + '">' +
-			odetail['name'] +'</a>' +
+		snippet = '<br><b>' + odetail['shop'] +'</b>' +
+			'<br><b>' + odetail['name'] +'</b>' +
 			'<br><b>Количество</b>: ' +
 			odetail['amount'] +
 			' <b>Размер</b>: ' +

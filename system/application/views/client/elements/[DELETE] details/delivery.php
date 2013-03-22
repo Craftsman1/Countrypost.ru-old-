@@ -1,13 +1,11 @@
 <span class="plaintext">
-	<b><?= $odetail->odetail_shop ?></b>
-	<br>
-	<b><?= $odetail->odetail_product_name ?></b>
+	<a target="_blank" href="<?= $odetail->odetail_link ?>"><?= $odetail->odetail_product_name ?></a>
 	<br>
 	<b>Количество</b>: <?= $odetail->odetail_product_amount ?>
-	<b>Размер</b>: <?= $odetail->odetail_product_size ?>
-	<b>Цвет</b>: <?= $odetail->odetail_product_color ?>
-	<? if ($odetail->odetail_foto_requested) : ?>
-	<br><b>Фото полученного товара:</b> сделать фото
+	<b>Объём</b>: <?= $odetail->odetail_volume ?>
+	<b>ТН ВЭД</b>: <?= $odetail->odetail_tnved ?>
+	<? if ($odetail->odetail_insurance) : ?>
+	<br><b>Страховка:</b> сделать страховку
 	<? endif; ?>
 	<br>
 	<b>Комментарий</b>: <?= $odetail->odetail_comment ?>
@@ -16,16 +14,15 @@
 <script>
 	var odetail<?= $odetail->odetail_id ?> = {
 		"link":"<?= $odetail->odetail_link ?>",
-		"shop":"<?= $odetail->odetail_shop ?>",
 		"name":"<?= $odetail->odetail_product_name ?>",
-		"color":"<?= $odetail->odetail_product_color ?>",
-		"size":"<?= $odetail->odetail_product_size ?>",
+		"volume":"<?= $odetail->odetail_volume ?>",
+		"tnved":"<?= $odetail->odetail_tnved ?>",
 		"amount":"<?= $odetail->odetail_product_amount ?>",
 		"comment":"<?= $odetail->odetail_comment ?>",
 		"img":"<?= $odetail->odetail_img ?>",
 		"img_file":"",
 		"img_selector":"<?= isset($odetail->odetail_img) ? 'link' : 'file' ?>",
-		"foto_requested":"<?= $odetail->odetail_foto_requested ?>",
+		"insurance":"<?= $odetail->odetail_insurance ?>",
 		"is_editing":0
 	};
 
@@ -50,10 +47,9 @@
 	});
 </script>
 <span class="producteditor" style="display: none;">
-	<input type="hidden" name="link" class="link" value="<?= BASEURL ?>" />
 	<br>
-	<b>Магазин</b>:
-	<textarea class="shop" name="shop"></textarea>
+	<b>Ссылка</b>:
+	<textarea class="link" name="link"></textarea>
 	<br>
 	<b>Наименование</b>:
 	<textarea class="name" name="name"></textarea>
@@ -61,17 +57,17 @@
 	<b>Количество</b>:
 	<textarea class="amount int" name="amount"></textarea>
 	<br>
-	<b>Размер</b>:
-	<textarea class="size" name="size"></textarea>
+	<b>Объём</b>:
+	<textarea class="volume" name="volume"></textarea>
 	<br>
-	<b>Цвет</b>:
-	<textarea class="color" name="color"></textarea>
+	<b>ТН ВЭД</b>:
+	<textarea class="tnved" name="tnved"></textarea>
 	<br>
 	<b>Комментарий</b>:
 	<textarea class="ocomment" name="comment"></textarea>
 	<br>
-	<b>Требуется фото</b>:
-	<input type="checkbox" class="foto_requested" name="foto_requested">
+	<b>Требуется страховка</b>:
+	<input type="checkbox" class="insurance" name="insurance">
 	<br>
 </span>
 <? endif; ?>

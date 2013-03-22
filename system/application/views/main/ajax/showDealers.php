@@ -44,8 +44,9 @@
                         </td>
                         <td>
                             <img src="/static/images/flags/big/<?= $countries_en[$manager->manager_country] ?>.png" style="float:left;margin-right:10px;" />
-                            <b style="position:relative;top:17px;"><?=$countries[$manager->manager_country]?></b>
-                        </td>
+                            <!--b style="position:relative;top:17px;"><?=$countries[$manager->manager_country]?></b-->
+							<?= shortenCountryName($countries[$manager->manager_country], 'position:relative;top:17px;') ?>
+						</td>
                         <td style="text-align:left;">
                             <?= $manager->statistics->fullname ?>
                             <? if ($manager->is_cashback OR $manager->is_mail_forwarding) : ?>

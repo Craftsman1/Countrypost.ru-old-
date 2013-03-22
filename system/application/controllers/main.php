@@ -1032,10 +1032,10 @@ Email: {$this->user->user_email}";
                 switch ($order_type) :
 
                     case 'online' :
-                        Breadcrumb::setCrumb(array($result_url => 'Online заказ'), 2, TRUE);
+                        Breadcrumb::setCrumb(array($result_url => 'Online'), 2, TRUE);
                         break;
                     case 'offline' :
-                        Breadcrumb::setCrumb(array($result_url => 'Offline заказ'), 2, TRUE);
+                        Breadcrumb::setCrumb(array($result_url => 'Offline'), 2, TRUE);
                         break;
                     case 'service' :
                         Breadcrumb::setCrumb(array($result_url => 'Услуга'), 2, TRUE);
@@ -1044,7 +1044,7 @@ Email: {$this->user->user_email}";
                         Breadcrumb::setCrumb(array($result_url => 'Заказ на доставку'), 2, TRUE);
                         break;
                     case 'mailforwarding' :
-                        Breadcrumb::setCrumb(array($result_url => 'Mailforwarding заказ'), 2, TRUE);
+                        Breadcrumb::setCrumb(array($result_url => 'Mail Forwarding'), 2, TRUE);
                         break;
                 endswitch;
             }

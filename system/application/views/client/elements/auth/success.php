@@ -5,7 +5,7 @@
 			<p>
 				Здравствуйте,
 				<span class='big-text'>
-					<a href='<?= BASEURL.$this->user->user_group ?>'><?=$this->user->user_login;?></a>
+					<a href='<?= BASEURL . $this->user->user_group ?>'><?=$this->user->user_login;?></a>
 				</span>
 			</p>
 			<p><a href='/profile'>Изменить личные данные</a></p>
@@ -20,8 +20,6 @@
 		<div class='center-block'>
 			<h3>ВАШ НОМЕР НА САЙТЕ: <?= $this->user->user_id ?></h3>
 			<br>
-			<!--p>
-					Баланс Countrypost.ru: <span class='big-text'><?=$this->user->user_coints;?> USD</span></p-->
 			<p>
 				<a href='javascript:showBalanceWindow();'>Баланс по посредникам</a>
 			</p>

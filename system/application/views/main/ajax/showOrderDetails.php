@@ -83,22 +83,6 @@ $is_offer_accepted = (empty($this->user->user_group) OR
 			</td>
 			<? else : ?>
 			<td>
-				<span class="plaintext">
-					<? if (isset($odetail->odetail_img)) : ?>
-					<a target="_blank" href="<?= $odetail->odetail_img ?>"><?=
-						(strlen($odetail->odetail_img) > 17 ?
-							substr($odetail->odetail_img, 0, 17) . '...' :
-							$odetail->odetail_img) ?></a>
-					<? else : ?>
-					<a href="javascript:void(0)" onclick="setRel(<?= $odetail->odetail_id ?>);">
-						<img src='/manager/showScreen/<?= $odetail->odetail_id ?>' width="55px" height="55px">
-						<a rel="lightbox_<?= $odetail->odetail_id ?>" href="/manager/showScreen/<?=
-							$odetail->odetail_id ?>" style="display:none;">Посмотреть</a>
-					</a>
-					<? endif; ?>
-				</span>
-			</td>
-			<td>
 				<?= $odetail->odetail_price ?> <?= $order->order_currency ?>
 			</td>
 			<? if ( ! $odetail->odetail_joint_id) : ?>
@@ -117,6 +101,7 @@ $is_offer_accepted = (empty($this->user->user_group) OR
 			<? endif; ?>
 		</tr>
 		<? endforeach; endif; ?>
+		<? if ($order->order_type != 'mail_forwarding') : ?>
 		<tr>
 			<td colspan="3">&nbsp;</td>
 			<td class="price_total product_total">
@@ -129,6 +114,7 @@ $is_offer_accepted = (empty($this->user->user_group) OR
 				<?= $order->order_weight ?> г
 			</td>
 		</tr>
+		<? endif; ?>
 		<? if ( ! empty($order->preferred_delivery)) : ?>
 		<tr class='last-row' style="display: none;">
 			<td style="text-align: right;" colspan='6'>
@@ -137,7 +123,7 @@ $is_offer_accepted = (empty($this->user->user_group) OR
 				</b>
 			</td>
 		</tr>
-			<? endif; ?>
+		<? endif; ?>
 	</table>
 </div>
 <? if ($is_offer_accepted) : ?>

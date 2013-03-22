@@ -1,6 +1,6 @@
 <form class='admin-inside'
 	  id="balanceFilterForm"
-	  action='<?= $selfurl?>filterBalance'
+	  action='<?= BASEURL ?>client/filterBalance'
 	  method='POST'
 	  style="position: relative;">
 	<input type='hidden' name='balanceReset' id='balanceReset' value='' />
@@ -18,7 +18,7 @@
 	function processBalanceFilter()
 	{
 		$("form#balanceFilterForm #balanceReset").val("0");
-		$("form#balanceFilterForm #balanceFilterForm").submit();
+		$("form#balanceFilterForm").submit();
 	}
 
 	function balanceReset(e)
@@ -32,7 +32,7 @@
 
 	$(function() {
 		$('input#balance_search')
-			.bind('change keypress keydown mouseup keyup blur', function() {
+			.change(function() {
 				processBalanceFilter();
 			});
 

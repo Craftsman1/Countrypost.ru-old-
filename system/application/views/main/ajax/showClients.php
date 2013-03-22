@@ -44,37 +44,37 @@
                         text-wrap: nowrap;
                     }
                 </style>
-                
-                <?if ($clients): foreach ($clients as $client):?>
-                    <tr>
-                        <td>
-                            <b style="color:#D7D7D7;">№ <?=$client->client_user?></b>
-                        </td>
-                        <td>
-                            <img src="/static/images/flags/big/<?= $countries_en[$client->client_country] ?>.png" style="float:left;margin-right:10px;" />
-                            <b style="position:relative;top:17px;"><?=$countries[$client->client_country]?></b>
-                        </td>
-                        <td style="text-align:left;">
-                            <a target="_blank" href="<?= empty($client->website) ? BASEURL.$client->statistics->login : $client->website ?>"><?=$client->statistics->fullname?> (<?=$client->statistics->login?>)</a>
-                        </td>
-                        <td>
-							<? View::show('main/elements/clients/reviews', array(
-								'positive' =>  $client->statistics->positive_reviews,
-								'neutral' =>  $client->statistics->neutral_reviews,
-								'negative' =>  $client->statistics->negative_reviews
-							)); ?>
-                        </td>
-                        <td>123</td>
-                        <td>456</td>
-                        <td>
-                            <a href='<?= BASEURL.$client->statistics->login ?>'>подробнее</a>
-                        </td>
-                    </tr>
-                    <?endforeach;?>	
+                <? if ($clients): foreach ($clients as $client):?>
+				<tr>
+					<td>
+						<b style="color:#D7D7D7;">№ <?=$client->client_user?></b>
+					</td>
+					<td>
+						<img src="/static/images/flags/big/<?= $countries_en[$client->client_country] ?>.png" style="float:left;margin-right:10px;" />
+						<!--b style="position:relative;top:17px;"><?=$countries[$client->client_country]?></b-->
+						<?= shortenCountryName($countries[$client->client_country], 'position:relative;top:17px;') ?>
+					</td>
+					<td style="text-align:left;">
+						<a target="_blank" href="<?= empty($client->website) ? BASEURL.$client->statistics->login : $client->website ?>"><?=$client->statistics->fullname?> (<?=$client->statistics->login?>)</a>
+					</td>
+					<td>
+						<? View::show('main/elements/clients/reviews', array(
+							'positive' =>  $client->statistics->positive_reviews,
+							'neutral' =>  $client->statistics->neutral_reviews,
+							'negative' =>  $client->statistics->negative_reviews
+						)); ?>
+					</td>
+					<td>123</td>
+					<td>456</td>
+					<td>
+						<a href='<?= BASEURL.$client->statistics->login ?>'>подробнее</a>
+					</td>
+				</tr>
+				<?endforeach;?>
                 <?else:?>
-                    <tr>
-                        <td colspan=9>Клиенты не найдены.</td>
-                    </tr>
+				<tr>
+					<td colspan=9>Клиенты не найдены.</td>
+				</tr>
                 <?endif;?>
                 <tr class='last-row'>
                     <td colspan='9'>

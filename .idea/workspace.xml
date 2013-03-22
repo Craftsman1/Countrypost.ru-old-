@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="order price calculation">
-      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\.idea\workspace.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\dbscripts\2012-02-06 22-39 mf tax.sql" afterPath="" />
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\controllers\Base\[delete] UpdateController.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\client\elements\details\delivery.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\client\elements\details\mail_forwarding.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\client\elements\details\offline.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\client\elements\details\online.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\client\elements\details\service.php" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\23\00_-_USAliens.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\31\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\33\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
@@ -19,29 +24,27 @@
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\58\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\59\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders\10\13029.jpg" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/countrypost.js" afterPath="$PROJECT_DIR$/static/js/countrypost.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" afterPath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/main.php" afterPath="$PROJECT_DIR$/system/application/controllers/main.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/manager.php" afterPath="$PROJECT_DIR$/system/application/controllers/manager.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/user.php" afterPath="$PROJECT_DIR$/system/application/controllers/user.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/CountryModel.php" afterPath="$PROJECT_DIR$/system/application/models/CountryModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/helpers/humanform_helper.php" afterPath="$PROJECT_DIR$/system/application/helpers/humanform_helper.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/ManagerModel.php" afterPath="$PROJECT_DIR$/system/application/models/ManagerModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/auth/success.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/auth/success.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/payments/manager_filter.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/payments/manager_filter.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/auth/success.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/auth/success.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/body.php" afterPath="$PROJECT_DIR$/system/application/views/main/body.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/details/offline.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/details/offline.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/comment.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/comment.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/editBidForm.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/editBidForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/filter.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/filter.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/mailforwarding.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/mailforwarding.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderDetails.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/orders/scripts.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/orders/scripts.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/plugins/fckeditor/fckconfig.js" afterPath="$PROJECT_DIR$/system/plugins/fckeditor/fckconfig.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/newComment.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/newComment.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,97 +70,129 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="bid.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php">
+      <file leaf-file-name="showDealers.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="42" selection-start="1476" selection-end="1476" vertical-scroll-proportion="-2.7586207">
+            <state line="47" column="123" selection-start="2155" selection-end="2155" vertical-scroll-proportion="-8.965517">
               <folding>
-                <element signature="n#style#0;n#tr#2;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#1;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/user.php">
+      <file leaf-file-name="main.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="80" selection-start="2189" selection-end="2189" vertical-scroll-proportion="0.30942896">
+            <state line="1046" column="82" selection-start="28446" selection-end="28446" vertical-scroll-proportion="-21.37931">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientModel.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/models/ClientModel.php">
+      <file leaf-file-name="showBalance.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showBalance.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="406" column="44" selection-start="11208" selection-end="11232" vertical-scroll-proportion="-2.1851852">
+            <state line="20" column="32" selection-start="655" selection-end="655" vertical-scroll-proportion="-13.793103">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="newComment.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newComment.php">
+      <file leaf-file-name="success.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/auth/success.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="59" selection-start="215" selection-end="215" vertical-scroll-proportion="-1.3793104">
+            <state line="7" column="43" selection-start="182" selection-end="182" vertical-scroll-proportion="-1.8275862">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="offline.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/offline.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="42" column="14" selection-start="1421" selection-end="1421" vertical-scroll-proportion="0.87649405">
               <folding>
-                <element signature="n#style#0;n#img#0;n#span#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#1;n#span#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#textarea#0;n#span#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="e#1614#1636#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fckconstants.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/plugins/fckeditor/editor/_source/fckconstants.js">
+      <file leaf-file-name="mail_forwarding.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/mail_forwarding.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="16.551723">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fckeditorapi.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/plugins/fckeditor/editor/_source/fckeditorapi.js">
+      <file leaf-file-name="service.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/service.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="17" selection-start="697" selection-end="697" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="10.344828">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fckconfig.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/plugins/fckeditor/editor/_source/internals/fckconfig.js">
+      <file leaf-file-name="scripts.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="21" selection-start="802" selection-end="802" vertical-scroll-proportion="0.0">
+            <state line="313" column="17" selection-start="9940" selection-end="9940" vertical-scroll-proportion="-15.862069">
+              <folding>
+                <marker date="1363865727977" expanded="false" signature="44918:44930" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="45604:45645" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="46448:46462" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="48257:48284" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="50810:50824" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="51133:51147" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="84839:84851" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="85477:85518" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="86283:86297" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="87885:87912" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="90246:90260" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="90545:90559" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="120597:120609" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="121235:121276" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="121636:121650" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="122465:122492" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="124456:124470" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="124755:124769" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="157897:157909" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="158535:158576" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="159427:159441" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="160658:160669" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="163088:163102" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="163387:163401" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="190459:190471" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="191097:191138" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="191975:191989" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="193626:193653" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="194436:194449" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="195462:195476" placeholder="..." />
+                <marker date="1363865727977" expanded="false" signature="195761:195775" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="countrypost.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="250" column="18" selection-start="5079" selection-end="5079" vertical-scroll-proportion="-19.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fckconfig.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/plugins/fckeditor/fckconfig.js">
+      <file leaf-file-name="div_header.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/div_header.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="126" column="21" selection-start="4507" selection-end="4518" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="editor_helper.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/helpers/editor_helper.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="comment.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/comment.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="16" selection-start="914" selection-end="914" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -180,22 +215,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/editBidForm.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
-        <option value="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderDetails.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" />
         <option value="$PROJECT_DIR$/static/css/style.css" />
-        <option value="$PROJECT_DIR$/system/application/models/BidCommentModel.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
-        <option value="$PROJECT_DIR$/system/application/models/CountryModel.php" />
-        <option value="$PROJECT_DIR$/system/plugins/fckeditor/fckconfig.js" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/comment.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/newComment.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/user.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" />
+        <option value="$PROJECT_DIR$/system/application/models/ManagerModel.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" />
+        <option value="$PROJECT_DIR$/system/application/helpers/humanform_helper.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/main.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/elements/auth/success.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/elements/details/offline.php" />
+        <option value="$PROJECT_DIR$/static/js/countrypost.js" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/details/offline.php" />
       </list>
     </option>
   </component>
@@ -431,7 +466,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -453,7 +488,129 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="orders" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="helpers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -720,115 +877,166 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/models/BidCommentModel.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="142" column="35" selection-start="2788" selection-end="2788" vertical-scroll-proportion="0.54847276" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/BidModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1502" column="0" selection-start="44268" selection-end="44268" vertical-scroll-proportion="-18.796297">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="230" selection-end="294" vertical-scroll-proportion="-4.827586" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/plugins/fckeditor/fckeditor.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/plugins/fckeditor/fckeditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="25" selection-start="748" selection-end="750" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/plugins/fckeditor/editor/_source/fckconstants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/plugins/fckeditor/editor/_source/fckeditorapi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="17" selection-start="697" selection-end="697" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/plugins/fckeditor/editor/_source/internals/fckconfig.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="21" selection-start="802" selection-end="802" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/plugins/fckeditor/fckconfig.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="126" column="21" selection-start="4507" selection-end="4518" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/helpers/editor_helper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/comment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="16" selection-start="914" selection-end="914" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="42" selection-start="1476" selection-end="1476" vertical-scroll-proportion="-2.7586207">
+        <state line="31" column="95" selection-start="1379" selection-end="1379" vertical-scroll-proportion="-6.8965516">
           <folding>
-            <element signature="n#style#0;n#tr#2;n#table#0;n#div#4;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#td#1;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#td#2;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newComment.php">
+    <entry file="file://$PROJECT_DIR$/system/application/helpers/humanform_helper.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="59" selection-start="215" selection-end="215" vertical-scroll-proportion="-1.3793104">
+        <state line="61" column="39" selection-start="1630" selection-end="1630" vertical-scroll-proportion="-20.0">
           <folding>
-            <element signature="n#style#0;n#img#0;n#span#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#1;n#span#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#textarea#0;n#span#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <marker date="1363957245634" expanded="true" signature="1543:1549" placeholder="..." />
+            <marker date="1363957245634" expanded="true" signature="1624:1630" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/ClientModel.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showClients.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="406" column="44" selection-start="11208" selection-end="11232" vertical-scroll-proportion="-2.1851852">
+        <state line="55" column="20" selection-start="2085" selection-end="2185" vertical-scroll-proportion="-21.37931">
+          <folding>
+            <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="123" selection-start="2155" selection-end="2155" vertical-scroll-proportion="-8.965517">
+          <folding>
+            <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1046" column="82" selection-start="28446" selection-end="28446" vertical-scroll-proportion="-21.37931">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/user.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/pages/showAddBalance.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="80" selection-start="2189" selection-end="2189" vertical-scroll-proportion="0.30942896">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/div_header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showBalance.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="32" selection-start="655" selection-end="655" vertical-scroll-proportion="-13.793103">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/auth/success.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="43" selection-start="182" selection-end="182" vertical-scroll-proportion="-1.8275862">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-5.0823374">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="313" column="17" selection-start="9940" selection-end="9940" vertical-scroll-proportion="-15.862069">
+          <folding>
+            <marker date="1363865727977" expanded="false" signature="44918:44930" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="45604:45645" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="46448:46462" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="48257:48284" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="50810:50824" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="51133:51147" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="84839:84851" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="85477:85518" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="86283:86297" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="87885:87912" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="90246:90260" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="90545:90559" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="120597:120609" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="121235:121276" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="121636:121650" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="122465:122492" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="124456:124470" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="124755:124769" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="157897:157909" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="158535:158576" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="159427:159441" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="160658:160669" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="163088:163102" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="163387:163401" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="190459:190471" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="191097:191138" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="191975:191989" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="193626:193653" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="194436:194449" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="195462:195476" placeholder="..." />
+            <marker date="1363865727977" expanded="false" signature="195761:195775" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="250" column="18" selection-start="5079" selection-end="5079" vertical-scroll-proportion="-19.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/delivery.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.90039843">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/mail_forwarding.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="16.551723">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/service.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="10.344828">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/offline.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="14" selection-start="1421" selection-end="1421" vertical-scroll-proportion="0.87649405">
+          <folding>
+            <element signature="e#1614#1636#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
