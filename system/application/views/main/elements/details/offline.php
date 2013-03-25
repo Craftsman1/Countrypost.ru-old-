@@ -9,6 +9,9 @@
 	<? if ($odetail->odetail_foto_requested) : ?>
 	<br><b>Фото полученного товара:</b> сделать фото
 	<? endif; ?>
+	<? if ($odetail->odetail_search_requested) : ?>
+	<br><b>Поиск товара:</b> требуется поиск
+	<? endif; ?>
 	<br>
 	<b>Комментарий</b>: <?= $odetail->odetail_comment ?>
 </span>
@@ -26,6 +29,7 @@
 		"img_file":"",
 		"img_selector":"<?= isset($odetail->odetail_img) ? 'link' : 'file' ?>",
 		"foto_requested":"<?= $odetail->odetail_foto_requested ?>",
+		"search_requested":"<?= $odetail->odetail_search_requested ?>",
 		"is_editing":0
 	};
 
@@ -52,26 +56,29 @@
 <span class="producteditor" style="display: none;">
 	<input type="hidden" name="link" class="link" value="<?= BASEURL ?>" />
 	<br>
-	<b>Магазин</b>:
+	<b>Магазин:</b>
 	<textarea class="shop" name="shop"></textarea>
 	<br>
-	<b>Наименование</b>:
+	<b>Наименование:</b>
 	<textarea class="name" name="name"></textarea>
 	<br>
-	<b>Количество</b>:
+	<b>Количество:</b>
 	<textarea class="amount int" name="amount"></textarea>
 	<br>
-	<b>Размер</b>:
+	<b>Размер:</b>
 	<textarea class="size" name="size"></textarea>
 	<br>
-	<b>Цвет</b>:
+	<b>Цвет:</b>
 	<textarea class="color" name="color"></textarea>
 	<br>
-	<b>Комментарий</b>:
+	<b>Комментарий:</b>
 	<textarea class="ocomment" name="comment"></textarea>
 	<br>
-	<b>Требуется фото</b>:
+	<b>Требуется фото</b>
 	<input type="checkbox" class="foto_requested" name="foto_requested">
+	<br>
+	<b>Требуется поиск товара</b>
+	<input type="checkbox" class="search_requested" name="search_requested">
 	<br>
 </span>
 <? endif; ?>

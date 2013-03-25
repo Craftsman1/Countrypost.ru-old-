@@ -55,18 +55,7 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 		$odetail_joint_id = 0;
 		$odetail_joint_count = 0;
 
-		if ( ! empty($odetails)) : foreach($odetails as $odetail) :
-			if (stripos($odetail->odetail_link, 'http://') !== 0)
-			{
-				$odetail->odetail_link = 'http://'.$odetail->odetail_link;
-			}
-
-			if (isset($odetail->odetail_img) &&
-				stripos($odetail->odetail_img, 'http://') !== 0)
-			{
-				$odetail->odetail_img = 'http://'.$odetail->odetail_img;
-			}
-		?>
+		if ( ! empty($odetails)) : foreach($odetails as $odetail) : ?>
 		<tr id='product<?= $odetail->odetail_id ?>'>
 			<td id='odetail_id<?= $odetail->odetail_id ?>'>
 				<?= $odetail->odetail_id ?>

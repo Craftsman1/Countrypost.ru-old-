@@ -1,5 +1,9 @@
 <span class="plaintext">
+	<? if (empty($odetail->odetail_link)) : ?>
+	<b><?= $odetail->odetail_product_name ?></b>
+	<? else : ?>
 	<a target="_blank" href="<?= $odetail->odetail_link ?>"><?= $odetail->odetail_product_name ?></a>
+	<? endif; ?>
 	<br>
 	<b>Количество</b>: <?= $odetail->odetail_product_amount ?>
 	<b>Размер</b>: <?= $odetail->odetail_product_size ?>
@@ -66,7 +70,7 @@
 	<b>Комментарий</b>:
 	<textarea class="ocomment" name="comment"></textarea>
 	<br>
-	<b>Требуется фото</b>:
+	<b>Требуется фото:</b>
 	<input type="checkbox" class="foto_requested" name="foto_requested">
 	<br>
 </span>

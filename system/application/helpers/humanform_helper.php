@@ -51,7 +51,7 @@
 
 	function shortenCountryName($text, $style = '')
 	{
-		$trimmed_text = mb_strimwidth($text, 0 , 10, '...', 'UTF-8');
+		$trimmed_text = mb_strimwidth($text, 0, 8, '...', 'UTF-8');
 
 		if ($text != $trimmed_text)
 		{

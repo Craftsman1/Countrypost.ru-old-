@@ -1595,23 +1595,13 @@ Email: {$this->user->user_email}";
         {
             throw new Exception('Добавьте наименование товара.');
         }
-/*
-        if (empty($detail->odetail_tracking))
-        {
-            throw new Exception('Добавьте tracking номер.');
-        }
-*/    }
+    }
 
     protected function mailforwardProductCheck ($detail)
     {
         if (empty($detail->odetail_product_name))
         {
             throw new Exception('Добавьте наименование товара.');
-        }
-
-        if (empty($detail->odetail_comment))
-        {
-            throw new Exception('Добавьте подробное описание.');
         }
     }
 
@@ -1748,7 +1738,6 @@ Email: {$this->user->user_email}";
             }
 
             $this->Orders->saveOrder($order);
-            $this->Bids->saveBids($order->bids);
 
             // отправляем пересчитанные детали заказа
             $response = $this->prepareOrderUpdateJSON($order);

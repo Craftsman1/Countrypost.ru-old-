@@ -1,5 +1,9 @@
 <span class="plaintext">
+	<? if (empty($odetail->odetail_link)) : ?>
+	<b><?= $odetail->odetail_product_name ?></b>
+	<? else : ?>
 	<a target="_blank" href="<?= $odetail->odetail_link ?>"><?= $odetail->odetail_product_name ?></a>
+	<? endif; ?>
 	<br>
 	<b>Количество</b>: <?= $odetail->odetail_product_amount ?>
 	<b>Объём</b>: <?= $odetail->odetail_volume ?>

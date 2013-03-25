@@ -4,6 +4,11 @@
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="order price calculation">
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\dbscripts\2012-02-06 22-39 mf tax.sql" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\controllers\Base\[delete] UpdateController.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\client\elements\[DELETE] details\delivery.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\client\elements\[DELETE] details\mail_forwarding.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\client\elements\[DELETE] details\offline.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\client\elements\[DELETE] details\online.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\client\elements\[DELETE] details\service.php" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\client\elements\details\delivery.php" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\client\elements\details\mail_forwarding.php" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\system\application\views\client\elements\details\offline.php" afterPath="" />
@@ -25,26 +30,20 @@
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\59\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders\10\13029.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/countrypost.js" afterPath="$PROJECT_DIR$/static/js/countrypost.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" afterPath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/main.php" afterPath="$PROJECT_DIR$/system/application/controllers/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/manager.php" afterPath="$PROJECT_DIR$/system/application/controllers/manager.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/user.php" afterPath="$PROJECT_DIR$/system/application/controllers/user.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/helpers/humanform_helper.php" afterPath="$PROJECT_DIR$/system/application/helpers/humanform_helper.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/ManagerModel.php" afterPath="$PROJECT_DIR$/system/application/models/ManagerModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/auth/success.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/auth/success.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/payments/manager_filter.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/payments/manager_filter.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OdetailModel.php" afterPath="$PROJECT_DIR$/system/application/models/OdetailModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showNewOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showNewOrderDetails.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/body.php" afterPath="$PROJECT_DIR$/system/application/views/main/body.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/details/delivery.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/details/delivery.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/details/mail_forwarding.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/details/mail_forwarding.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/details/offline.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/details/offline.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/newComment.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/newComment.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/offline.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/offline.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderDetails.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -70,14 +69,68 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="showDealers.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php">
+      <file leaf-file-name="scripts.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="123" selection-start="2155" selection-end="2155" vertical-scroll-proportion="-8.965517">
+            <state line="5" column="29" selection-start="172" selection-end="172" vertical-scroll-proportion="0.8888889">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="countrypost.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="265" column="50" selection-start="5627" selection-end="5627" vertical-scroll-proportion="-16.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scripts.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="976" column="71" selection-start="37397" selection-end="37397" vertical-scroll-proportion="0.24475524">
               <folding>
-                <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#1;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="e#501#1235#0" expanded="false" />
+                <element signature="e#1291#1556#0" expanded="false" />
+                <element signature="e#1606#1884#0" expanded="false" />
+                <element signature="e#4856#5058#0" expanded="false" />
+                <element signature="e#5101#5148#0" expanded="false" />
+                <element signature="e#5189#5499#0" expanded="false" />
+                <element signature="e#5534#10217#0" expanded="false" />
+                <element signature="e#18321#22949#0" expanded="false" />
+                <marker date="1364216756446" expanded="false" signature="43162:43174" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="43848:43889" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="44692:44706" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="46501:46528" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="49054:49068" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="49377:49391" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="83445:83457" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="84083:84124" placeholder="..." />
+                <marker date="1364216756446" expanded="true" signature="84972:84986" placeholder="..." />
+                <marker date="1364216756446" expanded="true" signature="86986:87013" placeholder="..." />
+                <marker date="1364216756446" expanded="true" signature="89347:89361" placeholder="..." />
+                <marker date="1364216756446" expanded="true" signature="89646:89660" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="119767:119779" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="120405:120446" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="120806:120820" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="121635:121662" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="123626:123640" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="123925:123939" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="157058:157070" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="157696:157737" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="158588:158602" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="159819:159830" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="162249:162263" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="162548:162562" placeholder="..." />
+                <marker date="1364216756446" expanded="true" signature="189600:189612" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="190238:190279" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="191107:191121" placeholder="..." />
+                <marker date="1364216756446" expanded="true" signature="192737:192764" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="193547:193560" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="194573:194587" placeholder="..." />
+                <marker date="1364216756446" expanded="false" signature="194872:194886" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -86,37 +139,35 @@
       <file leaf-file-name="main.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1046" column="82" selection-start="28446" selection-end="28446" vertical-scroll-proportion="-21.37931">
+            <state line="1661" column="0" selection-start="47188" selection-end="47188" vertical-scroll-proportion="-12.12963">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="showBalance.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showBalance.php">
+      <file leaf-file-name="BaseController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="32" selection-start="655" selection-end="655" vertical-scroll-proportion="-13.793103">
+            <state line="544" column="24" selection-start="15373" selection-end="15373" vertical-scroll-proportion="-12.12963">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="success.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/auth/success.php">
+      <file leaf-file-name="showOrderDetails.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="43" selection-start="182" selection-end="182" vertical-scroll-proportion="-1.8275862">
+            <state line="57" column="68" selection-start="1417" selection-end="1417" vertical-scroll-proportion="-15.172414">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="offline.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/offline.php">
+      <file leaf-file-name="showOrderDetails.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showOrderDetails.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="14" selection-start="1421" selection-end="1421" vertical-scroll-proportion="0.87649405">
-              <folding>
-                <element signature="e#1614#1636#0" expanded="true" />
-              </folding>
+            <state line="50" column="67" selection-start="1347" selection-end="1347" vertical-scroll-proportion="-8.275862">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -124,75 +175,25 @@
       <file leaf-file-name="mail_forwarding.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/mail_forwarding.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="16.551723">
+            <state line="3" column="0" selection-start="115" selection-end="115" vertical-scroll-proportion="-2.0689654">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="service.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/service.php">
+      <file leaf-file-name="mailforwarding.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/mailforwarding.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="10.344828">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="69.17242">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scripts.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php">
+      <file leaf-file-name="online.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/online.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="313" column="17" selection-start="9940" selection-end="9940" vertical-scroll-proportion="-15.862069">
-              <folding>
-                <marker date="1363865727977" expanded="false" signature="44918:44930" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="45604:45645" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="46448:46462" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="48257:48284" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="50810:50824" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="51133:51147" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="84839:84851" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="85477:85518" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="86283:86297" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="87885:87912" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="90246:90260" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="90545:90559" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="120597:120609" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="121235:121276" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="121636:121650" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="122465:122492" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="124456:124470" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="124755:124769" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="157897:157909" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="158535:158576" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="159427:159441" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="160658:160669" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="163088:163102" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="163387:163401" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="190459:190471" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="191097:191138" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="191975:191989" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="193626:193653" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="194436:194449" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="195462:195476" placeholder="..." />
-                <marker date="1363865727977" expanded="false" signature="195761:195775" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="countrypost.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="250" column="18" selection-start="5079" selection-end="5079" vertical-scroll-proportion="-19.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="div_header.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/div_header.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="4.137931">
               <folding />
             </state>
           </provider>
@@ -215,22 +216,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/static/css/style.css" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/newComment.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" />
-        <option value="$PROJECT_DIR$/system/application/models/ManagerModel.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" />
         <option value="$PROJECT_DIR$/system/application/helpers/humanform_helper.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/main.php" />
-        <option value="$PROJECT_DIR$/system/application/views/client/elements/auth/success.php" />
-        <option value="$PROJECT_DIR$/system/application/views/client/elements/details/offline.php" />
-        <option value="$PROJECT_DIR$/static/js/countrypost.js" />
+        <option value="$PROJECT_DIR$/dbscripts/2013-03-25 14-10 search requested.sql" />
+        <option value="$PROJECT_DIR$/system/application/models/OdetailModel.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/details/offline.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/offline.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/ajax/showNewOrderDetails.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/details/delivery.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/details/mail_forwarding.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/ajax/showOrderDetails.php" />
+        <option value="$PROJECT_DIR$/static/js/countrypost.js" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/main.php" />
       </list>
     </option>
   </component>
@@ -404,46 +405,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fckeditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helpers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="application" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -492,7 +453,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -518,7 +479,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -548,7 +509,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -570,47 +531,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helpers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
+              <option name="myItemId" value="dbscripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -633,23 +554,23 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../bin/php/php5.3.13" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="222" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="891" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="883" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="891" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="215" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="212" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Program Files\wamp\www\countrypost.service\dbscripts" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\orders" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\manager\elements" />
-      <recent name="C:\Program Files\wamp\www\countrypost.service\dbscripts" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\manager\ajax" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -797,7 +718,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.231875" sideWeight="0.34076828" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.235625" sideWeight="0.5342648" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.05875" sideWeight="0.5342648" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.238125" sideWeight="0.33375958" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.78516626" sideWeight="0.4980695" order="7" side_tool="true" content_ui="tabs" />
@@ -879,163 +800,162 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="95" selection-start="1379" selection-end="1379" vertical-scroll-proportion="-6.8965516">
+        <state line="0" column="31" selection-start="28" selection-end="31" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#td#1;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#td#2;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#0;n#tr#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#1;n#tr#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#2;n#tr#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#5;n#tr#0;n#table#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/helpers/humanform_helper.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/offline.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="39" selection-start="1630" selection-end="1630" vertical-scroll-proportion="-20.0">
-          <folding>
-            <marker date="1363957245634" expanded="true" signature="1543:1549" placeholder="..." />
-            <marker date="1363957245634" expanded="true" signature="1624:1630" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showClients.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="20" selection-start="2085" selection-end="2185" vertical-scroll-proportion="-21.37931">
-          <folding>
-            <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="123" selection-start="2155" selection-end="2155" vertical-scroll-proportion="-8.965517">
-          <folding>
-            <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1046" column="82" selection-start="28446" selection-end="28446" vertical-scroll-proportion="-21.37931">
+        <state line="77" column="48" selection-start="2393" selection-end="2407" vertical-scroll-proportion="-9.037037">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/pages/showAddBalance.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showNewOrderDetails.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="266" column="31" selection-start="9379" selection-end="9379" vertical-scroll-proportion="-9.592592">
+          <folding>
+            <element signature="n#style#0;n#col#0;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#col#2;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#td#1;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/delivery.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/div_header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showBalance.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="32" selection-start="655" selection-end="655" vertical-scroll-proportion="-13.793103">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/auth/success.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="43" selection-start="182" selection-end="182" vertical-scroll-proportion="-1.8275862">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-5.0823374">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="313" column="17" selection-start="9940" selection-end="9940" vertical-scroll-proportion="-15.862069">
-          <folding>
-            <marker date="1363865727977" expanded="false" signature="44918:44930" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="45604:45645" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="46448:46462" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="48257:48284" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="50810:50824" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="51133:51147" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="84839:84851" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="85477:85518" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="86283:86297" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="87885:87912" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="90246:90260" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="90545:90559" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="120597:120609" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="121235:121276" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="121636:121650" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="122465:122492" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="124456:124470" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="124755:124769" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="157897:157909" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="158535:158576" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="159427:159441" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="160658:160669" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="163088:163102" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="163387:163401" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="190459:190471" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="191097:191138" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="191975:191989" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="193626:193653" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="194436:194449" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="195462:195476" placeholder="..." />
-            <marker date="1363865727977" expanded="false" signature="195761:195775" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="250" column="18" selection-start="5079" selection-end="5079" vertical-scroll-proportion="-19.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/delivery.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.90039843">
+        <state line="5" column="4" selection-start="229" selection-end="229" vertical-scroll-proportion="-3.4482758">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/models/OdetailModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="302" column="0" selection-start="8297" selection-end="8297" vertical-scroll-proportion="-0.37037036">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="544" column="24" selection-start="15373" selection-end="15373" vertical-scroll-proportion="-12.12963">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="68" selection-start="1417" selection-end="1417" vertical-scroll-proportion="-15.172414">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/ajax/showOrderDetails.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="67" selection-start="1347" selection-end="1347" vertical-scroll-proportion="-8.275862">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="265" column="50" selection-start="5627" selection-end="5627" vertical-scroll-proportion="-16.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="29" selection-start="172" selection-end="172" vertical-scroll-proportion="0.8888889">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1661" column="0" selection-start="47188" selection-end="47188" vertical-scroll-proportion="-12.12963">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/mail_forwarding.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="16.551723">
+        <state line="3" column="0" selection-start="115" selection-end="115" vertical-scroll-proportion="-2.0689654">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/service.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/online.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="10.344828">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="4.137931">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/details/offline.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/mailforwarding.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="14" selection-start="1421" selection-end="1421" vertical-scroll-proportion="0.87649405">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="69.17242">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="976" column="71" selection-start="37397" selection-end="37397" vertical-scroll-proportion="0.24475524">
           <folding>
-            <element signature="e#1614#1636#0" expanded="true" />
+            <element signature="e#501#1235#0" expanded="false" />
+            <element signature="e#1291#1556#0" expanded="false" />
+            <element signature="e#1606#1884#0" expanded="false" />
+            <element signature="e#4856#5058#0" expanded="false" />
+            <element signature="e#5101#5148#0" expanded="false" />
+            <element signature="e#5189#5499#0" expanded="false" />
+            <element signature="e#5534#10217#0" expanded="false" />
+            <element signature="e#18321#22949#0" expanded="false" />
+            <marker date="1364216756446" expanded="false" signature="43162:43174" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="43848:43889" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="44692:44706" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="46501:46528" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="49054:49068" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="49377:49391" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="83445:83457" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="84083:84124" placeholder="..." />
+            <marker date="1364216756446" expanded="true" signature="84972:84986" placeholder="..." />
+            <marker date="1364216756446" expanded="true" signature="86986:87013" placeholder="..." />
+            <marker date="1364216756446" expanded="true" signature="89347:89361" placeholder="..." />
+            <marker date="1364216756446" expanded="true" signature="89646:89660" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="119767:119779" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="120405:120446" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="120806:120820" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="121635:121662" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="123626:123640" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="123925:123939" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="157058:157070" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="157696:157737" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="158588:158602" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="159819:159830" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="162249:162263" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="162548:162562" placeholder="..." />
+            <marker date="1364216756446" expanded="true" signature="189600:189612" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="190238:190279" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="191107:191121" placeholder="..." />
+            <marker date="1364216756446" expanded="true" signature="192737:192764" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="193547:193560" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="194573:194587" placeholder="..." />
+            <marker date="1364216756446" expanded="false" signature="194872:194886" placeholder="..." />
           </folding>
         </state>
       </provider>

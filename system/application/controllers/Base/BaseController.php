@@ -1065,7 +1065,8 @@ abstract class BaseController extends Controller
 		$detail->odetail_manager				= $order_manager;
 		$detail->odetail_country				= Check::str('ocountry', 255, 1);
 		$detail->odetail_foto_requested			= Check::chkbox('foto_requested');
-		
+		$detail->odetail_search_requested		= Check::chkbox('search_requested');
+
 		try 
 		{
             switch ($order_type)
@@ -1108,6 +1109,7 @@ abstract class BaseController extends Controller
 			{
 				$old = umask(0);
 				// загрузка файла
+
 				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/orders")){
 					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/orders",0777);
 				}
@@ -1123,19 +1125,22 @@ abstract class BaseController extends Controller
 				$max_height						= 768;
 				$this->load->library('upload', $config);
 
-				if ( ! $this->upload->do_upload()) {
+				if ( ! $this->upload->do_upload())
+				{
 					throw new Exception(strip_tags(trim($this->upload->display_errors())));
 				}
 				
 				$uploadedImg = $this->upload->data();
-				if (!rename($uploadedImg['full_path'],$_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id/{$detail->odetail_id}.jpg")){
+				if (!rename($uploadedImg['full_path'],$_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id/{$detail->odetail_id}.jpg"))
+				{
 					throw new Exception("Bad file name!");
 				}
 				
 				$uploadedImg	= $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id/{$detail->odetail_id}.jpg";
 				$imageInfo		= getimagesize($uploadedImg);
-				if ($imageInfo[0]>$max_width OR $imageInfo[1]>$max_height){
-					
+
+				if ($imageInfo[0]>$max_width OR $imageInfo[1]>$max_height)
+				{
 					$config['image_library']	= 'gd2';
 					$config['source_image']		= $uploadedImg;
 					$config['maintain_ratio']	= TRUE;
@@ -1143,7 +1148,6 @@ abstract class BaseController extends Controller
 					$config['height']			= $max_height;
 					
 					$this->load->library('image_lib', $config); // загружаем библиотеку
-					
 					$this->image_lib->resize(); // и вызываем функцию
 				}
 
@@ -1197,6 +1201,7 @@ abstract class BaseController extends Controller
             $result->order_id = $order->order_id;
             $result->odetail_id = $detail->odetail_id;
             $result->odetail_img = $detail->odetail_img;
+
 			echo json_encode($result);
 		}
 		catch (Exception $e)
@@ -4174,8 +4179,7 @@ abstract class BaseController extends Controller
 			}
 
 			// парсим пользовательский ввод
-			Check::reset_empties();
-			$odetail->odetail_link				= Check::str('link', 500, 1);
+			$odetail->odetail_link				= Check::str('link', 500, 1, '');
 			$odetail->odetail_product_name		= Check::str('name', 255, 0, '');
 			$odetail->odetail_product_color		= Check::str('color', 255, 0, '');
 			$odetail->odetail_product_size		= Check::str('size', 255, 0, '');
@@ -4184,6 +4188,7 @@ abstract class BaseController extends Controller
 			$odetail->odetail_product_amount	= Check::int('amount');
 			$odetail->odetail_comment			= Check::str('comment', 255, 1, '');
 			$odetail->odetail_foto_requested	= Check::chkbox('foto_requested');
+			$odetail->odetail_search_requested	= Check::chkbox('search_requested');
 			$odetail->odetail_insurance			= Check::chkbox('insurance');
 
 			// проверяем, загружается картинка или ссылка
@@ -4201,10 +4206,17 @@ abstract class BaseController extends Controller
 				$odetail->odetail_img = Check::str('img', 4096, 1, NULL);
 			}
 
-			// валидация
+			// ссылка на товар, обязательна только в онлайн заказах
 			if (empty($odetail->odetail_link))
 			{
-				throw new Exception('Добавьте ссылку на товар.');
+				if ($order->order_type == 'online')
+				{
+					throw new Exception('Добавьте ссылку на товар.');
+				}
+				else
+				{
+					$odetail->odetail_link = '';
+				}
 			}
 
 			if ($is_file_uploaded AND

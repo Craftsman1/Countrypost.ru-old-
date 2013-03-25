@@ -1,47 +1,6 @@
 <script type="text/javascript" src="/static/js/jquery.autocomplete.js"></script>
 <script type="text/javascript">
 $(function() {
-    /*
-    $.cpImage = function (oid, id, value) {
-        var iObj = this;
-
-        var onActionSwitch = function ()
-        {
-            switch ($(this).val())
-            {
-                case 'no_action' :
-                    $('#imageEditTable' + iObj.options.id + ' .file_link_field, #imageEditTable' + iObj.options.id + ' .file_upload_field').hide('slow');
-                    break;
-                case 'link' :
-                    $('#imageEditTable' + iObj.options.id + ' input[name="img"]').val('');
-                    $('#imageEditTable' + iObj.options.id + ' .file_upload_field').hide('fast');
-                    $('#imageEditTable' + iObj.options.id + ' .file_link_field').show('normal');
-                    break;
-                case 'file' :
-                    $('#imageEditTable' + iObj.options.id + ' input[name="userfile"]').val('');
-                    $('#imageEditTable' + iObj.options.id + ' .file_link_field').hide('fast');
-                    $('#imageEditTable' + iObj.options.id + ' .file_upload_field').show('normal');
-                    break;
-            }
-        }
-
-        iObj.options = {
-            id : id,
-            order_id : oid,
-            value : value
-        }
-
-        iObj.init = function ()
-        {
-            var table = $('#imageEditTable' + iObj.options.id);
-
-            table.find('.img_selector[value="no_action"]').attr('checked', 'checked');
-
-            table.find('.img_selector').bind('click', onActionSwitch);
-        }
-    }
-    */
-
     $.cpField = function () {
         var fObj = this;
 
@@ -99,11 +58,13 @@ $(function() {
         }
 
         this.init = function (args) {
-            if (typeof(args.onChange) == "function") {
+            if (typeof(args.onChange) == "function")
+			{
                 fObj.onChange = args.onChange;
             }
 
-            if (args.useDd) {
+            if (args.useDd)
+			{
                 fObj.useDd = args.useDd
             }
 
@@ -416,13 +377,18 @@ $(function() {
 			skip_validation = skip_validation || 0; // default is 0
 
             var link = '';
-            if (!item.olink) {
+
+			if ( ! item.olink)
+			{
                 link = '';
             }
-            else if (item.olink && ( ! skip_validation)) {
+            else if (item.olink && ( ! skip_validation))
+			{
                 var link = item.olink;
-                if (!link.match(/http:\/\//g)) {
-                    link = 'http://' + src;
+
+                if ( ! link.match(/http:\/\//g))
+				{
+                    link = '';
                 }
             }
             return link;
@@ -435,7 +401,8 @@ $(function() {
                     city = $('#city_to_'+oObj.options.type+'').val(),
                     dealer_id = $('#dealer_id_'+oObj.options.type+'').val(),
                     requested_delivery = $('#requested_delivery_'+oObj.options.type+'').val();
-            var countryFrom = $('#'+oObj.options.type+'ItemForm input.countryFrom'),
+
+			var countryFrom = $('#'+oObj.options.type+'ItemForm input.countryFrom'),
                     countryTo = $('#'+oObj.options.type+'ItemForm input.countryTo'),
                     cityTo = $('#'+oObj.options.type+'ItemForm input.cityTo'),
                     dealerId = $('#'+oObj.options.type+'ItemForm input.dealerId'),
@@ -614,7 +581,7 @@ $(function() {
                     oprice.init({
                         object:$('#oprice'),
                         needCheck:'float',
-                        onChange:function () {
+                        onChange: function() {
                             $(this).val(parseFloat($(this).val(), 10));
                         }
                     });
@@ -629,7 +596,7 @@ $(function() {
                     odeliveryprice.init({
                         object:$('#odeliveryprice'),
                         needCheck:'float',
-                        onChange:function () {
+                        onChange: function() {
                             $(this).val(parseFloat($(this).val(), 10));
                         }
                     });
@@ -640,13 +607,9 @@ $(function() {
                     oweight.init({
                         object:$('#oweight'),
                         needCheck:'number',
-                        /*maxValue : 99999,*/
-                        onChange:function () {
-                            /*if (!isNaN($(this).val()))
-                            {
-                                $(this).val(parseInt($(this).val(), 10));
-                            }*/
-                            if (!isNaN($(this).val()) && parseInt($(this).val(), 10) > 99999) {
+                        onChange: function() {
+                            if (!isNaN($(this).val()) && parseInt($(this).val(), 10) > 99999)
+							{
                                 $(this).val(99999);
                             }
                         }
@@ -758,7 +721,7 @@ $(function() {
 
                             return true;
                         },
-                        success:function (response) {
+                        success: function(response) {
                             if (response) {
                                 // Ответ не является числовым значением
                                 if (isNaN(response.odetail_id) || isNaN(response.order_id)) {
@@ -809,12 +772,12 @@ $(function() {
                                 error('top', 'Товар не добавлен. Заполните все поля и попробуйте еще раз.');
                             }
                         },
-                        error:function (response) {
+                        error: function(response) {
                             removeItemProgress(item.id);
                             row.remove();
                             error('top', 'Товар не добавлен. Заполните все поля и попробуйте еще раз.');
                         }, // End error
-                        complete:function () {
+                        complete: function() {
                             bindAddItem();
                         }
                     });
@@ -833,10 +796,10 @@ $(function() {
                         var order = this;
                         $.post('<?= $selfurl ?>deleteNewProduct/' + orderId + '/' + itemId, {}, function () {
                         }, 'json')
-                                .success(function (responce) {
+                                .success(function(response) {
                                     // проверка на ошибку на сервере
-                                    if (responce.e == -1) {
-                                        error('top', responce.m);
+                                    if (response.e == -1) {
+                                        error('top', response.m);
                                     }
                                     else
                                     {
@@ -853,7 +816,7 @@ $(function() {
 										}
                                         oObj.updateTotals();
 
-                                        success('top', responce.m);
+                                        success('top', response.m);
 
                                         if(odetail.odetail_joint_id != 0)
                                         {
@@ -861,7 +824,7 @@ $(function() {
                                         }
                                     }
                                 })
-                                .error(function (responce) {
+                                .error(function(response) {
                                     error('top', 'Товар не удален. Ошибка подключения.');
                                 });
                     }
@@ -976,10 +939,10 @@ $(function() {
                     form.ajaxForm({
                         dataType:'json',
                         iframe:true,
-                        beforeSubmit:function () {
+                        beforeSubmit: function() {
                             addItemProgress(itemId);
                         },
-                        error:function () {
+                        error: function() {
                             $tr.remove();
                             removeItemProgress(itemId);
                             error('top', 'Описание товара №' + itemId + ' не сохранено.');
@@ -1019,10 +982,10 @@ $(function() {
                             addItemProgress(odetail_id);
 
                             $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
-                                    function (responce) {
+                                    function(response) {
                                         removeItemProgress(odetail_id);
-                                        if (responce.is_error) {
-                                            error('top', "Стоимость не изменена. " + responce.message);
+                                        if (response.is_error) {
+                                            error('top', "Стоимость не изменена. " + response.message);
                                         }
                                         else {
                                             success("top", "Стоимость товара №" + odetail_id + " успешно изменена");
@@ -1033,9 +996,9 @@ $(function() {
                                         }
                                     },
                                     'json')
-                                    .error(function (responce) {
+                                    .error(function(response) {
                                         removeItemProgress(odetail_id);
-                                        error('top', "Стоимость не изменена. " + responce);
+                                        error('top', "Стоимость не изменена. " + response);
                                     });
                         }
 
@@ -1050,10 +1013,10 @@ $(function() {
                             addItemProgress(odetail_id);
 
                             $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
-                                    function (responce) {
+                                    function(response) {
                                         removeItemProgress(odetail_id);
-                                        if (responce.is_error) {
-                                            error('top', "Стоимость не изменена. " + responce.message);
+                                        if (response.is_error) {
+                                            error('top', "Стоимость не изменена. " + response.message);
                                         }
                                         else {
                                             success("top", "Стоимость доставки №" + odetail_id + " успешно изменена");
@@ -1064,9 +1027,9 @@ $(function() {
                                         }
                                     },
                                     'json')
-                                    .error(function (responce) {
+                                    .error(function(response) {
                                         removeItemProgress(odetail_id);
-                                        error('top', "Стоимость не изменена. " + responce);
+                                        error('top', "Стоимость не изменена. " + response);
                                     });
                         }
 
@@ -1081,10 +1044,10 @@ $(function() {
                             addItemProgress(odetail_id);
 
                             $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
-                                    function (responce) {
+                                    function(response) {
                                         removeItemProgress(odetail_id);
-                                        if (responce.is_error) {
-                                            error('top', "Вес не изменен. " + responce.message);
+                                        if (response.is_error) {
+                                            error('top', "Вес не изменен. " + response.message);
                                         }
                                         else {
                                             success("top", "Вес товара №" + odetail_id + " успешно изменен");
@@ -1095,9 +1058,9 @@ $(function() {
                                         }
                                     },
                                     'json')
-                                    .error(function (responce) {
+                                    .error(function(response) {
                                         removeItemProgress(odetail_id);
-                                        error('top', "Вес не изменен. " + responce);
+                                        error('top', "Вес не изменен. " + response);
                                     });
                         }
 
@@ -1267,7 +1230,7 @@ $(function() {
             country_from.init({
                 object:$('#country_from_online'),
                 useDd:true,
-                onChange:function () {
+                onChange: function() {
                     var id = $(this).val();
                     var prevCurrency = selectedCurrency;
 
@@ -1298,7 +1261,7 @@ $(function() {
             country_to.init({
                 object:$('#country_to_online'),
                 useDd:true,
-                onChange:function () {
+                onChange: function() {
                     var id = $(this).val();
                     for (var index in currencies) {
                         var currency = currencies[index];
@@ -1323,7 +1286,7 @@ $(function() {
             city_to = new $.cpField();
             city_to.init({
                 object:$('#city_to_online'),
-                onChange:function () {
+                onChange: function() {
                     updateProductForm();
                 }
             });
@@ -1381,22 +1344,20 @@ $(function() {
             var itemOffline = function ()
             {
                 var iObj = this;
+				iObj.fields = [];
+				iObj.itemFields = [];
 
                 var bindAddItem = function ()
                 {
                     // Добавляем обработчик к кнопке добавления товара к заказу
                     $('#addItemOffline').bind('click', iObj.add);
-                } // End bindAddItem
+                }
 
                 var unbindAddItem = function ()
                 {
                     // Убираем обработчик у кнопки добавления товара к заказу
                     $('#addItemOffline').unbind('click');
-                } // End unbindAddItem
-
-
-                iObj.fields = [];
-                iObj.itemFields = [];
+                }
 
                 iObj.init = function ()
                 {
@@ -1423,7 +1384,7 @@ $(function() {
                     oprice.init({
                         object:$('#'+oObj.options.type+'ItemForm #oprice'),
                         needCheck:'float',
-                        onChange:function () {
+                        onChange: function() {
                             $(this).val(parseFloat($(this).val(), 10));
                         }
                     });
@@ -1438,7 +1399,7 @@ $(function() {
                     odeliveryprice.init({
                         object:$('#'+oObj.options.type+'ItemForm #odeliveryprice'),
                         needCheck:'float',
-                        onChange:function () {
+                        onChange: function() {
                             $(this).val(parseFloat($(this).val(), 10));
                         }
                     });
@@ -1449,7 +1410,7 @@ $(function() {
                     oweight.init({
                         object:$('#'+oObj.options.type+'ItemForm #oweight'),
                         needCheck:'number',
-                        onChange:function () {
+                        onChange: function() {
                             if (!isNaN($(this).val()) && parseInt($(this).val(), 10) > 99999) {
                                 $(this).val(99999);
                             }
@@ -1503,6 +1464,13 @@ $(function() {
                     });
                     iObj.fields.push(foto_requested);
 
+                    // Требуется поиск
+                    search_requested = new $.cpField();
+					search_requested.init({
+                        object:$('#'+oObj.options.type+'ItemForm #search_requested')
+                    });
+                    iObj.fields.push(search_requested);
+
                     // Комментарий к товару
                     ocomment = new $.cpField();
                     ocomment.init({
@@ -1511,9 +1479,9 @@ $(function() {
                     iObj.fields.push(ocomment);
                 }
 
-                iObj.add = function () {
+                iObj.add = function ()
+				{
                     unbindAddItem();
-
                     updateProductForm();
 
                     // Рисуем новый товар
@@ -1531,12 +1499,14 @@ $(function() {
                         osize:fieldByName(iObj.fields, 'osize').val(),
                         oimg:fieldByName(iObj.fields, 'userfileimg').val(),
                         foto_requested:fieldByName(iObj.fields, 'foto_requested').val(),
+                        search_requested: fieldByName(iObj.fields, 'search_requested').val(),
                         ocomment:fieldByName(iObj.fields, 'ocomment').val()
                     });
+
                     var row = iObj.drawRow(item);
 
                     // Отправляем на сервер данные
-                    $('#'+oObj.options.type+'ItemForm').ajaxForm({
+                    $('#' + oObj.options.type + 'ItemForm').ajaxForm({
                         target:$('#onlineOrderForm').attr('action'),
                         type:'POST',
                         dataType:'json',
@@ -1561,7 +1531,7 @@ $(function() {
 
                             return true;
                         },
-                        success:function (response) {
+                        success: function(response) {
                             if (response) {
                                 // Ответ не является числовым значением
                                 if (isNaN(response.odetail_id) || isNaN(response.order_id))
@@ -1614,12 +1584,12 @@ $(function() {
                                 error('top', 'Товар не добавлен. Заполните все поля и попробуйте еще раз.');
                             }
                         },
-                        error:function (response) {
+                        error: function(response) {
                             removeItemProgress(item.id);
                             row.remove();
                             error('top', 'Товар не добавлен. Заполните все поля и попробуйте еще раз.');
                         }, // End error
-                        complete:function () {
+                        complete: function () {
                             bindAddItem();
                         }
                     });
@@ -1637,10 +1607,10 @@ $(function() {
                         var order = this;
                         $.post('<?= $selfurl ?>deleteNewProduct/' + orderId + '/' + itemId, {}, function () {
                         }, 'json')
-                                .success(function (responce) {
+                                .success( function(response) {
                                     // проверка на ошибку на сервере
-                                    if (responce.e == -1) {
-                                        error('top', responce.m);
+                                    if (response.e == -1) {
+                                        error('top', response.m);
                                     }
                                     else {
                                         var odetail = oObj.options.cart.getById(itemId);
@@ -1655,7 +1625,7 @@ $(function() {
 										}
                                         oObj.updateTotals();
 
-                                        success('top', responce.m);
+                                        success('top', response.m);
 
                                         if(odetail.odetail_joint_id != 0)
                                         {
@@ -1663,7 +1633,7 @@ $(function() {
                                         }
                                     }
                                 })
-                                .error(function (responce) {
+                                .error(function(response) {
                                     error('top', 'Товар не удален. Ошибка подключения.');
                                 });
                     }
@@ -1720,7 +1690,8 @@ $(function() {
                     return false;
                 }
 
-                iObj.cancelItem = function () {
+                iObj.cancelItem = function ()
+				{
                     var itemId = $(this).attr('odetail-id');
                     $('tr#product' + itemId + ' .plaintext').show();
                     $('tr#product' + itemId + ' .producteditor').hide();
@@ -1771,10 +1742,10 @@ $(function() {
                     form.ajaxForm({
                         dataType:'json',
                         iframe:true,
-                        beforeSubmit:function () {
+                        beforeSubmit: function() {
                             addItemProgress(itemId);
                         },
-                        error:function () {
+                        error: function() {
                             $tr.remove();
                             removeItemProgress(itemId);
                             error('top', 'Описание товара №' + itemId + ' не сохранено.');
@@ -1802,7 +1773,8 @@ $(function() {
                     return false;
                 }
 
-                iObj.updateItemPrice = function () {
+                iObj.updateItemPrice = function ()
+				{
                     var val = $(this).val();
                     var odetail_id = $(this).attr('odetail-id');
                     if (isNaN(val) || parseInt(val, 10) == 0) {
@@ -1813,10 +1785,10 @@ $(function() {
                     addItemProgress(odetail_id);
 
                     $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
-                            function (responce) {
+                            function(response) {
                                 removeItemProgress(odetail_id);
-                                if (responce.is_error) {
-                                    error('top', "Стоимость не изменена. " + responce.message);
+                                if (response.is_error) {
+                                    error('top', "Стоимость не изменена. " + response.message);
                                 }
                                 else {
                                     success("top", "Стоимость товара №" + odetail_id + " успешно изменена");
@@ -1827,13 +1799,14 @@ $(function() {
                                 }
                             },
                             'json')
-                            .error(function (responce) {
+                            .error(function(response) {
                                 removeItemProgress(odetail_id);
-                                error('top', "Стоимость не изменена. " + responce);
+                                error('top', "Стоимость не изменена. " + response);
                             });
                 }
 
-                iObj.updateItemDeliveryPrice = function () {
+                iObj.updateItemDeliveryPrice = function ()
+				{
                     var val = $(this).val();
                     var odetail_id = $(this).attr('odetail-id');
                     if (isNaN(val) || parseInt(val, 10) == 0) {
@@ -1843,11 +1816,12 @@ $(function() {
 
                     addItemProgress(odetail_id);
 
-                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
-                            function (responce) {
+                    $.post('<?= BASEURL . $this->cname ?>/update_new_odetail_pricedelivery/' + $(this).attr
+							('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
+                            function(response) {
                                 removeItemProgress(odetail_id);
-                                if (responce.is_error) {
-                                    error('top', "Стоимость не изменена. " + responce.message);
+                                if (response.is_error) {
+                                    error('top', "Стоимость не изменена. " + response.message);
                                 }
                                 else {
                                     success("top", "Стоимость доставки №" + odetail_id + " успешно изменена");
@@ -1858,13 +1832,14 @@ $(function() {
                                 }
                             },
                             'json')
-                            .error(function (responce) {
+                            .error(function(response) {
                                 removeItemProgress(odetail_id);
-                                error('top', "Стоимость не изменена. " + responce);
+                                error('top', "Стоимость не изменена. " + response);
                             });
                 }
 
-                iObj.updateItemWeight = function () {
+                iObj.updateItemWeight = function ()
+				{
                     var val = $(this).val();
                     var odetail_id = $(this).attr('odetail-id');
                     if (isNaN(val) || parseInt(val, 10) == 0) {
@@ -1874,11 +1849,12 @@ $(function() {
 
                     addItemProgress(odetail_id);
 
-                    $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
-                            function (responce) {
+                    $.post('<?= BASEURL . $this->cname ?>/update_new_odetail_weight/' + $(this).attr('order-id') + '/'
+							+ odetail_id + '/' + parseInt(val, 10), {},
+                            function(response) {
                                 removeItemProgress(odetail_id);
-                                if (responce.is_error) {
-                                    error('top', "Вес не изменен. " + responce.message);
+                                if (response.is_error) {
+                                    error('top', "Вес не изменен. " + response.message);
                                 }
                                 else {
                                     success("top", "Вес товара №" + odetail_id + " успешно изменен");
@@ -1889,9 +1865,10 @@ $(function() {
                                 }
                             },
                             'json')
-                            .error(function (responce) {
+                            .error(function(response)
+							{
                                 removeItemProgress(odetail_id);
-                                error('top', "Вес не изменен. " + responce);
+                                error('top', "Вес не изменен. " + response);
                             });
                 }
 
@@ -1911,8 +1888,9 @@ $(function() {
                             '   </td>' +
                             '   <td style="text-align: left; vertical-align: bottom;">' +
                             '      <span class="plaintext">' +
-                            '          <b>' + item.name + '</b>' +
-                            '          '+((item.foto_requested) ? '(требуется фото товара)' : '') + '<br/> ' +
+							'          <b>' + item.name + '</b>' +
+                            '          '+((item.foto_requested) ? '(требуется фото товара) ' : '') +
+                            '          '+((item.search_requested) ? '(требуется поиск товара)' : '') + '<br/> ' +
                             '          <b>Магазин</b>: ' + item.oshop + '' +
                             '          <br/>' +
                             '          <b>Количество</b>: ' + item.amount +
@@ -1922,7 +1900,7 @@ $(function() {
                             '      </span>' +
                             '      <span style="display: none;" class="producteditor">' +
                             '      <br/>' +
-                            '         <b>Наименование</b>:' +
+							'         <b>Наименование</b>:' +
                             '         <textarea name="name" class="name"></textarea>' +
                             '         <br/>' +
                             '         <b>Магазин</b>:' +
@@ -1940,7 +1918,13 @@ $(function() {
                             '         <b>Комментарий</b>:' +
                             '         <textarea name="comment" class="ocomment"></textarea>' +
                             '         <br/>' +
-                            '      </span>' +
+                            '         <b>Требуется фото</b>:' +
+                            '         <input type="checkbox" class="foto_requested" name="foto_requested">' +
+                            '         <br/>' +
+                            '         <b>Требуется поиск товара</b>:' +
+                            '         <input type="checkbox" class="search_requested" name="search_requested">' +
+                            '         <br/>' +
+							'      </span>' +
                             '   </td>' +
                             '   <td>' +
                             '      <span class="plaintext">' +
@@ -2035,6 +2019,7 @@ $(function() {
                                 osize:v.odetail_product_size,
                                 oimg:v.odetail_img,
                                 foto_requested:v.odetail_foto_requested,
+                                search_requested:v.odetail_search_requested,
                                 ocomment:v.odetail_comment
                             });
                         });
@@ -2062,7 +2047,7 @@ $(function() {
             country_from.init({
                 object:$('#country_from_offline'),
                 useDd:true,
-                onChange:function () {
+                onChange: function() {
                     var id = $(this).val();
                     var prevCurrency = selectedCurrency;
 
@@ -2093,7 +2078,7 @@ $(function() {
             country_to.init({
                 object:$('#country_to_offline'),
                 useDd:true,
-                onChange:function () {
+                onChange: function() {
                     var id = $(this).val();
                     for (var index in currencies) {
                         var currency = currencies[index];
@@ -2118,7 +2103,7 @@ $(function() {
             city_to = new $.cpField();
             city_to.init({
                 object:$('#city_to_offline'),
-                onChange:function () {
+                onChange: function() {
                     updateProductForm();
                 }
             });
@@ -2222,7 +2207,7 @@ $(function() {
                     oprice.init({
                         object:$('#'+oObj.options.type+'ItemForm #oprice'),
                         needCheck:'float',
-                        onChange:function () {
+                        onChange: function() {
                             $(this).val(parseFloat($(this).val(), 10));
                         }
                     });
@@ -2233,7 +2218,7 @@ $(function() {
                     odeliveryprice.init({
                         object:$('#'+oObj.options.type+'ItemForm #odeliveryprice'),
                         needCheck:'float',
-                        onChange:function () {
+                        onChange: function() {
                             $(this).val(parseFloat($(this).val(), 10));
                         }
                     });
@@ -2293,7 +2278,7 @@ $(function() {
 
                             return true;
                         },
-                        success:function (response) {
+                        success: function(response) {
                             if (response) {
                                 // Ответ не является числовым значением
                                 if (isNaN(response.odetail_id) || isNaN(response.order_id)) {
@@ -2343,12 +2328,12 @@ $(function() {
                                 error('top', 'Услуга не добавлена. Заполните все поля и попробуйте еще раз.');
                             }
                         },
-                        error:function (response) {
+                        error: function(response) {
                             removeItemProgress(item.id);
                             row.remove();
                             error('top', 'Услуга не добавлена. Заполните все поля и попробуйте еще раз.');
                         }, // End error
-                        complete:function () {
+                        complete: function() {
                             bindAddItem();
                         }
                     });
@@ -2366,10 +2351,10 @@ $(function() {
                         var order = this;
                         $.post('<?= $selfurl ?>deleteNewProduct/' + orderId + '/' + itemId, {}, function () {
                         }, 'json')
-                                .success(function (responce) {
+                                .success(function(response) {
                                     // проверка на ошибку на сервере
-                                    if (responce.e == -1) {
-                                        error('top', responce.m);
+                                    if (response.e == -1) {
+                                        error('top', response.m);
                                     }
                                     else {
                                         var odetail = oObj.options.cart.getById(itemId);
@@ -2384,7 +2369,7 @@ $(function() {
 										}
                                         oObj.updateTotals();
 
-                                        success('top', responce.m);
+                                        success('top', response.m);
 
                                         if(odetail.odetail_joint_id != 0)
                                         {
@@ -2392,7 +2377,7 @@ $(function() {
                                         }
                                     }
                                 })
-                                .error(function (responce) {
+                                .error(function(response) {
                                     error('top', 'Услуга не удалена. Ошибка подключения.');
                                 });
                     }
@@ -2494,10 +2479,10 @@ $(function() {
                     form.ajaxForm({
                         dataType:'json',
                         iframe:true,
-                        beforeSubmit:function () {
+                        beforeSubmit: function() {
                             addItemProgress(itemId);
                         },
-                        error:function () {
+                        error: function() {
                             $tr.remove();
                             removeItemProgress(itemId);
                             error('top', 'Описание услуги №' + itemId + ' не сохранено.');
@@ -2536,10 +2521,10 @@ $(function() {
                     addItemProgress(odetail_id);
 
                     $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
-                            function (responce) {
+                            function(response) {
                                 removeItemProgress(odetail_id);
-                                if (responce.is_error) {
-                                    error('top', "Стоимость не изменена. " + responce.message);
+                                if (response.is_error) {
+                                    error('top', "Стоимость не изменена. " + response.message);
                                 }
                                 else {
                                     success("top", "Стоимость товара №" + odetail_id + " успешно изменена");
@@ -2550,9 +2535,9 @@ $(function() {
                                 }
                             },
                             'json')
-                            .error(function (responce) {
+                            .error(function(response) {
                                 removeItemProgress(odetail_id);
-                                error('top', "Стоимость не изменена. " + responce);
+                                error('top', "Стоимость не изменена. " + response);
                             });
                 }
 
@@ -2567,10 +2552,10 @@ $(function() {
                     addItemProgress(odetail_id);
 
                     $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
-                            function (responce) {
+                            function(response) {
                                 removeItemProgress(odetail_id);
-                                if (responce.is_error) {
-                                    error('top', "Стоимость не изменена. " + responce.message);
+                                if (response.is_error) {
+                                    error('top', "Стоимость не изменена. " + response.message);
                                 }
                                 else {
                                     success("top", "Стоимость доставки №" + odetail_id + " успешно изменена");
@@ -2581,9 +2566,9 @@ $(function() {
                                 }
                             },
                             'json')
-                            .error(function (responce) {
+                            .error(function(response) {
                                 removeItemProgress(odetail_id);
-                                error('top', "Стоимость не изменена. " + responce);
+                                error('top', "Стоимость не изменена. " + response);
                             });
                 }
 
@@ -2598,10 +2583,10 @@ $(function() {
                     addItemProgress(odetail_id);
 
                     $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
-                            function (responce) {
+                            function(response) {
                                 removeItemProgress(odetail_id);
-                                if (responce.is_error) {
-                                    error('top', "Вес не изменен. " + responce.message);
+                                if (response.is_error) {
+                                    error('top', "Вес не изменен. " + response.message);
                                 }
                                 else {
                                     success("top", "Вес товара №" + odetail_id + " успешно изменен");
@@ -2612,9 +2597,9 @@ $(function() {
                                 }
                             },
                             'json')
-                            .error(function (responce) {
+                            .error(function(response) {
                                 removeItemProgress(odetail_id);
-                                error('top', "Вес не изменен. " + responce);
+                                error('top', "Вес не изменен. " + response);
                             });
                 }
 
@@ -2765,7 +2750,7 @@ $(function() {
             country_from.init({
                 object:$('#country_from_service'),
                 useDd:true,
-                onChange:function () {
+                onChange: function() {
                     var id = $(this).val();
                     var prevCurrency = selectedCurrency;
 
@@ -2796,7 +2781,7 @@ $(function() {
             country_to.init({
                 object:$('#country_to_service'),
                 useDd:true,
-                onChange:function () {
+                onChange: function() {
                     var id = $(this).val();
                     for (var index in currencies) {
                         var currency = currencies[index];
@@ -2821,7 +2806,7 @@ $(function() {
             city_to = new $.cpField();
             city_to.init({
                 object:$('#city_to_service'),
-                onChange:function () {
+                onChange: function() {
                     updateProductForm();
                 }
             });
@@ -2866,7 +2851,6 @@ $(function() {
             $('div.order_type_selector').hide();
             $('h2#page_title').html(oObj.options.title);
             $("div."+oObj.options.type+"_order_form").show('slow');
-
         }
         // End initService
 
@@ -2932,7 +2916,7 @@ $(function() {
                     oweight.init({
                         object:$('#'+oObj.options.type+'ItemForm #oweight'),
                         needCheck:'number',
-                        onChange:function () {
+                        onChange: function() {
                             if (!isNaN($(this).val()) && parseInt($(this).val(), 10) > 99999) {
                                 $(this).val(99999);
                             }
@@ -2981,7 +2965,7 @@ $(function() {
                     oprice.init({
                         object:$('#'+oObj.options.type+'ItemForm #oprice'),
                         needCheck:'float',
-                        onChange:function () {
+                        onChange: function() {
                             $(this).val(parseFloat($(this).val(), 10));
                         }
                     });
@@ -2992,7 +2976,7 @@ $(function() {
                     odeliveryprice.init({
                         object:$('#'+oObj.options.type+'ItemForm #odeliveryprice'),
                         needCheck:'float',
-                        onChange:function () {
+                        onChange: function() {
                             $(this).val(parseFloat($(this).val(), 10));
                         }
                     });
@@ -3050,7 +3034,7 @@ $(function() {
 
                             return true;
                         },
-                        success:function (response) {
+                        success: function(response) {
                             if (response) {
                                 // Ответ не является числовым значением
                                 if (isNaN(response.odetail_id) || isNaN(response.order_id)) {
@@ -3100,12 +3084,12 @@ $(function() {
                                 error('top', 'Товар не добавлен. Заполните все поля и попробуйте еще раз.');
                             }
                         },
-                        error:function (response) {
+                        error: function(response) {
                             removeItemProgress(item.id);
                             row.remove();
                             error('top', 'Товар не добавлен. Заполните все поля и попробуйте еще раз.');
                         }, // End error
-                        complete:function () {
+                        complete: function() {
                             bindAddItem();
                         }
                     });
@@ -3123,10 +3107,10 @@ $(function() {
                         var order = this;
                         $.post('<?= $selfurl ?>deleteNewProduct/' + orderId + '/' + itemId, {}, function () {
                         }, 'json')
-                                .success(function (responce) {
+                                .success(function(response) {
                                     // проверка на ошибку на сервере
-                                    if (responce.e == -1) {
-                                        error('top', responce.m);
+                                    if (response.e == -1) {
+                                        error('top', response.m);
                                     }
                                     else {
                                         var odetail = oObj.options.cart.getById(itemId);
@@ -3141,7 +3125,7 @@ $(function() {
 										}
                                         oObj.updateTotals();
 
-                                        success('top', responce.m);
+                                        success('top', response.m);
 
                                         if(odetail.odetail_joint_id != 0)
                                         {
@@ -3149,7 +3133,7 @@ $(function() {
                                         }
                                     }
                                 })
-                                .error(function (responce) {
+                                .error(function(response) {
                                     error('top', 'Услуга не удалена. Ошибка подключения.');
                                 });
                     }
@@ -3268,10 +3252,10 @@ $(function() {
                     form.ajaxForm({
                         dataType:'json',
                         iframe:true,
-                        beforeSubmit:function () {
+                        beforeSubmit: function() {
                             addItemProgress(itemId);
                         },
-                        error:function () {
+                        error: function() {
                             $tr.remove();
                             removeItemProgress(itemId);
                             error('top', 'Описание услуги №' + itemId + ' не сохранено.');
@@ -3306,10 +3290,10 @@ $(function() {
                     addItemProgress(odetail_id);
 
                     $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_price/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
-                            function (responce) {
+                            function(response) {
                                 removeItemProgress(odetail_id);
-                                if (responce.is_error) {
-                                    error('top', "Стоимость не изменена. " + responce.message);
+                                if (response.is_error) {
+                                    error('top', "Стоимость не изменена. " + response.message);
                                 }
                                 else {
                                     success("top", "Стоимость товара №" + odetail_id + " успешно изменена");
@@ -3320,9 +3304,9 @@ $(function() {
                                 }
                             },
                             'json')
-                            .error(function (responce) {
+                            .error(function(response) {
                                 removeItemProgress(odetail_id);
-                                error('top', "Стоимость не изменена. " + responce);
+                                error('top', "Стоимость не изменена. " + response);
                             });
                 }
 
@@ -3337,10 +3321,10 @@ $(function() {
                     addItemProgress(odetail_id);
 
                     $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_pricedelivery/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
-                            function (responce) {
+                            function(response) {
                                 removeItemProgress(odetail_id);
-                                if (responce.is_error) {
-                                    error('top', "Стоимость не изменена. " + responce.message);
+                                if (response.is_error) {
+                                    error('top', "Стоимость не изменена. " + response.message);
                                 }
                                 else {
                                     success("top", "Стоимость доставки №" + odetail_id + " успешно изменена");
@@ -3351,9 +3335,9 @@ $(function() {
                                 }
                             },
                             'json')
-                            .error(function (responce) {
+                            .error(function(response) {
                                 removeItemProgress(odetail_id);
-                                error('top', "Стоимость не изменена. " + responce);
+                                error('top', "Стоимость не изменена. " + response);
                             });
                 }
 
@@ -3368,10 +3352,10 @@ $(function() {
                     addItemProgress(odetail_id);
 
                     $.post('<?= BASEURL.$this->cname ?>/update_new_odetail_weight/' + $(this).attr('order-id') + '/' + odetail_id + '/' + parseInt(val, 10), {},
-                            function (responce) {
+                            function(response) {
                                 removeItemProgress(odetail_id);
-                                if (responce.is_error) {
-                                    error('top', "Вес не изменен. " + responce.message);
+                                if (response.is_error) {
+                                    error('top', "Вес не изменен. " + response.message);
                                 }
                                 else {
                                     success("top", "Вес товара №" + odetail_id + " успешно изменен");
@@ -3382,9 +3366,9 @@ $(function() {
                                 }
                             },
                             'json')
-                            .error(function (responce) {
+                            .error(function(response) {
                                 removeItemProgress(odetail_id);
-                                error('top', "Вес не изменен. " + responce);
+                                error('top', "Вес не изменен. " + response);
                             });
                 }
 
@@ -3548,7 +3532,7 @@ $(function() {
             country_from.init({
                 object:$('#country_from_delivery'),
                 useDd:true,
-                onChange:function () {
+                onChange: function() {
                     var id = $(this).val();
                     var prevCurrency = selectedCurrency;
 
@@ -3579,7 +3563,7 @@ $(function() {
             country_to.init({
                 object:$('#country_to_delivery'),
                 useDd:true,
-                onChange:function () {
+                onChange: function() {
                     var id = $(this).val();
                     for (var index in currencies) {
                         var currency = currencies[index];
@@ -3604,7 +3588,7 @@ $(function() {
             city_to = new $.cpField();
             city_to.init({
                 object:$('#city_to_delivery'),
-                onChange:function () {
+                onChange: function() {
                     updateProductForm();
                 }
             });
@@ -3772,7 +3756,7 @@ $(function() {
                         amount:fieldByName(iObj.fields, 'oamount').val(),
                         ocomment:fieldByName(iObj.fields, 'ocomment').val(),
                         foto_requested:fieldByName(iObj.fields, 'foto_requested').val(),
-                        currency:selectedCurrency
+						currency:selectedCurrency
                     });
 
                     if (isNaN(item.amount) || item.amount == '') item.amount = 0;
@@ -3800,7 +3784,7 @@ $(function() {
 
                             return true;
                         },
-                        success:function (response) {
+                        success: function(response) {
                             if (response) {
                                 // Ответ не является числовым значением
                                 if (isNaN(response.odetail_id) || isNaN(response.order_id)) {
@@ -3850,12 +3834,12 @@ $(function() {
                                 error('top', 'Товар не добавлен. Заполните все поля и попробуйте еще раз.');
                             }
                         },
-                        error:function (response) {
+                        error: function(response) {
                             removeItemProgress(item.id);
                             row.remove();
                             error('top', 'Товар не добавлен. Заполните все поля и попробуйте еще раз.');
                         }, // End error
-                        complete:function () {
+                        complete: function() {
                             bindAddItem();
                         }
                     });
@@ -3873,10 +3857,10 @@ $(function() {
                         var order = this;
                         $.post('<?= $selfurl ?>deleteNewProduct/' + orderId + '/' + itemId, {}, function () {
                         }, 'json')
-                                .success(function (responce) {
+                                .success(function(response) {
                                     // проверка на ошибку на сервере
-                                    if (responce.e == -1) {
-                                        error('top', responce.m);
+                                    if (response.e == -1) {
+                                        error('top', response.m);
                                     }
                                     else {
                                         var odetail = oObj.options.cart.getById(itemId);
@@ -3891,7 +3875,7 @@ $(function() {
 										}
                                         oObj.updateTotals();
 
-                                        success('top', responce.m);
+                                        success('top', response.m);
 
                                         if(odetail.odetail_joint_id != 0)
                                         {
@@ -3899,7 +3883,7 @@ $(function() {
                                         }
                                     }
                                 })
-                                .error(function (responce) {
+                                .error(function(response) {
                                     error('top', 'Товар не удален. Ошибка подключения.');
                                 });
                     }
@@ -4024,7 +4008,7 @@ $(function() {
                         beforeSubmit:function (formData, jqForm, options) {
                             addItemProgress(itemId);
                         },
-                        error:function () {
+                        error: function() {
                             $tr.remove();
                             removeItemProgress(itemId);
                             error('top', 'Описание услуги №' + itemId + ' не сохранено.');
@@ -4069,8 +4053,8 @@ $(function() {
                             '   </td>' +
                             '   <td style="text-align: left; vertical-align: bottom;">' +
                             '      <span class="plaintext">' +
-                            '           <b>' + ((link) ? '<a href="' + link+ '" target="BLANK">' : '') + item.name + ((link) ? '</a>' : '')+'</b>' +
-                            '          '+((item.foto_requested) ? '(требуется фото товара)' : '')+' ' +
+                            '           <b>' + ((item.olink) ? '<a href="' + link+ '" target="BLANK">' : '') + item.name + ((item.olink) ? '</a>' : '')+'</b>' +
+							'          '+((item.foto_requested) ? '(требуется фото товара)' : '')+' ' +
                             '           <br/>' +
                             '           <b>Количество</b>: ' + item.amount+ ' ' +
                             '           <b>Размер</b>: ' + item.osize + ' ' +
@@ -4080,7 +4064,7 @@ $(function() {
                             '      </span>' +
                             '      <span style="display: none;" class="producteditor">' +
                             '           <br/>' +
-                            '           <b>Наименование</b>:' +
+							'           <b>Наименование</b>:' +
                             '           <textarea class="name" name="name"></textarea>' +
                             '           <br/>' +
                             '           <b>Ссылка на товар</b>:' +
@@ -4222,7 +4206,7 @@ $(function() {
 			country_to.init({
 				object:$('#country_to_mail_forwarding'),
 				useDd:true,
-				onChange:function () {
+				onChange: function() {
 					var id = $(this).val();
 					for (var index in currencies) {
 						var currency = currencies[index];
@@ -4311,7 +4295,7 @@ $(function() {
 
                     return true;
                 },
-                success:function (response) {
+                success: function(response) {
                     if (response) {
                         error('top', 'Заказ не добавлен. ' + response);
                     }
@@ -4321,7 +4305,7 @@ $(function() {
                         window.location = '/client/order/' + order_id;
                     }
                 },
-                error:function (response) {
+                error: function(response) {
                     error('top', 'Заказ не добавлен. ' + response);
                 }
             }).submit();
@@ -4502,6 +4486,5 @@ function update_joint_pricedelivery(order_id, joint_id)
         },
         'json'
     );
-    //updateCustomProduct(uri, success_message, error_message, progress);
 }
 </script>

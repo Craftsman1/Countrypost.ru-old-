@@ -257,20 +257,21 @@ function getSnippetByType(odetail, order_type)
 			' <b>Цвет</b>: ' +
 			odetail['color'] +
 			(odetail['foto_requested'] == 1 ? '<br><b>Фото полученного товара:</b> сделать фото' : '') +
+			(odetail['search_requested'] == 1 ? '<br><b>Поиск товара:</b> требуется поиск' : '') +
 			'<br><b>Комментарий</b>: ' +
 			odetail['comment'];
 	}
 	else if (order_type == 'service')
 	{
-		snippet = '<a target="_blank" href="' + odetail['link'] + '">' +
-			odetail['name'] +'</a>' +
+		snippet = '<b>' + odetail['name'] + '</b>' +
 			'<br><b>Описание</b>: ' +
 			odetail['comment'];
 	}
 	else if (order_type == 'delivery')
 	{
-		snippet = '<a target="_blank" href="' + odetail['link'] + '">' +
-			odetail['name'] +'</a>' +
+		snippet = (odetail['link'] ? ('<a target="_blank" href="' + odetail['link'] + '">' +
+			odetail['name'] +'</a>') :
+			('<b>' + odetail['name'] + '</b>')) +
 			'<br><b>Количество</b>: ' +
 			odetail['amount'] +
 			' <b>Объём</b>: ' +
@@ -283,8 +284,9 @@ function getSnippetByType(odetail, order_type)
 	}
 	else if (order_type == 'mail_forwarding')
 	{
-		snippet = '<a target="_blank" href="' + odetail['link'] + '">' +
-			odetail['name'] +'</a>' +
+		snippet = (odetail['link'] ? ('<a target="_blank" href="' + odetail['link'] + '">' +
+			odetail['name'] +'</a>') :
+			('<b>' + odetail['name'] + '</b>')) +
 			'<br><b>Количество</b>: ' +
 			odetail['amount'] +
 			' <b>Размер</b>: ' +
@@ -354,6 +356,7 @@ function saveItem(id)
 		odetail['comment'] = $tr.find('textarea.ocomment').val();
 		odetail['img_selector'] = $tr.find('input.img_selector:checked').val();
 		odetail['foto_requested'] = $tr.find('input.foto_requested:checked').length;
+		odetail['search_requested'] = $tr.find('input.search_requested:checked').length;
 		odetail['insurance'] = $tr.find('input.insurance:checked').length;
 
 		if (odetail['img_selector'] == 'link')
@@ -443,6 +446,15 @@ function editItem(id)
 		else
 		{
 			$tr.find('input.foto_requested').removeAttr('checked');
+		}
+
+		if (odetail['search_requested'] == 1)
+		{
+			$tr.find('input.search_requested').attr('checked', 'checked');
+		}
+		else
+		{
+			$tr.find('input.search_requested').removeAttr('checked');
 		}
 
 		if (odetail['insurance'] == 1)

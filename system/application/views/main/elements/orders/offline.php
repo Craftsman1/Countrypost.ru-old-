@@ -1,12 +1,3 @@
-<?
-/*$order = null;
-for ($i = 0, $n = count($orders); $i<$n; $i++) :
-    if ($orders[$i]->order_type == 'offline') :
-        $order = $orders[$i];
-        break;
-    endif;
-endfor;*/
-?>
 <div class="offline_order_form">
     <div class='table' style="position:relative;">
         <div class='angle angle-lt'></div>
@@ -146,12 +137,12 @@ endfor;*/
                 </div>
                 <div style="clear:both;" ></div>
                 <div>
-                        <span class="label">
-                            Скриншот (max. 3 Mb):
-                        </span>
-                        <span class="label screenshot_switch" style="font-size:11px;margin:0;width:300px;">
-                            <a href="javascript: showScreenshotLink();">Добавить ссылку</a>&nbsp;или&nbsp;<a href="javascript: showScreenshotUploader();" class="screenshot_switch">Загрузить файл</a>
-                        </span>
+					<span class="label">
+						Скриншот (max. 3 Mb):
+					</span>
+					<span class="label screenshot_switch" style="font-size:11px;margin:0;width:300px;">
+						<a href="javascript: showScreenshotLink();">Добавить ссылку</a>&nbsp;или&nbsp;<a href="javascript: showScreenshotUploader();" class="screenshot_switch">Загрузить файл</a>
+					</span>
                     <input class="textbox screenshot_link_box" type='text' id='oimg' name="userfileimg" style='display:none;width:180px;' value="" onfocus="javascript: if (this.value == 'ссылка на скриншот') this.value = '';" onblur="javascript: if (this.value == '') this.value = 'ссылка на скриншот';">
                     <input class="textbox screenshot_uploader_box" type='file' id='ofile' name="userfile" style='display:none;width:180px;'>
                         <span class="label screenshot_link_box screenshot_uploader_box" style='display:none;'>
@@ -165,8 +156,17 @@ endfor;*/
                 </div>
                 <div style="clear:both;" ></div>
                 <div>
+                    <span class="label">Требуется поиск товара?</span>
+                    <input type='checkbox' id='search_requested' name="search_requested" value="1" />
+                </div>
+                <div style="clear:both;" ></div>
+                <div>
                     <span class="label">Комментарий к товару:</span>
-                    <textarea style="width:180px;resize:auto!important;" class="textbox" maxlength="255" id='ocomment' name="ocomment"></textarea>
+                    <textarea style="width:180px;resize:vertical!important;"
+							  class="textbox"
+							  maxlength="255"
+							  id='ocomment'
+							  name="ocomment"></textarea>
                 </div>
                 <div style="clear:both;" ></div>
             </div>
@@ -179,7 +179,6 @@ endfor;*/
             </div>
         </div>
     </div>
-
 	<? View::show('main/ajax/showNewOrderDetails', array('order_type' => 'offline', 'order' => $order)); ?>
 </div>
 <script type="text/javascript">

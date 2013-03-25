@@ -62,7 +62,8 @@
 
         if ( ! empty($odetails)) :
 			foreach($odetails as $odetail) :
-				if (stripos($odetail->odetail_link, 'http://') !== 0)
+				if (stripos($odetail->odetail_link, 'http://') !== 0 AND
+					! empty($odetail->odetail_link))
 				{
 					$odetail->odetail_link = 'http://'.$odetail->odetail_link;
 				}
@@ -152,6 +153,7 @@
 						<span class="plaintext">
 							<b><?= $odetail->odetail_product_name ?></b>
 							<? if ($odetail->odetail_foto_requested) : ?>(требуется фото товара)<? endif; ?><br>
+							<? if ($odetail->odetail_search_requested) : ?>(требуется поиск товара)<? endif; ?><br>
 							<b>Магазин</b>: <?= $odetail->odetail_shop ?>
 							<br>
 							<b>Количество</b>: <?= $odetail->odetail_product_amount ?>
@@ -250,7 +252,7 @@
 						break;
 					case 'mail_forwarding' :
 						$link = '';
-						if ( !empty($odetail->odetail_link) && stripos($odetail->odetail_link, 'http://') !==0 )
+						if ( ! empty($odetail->odetail_link) && stripos($odetail->odetail_link, 'http://') !==0 )
 						{
 							$link = 'http://'.$odetail->odetail_link;
 						}
@@ -366,7 +368,6 @@
 			<? endif; ?>
 			<? if ($order_type != 'service') : ?>
 			<td>
-
 				<input type="text"
 					   order-id="<?= $order->order_id ?>"
 					   odetail-id="<?= $odetail->odetail_id ?>"
@@ -376,7 +377,6 @@
 					   value="<?= $odetail->odetail_weight ?>"
 					   style="width:60px"
 					   maxlength="11">
-
 			</td>
 			<? endif; ?>
             <? endif; ?>
@@ -473,11 +473,6 @@
     </table>
 </div>
 <script>
-	/*function setRel(id){
-		$("a[rel*='lightbox_"+id+"']").lightBox();
-		var aa = $("a[rel*='lightbox_"+id+"']");
-		$(aa[0]).click();
-	}*/
     function getSelectedCurrency()
     {
         return selectedCurrency;

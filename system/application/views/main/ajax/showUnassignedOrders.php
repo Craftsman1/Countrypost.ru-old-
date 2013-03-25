@@ -6,12 +6,12 @@
 	<div class='angle angle-rb'></div>
 	<table>
 		<tr>
-			<th>Номер заказа</th>
-			<th>Заказать из</th>
-			<th>Доставить в</th>
+			<th style="width: 120px;">Номер заказа</th>
+			<th style="width: 115px;">Заказать из</th>
+			<th style="width: 115px;">Доставить в</th>
 			<th>Примерная<br>стоимость</th>
 			<th>Примерный<br>вес</th>
-			<th>Предложений<br>от посредников</th>
+			<th style="width: 100px;">Предложений<br>от посредников</th>
 		</tr>
 		<? if ($orders) : foreach($orders as $order) : ?>
 		<tr>
@@ -21,14 +21,14 @@
 				<?= $order_types[$order->order_type] ?>
 				<br />
 				<? if ($order->package_day == 0) : ?>
-				<?=$order->package_day == 0 ? "" : $order->package_day.' '.humanForm((int)$order->package_day, "день", "дня", "дней")?> <?=$order->package_hour == 0 ? "" : $order->package_hour.' '.humanForm((int)$order->package_hour, "час", "часа", "часов")?> назад
+				<?= $order->package_day == 0 ? "" : $order->package_day.' '.humanForm((int)$order->package_day,
+					"день", "дня", "дней")?> <?=$order->package_hour == 0 ? "" : $order->package_hour.' '.humanForm((int)$order->package_hour, "час", "часа", "часов")?> назад
 				<? else : ?>
-				<?=$order->order_date?>
+				<?= $order->order_date ?>
 				<? endif; ?>
 			</td>
 			<td style="text-align:left;">
 				<img src="/static/images/flags/<?= $order->order_country_from_en ?>.png" style="float:left;margin-right:10px;" />
-				<!--b style="position:relative;top:6px;"><?=$order->order_country_from ?></b-->
 				<?= shortenCountryName($order->order_country_from, 'position:relative;top:6px;') ?>
 			</td>
 			<td style="text-align:left;">
@@ -36,7 +36,6 @@
 				<b>не требуется</b>
 				<? else : ?>
 				<img src="/static/images/flags/<?= $order->order_country_to_en ?>.png" style="float:left;margin-right:10px;" />
-				<!--b style="position:relative;top:6px;"><?= $order->order_country_to ?></b-->
 				<?= shortenCountryName($order->order_country_to, 'position:relative;top:6px;') ?>
 				<? endif; ?>
 			</td>

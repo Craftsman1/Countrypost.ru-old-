@@ -112,6 +112,7 @@ class OdetailModel extends BaseModel implements IModel{
     	$this->properties->odetail_weight			=0;
  		$this->properties->updated_by_client		=0;
  		$this->properties->odetail_foto_requested	=0;
+ 		$this->properties->odetail_search_requested	=0;
         $this->properties->odetail_shop             ='';
         $this->properties->odetail_volume           =0;
         $this->properties->odetail_tnved            ='';
