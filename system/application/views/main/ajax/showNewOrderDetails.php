@@ -111,189 +111,10 @@
                      style="display:none;"
                      src="/static/images/lightbox-ico-loading.gif"/>
             </td>
-			<td style="text-align: left; vertical-align: bottom;">
-				<?
-				switch ($order_type) {
-					case 'online' :
-						?>
-						<span class="plaintext">
-							<a target="_blank" href="<?= $odetail->odetail_link ?>"><?= $odetail->odetail_product_name ?></a>
-							<? if ($odetail->odetail_foto_requested) : ?>(требуется фото товара)<? endif; ?>
-							<br>
-							<b>Количество</b>: <?= $odetail->odetail_product_amount ?>
-							<b>Размер</b>: <?= $odetail->odetail_product_size ?>
-							<b>Цвет</b>: <?= $odetail->odetail_product_color ?>
-							<br>
-							<b>Комментарий</b>: <?= $odetail->odetail_comment ?>
-						</span>
-						<span class="producteditor" style="display: none;">
-							<br>
-							<b>Ссылка</b>:
-							<textarea class="link" name="link"></textarea>
-							<br>
-							<b>Наименование</b>:
-							<textarea class="name" name="name"></textarea>
-							<br>
-							<b>Количество:</b>
-							<textarea class="amount int" name="amount"></textarea>
-							<br>
-							<b>Размер</b>:
-							<textarea class="size" name="size"></textarea>
-							<br>
-							<b>Цвет</b>:
-							<textarea class="color" name="color"></textarea>
-							<br>
-							<b>Комментарий</b>:
-							<textarea class="ocomment" name="comment"></textarea>
-							<br>
-						</span><?
-						break;
-					case 'offline' :
-						?>
-						<span class="plaintext">
-							<b><?= $odetail->odetail_product_name ?></b>
-							<? if ($odetail->odetail_foto_requested) : ?>(требуется фото товара)<? endif; ?><br>
-							<? if ($odetail->odetail_search_requested) : ?>(требуется поиск товара)<? endif; ?><br>
-							<b>Магазин</b>: <?= $odetail->odetail_shop ?>
-							<br>
-							<b>Количество</b>: <?= $odetail->odetail_product_amount ?>
-							<b>Размер</b>: <?= $odetail->odetail_product_size ?>
-							<b>Цвет</b>: <?= $odetail->odetail_product_color ?>
-							<br>
-							<b>Комментарий</b>: <?= $odetail->odetail_comment ?>
-						</span>
-						<span class="producteditor" style="display: none;">
-							<br>
-							<b>Наименование</b>:
-							<textarea class="name" name="name"></textarea>
-							<br>
-							<b>Магазин</b>:
-							<textarea class="shop" name="shop"></textarea>
-							<br>
-							<b>Количество</b>:
-							<textarea class="amount int" name="amount"></textarea>
-							<br>
-							<b>Размер</b>:
-							<textarea class="size" name="size"></textarea>
-							<br>
-							<b>Цвет</b>:
-							<textarea class="color" name="color"></textarea>
-							<br>
-							<b>Комментарий</b>:
-							<textarea class="ocomment" name="comment"></textarea>
-							<br>
-						</span><?
-						break;
-					case 'service' :
-						?>
-						<span class="plaintext">
-							<b><?= $odetail->odetail_product_name ?></b>
-							<? if ($odetail->odetail_foto_requested) : ?>(требуется фото товара)<? endif; ?><br>
-							<b>Описание услуги</b>: <?= $odetail->odetail_comment ?>
-						</span>
-						<span class="producteditor" style="display: none;">
-							<br>
-							<b>Наименование</b>:
-							<textarea class="name" name="name"></textarea>
-							<br>
-							<b>Описание услуги</b>:
-							<textarea class="ocomment" name="comment"></textarea>
-							<br>
-						</span><?
-						break;
-					case 'delivery' :
-						$link = '';
-						if ( !empty($odetail->odetail_link) && stripos($odetail->odetail_link, 'http://') !==0 )
-						{
-							$link = 'http://'.$odetail->odetail_link;
-						}
-						elseif ( !empty($odetail->odetail_link) )
-						{
-							$link = $odetail->odetail_link;
-						}
-						?>
-						<span class="plaintext">
-							<b><?=($link)?'<a href="'.$link.'" target="BLANK">':''?><?= $odetail->odetail_product_name ?><?=($link)?'</a>':''?></b>
-							<? if ($odetail->odetail_insurance) : ?>(требуется страховка)<? endif; ?>
-							<br>
-							<b>Количество</b>: <?= $odetail->odetail_product_amount ?>
-							<b>Объём</b>: <?= (float) $odetail->odetail_volume ?>
-							<b>ТН ВЭД</b>: <?= $odetail->odetail_tnved ?>
-							<br>
-							<b>Комментарий</b>: <?= $odetail->odetail_comment ?>
-						</span>
-						<span class="producteditor" style="display: none;">
-							<br>
-							<b>Наименование</b>:
-							<textarea class="name" name="name"></textarea>
-							<br>
-							<b>Ссылка на товар</b>:
-							<textarea class="link" name="link"></textarea>
-							<br>
-							<b>Количество</b>:
-							<textarea class="amount int" name="amount"></textarea>
-							<br>
-							<b>Объём</b>:
-							<textarea class="volume" name="volume"></textarea>
-							<br>
-							<b>ТН ВЭД</b>:
-							<textarea class="tnved" name="tnved"></textarea>
-							<br>
-							<b>Требуется страховка?</b>
-							<div style="float:right">
-								<label><input type="radio" name="insurance" id="insurance_y" value="1"/> Да</label><br/>
-								<label><input type="radio" name="insurance" id="insurance_n" value="0"/> Нет</label>
-							</div>
-							<br>
-							<b>Комментарий</b>:
-							<textarea class="ocomment" name="comment"></textarea>
-							<br>
-						</span><?
-						break;
-					case 'mail_forwarding' :
-						$link = '';
-						if ( ! empty($odetail->odetail_link) && stripos($odetail->odetail_link, 'http://') !==0 )
-						{
-							$link = 'http://'.$odetail->odetail_link;
-						}
-						elseif ( !empty($odetail->odetail_link) )
-						{
-							$link = $odetail->odetail_link;
-						}
-						?>
-						<span class="plaintext">
-							<b><?=($link)?'<a href="'.$link.'" target="BLANK">':''?><?= $odetail->odetail_product_name ?><?=($link)?'</a>':''?></b>
-							<? if ($odetail->odetail_foto_requested) : ?>(требуется фото товара)<? endif; ?>
-							<br>
-							<b>Количество</b>: <?= $odetail->odetail_product_amount ?>
-							<b>Размер</b>: <?= $odetail->odetail_product_size ?>
-							<b>Цвет</b>: <?= $odetail->odetail_product_color ?>
-							<br>
-							<b>Комментарий</b>: <?= $odetail->odetail_comment ?>
-						</span>
-						<span class="producteditor" style="display: none;">
-							<br>
-							<b>Наименование</b>:
-							<textarea class="name" name="name"></textarea>
-							<br>
-							<b>Ссылка на товар</b>:
-							<textarea class="link" name="link"></textarea>
-							<br>
-							<b>Количество</b>:
-							<textarea class="amount int" name="amount"></textarea>
-							<br>
-							<b>Размер</b>:
-							<textarea class="size" name="size"></textarea>
-							<br>
-							<b>Цвет</b>:
-							<textarea class="color" name="color"></textarea>
-							<br>
-							<b>Комментарий</b>:
-							<textarea class="ocomment" name="comment"></textarea>
-							<br>
-						</span><?
-						break;
-				} ?>
+			<td style="text-align: left; vertical-align: middle;">
+				<? View::show("main/elements/details/{$order->order_type}", array(
+				'odetail' => $odetail,
+				'is_editable' => TRUE)); ?>
 			</td>
 			<? if ($order_type != 'delivery') : ?>
 			<td style="width: 206px;">
@@ -426,10 +247,6 @@
 			<? endif; ?>
 			<td>&nbsp;</td>
 		</tr>
-        <? else : ?>
-		<tr>
-			<td colspan="5">&nbsp;</td>
-		</tr>
         <? endif; ?>
         <tr class='last-row'>
 			<td colspan='2'
@@ -461,9 +278,13 @@
 			<td style="text-align: right; border: none;padding: 0;" colspan='5'>
 				<br />
 				<b>
+					<? if ($order_type != 'mail_forwarding') : ?>
 					Итого: <b class="order_totals"></b>
 					<br />
-					Доставка в <span class='countryTo' style="float:none; display:inline; margin:0;"></span><span class='cityTo' style="float:none; display:inline; margin:0;"></span>: <b class="weight_total"></b>
+					<? endif; ?>
+					Доставка в <span class='countryTo' style="float:none; display:inline; margin:0;"></span><span class='cityTo' style="float:none; display:inline; margin:0;"></span><?
+					if ($order_type != 'mail_forwarding' AND $order_type != 'service') : ?>: <b
+							class="weight_total"></b><?endif; ?>
 				</b>
 			</td>
 		</tr>
@@ -473,22 +294,22 @@
     </table>
 </div>
 <script>
-    function getSelectedCurrency()
-    {
-        return selectedCurrency;
-    }
+function getSelectedCurrency()
+{
+	return selectedCurrency;
+}
 
-	function authValidation()
+function authValidation()
+{
+	if (window.user_group == undefined)
 	{
-		if (window.user_group == undefined)
-		{
-			window.location = '#';
-			success('top', 'Пожалуйста, войдите или зарегистрируйтесь для добавления нового заказа.');
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+		window.location = '#';
+		success('top', 'Пожалуйста, войдите или зарегистрируйтесь для добавления нового заказа.');
+		return false;
 	}
+	else
+	{
+		return true;
+	}
+}
 </script>

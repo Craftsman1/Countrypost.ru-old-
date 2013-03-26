@@ -40,12 +40,12 @@
 	});
 </script>
 <span class="producteditor" style="display: none;">
-	<textarea class="link" name="link" style="display: none;"></textarea>
-	<br>
-	<b>Наименование</b>:
+	<!--textarea class="link" name="link" style="display: none;"></textarea>
+	<br-->
+	<b>Наименование:</b>
 	<textarea class="name" name="name"></textarea>
 	<br>
-	<b>Описание</b>:
+	<b>Описание:</b>
 	<textarea class="ocomment" name="comment"></textarea>
 	<br>
 </span>

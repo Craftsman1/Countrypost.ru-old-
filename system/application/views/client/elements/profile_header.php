@@ -1,26 +1,24 @@
 <div class='managerinfo admin-inside'>
-	<h2>Мой профиль</h2>
+	<h2>Мой профиль
+		<a target="_blank"
+		   href="<?= BASEURL . $this->session->userdata['user_login'] ?>"
+		   style="font-size: 11px; text-transform: none; font-weight: normal;">Посмотреть мою страницу в новом
+			окне</a></h2>
 	<ul class='tabs'>
-		<style>
-			.top-block {
-				min-height: auto;
-			}
-		</style>
-		<li class='active profile'><div><a class='profile' href="javascript:void();">Персональные данные</a></div></li>
-		<li class='reviews'><div><a class='delivery_address' href="javascript:void();">Адреса&nbsp;доставки</a></div></li>
+		<li class='active profile'>
+			<div>
+				<a class='profile' href="javascript:void(0);">Персональные данные</a>
+			</div>
+		</li>
+		<li class='reviews'>
+			<div>
+				<a class='delivery_address' href="javascript:void(0);">Адреса&nbsp;доставки</a>
+			</div>
+		</li>
 	</ul>
 </div>
 <script>
 	$(function() {
-		$('ul.tabs a')
-			.click(function(e) {
-				e.preventDefault();
-				$('ul.tabs li').removeClass('active');
-				$('div.client_tab').hide();
-				
-				$('div.' + $(e.target).attr('class')).show();
-				
-				$(this).parent().parent().addClass('active');
-			});
+		init_profile();
 	});
 </script>

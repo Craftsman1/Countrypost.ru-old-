@@ -3,7 +3,6 @@
 		<h3 style="margin-top:0;margin-bottom:20px;">Баланс по посредникам</h3>
 	</center>
 	<? View::show('/client/elements/payments/manager_filter'); ?>
-	<br>
 	<div id='balance'></div>
 	<div class='float'>
 		<div class='submit float-left'>

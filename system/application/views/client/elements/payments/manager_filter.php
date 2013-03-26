@@ -4,15 +4,16 @@
 	  method='POST'
 	  style="position: relative;">
 	<input type='hidden' name='balanceReset' id='balanceReset' value='' />
-	<b>Посредник:</b>
-	<input type='text'
+	<input type='hidden'
 		   name='svalue'
 		   id="balance_search">
 	<img class="float-right"
 		 id="balanceProgress"
-		 style="display: none;position: absolute;top: 0px; right: 0px;"
+		 style="display: no1ne;position: absolute;bottom: -30px; left: 80px;"
 		 src="/static/images/lightbox-ico-loading.gif"/>
-	<a href='#' id='reset_balance'>Все посредники</a>
+	<a href='#'
+	   id='reset_balance'
+	   style="display: none;">Все посредники</a>
 </form>
 <script>
 	function processBalanceFilter()

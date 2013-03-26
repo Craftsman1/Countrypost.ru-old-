@@ -52,25 +52,25 @@
 </script>
 <span class="producteditor" style="display: none;">
 	<br>
-	<b>Ссылка</b>:
+	<b>Ссылка:</b>
 	<textarea class="link" name="link"></textarea>
 	<br>
-	<b>Наименование</b>:
+	<b>Наименование:</b>
 	<textarea class="name" name="name"></textarea>
 	<br>
-	<b>Количество</b>:
+	<b>Количество:</b>
 	<textarea class="amount int" name="amount"></textarea>
 	<br>
-	<b>Объём</b>:
+	<b>Объём:</b>
 	<textarea class="volume" name="volume"></textarea>
 	<br>
-	<b>ТН ВЭД</b>:
+	<b>ТН ВЭД:</b>
 	<textarea class="tnved" name="tnved"></textarea>
 	<br>
-	<b>Комментарий</b>:
+	<b>Комментарий:</b>
 	<textarea class="ocomment" name="comment"></textarea>
 	<br>
-	<b>Требуется страховка</b>:
+	<b>Требуется страховка</b>
 	<input type="checkbox" class="insurance" name="insurance">
 	<br>
 </span>

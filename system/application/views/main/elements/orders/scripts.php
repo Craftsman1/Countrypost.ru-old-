@@ -1066,98 +1066,21 @@ $(function() {
 
                 iObj.getRow = function (item)
                 {
-                    oimg = getImageSnippet(item);
+                    // Рисуем новый online товар
+					var snippet = $(getSnippet(item, getImageSnippet(item), oObj.options.order_id, 'online'));
 
-                            // Рисуем новый online товар
-                            var snippet = $('' +
-                                    '<tr id="product' + item.id + '" class="snippet" detail-id="' + item.id + '">' +
-                                    '   <td id="odetail_id' + item.id + '">' +
-                                    '      <form style="display:none" method="POST" id="odetail' + oObj.options.type + item.id + '" enctype="multipart/form-data" action="<?= $selfurl ?>updateNewProduct/' + oObj.options.order_id + '/' + item.id + '"></form>' +
-                                    '      <input type="checkbox" name="odetail_id" value="' + item.id + '"/>' +
-                                    '      <br/>' +
-                                    '      ' + item.id + '<br/>' +
-                                    '      <img src="/static/images/lightbox-ico-loading.gif" style="" class="float" id="progress' + item.id + '">' +
-                                    '   </td>' +
-                                    '   <td style="text-align: left; vertical-align: bottom;">' +
-                                    '      <span class="plaintext">' +
-                                    '          <a href="' + item.olink + '" target="_blank">' + item.name + '</a>' +
-                                    '          '+((item.foto_requested) ? '(требуется фото товара)' : '')+' ' +
-                                    '          <br/>' +
-                                    '          <b>Количество</b>: ' + item.amount +
-                                    '          <b>Размер</b>:' + item.osize +
-                                    '          <b>Цвет</b>: <br/>' + item.ocolor +
-                                    '          <b>Комментарий</b>:' + item.ocomment +
-                                    '      </span>' +
-                                    '      <span style="display: none;" class="producteditor">' +
-                                    '      <br/>' +
-                                    '         <b>Ссылка</b>:' +
-                                    '         <textarea name="link" class="link"></textarea>' +
-                                    '         <br/>' +
-                                    '         <b>Наименование</b>:' +
-                                    '         <textarea name="name" class="name"></textarea>' +
-                                    '         <br/>' +
-                                    '         <b>Количество</b>:' +
-                                    '         <textarea name="amount" class="amount int"></textarea>' +
-                                    '         <br/>' +
-                                    '         <b>Размер</b>:' +
-                                    '         <textarea name="size" class="size"></textarea>' +
-                                    '         <br/>' +
-                                    '         <b>Цвет</b>:' +
-                                    '         <textarea name="color" class="color"></textarea>' +
-                                    '         <br/>' +
-                                    '         <b>Комментарий</b>:' +
-                                    '         <textarea name="comment" class="ocomment"></textarea>' +
-                                    '         <br/>' +
-                                    '      </span>' +
-                                    '   </td>' +
-                                    '   <td>' +
-                                    '      <span class="plaintext">' +
-                                    '         ' + oimg + ' ' +
-                                    '      </span>' +
-                                    '      <span style="display: none;width: 206px;" class="producteditor">' +
-                                    '         <input type="radio" value="link" class="img_selector" name="img_selector">' +
-                                    '         <textarea name="img" class="image"></textarea>' +
-                                    '         <br/>' +
-                                    '         <input type="radio" value="file" class="img_selector" name="img_selector">' +
-                                    '         <input type="file" name="userfile" class="img_file">' +
-                                    '      </span>' +
-                                    '   </td>' +
-                                    '   <td>' +
-                                    '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.price + '" class="odetail_price int" name="odetail_price' + item.id + '" id="odetail_price' + item.id + '">' +
-                                    '   </td>' +
-                                    '   <td>' +
-                                    '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.delivery + '" class="odetail_pricedelivery int" name="odetail_pricedelivery' + item.id + '" id="odetail_pricedelivery' + item.id + '">' +
-                                    '   </td>' +
-                                    '   <td>' +
-                                    '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.weight + '" class="odetail_weight int" name="odetail_weight' + item.id + '" id="odetail_weight' + item.id + '">' +
-                                    '   </td>' +
-                                    '   <td>' +
-                                    '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                                    '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
-                                    '      <br/>' +
-                                    '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                                    '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
-                                    '      <br/>' +
-                                    '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                                    '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
-                                    '      <br/>' +
-                                    '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                                    '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
-                                    '   </td>' +
-                                    '</tr>');
+					// Прикручиваем обработчики к кнопкам
+					snippet.find('a.delete').bind('click', iObj.deleteItem);
+					snippet.find('a.edit').bind('click', iObj.editItem);
+					snippet.find('a.cancel').bind('click', iObj.cancelItem);
+					snippet.find('a.save').bind('click', iObj.saveItem);
 
-                            // Прикручиваем обработчики к кнопкам
-                            snippet.find('a.delete').bind('click', iObj.deleteItem);
-                            snippet.find('a.edit').bind('click', iObj.editItem);
-                            snippet.find('a.cancel').bind('click', iObj.cancelItem);
-                            snippet.find('a.save').bind('click', iObj.saveItem);
+					snippet.find('input.odetail_price').bind('change', iObj.updateItemPrice);
+					snippet.find('input.odetail_pricedelivery').bind('change', iObj.updateItemDeliveryPrice);
+					snippet.find('input.odetail_weight').bind('change', iObj.updateItemWeight);
 
-                            snippet.find('input.odetail_price').bind('change', iObj.updateItemPrice);
-                            snippet.find('input.odetail_pricedelivery').bind('change', iObj.updateItemDeliveryPrice);
-                            snippet.find('input.odetail_weight').bind('change', iObj.updateItemWeight);
-
-                            return snippet;
-                        }
+					return snippet;
+				}
 
                 iObj.drawRow = function (item) {
                             var snippet = iObj.getRow(item);
@@ -1484,7 +1407,7 @@ $(function() {
                     unbindAddItem();
                     updateProductForm();
 
-                    // Рисуем новый товар
+                    // Рисуем новый online товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
                         joint_id:0,
@@ -1874,95 +1797,10 @@ $(function() {
 
                 iObj.getRow = function (item)
                 {
-                    oimg = getImageSnippet(item);
+                    // Рисуем новый offline товар
+					var snippet = $(getSnippet(item, getImageSnippet(item), oObj.options.order_id, 'offline'));
 
-                    // Рисуем новый товар
-                    var snippet = $('' +
-                            '<tr id="product' + item.id + '" class="snippet" detail-id="' + item.id + '">' +
-                            '   <td id="odetail_id' + item.id + '">' +
-                            '      <form style="display:none" method="POST" id="odetail' + oObj.options.type + item.id + '" enctype="multipart/form-data" action="<?= $selfurl ?>updateNewProduct/' + oObj.options.order_id + '/' + item.id + '"></form>' +
-                            '      <input type="checkbox" name="odetail_id" value="' + item.id + '"/>' +
-                            '      <br/>' +
-                            '      ' + item.id + '<br/>' +
-                            '      <img src="/static/images/lightbox-ico-loading.gif" style="" class="float" id="progress' + item.id + '">' +
-                            '   </td>' +
-                            '   <td style="text-align: left; vertical-align: bottom;">' +
-                            '      <span class="plaintext">' +
-							'          <b>' + item.name + '</b>' +
-                            '          '+((item.foto_requested) ? '(требуется фото товара) ' : '') +
-                            '          '+((item.search_requested) ? '(требуется поиск товара)' : '') + '<br/> ' +
-                            '          <b>Магазин</b>: ' + item.oshop + '' +
-                            '          <br/>' +
-                            '          <b>Количество</b>: ' + item.amount +
-                            '          <b>Размер</b>:' + item.osize +
-                            '          <b>Цвет</b>: <br/>' + item.ocolor +
-                            '          <b>Комментарий</b>:' + item.ocomment +
-                            '      </span>' +
-                            '      <span style="display: none;" class="producteditor">' +
-                            '      <br/>' +
-							'         <b>Наименование</b>:' +
-                            '         <textarea name="name" class="name"></textarea>' +
-                            '         <br/>' +
-                            '         <b>Магазин</b>:' +
-                            '         <textarea name="shop" class="shop"></textarea>' +
-                            '         <br/>' +
-                            '         <b>Количество</b>:' +
-                            '         <textarea name="amount" class="amount int"></textarea>' +
-                            '         <br/>' +
-                            '         <b>Размер</b>:' +
-                            '         <textarea name="size" class="size"></textarea>' +
-                            '         <br/>' +
-                            '         <b>Цвет</b>:' +
-                            '         <textarea name="color" class="color"></textarea>' +
-                            '         <br/>' +
-                            '         <b>Комментарий</b>:' +
-                            '         <textarea name="comment" class="ocomment"></textarea>' +
-                            '         <br/>' +
-                            '         <b>Требуется фото</b>:' +
-                            '         <input type="checkbox" class="foto_requested" name="foto_requested">' +
-                            '         <br/>' +
-                            '         <b>Требуется поиск товара</b>:' +
-                            '         <input type="checkbox" class="search_requested" name="search_requested">' +
-                            '         <br/>' +
-							'      </span>' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <span class="plaintext">' +
-                            '         ' + oimg + ' ' +
-                            '      </span>' +
-                            '      <span style="display: none;width: 206px;" class="producteditor">' +
-                            '         <input type="radio" value="link" class="img_selector" name="img_selector">' +
-                            '         <textarea name="img" class="image"></textarea>' +
-                            '         <br/>' +
-                            '         <input type="radio" value="file" class="img_selector" name="img_selector">' +
-                            '         <input type="file" name="userfile" class="img_file">' +
-                            '      </span>' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.price + '" class="odetail_price int" name="odetail_price' + item.id + '" id="odetail_price' + item.id + '">' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.delivery + '" class="odetail_pricedelivery int" name="odetail_pricedelivery' + item.id + '" id="odetail_pricedelivery' + item.id + '">' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.weight + '" class="odetail_weight int" name="odetail_weight' + item.id + '" id="odetail_weight' + item.id + '">' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
-                            '      <br/>' +
-                            '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
-                            '      <br/>' +
-                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
-                            '      <br/>' +
-                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
-                            '   </td>' +
-                            '</tr>');
-
-                    // Прикручиваем обработчики к кнопкам
+					// Прикручиваем обработчики к кнопкам
                     snippet.find('a.delete').bind('click', iObj.deleteItem);
                     snippet.find('a.edit').bind('click', iObj.editItem);
                     snippet.find('a.cancel').bind('click', iObj.cancelItem);
@@ -2605,66 +2443,8 @@ $(function() {
 
                 iObj.getRow = function (item)
                 {
-                    oimg = getImageSnippet(item);
-
-                    // Рисуем новый товар
-                    var snippet = $('' +
-                            '<tr id="product' + item.id + '" class="snippet" detail-id="' + item.id + '">' +
-                            '   <td id="odetail_id' + item.id + '">' +
-                            '      <form style="display:none" method="POST" id="odetail' + oObj.options.type + item.id + '" enctype="multipart/form-data" action="<?= $selfurl ?>updateNewProduct/' + oObj.options.order_id + '/' + item.id + '"></form>' +
-                            '      <input type="checkbox" name="odetail_id" value="' + item.id + '"/>' +
-                            '      <br/>' +
-                            '      ' + item.id + '<br/>' +
-                            '      <img src="/static/images/lightbox-ico-loading.gif" style="" class="float" id="progress' + item.id + '">' +
-                            '   </td>' +
-                            '   <td style="text-align: left; vertical-align: bottom;">' +
-                            '      <span class="plaintext">' +
-                            '          <b>' + item.name + '</b>' +
-                            '          <br/>' +
-                            '          <b>Описание услуги</b>:' + item.ocomment +
-                            '      </span>' +
-                            '      <span style="display: none;" class="producteditor">' +
-                            '      <br/>' +
-                            '         <b>Наименование</b>:' +
-                            '         <textarea name="name" class="name"></textarea>' +
-                            '         <br/>' +
-                            '         <b>Описание услуги</b>:' +
-                            '         <textarea name="comment" class="ocomment"></textarea>' +
-                            '         <br/>' +
-                            '      </span>' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <span class="plaintext">' +
-                            '         ' + oimg + ' ' +
-                            '      </span>' +
-                            '      <span style="display: none;width: 206px;" class="producteditor">' +
-                            '         <input type="radio" value="link" class="img_selector" name="img_selector">' +
-                            '         <textarea name="img" class="image"></textarea>' +
-                            '         <br/>' +
-                            '         <input type="radio" value="file" class="img_selector" name="img_selector">' +
-                            '         <input type="file" name="userfile" class="img_file">' +
-                            '      </span>' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.price + '" class="odetail_price int" name="odetail_price' + item.id + '" id="odetail_price' + item.id + '">' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.delivery + '" class="odetail_pricedelivery int" name="odetail_pricedelivery' + item.id + '" id="odetail_pricedelivery' + item.id + '">' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
-                            '      <br/>' +
-                            '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
-                            '      <br/>' +
-                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
-                            '      <br/>' +
-                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
-                            '   </td>' +
-                            '</tr>');
+                    // Рисуем новый service товар
+					var snippet = $(getSnippet(item, getImageSnippet(item), oObj.options.order_id, 'service'));
 
                     // Прикручиваем обработчики к кнопкам
                     snippet.find('a.delete').bind('click', iObj.deleteItem);
@@ -3374,80 +3154,8 @@ $(function() {
 
                 iObj.getRow = function (item)
                 {
-                    var link = getLink(item);
-
-                    // Рисуем новый товар
-                    var snippet = $('' +
-                            '<tr id="product' + item.id + '" class="snippet" detail-id="' + item.id + '">' +
-                            '   <td id="odetail_id' + item.id + '">' +
-                            '      <form style="display:none" method="POST" id="odetail' + oObj.options.type + item.id + '" enctype="multipart/form-data" action="<?= $selfurl ?>updateNewProduct/' + oObj.options.order_id + '/' + item.id + '"></form>' +
-                            '      <input type="checkbox" name="odetail_id" value="' + item.id + '"/>' +
-                            '      <br/>' +
-                            '      ' + item.id + '<br/>' +
-                            '      <img src="/static/images/lightbox-ico-loading.gif" style="" class="float" id="progress' + item.id + '">' +
-                            '   </td>' +
-                            '   <td style="text-align: left; vertical-align: bottom;">' +
-                            '      <span class="plaintext">' +
-                            '           <b>' + ((link) ? '<a href="' + link+ '" target="BLANK">' : '') + item.name + ((link) ? '</a>' : '')+'</b>' +
-                            '           '+((parseInt(item.insurance, 10) == 1) ? ' (требуется страховка) ' : '') +
-                            '           <br/>' +
-                            '           <b>Количество</b>: ' + item.amount+ ' ' +
-                            '           <b>Объём</b>: ' + item.ovolume + ' ' +
-                            '           <b>ТН ВЭД</b>: ' + item.otnved + ' ' +
-                            '           <br/>' +
-                            '           <b>Комментарий</b>: ' + item.ocomment + ' ' +
-                            '      </span>' +
-                            '      <span style="display: none;" class="producteditor">' +
-                            '           <br/>' +
-                            '           <b>Наименование</b>:' +
-                            '           <textarea class="name" name="name"></textarea>' +
-                            '           <br/>' +
-                            '           <b>Ссылка на товар</b>:' +
-                            '           <textarea class="link" name="link"></textarea>' +
-                            '           <br/>' +
-                            '           <b>Количество</b>:' +
-                            '           <textarea class="amount int" name="amount"></textarea>' +
-                            '           <br/>' +
-                            '           <b>Объём</b>:' +
-                            '           <textarea class="volume" name="volume"></textarea>' +
-                            '           <br/>' +
-                            '           <b>ТН ВЭД</b>:' +
-                            '           <textarea class="tnved" name="tnved"></textarea>' +
-                            '           <br/>' +
-                            '           <b>Требуется страховка?</b>' +
-                            '           <div style="float:right">' +
-                            '           <label><input type="radio" name="insurance" id="insurance_y" value="1"/> Да</label><br/>' +
-                            '           <label><input type="radio" name="insurance" id="insurance_n" value="0"/> Нет</label>' +
-                            '           </div>' +
-                            '           <br/>' +
-                            '           <b>Комментарий</b>:' +
-                            '           <textarea class="ocomment" name="comment"></textarea>' +
-                            '           <br/>' +
-                            '      </span>' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.price + '" class="odetail_price int" name="odetail_price' + item.id + '" id="odetail_price' + item.id + '">' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.delivery + '" class="odetail_pricedelivery int" name="odetail_pricedelivery' + item.id + '" id="odetail_pricedelivery' + item.id + '">' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <input type="text" order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.weight + '" class="odetail_weight int" name="odetail_weight' + item.id + '" id="odetail_weight' + item.id + '">' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
-                            '      <br/>' +
-                            '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
-                            '      <br/>' +
-                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
-                            '      <br/>' +
-                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
-                            '   </td>' +
-                            '</tr>');
+                    // Рисуем новый delivery товар
+					var snippet = $(getSnippet(item, '', oObj.options.order_id, 'delivery'));
 
                     // Прикручиваем обработчики к кнопкам
                     snippet.find('a.delete').bind('click', iObj.deleteItem);
@@ -4038,87 +3746,10 @@ $(function() {
 
                 iObj.getRow = function (item)
                 {
-                    var oimg = getImageSnippet(item);
-                    var link = getLink(item, 1);
+				    // Рисуем новый mail_forwarding товар
+					var snippet = $(getSnippet(item, '', oObj.options.order_id, 'mail_forwarding'));
 
-                    // Рисуем новый товар
-                    var snippet = $('' +
-                            '<tr id="product' + item.id + '" class="snippet" detail-id="' + item.id + '">' +
-                            '   <td id="odetail_id' + item.id + '">' +
-                            '      <form style="display:none" method="POST" id="odetail' + oObj.options.type + item.id + '" enctype="multipart/form-data" action="<?= $selfurl ?>updateNewProduct/' + oObj.options.order_id + '/' + item.id + '"></form>' +
-                            '      <input type="checkbox" name="odetail_id" value="' + item.id + '"/>' +
-                            '      <br/>' +
-                            '      ' + item.id + '<br/>' +
-                            '      <img src="/static/images/lightbox-ico-loading.gif" style="" class="float" id="progress' + item.id + '">' +
-                            '   </td>' +
-                            '   <td style="text-align: left; vertical-align: bottom;">' +
-                            '      <span class="plaintext">' +
-                            '           <b>' + ((item.olink) ? '<a href="' + link+ '" target="BLANK">' : '') + item.name + ((item.olink) ? '</a>' : '')+'</b>' +
-							'          '+((item.foto_requested) ? '(требуется фото товара)' : '')+' ' +
-                            '           <br/>' +
-                            '           <b>Количество</b>: ' + item.amount+ ' ' +
-                            '           <b>Размер</b>: ' + item.osize + ' ' +
-                            '           <b>Цвет</b>: ' + item.ocolor + ' ' +
-                            '           <br/>' +
-                            '           <b>Комментарий</b>: ' + item.ocomment + ' ' +
-                            '      </span>' +
-                            '      <span style="display: none;" class="producteditor">' +
-                            '           <br/>' +
-							'           <b>Наименование</b>:' +
-                            '           <textarea class="name" name="name"></textarea>' +
-                            '           <br/>' +
-                            '           <b>Ссылка на товар</b>:' +
-                            '           <textarea class="link" name="link"></textarea>' +
-                            '           <br/>' +
-                            '           <b>Количество</b>:' +
-                            '           <textarea class="amount int" name="amount"></textarea>' +
-                            '           <br/>' +
-                            '           <b>Размер</b>:' +
-                            '           <textarea class="size" name="size"></textarea>' +
-                            '           <br/>' +
-                            '           <b>Цвет</b>:' +
-                            '           <textarea class="color" name="color"></textarea>' +
-                            '           <br/>' +
-                            '           <b>Комментарий</b>:' +
-                            '           <textarea class="ocomment" name="comment"></textarea>' +
-                            '           <br/>' +
-                            '      </span>' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <span class="plaintext">' +
-                            '         ' + oimg + ' ' +
-                            '      </span>' +
-                            '      <span style="display: none;width: 206px;" class="producteditor">' +
-                            '         <input type="radio" value="link" class="img_selector" name="img_selector"/>' +
-                            '         <textarea name="img" class="image"></textarea>' +
-                            '         <br/>' +
-                            '         <input type="radio" value="file" class="img_selector" name="img_selector"/>' +
-                            '         <input type="file" name="userfile" class="img_file"/>' +
-                            '      </span>' +
-                            '   </td>' +
-                            '   <td>' +
-                            '       <span class="plaintext">' + item.otracking + '</span>' +
-                            '       <span class="producteditor" style="display:none;">' +
-                            '           <input order-id="' + oObj.options.order_id + '" odetail-id="' + item.id + '" id="odetail_tracking' + item.id + '" class="odetail_tracking int" name="odetail_tracking" value="' + item.otracking + '" style="width:180px" maxlength="80" type="text"/>' +
-                            '       </span>' +
-                            '   </td>' +
-                            '   <td>' +
-                            '      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
-                            '      <br/>' +
-                            '      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
-                            '      <br/>' +
-                            '      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
-                            '      <br/>' +
-                            '      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-                            '         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
-                            '   </td>' +
-                            '</tr>' +
-                            '');
-
-                    // Прикручиваем обработчики к кнопкам
+					// Прикручиваем обработчики к кнопкам
                     snippet.find('a.delete').bind('click', iObj.deleteItem);
                     snippet.find('a.edit').bind('click', iObj.editItem);
                     snippet.find('a.cancel').bind('click', iObj.cancelItem);
@@ -4487,4 +4118,383 @@ function update_joint_pricedelivery(order_id, joint_id)
         'json'
     );
 }
+
+/* BOF: refactoring */
+function getSnippet(product, image, order_id, order_type)
+{
+	return eval('get_' + order_type + '_snippet(product, image, order_id);');
+}
+
+function get_online_snippet(item, oimg, order_id)
+{
+	var result =
+			getSnippetHeader(item, order_id, 'online') +
+			getOnlineSnippetDescription(item, order_id) +
+			'   </td>' +
+			'   <td>' +
+			'      <span class="plaintext">' +
+			'         ' + oimg + ' ' +
+			'      </span>' +
+			'      <span style="display: none;width: 206px;" class="producteditor">' +
+			'         <input type="radio" value="link" class="img_selector" name="img_selector">' +
+			'         <textarea name="img" class="image"></textarea>' +
+			'         <br/>' +
+			'         <input type="radio" value="file" class="img_selector" name="img_selector">' +
+			'         <input type="file" name="userfile" class="img_file">' +
+			'      </span>' +
+			'   </td>' +
+			'   <td>' +
+			'      <input type="text" order-id="' + order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.price + '" class="odetail_price int" name="odetail_price' + item.id + '" id="odetail_price' + item.id + '">' +
+			'   </td>' +
+			'   <td>' +
+			'      <input type="text" order-id="' + order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.delivery + '" class="odetail_pricedelivery int" name="odetail_pricedelivery' + item.id + '" id="odetail_pricedelivery' + item.id + '">' +
+			'   </td>' +
+			'   <td>' +
+			'      <input type="text" order-id="' + order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.weight + '" class="odetail_weight int" name="odetail_weight' + item.id + '" id="odetail_weight' + item.id + '">' +
+			'   </td>' +
+			getSnippetFooter(item, 'mail_forwarding');
+
+	return result;
+}
+
+function get_offline_snippet(item, oimg, order_id)
+{
+	var result =
+			getSnippetHeader(item, order_id, 'offline') +
+			getOfflineSnippetDescription(item, order_id) +
+			'   </td>' +
+			'   <td>' +
+			'      <span class="plaintext">' +
+			'         ' + oimg + ' ' +
+			'      </span>' +
+			'      <span style="display: none;width: 206px;" class="producteditor">' +
+			'         <input type="radio" value="link" class="img_selector" name="img_selector">' +
+			'         <textarea name="img" class="image"></textarea>' +
+			'         <br/>' +
+			'         <input type="radio" value="file" class="img_selector" name="img_selector">' +
+			'         <input type="file" name="userfile" class="img_file">' +
+			'      </span>' +
+			'   </td>' +
+			'   <td>' +
+			'      <input type="text" order-id="' + order_id + '" odetail-id="' + item.id + '" maxlength="11" ' +
+					'style="width:60px" value="' + item.price + '" class="odetail_price int" name="odetail_price' + item.id + '" id="odetail_price' + item.id + '">' +
+			'   </td>' +
+			'   <td>' +
+			'      <input type="text" order-id="' + order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.delivery + '" class="odetail_pricedelivery int" name="odetail_pricedelivery' + item.id + '" id="odetail_pricedelivery' + item.id + '">' +
+			'   </td>' +
+			'   <td>' +
+			'      <input type="text" order-id="' + order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.weight + '" class="odetail_weight int" name="odetail_weight' + item.id + '" id="odetail_weight' + item.id + '">' +
+			'   </td>' +
+			getSnippetFooter(item, 'offline');
+
+	return result;
+}
+
+function get_service_snippet(item, oimg, order_id)
+{
+	var result =
+			getSnippetHeader(item, order_id, 'service') +
+			getServiceSnippetDescription(item, order_id) +
+			'   </td>' +
+			'   <td>' +
+			'      <span class="plaintext">' +
+			'         ' + oimg + ' ' +
+			'      </span>' +
+			'      <span style="display: none;width: 206px;" class="producteditor">' +
+			'         <input type="radio" value="link" class="img_selector" name="img_selector">' +
+			'         <textarea name="img" class="image"></textarea>' +
+			'         <br/>' +
+			'         <input type="radio" value="file" class="img_selector" name="img_selector">' +
+			'         <input type="file" name="userfile" class="img_file">' +
+			'      </span>' +
+			'   </td>' +
+			'   <td>' +
+			'      <input type="text" order-id="' + order_id + '" odetail-id="' + item.id + '" maxlength="11" ' +
+					'style="width:60px" value="' + item.price + '" class="odetail_price int" name="odetail_price' + item.id + '" id="odetail_price' + item.id + '">' +
+			'   </td>' +
+			'   <td>' +
+			'      <input type="text" order-id="' + order_id + '" odetail-id="' + item.id + '" maxlength="11" style="width:60px" value="' + item.delivery + '" class="odetail_pricedelivery int" name="odetail_pricedelivery' + item.id + '" id="odetail_pricedelivery' + item.id + '">' +
+			'   </td>' +
+			getSnippetFooter(item, 'service');
+
+	return result;
+}
+
+function get_delivery_snippet(item, oimg, order_id)
+{
+	var result =
+			getSnippetHeader(item, order_id, 'delivery') +
+			getDeliverySnippetDescription(item, order_id) +
+			'   <td>' +
+			'      <input type="text" order-id="' + order_id + '" odetail-id="' + item.id + '" maxlength="11" ' +
+					'style="width:60px" value="' + item.price + '" class="odetail_price int" name="odetail_price' + item.id + '" id="odetail_price' + item.id + '">' +
+			'   </td>' +
+			'   <td>' +
+			'      <input type="text" order-id="' +  order_id + '" odetail-id="' + item.id + '" maxlength="11" ' +
+					'style="width:60px" value="' + item.delivery + '" class="odetail_pricedelivery int" name="odetail_pricedelivery' + item.id + '" id="odetail_pricedelivery' + item.id + '">' +
+			'   </td>' +
+			'   <td>' +
+			'      <input type="text" order-id="' + order_id + '" odetail-id="' + item.id + '" maxlength="11" ' +
+					'style="width:60px" value="' + item.weight + '" class="odetail_weight int" name="odetail_weight' + item.id + '" id="odetail_weight' + item.id + '">' +
+			'   </td>' +
+			getSnippetFooter(item, 'delivery');
+
+	return result;
+}
+
+function get_mail_forwarding_snippet(item, oimg, order_id)
+{
+	//var oimg = getImageSnippet(item);
+	//var link = getLink(item, 1);
+
+	var result =
+			getSnippetHeader(item, order_id, 'mail_forwarding') +
+			getSnippetDescription(item, 'mail_forwarding') +
+			'   </td>' +
+			'   <td>' +
+			'      <span class="plaintext">' +
+			'         ' + oimg + ' ' +
+			'      </span>' +
+			'      <span style="display: none;width: 206px;" class="producteditor">' +
+			'         <input type="radio" value="link" class="img_selector" name="img_selector"/>' +
+			'         <textarea name="img" class="image"></textarea>' +
+			'         <br/>' +
+			'         <input type="radio" value="file" class="img_selector" name="img_selector"/>' +
+			'         <input type="file" name="userfile" class="img_file"/>' +
+			'      </span>' +
+			'   </td>' +
+			'   <td>' +
+			'       <span class="plaintext">' + item.otracking + '</span>' +
+			'       <span class="producteditor" style="display:none;">' +
+			'           <input order-id="' + order_id + '" odetail-id="' + item.id + '" id="odetail_tracking' + item.id + '" class="odetail_tracking int" name="odetail_tracking" value="' + item.otracking + '" style="width:180px" maxlength="80" type="text"/>' +
+			'       </span>' +
+			'   </td>' +
+			getSnippetFooter(item, 'mail_forwarding');
+
+	return result;
+}
+
+function getSnippetDescription(item, order_type)
+{
+	var result =
+					'      <span class="plaintext">' +
+					'           <b>' + ((item.olink) ? '<a href="' + item.olink + '" target="BLANK">' : '') + item.name + (
+					(item.olink) ? '</a>' : '')+'</b>' +
+					'          '+((item.foto_requested) ? '(требуется фото товара)' : '')+' ' +
+					'           <br/>' +
+					'           <b>Количество</b>: ' + item.amount+ ' ' +
+					'           <b>Размер</b>: ' + item.osize + ' ' +
+					'           <b>Цвет</b>: ' + item.ocolor + ' ' +
+					'           <br/>' +
+					'           <b>Комментарий</b>: ' + item.ocomment + ' ' +
+					'      </span>' +
+					'      <span style="display: none;" class="producteditor">' +
+					'           <br/>' +
+					'           <b>Наименование</b>:' +
+					'           <textarea class="name" name="name"></textarea>' +
+					'           <br/>' +
+					'           <b>Ссылка на товар</b>:' +
+					'           <textarea class="link" name="link"></textarea>' +
+					'           <br/>' +
+					'           <b>Количество</b>:' +
+					'           <textarea class="amount int" name="amount"></textarea>' +
+					'           <br/>' +
+					'           <b>Размер</b>:' +
+					'           <textarea class="size" name="size"></textarea>' +
+					'           <br/>' +
+					'           <b>Цвет</b>:' +
+					'           <textarea class="color" name="color"></textarea>' +
+					'           <br/>' +
+					'           <b>Комментарий</b>:' +
+					'           <textarea class="ocomment" name="comment"></textarea>' +
+					'           <br/>' +
+					'      </span>';
+
+	return result;
+}
+
+function getOnlineSnippetDescription(item, order_id)
+{
+	var result =
+		'      <span class="plaintext">' +
+		'          <a href="' + item.olink + '" target="_blank">' + item.name + '</a>' +
+		'          <br><b>Количество</b>: ' + item.amount +
+		'          <b>Размер</b>: ' + item.osize +
+		'          <b>Цвет</b>: ' + item.ocolor +
+				((item.foto_requested) ? '<br><b>Фото полученного товара:</b> сделать фото' : '') +
+		'          <br><b>Комментарий</b>: ' + item.ocomment +
+		'      </span>' +
+		'      <span style="display: none;" class="producteditor">' +
+		'      <br/>' +
+		'         <b>Ссылка:</b>' +
+		'         <textarea name="link" class="link"></textarea>' +
+		'         <br/>' +
+		'         <b>Наименование:</b>' +
+		'         <textarea name="name" class="name"></textarea>' +
+		'         <br/>' +
+		'         <b>Количество:</b>' +
+		'         <textarea name="amount" class="amount int"></textarea>' +
+		'         <br/>' +
+		'         <b>Размер:</b>:' +
+		'         <textarea name="size" class="size"></textarea>' +
+		'         <br/>' +
+		'         <b>Цвет:</b>' +
+		'         <textarea name="color" class="color"></textarea>' +
+		'         <br/>' +
+		'         <b>Комментарий:</b>' +
+		'         <textarea name="comment" class="ocomment"></textarea>' +
+		'         <br/>' +
+		'			<b>Требуется фото</b>' +
+		'			<input type="checkbox" class="foto_requested" name="foto_requested">' +
+		'         <br/>' +
+		'      </span>';
+
+	return result;
+}
+
+function getOfflineSnippetDescription(item, order_id)
+{
+	var result =
+		'      <span class="plaintext">' +
+		'      <b>' + item.oshop + '</b><br>' +
+		'      <b>' + item.name + '</b>' +
+		'          <br/>' +
+		'          <b>Количество</b>: ' + item.amount +
+		'          <b>Размер</b>: ' + item.osize +
+		'          <b>Цвет</b>: ' + item.ocolor +
+				((item.foto_requested) ? '<br><b>Фото полученного товара:</b> сделать фото' : '') +
+				((item.search_requested) ? '<br><b>Поиск товара:</b> требуется поиск' : '') +
+		'          <br><b>Комментарий</b>:' + item.ocomment +
+		'      </span>' +
+		'      <span style="display: none;" class="producteditor">' +
+		'      <br/>' +
+		'         <b>Магазин:</b>' +
+		'         <textarea name="shop" class="shop"></textarea>' +
+		'         <br/>' +
+		'         <b>Наименование:</b>' +
+		'         <textarea name="name" class="name"></textarea>' +
+		'         <br/>' +
+		'         <b>Количество:</b>' +
+		'         <textarea name="amount" class="amount int"></textarea>' +
+		'         <br/>' +
+		'         <b>Размер:</b>' +
+		'         <textarea name="size" class="size"></textarea>' +
+		'         <br/>' +
+		'         <b>Цвет:</b>' +
+		'         <textarea name="color" class="color"></textarea>' +
+		'         <br/>' +
+		'         <b>Комментарий:</b>' +
+		'         <textarea name="comment" class="ocomment"></textarea>' +
+		'         <br/>' +
+		'         <b>Требуется фото</b>' +
+		'         <input type="checkbox" class="foto_requested" name="foto_requested">' +
+		'         <br/>' +
+		'         <b>Требуется поиск товара</b>' +
+		'         <input type="checkbox" class="search_requested" name="search_requested">' +
+		'         <br/>' +
+		'      </span>';
+
+	return result;
+}
+
+function getServiceSnippetDescription(item, order_id)
+{
+	var result =
+		'      <span class="plaintext">' +
+		'          <b>' + item.name + '</b><br/>' +
+		'          <b>Описание</b>: ' + item.ocomment +
+		'      </span>' +
+		'      <span style="display: none;" class="producteditor">' +
+		'      <br/>' +
+		'         <b>Наименование:</b>' +
+		'         <textarea name="name" class="name"></textarea>' +
+		'         <br/>' +
+		'         <b>Описание:</b>' +
+		'         <textarea name="comment" class="ocomment"></textarea>' +
+		'         <br/>' +
+		'      </span>';
+
+	return result;
+}
+
+function getDeliverySnippetDescription(item, order_id)
+{
+	var result =
+		'      <span class="plaintext">' +
+		((item.olink) ?
+				'<b><a href="' + item.olink + '" target="_blank">' + item.name + '</a></b>' :
+				'<b>' + item.name + '</b>') +
+		'           <br/>' +
+		'           <b>Количество</b>: ' + item.amount+ ' ' +
+		'           <b>Объём</b>: ' + item.ovolume + ' ' +
+		'           <b>ТН ВЭД</b>: ' + item.otnved + ' ' +
+		((parseInt(item.insurance, 10) == 1) ? '<br><b>Страховка:</b> сделать страховку' : '') +
+		'           <br><b>Комментарий</b>: ' + item.ocomment + ' ' +
+		'      </span>' +
+		'      <span style="display: none;" class="producteditor">' +
+		'           <br/>' +
+		'           <b>Ссылка</b>:' +
+		'           <textarea class="link" name="link"></textarea>' +
+		'           <br/>' +
+		'           <b>Наименование</b>:' +
+		'           <textarea class="name" name="name"></textarea>' +
+		'           <br/>' +
+		'           <b>Количество</b>:' +
+		'           <textarea class="amount int" name="amount"></textarea>' +
+		'           <br/>' +
+		'           <b>Объём</b>:' +
+		'           <textarea class="volume" name="volume"></textarea>' +
+		'           <br/>' +
+		'           <b>ТН ВЭД</b>:' +
+		'           <textarea class="tnved" name="tnved"></textarea>' +
+		'           <br/>' +
+		'           <b>Комментарий</b>:' +
+		'           <textarea class="ocomment" name="comment"></textarea>' +
+		'           <br/>' +
+		'           <b>Требуется страховка</b>' +
+		'         <input type="checkbox" class="insurance" name="insurance">' +
+		'           <br/>' +
+		'      </span>' +
+		'   </td>';
+	return result;
+}
+
+function getSnippetHeader(item, order_id, order_type)
+{
+	var result =
+					'<tr id="product' + item.id + '" class="snippet" detail-id="' + item.id + '">' +
+					'   <td id="odetail_id' + item.id + '">' +
+					'      <form style="display:none" method="POST" id="odetail' + order_type + item.id + '" ' +
+					'enctype="multipart/form-data" action="<?= $selfurl ?>updateNewProduct/' + order_id + '/' + item.id + '"></form>' +
+					'      <input type="checkbox" name="odetail_id" value="' + item.id + '"/>' +
+					'      <br/>' +
+					'      ' + item.id + '<br/>' +
+					'      <img src="/static/images/lightbox-ico-loading.gif" style="" class="float" id="progress' + item.id + '">' +
+					'   </td>' +
+					'   <td style="text-align: left; vertical-align: middle;">';
+
+	return result;
+}
+
+function getSnippetFooter(item, order_type)
+{
+	var result =
+					'   <td>' +
+					'      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
+					'         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
+					'      <br/>' +
+					'      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
+					'         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
+					'      <br/>' +
+					'      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
+					'         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
+					'      <br/>' +
+					'      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
+					'         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
+					'   </td>' +
+					'</tr>';
+
+	return result;
+}
+/* EOF: refactoring */
 </script>

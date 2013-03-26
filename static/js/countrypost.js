@@ -470,3 +470,15 @@ function editItem(id)
 		$tr.find('input.img_selector[value="' + odetail['img_selector'] + '"]').attr('checked', 'checked');
 	}
 }
+
+function init_profile()
+{
+	$('ul.tabs a').click(function(e) {
+			e.preventDefault();
+			$('ul.tabs li').removeClass('active');
+			$('div.client_tab,div.dealer_tab').hide();
+
+			$('div.' + $(e.target).attr('class')).show();
+			$(this).parent().parent().addClass('active');
+		});
+}

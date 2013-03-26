@@ -48,25 +48,25 @@
 </script>
 <span class="producteditor" style="display: none;">
 	<br>
-	<b>Ссылка</b>:
+	<b>Ссылка:</b>:
 	<textarea class="link" name="link"></textarea>
 	<br>
-	<b>Наименование</b>:
+	<b>Наименование:</b>
 	<textarea class="name" name="name"></textarea>
 	<br>
-	<b>Количество</b>:
+	<b>Количество:</b>
 	<textarea class="amount int" name="amount"></textarea>
 	<br>
-	<b>Размер</b>:
+	<b>Размер:</b>
 	<textarea class="size" name="size"></textarea>
 	<br>
-	<b>Цвет</b>:
+	<b>Цвет:</b>
 	<textarea class="color" name="color"></textarea>
 	<br>
-	<b>Комментарий</b>:
+	<b>Комментарий:</b>
 	<textarea class="ocomment" name="comment"></textarea>
 	<br>
-	<b>Требуется фото</b>:
+	<b>Требуется фото</b>
 	<input type="checkbox" class="foto_requested" name="foto_requested">
 	<br>
 </span>
