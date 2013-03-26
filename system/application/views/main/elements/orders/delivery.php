@@ -1,12 +1,3 @@
-<?
-/*$order = null;
-for ($i = 0, $n = count($orders); $i<$n; $i++) :
-    if ($orders[$i]->order_type == 'delivery') :
-        $order = $orders[$i];
-        break;
-    endif;
-endfor;*/
-?>
 <div class="delivery_order_form">
     <div class='table' style="position:relative;">
         <div class='angle angle-lt'></div>
@@ -128,9 +119,8 @@ endfor;*/
                 <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Требуется страховка?</span>
-                    <label><input type="radio" name="insurance_need" id="insurance_need_y" value="1"/> Да</label>
-                    <label><input type="radio" name="insurance_need" id="insurance_need_n" value="0" checked="true"/> Нет</label>
-                </div>
+                   	<input type='checkbox' id='insurance' name="insurance" value="1" />
+				</div>
                 <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Стоимость:</span>
@@ -146,7 +136,11 @@ endfor;*/
                 <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Комментарий к товару:</span>
-                    <textarea style="width:180px;resize:auto!important;" class="textbox" maxlength="255" id='ocomment' name="ocomment"></textarea>
+                    <textarea style="width:180px;resize:vertical!important;"
+							  class="textbox"
+							  maxlength="255"
+							  id='ocomment'
+							  name="ocomment"></textarea>
                 </div>
                 <div style="clear:both;" ></div>
             </div>

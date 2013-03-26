@@ -111,18 +111,22 @@ class Manager extends BaseController {
 			"/manager/order/{$order->order_id}" => "Заказ №{$order->order_id}"
 		), $index, TRUE);
 	}
-/*
+
 	public function showScreen($oid = null)
 	{
 		header('Content-type: image/jpg');
 		$this->load->model('OdetailModel', 'OdetailModel');
-		if ($Detail = $this->OdetailModel->getInfo(array('odetail_id' => intval($oid)))) 
+		if ($Detail = $this->OdetailModel->getInfo(array('odetail_id' => intval($oid))))
 		{
-			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/".$Detail->odetail_client."/$oid.jpg");
+			$order = $this->getPrivilegedOrder($Detail->odetail_order,
+				'Заказ не найден. Попробуйте еще раз.'
+			);
+
+			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/{$order->order_client}/$oid.jpg");
 		}
 		die();
 	}
-*/
+
 	public function filterOrders()
 	{
 		$this->filter('Orders', 'orders/0/ajax');

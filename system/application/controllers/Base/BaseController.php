@@ -1,5 +1,4 @@
-<?
-if (!defined('BASEPATH'))
+<? if (!defined('BASEPATH'))
 {
     exit('No direct script access allowed');
 }
@@ -1043,7 +1042,7 @@ abstract class BaseController extends Controller
         $detail->odetail_shop				    = Check::str('oshop', 255, 0);
         $detail->odetail_volume				    = Check::float('ovolume', 0);
         $detail->odetail_tnved				    = Check::str('otnved', 255, 1);
-        $detail->odetail_insurance				= Check::int('insurance_need');
+        $detail->odetail_insurance				= Check::chkbox('insurance');
         $detail->odetail_comment                = Check::str('ocomment', 255, 0);
         $detail->odetail_tracking               = Check::str('otracking', 80, 0);
         $detail->odetail_status                 = 'processing';
@@ -1077,11 +1076,11 @@ abstract class BaseController extends Controller
                 case 'offline' :
                     $this->offlineProductCheck($detail);
                     break;
-                case 'delivery' :
+				case 'service' :
+					$this->serviceProductCheck($detail);
+					break;
+				case 'delivery' :
                     $this->deliveryProductCheck($detail);
-                    break;
-                case 'service' :
-                    $this->serviceProductCheck($detail);
                     break;
                 case 'mailforward' :
                     $this->mailforwardProductCheck($detail);

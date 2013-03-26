@@ -465,7 +465,8 @@ class Client extends BaseController {
 	{
         header('Content-type: image/jpg');
         $this->load->model('OdetailModel', 'OdetailModel');
-        if ($Detail = $this->OdetailModel->getInfo(array('odetail_client' => $this->user->user_id, 'odetail_id' => intval($oid)))) {
+        if ($Detail = $this->OdetailModel->getInfo(array('odetail_client' => $this->user->user_id, 'odetail_id' => intval($oid))))
+		{
             readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/{$this->user->user_id}/$oid.jpg");
         }
         die();

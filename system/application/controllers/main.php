@@ -1371,7 +1371,7 @@ Email: {$this->user->user_email}";
             $odetail->odetail_volume			= Check::str('volume', 255, 0);
             $odetail->odetail_tnved				= Check::str('tnved', 255, 0);
             $odetail->odetail_tracking		    = Check::str('odetail_tracking', 255, 0);
-            $odetail->odetail_insurance		    = Check::str('insurance', 255, 0);
+            $odetail->odetail_insurance		    = Check::chkbox('insurance');
             $odetail->odetail_product_name		= Check::str('name', 255, 0, '');
             $odetail->odetail_product_color		= Check::str('color', 255, 0, '');
             $odetail->odetail_product_size		= Check::str('size', 255, 0, '');
@@ -1868,4 +1868,16 @@ Email: {$this->user->user_email}";
         print(json_encode($response));
         exit();
     }
+
+	public function showScreen($oid)
+	{
+		try
+		{
+			Func::redirect(BASEURL . $this->user->user_group . '/showScreen/' . $oid);
+		}
+		catch (Exception $e)
+		{}
+	}
+
+
 }

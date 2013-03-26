@@ -48,7 +48,7 @@
 </script>
 <span class="producteditor" style="display: none;">
 	<br>
-	<b>Ссылка:</b>:
+	<b>Ссылка:</b>
 	<textarea class="link" name="link"></textarea>
 	<br>
 	<b>Наименование:</b>

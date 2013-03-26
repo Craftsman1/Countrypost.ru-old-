@@ -675,10 +675,9 @@ $(function() {
                 iObj.add = function ()
                 {
                     unbindAddItem();
-
                     updateProductForm();
 
-                    // Рисуем новый товар
+                    // Рисуем новый online товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
                         joint_id:0,
@@ -872,7 +871,18 @@ $(function() {
                     $tr.find('textarea.size').val(odetail['osize']);
                     $tr.find('textarea.color').val(odetail['ocolor']);
                     $tr.find('textarea.ocomment').val(odetail['ocomment']);
-                    if (odetail['oimg'] != null && odetail['oimg'] != 0 && typeof(odetail['oimg']) != 'undefined')
+
+					// check init
+					if (odetail['foto_requested'] == 1)
+					{
+						$tr.find('input.foto_requested').attr('checked', 'checked');
+					}
+					else
+					{
+						$tr.find('input.foto_requested').removeAttr('checked');
+					}
+
+					if (odetail['oimg'] != null && odetail['oimg'] != 0 && typeof(odetail['oimg']) != 'undefined')
                     {
                         $tr.find('textarea.image').val(odetail['oimg']);
                     }
@@ -911,7 +921,7 @@ $(function() {
                         }
                     });
 
-                    if(checkResult.length > 0) return false;
+                    if (checkResult.length > 0) return false;
 
                     $tr = $('tr#product' + itemId);
 
@@ -922,6 +932,7 @@ $(function() {
                     odetail['ocolor'] = $tr.find('textarea.color').val();
                     odetail['ocomment'] = $tr.find('textarea.ocomment').val();
                     odetail['img_selector'] = $tr.find('input.img_selector:checked').val();
+                    odetail['foto_requested'] = $tr.find('input.foto_requested:checked').length;
 
                     if (odetail['img_selector'] == 'link') {
                         odetail['img'] = $tr.find('textarea.image').val();
@@ -1407,7 +1418,7 @@ $(function() {
                     unbindAddItem();
                     updateProductForm();
 
-                    // Рисуем новый online товар
+                    // Рисуем новый offline товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
                         joint_id:0,
@@ -1599,7 +1610,26 @@ $(function() {
                     $tr.find('textarea.size').val(odetail['osize']);
                     $tr.find('textarea.color').val(odetail['ocolor']);
                     $tr.find('textarea.ocomment').val(odetail['ocomment']);
-                    if (odetail['oimg'] != null && odetail['oimg'] != 0 && typeof(odetail['oimg']) != 'undefined')
+
+					// check init
+					if (odetail['foto_requested'] == 1)
+					{
+						$tr.find('input.foto_requested').attr('checked', 'checked');
+					}
+					else
+					{
+						$tr.find('input.foto_requested').removeAttr('checked');
+					}
+					if (odetail['search_requested'] == 1)
+					{
+						$tr.find('input.search_requested').attr('checked', 'checked');
+					}
+					else
+					{
+						$tr.find('input.search_requested').removeAttr('checked');
+					}
+
+					if (odetail['oimg'] != null && odetail['oimg'] != 0 && typeof(odetail['oimg']) != 'undefined')
                     {
                         $tr.find('textarea.image').val(odetail['oimg']);
                     }
@@ -1647,7 +1677,11 @@ $(function() {
                     odetail['osize'] = $tr.find('textarea.size').val();
                     odetail['ocolor'] = $tr.find('textarea.color').val();
                     odetail['ocomment'] = $tr.find('textarea.ocomment').val();
-                    odetail['img_selector'] = $tr.find('input.img_selector:checked').val();
+
+					odetail['foto_requested'] = $tr.find('input.foto_requested:checked').length;
+					odetail['search_requested'] = $tr.find('input.foto_requested:checked').length;
+
+					odetail['img_selector'] = $tr.find('input.img_selector:checked').val();
 
                     if (odetail['img_selector'] == 'link') {
                         odetail['img'] = $tr.find('textarea.image').val();
@@ -2081,7 +2115,7 @@ $(function() {
 
                     updateProductForm();
 
-                    // Рисуем новый товар
+                    // Рисуем новый service товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
                         joint_id:0,
@@ -2727,11 +2761,11 @@ $(function() {
 
 
                     // Страховка
-                    insurance_need = new $.cpField();
-                    insurance_need.init({
-                        object:$('#'+oObj.options.type+'ItemForm input[name="insurance_need"]:checked')
+                    insurance = new $.cpField();
+                    insurance.init({
+                        object:$('#'+oObj.options.type+'ItemForm #insurance')
                     });
-                    iObj.fields.push(insurance_need);
+                    iObj.fields.push(insurance);
 
                     // Коментарий к товару
                     ocomment = new $.cpField();
@@ -2768,7 +2802,7 @@ $(function() {
 
                     updateProductForm();
 
-                    // Рисуем новый товар
+                    // Рисуем новый delivery товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
                         joint_id:0,
@@ -2776,7 +2810,7 @@ $(function() {
                         olink:fieldByName(iObj.fields, 'olink').val(),
                         ovolume:fieldByName(iObj.fields, 'ovolume').val(),
                         otnved:fieldByName(iObj.fields, 'otnved').val(),
-                        insurance_need:fieldByName(iObj.fields, 'insurance_need').val(),
+                        insurance:fieldByName(iObj.fields, 'insurance').val(),
                         price:fieldByName(iObj.fields, 'oprice').val(),
                         delivery:fieldByName(iObj.fields, 'odeliveryprice').val(),
                         amount:fieldByName(iObj.fields, 'oamount').val(),
@@ -2964,14 +2998,15 @@ $(function() {
                     $tr.find('textarea.volume').val(parseFloat(odetail['ovolume']));
                     $tr.find('textarea.tnved').val(odetail['otnved']);
                     $tr.find('textarea.amount').val((parseInt(odetail['amount'], 10)));
-                    if (parseInt(odetail['insurance'], 10) == 1)
-                    {
-                        $tr.find('input#insurance_y').attr('checked', 'checked');
-                    }
-                    else
-                    {
-                        $tr.find('input#insurance_n').attr('checked', 'checked');
-                    }
+
+					if (odetail['insurance'] == 1)
+					{
+						$tr.find('input#insurance').attr('checked', 'checked');
+					}
+					else
+					{
+						$tr.find('input#insurance').removeAttr('checked');
+					}
 
                     // валидация перед редактированием
                     $.each(iObj.itemFields, function (k, field) {
@@ -3009,7 +3044,7 @@ $(function() {
                     $tr = $('tr#product' + itemId);
 
                     odetail['name'] = $tr.find('textarea.name').val();
-                    odetail['insurance'] = parseInt($tr.find('input[name="insurance"]:checked').val(), 10);
+                    odetail['insurance'] = $tr.find('input[name="insurance"]:checked').length;
                     odetail['ovolume'] = $tr.find('textarea.volume').val();
                     odetail['otnved'] = $tr.find('textarea.tnved').val();
                     odetail['olink'] = $tr.find('textarea.link').val();
@@ -3449,10 +3484,9 @@ $(function() {
 
                 iObj.add = function () {
                     unbindAddItem();
-
                     updateProductForm();
 
-                    // Рисуем новый товар
+                    // Рисуем новый mail_forwarding товар
                     var item = oObj.options.cart.createCustomItem({
                         id:'',
                         joint_id:0,
@@ -4244,12 +4278,9 @@ function get_delivery_snippet(item, oimg, order_id)
 
 function get_mail_forwarding_snippet(item, oimg, order_id)
 {
-	//var oimg = getImageSnippet(item);
-	//var link = getLink(item, 1);
-
 	var result =
 			getSnippetHeader(item, order_id, 'mail_forwarding') +
-			getSnippetDescription(item, 'mail_forwarding') +
+			getMailForwardingSnippetDescription(item, 'mail_forwarding') +
 			'   </td>' +
 			'   <td>' +
 			'      <span class="plaintext">' +
@@ -4270,45 +4301,6 @@ function get_mail_forwarding_snippet(item, oimg, order_id)
 			'       </span>' +
 			'   </td>' +
 			getSnippetFooter(item, 'mail_forwarding');
-
-	return result;
-}
-
-function getSnippetDescription(item, order_type)
-{
-	var result =
-					'      <span class="plaintext">' +
-					'           <b>' + ((item.olink) ? '<a href="' + item.olink + '" target="BLANK">' : '') + item.name + (
-					(item.olink) ? '</a>' : '')+'</b>' +
-					'          '+((item.foto_requested) ? '(требуется фото товара)' : '')+' ' +
-					'           <br/>' +
-					'           <b>Количество</b>: ' + item.amount+ ' ' +
-					'           <b>Размер</b>: ' + item.osize + ' ' +
-					'           <b>Цвет</b>: ' + item.ocolor + ' ' +
-					'           <br/>' +
-					'           <b>Комментарий</b>: ' + item.ocomment + ' ' +
-					'      </span>' +
-					'      <span style="display: none;" class="producteditor">' +
-					'           <br/>' +
-					'           <b>Наименование</b>:' +
-					'           <textarea class="name" name="name"></textarea>' +
-					'           <br/>' +
-					'           <b>Ссылка на товар</b>:' +
-					'           <textarea class="link" name="link"></textarea>' +
-					'           <br/>' +
-					'           <b>Количество</b>:' +
-					'           <textarea class="amount int" name="amount"></textarea>' +
-					'           <br/>' +
-					'           <b>Размер</b>:' +
-					'           <textarea class="size" name="size"></textarea>' +
-					'           <br/>' +
-					'           <b>Цвет</b>:' +
-					'           <textarea class="color" name="color"></textarea>' +
-					'           <br/>' +
-					'           <b>Комментарий</b>:' +
-					'           <textarea class="ocomment" name="comment"></textarea>' +
-					'           <br/>' +
-					'      </span>';
 
 	return result;
 }
@@ -4422,13 +4414,13 @@ function getDeliverySnippetDescription(item, order_id)
 	var result =
 		'      <span class="plaintext">' +
 		((item.olink) ?
-				'<b><a href="' + item.olink + '" target="_blank">' + item.name + '</a></b>' :
-				'<b>' + item.name + '</b>') +
+		'<a href="' + item.olink + '" target="_blank">' + item.name + '</a>' :
+		'<b>' + item.name + '</b>') +
 		'           <br/>' +
 		'           <b>Количество</b>: ' + item.amount+ ' ' +
 		'           <b>Объём</b>: ' + item.ovolume + ' ' +
 		'           <b>ТН ВЭД</b>: ' + item.otnved + ' ' +
-		((parseInt(item.insurance, 10) == 1) ? '<br><b>Страховка:</b> сделать страховку' : '') +
+		((item.insurance == 1) ? '<br><b>Страховка:</b> сделать страховку' : '') +
 		'           <br><b>Комментарий</b>: ' + item.ocomment + ' ' +
 		'      </span>' +
 		'      <span style="display: none;" class="producteditor">' +
@@ -4459,6 +4451,47 @@ function getDeliverySnippetDescription(item, order_id)
 	return result;
 }
 
+function getMailForwardingSnippetDescription(item, order_type)
+{
+	var result =
+		'      <span class="plaintext">' +
+		((item.olink) ?
+				'<a href="' + item.olink + '" target="_blank">' + item.name + '</a>' :
+				'<b>' + item.name + '</b>') +
+		'           <br><b>Количество:</b> ' + item.amount+ ' ' +
+		'           <b>Размер:</b> ' + item.osize + ' ' +
+		'           <b>Цвет:</b> ' + item.ocolor + ' ' +
+		((item.foto_requested) ? '<br><b>Фото полученного товара:</b> сделать фото' : '') +
+		'           <br><b>Комментарий</b>: ' + item.ocomment + ' ' +
+		'      </span>' +
+		'      <span style="display: none;" class="producteditor">' +
+		'           <br/>' +
+		'           <b>Ссылка:</b>' +
+		'           <textarea class="link" name="link"></textarea>' +
+		'           <br/>' +
+		'           <b>Наименование:</b>' +
+		'           <textarea class="name" name="name"></textarea>' +
+		'           <br/>' +
+		'           <b>Количество:</b>' +
+		'           <textarea class="amount int" name="amount"></textarea>' +
+		'           <br/>' +
+		'           <b>Размер:</b>' +
+		'           <textarea class="size" name="size"></textarea>' +
+		'           <br/>' +
+		'           <b>Цвет:</b>' +
+		'           <textarea class="color" name="color"></textarea>' +
+		'           <br/>' +
+		'           <b>Комментарий:</b>' +
+		'           <textarea class="ocomment" name="comment"></textarea>' +
+		'           <br/>' +
+		'			<b>Требуется фото</b>' +
+		'			<input type="checkbox" class="foto_requested" name="foto_requested">' +
+		'         <br/>' +
+		'      </span>';
+
+	return result;
+}
+
 function getSnippetHeader(item, order_id, order_type)
 {
 	var result =
@@ -4479,20 +4512,20 @@ function getSnippetHeader(item, order_id, order_type)
 function getSnippetFooter(item, order_type)
 {
 	var result =
-					'   <td>' +
-					'      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-					'         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
-					'      <br/>' +
-					'      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-					'         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
-					'      <br/>' +
-					'      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-					'         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
-					'      <br/>' +
-					'      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
-					'         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
-					'   </td>' +
-					'</tr>';
+		'   <td>' +
+		'      <a class="edit" odetail-id="' + item.id + '" href="javascript:void(0)">' +
+		'         <img border="0" title="Редактировать" src="/static/images/comment-edit.png"/></a>' +
+		'      <br/>' +
+		'      <a class="delete" odetail-id="' + item.id + '" href="javascript:void(0)">' +
+		'         <img border="0" title="Удалить" src="/static/images/delete.png"/></a>' +
+		'      <br/>' +
+		'      <a style="display: none;" class="cancel" odetail-id="' + item.id + '" href="javascript:void(0)">' +
+		'         <img border="0" title="Отменить" src="/static/images/comment-delete.png"/></a>' +
+		'      <br/>' +
+		'      <a style="display: none;" class="save" odetail-id="' + item.id + '" href="javascript:void(0)">' +
+		'         <img border="0" title="Сохранить" src="/static/images/done-filed.png"/></a>' +
+		'   </td>' +
+		'</tr>';
 
 	return result;
 }

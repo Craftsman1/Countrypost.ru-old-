@@ -301,7 +301,7 @@ function getSnippetByType(odetail, order_type)
 	return snippet;
 }
 
-function getImageSnippet(odetail)
+function getImageSnippet(odetail, id)
 {
 	var snippet = '';
 
@@ -326,11 +326,11 @@ function getImageSnippet(odetail)
 		snippet =
 			'<a href="javascript:void(0);" onclick="setRel(' +
 				id +
-				');"><img src="/client/showScreen/' +
+				');"><img src="/main/showScreen/' +
 				id +
 				'" width="55px" height="55px"><a rel="lightbox_' +
 				id +
-				'" href="/client/showScreen/' +
+				'" href="/main/showScreen/' +
 				id +
 				'" style="display:none;">Посмотреть</a></a>';
 	}
@@ -390,7 +390,7 @@ function submitItemByType(id, data, order_type)
 		var snippet_first = getSnippetByType(odetail, order_type);
 		$tr.find('span.plaintext:first').html(snippet_first);
 
-		var snippet_last = getImageSnippet(odetail)
+		var snippet_last = getImageSnippet(odetail, id)
 		$tr.find('span.plaintext:last').html(snippet_last);
 
 		cancelItem(id);
