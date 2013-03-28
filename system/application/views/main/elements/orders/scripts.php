@@ -449,9 +449,13 @@ $(function() {
             $('.screenshot_switch').show('slow');
         } // End formFieldsClear
 
-        var dealerAutocomplit = function (order_type)
+        var dealerAutocomplit = function(order_type)
         {
-            $('#dealer_id_ac_' + order_type).autocomplete("/dealers/getDealersJson",
+			var ac_uri = ((order_type == 'mail_forwarding') ?
+					"/dealers/getMFDealersJson" :
+					"/dealers/getDealersJson");
+
+            $('#dealer_id_ac_' + order_type).autocomplete(ac_uri,
             {
                 delay:100,
                 minChars:1,
@@ -478,7 +482,6 @@ $(function() {
                                     }
                                     else
                                     {
-
                                         success('top', 'Посредник выбран.');
                                     }
                                 },
@@ -932,7 +935,7 @@ $(function() {
                     odetail['ocolor'] = $tr.find('textarea.color').val();
                     odetail['ocomment'] = $tr.find('textarea.ocomment').val();
                     odetail['img_selector'] = $tr.find('input.img_selector:checked').val();
-                    odetail['foto_requested'] = $tr.find('input.foto_requested:checked').length;
+					odetail['foto_requested']  = $tr.find('input.foto_requested:checked').length;
 
                     if (odetail['img_selector'] == 'link') {
                         odetail['img'] = $tr.find('textarea.image').val();
@@ -1679,15 +1682,17 @@ $(function() {
                     odetail['ocomment'] = $tr.find('textarea.ocomment').val();
 
 					odetail['foto_requested'] = $tr.find('input.foto_requested:checked').length;
-					odetail['search_requested'] = $tr.find('input.foto_requested:checked').length;
+					odetail['search_requested'] = $tr.find('input.search_requested:checked').length;
 
 					odetail['img_selector'] = $tr.find('input.img_selector:checked').val();
 
-                    if (odetail['img_selector'] == 'link') {
+                    if (odetail['img_selector'] == 'link')
+					{
                         odetail['img'] = $tr.find('textarea.image').val();
                         odetail['img_file'] = '';
                     }
-                    else if (odetail['img_selector'] == 'file') {
+                    else if (odetail['img_selector'] == 'file')
+					{
                         odetail['img'] = '';
                         odetail['userfile'] = $tr.find('input.img_file').val();
                     }
@@ -2917,7 +2922,7 @@ $(function() {
                     var orderId = oObj.options.order_id;
                     var itemId = $(this).attr('odetail-id');
 
-                    if (confirm("Вы уверены, что хотите удалить услугу №" + itemId + "?")) {
+                    if (confirm("Вы уверены, что хотите удалить товар №" + itemId + "?")) {
                         var order = this;
                         $.post('<?= $selfurl ?>deleteNewProduct/' + orderId + '/' + itemId, {}, function () {
                         }, 'json')
@@ -2948,7 +2953,7 @@ $(function() {
                                     }
                                 })
                                 .error(function(response) {
-                                    error('top', 'Услуга не удалена. Ошибка подключения.');
+                                    error('top', 'Товар не удален. Ошибка подключения.');
                                 });
                     }
                     return false;
@@ -2999,13 +3004,14 @@ $(function() {
                     $tr.find('textarea.tnved').val(odetail['otnved']);
                     $tr.find('textarea.amount').val((parseInt(odetail['amount'], 10)));
 
+					// check init
 					if (odetail['insurance'] == 1)
 					{
-						$tr.find('input#insurance').attr('checked', 'checked');
+						$tr.find('input.insurance').attr('checked', 'checked');
 					}
 					else
 					{
-						$tr.find('input#insurance').removeAttr('checked');
+						$tr.find('input.insurance').removeAttr('checked');
 					}
 
                     // валидация перед редактированием
@@ -3044,8 +3050,9 @@ $(function() {
                     $tr = $('tr#product' + itemId);
 
                     odetail['name'] = $tr.find('textarea.name').val();
-                    odetail['insurance'] = $tr.find('input[name="insurance"]:checked').length;
-                    odetail['ovolume'] = $tr.find('textarea.volume').val();
+                    odetail['insurance'] = $tr.find('input.insurance:checked').length;
+
+					odetail['ovolume'] = $tr.find('textarea.volume').val();
                     odetail['otnved'] = $tr.find('textarea.tnved').val();
                     odetail['olink'] = $tr.find('textarea.link').val();
                     odetail['amount'] = $tr.find('textarea.amount').val();
@@ -3467,14 +3474,14 @@ $(function() {
                     });
                     iObj.fields.push(amount);
 
-                    // ТРебуются фото
-                    foto_requested = new $.cpField();
-                    foto_requested.init({
-                        object:$('#'+oObj.options.type+'ItemForm #foto_requested')
-                    });
-                    iObj.fields.push(foto_requested);
+					// Нужно ли фото товара
+					foto_requested = new $.cpField();
+					foto_requested.init({
+						object:$('#foto_requested')
+					});
+					iObj.fields.push(foto_requested);
 
-                    // Коментарий к товару
+					// Коментарий к товару
                     ocomment = new $.cpField();
                     ocomment.init({
                         object:$('#'+oObj.options.type+'ItemForm #ocomment')
@@ -3681,7 +3688,18 @@ $(function() {
                     $tr.find('textarea.color').val(odetail['ocolor']);
                     $tr.find('textarea.size').val(odetail['osize']);
                     $tr.find('textarea.amount').val(parseInt(odetail['amount'], 10));
-                    if (odetail['oimg'] != null && odetail['oimg'] != 0 && typeof(odetail['oimg']) != 'undefined')
+
+					// check init
+					if (odetail['foto_requested'] == 1)
+					{
+						$tr.find('input.foto_requested').attr('checked', 'checked');
+					}
+					else
+					{
+						$tr.find('input.foto_requested').removeAttr('checked');
+					}
+
+					if (odetail['oimg'] != null && odetail['oimg'] != 0 && typeof(odetail['oimg']) != 'undefined')
                     {
                         $tr.find('textarea.image').val(odetail['oimg']);
                     }
@@ -3728,6 +3746,7 @@ $(function() {
                     odetail['ocolor'] = $tr.find('textarea.color').val();
                     odetail['osize'] = $tr.find('textarea.size').val();
                     odetail['amount'] = $tr.find('textarea.amount').val();
+					odetail['foto_requested']  = $tr.find('input.foto_requested:checked').length;
                     odetail['ocomment'] = $tr.find('textarea.ocomment').val();
                     odetail['img_selector'] = $tr.find('input.img_selector:checked').val();
 

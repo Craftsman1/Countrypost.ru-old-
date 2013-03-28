@@ -1372,6 +1372,8 @@ Email: {$this->user->user_email}";
             $odetail->odetail_tnved				= Check::str('tnved', 255, 0);
             $odetail->odetail_tracking		    = Check::str('odetail_tracking', 255, 0);
             $odetail->odetail_insurance		    = Check::chkbox('insurance');
+            $odetail->odetail_foto_requested    = Check::chkbox('foto_requested');
+            $odetail->odetail_search_requested  = Check::chkbox('search_requested');
             $odetail->odetail_product_name		= Check::str('name', 255, 0, '');
             $odetail->odetail_product_color		= Check::str('color', 255, 0, '');
             $odetail->odetail_product_size		= Check::str('size', 255, 0, '');
@@ -1435,8 +1437,6 @@ Email: {$this->user->user_email}";
             $client_id = $order->order_client;
 
             // открываем транзакцию
-            $this->db->trans_begin();
-
             $this->Odetails->updateOdetail($odetail);
 
             // загружаем файл
@@ -1491,9 +1491,6 @@ Email: {$this->user->user_email}";
                 }
             }
 
-            // закрываем транзакцию
-            $this->db->trans_commit();
-
             // отправляем cообщение на страницу
             $response['order_id'] = $order->order_id;
             $response['odetail_id'] = $odetail->odetail_id;
@@ -1502,6 +1499,7 @@ Email: {$this->user->user_email}";
         }
         catch (Exception $e)
         {
+			print_r($e);
             $response['is_error'] = TRUE;
             $response['message'] = $e->getMessage();
         }

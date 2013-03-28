@@ -26,7 +26,7 @@
 		</div>
 		<div class='submit'>
 			<div>
-				<input type='submit' value='Войти' />
+				<input type='submit' value='Войти'>
 			</div>
 		</div>
 		<a href='<?= BASEURL ?>user/remindpassword' class='remember-password'>Напомнить</a>

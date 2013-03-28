@@ -14,6 +14,11 @@ class Profile extends BaseController {
 	
 	public function index() 
 	{
+		if (empty($this->user->user_group))
+		{
+			Func::redirect(BASEURL);
+		}
+
 		switch ($this->user->user_group)
 		{
 			case 'client' : 

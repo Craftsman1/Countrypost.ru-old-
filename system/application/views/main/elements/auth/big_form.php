@@ -22,9 +22,7 @@
 		</div>
 		<div class='submit'>
 			<div>
-				<input type='button'
-					   value='Войти'
-						onclick="$('form.bigAuthForm').submit();"/>
+				<input type='submit' value='Войти'>
 			</div>
 		</div>
 		<a href='<?= BASEURL ?>user/remindpassword' class='remember-password'>Напомнить</a>

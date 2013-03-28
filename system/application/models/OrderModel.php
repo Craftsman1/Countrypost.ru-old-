@@ -581,6 +581,7 @@ class OrderModel extends BaseModel implements IModel{
 				$orderTypeFilter
 
 				AND `orders`.`order_status` = 'pending'
+				AND `orders`.`is_creating` = 0
 				AND `orders`.`order_manager` = 0
 			$requests_group
 			ORDER BY `orders`.`order_date` DESC"

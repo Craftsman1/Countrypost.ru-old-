@@ -188,11 +188,21 @@ class Dealers extends BaseController {
 
     public function getDealersJson($query = null)
     {
-        $this->load->model('ManagerModel', 'Managers');
+        $this->getDealers($query, $is_mail_forwarding = FALSE);
+	}
 
-        $managers = $this->Managers->getAutocomplitManagers($query);
-
-        echo json_encode($managers);
-        exit;
+    public function getMFDealersJson($query = null)
+    {
+		$this->getDealers($query, $is_mail_forwarding = TRUE);
     }
+
+	private function getDealers($query = null, $is_mail_forwarding = FALSE)
+	{
+		$this->load->model('ManagerModel', 'Managers');
+
+		$managers = $this->Managers->getAutocomplitManagers($query, $is_mail_forwarding);
+
+		echo json_encode($managers);
+		exit;
+	}
 }

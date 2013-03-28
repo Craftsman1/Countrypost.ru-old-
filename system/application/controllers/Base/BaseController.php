@@ -4408,7 +4408,10 @@ abstract class BaseController extends Controller
 	{
 		$this->load->model('AddressModel', 'Addresses');
 
-		$view['addresses'] = $this->Addresses->getAddressesByUserId($this->user->user_id);
+		$view['addresses'] = empty($this->user->user_id) ?
+			FALSE :
+			$this->Addresses->getAddressesByUserId($this->user->user_id);
+
 		$view['statuses'] = $this->Orders->getAllStatuses();
 		$view['order'] = $order;
 
@@ -4436,7 +4439,8 @@ abstract class BaseController extends Controller
 		}
 
 		// находим клиента
-		if ($this->user->user_group == 'manager')
+		if (isset($this->user->user_group) AND
+			$this->user->user_group == 'manager')
 		{
 			$this->load->model('ClientModel', 'Clients');
 			$view['client'] = $this->Clients->getClientById($view['order']->order_client);
@@ -4445,7 +4449,7 @@ abstract class BaseController extends Controller
 
 		// рисуем новую форму заказа
 		$this->Orders->prepareOrderView($view);
-		$order_details = $this->user->user_group == 'admin' ?
+		$order_details = (empty($this->user->user_group) OR $this->user->user_group == 'admin') ?
 			'' :
 			View::get("/{$this->user->user_group}/ajax/showOrderInfoAjax", $view);
 

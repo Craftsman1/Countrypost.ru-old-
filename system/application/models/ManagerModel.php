@@ -269,11 +269,12 @@ class ManagerModel extends BaseModel implements IModel{
     }
 
     /* Список посредников для автокомплит */
-    public function getAutocomplitManagers($query)
+    public function getAutocomplitManagers($query, $is_mail_forwarding = FALSE)
     {
-        $managers = $count = array();
-
-        $like_query = '%'.$query.'%';
+        $like_query = $this->db->escape("%$query%");
+		$mf_filter = ($is_mail_forwarding ?
+			'a.is_mail_forwarding = 1' :
+			'1 = 1');
 
         $managers = $this->db->query(
             "SELECT
@@ -282,11 +283,11 @@ class ManagerModel extends BaseModel implements IModel{
                 @fio := CAST(CONCAT(a.manager_surname, ' ', a.manager_name, ' ', a.manager_otc) AS CHAR) as fio
             FROM `".$this->table."` a
             LEFT JOIN `users` b ON b.user_id = a.manager_user
+            WHERE $mf_filter
             HAVING
-                fio LIKE ".$this->db->escape($like_query)." OR
-                a.manager_user LIKE ".$this->db->escape($like_query)." OR
-                b.user_login LIKE ".$this->db->escape($like_query)."
-            "
+                fio LIKE $like_query OR
+                a.manager_user LIKE $like_query OR
+                b.user_login LIKE $like_query"
         )->result();
 
         return $managers;
