@@ -10,7 +10,5 @@
 		<li><a href='<?= BASEURL ?>dealers'>Посредники (<?=$managers_count?>)</a></li>
 		<li><a href='<?= BASEURL ?>clients'>Клиенты (<?=$clients_count?>)</a></li>
 		<li><a href='<?= BASEURL ?>main/showFAQ'>FAQ</a></li>
-		<li><a href='<?= BASEURL ?>'>Магазин</a></li>
-		<li><a href='<?= BASEURL ?>'>Рассылка</a></li>
-	</ul>
+		</ul>
 </div>
