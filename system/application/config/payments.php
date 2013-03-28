@@ -20,8 +20,8 @@ define('WMZ_RESULT_URL',	"http://countrypost.ru/syspay/showResultWMZ");
 define('WM_SECRET_KEY',		"XFgw");
 define('WM_IN_TAX', 1.8);
 define('WM_IN_EXTRA', 0);
-define('WMZ_IN_TAX', 2.4);
-define('WMZ_IN_EXTRA', 2);
+define('WMZ_IN_TAX', 1.8);
+define('WMZ_IN_EXTRA', 0);
 define('WM_OUT_TAX', 0.8);
 
 //RoboKassa
@@ -29,6 +29,7 @@ define('RK_LOGIN', 'Craftsman1');
 define('RK_PASS1', 'robokassa1');
 define('RK_PASS2', 'robokassa2');
 define('RK_IN_TAX', 1.8);
+define('RK_RUB_IN_TAX', 2.5);
 define('RK_IN_EXTRA', 0);
 
 //W1

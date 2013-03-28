@@ -1664,7 +1664,7 @@ div.syspay div.payment_system,div.syspay div.usd
 
 div.syspay div.payment_system,div.syspay div.usd,div.syspay div.immediate,div.syspay div.delayed
 {
-	display:none;
+	display: block;
 }
 
 div.payment_system label div,div.payment_system label span,div.payment_system label  img,div.payment_system input
@@ -2804,4 +2804,8 @@ div.signup div.signup_button {
 
 div.signup div.box {
 	width:420px;
+}
+
+div.payment_system_name {
+	margin-top: 7px;
 }
