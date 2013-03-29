@@ -1,9 +1,9 @@
-<div class='adittional-block' style="    position: absolute;    right: 20px;    top: 40px;    z-index: 1;    width: 262px;">
+<div class='adittional-block' style="    position: absolute;    right: 20px;    top: 40px;    z-index: 1;    width: 262px;font-size:20px;">
 	<div class='headlines' style="    margin-right: 20px;    width: 300px;">
 		<h2 style="margin-left: 52px;">Курсы валют</h2>
 		<br>
 		<dl style="width: 222px;">
-			<dt>Доллар ($)</dt>
+			<!--dt>Доллар ($)</dt>
 			<dd>
 				<?= number_format($rate_usd_rur, 2) ?> руб.
 			</dd>
@@ -18,22 +18,22 @@
 			<dt>Доллар ($)</dt>
 			<dd>
 				<?= number_format($rate_usd_uah, 2)?>&nbsp;гривен&nbsp;(<em class="grivna">&nbsp;&nbsp;&nbsp;</em>)
-			</dd>
-			<dt>1 <?= $order->order_currency ?></dt>
+			</dd-->
+			<dt>1 <?= $order->order_currency ?> =</dt>
 			<dd>
-				<?= number_format($rate_rur, 2) ?> руб.
+				<?= number_format($rate_rur, 2) ?> RUB
 			</dd>
-			<dt>1 <?= $order->order_currency ?></dt>
+			<dt>1 <?= $order->order_currency ?> =</dt>
 			<dd>
-				<?= number_format($rate_usd, 2) ?> $
+				<?= number_format($rate_usd, 2) ?> USD
 			</dd>
-			<dt>1 <?= $order->order_currency ?></dt>
+			<dt>1 <?= $order->order_currency ?> =</dt>
 			<dd>
-				<?= number_format($rate_kzt, 2) ?>&nbsp;тенге&nbsp;(<em class="tenge">&nbsp;&nbsp;&nbsp;</em>)
+				<?= number_format($rate_kzt, 2) ?> KZT
 			</dd>
-			<dt>1 <?= $order->order_currency ?></dt>
+			<dt>1 <?= $order->order_currency ?> =</dt>
 			<dd>
-				<?= number_format($rate_uah, 2)?>&nbsp;гривен&nbsp;(<em class="grivna">&nbsp;&nbsp;&nbsp;</em>)
+				<?= number_format($rate_uah, 2)?> UAH
 			</dd>
 		</dl>
 	</div>

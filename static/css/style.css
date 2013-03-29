@@ -378,12 +378,18 @@ body {
 				color:#000;
 				}
 				.adittional-block .headlines dt {
-					float:left;
-					clear:left;
-					}
+					float: left;
+					clear: left;
+					margin-left: 17px;
+					margin-bottom: 20px;
+					font-size: 19px;
+				}
 				.adittional-block .headlines dd {
-					overflow:hidden;
-					text-align:right;
+					overflow: hidden;
+					text-align: right;
+					font-size: 19px;
+					margin-bottom: 20px;
+					margin-right: 20px;
 					}
 			.adittional-block .headlines a {
 				display:block;
@@ -1662,24 +1668,14 @@ div.syspay div.payment_system,div.syspay div.usd
 	/*margin-left:37px;*/
 }
 
-div.syspay div.payment_system,div.syspay div.usd,div.syspay div.immediate,div.syspay div.delayed
-{
-	display: block;
-}
-
 div.payment_system label div,div.payment_system label span,div.payment_system label  img,div.payment_system input
 {
-	float:left;
+/*	float:left;*/
 }
 
 div.payment_system>form>div>div
 {
 	display:block;
-}
-
-div.payment_system input
-{
-	margin:9px 12px 0 5px;
 }
 
 div.payment_system label
@@ -1698,19 +1694,8 @@ div.payment_system label span
 	width: 28px;
 }
 
-div.payment_system label  img
-{
-	margin:0 8px;
-}
-
-div.payment_system div>div,div.usd div, div.kzt div, div.uah div
-{
-	height:40px;
-}
-
 div.syspay div.amount,div.syspay div.total
 {
-	/*margin:13px 0 5px 55px;*/
 	height:40px;
 	position:relative;
 }
@@ -1723,7 +1708,6 @@ div.syspay div.amount,div.syspay div.total,div.syspay div.total span b
 div.syspay div.total span em
 {
 	display:block;
-	/*margin-left:-55px;*/
 	font-size:12px;
 	margin-top:5px;
 	font-style:normal;
@@ -1731,7 +1715,7 @@ div.syspay div.total span em
 
 div.syspay div.amount input
 {
-	float:none;vertical-align:baseline;margin:4px;
+	float:none;vertical-align:baseline;
 }
 
 div.syspay div.total
@@ -2428,6 +2412,7 @@ div.profile_box  div.cashback_box span.cashback_span {
 div.profile_box .textbox,
 div.blog_box .textbox,
 div.manager_payment_box .textbox,
+div.countrypost_payment_box .textbox,
 div.mail_forwarding .textbox
 {
 	width: 188px;
@@ -2437,6 +2422,12 @@ div.mail_forwarding .textbox
 	border: 1px solid #afafaf;
 	color:#000;
 	margin-bottom: 15px;
+}
+
+div.countrypost_payment_box .textbox,
+div.manager_payment_box .textbox
+{
+	width: 180px;
 }
 
 div.profile_box .textbox,
@@ -2726,7 +2717,9 @@ div.manager_payment_box {
 	font-family: Arial;
 }
 
-div.manager_payment_box b.currency  {
+div.manager_payment_box b.currency,
+div.countrypost_payment_box b.currency
+{
 	left: 365px;
 	position: absolute;
 	margin-top: 7px;
@@ -2759,25 +2752,23 @@ div.manager_payment_box b.total_local_amount
 	font-weight: normal;
 }
 
-div.manager_payment_box span.label {
-	width: 190px;
+div.manager_payment_box span.label,
+div.countrypost_payment_box span.label
+{
+	float: left;
+	width: 188px;
 	margin-top:3px;
 	margin-bottom: 20px;
 }
 
-div.manager_payment_box div.submit {
+div.manager_payment_box div.submit,
+div.countrypost_payment_box div.submit
+{
 	margin-left: 187px;
 }
 
 div.manager_payment_box textarea {
 	margin-bottom: 5px!important;
-}
-
-div.syspay div.payment_system b.currency {
-	font-weight: normal;
-	left: 250px;
-	position: absolute;
-	margin-top: 7px;
 }
 
 a.pagerScroll {
@@ -2807,5 +2798,65 @@ div.signup div.box {
 }
 
 div.payment_system_name {
-	margin-top: 7px;
+	margin-top: 10px;
 }
+
+div.payment_system div.totals {
+	font-weight: bold;
+}
+
+div.payment_system label {
+	background-color: #f7f7f7;
+	height: 100px;
+	width: 100px;
+	float: left;
+	text-align: center;
+}
+
+div.payment_type {
+	margin-right: 20px;
+	margin-bottom: 20px;
+	float: left;
+}
+
+div.countrypost_payment_box
+{
+	height: 350px;
+}
+
+div.countrypost_payment_box label input, iv.countrypost_payment_box label img
+{
+	display: block;
+}
+
+div.countrypost_payment_box label.payment_hover
+{
+	border: #d3d3d3 1px solid;
+	height: 98px;
+	width: 98px;
+}
+
+div.countrypost_payment_box label.payment_selected
+{
+	background-color: #d3d3d3!important;
+}
+
+div.countrypost_payment_box label.payment_hover input
+{
+	margin-left: 42px;
+	margin-top: 9px;
+}
+
+div.countrypost_payment_box label input
+{
+	margin-left: 43px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+div.countrypost_payment_box label.payment_hover div.totals
+{
+	margin-left: -1px;
+}
+
+

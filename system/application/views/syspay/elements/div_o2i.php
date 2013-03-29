@@ -18,26 +18,13 @@ $payable_amount =
 		{
 			case "wmr": tax = <?= WM_IN_TAX ?>; break;
 			case "wmz": tax = <?= WMZ_IN_TAX ?>; break;
-			case "rk": tax = <?= RK_IN_TAX ?>; break;
 			case "w1": tax = <?= W1_IN_TAX ?>; break;
-			case "lp": tax = <?= LP_IN_TAX ?>; break;
 			case "bm": tax = <?= BM_IN_TAX ?>; break;
+			case "sb": tax = <?= BM_IN_TAX ?>; break;
 			case "rbk": tax = <?= RBK_IN_TAX ?>; break;
 			case "qw": tax = <?= QW_IN_TAX ?>; break;
-			case "qw1": tax = <?= QIWI_IN_TAX ?>; break;
-            case "pp": tax = <?= PP_IN_TAX ?>; break;
-            case "bta": tax = <?= BTA_IN_TAX ?>; break;
-            case "ccr": tax = <?= CCR_IN_TAX ?>; break;
-            case "kkb": tax = <?= KKB_IN_TAX ?>; break;
-            case "nb": tax = <?= NB_IN_TAX ?>; break;
-            case "tb": tax = <?= TB_IN_TAX ?>; break;
-            case "atf": tax = <?= ATF_IN_TAX ?>; break;
-            case "ab": tax = <?= AB_IN_TAX ?>; break;
-            case "pb": tax = <?= PB_IN_TAX ?>; break;
-            case "sv": tax = <?= SV_IN_TAX ?>; break;
-            case "vtb": tax = <?= VTB_IN_TAX ?>; break;
-            case "vm": tax = <?= RK_RUB_IN_TAX ?>; break;
-		}
+			case "sv": tax = <?= SV_IN_TAX ?>; break;
+        }
 		
 		return tax;
 	}
@@ -49,8 +36,7 @@ $payable_amount =
 		switch (service) 
 		{
 			case "wmz": extra = <?= WMZ_IN_EXTRA ?>; break;
-            case "pp": extra = <?= PP_IN_EXTRA ?>; break;
-		}
+        }
 		
 		return extra;
 	}
@@ -126,54 +112,50 @@ $payable_amount =
 		$('div.countrypost_payment_box b.total_local_amount').html(excess_amount + amount);
 	}
 
-	function calculateTotals(section) 
+	function calculateTotals()
 	{
-		if (section)
-		{
-			calculateTotal(section);
-		}
-		else
-		{
-			calculateTotal('usd');
-			calculateTotal('immediate');
-			calculateTotal('delayed');
-		}
+		calculateTotal('sv');
+		calculateTotal('sb');
+		calculateTotal('wmr');
+		calculateTotal('qw');
+		calculateTotal('wmz');
+		calculateTotal('rbk');
 	}
 	
-	function calculateTotal(id) 
+	function calculateTotal(service)
 	{
-		updateExcessAmount(id);
+		updateExcessAmount('countrypost_payment_box');
 
-		if (id == 'usd')
+		if (service == 'sv' ||
+			service == 'sb' ||
+			service == 'qw' ||
+			service == 'wmr' ||
+			service == 'rbk')
 		{
-			calculateTotalUSD(id);
+			calculateTotalRUB(service);
 		} 
 		else
 		{
-			calculateTotalRUB(id);
+			calculateTotalUSD(service);
 		}
 	}
 	
-	function calculateTotalRUB(id)
-	{			
-		var payment_option = $('.' + id + ' input:radio').filter(':checked').attr('id');
-		var service = getService(payment_option);
+	function calculateTotalRUB(service)
+	{
 		var percentage = getTax(service);
+		var extra = getExtra(service);
 
 		var amount = $('.delayed .amount input:text').val();
 		amount = parseFloat(amount);
 		amount = (isNaN(amount) ? 0 : amount) * rate_rur;
 
-		var ru_amount = Math.ceil(amount + percentage * amount * 0.01);
+		var ru_amount = Math.ceil(amount + percentage * amount * 0.01 + extra);
 		
-		$('#' + id + '_ru').val(ru_amount);
-		$('.delayed .total b').html(ru_amount + ' RUB');
+		$('.delayed .total b, div.total_' + service).html(ru_amount + ' RUB');
 	}
 
-	function calculateTotalUSD(id) 
-	{			
-		var payment_option = $('.' + id + ' input:radio').filter(':checked').attr('id');
-		var service = getService(payment_option);
+	function calculateTotalUSD(service)
+	{
 		var percentage = getTax(service);
 		var extra = getExtra(service);
 
@@ -181,10 +163,9 @@ $payable_amount =
 		amount = parseFloat(amount);
 		amount = (isNaN(amount) ? 0 : amount) * rate_usd;
 
-		var total = Math.ceil(amount + percentage*amount*0.01 + extra);
+		var total = Math.ceil(amount + percentage * amount * 0.01 + extra);
 		
-		$('.' + id + ' #total_usd').val(total);
-		$('.delayed .total b').html(total + ' USD');
+		$('.delayed .total b, div.total_' + service).html(total + ' USD');
 	}
 
     function openO2iPopup(x)
@@ -214,8 +195,6 @@ $payable_amount =
 		{
 			case "bm": openSberbankPopup(user_id, amount_usd, $('#delayed_ru').val()); break;
 			case "sv": openSvPopup(user_id, amount_usd, $('#delayed_ru').val()); break;
-			case "vm": openVMPopup(user_id, amount_usd, $('#delayed_ru').val()); break;
-			case "vm": openVMPopup(user_id, amount_usd, $('#delayed_ru').val()); break;
 		}
 
 		return false;
@@ -240,11 +219,26 @@ $payable_amount =
 			.bind('keypress keydown mouseup keyup blur', function() {
 				calculateTotals($(this).attr('rel'));
 			});
-			
+
 		// переключение платежек
-		$('.payment_system input:radio').change(function() {
-			calculateTotals($(this).attr('rel'));
+		$('.payment_system input:radio').change(function(e) {
+			$('.payment_system label').removeClass('payment_selected');
+			$(this).parent().addClass('payment_selected');
+
+			var total = $(this).parent().find('div.totals').html();
+			$('div.countrypost_payment_box div.total b').html(total);
+
+			$('#total_ru,#total_usd,#immediate_ru,#delayed_ru').val(total.substr(0, total.length - 4));
 		});
+
+		// подсветка
+		$('div.payment_system label')
+			.hover(function() {
+				$(this).addClass('payment_hover');
+			},
+			function() {
+				$(this).removeClass('payment_hover');
+			});
 
 		// переключение валют
 		calculateTotals();
@@ -259,12 +253,13 @@ $payable_amount =
 	<div class="payment_system">
 		<div class="delayed">
 			<div class="amount delayed">
-				<span>Сумма к оплате* :</span>
+				<span class="label">Сумма к оплате* :</span>
 				<input type="text"
+					   class="textbox"
 					   rel="delayed"
 					   name="total_usd"
 					   value="<?= $payable_amount ?>" >
-				<b class="currency">
+				<b class="currency" style="left: 345px;">
 					<?= $order->order_currency ?>
 				</b>
 				<? if ($order->excess_amount) : ?>
@@ -285,7 +280,7 @@ $payable_amount =
 				<input type="hidden" id="delayed_ru" value="" />
 			</div>
 			<div class="total">
-				<span>Итого к оплате: <b>0 руб.</b></span>
+				<span>Итого к оплате: <b style="margin-left: 82px;">0 RUB</b></span>
 				<div>
 					<div class='submit'>
 						<div>
@@ -294,27 +289,30 @@ $payable_amount =
 					</div>
 				</div>
 			</div>
-			<div>
-				<input type="radio"
-					   rel="delayed"
-					   id="delayed_sv"
-					   name="payment_selector" checked />
-				<label for="delayed_sv">
-					<img src="/static/images/sviaznoy.png" style="margin-right: 2px;" />
-					<div class="payment_system_name">
-						Оплата переводом с карты на карту через <?= SV_SERVICE_NAME ?>
+			<div title="Оплата переводом с карты на карту через <?= SV_SERVICE_NAME ?>"
+				 class="payment_type"
+				 style="margin-left: 190px;">
+				<label for="delayed_sv" class="payment_selected">
+					<input type="radio"
+						   rel="delayed"
+						   id="delayed_sv"
+						   name="payment_selector" checked />
+					<img src="/static/images/sviaznoy.png" />
+					<div class="payment_system_name totals total_sv">
+						12345 RUB
 					</div>
 				</label>
 			</div>
-			<div>
-				<input type="radio"
-					   rel="delayed"
-					   id="delayed_sb"
-					   name="payment_selector" />
+			<div title="Оплата переводом с карты на карту через Сбербанк (Россия)"
+				 class="payment_type">
 				<label for="delayed_sb">
+					<input type="radio"
+						   rel="delayed"
+						   id="delayed_sb"
+						   name="payment_selector" />
 					<img src="/static/images/sberbank.png" />
-					<div class="payment_system_name">
-						Оплата переводом с карты на карту через Сбербанк (Россия)
+					<div class="payment_system_name totals total_sb">
+						12345 RUB
 					</div>
 				</label>
 			</div>
@@ -323,43 +321,47 @@ $payable_amount =
 			<input type="hidden" name="section" value="immediate">
 			<input type="hidden" name="total_ru" id="immediate_ru" value="">
 			<div class="immediate">
-				<div>
-					<input type="radio"
-						   id="immediate_wmr"
-						   value="wmr"
-						   name="payment_selector"
-						   rel="immediate" />
+				<div title="Оплата через webmoney (WMR)"
+					 class="payment_type">
 					<label for="immediate_wmr">
-						<img src="/static/images/wmr.png" style="margin-left: 6px;margin-right:6px;" />
-						<div class="payment_system_name">
-							Оплата через webmoney (WMR)
+						<input type="radio"
+							   id="immediate_wmr"
+							   value="wmr"
+							   name="payment_selector"
+							   rel="immediate" />
+						<img src="/static/images/wmr.png" />
+						<div class="payment_system_name totals total_wmr">
+							12345 RUB
 						</div>
 					</label>
 				</div>
-				<div>
-					<input type="radio"
-						   id="immediate_qw"
-						   value="qw"
-						   name="payment_selector"
-						   rel="immediate" />
+				<br style="clear: both">
+				<div title="Оплата через Qiwi кошелек"
+					 class="payment_type"
+					 style="margin-left: 190px;">
 					<label for="immediate_qw">
+						<input type="radio"
+							   id="immediate_qw"
+							   value="qw"
+							   name="payment_selector"
+							   rel="immediate" />
 						<img src="/static/images/qiwi.png" />
-						<div class="payment_system_name">
-							Оплата через Qiwi кошелек
+						<div class="payment_system_name totals total_qw">
+							12345 RUB
 						</div>
 					</label>
 				</div>
-				<div>
-					<input type="radio"
-						   id="immediate_rbk"
-						   value="rbk"
-						   name="payment_selector"
-						   rel="immediate" />
+				<div title="Оплата через платежную систему Robokassa"
+					 class="payment_type">
 					<label for="immediate_rbk">
-
+						<input type="radio"
+							   id="immediate_rbk"
+							   value="rbk"
+							   name="payment_selector"
+							   rel="immediate" />
 						<img src="/static/images/robokassa.png" />
-						<div class="payment_system_name">
-							Оплата через платежную систему Robokassa
+						<div class="payment_system_name totals total_rbk">
+							12345 RUB
 						</div>
 					</label>
 				</div>
@@ -368,16 +370,17 @@ $payable_amount =
 		<form method="POST" action="/syspay/showGate" class="usd">
 			<input type="hidden" name="section" value="usd">
 			<input type="hidden" name="total_usd" id="total_usd">
-			<div style="height: 40px;">
-				<input type="radio"
-					   id="usd_wmz"
-					   value="wmz"
-					   name="payment_selector"
-					   rel="usd"/>
+			<div title="Оплата через webmoney (WMZ)"
+				 class="payment_type">
 				<label for="usd_wmz">
-					<img src="/static/images/wmz.png" style="margin-left: 8px!important;" />
-					<div class="payment_system_name">
-						Оплата через webmoney (WMZ)
+					<input type="radio"
+						   id="usd_wmz"
+						   value="wmz"
+						   name="payment_selector"
+						   rel="usd"/>
+					<img src="/static/images/wmz.png" />
+					<div class="payment_system_name totals total_wmz">
+						12345 RUB
 					</div>
 				</label>
 			</div>
