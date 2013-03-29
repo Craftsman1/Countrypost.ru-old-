@@ -1,15 +1,17 @@
 <form method="POST" action="https://merchant.webmoney.ru/lmi/payment.asp" name="postform">
-	LMI_PAYMENT_AMOUNT:<input type="text" name="LMI_PAYMENT_AMOUNT" value="<?=$amount_usd?>"><br />
-	LMI_PAYMENT_DESC:<input type="text" name="LMI_PAYMENT_DESC" value="Refill balance for client <?=$user->user_id?> on $<?=$amount?>"><br />
-	LMI_PAYMENT_NO:<input type="text" name="LMI_PAYMENT_NO" value="<?=$number?>"><br />
-	LMI_PAYEE_PURSE:<input type="text" name="LMI_PAYEE_PURSE" value="<?=WMZ_PURSE?>"><br />
-	LMI_SIM_MODE:<input type="text" name="LMI_SIM_MODE" value="<?= (TESTMODE==1)?2:0?>"><br />
-	LMI_RESULT_URL:<input type="text" name="LMI_RESULT_URL" value="<?=WMZ_RESULT_URL?>"><br />
-	LMI_SUCCESS_URL:<input type="text" name="LMI_SUCCESS_URL" value="<?=WM_SUCCESS_URL?>"><br />
+	LMI_PAYMENT_AMOUNT:<input type="text" name="LMI_PAYMENT_AMOUNT" value="<?= $amount_usd ?>"><br />
+	LMI_PAYMENT_DESC:<input type="text" name="LMI_PAYMENT_DESC" value="Order: <?= $order_id ?>. Payment: <?=
+$amount_usd ?> USD. User: <?= $user->user_id ?>"><br />
+	LMI_PAYMENT_NO:<input type="text" name="LMI_PAYMENT_NO" value="<?= $number ?>"><br />
+	LMI_PAYEE_PURSE:<input type="text" name="LMI_PAYEE_PURSE" value="<?= WMZ_PURSE ?>"><br />
+	LMI_SIM_MODE:<input type="text" name="LMI_SIM_MODE" value="<?= (TESTMODE == 1) ? 2 : 0 ?>"><br />
+	LMI_RESULT_URL:<input type="text" name="LMI_RESULT_URL" value="<?= WMZ_RESULT_URL ?>"><br />
+	LMI_SUCCESS_URL:<input type="text" name="LMI_SUCCESS_URL" value="<?= WM_SUCCESS_URL ?>"><br />
 	LMI_SUCCESS_METHOD:<input type="text" name="LMI_SUCCESS_METHOD" value="2"><br />
-	LMI_FAIL_URL:<input type="text" name="LMI_FAIL_URL" value="<?=WM_FAIL_URL?>"><br />
+	LMI_FAIL_URL:<input type="text" name="LMI_FAIL_URL" value="<?= WM_FAIL_URL ?>"><br />
 	LMI_FAIL_METHOD:<input type="text" name="LMI_FAIL_METHOD" value="2"><br />
-	User_id:<input type="text" name="User_id" value="<?=$user->user_id;?>"><br />
-	User_tax:<input type="text" name="User_tax" value="<?=$amount*$tax*0.01 + $extra?>"><br />
+	User_id:<input type="text" name="User_id" value="<?= $user->user_id; ?>"><br />
+	User_tax:<input type="text" name="User_tax" value="<?= $amount * $tax * 0.01 + $extra ?>"><br />
 	User_amount:<input type="text" name="User_amount" value="<?= $amount ?>"><br />
+	User_order:<input type="text" name="order" value="<?= $order_id ?>">
 </form>

@@ -9,25 +9,30 @@ $crc  = md5(
 	":ShpComment=:ShpTax=".
 	$User_tax.
 	":ShpUser=".
-	$user->user_id);
+	$user->user_id.
+	":ShpOrder=".
+	$order_id);
 
-if (TESTMODE==1) {
+if (TESTMODE==1)
+{
 	$psform="<form action='http://test.robokassa.ru/Index.aspx' method=POST name='postform'>";}
-else {
+else
+{
 	$psform="<form action='http://merchant.roboxchange.com/Index.aspx' method=POST name='postform'>";
 }
-$psform	=	$psform.
-		      "MrchLogin:<input type=text name=MrchLogin value=".RK_LOGIN.">".
-		      "OutSum:<input type=text name=OutSum value=$amount>".
-		      "InvId:<input type=text name=InvId value=$number>".
-		      "Desc:<input type=text name=Desc value='Пополнение счета клиента №$user->user_id на $amount руб. (".'$'."$amount_usd)'>".
-		      "SignatureValue:<input type=text name=SignatureValue value=$crc>".
-		      "IncCurrLabel:<input type=text name=IncCurrLabel value=RuPayR>".
-		      "Culture:<input type=text name=Culture value=ru>".
-		      "ShpUser:<input type=text name=ShpUser value='".$user->user_id."'>".
-		      "ShpComment:<input type=text name=ShpComment value=''>".
-		      "ShpAmount:<input type=text name=ShpAmount value='$amount_usd'>".
-		      "ShpTax:<input type=text name=ShpTax value='$User_tax'>".
-		      "</form>";
+$psform	= $psform .
+	"MrchLogin:<input type=text name=MrchLogin value=".RK_LOGIN.">".
+	"OutSum:<input type=text name=OutSum value=$amount>".
+	"InvId:<input type=text name=InvId value=$number>".
+	"Desc:<input type=text name=Desc value='Пополнение счета клиента №$user->user_id на $amount руб. (".'$'."$amount_usd)'>".
+	"SignatureValue:<input type=text name=SignatureValue value=$crc>".
+	"IncCurrLabel:<input type=text name=IncCurrLabel value=RuPayR>".
+	"Culture:<input type=text name=Culture value=ru>".
+	"ShpUser:<input type=text name=ShpUser value='".$user->user_id."'>".
+	"ShpComment:<input type=text name=ShpComment value=''>".
+	"ShpAmount:<input type=text name=ShpAmount value='$amount_usd'>".
+	"ShpTax:<input type=text name=ShpTax value='$User_tax'>".
+	"ShpOrder:<input type=text name=ShpOrder value='$order_id'>".
+	"</form>";
 echo $psform;
 ?>

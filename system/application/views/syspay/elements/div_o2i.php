@@ -114,12 +114,12 @@ $payable_amount =
 
 	function calculateTotals()
 	{
-		calculateTotal('sv');
 		calculateTotal('sb');
 		calculateTotal('wmr');
 		calculateTotal('qw');
 		calculateTotal('wmz');
 		calculateTotal('rbk');
+		calculateTotal('sv');
 	}
 	
 	function calculateTotal(service)
@@ -170,9 +170,9 @@ $payable_amount =
 
     function openO2iPopup(x)
 	{
-		var payment_option = $('.' + x + ' input:radio').filter(':checked').attr('id');
+		var payment_option = $('input:radio#' + x).filter(':checked').attr('id');
         var service = getService(payment_option);
-		var amount_usd = $('.' + x + ' input:text').val();
+		var amount_usd = $('.payment_system input:text').val();
 		var user_id = '<?= isset($user->user_id) ? $user->user_id : '' ?>';
 
 		switch (service) 
@@ -186,15 +186,26 @@ $payable_amount =
 
     function processPayment()
 	{
-		var payment_option = $('.payment_system input:radio').filter(':checked:first').attr('id');
+		var payment_option = $('.payment_system input:radio').filter(':checked').attr('id');
         var service = getService(payment_option);
-		var amount_usd = $('.payment_system input:text').val();
-		var user_id = '<?= isset($user->user_id) ? $user->user_id : '' ?>';
 
+		//alert(service);
 		switch (service)
 		{
-			case "bm": openSberbankPopup(user_id, amount_usd, $('#delayed_ru').val()); break;
-			case "sv": openSvPopup(user_id, amount_usd, $('#delayed_ru').val()); break;
+			case "bm":
+				openO2iPopup('delayed_sb');
+				break;
+			case "sv":
+				openO2iPopup('delayed_sv');
+				break;
+			case "wmr":
+			case "qw1":
+			case "rk":
+				$('.countrypost_payment_box form.immediate').submit();
+				break;
+			case "wmz":
+				$('.countrypost_payment_box form.usd').submit();
+				break;
 		}
 
 		return false;
@@ -209,10 +220,50 @@ $payable_amount =
 		
 		return true;
 	}
-	
+
+	function switchPaymentSystem()
+	{
+		$('.payment_system label').removeClass('payment_selected');
+		$(this).parent().addClass('payment_selected');
+
+		var total = $(this).parent().find('div.totals').html();
+		$('div.countrypost_payment_box div.total b').html(total);
+
+		$('#total_ru,#total_usd,#immediate_ru,#delayed_ru').val(total.substr(0, total.length - 4));
+
+		// трюк с радио в 3х формах
+		var boxes = '';
+
+		switch ($(this).attr('rel'))
+		{
+			case 'delayed' :
+				boxes = $('form.immediate,form.usd');
+				break;
+			case 'immediate' :
+				boxes = $('div.delayed,form.usd');
+				break;
+			case 'usd' :
+				boxes = $('form.immediate,div.delayed');
+				break;
+		}
+
+		boxes
+			.find('input:radio')
+			.removeAttr('checked');
+	}
+
+	function paymentSystemHover()
+	{
+		$(this).addClass('payment_hover');
+	}
+
+	function paymentSystemUnhover() {
+		$(this).removeClass('payment_hover');
+	}
+
 	$(function() {
 		// подсчет сумм
-		$('.amount input')
+		$('.countrypost_payment_box .amount input')
 			.keypress(function(event) {
 				validate_number(event);
 			})
@@ -221,26 +272,14 @@ $payable_amount =
 			});
 
 		// переключение платежек
-		$('.payment_system input:radio').change(function(e) {
-			$('.payment_system label').removeClass('payment_selected');
-			$(this).parent().addClass('payment_selected');
-
-			var total = $(this).parent().find('div.totals').html();
-			$('div.countrypost_payment_box div.total b').html(total);
-
-			$('#total_ru,#total_usd,#immediate_ru,#delayed_ru').val(total.substr(0, total.length - 4));
-		});
+		$('.payment_system input:radio')
+			.change(switchPaymentSystem);
 
 		// подсветка
 		$('div.payment_system label')
-			.hover(function() {
-				$(this).addClass('payment_hover');
-			},
-			function() {
-				$(this).removeClass('payment_hover');
-			});
+			.hover(paymentSystemHover, paymentSystemUnhover);
 
-		// переключение валют
+		// инициализация
 		calculateTotals();
 	});
 </script>
@@ -317,7 +356,7 @@ $payable_amount =
 				</label>
 			</div>
 		</div>
-		<form method="POST" action="/syspay/showGate" class="immediate">
+		<form method="POST" action="/syspay/showGate/<?= $order->order_id ?>" class="immediate">
 			<input type="hidden" name="section" value="immediate">
 			<input type="hidden" name="total_ru" id="immediate_ru" value="">
 			<div class="immediate">
@@ -367,7 +406,7 @@ $payable_amount =
 				</div>
 			</div>
 		</form>
-		<form method="POST" action="/syspay/showGate" class="usd">
+		<form method="POST" action="/syspay/showGate/<?= $order->order_id ?>" class="usd">
 			<input type="hidden" name="section" value="usd">
 			<input type="hidden" name="total_usd" id="total_usd">
 			<div title="Оплата через webmoney (WMZ)"

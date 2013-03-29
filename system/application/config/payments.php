@@ -3,9 +3,9 @@
 define('TESTMODE', 0); //В большинстве случаев при 1 будут проходить тестовые платежи
 //Для работы нужно установить в 0
 
-define('SUCCESS_URL',	"http://countrypost.ru/syspay/showSuccess");
-define('FAIL_URL',		"http://countrypost.ru/syspay/showFail");
-define('RESULT_URL',	"http://countrypost.ru/syspay/showResult");
+define('SUCCESS_URL',	BASEURL . "syspay/showSuccess");
+define('FAIL_URL',		BASEURL . "syspay/showFail");
+define('RESULT_URL',	BASEURL . "syspay/showResult");
 define('ADMIN_EMAIL',	"info@countrypost.ru");
 
 define('MAX_O2I_RU', 15000);
@@ -13,10 +13,10 @@ define('MAX_O2I_RU', 15000);
 //WebMoney
 define('WM_PURSE',			"R335456041886");
 define('WMZ_PURSE',			"Z735510829657");
-define('WM_SUCCESS_URL',	"http://countrypost.ru/syspay/showSuccess");
-define('WM_FAIL_URL',		"http://countrypost.ru/syspay/showFail");
-define('WM_RESULT_URL',		"http://countrypost.ru/syspay/showResult");
-define('WMZ_RESULT_URL',	"http://countrypost.ru/syspay/showResultWMZ");
+define('WM_SUCCESS_URL',	BASEURL . "syspay/showSuccess");
+define('WM_FAIL_URL',		BASEURL . "syspay/showFail");
+define('WM_RESULT_URL',		BASEURL . "syspay/showResult");
+define('WMZ_RESULT_URL',	BASEURL . "syspay/showResultWMZ");
 define('WM_SECRET_KEY',		"XFgw");
 define('WM_IN_TAX', 1.8);
 define('WM_IN_EXTRA', 0);
@@ -36,9 +36,9 @@ define('RK_IN_EXTRA', 0);
 define('W1_WALLET', '103853778255');
 define('W1_PASS', 'AyDcbD');
 define('W1_KEY', 'VGtcWHpuTmIydVJGT3F1OWZ3T2NWWXxnQXhe');
-define('W1_FAIL_URL',		"http://countrypost.ru/syspay/showFail");
-define('W1_SUCCESS_URL',	"http://countrypost.ru/syspay/showSuccess");
-define('W1_RESULT_URL',		"http://countrypost.ru/syspay/showResult");
+define('W1_FAIL_URL',		BASEURL . "syspay/showFail");
+define('W1_SUCCESS_URL',	BASEURL . "syspay/showSuccess");
+define('W1_RESULT_URL',		BASEURL . "syspay/showResult");
 
 //Лучше не использовать кнопку "Сгенерировать" в админке, т.к. слишком длинный код иногда вызывает проблемы с ЭЦП
 define('W1_IN_TAX', 3);
@@ -47,13 +47,13 @@ define('W1_IN_TAX', 3);
 define('LP_MERCHANT_ID', 'i2498933264');
 define('LP_MERCHANT_SIG1', 'x1XA6xyodERIWefQAR3sSbpdOo1Af0bmoY5Um');
 define('LP_MERCHANT_SIG2', 'OPy4OGrEhcbUa1uaiWNlzh970lUfBv93seO8wVLj');
-define('LP_RESULT_URL', 'http://countrypost.ru/syspay/showResultLP');
-define('LP_SERVER_URL', 'http://countrypost.ru/syspay/showServerLP');
+define('LP_RESULT_URL', BASEURL . 'syspay/showResultLP');
+define('LP_SERVER_URL', BASEURL . 'syspay/showServerLP');
 
 #$lp_merchant_id="i0327037845";
 #$lp_merchant_password="YB1zi3hLHCJeXEo9ZeIfcLMT56Ydw";
-#$lp_result_url="http://countrypost.ru/lp_result.php"; // success/fail
-#$lp_server_url="http://countrypost.ru/lp.php";
+#$lp_result_url=BASEURL . "lp_result.php"; // success/fail
+#$lp_server_url=BASEURL . "lp.php";
 define('LP_IN_TAX', 3);
 define('LP_OUT_TAX', 0);
 
@@ -73,7 +73,7 @@ define('QW_IN_ACCOUNT', '9161279091');
 define('QW_LOGIN', '16801');
 define('QIWI_PASS', 'WfRx15NPWfAL3LNORWtn');
 define('QW_OUT_TAX', 0);
-define('QIWI_SUCCESS_URL', "http://countrypost.ru/syspay/showResultQW");
+define('QIWI_SUCCESS_URL', BASEURL . "syspay/showResultQW");
 
 // RBK Money
 define('RBK_IN_TAX', 2.5);
@@ -87,11 +87,11 @@ define('PP_ACCOUNT', 'stuff82@gmail.com');
 define('PP_TEST_ACCOUNT', 'stuff82@gmail.com');
 define('PP_URL', 'https://www.paypal.com/cgi-bin/webscr');
 define('PP_TEST_URL', 'https://www.sandbox.paypal.com/cgi-bin/webscr');
-define('PP_RETURN_URL', 'http://countrypost.ru/syspay/showResultPP');
-define('PP_NOTIFY_URL', 'http://countrypost.ru/syspay/callbackPP');
-define('PP_CALLBACK_URL', 'http://countrypost.ru/syspay/callbackPP');
-define('PP_IMAGE_URL', 'http://countrypost.ru/static/images/logo.png');
-define('PP_CANCEL_URL', 'http://countrypost.ru/client');
+define('PP_RETURN_URL', BASEURL . 'syspay/showResultPP');
+define('PP_NOTIFY_URL', BASEURL . 'syspay/callbackPP');
+define('PP_CALLBACK_URL', BASEURL . 'syspay/callbackPP');
+define('PP_IMAGE_URL', BASEURL . 'static/images/logo.png');
+define('PP_CANCEL_URL', BASEURL . 'client');
 
 // UAH
 define('PB_IN_TAX', 1.5);

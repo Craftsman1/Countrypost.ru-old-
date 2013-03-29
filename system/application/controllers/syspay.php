@@ -1,7 +1,24 @@
-<?php
-require_once BASE_CONTROLLERS_PATH.'SyspayBaseController'.EXT;
+<? require_once BASE_CONTROLLERS_PATH . 'SyspayBaseController' . EXT;
 
 class Syspay extends SyspayBaseController {
+	private static $taxMap = array(
+		'immediate' => array(
+			'vi' => 'RK',
+			'wmr' => 'WM',
+			'qw' => 'QIWI',
+			'ya' => 'RK',
+			'ek' => 'RK',
+			'rbk' => 'RK',
+			'mm' => 'RK',
+			'mr' => 'RK',
+			'zp' => 'RK',
+			'ca' => 'RK',
+		),
+		'dollar' => array(
+			'wmz' => 'WMZ',
+			'pp'  => 'PP'
+		),
+	);
 
 	function __construct()
 	{
@@ -24,209 +41,14 @@ class Syspay extends SyspayBaseController {
 		}
 	}
 		
-	function showOpenOrders2In()
+	public function showSuccess()
 	{
-		/* безопасность */
-		if (!$this->user ||
-			$this->user->user_group != 'client')
-		{
-			Func::redirect('/main');
-		}
-		
-		$this->load->model('CurrencyModel', 'Currencies');
-		$this->load->model('Order2InModel', 'Order2in');
-		$this->load->model('PaymentServiceModel', 'Services');
-		
-		$Orders = $this->Order2in->getFilteredOrders(array('order2in_user' => $this->user->user_id), 'open');
-		
-		/* пейджинг */
-		$this->per_page = $this->per_page_o2o;
-		$this->init_paging();		
-		$this->paging_count = count($Orders);
-		
-		if ($Orders)
-		{
-			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
-		}
-		
-		$view = array (
-			'Orders2In' => $Orders,
-			'Orders2InStatuses'	=> $this->Order2in->getStatuses(),
-			'Orders2InFoto' => $this->Order2in->getOrders2InFoto($Orders),
-			'services'	=> $this->Services->getInServices(),
-			'usd' => ceil($this->Currencies->getRate('USD') * 100) * 0.01,
-            'kzt' => ceil($this->Currencies->getCrossRate('KZT') * 100) * 0.01,
-            'uah' => ceil($this->Currencies->getCrossRate('UAH') * 100) * 0.01,
-			'pager' => $this->get_paging()
-		);
-		
-
-		// парсим шаблон
-		if ($this->uri->segment(4) == 'ajax')
-		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
-			$view['viewpath'] = $this->viewpath;
-			$this->load->view('/client/ajax/showOpenOrders2In', $view);
-		}
-		else
-		{
-			View::showChild($this->viewpath.'pages/showOpenOrders2In', $view);
-		}
-	}
-	
-	function showClientOpenOrders2In()
-	{
-		/* безопасность */
-		if (!$this->user ||
-			$this->user->user_group != 'admin')
-		{
-			Func::redirect('/main');
-		}
-		
-		$this->load->model('CurrencyModel', 'Currencies');
-		$this->load->model('Order2InModel', 'Order2in');
-		$this->load->model('PaymentServiceModel', 'Services');
-		
-		$Orders = $this->Order2in->getFilteredOrders(null, 'open');
-		
-		/* пейджинг */
-		$this->per_page = $this->per_page_o2o;
-		$this->init_paging();		
-		$this->paging_count = count($Orders);
-		
-		if ($Orders)
-		{
-			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
-		}
-		
-		$view = array (
-			'Orders2In' => $Orders,
-			'Orders2InStatuses'	=> $this->Order2in->getStatuses(),
-			'Orders2InFoto' => $this->Order2in->getOrders2InFoto($Orders),
-			'services'	=> $this->Services->getInServices(),
-			'usd' => ceil($this->Currencies->getRate('USD') * 100) * 0.01,
-			'kzt' => ceil($this->Currencies->getCrossRate('KZT') * 100) * 0.01,
-            'uah' => ceil($this->Currencies->getCrossRate('UAH') * 100) * 0.01,
-			'pager' => $this->get_paging()
-		);
-		
-		// парсим шаблон
-		if ($this->uri->segment(4) == 'ajax')
-		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
-			$view['viewpath'] = $this->viewpath;
-			$this->load->view('/admin/ajax/showClientOpenOrders2In', $view);
-		}
-		else
-		{
-			View::showChild($this->viewpath.'pages/showClientOpenOrders2In', $view);
-		}
-	}
-	
-	function showPayedOrders2In()
-	{
-		/* безопасность */
-		if ( ! $this->user ||
-			$this->user->user_group != 'client')
-		{
-			Func::redirect('/main');
-		}
-		
-		$this->load->model('CurrencyModel', 'Currencies');
-		$this->load->model('Order2InModel', 'Order2in');
-		$this->load->model('PaymentServiceModel', 'Services');
-		
-		$Orders = $this->Order2in->getFilteredOrders(array('order2in_user' => $this->user->user_id), 'payed');
-		
-		/* пейджинг */
-		$this->per_page = $this->per_page_o2o;
-		$this->init_paging();		
-		$this->paging_count = count($Orders);
-		
-		if ($Orders)
-		{
-			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
-		}
-		
-		$view = array (
-			'Orders2In' => $Orders,
-			'Orders2InStatuses'	=> $this->Order2in->getStatuses(),
-			'Orders2InFoto' => $this->Order2in->getOrders2InFoto($Orders),
-			'services'	=> $this->Services->getInServices(),
-			'usd' => ceil($this->Currencies->getRate('USD') * 100) * 0.01,
-			'kzt' => ceil($this->Currencies->getCrossRate('KZT') * 100) * 0.01,
-			'uah' => ceil($this->Currencies->getCrossRate('UAH') * 100) * 0.01,
-			'pager' => $this->get_paging()
-		);
-		
-		// парсим шаблон
-		if ($this->uri->segment(4) == 'ajax')
-		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
-			$view['viewpath'] = $this->viewpath;
-			$this->load->view('/client/ajax/showPayedOrders2In', $view);
-		}
-		else
-		{
-			View::showChild($this->viewpath.'pages/showPayedOrders2In', $view);
-		}
-	}
-	
-	function showClientPayedOrders2In()
-	{
-		/* безопасность */
-		if (!$this->user ||
-			$this->user->user_group != 'admin')
-		{
-			Func::redirect('/main');
-		}
-		
-		$this->load->model('CurrencyModel', 'Currencies');
-		$this->load->model('Order2InModel', 'Order2in');
-		$this->load->model('PaymentServiceModel', 'Services');
-		
-		$Orders = $this->Order2in->getFilteredOrders(null, 'payed');
-		
-		/* пейджинг */
-		$this->per_page = $this->per_page_o2o;
-		$this->init_paging();		
-		$this->paging_count = count($Orders);
-		
-		if ($Orders)
-		{
-			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
-		}
-		
-		$view = array (
-			'Orders2In' => $Orders,
-			'Orders2InStatuses'	=> $this->Order2in->getStatuses(),
-			'Orders2InFoto' => $this->Order2in->getOrders2InFoto($Orders),
-			'services'	=> $this->Services->getInServices(),
-			'usd' => ceil($this->Currencies->getRate('USD') * 100) * 0.01,
-			'kzt' => ceil($this->Currencies->getCrossRate('KZT') * 100) * 0.01,
-			'uah' => ceil($this->Currencies->getCrossRate('UAH') * 100) * 0.01,
-			'pager' => $this->get_paging()
-		);
-		
-		// парсим шаблон
-		if ($this->uri->segment(4) == 'ajax')
-		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
-			$view['viewpath'] = $this->viewpath;
-			$this->load->view('/admin/ajax/showClientPayedOrders2In', $view);
-		}
-		else
-		{
-			View::showChild($this->viewpath.'pages/showClientPayedOrders2In', $view);
-		}
-	}
-	
-	public function showSuccess(){
 		
 		View::showChild($this->viewpath.'/pages/showSuccess');
 	}
 	
-	public function showFail(){
+	public function showFail()
+	{
 		
 		View::showChild($this->viewpath.'/pages/showFail');
 	}
@@ -256,14 +78,15 @@ class Syspay extends SyspayBaseController {
 		}
 	}
 
-    // Старница на которую перенаправляет paypal по завершению оплаты
-    public function showResultPP(){
+    // paypal
+    public function showResultPP()
+	{
         //$this->callbackPP();
         $this->showSuccess();
     }
 
-    // Обработчик IPN нотисов от PayPal
-    public function callbackPP() {
+    public function callbackPP()
+	{
         $req = 'cmd=_notify-validate';
 
         foreach ($_POST as $key => $value) $req .= "&$key=".urlencode(stripslashes($value));
@@ -295,7 +118,8 @@ class Syspay extends SyspayBaseController {
         }
     }
     
-    public function savePPOrder() {
+    public function savePPOrder()
+	{
         PayLog::put('PP');
 
         $addLog    = '';
@@ -345,25 +169,6 @@ class Syspay extends SyspayBaseController {
         return true;
     }
 
-	private static $taxMap = array(
-		'immediate' => array(
-			'vi' => 'RK',
-			'wmr' => 'WM',
-			'qw' => 'QIWI',
-			'ya' => 'RK',
-			'ek' => 'RK',
-			'rbk' => 'RK',
-			'mm' => 'RK',
-			'mr' => 'RK',
-			'zp' => 'RK',
-			'ca' => 'RK',
-		),
-		'dollar' => array(
-			'wmz' => 'WMZ',
-            'pp'  => 'PP'
-		),
-	);
-	
 	private static function getTax($payment_system, $section)
 	{
 		if (!empty(self::$taxMap[$section]) &&
@@ -386,7 +191,7 @@ class Syspay extends SyspayBaseController {
 		return 0;
 	}
 	
-	public function showGate()
+	public function showGate($order_id)
 	{
 		if (!$this->user)
 		{
@@ -399,16 +204,9 @@ class Syspay extends SyspayBaseController {
 		$section		= Check::str('section', 20, 1);
 		$amount			= Check::int('total_ru');
 		$amount_usd		= Check::float('total_usd');
-		$payment_system	= Check::str($section, 3, 2);
+		$payment_system	= Check::str('payment_selector', 3, 2);
 		$tax	 		= self::getTax($payment_system, $section);
 		$extra	 		= self::getExtra($payment_system, $section);
-
-		// проверка перехода к платежке
-		if (empty($amount_usd))
-		{
-			Func::redirect('/syspay');
-			return;
-		}
 
 		// заполняем форму
 		$this->load->model('CurrencyModel', 'Currencies');
@@ -416,7 +214,11 @@ class Syspay extends SyspayBaseController {
 
         $config = $this->config->config;
 
+		$this->getPrivilegedOrder($order_id,
+			'Заказ недоступен.');
+
 		$view_form	= array(
+			'order_id'		=> $order_id,
 			'number'		=> $number,
 			'amount'		=> $amount,
 			'amount_usd'	=> $amount_usd,
@@ -425,17 +227,18 @@ class Syspay extends SyspayBaseController {
 			'extra'			=> $extra,
             'config'        => $config
 		);
-        
+
 		if ($payment_system == 'qw')
 		{
 			$this->backupPayment($view_form, 'qw');
-			View::show('/syspay/elements/form_immediate_qw', array('psform'	=> $view_form));
+			View::show('/syspay/elements/form_immediate_qw', array(
+				'psform' => $view_form));
 		}
 		else
 		{
-			View::show($this->viewpath.'gate', array(
-				'ps'		=> $section.'_'.$payment_system,
-				'psform'	=> $view_form,
+			View::show('/syspay/gate', array(
+				'ps' => "{$section}_$payment_system",
+				'psform' => $view_form
 			));
 		}
 	}
@@ -450,9 +253,10 @@ class Syspay extends SyspayBaseController {
     	$payment->payment_details_payment_system = $payment_system;
     	$payment->payment_details_amount = $details['amount_usd'];
     	$payment->payment_details_amount_rur = $details['amount'];
-    	$payment->payment_details_tax = $details['User_tax'];
-		
-		if (!$this->Payments->addPayment($payment))
+    	$payment->order_id = $details['order_id'];
+    	$payment->status = 'sent_by_client';
+
+		if ( ! $this->Payments->addPayment($payment))
 		{
 			throw new Exception('Невозможно сохранить детали платежа. Попробуйте еще раз.');
 		}
@@ -467,7 +271,7 @@ class Syspay extends SyspayBaseController {
 		View::showChild('syspay/pages/showPays', array('pay_id'	=> (int)$pay_id));
 	}
 	
-################## ROBOKASSA #####################
+	// ROBOKASSA
 /*
 Оповещение об оплате (ResultURL)
 
@@ -508,66 +312,63 @@ sSignatureValue
 			$amount			= Check::float('OutSum');
 			$raw_amount		= Check::str('OutSum', 32, 1);
 			$amount_usd		= Check::int('ShpAmount');
+			$order_id		= Check::int('ShpOrder');
 			$tax_usd		= Check::float('ShpTax');
 			$raw_tax_usd	= Check::str('ShpTax', 32, 1);
 			$ptransfer		= Check::int('InvId');
 			$rawSign		= Check::str('SignatureValue', 320,32);
 			
 			if (Check::get_empties())
+			{
 				throw new Exception('Invalid params/one or more fields is empty!');
+			}
 
-			$user_comment	= Check::str('ShpComment',255,0);
-			$sign			= strtoupper(md5(join(':', array($raw_amount,
+			$user_comment	= Check::str('ShpComment', 255, 0);
+			$sign = strtoupper(md5(join(':', array($raw_amount,
 				$ptransfer,
 				RK_PASS2,
 				'ShpAmount='.$amount_usd,
 				'ShpComment='.$user_comment,
 				'ShpTax='.$raw_tax_usd,
-				'ShpUser='.$user_id))));
+				'ShpUser='.$user_id,
+				'ShpOrder='.$order_id))));
 			
 			if ($sign != $rawSign)
+			{
 				throw new Exception("Invalid signum! [$rawSign<==>$sign]");
+			}
 				
 			##########	
 			// TODO: OK
 			##########
-			
-					$user_comment							= Check::var_str(base64_decode($user_comment), 512,1);
-					
-					$payment_obj = new stdClass();
-					$payment_obj->payment_from				= '[RK]';// зачисление на счет пользователя
-					$payment_obj->payment_to				= $user_id;
-					$payment_obj->payment_tax				= RK_IN_TAX.'%';
-					$payment_obj->payment_amount_rur		= $amount;
-					$payment_obj->payment_amount_from		= $amount_usd;
-					$payment_obj->payment_amount_tax		= $tax_usd;
-					$payment_obj->payment_amount_to			= $amount_usd;
-					$payment_obj->payment_purpose			= 'зачисление на счет пользователя';
-					$payment_obj->payment_comment			= $user_comment;
-			    	$payment_obj->payment_type				= 'in';
-			    	$payment_obj->payment_status			= 'complite';
-			    	$payment_obj->payment_transfer_info		= 'RK Transfer';
-			    	$payment_obj->payment_transfer_order_id	= $ptransfer;
-			    	$payment_obj->payment_transfer_sign		= $rawSign;
-			    	$payment_obj->payment_service_id		= 'rk';
-			    	
-			    	$this->load->model('PaymentModel', 'Payment');
-					$this->Payment->_load($payment_obj);
-					$r = $this->Payment->makeCharge();
-					
-					if (is_object($r)){
-						throw new Exception($r->getMessage());
-					}elseif((int)$r){
-						$status	= 'OK'.$ptransfer;
-						$addLog	= "Status: OK! [payment_id=$r]\n";
-					}else{
-						throw new Exception("unknown merchant error!");
-					}
-			
-			
+			$user_comment							= Check::var_str(base64_decode($user_comment), 512, 1);
+
+			$payment_obj = new stdClass();
+			$payment_obj->payment_from				= '[RK]';// зачисление на счет пользователя
+			$payment_obj->payment_to				= $user_id;
+			$payment_obj->payment_tax				= RK_IN_TAX . '%';
+			$payment_obj->payment_amount_rur		= $amount;
+			$payment_obj->payment_amount_from		= $amount_usd;
+			$payment_obj->payment_amount_tax		= $tax_usd;
+			$payment_obj->payment_amount_to			= $amount_usd;
+			$payment_obj->payment_purpose			= 'зачисление на счет пользователя';
+			$payment_obj->payment_comment			= $user_comment;
+			$payment_obj->payment_type				= 'in';
+			$payment_obj->payment_status			= 'complite';
+			$payment_obj->payment_transfer_info		= 'RK Transfer';
+			$payment_obj->payment_transfer_order_id	= $ptransfer;
+			$payment_obj->payment_transfer_sign		= $rawSign;
+			$payment_obj->payment_service_id		= 'rk';
+			$payment_obj->status					= 'not_payed';
+			$payment_obj->order_id					= $order_id;
+
+			$this->payOrder($order_id, $payment_obj, $amount_usd);
+
 			$status	= 'OK'.$ptransfer;
-			
-		}catch (Exception $e){
+			$addLog	= "Status: OK! [payment_id=$ptransfer]\n";
+		}
+		catch (Exception $e)
+		{
 			##########	
 			// TODO: FAIL!
 			##########
@@ -579,46 +380,62 @@ sSignatureValue
 		
 		PayLog::put('RK', "Status:$status\n");
 	}
-##################################################
 
+	private function payOrder($order_id, $payment_obj, $amount_usd)
+	{
+		$order = $this->getPrivilegedOrder($order_id,
+			'Заказ не найден.');
 
+		$order->order_cost_payed += $amount_usd;
+		$this->processOrderPayment($order, $payment_obj);
 
-	
-###################### LP ########################
-	private function getResultLP($User_id){
-		
-		$resp_sig	= $_POST['signature'];
-		$enc_resp	= base64_decode($_POST['operation_xml']);
-		$gen_sig	= base64_encode(sha1(LP_MERCHANT_SIG2.($enc_resp).LP_MERCHANT_SIG2,1));
-		$status		= 'FAIL!';
-		$addLog		= '';
-		
-		if ($gen_sig == $resp_sig){
-			
+		// пересчитываем заказ
+		if ( ! $this->Orders->recalculate($order))
+		{
+			throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+		}
+
+		$this->Orders->saveOrder($order);
+
+	}
+
+	// Liqpay
+	private function getResultLP($User_id)
+	{
+		$resp_sig = $_POST['signature'];
+		$enc_resp = base64_decode($_POST['operation_xml']);
+		$gen_sig = base64_encode(sha1(LP_MERCHANT_SIG2 .
+			($enc_resp) .
+			LP_MERCHANT_SIG2, 1));
+		$status	= 'FAIL!';
+
+		if ($gen_sig == $resp_sig)
+		{
 			/**
 			 * сдесь производим транзакции внутри системы
 			 */
-					$paymentXML			= new SimpleXMLElement($enc_resp);
-					Check::reset_empties();
-					$user_id			= (int) $User_id;
-					$amount				= (int) $paymentXML->amount;
-					$LP_transfer_id		= (int) $paymentXML->transaction_id;
-					$transfer_order_id	= (int) $paymentXML->order_id;
-					$status				= Check::var_str((string) $paymentXML->status,16,1);
-					$action				= Check::var_str((string) $paymentXML->action,16,1);
-					$user_comment		= Check::var_str((string) $paymentXML->description,512,0);
-					$payment_from		= Check::var_str((string) $paymentXML->sender_phone,16,0);
-			
-					
+			$paymentXML			= new SimpleXMLElement($enc_resp);
+			Check::reset_empties();
+
+			$user_id			= (int) $User_id;
+			$amount				= (int) $paymentXML->amount;
+			$LP_transfer_id		= (int) $paymentXML->transaction_id;
+			$transfer_order_id	= (int) $paymentXML->order_id;
+			$status				= Check::var_str((string) $paymentXML->status,16,1);
+			$action				= Check::var_str((string) $paymentXML->action,16,1);
+			$user_comment		= Check::var_str((string) $paymentXML->description,512,0);
+			$payment_from		= Check::var_str((string) $paymentXML->sender_phone,16,0);
+
+
 					if ($status == 'success' && !Check::get_empties() && $action == 'server_url'){
-						
+
 						// конвертируем в валюту сайта
 						$this->load->model('CurrencyModel', 'Currencies');
 						$usd = $this->Currencies->getById('USD');
 						$amount_usd								= $amount / (float) $usd->cbr_exchange_rate;
 						$amount_to_usd							= $amount / (1+(RK_IN_TAX / 100)) / (float) $usd->cbr_exchange_rate;
 						$tax_usd								= $amount_usd - $amount_to_usd;
-						
+
 						$payment_obj = new stdClass();
 						$payment_obj->payment_from				= 'LP[sender_phone]:'.$payment_from;// зачисление на счет пользователя
 						$payment_obj->payment_to				= $user_id;
@@ -634,12 +451,12 @@ sSignatureValue
 				    	$payment_obj->payment_transfer_info		= 'LP Transfer ID:'.$LP_transfer_id;
 				    	$payment_obj->payment_transfer_order_id	= $transfer_order_id;
 				    	$payment_obj->payment_transfer_sign		= $resp_sig;
-				    	
+
 						try{
 					    	$this->load->model('PaymentModel', 'Payment');
 							$this->Payment->_load($payment_obj);
 							$r = $this->Payment->makeCharge();
-							
+
 							if (is_object($r)){
 								$status	= "FAIL";
 								$desc	= $r->getMessage();
@@ -653,13 +470,13 @@ sSignatureValue
 								$desc	= "unknown merchant error!";
 								$addLog	= "Status: FAIL! (unknown merchant error)\n";
 							}
-						
+
 						}catch (Exception $e){
 							$status	= "FAIL";
 							$desc	= $e->getMessage();
 							$addLog	= "Status: FAIL! ($desc)\n";
 						}
-						
+
 					}elseif ($action == 'result_url'){
 						$desc = 'перенаправление клиента';
 						if ($status == 'success') $this->showSuccess();
@@ -675,16 +492,14 @@ sSignatureValue
 		return $status == 'success' ? 1 : 0;
 	}
 
-	
-	private function showWaitLP(){
+	private function showWaitLP()
+	{
 		View::showChild($this->viewpath.'/pages/showWaitLP');
 	}
-	
-###################### /LP ########################
 
-
-###################### W1  ########################
-	private function getResultW1(){
+	// Единый кошелек
+	private function getResultW1()
+	{
 		
 		#
 		$this->output->enable_profiler(false);
@@ -823,91 +638,82 @@ sSignatureValue
 		echo "WMI_RESULT=".$state.'&WMI_DESCRIPTION='.urlencode($desc);
 		
 	}
-####################### W1 ########################
 
-
-
-####################### WM ########################
-	public function showResultWM(){
-		
-		#
+	// WMR
+	public function showResultWM()
+	{
 		$this->output->enable_profiler(false);
-		#error_reporting(~E_ALL);
-		#
 		PayLog::put('WM');
 		
 		$addLog	= '';
-		// обрабатываем предзапрос
-		if (Check::int('LMI_PREREQUEST')){
+
+		if (Check::int('LMI_PREREQUEST'))
+		{
 			##########
 			// TODO: делаем какую-нить пакость, если она нужна...
 			##########
 			echo "YES";
-			// $addLog	= "Status: CANCEL! Отменено прадовцом!\n"
-			
-		}else{
+		}
+		else
+		{
 			// впринципе нам не надо проверять по предзапросу сумму перевода и некоторые другие данные, тк мы начислим именно столько сколько нам перевели
-			$signStr	= WM_PURSE.$_POST['LMI_PAYMENT_AMOUNT'].$_POST['LMI_PAYMENT_NO'].$_POST['LMI_MODE'].$_POST['LMI_SYS_INVS_NO'].$_POST['LMI_SYS_TRANS_NO'].$_POST['LMI_SYS_TRANS_DATE'].WM_SECRET_KEY.$_POST['LMI_PAYER_PURSE'].$_POST['LMI_PAYER_WM'];
-			$sign		= strtoupper(md5($signStr));
+			$signStr = WM_PURSE .
+				$_POST['LMI_PAYMENT_AMOUNT'] .
+				$_POST['LMI_PAYMENT_NO'] .
+				$_POST['LMI_MODE'] .
+				$_POST['LMI_SYS_INVS_NO'] .
+				$_POST['LMI_SYS_TRANS_NO'] .
+				$_POST['LMI_SYS_TRANS_DATE'] .
+				WM_SECRET_KEY .
+				$_POST['LMI_PAYER_PURSE'] .
+				$_POST['LMI_PAYER_WM'];
+
+			$sign = strtoupper(md5($signStr));
 			
-			if ($sign != $_POST['LMI_HASH']){
+			if ($sign != $_POST['LMI_HASH'])
+			{
 				##########
 				// TODO: FAIL! НЕ ВЕРНАЯ ПОДПИСЬ!
 				##########
 				echo 'NO';
 				$addLog	= "Status: FAIL! Не верная цифровая подпись!\nSignStr:$signStr\nCalcSign:$sign\nRespSign:".$_POST['LMI_HASH']."\n";
-			}else{
+			}
+			else
+			{
 				##########	
 				// TODO: OK
 				##########
-//				if (isset($_POST['LMI_MODE']) && $_POST['LMI_MODE']){
-//
-//					echo "YES";
-//			    	$addLog	= "Status: OK! (test mode)\n";
-//			    	
-//				}else{
-					
-					$user_comment		= Check::str('User_comment', 512,1);
-					$amount_usd			= Check::int('User_amount');
-					$tax_usd			= Check::float('User_tax');
-					$user_id			= Check::int('User_id');
-					$amount				= Check::int('LMI_PAYMENT_AMOUNT');
-					$wm_transfer_id		= Check::int('LMI_SYS_TRANS_NO');
-					$transfer_order_id	= Check::int('LMI_PAYMENT_NO');
-					$user_from			= Check::str('LMI_PAYER_PURSE', 64,1);
-					
-					$payment_obj = new stdClass();
-					$payment_obj->payment_from				= '[WM] LMI_PAYER_PURSE]: '.$user_from;// зачисление на счет пользователя
-					$payment_obj->payment_to				= $user_id;
-					$payment_obj->payment_tax				= WM_IN_TAX.'%';
-					$payment_obj->payment_amount_rur		= $amount;
-					$payment_obj->payment_amount_from		= $amount_usd;
-					$payment_obj->payment_amount_tax		= $tax_usd;
-					$payment_obj->payment_amount_to			= $amount_usd;
-					$payment_obj->payment_purpose			= 'зачисление на счет пользователя';
-					$payment_obj->payment_comment			= $user_comment;
-			    	$payment_obj->payment_type				= 'in';
-			    	$payment_obj->payment_status			= 'complite';
-			    	$payment_obj->payment_transfer_info		= 'WM Transfer ID: '.$wm_transfer_id;
-			    	$payment_obj->payment_transfer_order_id	= $transfer_order_id;
-			    	$payment_obj->payment_transfer_sign		= $sign;
-			    	$payment_obj->payment_service_id		= 'wm';
-			    	
-					$this->load->model('PaymentModel', 'Payment');
-					$this->Payment->_load($payment_obj);
-					$r = $this->Payment->makeCharge();
-					
-					if (is_object($r)){
-						echo 'NO ->>'.$r->getMessage();
-						$addLog	= "Status: FAIL! ".$r->getMessage()."\n";
-					}elseif((int)$r){
-						echo "YES";
-						$addLog	= "Status: OK! [payment_id=$r]\n";
-					}else{
-						echo "NO ->> unknown merchant error!\n" ;
-						$addLog	= "Status: FAIL! (unknown merchant error)\n";
-					}
-//				}
+				$user_comment		= Check::str('User_comment', 512,1);
+				$amount_usd			= Check::int('User_amount');
+				$tax_usd			= Check::float('User_tax');
+				$user_id			= Check::int('User_id');
+				$order_id			= Check::int('order');
+
+				$amount				= Check::int('LMI_PAYMENT_AMOUNT');
+				$wm_transfer_id		= Check::int('LMI_SYS_TRANS_NO');
+				$transfer_order_id	= Check::int('LMI_PAYMENT_NO');
+				$user_from			= Check::str('LMI_PAYER_PURSE', 64,1);
+
+				$payment_obj = new stdClass();
+				$payment_obj->payment_from				= '[WM] LMI_PAYER_PURSE]: '.$user_from;// зачисление на счет пользователя
+				$payment_obj->payment_to				= $user_id;
+				$payment_obj->payment_tax				= WM_IN_TAX.'%';
+				$payment_obj->payment_amount_rur		= $amount;
+				$payment_obj->payment_amount_from		= $amount_usd;
+				$payment_obj->payment_amount_tax		= $tax_usd;
+				$payment_obj->payment_amount_to			= $amount_usd;
+				$payment_obj->payment_purpose			= 'зачисление на счет пользователя';
+				$payment_obj->payment_comment			= $user_comment;
+				$payment_obj->payment_type				= 'in';
+				$payment_obj->payment_status			= 'complite';
+				$payment_obj->payment_transfer_info		= 'WM Transfer ID: '.$wm_transfer_id;
+				$payment_obj->payment_transfer_order_id	= $transfer_order_id;
+				$payment_obj->payment_transfer_sign		= $sign;
+				$payment_obj->payment_service_id		= 'wm';
+				$payment_obj->order_id					= $order_id;
+				$payment_obj->status					= 'not_payed';
+
+				$this->payOrder($order_id, $payment_obj, $amount_usd);
 			}
 		}
 		
@@ -915,7 +721,7 @@ sSignatureValue
 		return;
 	}
 
-####################### QW ########################
+	// Qiwi RUB
 	public function showResultQW()
 	{
 		$this->output->enable_profiler(false);
@@ -934,7 +740,7 @@ sSignatureValue
 		preg_match('/<status>(.*)?<\/status>/', $i, $m4);
 
 		// сравнение нашего пароля с полученным,если не равны код "150"
-		$hash = strtoupper(md5($m3[1].strtoupper(md5(constant('QIWI_PASS')))));
+		$hash = strtoupper(md5($m3[1] . strtoupper(md5(constant('QIWI_PASS')))));
 		$resultCode = ($hash === $m2[1]) ? 0 : 150;
 		
 		if ($resultCode == 0 && $m4[1] == 60)
@@ -945,7 +751,7 @@ sSignatureValue
 				$this->load->model('PaymentDetailsModel', 'Payments');
 				$payment = $this->Payments->getPaymentByNumber($m3[1]);
 				
-				if (!$payment)
+				if ( ! $payment)
 				{
 					throw new Exception('Детали платежа не найдены.');
 				}
@@ -965,28 +771,12 @@ sSignatureValue
 				$payment_obj->payment_transfer_order_id	= $payment->payment_details_number;
 				$payment_obj->payment_transfer_sign		= $i;
 				$payment_obj->payment_service_id		= $payment->payment_details_payment_system;
-				
-				$this->load->model('PaymentModel', 'Payment');
-				$this->Payment->_load($payment_obj);
-				$r = $this->Payment->makeCharge();
-				
-				if (is_object($r))
-				{
-					$resultCode = 300;
-					$addLog	= "Status: FAIL! ".$r->getMessage()."\n";
-				}
-				elseif ((int)$r)
-				{
-					$addLog	= "Status: OK! [payment_id=$r]\n";
-				}
-				else
-				{
-					$resultCode = 300;
-					$addLog	= "Status: FAIL! (unknown merchant error)\n";
-				}
+
+				$this->payOrder($payment_obj->order_id, $payment_obj, $amount_usd);
 			}
 			catch (Exception $ex)
-			{print($ex->getMessage());
+			{
+				print($ex->getMessage());
 				$resultCode = 300;
 				$addLog	= "Status: FAIL! ".$ex->getMessage()."\n";
 			}
@@ -1007,12 +797,12 @@ sSignatureValue
 			'</updateBillResult></ns1:updateBillResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 	}
 
-####################### WMZ ########################
+	// WMZ
 	public function showResultWMZ()
 	{
 		PayLog::put('WMZ');
-		
 		$addLog	= '';
+
 		// обрабатываем предзапрос
 		if (Check::int('LMI_PREREQUEST'))
 		{
@@ -1021,8 +811,18 @@ sSignatureValue
 		else
 		{
 			// впринципе нам не надо проверять по предзапросу сумму перевода и некоторые другие данные, тк мы начислим именно столько сколько нам перевели
-			$signStr	= WMZ_PURSE.$_POST['LMI_PAYMENT_AMOUNT'].$_POST['LMI_PAYMENT_NO'].$_POST['LMI_MODE'].$_POST['LMI_SYS_INVS_NO'].$_POST['LMI_SYS_TRANS_NO'].$_POST['LMI_SYS_TRANS_DATE'].WM_SECRET_KEY.$_POST['LMI_PAYER_PURSE'].$_POST['LMI_PAYER_WM'];
-			$sign		= strtoupper(md5($signStr));
+			$signStr = WMZ_PURSE .
+				$_POST['LMI_PAYMENT_AMOUNT'] .
+				$_POST['LMI_PAYMENT_NO'] .
+				$_POST['LMI_MODE'] .
+				$_POST['LMI_SYS_INVS_NO'] .
+				$_POST['LMI_SYS_TRANS_NO'] .
+				$_POST['LMI_SYS_TRANS_DATE'] .
+				WM_SECRET_KEY .
+				$_POST['LMI_PAYER_PURSE'] .
+				$_POST['LMI_PAYER_WM'];
+
+			$sign = strtoupper(md5($signStr));
 			
 			if ($sign != $_POST['LMI_HASH'])
 			{
@@ -1036,13 +836,14 @@ sSignatureValue
 				##########
 				$tax_usd			= Check::float('User_tax');
 				$user_id			= Check::int('User_id');
+				$order_id			= Check::int('order');
 				$amount_usd			= Check::int('User_amount');
 				$wm_transfer_id		= Check::int('LMI_SYS_TRANS_NO');
 				$transfer_order_id	= Check::int('LMI_PAYMENT_NO');
 				$user_from			= Check::str('LMI_PAYER_PURSE', 64,1);
 				
 				$payment_obj = new stdClass();
-				$payment_obj->payment_from				= '[WMZ] LMI_PAYER_PURSE]: '.$user_from;// зачисление на счет пользователя
+				$payment_obj->payment_from				= '[WMZ] LMI_PAYER_PURSE]: ' . $user_from;
 				$payment_obj->payment_to				= $user_id;
 				$payment_obj->payment_tax				= $tax_usd;
 				$payment_obj->payment_amount_rur		= '';
@@ -1053,22 +854,29 @@ sSignatureValue
 				$payment_obj->payment_comment			= '';
 				$payment_obj->payment_type				= 'in';
 				$payment_obj->payment_status			= 'complite';
-				$payment_obj->payment_transfer_info		= 'WMZ Transfer ID: '.$wm_transfer_id;
+				$payment_obj->payment_transfer_info		= 'WMZ Transfer ID: ' . $wm_transfer_id;
 				$payment_obj->payment_transfer_order_id	= $transfer_order_id;
 				$payment_obj->payment_transfer_sign		= $sign;
 				$payment_obj->payment_service_id		= 'wmz';
-				
+				$payment_obj->status					= 'not_payed';
+				$payment_obj->order_id					= $order_id;
+
 				$this->load->model('PaymentModel', 'Payment');
 				$this->Payment->_load($payment_obj);
 				$r = $this->Payment->makeCharge();
 				
-				if (is_object($r)){
+				if (is_object($r))
+				{
 					echo 'NO ->>'.$r->getMessage();
 					$addLog	= "Status: FAIL! ".$r->getMessage()."\n";
-				}elseif((int)$r){
+				}
+				elseif ((int)$r)
+				{
 					echo "YES";
 					$addLog	= "Status: OK! [payment_id=$r]\n";
-				}else{
+				}
+				else
+				{
 					echo "NO ->> unknown merchant error!\n" ;
 					$addLog	= "Status: FAIL! (unknown merchant error)\n";
 				}
@@ -1078,48 +886,4 @@ sSignatureValue
 		PayLog::put('WMZ', $addLog);
 		return;
 	}
-
-	private function test(){
-		View::show($this->viewpath.'/pages/test');
-	}
-	
-	
-##################### cards ######################
-	
-	public function addOrder2In(){
-		
-		$amount = Check::int('amount');
-		
-		$this->load->model('Order2InModel', 'O2I');
-		
-		$order_obj	= new stdClass();
-		$order_obj->order2in_amount		= $amount;
-		$order_obj->order2in_user		= $this->user->user_id;
-		$order_obj->order2in_tax		= $amount * BM_IN_TAX / 100;
-		$order_obj->order2in_createtime	= date("Y-m-d H:i:s", time());
-		
-		$this->O2I->addOrder($order_obj);
-		
-		Func::redirect('/client/showPaymentHistory#card');
-		
-	}
-	
-	public function deleteOrder2In($orderId){
-		(int) $orderId;
-		
-		$this->load->model('Order2InModel', 'O2I');
-		
-		if ($this->O2I->getById($orderId)->order2in_user == $this->user->user_id){
-			
-			$this->O2I->updateStatus($orderId, 'deleted');
-		}
-		
-		Func::redirect('/client/showPaymentHistory#card');
-		
-	}
-	
-	
 }
-
-/* End of file syspay.php */
-/* Location: ./system/application/controllers/syspay.php */

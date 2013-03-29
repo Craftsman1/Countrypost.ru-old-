@@ -3971,12 +3971,8 @@ abstract class BaseController extends Controller
 			// ВНИМАНИЕ!! деньги переводятся только 1 раз, а статус заявки меняется неограниченно
 			if ( ! $is_money_sent AND $payment->order2in_status == 'payed')
 			{
-				$is_repay = ($order->order_cost_payed > 0);
 				$order->order_cost_payed += $payment->order2in_amount;
-
-				// записываем платеж в историю
-				$this->load->model('PaymentModel', 'History');
-				$this->History->processOrderPayment($order, $payment, $is_repay);
+				$this->processOrderPayment($order, $payment);
 			}
 
 			// пересчитываем заказ
@@ -4004,6 +4000,13 @@ abstract class BaseController extends Controller
 		}
 
 		print(json_encode($response));
+	}
+
+	protected function processOrderPayment($order, $payment)
+	{
+		// записываем платеж в историю
+		$this->load->model('PaymentModel', 'History');
+		$this->History->processOrderPayment($order, $payment, ($order->order_cost_payed > 0));
 	}
 
 	protected function update_all_payment_status($payment_id, $status)
@@ -4053,12 +4056,8 @@ abstract class BaseController extends Controller
 			// ВНИМАНИЕ!! деньги переводятся только 1 раз, а статус заявки меняется неограниченно
 			if ( ! $is_money_sent AND $payment->order2in_status == 'payed')
 			{
-				$is_repay = ($order->order_cost_payed > 0);
 				$order->order_cost_payed += $payment->order2in_amount;
-
-				// записываем платеж в историю
-				$this->load->model('PaymentModel', 'History');
-				$this->History->processOrderPayment($order, $payment, $is_repay);
+				$this->processOrderPayment($order, $payment);
 			}
 
 			// пересчитываем заказ

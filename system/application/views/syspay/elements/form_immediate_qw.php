@@ -15,7 +15,8 @@ var ie=document.all;var moz=(navigator.userAgent.indexOf("Mozilla")!=-1);var ope
 		<input type="hidden" name="check_agt" value="false"/>
 		<input type="hidden" name="txn_id" value="<?= $psform['number'] ?>" />
 		<input type="hidden" name="amount_rub" value="<?= $psform['amount'] ?>" />
-		<input type="hidden" name="com" value="Пополнение счета клиента №<?= $user->user_id ?> на <?= $psform['amount'] ?> руб. ($<?= $psform['amount_usd'] ?>)" />
+		<input type="hidden" name="order" value="<?= $psform['order_id'] ?>" />
+		<input type="hidden" name="com" value="Оплата заказа №<?= $psform['order_id'] ?>. Сумма: <?= $psform['amount'] ?> RUB. Клиент: <?= $user->user_id ?>." />
 		<p style="text-align:center; color:#006699; padding:20px 0px; background:url(https://ishop.qiwi.ru/img/button/logo_31x50.jpg) no-repeat 10px 50%;">Выставить счёт за покупку</p>
 		<table style="border-collapse:collapse;">
 			<tr style="background:#f1f5fa;">
@@ -47,7 +48,8 @@ var ie=document.all;var moz=(navigator.userAgent.indexOf("Mozilla")!=-1);var ope
 			<tr style="background:#f1f5fa;">
 				<td style="color:#a3b52d; padding:10px 0px; width:45%; text-align:center;">Комментарий</td>
 				<td style="padding:10px">
-					Пополнение счета клиента №<?= $user->user_id ?> на <?= $psform['amount'] ?> руб. ($<?= $psform['amount_usd'] ?>)
+					Оплата заказа №<?= $psform['order_id'] ?>. Сумма: <?=
+					$psform['amount'] ?> RUB. Клиент: <?= $user->user_id ?>.
 				</td>
 			</tr>
 		</table>
