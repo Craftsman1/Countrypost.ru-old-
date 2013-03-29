@@ -1,7 +1,7 @@
 			<div class='footer'>
 				<div class='footer-inner'>
 					<p>
-						&copy; 2012. Countrypost.ru <a class="mailto" href="mailto:info@countrypost.ru">info@countrypost.ru</a>
+						&copy; 2013. Countrypost.ru <a class="mailto" href="mailto:info@countrypost.ru">info@countrypost.ru</a>
 						</br>
 					</p>
 					<ul class='menu'>
