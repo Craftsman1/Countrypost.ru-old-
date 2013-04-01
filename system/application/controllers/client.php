@@ -534,7 +534,7 @@ class Client extends BaseController {
 			if (empty($order_id) OR
 				! is_numeric($order_id))
 			{
-				throw new Exception('Доступ запрешен.');
+				throw new Exception('Доступ запрещен.');
 			}
 
 			// заказ
@@ -548,7 +548,7 @@ class Client extends BaseController {
 			$order2in->is_countrypost = 1;
 			$order2in->order2in_to = $order->order_manager;
 			$order2in->order2in_createtime = date('Y-m-d H:i:s');
-			$order2in->order2in_amount = Check::float('total_usd');
+			$order2in->order2in_amount = Check::float('total_local');
 			$order2in->order2in_payment_service = Check::txt('payment_service', 3, 2);
 			$order2in->order2in_details = Check::txt('account', 20, 1);
 			$order2in->excess_amount = $this->Orders->processExcessAmountTransfer($order);
@@ -563,8 +563,12 @@ class Client extends BaseController {
 				switch ($service)
 				{
 					case 'bm' :
-					case 'qw' :
 					case 'sv' :
+						$order2in->order2in_amount_local = Check::int('total_usd');
+						$order2in->order2in_amount = Check::float('total_ru');
+						$order2in->order2in_currency = 'RUB';
+						break;
+					case 'qw' :
 					case 'alf' :
 					case 'wur' :
 					case 'con' :
@@ -575,19 +579,10 @@ class Client extends BaseController {
 						$order2in->order2in_amount_local = Check::int('total_ru');
 						$order2in->order2in_currency = 'RUB';
 						break;
-					case 'bta' :
-					case 'ccr' :
-					case 'kkb' :
-					case 'nb' :
-					case 'tb' :
-					case 'atf' :
-					case 'ab' :
-						$order2in->order2in_amount_local = Check::int('total_kzt');
-						$order2in->order2in_currency = 'KZT';
-						break;
-					case 'pb' :
-						$order2in->order2in_amount_local = Check::int('total_uah');
-						$order2in->order2in_currency = 'UAH';
+					case 'ald' :
+						$order2in->order2in_amount_local = Check::int('total_usd');
+						$order2in->order2in_payment_service = 'alf';
+						$order2in->order2in_currency = 'USD';
 						break;
 				}
 			}
@@ -625,6 +620,7 @@ class Client extends BaseController {
 				$service == 'sv' OR
 				$service == 'vtb' OR
 				$service == 'alf' OR
+				$service == 'ald' OR
 				$service == 'wur' OR
 				$service == 'con' OR
 				$service == 'unr' OR

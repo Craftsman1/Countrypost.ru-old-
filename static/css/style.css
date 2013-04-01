@@ -1668,9 +1668,10 @@ div.syspay div.payment_system,div.syspay div.usd
 	/*margin-left:37px;*/
 }
 
-div.payment_system label div,div.payment_system label span,div.payment_system label  img,div.payment_system input
+div.payment_system label img
 {
-/*	float:left;*/
+	margin-left: 7px;
+	margin-bottom: 20px;
 }
 
 div.payment_system>form>div>div
@@ -1685,13 +1686,17 @@ div.payment_system label
 
 div.payment_system label div
 {
-	font-family:Arial;font-size:13px;font-weight:normal;font-style:normal;text-decoration:none;color:#333333;line-height:16px;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:normal;
+	font-style:normal;
+	text-decoration:none;
+	color:#333333;
 }
 
 div.payment_system label span
 {
-	margin:8px 0px 0 0;
-	width: 28px;
+	display: inline-block;
 }
 
 div.syspay div.amount,div.syspay div.total
@@ -2802,14 +2807,17 @@ div.payment_system_name {
 }
 
 div.payment_system div.totals {
+	margin-top: 0;
 	font-weight: bold;
+	float: left;
 }
 
 div.payment_system label {
 	background-color: #f7f7f7;
-	height: 100px;
-	width: 100px;
+	height: 91px;
+	width: 130px;
 	float: left;
+	padding: 20px 1px;
 	text-align: center;
 }
 
@@ -2821,7 +2829,7 @@ div.payment_type {
 
 div.countrypost_payment_box
 {
-	height: 650px;
+	height: 700px;
 }
 
 div.countrypost_payment_box label input, iv.countrypost_payment_box label img
@@ -2832,8 +2840,7 @@ div.countrypost_payment_box label input, iv.countrypost_payment_box label img
 div.countrypost_payment_box label.payment_hover
 {
 	border: #d3d3d3 1px solid;
-	height: 98px;
-	width: 98px;
+	padding: 19px 0;
 }
 
 div.countrypost_payment_box label.payment_selected
@@ -2843,20 +2850,16 @@ div.countrypost_payment_box label.payment_selected
 
 div.countrypost_payment_box label.payment_hover input
 {
-	margin-left: 42px;
-	margin-top: 9px;
 }
 
 div.countrypost_payment_box label input
 {
-	margin-left: 43px;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin: 0 5px 10px 0;
+	float: left;
 }
 
 div.countrypost_payment_box label.payment_hover div.totals
 {
-	margin-left: -1px;
 }
 
 

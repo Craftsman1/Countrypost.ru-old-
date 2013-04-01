@@ -144,9 +144,11 @@ define('VTB_IN_ACCOUNT', 'УНК 10180317 (Тонконогов Юрий Анд�
 define('VTB_SERVICE_NAME', 'ВТБ Банк');
 
 // Alfa RUB
-define('ALF_IN_TAX', 1);
-define('ALF_IN_ACCOUNT', 'рублевые данные Альфабанка');
-define('ALF_SERVICE_NAME', 'Альфа Клик');
+define('AL_RUB_IN_TAX', 1);
+define('AL_USD_IN_TAX', 1);
+define('AL_RUB_IN_ACCOUNT', 'рублевые данные Альфабанка');
+define('AL_USD_IN_ACCOUNT', 'долларовые данные Альфабанка');
+define('AL_SERVICE_NAME', 'Альфа Клик');
 
 // Western Union RUB
 define('WU_RUB_IN_TAX', 1);
