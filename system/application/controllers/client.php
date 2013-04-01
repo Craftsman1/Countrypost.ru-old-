@@ -565,9 +565,15 @@ class Client extends BaseController {
 					case 'bm' :
 					case 'qw' :
 					case 'sv' :
-					case 'vtb' :
+					case 'alf' :
+					case 'wur' :
+					case 'con' :
+					case 'unr' :
+					case 'gcr' :
+					case 'anr' :
+					case 'vm' :
 						$order2in->order2in_amount_local = Check::int('total_ru');
-						$order2in->order2in_currency = 'RUR';
+						$order2in->order2in_currency = 'RUB';
 						break;
 					case 'bta' :
 					case 'ccr' :
@@ -617,7 +623,14 @@ class Client extends BaseController {
 				$service == 'ab' OR
 				$service == 'pb' OR
 				$service == 'sv' OR
-				$service == 'vtb')
+				$service == 'vtb' OR
+				$service == 'alf' OR
+				$service == 'wur' OR
+				$service == 'con' OR
+				$service == 'unr' OR
+				$service == 'gcr' OR
+				$service == 'anr' OR
+				$service == 'vm')
 			{
 				$userfile	= isset($_FILES['userfile']) && ! $_FILES['userfile']['error'];
 				$o2i_id		= $order2in->order2in_id;

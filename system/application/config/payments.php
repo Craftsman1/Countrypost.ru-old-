@@ -64,6 +64,7 @@ define('OP_IN_TAX', 2);
 define('BM_IN_TAX', 1);
 define('BM_OUT_TAX', 1);
 define('BM_IN_ACCOUNT', '4276838059339327');
+define('BM_SERVICE_NAME', 'Сбербанк (Россия)');
 
 // QIWI
 define('QW_IN_TAX', 2.5);
@@ -141,3 +142,38 @@ define('SV_SERVICE_NAME', 'Связной Банк');
 define('VTB_IN_TAX', 1);
 define('VTB_IN_ACCOUNT', 'УНК 10180317 (Тонконогов Юрий Андреевич');
 define('VTB_SERVICE_NAME', 'ВТБ Банк');
+
+// Alfa RUB
+define('ALF_IN_TAX', 1);
+define('ALF_IN_ACCOUNT', 'рублевые данные Альфабанка');
+define('ALF_SERVICE_NAME', 'Альфа Клик');
+
+// Western Union RUB
+define('WU_RUB_IN_TAX', 1);
+define('WU_RUB_IN_ACCOUNT', 'рублевые данные Western Union');
+define('WU_SERVICE_NAME', 'Western Union');
+
+// Contact RUB
+define('CON_RUB_IN_TAX', 1);
+define('CON_RUB_IN_ACCOUNT', 'рублевые данные Contact');
+define('CON_SERVICE_NAME', 'Contact');
+
+// Unistream RUB
+define('UNI_RUB_IN_TAX', 1);
+define('UNI_RUB_IN_ACCOUNT', 'рублевые данные Unistream');
+define('UNI_SERVICE_NAME', 'Unistream');
+
+// Golden Crown RUB
+define('GC_RUB_IN_TAX', 1);
+define('GC_RUB_IN_ACCOUNT', 'рублевые данные Золотая Корона');
+define('GC_SERVICE_NAME', 'Золотая Корона');
+
+// Anelik RUB
+define('AN_RUB_IN_TAX', 1);
+define('AN_RUB_IN_ACCOUNT', 'рублевые данные Anelik');
+define('AN_SERVICE_NAME', 'Anelik');
+
+// Visa/Mastercard
+define('VM_RUB_IN_TAX', 1);
+define('VM_RUB_IN_ACCOUNT', 'рублевые данные Visa/Mastercard');
+define('VM_SERVICE_NAME', 'Visa/Mastercard');
