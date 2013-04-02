@@ -603,9 +603,9 @@ class PaymentModel extends BaseModel implements IModel{
 		// фильтр дат
 		if ($from && $to) 
 		{
-			$from_date = DateTime::createFromFormat('j.m.Y', $from);
+			$from_date = new DateTime($from);
 			$from_date = $from_date->format('Y-m-d H:i:s');
-			$to_date = DateTime::createFromFormat('j.m.Y', $to);
+			$to_date = new DateTime($to);
 			$to_date->modify('+1 day');
 			$to_date = $to_date->format('Y-m-d H:i:s');
 
@@ -613,14 +613,14 @@ class PaymentModel extends BaseModel implements IModel{
 		}
 		else if ($from)
 		{
-			$from_date = DateTime::createFromFormat('j.m.Y', $from);
+			$from_date = new DateTime($from);
 			$from_date = $from_date->format('Y-m-d H:i:s');
 
 			$where .= " AND `payment_time` >= '$from_date'";
 		}
 		else if ($to)
 		{
-			$to_date = DateTime::createFromFormat('j.m.Y', $to);
+			$to_date = new DateTime($to);
 			$to_date->modify('+1 day');
 			$to_date = $to_date->format('Y-m-d H:i:s');
 

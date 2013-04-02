@@ -76,7 +76,7 @@
 				elseif (!isset($odetail->odetail_img) || $odetail->odetail_img===NULL)
 				{
 					$oimg = '<a href="javascript:void(0)" onclick="setRel('.$odetail->odetail_id.');">
-								<img src="/client/showScreen/'.$odetail->odetail_id.'" width="55px" height="55px">
+								<img src="/main/showScreen/'.$odetail->odetail_id.'" width="55px" height="55px">
 								<a rel="lightbox_'.$odetail->odetail_id.'" href="/client/showScreen/'.$odetail->odetail_id.'" style="display:none;">Посмотреть</a>
 							</a>';
 				}

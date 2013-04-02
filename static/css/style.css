@@ -1731,6 +1731,8 @@ div.syspay div.total
 div.immediate div.total, div.delayed div.total
 {
 	height:70px;
+	position: absolute;
+	bottom: 0;
 }
 
 div.syspay div.total>div

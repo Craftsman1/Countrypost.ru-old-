@@ -549,6 +549,7 @@ class Client extends BaseController {
 			$order2in->order2in_to = $order->order_manager;
 			$order2in->order2in_createtime = date('Y-m-d H:i:s');
 			$order2in->order2in_amount = Check::float('total_local');
+			$order2in->order2in_amount_local = Check::float('total_usd');
 			$order2in->order2in_payment_service = Check::txt('payment_service', 3, 2);
 			$order2in->order2in_details = Check::txt('account', 20, 1);
 			$order2in->excess_amount = $this->Orders->processExcessAmountTransfer($order);
@@ -564,8 +565,8 @@ class Client extends BaseController {
 				{
 					case 'bm' :
 					case 'sv' :
-						$order2in->order2in_amount_local = Check::int('total_usd');
-						$order2in->order2in_amount = Check::float('total_ru');
+						$order2in->order2in_amount = Check::int('total_usd');
+						$order2in->order2in_amount_local = Check::float('total_ru');
 						$order2in->order2in_currency = 'RUB';
 						break;
 					case 'qw' :
@@ -576,17 +577,54 @@ class Client extends BaseController {
 					case 'gcr' :
 					case 'anr' :
 					case 'vm' :
-						$order2in->order2in_amount_local = Check::int('total_ru');
+						$order2in->order2in_amount = Check::int('total_local');
+						$order2in->order2in_amount_local = Check::float('total_ru');
 						$order2in->order2in_currency = 'RUB';
 						break;
 					case 'ald' :
-						$order2in->order2in_amount_local = Check::int('total_usd');
+						$order2in->order2in_amount = Check::int('total_local');
+						$order2in->order2in_amount_local = Check::float('total_usd');
 						$order2in->order2in_payment_service = 'alf';
+						$order2in->order2in_currency = 'USD';
+						break;
+					case 'wud' :
+						$order2in->order2in_amount = Check::int('total_local');
+						$order2in->order2in_amount_local = Check::float('total_usd');
+						$order2in->order2in_payment_service = 'wur';
+						$order2in->order2in_currency = 'USD';
+						break;
+					case 'cod' :
+						$order2in->order2in_amount = Check::int('total_local');
+						$order2in->order2in_amount_local = Check::float('total_usd');
+						$order2in->order2in_payment_service = 'con';
+						$order2in->order2in_currency = 'USD';
+						break;
+					case 'und' :
+						$order2in->order2in_amount = Check::int('total_local');
+						$order2in->order2in_amount_local = Check::float('total_usd');
+						$order2in->order2in_payment_service = 'unr';
+						$order2in->order2in_currency = 'USD';
+						break;
+					case 'gcd' :
+						$order2in->order2in_amount = Check::int('total_local');
+						$order2in->order2in_amount_local = Check::float('total_usd');
+						$order2in->order2in_payment_service = 'gcr';
+						$order2in->order2in_currency = 'USD';
+						break;
+					case 'and' :
+						$order2in->order2in_amount = Check::int('total_local');
+						$order2in->order2in_amount_local = Check::float('total_usd');
+						$order2in->order2in_payment_service = 'anr';
+						$order2in->order2in_currency = 'USD';
+						break;
+					case 'cus' :
+						$order2in->order2in_amount = Check::int('total_local');
+						$order2in->order2in_amount_local = Check::float('total_usd');
 						$order2in->order2in_currency = 'USD';
 						break;
 				}
 			}
-
+//print_r($order2in);die();
 			if ($order2in->order2in_amount <= 0 OR
 				$order2in->order2in_amount_local <= 0)
 			{
@@ -595,8 +633,9 @@ class Client extends BaseController {
 			
 			$order2in->order2in_user = $this->user->user_id;
 			$order2in->order2in_status = 'processing';
-			$order2in->order2in_tax = $order2in->order2in_amount * constant(strtoupper($service).'_IN_TAX') * 0.01;
-			
+			//$order2in->order2in_tax = $order2in->order2in_amount * constant(strtoupper($service).'_IN_TAX') * 0.01;
+			$order2in->order2in_tax = 0;
+
 			$this->load->model('Order2InModel', 'Order2in');
 			$order2in = $this->Order2in->addOrder($order2in);
 
@@ -622,11 +661,17 @@ class Client extends BaseController {
 				$service == 'alf' OR
 				$service == 'ald' OR
 				$service == 'wur' OR
+				$service == 'wud' OR
 				$service == 'con' OR
+				$service == 'cod' OR
 				$service == 'unr' OR
+				$service == 'und' OR
 				$service == 'gcr' OR
+				$service == 'gcd' OR
 				$service == 'anr' OR
-				$service == 'vm')
+				$service == 'and' OR
+				$service == 'vm' OR
+				$service == 'cus')
 			{
 				$userfile	= isset($_FILES['userfile']) && ! $_FILES['userfile']['error'];
 				$o2i_id		= $order2in->order2in_id;
@@ -831,6 +876,17 @@ class Client extends BaseController {
 			'rate_uah' => $this->Currencies->getExchangeRate($order->order_currency, 'UAH', 'client'),
 			'rate_rur' => $this->Currencies->getExchangeRate($order->order_currency, 'RUB', 'client')
 		);
+
+		$this->load->model('ManagerModel', 'Managers');
+
+		if ( ! ($manager = $this->Managers->getById($order->order_manager)))
+		{
+			throw new Exception('Посредник не найден.');
+		}
+		else
+		{
+			$view['is_countrypost_payments_allowed'] = $manager->is_internal_payments;
+		}
 
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')

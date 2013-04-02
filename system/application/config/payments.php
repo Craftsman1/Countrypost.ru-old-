@@ -150,32 +150,47 @@ define('AL_RUB_IN_ACCOUNT', 'рублевые данные Альфабанка'
 define('AL_USD_IN_ACCOUNT', 'долларовые данные Альфабанка');
 define('AL_SERVICE_NAME', 'Альфа Клик');
 
-// Western Union RUB
+// Western Union
 define('WU_RUB_IN_TAX', 1);
+define('WU_USD_IN_TAX', 1);
 define('WU_RUB_IN_ACCOUNT', 'рублевые данные Western Union');
+define('WU_USD_IN_ACCOUNT', 'долларовые данные Western Union');
 define('WU_SERVICE_NAME', 'Western Union');
 
-// Contact RUB
+// Contact
 define('CON_RUB_IN_TAX', 1);
+define('CON_USD_IN_TAX', 1);
 define('CON_RUB_IN_ACCOUNT', 'рублевые данные Contact');
+define('CON_USD_IN_ACCOUNT', 'долларовые данные Contact');
 define('CON_SERVICE_NAME', 'Contact');
 
-// Unistream RUB
+// Unistream
 define('UNI_RUB_IN_TAX', 1);
+define('UNI_USD_IN_TAX', 1);
 define('UNI_RUB_IN_ACCOUNT', 'рублевые данные Unistream');
+define('UNI_USD_IN_ACCOUNT', 'долларовые данные Unistream');
 define('UNI_SERVICE_NAME', 'Unistream');
 
-// Golden Crown RUB
+// Золотая Корона
 define('GC_RUB_IN_TAX', 1);
+define('GC_USD_IN_TAX', 1);
 define('GC_RUB_IN_ACCOUNT', 'рублевые данные Золотая Корона');
+define('GC_USD_IN_ACCOUNT', 'долларовые данные Золотая Корона');
 define('GC_SERVICE_NAME', 'Золотая Корона');
 
-// Anelik RUB
+// Anelik
 define('AN_RUB_IN_TAX', 1);
+define('AN_USD_IN_TAX', 1);
 define('AN_RUB_IN_ACCOUNT', 'рублевые данные Anelik');
+define('AN_USD_IN_ACCOUNT', 'долларовые данные Anelik');
 define('AN_SERVICE_NAME', 'Anelik');
 
 // Visa/Mastercard
 define('VM_RUB_IN_TAX', 1);
 define('VM_RUB_IN_ACCOUNT', 'рублевые данные Visa/Mastercard');
 define('VM_SERVICE_NAME', 'Visa/Mastercard');
+
+// Нал
+define('CUS_USD_IN_TAX', 1);
+define('CUS_USD_IN_ACCOUNT', 'долларовые данные нал');
+define('CUS_SERVICE_NAME', 'Наличные');

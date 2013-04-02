@@ -193,7 +193,7 @@ class Syspay extends SyspayBaseController {
 	
 	public function showGate($order_id)
 	{
-		if (!$this->user)
+		if ( ! $this->user)
 		{
 			Func::redirect('/main');
 			return false;
@@ -209,8 +209,8 @@ class Syspay extends SyspayBaseController {
 		$extra	 		= self::getExtra($payment_system, $section);
 
 		// заполняем форму
-		$this->load->model('CurrencyModel', 'Currencies');
-		$usd = $this->Currencies->getById('USD');
+		//$this->load->model('CurrencyModel', 'Currencies');
+		//$usd = $this->Currencies->getById('USD');
 
         $config = $this->config->config;
 
@@ -225,7 +225,7 @@ class Syspay extends SyspayBaseController {
 			'User_tax'		=> $tax * $amount_usd * 0.01,
 			'tax'			=> $tax,
 			'extra'			=> $extra,
-            'config'        => $config
+            //'config'        => $config
 		);
 
 		if ($payment_system == 'qw')

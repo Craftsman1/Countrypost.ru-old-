@@ -359,8 +359,8 @@ $(function() {
             }
             else if (item.oimg === null) {
                 oimg = "<a href='javascript:void(0)' onclick='setRel(" + item.id + ");'>" +
-                        "<img width='55px' height='55px' src='/client/showScreen/" + item.id + "'></a>" +
-                        "<a rel='lightbox_" + item.id + "' href='/client/showScreen/" + item.id + "' style='display:none;'>Посмотреть</a>";
+                        "<img width='55px' height='55px' src='/main/showScreen/" + item.id + "'></a>" +
+                        "<a rel='lightbox_" + item.id + "' href='/main/showScreen/" + item.id + "' style='display:none;'>Посмотреть</a>";
             }
             else if (item.oimg) {
                 var img_src = item.oimg;

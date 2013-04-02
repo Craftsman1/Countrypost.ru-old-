@@ -114,6 +114,24 @@ class User extends BaseController {
 
 					$this->session->set_userdata('user_country_name_en', $country->country_name_en);
 					$this->session->set_userdata('user_name', $this->Clients->getFullName($client_summary));
+
+					// переносим фото товаров из временной папки в постоянную
+					try
+					{
+						$temp_id = UserModel::getTemporaryKey();
+
+						if ($temp_id)
+						{
+							if (is_dir($_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$temp_id"))
+							{
+								rename(
+									$_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$temp_id",
+									$_SERVER['DOCUMENT_ROOT'] . "/upload/orders/{$this->user->user_id}");
+							}
+						}
+					}
+					catch(Exception $ex)
+					{}
 				}
 
 				if ($redirect)

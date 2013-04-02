@@ -1871,11 +1871,28 @@ Email: {$this->user->user_email}";
 	{
 		try
 		{
-			Func::redirect(BASEURL . $this->user->user_group . '/showScreen/' . $oid);
+			if (isset($this->user->user_group))
+			{
+				Func::redirect(BASEURL . $this->user->user_group . '/showScreen/' . $oid);
+			}
+			else
+			{
+				$this->showScreenshot($oid);
+			}
 		}
 		catch (Exception $e)
 		{}
 	}
 
+	protected function showScreenshot($oid)
+	{
+		header('Content-type: image/jpg');
+		$this->load->model('OdetailModel', 'OdetailModel');
+		$user_id = UserModel::getTemporaryKey();
 
+		if ($Detail = $this->OdetailModel->getInfo(array('odetail_client' => $user_id, 'odetail_id' => intval($oid))))
+		{
+			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/$user_id/$oid.jpg");
+		}
+	}
 }
