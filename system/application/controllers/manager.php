@@ -437,8 +437,6 @@ class Manager extends BaseController {
 			}
 			
 			$manager->manager_name			= Check::str('fio', 255, 0);
-			$manager->manager_surname		= NULL;
-			$manager->manager_otc			= NULL;
 			$manager->manager_country		= Check::int('country');
 			$manager->skype					= Check::str('skype', 255, 0);
 			$manager->website				= Check::str('website', 4096, 0);
@@ -629,6 +627,7 @@ class Manager extends BaseController {
 			Check::reset_empties();
 			$manager->manager_address = Check::str('address_en', 1024, 1);
 			$manager->manager_address_local = Check::str('address', 1024, 1);
+			$manager->manager_address_name = Check::str('address_name', 255, 1, $manager->manager_name);
 			$manager->manager_phone = Check::str('phone', 255, 1);
 			$manager->manager_address_description = Check::str('address_description', 65535, 1);
 

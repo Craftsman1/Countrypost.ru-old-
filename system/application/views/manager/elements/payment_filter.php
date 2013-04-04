@@ -26,9 +26,6 @@
 		<option value='out' <?= isset($filter->sservice) && $filter->sservice == 'out' ? 'selected' : '' ?>>Заявки на вывод (клиенты)</option>
 		<option value='salary' <?= isset($filter->sservice) && $filter->sservice == 'salary' ? 'selected' : '' ?>>Заявки на вывод (партнеры)</option>
 	</select>
-	<? if ($result->e < 0) : ?>
-		<em style="color:red;"><?= $result->m ?></em>
-	<? endif; ?>
 	<div class='submit historySearch'>
 		<div>
 			<input type='submit' value='Искать' />

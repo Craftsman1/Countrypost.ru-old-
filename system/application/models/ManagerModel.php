@@ -36,11 +36,10 @@ class ManagerModel extends BaseModel implements IModel{
     	$this->properties->manager_country			='';
     	$this->properties->manager_max_orders		='';
     	$this->properties->manager_name				='';
-    	$this->properties->manager_surname			='';
-    	$this->properties->manager_otc				='';
-    	$this->properties->manager_addres			='';
+    	$this->properties->manager_address			='';
     	$this->properties->manager_address_local	='';
     	$this->properties->manager_address_description ='';
+    	$this->properties->manager_address_name ='';
     	$this->properties->city ='';
     	$this->properties->manager_phone			='';
     	$this->properties->manager_skype			='';
@@ -280,7 +279,7 @@ class ManagerModel extends BaseModel implements IModel{
             "SELECT
                 a.manager_user as id,
                 b.user_login as login,
-                @fio := CAST(CONCAT(a.manager_surname, ' ', a.manager_name, ' ', a.manager_otc) AS CHAR) as fio
+                a.manager_name as fio
             FROM `".$this->table."` a
             LEFT JOIN `users` b ON b.user_id = a.manager_user
             WHERE $mf_filter
@@ -426,7 +425,7 @@ class ManagerModel extends BaseModel implements IModel{
 
         if ($manager)
         {
-            $fullname = trim("{$manager->manager_surname} {$manager->manager_name}  {$manager->manager_otc}");
+            $fullname = trim($manager->manager_name);
 
             if (empty($fullname) AND isset($manager->user_login))
             {

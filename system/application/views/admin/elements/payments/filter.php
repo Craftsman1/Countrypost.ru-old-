@@ -1,4 +1,3 @@
-<? //print_r($filter);die(); ?>
 <form class='admin-inside'
 	  id="filterForm"
 	  action='<?=$selfurl?>filterAllPayments'

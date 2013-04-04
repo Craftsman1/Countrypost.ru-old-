@@ -6,5 +6,7 @@
 	<? View::show('/main/elements/dealers/pricelist'); ?>
 	<? View::show('/main/elements/dealers/payments'); ?>	
 	<? View::show('/main/elements/dealers/delivery'); ?>
+	<? if ($manager->is_mail_forwarding) : ?>
 	<? View::show('/main/elements/dealers/mail_forwarding'); ?>
+	<? endif; ?>
 </div>

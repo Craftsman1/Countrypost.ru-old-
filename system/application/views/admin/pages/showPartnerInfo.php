@@ -29,14 +29,6 @@
 			<span>Имя:</span>
 			<div class='text-field'><div><input type='text' name='manager_name' value='<?=isset($manager) ? $manager->manager_name :'';?>'/></div></div>
 		</div>
-		<div class='field done'>
-			<span>Фамилия:</span>
-			<div class='text-field'><div><input type='text' name='manager_surname' value='<?=isset($manager) ? $manager->manager_surname :'';?>'/></div></div>
-		</div>
-		<div class='field done'>
-			<span>Отчество:</span>
-			<div class='text-field'><div><input type='text' name='manager_otc' value='<?=isset($manager) ? $manager->manager_otc :'';?>'/></div></div>
-		</div>
 		<div class='field <?=isset($manager) && $manager->manager_addres ? 'done' :'';?>'>
 			<span>Адрес:</span>
 			<div class='text-field'><div><input type='text' name='manager_addres' value='<?=isset($manager) ? $manager->manager_addres :'';?>'/></div></div>

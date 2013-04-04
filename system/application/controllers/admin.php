@@ -1532,8 +1532,6 @@ class Admin extends AdminBaseController {
 			$current_credit_local = $manager->manager_credit_local;
 			
 			$manager->manager_name			= Check::str('manager_name',128,0);
-			$manager->manager_surname		= Check::str('manager_surname',128,0);
-			$manager->manager_otc			= Check::str('manager_otc',128,0);
 			$manager->manager_country		= Check::int('manager_country');
 			$manager->manager_addres		= Check::str('manager_addres',512,1);
 			$manager->manager_address_local	= Check::str('manager_address_local',4096,0);
@@ -1591,16 +1589,6 @@ class Admin extends AdminBaseController {
 			if (empty($manager->manager_name))
 			{
 				$manager->manager_name = null;
-			}
-			
-			if (empty($manager->manager_surname))
-			{
-				$manager->manager_surname = null;
-			}
-			
-			if (empty($manager->manager_otc))
-			{
-				$manager->manager_otc = null;
 			}
 			
 			// меняем дату кредитов
@@ -1894,8 +1882,6 @@ class Admin extends AdminBaseController {
 		
 		$manager						= new stdClass();
 		$manager->manager_name			= Check::str('manager_name',128,0);
-		$manager->manager_surname		= Check::str('manager_surname',128,0);
-		$manager->manager_otc			= Check::str('manager_otc',128,0);
 		$manager->manager_country		= Check::int('manager_country');
 		$manager->manager_addres		= Check::str('manager_addres',512,1);
 		$manager->manager_address_local	= Check::str('manager_address_local',4096,0);

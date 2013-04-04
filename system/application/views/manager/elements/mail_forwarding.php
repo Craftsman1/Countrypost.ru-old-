@@ -1,6 +1,6 @@
 <div class="mail_forwarding dealer_tab" style="display:none;">
 	<form action="/manager/saveAddress" id="addressForm" method="POST">
-		<div class="table mail_forwarding_main admin-inside" style="height:290px;">
+		<div class="table mail_forwarding_main admin-inside" style="height:360px;">
 			<div class='angle angle-lt'></div>
 			<div class='angle angle-rt'></div>
 			<div class='angle angle-lb'></div>
@@ -23,6 +23,19 @@
 				<input class="textbox" maxlength="1024" type='text' id='address_en' name="address_en"
 					   value="<?= $manager->manager_address ?>"/>
 				<span class="label hint">Пример: 116013, China, Liaoning Province, Dalian, Zhongshan District, Taoyuan Street 23, 305</span>
+			</div>
+			<br style="clear:both;" />
+			<div>
+				<span class="label">Получатель*:</span>
+			</div>
+			<br style="clear:both;" />
+			<div>
+				<input class="textbox"
+					   maxlength="255"
+					   type='text'
+					   id='address_name'
+					   name="address_name"
+					   value="<?= $manager->manager_address_name ? $manager->manager_address_name : $manager->manager_name ?>" >
 			</div>
 			<br style="clear:both;" />
 			<div>

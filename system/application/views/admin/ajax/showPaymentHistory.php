@@ -12,6 +12,7 @@
 		<col width='auto' />
 		<col width='auto' />
 		<col width='auto' />
+		<col width='auto' />
 		<? if ($Payments) : ?>
 			<tr class='last-row'>
 				<td colspan='9'>
@@ -29,6 +30,9 @@
 				</td>
 			</tr>
 			<tr>
+				<th>
+					<input type="checkbox" id="check_all">
+				</th>
 				<th>Номер / Дата</th>
 				<th>Отправитель</th>
 				<th>Получатель</th>
@@ -42,6 +46,11 @@
 			<tr <?= ($Payment->payment_purpose == 'отмена дополнительного платежа' ||
 					$Payment->payment_purpose == 'отмена дополнительного платежа в местной валюте') ?
 					'style="background-color:red;"' : '' ?>>
+				<td>
+					<input type="checkbox"
+						   class="check_payment"
+						   id="check<?= $Payment->payment_id ?>">
+				</td>
 				<td>
 					<b><?= $Payment->payment_id ?></b>
 					<?= date('d-m-Y H:i', strtotime($Payment->payment_time)) ?>
@@ -125,9 +134,17 @@
 					<? endif; ?>
 				</td>
 			</tr>
-			<?endforeach;?>
+			<? endforeach; ?>
 			<tr class='last-row'>
-				<td colspan='4'>
+				<td colspan='6'>
+					<div style="margin-top:11px;margin-right:10px; float: left;">
+						<select id='total_status'>
+							<option value='' selected>выберите статус...</option>
+							<option value='sent_by_client'>Переведено клиентом</option>
+							<option value='not_payed'>К выплате</option>
+							<option value='payed'>Выплачено</option>
+						</select>
+					</div>
 					<div style="margin-top:11px;margin-right:10px;">
 						<label>Платежей на странице:</label>
 						<select class="per_page" name="per_page" onchange="javascript:updatePerPage(this);">
@@ -140,7 +157,7 @@
 						</select>
 					</div>
 				</td>
-				<td colspan='4' align="right">
+				<td colspan='5' align="right">
 					<div style="margin-top:16px; font-size: 17px; font-family: Arial; font-weight: bold;">
 						Итого к выплате:
 						<b class="total_usd"><?= $total_usd ?></b> USD
@@ -150,11 +167,37 @@
 					</div>
 				</td>
 			</tr>
-		<?else:?>
+			<? else : ?>
 			<tr>
 				<td colspan="8">Платежи не найдены</td>
 			</tr>
-		<?endif;?>
+			<? endif; ?>
 	</table>
 </div>
 <? if (isset($pager)) echo $pager ?>
+<script>
+	$('div#pagerForm input#check_all').change(function() {
+		if ($(this).is(':checked'))
+		{
+			$('div#pagerForm input.check_payment').attr('checked', 'checked');
+		}
+		else
+		{
+			$('div#pagerForm input.check_payment').removeAttr('checked');
+		}
+	});
+
+	$('div#pagerForm select#total_status').change(function() {
+		if ($(this).val() &&
+			$('div#pagerForm input.check_payment:checked').length > 0)
+		{
+			$('div#pagerForm input.check_payment:checked')
+				.parents('tr')
+				.find('option[value=' + $(this).val() + ']')
+					.each(function() {
+						$(this).attr('selected', true);
+						eval($(this).parent().attr('onchange'));
+					});
+		}
+	});
+</script>

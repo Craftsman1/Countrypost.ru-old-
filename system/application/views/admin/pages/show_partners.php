@@ -17,12 +17,12 @@
 	<tr>
 		<td><?=$manager->manager_user?></td>
 		<td><?=$manager->user_login?> / <?=$countries[$manager->manager_country]?></td>
-		<td><?=$manager->manager_surname?> <?=$manager->manager_name?> <?=$manager->manager_otc?></td>
-		<td><?=$manager->manager_addres?></td>
+		<td><?= $manager->manager_name ?></td>
+		<td><?=$manager->manager_address?></td>
 		<td><?=$manager->clients_count?></td>
 		<td>0</td>
 		<td><?=$statuses[$manager->manager_status]?></td>
-		<td><a href='<?=$selfurl?>showUpdatePartner/<?=$manager->manager_user?>'>иземнить</a> / <a href='<?=$selfurl?>deletePartner/<?=$manager->manager_user?>'>удалить</a></td>
+		<td><a href='<?=$selfurl?>showUpdatePartner/<?=$manager->manager_user?>'>изменить</a> / <a href='<?=$selfurl?>deletePartner/<?=$manager->manager_user?>'>удалить</a></td>
 	</tr>
 	<?endforeach;?>	
 </table>

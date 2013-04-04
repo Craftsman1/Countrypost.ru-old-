@@ -27,7 +27,7 @@
 					<th>Статус</th>
 				</tr>
 				<tr>
-					<td><?= '#'.$Managers->manager_user.' '.$Managers->manager_name.' '.$Managers->manager_surname?></td>
+					<td><?= '#'.$Managers->manager_user.' '.$Managers->manager_name?></td>
 					<td><?= '#'.$Clients->client_user.' '.$Clients->client_name.' '.$Clients->client_surname?></td>
 					<td><?=$order->order_address?></td>
 					<td>

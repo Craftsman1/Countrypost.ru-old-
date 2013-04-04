@@ -24,7 +24,7 @@
 			<b>Получатель:</b>
 		</span>
 		<span>
-			<?= $manager->statistics->fullname ?>
+			<?= $manager->manager_address_name ?>&nbsp;
 		</span>
 	</div>
 	<? if ( ! empty($manager->manager_phone)) : ?>

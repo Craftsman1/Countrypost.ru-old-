@@ -40,7 +40,7 @@
 							<tr>
 								<td><b>№ <?=$manager->manager_user?></b></td>
 								<td><?=$manager->user_login?> / <?=$countries[$manager->manager_country]?></td>
-								<td><?=$manager->manager_surname?> <?=$manager->manager_name?> <?=$manager->manager_otc?></td>
+								<td><?=$manager->manager_name?></td>
 								<td><?=$manager->clients_count?></td>
 								<td><?=0?></td>
 								<td><?=$statuses[$manager->manager_status]?></td>

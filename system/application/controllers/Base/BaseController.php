@@ -2524,7 +2524,14 @@ abstract class BaseController extends Controller
 				AND (payment_amount_from <> 0 
 					OR payment_amount_to <> 0 
 					OR (payment_type <> 'order' AND payment_type <> 'package' AND payment_type <> 'extra_payment'))");
+
 			$view['total_usd'] = $this->Payment->getTotalUSD($view['Payments']);
+
+			if ($totals = $this->Payment->getTotalLocal($view, FALSE))
+			{
+				$view['total_local'] = $totals['total_local'];
+				$view['total_currency'] = $totals['total_currency'];
+			}
 		}
 		else if ($this->user->user_group == 'admin')
 		{
@@ -2533,7 +2540,14 @@ abstract class BaseController extends Controller
 				$view['filter']->condition,
 				$view['filter']->from,
 				$view['filter']->to);
+
 			$view['total_usd'] = $this->Payment->getTotalUSD($view['Payments']);
+
+			if ($totals = $this->Payment->getTotalLocal($view))
+			{
+				$view['total_local'] = $totals['total_local'];
+				$view['total_currency'] = $totals['total_currency'];
+			}
 		}
 
 		/* пейджинг */

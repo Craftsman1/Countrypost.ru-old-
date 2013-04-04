@@ -554,9 +554,6 @@ class PaymentModel extends BaseModel implements IModel{
 		')->result();
 	}
 
-	/**
-	 * Получаем платежи пользователей системе
-	 */
 	public function getTotalUSD($payments)
 	{
 		$total_usd = 0;
@@ -570,6 +567,44 @@ class PaymentModel extends BaseModel implements IModel{
 		}
 
 		return $total_usd;
+	}
+
+	public function getTotalLocal($view, $is_admin = TRUE)
+	{
+		if (empty($view['Payments']))
+		{
+			return FALSE;
+		}
+
+		if ($is_admin AND
+			(empty($view['filter']->sfield) OR
+			$view['filter']->sfield != 'manager_id' OR
+			$view['filter']->sfield != 'manager_login'))
+		{
+			return FALSE;
+		}
+
+		$total = 0;
+		$currency = '';
+
+		foreach ($view['Payments'] as $payment)
+		{
+			if ($payment->status == 'not_payed')
+			{
+				$total += $payment->payment_amount_to;
+			}
+
+			if (empty($currency) AND
+				! empty($payment->payment_currency))
+			{
+				$currency = $payment->payment_currency;
+			}
+		}
+
+		$result['total_local'] = $total;
+		$result['total_currency'] = $currency;
+
+		return $result;
 	}
 
 	public function getFilteredPayments($filter = array(), $from = NULL, $to = NULL, $extra_where = NULL)
