@@ -1202,7 +1202,7 @@ Email: {$this->user->user_email}";
 				$manager = $this->Managers->getById($order->order_manager);
 
 				if (empty($manager) OR
-					$manager->manager_status != 2 OR
+					$manager->manager_status != 1 OR
 					($order->order_country_from > 0 AND
 						$order->order_country_from != $manager->manager_country) OR
 					($manager->is_mail_forwarding == 0 AND

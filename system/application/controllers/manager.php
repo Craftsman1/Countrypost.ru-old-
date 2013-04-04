@@ -234,7 +234,14 @@ class Manager extends BaseController {
 				throw new Exception('Некоторые поля не заполнены. Попробуйте еще раз.');
 			}
 
-			// 6. пересчитываем и сохраняем предложение
+			// 6. пересчитываем и сохраняем предложение и заказ
+			if ( ! $this->Orders->recalculate($order))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+
 			if ( ! $this->Bids->recalculate($bid, $order, TRUE))
 			{
 				throw new Exception('Невозможно вычислить стоимость предложения. Попоробуйте еще раз.');

@@ -116,22 +116,7 @@ class User extends BaseController {
 					$this->session->set_userdata('user_name', $this->Clients->getFullName($client_summary));
 
 					// переносим фото товаров из временной папки в постоянную
-					try
-					{
-						$temp_id = UserModel::getTemporaryKey();
-
-						if ($temp_id)
-						{
-							if (is_dir($_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$temp_id"))
-							{
-								rename(
-									$_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$temp_id",
-									$_SERVER['DOCUMENT_ROOT'] . "/upload/orders/{$this->user->user_id}");
-							}
-						}
-					}
-					catch(Exception $ex)
-					{}
+					self::moveTempClientScreenshots();
 				}
 
 				if ($redirect)
@@ -144,6 +129,50 @@ class User extends BaseController {
 		}
 		
 		return FALSE;
+	}
+
+	private function moveTempClientScreenshots()
+	{
+		try
+		{
+			$temp_id = UserModel::getTemporaryKey();
+
+			if (empty($temp_id))
+			{
+				return;
+			}
+
+			$path = $_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$temp_id/";
+			$new_path = $_SERVER['DOCUMENT_ROOT'] . "/upload/orders/{$this->user->user_id}/";
+
+			if ( ! is_dir($path))
+			{
+				return;
+			}
+
+			if ($handle = opendir($path))
+			{
+				if ( ! is_dir($new_path))
+				{
+					mkdir($new_path);
+				}
+
+				while (FALSE !== ($fileName = readdir($handle)))
+				{
+					if (is_file($path . $fileName))
+					{
+						$newName = str_replace($temp_id, $this->user->user_id, $fileName);
+						rename($path . $fileName, $new_path . $newName);
+					}
+				}
+
+				closedir($handle);
+			}
+
+			rmdir($path);
+		}
+		catch(Exception $ex)
+		{}
 	}
 	
 	public function loginAjax($handler = NULL, $id = NULL)

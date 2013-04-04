@@ -142,6 +142,7 @@ class Signup extends User {
 		$manager->manager_country	= Check::int('country');
 		$manager->manager_name	= Check::str('fio', 255, 1, '');
 		$manager->city = Check::str('city', 255, 1, '');
+		$manager->manager_status = 1;
 		$user->user_group		= 'manager';
 
 		// проверка на пустоту

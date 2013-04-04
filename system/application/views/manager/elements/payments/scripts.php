@@ -59,11 +59,6 @@ function updateCustomPayment(uri, success_message, error_message, progress)
 		},
 		success: function(data) {
 			refreshOrderTotals(data, success_message, error_message);
-
-			if (data['snippet'] != '')
-			{
-				$('div#payments').replaceWith(data['snippet']);
-			}
 		},
 		error: function(data) {
 			error('top', error_message);
