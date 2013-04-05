@@ -70,8 +70,8 @@ $is_offer_accepted = (empty($this->user->user_group) OR
 							$odetail->odetail_img) ?></a>
 					<? else : ?>
 					<a href="javascript:void(0)" onclick="setRel(<?= $odetail->odetail_id ?>);">
-						<img src='/manager/showScreen/<?= $odetail->odetail_id ?>' width="55px" height="55px">
-						<a rel="lightbox_<?= $odetail->odetail_id ?>" href="/manager/showScreen/<?=
+						<img src='/main/showPublicScreenshot/<?= $odetail->odetail_id ?>' width="55px" height="55px">
+						<a rel="lightbox_<?= $odetail->odetail_id ?>" href="/main/showPublicScreenshot/<?=
 							$odetail->odetail_id ?>" style="display:none;">Посмотреть</a>
 					</a>
 					<? endif; ?>

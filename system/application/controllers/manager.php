@@ -235,18 +235,6 @@ class Manager extends BaseController {
 			}
 
 			// 6. пересчитываем и сохраняем предложение и заказ
-			if ( ! $this->Orders->recalculate($order))
-			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
-			}
-
-			$this->Orders->saveOrder($order);
-
-			if ( ! $this->Bids->recalculate($bid, $order, TRUE))
-			{
-				throw new Exception('Невозможно вычислить стоимость предложения. Попоробуйте еще раз.');
-			}
-
 			if ( ! ($bid = $this->Bids->addBid($bid)))
 			{
 				throw new Exception('Ошибка сохранения предложения. Обратитесь к администрации сервиса.');
@@ -294,6 +282,14 @@ class Manager extends BaseController {
 				$bid->comments = array();
 				$bid->comments[] = $new_comment;
 			}
+
+			// 6. пересчитываем и сохраняем предложение и заказ
+			if ( ! $this->Orders->recalculate($order))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
 
 			// 9. отрисовка предложения
 			$this->load->model('CountryModel', 'Countries');

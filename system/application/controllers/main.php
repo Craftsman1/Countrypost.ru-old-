@@ -1877,14 +1877,45 @@ Email: {$this->user->user_email}";
 			}
 			else
 			{
-				$this->showScreenshot($oid);
+				$this->showTempScreenshot($oid);
 			}
 		}
 		catch (Exception $e)
 		{}
 	}
 
-	protected function showScreenshot($oid)
+	public function showPublicScreenshot($oid)
+	{
+		try
+		{
+			if (empty($oid) OR
+				! is_numeric($oid))
+			{
+				throw new Exception('Товар не найден.');
+			}
+
+			$this->load->Model('OdetailModel', 'Odetails');
+			$odetail = $this->Odetails->getById($oid);
+
+			if (empty($odetail))
+			{
+				throw new Exception('Товар не найден.');
+			}
+
+			$order = $this->getPublicOrder($odetail->odetail_order, 'Заказ не найден.');
+
+			if (empty($order))
+			{
+				throw new Exception('Заказ не найден.');
+			}
+
+			$this->showScreenshot($oid, $order->order_client);
+		}
+		catch (Exception $e)
+		{}
+	}
+
+	protected function showTempScreenshot($oid)
 	{
 		header('Content-type: image/jpg');
 		$this->load->model('OdetailModel', 'OdetailModel');
@@ -1894,5 +1925,12 @@ Email: {$this->user->user_email}";
 		{
 			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/$user_id/$oid.jpg");
 		}
+	}
+
+	private function showScreenshot($oid, $user_id)
+	{
+		//print_r($oid);die();
+		header('Content-type: image/jpg');
+		readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/$user_id/$oid.jpg");
 	}
 }

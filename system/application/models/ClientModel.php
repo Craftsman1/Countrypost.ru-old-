@@ -407,7 +407,8 @@ class ClientModel extends BaseModel implements IModel{
 	public function getFullName($statistics)
 	{
 //print_r($statistics->client_user);//die();
-		
+		$fullname = '';
+
 		if ( ! empty($statistics))
 		{
 			$fullname = trim($statistics->client_surname . ' ' . 

@@ -2146,7 +2146,7 @@ div.managerinfo  div.status, div.clientinfo  div.status
 	margin-top: 0;
 }
 
-div.managerinfo  div, div.clientinfo  div
+div.managerinfo  div, div.clientinfo  div, div.ratinginfo  div.created
 {
 	margin-top: 25px;
 }
@@ -2480,6 +2480,8 @@ div.rating_group {
 	line-height: 26px;
 	font: 13px sans-serif;
 	padding-bottom: 0;
+	padding-top: 0;
+	margin-top: 10px;
 }
 
 div.rating_group > div {
