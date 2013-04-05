@@ -578,8 +578,8 @@ class PaymentModel extends BaseModel implements IModel{
 
 		if ($is_admin AND
 			(empty($view['filter']->sfield) OR
-			$view['filter']->sfield != 'manager_id' OR
-			$view['filter']->sfield != 'manager_login'))
+			($view['filter']->sfield != 'manager_id' AND
+			$view['filter']->sfield != 'manager_login')))
 		{
 			return FALSE;
 		}

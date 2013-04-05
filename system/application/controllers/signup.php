@@ -76,8 +76,7 @@ class Signup extends User {
 			throw new Exception('Введите логин.', Signup::LOGIN_ERROR);
 		}
 		else if ($this->User->select(array(
-			'user_login'=> $user->user_login,
-			'user_deleted' => '0')))
+			'user_login'=> $user->user_login)))
 		{
 			throw new Exception('Пользователь с таким логином уже существует.', Signup::DUPLICATE_LOGIN_ERROR);
 		}
@@ -152,8 +151,7 @@ class Signup extends User {
 			throw new Exception('Введите логин.', Signup::LOGIN_ERROR);
 		}
 		else if ($this->User->select(array(
-			'user_login'=> $user->user_login,
-			'user_deleted' => '0')))
+			'user_login'=> $user->user_login)))
 		{
 			throw new Exception('Пользователь с таким логином уже существует.', Signup::DUPLICATE_LOGIN_ERROR);
 		}

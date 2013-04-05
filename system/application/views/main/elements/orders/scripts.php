@@ -3800,8 +3800,8 @@ $(function() {
                 iObj.getRow = function (item)
                 {
 				    // Рисуем новый mail_forwarding товар
-					var snippet = $(getSnippet(item, '', oObj.options.order_id, 'mail_forwarding'));
-
+					var snippet = $(getSnippet(item, getImageSnippet(item), oObj.options.order_id, 'mail_forwarding'));
+					
 					// Прикручиваем обработчики к кнопкам
                     snippet.find('a.delete').bind('click', iObj.deleteItem);
                     snippet.find('a.edit').bind('click', iObj.editItem);

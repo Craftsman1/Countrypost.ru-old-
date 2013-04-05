@@ -196,10 +196,6 @@ abstract class BaseController extends Controller
 					'Countries'	=> $Countries,
 				);
 				
-				// общие суммы активных товаров и заказов
-				$this->load->model('ClientModel', 'Client');
-				$view['hasActiveOrdersOrPackages'] = $this->Client->hasActiveOrdersOrPackages($this->user->user_id);
-
 				$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
 			}
 
@@ -274,7 +270,7 @@ abstract class BaseController extends Controller
 			// роли и разграничение доступа
 			$order = $this->getPrivilegedOrder(
 				$this->uri->segment(3), 
-				'Невозможно отобразить комментарии. Соответствующий заказ недоступен.');
+				'Невозможно отобразить комментарии. Заказ недоступен.');
 			
 			$this->load->model('ManagerModel', 'Managers');
 			$view['Managers']	=	$this->Managers->getById($order->order_manager);

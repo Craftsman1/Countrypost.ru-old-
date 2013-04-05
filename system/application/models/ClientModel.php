@@ -361,52 +361,9 @@ class ClientModel extends BaseModel implements IModel{
 		
 		return $this->getInfo(array($user_obj->client_user));
 	}
-
-	public function hasActiveOrdersOrPackages($client_id)
-	{
-		$total_active = 0;
-		
-		// считаем заказы
-		$active_order_count = $this->db->query(
-			"SELECT COUNT(`orders`.`order_id`) AS `active_order_count`
-			FROM `orders`
-			WHERE 
-				`orders`.`order_client` = $client_id
-				AND NOT (`orders`.`order_status` IN ('deleted', 'sended'))"
-		)->result();
-		
-		if ( ! empty($active_order_count))
-		{
-			$active_order_count = $active_order_count[0];
-			$active_order_count = $active_order_count->active_order_count;
-			
-			$total_active += $active_order_count;
-		}
-		
-		// считаем посылки
-		$active_package_count = $this->db->query(
-			"SELECT COUNT(`packages`.`package_id`) AS `active_package_count`
-			FROM `packages`
-			WHERE 
-				`packages`.`package_client` = $client_id
-				AND NOT (`packages`.`package_status` IN ('deleted', 'sent'))"
-		)->result();
-		
-		if ( ! empty($active_package_count))
-		{
-			$active_package_count = $active_package_count[0];
-			$active_package_count = $active_package_count->active_package_count;
-			
-			$total_active += $active_package_count;
-		}
-		
-		// разрешаем добавлять заказы только если разрешено больше, чем уже добавлено
-		return $total_active;
-	}
 	
 	public function getFullName($statistics)
 	{
-//print_r($statistics->client_user);//die();
 		$fullname = '';
 
 		if ( ! empty($statistics))

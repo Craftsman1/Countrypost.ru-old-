@@ -8,9 +8,10 @@
 			<b>Адреса:</b>
 		</span>
 		<span>
-			<?= $manager->manager_address_local ?>
+			<?= empty($manager->manager_address_local) ? 'не задан' : $manager->manager_address_local ?>
 		</span>
 	</div>
+	<? if ( !empty($manager->manager_address)) : ?>
 	<div>
 		<span>
 			&nbsp;
@@ -19,6 +20,7 @@
 			<?= $manager->manager_address ?>
 		</span>
 	</div>
+	<? endif; ?>
 	<div>
 		<span>
 			<b>Получатель:</b>

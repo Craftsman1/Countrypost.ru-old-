@@ -1929,7 +1929,6 @@ Email: {$this->user->user_email}";
 
 	private function showScreenshot($oid, $user_id)
 	{
-		//print_r($oid);die();
 		header('Content-type: image/jpg');
 		readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/$user_id/$oid.jpg");
 	}
