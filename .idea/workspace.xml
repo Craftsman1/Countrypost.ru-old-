@@ -5,15 +5,6 @@
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\23\00_-_USAliens.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\81\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\82\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" afterPath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/main.php" afterPath="$PROJECT_DIR$/system/application/controllers/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/signup.php" afterPath="$PROJECT_DIR$/system/application/controllers/signup.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/ClientModel.php" afterPath="$PROJECT_DIR$/system/application/models/ClientModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/PaymentModel.php" afterPath="$PROJECT_DIR$/system/application/models/PaymentModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/body.php" afterPath="$PROJECT_DIR$/system/application/views/main/body.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/mail_forwarding_main.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/mail_forwarding_main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,15 +30,6 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BaseController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2541" column="55" selection-start="72661" selection-end="72674" vertical-scroll-proportion="-11.379311">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="PaymentModel.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/models/PaymentModel.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -122,31 +104,40 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scripts.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="scripts.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3803" column="20" selection-start="165933" selection-end="165933" vertical-scroll-proportion="0.38992804">
+            <state line="3803" column="0" selection-start="165928" selection-end="165928" vertical-scroll-proportion="-5.0185184">
               <folding>
-                <marker date="1365166708476" expanded="false" signature="179429:179456" placeholder="..." />
-                <marker date="1365166708476" expanded="false" signature="181097:181124" placeholder="..." />
-                <marker date="1365166708476" expanded="false" signature="182767:182794" placeholder="..." />
-                <marker date="1365166708476" expanded="false" signature="185311:185338" placeholder="..." />
-                <marker date="1365166708476" expanded="false" signature="185871:185884" placeholder="..." />
-                <element signature="e#186299#187701#0" expanded="false" />
-                <marker date="1365166708476" expanded="false" signature="186765:186779" placeholder="..." />
-                <element signature="e#187757#189420#0" expanded="false" />
-                <marker date="1365166708476" expanded="false" signature="188318:188332" placeholder="..." />
-                <element signature="e#189476#190005#0" expanded="false" />
-                <marker date="1365166708476" expanded="false" signature="189667:189681" placeholder="..." />
-                <element signature="e#190062#191612#0" expanded="false" />
-                <marker date="1365166708476" expanded="false" signature="190606:190620" placeholder="..." />
-                <element signature="e#191677#193188#0" expanded="false" />
-                <marker date="1365166708476" expanded="false" signature="192212:192226" placeholder="..." />
-                <marker date="1365166708476" expanded="false" signature="193419:193431" placeholder="..." />
-                <marker date="1365166708476" expanded="false" signature="193909:193950" placeholder="..." />
-                <marker date="1365166708476" expanded="false" signature="194456:194470" placeholder="..." />
-                <marker date="1365166708476" expanded="false" signature="194677:194691" placeholder="..." />
+                <marker date="1365169912757" expanded="false" signature="179424:179451" placeholder="..." />
+                <marker date="1365169912757" expanded="false" signature="181092:181119" placeholder="..." />
+                <marker date="1365169912757" expanded="false" signature="182762:182789" placeholder="..." />
+                <marker date="1365169912757" expanded="false" signature="185306:185333" placeholder="..." />
+                <marker date="1365169912757" expanded="false" signature="185866:185879" placeholder="..." />
+                <element signature="e#186294#187696#0" expanded="false" />
+                <marker date="1365169912757" expanded="false" signature="186760:186774" placeholder="..." />
+                <element signature="e#187752#189415#0" expanded="false" />
+                <marker date="1365169912757" expanded="false" signature="188313:188327" placeholder="..." />
+                <element signature="e#189471#190000#0" expanded="false" />
+                <marker date="1365169912757" expanded="false" signature="189662:189676" placeholder="..." />
+                <element signature="e#190057#191607#0" expanded="false" />
+                <marker date="1365169912757" expanded="false" signature="190601:190615" placeholder="..." />
+                <element signature="e#191672#193183#0" expanded="false" />
+                <marker date="1365169912757" expanded="false" signature="192207:192221" placeholder="..." />
+                <marker date="1365169912757" expanded="false" signature="193414:193426" placeholder="..." />
+                <marker date="1365169912757" expanded="false" signature="193904:193945" placeholder="..." />
+                <marker date="1365169912757" expanded="false" signature="194451:194465" placeholder="..." />
+                <marker date="1365169912757" expanded="false" signature="194672:194686" placeholder="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="migrate.sql" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/dbscripts/migration/migrate.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="34" selection-start="0" selection-end="311837" vertical-scroll-proportion="0.260078">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -485,6 +476,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbscripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbscripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="migration" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -774,13 +797,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dbscripts/migration/migrate.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="19" selection-start="278" selection-end="278" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/header.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -880,28 +896,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3803" column="20" selection-start="165933" selection-end="165933" vertical-scroll-proportion="0.38992804">
+        <state line="3803" column="0" selection-start="165928" selection-end="165928" vertical-scroll-proportion="-5.0185184">
           <folding>
-            <marker date="1365166708476" expanded="false" signature="179429:179456" placeholder="..." />
-            <marker date="1365166708476" expanded="false" signature="181097:181124" placeholder="..." />
-            <marker date="1365166708476" expanded="false" signature="182767:182794" placeholder="..." />
-            <marker date="1365166708476" expanded="false" signature="185311:185338" placeholder="..." />
-            <marker date="1365166708476" expanded="false" signature="185871:185884" placeholder="..." />
-            <element signature="e#186299#187701#0" expanded="false" />
-            <marker date="1365166708476" expanded="false" signature="186765:186779" placeholder="..." />
-            <element signature="e#187757#189420#0" expanded="false" />
-            <marker date="1365166708476" expanded="false" signature="188318:188332" placeholder="..." />
-            <element signature="e#189476#190005#0" expanded="false" />
-            <marker date="1365166708476" expanded="false" signature="189667:189681" placeholder="..." />
-            <element signature="e#190062#191612#0" expanded="false" />
-            <marker date="1365166708476" expanded="false" signature="190606:190620" placeholder="..." />
-            <element signature="e#191677#193188#0" expanded="false" />
-            <marker date="1365166708476" expanded="false" signature="192212:192226" placeholder="..." />
-            <marker date="1365166708476" expanded="false" signature="193419:193431" placeholder="..." />
-            <marker date="1365166708476" expanded="false" signature="193909:193950" placeholder="..." />
-            <marker date="1365166708476" expanded="false" signature="194456:194470" placeholder="..." />
-            <marker date="1365166708476" expanded="false" signature="194677:194691" placeholder="..." />
+            <marker date="1365169912757" expanded="false" signature="179424:179451" placeholder="..." />
+            <marker date="1365169912757" expanded="false" signature="181092:181119" placeholder="..." />
+            <marker date="1365169912757" expanded="false" signature="182762:182789" placeholder="..." />
+            <marker date="1365169912757" expanded="false" signature="185306:185333" placeholder="..." />
+            <marker date="1365169912757" expanded="false" signature="185866:185879" placeholder="..." />
+            <element signature="e#186294#187696#0" expanded="false" />
+            <marker date="1365169912757" expanded="false" signature="186760:186774" placeholder="..." />
+            <element signature="e#187752#189415#0" expanded="false" />
+            <marker date="1365169912757" expanded="false" signature="188313:188327" placeholder="..." />
+            <element signature="e#189471#190000#0" expanded="false" />
+            <marker date="1365169912757" expanded="false" signature="189662:189676" placeholder="..." />
+            <element signature="e#190057#191607#0" expanded="false" />
+            <marker date="1365169912757" expanded="false" signature="190601:190615" placeholder="..." />
+            <element signature="e#191672#193183#0" expanded="false" />
+            <marker date="1365169912757" expanded="false" signature="192207:192221" placeholder="..." />
+            <marker date="1365169912757" expanded="false" signature="193414:193426" placeholder="..." />
+            <marker date="1365169912757" expanded="false" signature="193904:193945" placeholder="..." />
+            <marker date="1365169912757" expanded="false" signature="194451:194465" placeholder="..." />
+            <marker date="1365169912757" expanded="false" signature="194672:194686" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbscripts/migration/migrate.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="34" selection-start="0" selection-end="311837" vertical-scroll-proportion="0.260078">
+          <folding />
         </state>
       </provider>
     </entry>

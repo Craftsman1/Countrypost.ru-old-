@@ -418,7 +418,14 @@ class Manager extends BaseController {
 			// валидация пользовательского ввода
 			$manager->cashback_limit = Check::int('limit');
 
+			$manager->is_mail_forwarding 	= Check::chkbox('mf');
+			$manager->is_internal_payments 	= Check::chkbox('payments');
+			$manager->about_me				= Check::str('about', 65535, 0);
+			$manager->skype					= Check::str('skype', 255, 0);
+			$manager->website				= Check::str('website', 4096, 0);
+			
 			Check::reset_empties();
+			
 			$user->user_email = Check::email(Check::str('email', 128, 4));
 			
 			if (isset($_POST['password']) &&
@@ -434,12 +441,7 @@ class Manager extends BaseController {
 			
 			$manager->manager_name			= Check::str('fio', 255, 0);
 			$manager->manager_country		= Check::int('country');
-			$manager->skype					= Check::str('skype', 255, 0);
-			$manager->website				= Check::str('website', 4096, 0);
-			$manager->about_me				= Check::str('about', 65535, 0);
 			$manager->city					= Check::str('city', 255, 1);
-			$manager->is_mail_forwarding 	= Check::chkbox('mf');
-			$manager->is_internal_payments 	= Check::chkbox('payments');
 			
 			$empties = Check::get_empties();			
 			
