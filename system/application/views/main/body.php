@@ -23,7 +23,6 @@
 	<div id="lay" style="position:absolute; z-index: 999; background: #787878; width:100%; height:100%; display:none; opacity:0.3;"></div>
 	<div class='layout'><? View::show('main/elements/div_header'); ?><? View::show('main/elements/div_content'); ?></div><? View::show('elements/div_bottom'); ?><? View::show('elements/div_footer'); ?>
 	
-	//Виджет reformal.ru
 	<script type="text/javascript">
     var reformalOptions = {
         project_id: 41409,
@@ -43,6 +42,5 @@
         document.getElementsByTagName('head')[0].appendChild(script);
     })();
 	</script><noscript><a href="http://reformal.ru"><img src="http://media.reformal.ru/reformal.png" /></a><a href="http://Countrypost.reformal.ru">Oтзывы и предложения для Countrypost.ru - сервис покупок за рубежом</a></noscript>
-	//Виджет reformal.ru	
-	
+		
 	</body>
