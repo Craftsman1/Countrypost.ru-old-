@@ -4,7 +4,7 @@
 		<em style="display:none;" class="pink-color"></em>
 	</center>
 	<p>
-		Пополнение счета переводом с карты на карту через Сбербанк:
+		Оплата заказа через <b><?= BM_SERVICE_NAME ?></b>:
 		<br />
 		<br />
 		Вам нужно перевести <b><b class="sberbank_amount_local"></b> рублей</b> на карту <?= BM_IN_ACCOUNT ?> (Москва). После перевода сохраните квитанцию.

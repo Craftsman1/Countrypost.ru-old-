@@ -6,13 +6,13 @@
 		<em style="display:none;" class="pink-color"></em>
 	</center>
 	<p>
-		Пополнение счета переводом с карты на карту через <b class="generic_name"></b>:
+		Оплата заказа через <b class="generic_name"></b>:
 		<br />
 		<br />
 		Вам нужно перевести
 		<b><b class="generic_amount_ru"></b> RUB</b>
 		<b><b class="generic_amount_usd"></b> USD</b>
-		на карту <b class="generic_account"></b>.
+		на <b class="generic_account"></b>.
 		После перевода сохраните квитанцию.
 	</p>
 	<br />

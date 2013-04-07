@@ -64,7 +64,7 @@ define('OP_IN_TAX', 2);
 define('BM_IN_TAX', 1);
 define('BM_OUT_TAX', 1);
 define('BM_IN_ACCOUNT', '4276838059339327');
-define('BM_SERVICE_NAME', 'Сбербанк (Россия)');
+define('BM_SERVICE_NAME', 'Сбербанк');
 
 // QIWI
 define('QW_IN_TAX', 2.5);
@@ -135,7 +135,7 @@ define('AB_SERVICE_NAME', 'Альянсбанк');
 
 // SV
 define('SV_IN_TAX', 1);
-define('SV_IN_ACCOUNT', '5163310501426881');
+define('SV_IN_ACCOUNT', '5203390539416346');
 define('SV_SERVICE_NAME', 'Связной Банк');
 
 // VTB
@@ -146,15 +146,15 @@ define('VTB_SERVICE_NAME', 'ВТБ Банк');
 // Alfa RUB
 define('AL_RUB_IN_TAX', 1);
 define('AL_USD_IN_TAX', 1);
-define('AL_RUB_IN_ACCOUNT', 'рублевые данные Альфабанка');
-define('AL_USD_IN_ACCOUNT', 'долларовые данные Альфабанка');
-define('AL_SERVICE_NAME', 'Альфа Клик');
+define('AL_RUB_IN_ACCOUNT', '');
+define('AL_USD_IN_ACCOUNT', '');
+define('AL_SERVICE_NAME', 'Альфа Банк');
 
 // Western Union
 define('WU_RUB_IN_TAX', 1);
 define('WU_USD_IN_TAX', 1);
-define('WU_RUB_IN_ACCOUNT', 'рублевые данные Western Union');
-define('WU_USD_IN_ACCOUNT', 'долларовые данные Western Union');
+define('WU_RUB_IN_ACCOUNT', 'получатель: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
+define('WU_USD_IN_ACCOUNT', 'получатель: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
 define('WU_SERVICE_NAME', 'Western Union');
 
 // Contact

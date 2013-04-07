@@ -277,69 +277,90 @@ $payable_amount =
 					$('#delayed_ru').val(),
 					amount_usd);
 				break;
-			case "con": openGenericPopup('<?= CON_SERVICE_NAME ?>',
+				
+			case "con": openGenericPopup(
+					'<?= CON_SERVICE_NAME ?>',
 					'<?= CON_RUB_IN_ACCOUNT ?>',
 					service,
+					$('#delayed_ru').val(),
 					0,
-					amount_usd,
-					$('#delayed_ru').val());
+					amount_usd);
 				break;
-			case "cod": openGenericPopup('<?= CON_SERVICE_NAME ?>',
+				
+			case "cod": openGenericPopup(
+					'<?= CON_SERVICE_NAME ?>',
 					'<?= CON_USD_IN_ACCOUNT ?>',
 					service,
 					0,
 					$('#delayed_ru').val(),
 					amount_usd);
 				break;
-			case "unr": openGenericPopup('<?= UNI_SERVICE_NAME ?>',
-					'<?= UNI_RUB_IN_ACCOUNT ?>',
+						
+			case "unr": openGenericPopup(
+					'<?= UNI_SERVICE_NAME ?>',
+					'<?= UNI_USD_IN_ACCOUNT ?>',
 					service,
+					$('#delayed_ru').val(),
 					0,
-					amount_usd,
-					$('#delayed_ru').val());
+					amount_usd);
 				break;
-			case "und": openGenericPopup('<?= UNI_SERVICE_NAME ?>',
+			
+			case "und": openGenericPopup(
+					'<?= UNI_SERVICE_NAME ?>',
 					'<?= UNI_USD_IN_ACCOUNT ?>',
 					service,
 					0,
 					$('#delayed_ru').val(),
 					amount_usd);
 				break;
-			case "gcr": openGenericPopup('<?= GC_SERVICE_NAME ?>',
-					'<?= GC_RUB_IN_ACCOUNT ?>',
+
+
+			case "gcr": openGenericPopup(
+					'<?= GC_SERVICE_NAME ?>',
+					'<?= GC_USD_IN_ACCOUNT ?>',
 					service,
+					$('#delayed_ru').val(),
 					0,
-					amount_usd,
-					$('#delayed_ru').val());
+					amount_usd);
 				break;
-			case "gcd": openGenericPopup('<?= GC_SERVICE_NAME ?>',
+				
+			case "gcd": openGenericPopup(
+					'<?= GC_SERVICE_NAME ?>',
 					'<?= GC_USD_IN_ACCOUNT ?>',
 					service,
 					0,
 					$('#delayed_ru').val(),
 					amount_usd);
 				break;
-			case "anr": openGenericPopup('<?= AN_SERVICE_NAME ?>',
-					'<?= AN_RUB_IN_ACCOUNT ?>',
+			
+			case "anr": openGenericPopup(
+					'<?= AN_SERVICE_NAME ?>',
+					'<?= AN_USD_IN_ACCOUNT ?>',
 					service,
-					user_id,
-					amount_usd,
-					$('#delayed_ru').val());
+					$('#delayed_ru').val(),
+					0,
+					amount_usd);
 				break;
-			case "and": openGenericPopup('<?= AN_SERVICE_NAME ?>',
+			
+			case "and": openGenericPopup(
+					'<?= AN_SERVICE_NAME ?>',
 					'<?= AN_USD_IN_ACCOUNT ?>',
 					service,
 					0,
 					$('#delayed_ru').val(),
 					amount_usd);
 				break;
-			case "vm": openGenericPopup('<?= VM_SERVICE_NAME ?>',
+			
+			case "vm": openGenericPopup(
+					'<?= VM_SERVICE_NAME ?>',
 					'<?= VM_RUB_IN_ACCOUNT ?>',
 					service,
-					user_id,
-					amount_usd,
-					$('#delayed_ru').val());
+					$('#delayed_ru').val(),
+					0,
+					amount_usd);
 				break;
+				
+				
 			case "cus": openGenericPopup('<?= CUS_SERVICE_NAME ?>',
 					'<?= CUS_USD_IN_ACCOUNT ?>',
 					service,
@@ -537,57 +558,6 @@ $payable_amount =
 				'image' => 'alfabank.png',
 				'selected' => FALSE
 			)); ?>
-			<? View::show('/syspay/elements/generic_o2i', array(
-				'service_code' => 'wur',
-				'service_code_usd' => 'wud',
-				'service_name' => WU_SERVICE_NAME,
-				'image' => 'western_union.png',
-				'selected' => FALSE
-			)); ?>
-			<br style="clear: both;">
-			<? View::show('/syspay/elements/generic_o2i', array(
-				'service_code' => 'con',
-				'service_code_usd' => 'cod',
-				'service_name' => CON_SERVICE_NAME,
-				'image' => 'contact.png',
-				'selected' => FALSE
-			)); ?>
-			<? View::show('/syspay/elements/generic_o2i', array(
-				'service_code' => 'unr',
-				'service_code_usd' => 'und',
-				'service_name' => UNI_SERVICE_NAME,
-				'image' => 'unistream.png',
-				'selected' => FALSE
-			)); ?>
-			<? View::show('/syspay/elements/generic_o2i', array(
-				'service_code' => 'gcr',
-				'service_code_usd' => 'gcd',
-				'service_name' => GC_SERVICE_NAME,
-				'image' => 'golden_crown.png',
-				'selected' => FALSE
-			)); ?>
-			<? View::show('/syspay/elements/generic_o2i', array(
-				'service_code' => 'anr',
-				'service_code_usd' => 'and',
-				'service_name' => AN_SERVICE_NAME,
-				'image' => 'anelik.png',
-				'selected' => FALSE
-			)); ?>
-			<br style="clear: both;">
-			<? View::show('/syspay/elements/generic_o2i', array(
-				'service_code' => '',
-				'service_code_usd' => 'cus',
-				'service_name' => CUS_SERVICE_NAME,
-				'image' => 'cash_usd.png',
-				'selected' => FALSE
-			)); ?>
-			<? View::show('/syspay/elements/generic_o2i', array(
-				'service_code' => 'vm',
-				'service_code_usd' => '',
-				'service_name' => VM_SERVICE_NAME,
-				'image' => 'visa_mastercard.png',
-				'selected' => FALSE
-			)); ?>
 		</div>
 		<form method="POST" action="/syspay/showGate/<?= $order->order_id ?>" class="usd">
 			<input type="hidden" name="section" value="usd">
@@ -598,6 +568,23 @@ $payable_amount =
 			<input type="hidden" name="section" value="immediate">
 			<input type="hidden" name="total_ru" id="immediate_ru" value="">
 			<div class="immediate">
+				<div title="Оплата через Qiwi кошелек"
+					 class="payment_type">
+					<label for="immediate_qw">
+						<img src="/static/images/qiwi.png" />
+						<br style="clear: both;">
+						<span>
+							<input type="radio"
+							   id="immediate_qw"
+							   value="qw"
+							   name="payment_selector"
+							   rel="immediate" />
+							<div class="payment_system_name totals total_qw">
+							</div>
+						</span>
+					</label>
+				</div>
+				<br style="clear: both;">
 				<div title="Оплата через WebMoney"
 					 class="payment_type">
 					<label for="immediate_wmr">
@@ -621,23 +608,6 @@ $payable_amount =
 						</span>
 					</label>
 				</div>
-				<div title="Оплата через Qiwi кошелек"
-					 class="payment_type">
-					<label for="immediate_qw">
-						<img src="/static/images/qiwi.png" />
-						<br style="clear: both;">
-						<span>
-							<input type="radio"
-							   id="immediate_qw"
-							   value="qw"
-							   name="payment_selector"
-							   rel="immediate" />
-							<div class="payment_system_name totals total_qw">
-							</div>
-						</span>
-					</label>
-				</div>
-				<br style="clear: both;">
 				<div title="Оплата через платежную систему Robokassa"
 					 class="payment_type">
 					<label for="immediate_rbk">
@@ -655,5 +625,55 @@ $payable_amount =
 				</div>
 			</div>
 		</form>
+		<? View::show('/syspay/elements/generic_o2i', array(
+				'service_code' => 'wur',
+				'service_code_usd' => 'wud',
+				'service_name' => WU_SERVICE_NAME,
+				'image' => 'western_union.png',
+				'selected' => FALSE
+			)); ?>
+			<? View::show('/syspay/elements/generic_o2i', array(
+				'service_code' => 'con',
+				'service_code_usd' => 'cod',
+				'service_name' => CON_SERVICE_NAME,
+				'image' => 'contact.png',
+				'selected' => FALSE
+			)); ?>
+			<br style="clear: both;">
+			<? View::show('/syspay/elements/generic_o2i', array(
+				'service_code' => 'unr',
+				'service_code_usd' => 'und',
+				'service_name' => UNI_SERVICE_NAME,
+				'image' => 'unistream.png',
+				'selected' => FALSE
+			)); ?>
+			<? View::show('/syspay/elements/generic_o2i', array(
+				'service_code' => 'gcr',
+				'service_code_usd' => 'gcd',
+				'service_name' => GC_SERVICE_NAME,
+				'image' => 'golden_crown.png',
+				'selected' => FALSE
+			)); ?>
+			<? View::show('/syspay/elements/generic_o2i', array(
+				'service_code' => 'anr',
+				'service_code_usd' => 'and',
+				'service_name' => AN_SERVICE_NAME,
+				'image' => 'anelik.png',
+				'selected' => FALSE
+			)); ?>
+			<? View::show('/syspay/elements/generic_o2i', array(
+				'service_code' => '',
+				'service_code_usd' => 'cus',
+				'service_name' => CUS_SERVICE_NAME,
+				'image' => 'cash_usd.png',
+				'selected' => FALSE
+			)); ?>
+			<? View::show('/syspay/elements/generic_o2i', array(
+				'service_code' => 'vm',
+				'service_code_usd' => '',
+				'service_name' => VM_SERVICE_NAME,
+				'image' => 'visa_mastercard.png',
+				'selected' => FALSE
+			)); ?>
 	</div>
 </div>
