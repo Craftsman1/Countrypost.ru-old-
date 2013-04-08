@@ -146,8 +146,8 @@ define('VTB_SERVICE_NAME', 'ВТБ Банк');
 // Alfa RUB
 define('AL_RUB_IN_TAX', 1);
 define('AL_USD_IN_TAX', 1);
-define('AL_RUB_IN_ACCOUNT', '');
-define('AL_USD_IN_ACCOUNT', '');
+define('AL_RUB_IN_ACCOUNT', 'RUB');
+define('AL_USD_IN_ACCOUNT', '$');
 define('AL_SERVICE_NAME', 'Альфа Банк');
 
 // Western Union
@@ -160,29 +160,29 @@ define('WU_SERVICE_NAME', 'Western Union');
 // Contact
 define('CON_RUB_IN_TAX', 1);
 define('CON_USD_IN_TAX', 1);
-define('CON_RUB_IN_ACCOUNT', 'рублевые данные Contact');
-define('CON_USD_IN_ACCOUNT', 'долларовые данные Contact');
+define('CON_RUB_IN_ACCOUNT', 'получатель: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
+define('CON_USD_IN_ACCOUNT', 'получатель: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
 define('CON_SERVICE_NAME', 'Contact');
 
 // Unistream
 define('UNI_RUB_IN_TAX', 1);
 define('UNI_USD_IN_TAX', 1);
-define('UNI_RUB_IN_ACCOUNT', 'рублевые данные Unistream');
-define('UNI_USD_IN_ACCOUNT', 'долларовые данные Unistream');
+define('UNI_RUB_IN_ACCOUNT', 'получатель: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
+define('UNI_USD_IN_ACCOUNT', 'получатель: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
 define('UNI_SERVICE_NAME', 'Unistream');
 
 // Золотая Корона
 define('GC_RUB_IN_TAX', 1);
 define('GC_USD_IN_TAX', 1);
-define('GC_RUB_IN_ACCOUNT', 'рублевые данные Золотая Корона');
-define('GC_USD_IN_ACCOUNT', 'долларовые данные Золотая Корона');
+define('GC_RUB_IN_ACCOUNT', 'получатель: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
+define('GC_USD_IN_ACCOUNT', 'получатель: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
 define('GC_SERVICE_NAME', 'Золотая Корона');
 
 // Anelik
 define('AN_RUB_IN_TAX', 1);
 define('AN_USD_IN_TAX', 1);
-define('AN_RUB_IN_ACCOUNT', 'рублевые данные Anelik');
-define('AN_USD_IN_ACCOUNT', 'долларовые данные Anelik');
+define('AN_RUB_IN_ACCOUNT', 'получатель: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
+define('AN_USD_IN_ACCOUNT', 'получатель: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
 define('AN_SERVICE_NAME', 'Anelik');
 
 // Visa/Mastercard
@@ -192,5 +192,5 @@ define('VM_SERVICE_NAME', 'Visa/Mastercard');
 
 // Нал
 define('CUS_USD_IN_TAX', 1);
-define('CUS_USD_IN_ACCOUNT', 'долларовые данные нал');
+define('CUS_USD_IN_ACCOUNT', 'по предварительной договоренности');
 define('CUS_SERVICE_NAME', 'Наличные');
