@@ -74,6 +74,9 @@
 					</select>
 					<img class="float status_progress" style="display:none;margin-left: 5px;;"
 						 src="/static/images/lightbox-ico-loading.gif"/>
+					<? if ($order->order_cost > $order->order_cost_payed) : ?>
+					<br>(Доплатить <?= $order->order_cost - $order->order_cost_payed ?> <?= $order->currency ?>)
+					<? endif; ?>
 				</td>
 				<td>
 					<a href="<?= $selfurl ?>order/<?= $order->order_id ?>"><?= $order->comment_for_manager ?
