@@ -6,8 +6,12 @@
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\23\00_-_USAliens.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\81\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\82\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/ajax/showOpenOrders.php" afterPath="$PROJECT_DIR$/system/application/views/manager/ajax/showOpenOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/orders/payButton.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/orders/payButton.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/config/payments.php" afterPath="$PROJECT_DIR$/system/application/config/payments.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sberbank_o2i.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sberbank_o2i.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sv_o2i.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sv_o2i.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_o2i.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_o2i.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,56 +37,53 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="manager.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="418" column="44" selection-start="9415" selection-end="9415" vertical-scroll-proportion="-1.2222222">
-              <folding>
-                <element signature="n#saveBlog#0;n#Manager#0;n#!!top" expanded="false" />
-                <element signature="n#savePricelist#0;n#Manager#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="payOrder.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/client/pages/payOrder.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="countrypost_payment_box.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/payments/countrypost_payment_box.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="0" selection-start="315" selection-end="315" vertical-scroll-proportion="-4.137931">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="div_o2i.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="518" column="63" selection-start="12884" selection-end="12884" vertical-scroll-proportion="-11.965517">
+            <state line="384" column="28" selection-start="9926" selection-end="9926" vertical-scroll-proportion="-9.655172">
               <folding>
-                <element signature="tag#div#0;tag#div#0;tag#div#4;tag#div#0" expanded="false" />
-                <element signature="tag#form#0;tag#div#4;tag#div#0" expanded="false" />
-                <element signature="tag#form#1;tag#div#4;tag#div#0" expanded="false" />
+                <element signature="n#style#0;n#b#0;n#div#0;n#div#0;n#div#4;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#4;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#br#0;n#label#0;n#div#0;n#div#0;n#form#1;n#div#4;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#br#0;n#div#0;n#form#1;n#div#4;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#br#0;n#label#0;n#div#1;n#div#0;n#form#1;n#div#4;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#br#0;n#span#0;n#label#0;n#div#1;n#div#0;n#form#1;n#div#4;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#br#0;n#label#0;n#div#2;n#div#0;n#form#1;n#div#4;n#div#0;n#!!top" expanded="true" />
+                <element signature="e#17088#17343#0" expanded="false" />
+                <element signature="n#style#0;n#br#0;n#div#4;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/style.css">
+      <file leaf-file-name="generic_popup.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2779" column="20" selection-start="49763" selection-end="49763" vertical-scroll-proportion="0.0">
+            <state line="57" column="6" selection-start="1812" selection-end="1812" vertical-scroll-proportion="-0.6896552">
+              <folding>
+                <element signature="n#style#0;n#b#3;n#p#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#b#0;n#td#0;n#tr#0;n#table#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="generic_o2i.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/generic_o2i.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="22" selection-start="22" selection-end="22" vertical-scroll-proportion="-0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="div_float_sberbank_o2i.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sberbank_o2i.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="20" selection-start="880" selection-end="902" vertical-scroll-proportion="-7.037037">
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -110,8 +111,19 @@
       <file leaf-file-name="payments.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/application/config/payments.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="185" column="36" selection-start="5591" selection-end="5805" vertical-scroll-proportion="0.56343794">
+            <state line="224" column="47" selection-start="7783" selection-end="7783" vertical-scroll-proportion="0.66480446">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="div_float_sv_o2i.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sv_o2i.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="26" selection-start="820" selection-end="820" vertical-scroll-proportion="-13.103448">
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -153,11 +165,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/views/main/pages/showOrderDetails.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" />
-        <option value="$PROJECT_DIR$/dbscripts/migration/migrate.sql" />
-        <option value="$PROJECT_DIR$/system/application/views/main/body.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
         <option value="$PROJECT_DIR$/system/application/models/PaymentModel.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/signup.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/mail_forwarding_main.php" />
@@ -165,10 +172,15 @@
         <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
         <option value="$PROJECT_DIR$/system/application/views/client/elements/payments/countrypost_payment_box.php" />
-        <option value="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" />
         <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/system/application/views/manager/elements/orders/payButton.php" />
         <option value="$PROJECT_DIR$/system/application/views/manager/ajax/showOpenOrders.php" />
+        <option value="$PROJECT_DIR$/system/application/views/syspay/elements/generic_o2i.php" />
+        <option value="$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sberbank_o2i.php" />
+        <option value="$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sv_o2i.php" />
+        <option value="$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php" />
+        <option value="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" />
+        <option value="$PROJECT_DIR$/system/application/config/payments.php" />
       </list>
     </option>
   </component>
@@ -346,7 +358,63 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="syspay" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="syspay" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="elements" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -542,7 +610,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.238125" sideWeight="0.33375958" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.78516626" sideWeight="0.4980695" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.497426" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24287485" sideWeight="0.494852" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24287485" sideWeight="0.494852" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -625,49 +693,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/mail_forwarding.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/mail_forwarding_main.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="66" selection-start="344" selection-end="344" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="208" column="33" selection-start="5521" selection-end="5521" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/scripts.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3803" column="0" selection-start="165928" selection-end="165928" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1365169912757" expanded="false" signature="179424:179451" placeholder="..." />
-            <marker date="1365169912757" expanded="false" signature="181092:181119" placeholder="..." />
-            <marker date="1365169912757" expanded="false" signature="182762:182789" placeholder="..." />
-            <marker date="1365169912757" expanded="false" signature="185306:185333" placeholder="..." />
-            <marker date="1365169912757" expanded="false" signature="185866:185879" placeholder="..." />
-            <marker date="1365169912757" expanded="false" signature="186760:186774" placeholder="..." />
-            <marker date="1365169912757" expanded="false" signature="188313:188327" placeholder="..." />
-            <marker date="1365169912757" expanded="false" signature="189662:189676" placeholder="..." />
-            <marker date="1365169912757" expanded="false" signature="190601:190615" placeholder="..." />
-            <marker date="1365169912757" expanded="false" signature="192207:192221" placeholder="..." />
-            <marker date="1365169912757" expanded="false" signature="193414:193426" placeholder="..." />
-            <marker date="1365169912757" expanded="false" signature="193904:193945" placeholder="..." />
-            <marker date="1365169912757" expanded="false" signature="194451:194465" placeholder="..." />
-            <marker date="1365169912757" expanded="false" signature="194672:194686" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dbscripts/migration/migrate.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state line="30" column="34" selection-start="0" selection-end="311837" vertical-scroll-proportion="0.0">
@@ -704,17 +729,6 @@
         <state line="6" column="0" selection-start="315" selection-end="315" vertical-scroll-proportion="-4.137931">
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="518" column="63" selection-start="12884" selection-end="12884" vertical-scroll-proportion="-11.965517">
-          <folding>
-            <element signature="tag#div#0;tag#div#0;tag#div#4;tag#div#0" expanded="false" />
-            <element signature="tag#form#0;tag#div#4;tag#div#0" expanded="false" />
-            <element signature="tag#form#1;tag#div#4;tag#div#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -758,9 +772,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/generic_o2i.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="22" selection-start="22" selection-end="22" vertical-scroll-proportion="-0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sberbank_o2i.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="20" selection-start="880" selection-end="902" vertical-scroll-proportion="-7.037037">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sv_o2i.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="26" selection-start="820" selection-end="820" vertical-scroll-proportion="-13.103448">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="6" selection-start="1812" selection-end="1812" vertical-scroll-proportion="-0.6896552">
+          <folding>
+            <element signature="n#style#0;n#b#3;n#p#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#b#0;n#td#0;n#tr#0;n#table#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="384" column="28" selection-start="9926" selection-end="9926" vertical-scroll-proportion="-9.655172">
+          <folding>
+            <element signature="n#style#0;n#b#0;n#div#0;n#div#0;n#div#4;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#4;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#br#0;n#label#0;n#div#0;n#div#0;n#form#1;n#div#4;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#br#0;n#div#0;n#form#1;n#div#4;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#br#0;n#label#0;n#div#1;n#div#0;n#form#1;n#div#4;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#br#0;n#span#0;n#label#0;n#div#1;n#div#0;n#form#1;n#div#4;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#br#0;n#label#0;n#div#2;n#div#0;n#form#1;n#div#4;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#17088#17343#0" expanded="false" />
+            <element signature="n#style#0;n#br#0;n#div#4;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/config/payments.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="185" column="36" selection-start="5591" selection-end="5805" vertical-scroll-proportion="0.56343794">
+        <state line="224" column="47" selection-start="7783" selection-end="7783" vertical-scroll-proportion="0.66480446">
           <folding />
         </state>
       </provider>

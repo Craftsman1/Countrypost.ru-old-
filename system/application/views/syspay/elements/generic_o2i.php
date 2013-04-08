@@ -1,4 +1,4 @@
-<div title="Оплата переводом с карты на карту через <?= $service_name ?>"
+<div title="<?= $title ?>"
 	 class="payment_type">
 	<label for="delayed_<?= $service_code ? $service_code : $service_code_usd  ?>" <? if ($selected) :
 		?>class="payment_selected"<?

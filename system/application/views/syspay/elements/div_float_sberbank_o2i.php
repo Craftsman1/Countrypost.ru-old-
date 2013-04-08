@@ -7,7 +7,7 @@
 		Оплата заказа через <b><?= BM_SERVICE_NAME ?></b>:
 		<br />
 		<br />
-		Вам нужно перевести <b><b class="sberbank_amount_local"></b> рублей</b> на карту <?= BM_IN_ACCOUNT ?> (Москва). После перевода сохраните квитанцию.
+		Вам нужно перевести <b><b class="sberbank_amount_local"></b> рублей</b> на карту <?= BM_IN_ACCOUNT ?>. После перевода сохраните квитанцию.
 	</p>
 	<br />
 	<form class='admin-inside' action="/client/addOrder2In/<?= $order->order_id ?>" enctype="multipart/form-data" method="POST">
@@ -16,10 +16,12 @@
 		<input type="hidden" name="total_usd" class="sberbank_amount_usd" value="" />
 		<table>
 			<tr>
-				<td>Номер карты:</td>
+				<td>
+					<?= BM_ACCOUNT_TYPE ?>
+				</td>
 				<td>
 					<input type="text" name="account" maxlength="20" value="" />
-					<i>Пример: 7790****2198</i>
+					<i><?= BM_ACCOUNT_EXAMPLE ?></i>
 				</td>
 			</tr>
 			<tr>

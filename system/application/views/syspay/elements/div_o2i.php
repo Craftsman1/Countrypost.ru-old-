@@ -79,7 +79,6 @@ $payable_amount =
 			case "delayed_gcd" : service = "gcd"; break;
 			case "delayed_anr" : service = "anr"; break;
 			case "delayed_and" : service = "and"; break;
-			case "delayed_vm" : service = "vm"; break;
 			case "delayed_cus" : service = "cus"; break;
 		}
 		
@@ -243,8 +242,16 @@ $payable_amount =
 
 		switch (service) 
 		{
-			case "bm": openSberbankPopup(user_id, amount_usd, $('#delayed_ru').val()); break;
-			case "sv": openSvPopup(user_id, amount_usd, $('#delayed_ru').val()); break;
+			case "bm": openSberbankPopup(
+					user_id,
+					amount_usd,
+					$('#delayed_ru').val());
+				break;
+			case "sv": openSvPopup(
+					user_id,
+					amount_usd,
+					$('#delayed_ru').val());
+				break;
 			case "alf": openGenericPopup(
 					'<?= AL_SERVICE_NAME ?>',
 					'<?= AL_RUB_IN_ACCOUNT ?>',
@@ -264,6 +271,8 @@ $payable_amount =
 			case "wur": openGenericPopup(
 					'<?= WU_SERVICE_NAME ?>',
 					'<?= WU_RUB_IN_ACCOUNT ?>',
+					'<?= WU_ACCOUNT_TYPE ?>',
+					'<?= WU_ACCOUNT_EXAMPLE ?>',
 					service,
 					$('#delayed_ru').val(),
 					0,
@@ -272,6 +281,8 @@ $payable_amount =
 			case "wud": openGenericPopup(
 					'<?= WU_SERVICE_NAME ?>',
 					'<?= WU_USD_IN_ACCOUNT ?>',
+					'<?= WU_ACCOUNT_TYPE ?>',
+					'<?= WU_ACCOUNT_EXAMPLE ?>',
 					service,
 					0,
 					$('#delayed_ru').val(),
@@ -280,6 +291,8 @@ $payable_amount =
 			case "con": openGenericPopup(
 					'<?= CON_SERVICE_NAME ?>',
 					'<?= CON_RUB_IN_ACCOUNT ?>',
+					'<?= CON_ACCOUNT_TYPE ?>',
+					'<?= CON_ACCOUNT_EXAMPLE ?>',
 					service,
 					$('#delayed_ru').val(),
 					0,
@@ -288,6 +301,8 @@ $payable_amount =
 			case "cod": openGenericPopup(
 					'<?= CON_SERVICE_NAME ?>',
 					'<?= CON_USD_IN_ACCOUNT ?>',
+					'<?= CON_ACCOUNT_TYPE ?>',
+					'<?= CON_ACCOUNT_EXAMPLE ?>',
 					service,
 					0,
 					$('#delayed_ru').val(),
@@ -295,7 +310,9 @@ $payable_amount =
 				break;
 			case "unr": openGenericPopup(
 					'<?= UNI_SERVICE_NAME ?>',
-					'<?= UNI_USD_IN_ACCOUNT ?>',
+					'<?= UNI_RUB_IN_ACCOUNT ?>',
+					'<?= UNI_ACCOUNT_TYPE ?>',
+					'<?= UNI_ACCOUNT_EXAMPLE ?>',
 					service,
 					$('#delayed_ru').val(),
 					0,
@@ -304,6 +321,8 @@ $payable_amount =
 			case "und": openGenericPopup(
 					'<?= UNI_SERVICE_NAME ?>',
 					'<?= UNI_USD_IN_ACCOUNT ?>',
+					'<?= UNI_ACCOUNT_TYPE ?>',
+					'<?= UNI_ACCOUNT_EXAMPLE ?>',
 					service,
 					0,
 					$('#delayed_ru').val(),
@@ -311,7 +330,9 @@ $payable_amount =
 				break;
 			case "gcr": openGenericPopup(
 					'<?= GC_SERVICE_NAME ?>',
-					'<?= GC_USD_IN_ACCOUNT ?>',
+					'<?= GC_RUB_IN_ACCOUNT ?>',
+					'<?= GC_ACCOUNT_TYPE ?>',
+					'<?= GC_ACCOUNT_EXAMPLE ?>',
 					service,
 					$('#delayed_ru').val(),
 					0,
@@ -320,6 +341,8 @@ $payable_amount =
 			case "gcd": openGenericPopup(
 					'<?= GC_SERVICE_NAME ?>',
 					'<?= GC_USD_IN_ACCOUNT ?>',
+					'<?= GC_ACCOUNT_TYPE ?>',
+					'<?= GC_ACCOUNT_EXAMPLE ?>',
 					service,
 					0,
 					$('#delayed_ru').val(),
@@ -327,7 +350,9 @@ $payable_amount =
 				break;
 			case "anr": openGenericPopup(
 					'<?= AN_SERVICE_NAME ?>',
-					'<?= AN_USD_IN_ACCOUNT ?>',
+					'<?= AN_RUB_IN_ACCOUNT ?>',
+					'<?= AN_ACCOUNT_TYPE ?>',
+					'<?= AN_ACCOUNT_EXAMPLE ?>',
 					service,
 					$('#delayed_ru').val(),
 					0,
@@ -336,6 +361,8 @@ $payable_amount =
 			case "and": openGenericPopup(
 					'<?= AN_SERVICE_NAME ?>',
 					'<?= AN_USD_IN_ACCOUNT ?>',
+					'<?= AN_ACCOUNT_TYPE ?>',
+					'<?= AN_ACCOUNT_EXAMPLE ?>',
 					service,
 					0,
 					$('#delayed_ru').val(),
@@ -344,13 +371,18 @@ $payable_amount =
 			case "vm": openGenericPopup(
 					'<?= VM_SERVICE_NAME ?>',
 					'<?= VM_RUB_IN_ACCOUNT ?>',
+					'<?= VM_ACCOUNT_TYPE ?>',
+					'<?= VM_ACCOUNT_EXAMPLE ?>',
 					service,
 					$('#delayed_ru').val(),
 					0,
 					amount_usd);
 				break;
-			case "cus": openGenericPopup('<?= CUS_SERVICE_NAME ?>',
+			case "cus": openGenericPopup(
+					'<?= CUS_SERVICE_NAME ?>',
 					'<?= CUS_USD_IN_ACCOUNT ?>',
+					'<?= CUS_ACCOUNT_TYPE ?>',
+					'<?= CUS_ACCOUNT_EXAMPLE ?>',
 					service,
 					0,
 					$('#delayed_ru').val(),
@@ -529,6 +561,7 @@ $payable_amount =
 				'service_code' => 'sb',
 				'service_code_usd' => '',
 				'service_name' => BM_SERVICE_NAME,
+				'title' => BM_SERVICE_DESCRIPTION,
 				'image' => 'sberbank.png',
 				'selected' => TRUE
 			)); ?>
@@ -536,14 +569,24 @@ $payable_amount =
 				'service_code' => 'sv',
 				'service_code_usd' => '',
 				'service_name' => SV_SERVICE_NAME,
+				'title' => SV_SERVICE_DESCRIPTION,
 				'image' => 'sviaznoy.png',
 				'selected' => FALSE
 			)); ?>
-			<? View::show('/syspay/elements/generic_o2i', array(
+			<!--? View::show('/syspay/elements/generic_o2i', array(
 				'service_code' => 'alf',
 				'service_code_usd' => 'ald',
 				'service_name' => AL_SERVICE_NAME,
+				'title' => AL_SERVICE_DESCRIPTION,
 				'image' => 'alfabank.png',
+				'selected' => FALSE
+			)); ?-->
+			<? View::show('/syspay/elements/generic_o2i', array(
+				'service_code' => 'vm',
+				'service_code_usd' => '',
+				'service_name' => VM_SERVICE_NAME,
+				'title' => VM_SERVICE_DESCRIPTION,
+				'image' => 'visa_mastercard.png',
 				'selected' => FALSE
 			)); ?>
 		</div>
@@ -556,7 +599,7 @@ $payable_amount =
 			<input type="hidden" name="section" value="immediate">
 			<input type="hidden" name="total_ru" id="immediate_ru" value="">
 			<div class="immediate">
-				<div title="Оплата через Qiwi кошелек"
+				<div title="<?= QW_SERVICE_DESCRIPTION ?>"
 					 class="payment_type">
 					<label for="immediate_qw">
 						<img src="/static/images/qiwi.png" />
@@ -573,7 +616,7 @@ $payable_amount =
 					</label>
 				</div>
 				<br style="clear: both;">
-				<div title="Оплата через WebMoney"
+				<div title="<?= WM_SERVICE_DESCRIPTION ?>"
 					 class="payment_type">
 					<label for="immediate_wmr">
 						<img src="/static/images/wmr.png" />
@@ -596,7 +639,7 @@ $payable_amount =
 						</span>
 					</label>
 				</div>
-				<div title="Оплата через платежную систему Robokassa"
+				<div title="<?= RK_SERVICE_DESCRIPTION ?>"
 					 class="payment_type">
 					<label for="immediate_rbk">
 						<img src="/static/images/robokassa.png" />
@@ -617,6 +660,7 @@ $payable_amount =
 				'service_code' => 'wur',
 				'service_code_usd' => 'wud',
 				'service_name' => WU_SERVICE_NAME,
+				'title' => WU_SERVICE_DESCRIPTION,
 				'image' => 'western_union.png',
 				'selected' => FALSE
 			)); ?>
@@ -624,6 +668,7 @@ $payable_amount =
 				'service_code' => 'con',
 				'service_code_usd' => 'cod',
 				'service_name' => CON_SERVICE_NAME,
+				'title' => CON_SERVICE_DESCRIPTION,
 				'image' => 'contact.png',
 				'selected' => FALSE
 			)); ?>
@@ -632,6 +677,7 @@ $payable_amount =
 				'service_code' => 'unr',
 				'service_code_usd' => 'und',
 				'service_name' => UNI_SERVICE_NAME,
+				'title' => UNI_SERVICE_DESCRIPTION,
 				'image' => 'unistream.png',
 				'selected' => FALSE
 			)); ?>
@@ -639,6 +685,7 @@ $payable_amount =
 				'service_code' => 'gcr',
 				'service_code_usd' => 'gcd',
 				'service_name' => GC_SERVICE_NAME,
+				'title' => GC_SERVICE_DESCRIPTION,
 				'image' => 'golden_crown.png',
 				'selected' => FALSE
 			)); ?>
@@ -646,6 +693,7 @@ $payable_amount =
 				'service_code' => 'anr',
 				'service_code_usd' => 'and',
 				'service_name' => AN_SERVICE_NAME,
+				'title' => AN_SERVICE_DESCRIPTION,
 				'image' => 'anelik.png',
 				'selected' => FALSE
 			)); ?>
@@ -653,14 +701,8 @@ $payable_amount =
 				'service_code' => '',
 				'service_code_usd' => 'cus',
 				'service_name' => CUS_SERVICE_NAME,
+				'title' => CUS_SERVICE_DESCRIPTION,
 				'image' => 'cash_usd.png',
-				'selected' => FALSE
-			)); ?>
-			<? View::show('/syspay/elements/generic_o2i', array(
-				'service_code' => 'vm',
-				'service_code_usd' => '',
-				'service_name' => VM_SERVICE_NAME,
-				'image' => 'visa_mastercard.png',
 				'selected' => FALSE
 			)); ?>
 	</div>

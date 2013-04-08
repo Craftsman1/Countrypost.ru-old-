@@ -7,7 +7,7 @@
 		Оплата заказа через <b><?= SV_SERVICE_NAME ?></b>:
 		<br />
 		<br />
-		Вам нужно перевести <b><b class="sv_amount_ru"></b> рублей</b> на карту <?= SV_IN_ACCOUNT ?> (Москва).
+		Вам нужно перевести <b><b class="sv_amount_ru"></b> рублей</b> на карту <?= SV_IN_ACCOUNT ?>.
 	</p>
 	<br />
 	<form class='admin-inside' action="/client/addOrder2In/<?= $order->order_id ?>" enctype="multipart/form-data" method="POST">
@@ -16,10 +16,12 @@
 		<input type="hidden" name="total_usd" class="sv_amount_usd" value="" />
 		<table>
 			<tr>
-				<td>Номер карты:</td>
+				<td>
+					<?= SV_ACCOUNT_TYPE ?>
+				</td>
 				<td>
 					<input type="text" name="account" maxlength="20" value="" />
-					<i>Пример: 7790****2198</i>
+					<i><?= SV_ACCOUNT_EXAMPLE ?></i>
 				</td>
 			</tr>
 			<tr>

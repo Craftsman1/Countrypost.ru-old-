@@ -12,7 +12,7 @@
 		Вам нужно перевести
 		<b><b class="generic_amount_ru"></b> RUB</b>
 		<b><b class="generic_amount_usd"></b> USD</b>
-		на <b class="generic_account"></b>.
+		<b class="generic_account" style="font-weight: normal;"></b>.
 		После перевода сохраните квитанцию.
 	</p>
 	<br />
@@ -23,10 +23,12 @@
 		<input type="hidden" name="total_local" class="generic_amount_local" value="" />
 		<table>
 			<tr>
-				<td>Номер карты:</td>
+				<td>
+					<b class="generic_type" style="font-weight: normal;"></b>
+				</td>
 				<td>
 					<input type="text" name="account" maxlength="20" value="" />
-					<i>Пример: 7790****2198</i>
+					<i class="generic_example"></i>
 				</td>
 			</tr>
 			<tr>
@@ -59,6 +61,8 @@
 
 	function openGenericPopup(generic_name,
 							  generic_account,
+							  generic_type,
+							  generic_example,
 							  generic_service,
 							  amount_ru,
 							  amount_usd,
@@ -67,6 +71,8 @@
 		$('.generic_service').val(generic_service).html(generic_service);
 		$('.generic_name').html(generic_name).val(generic_name);
 		$('.generic_account').html(generic_account).val(generic_account);
+		$('.generic_type').html(generic_type).val(generic_type);
+		$('.generic_example').html(generic_example).val(generic_example);
 
 		$('.generic_amount_usd')
 			.val(amount_usd)
