@@ -277,7 +277,6 @@ $payable_amount =
 					$('#delayed_ru').val(),
 					amount_usd);
 				break;
-				
 			case "con": openGenericPopup(
 					'<?= CON_SERVICE_NAME ?>',
 					'<?= CON_RUB_IN_ACCOUNT ?>',
@@ -286,7 +285,6 @@ $payable_amount =
 					0,
 					amount_usd);
 				break;
-				
 			case "cod": openGenericPopup(
 					'<?= CON_SERVICE_NAME ?>',
 					'<?= CON_USD_IN_ACCOUNT ?>',
@@ -295,7 +293,6 @@ $payable_amount =
 					$('#delayed_ru').val(),
 					amount_usd);
 				break;
-						
 			case "unr": openGenericPopup(
 					'<?= UNI_SERVICE_NAME ?>',
 					'<?= UNI_USD_IN_ACCOUNT ?>',
@@ -304,7 +301,6 @@ $payable_amount =
 					0,
 					amount_usd);
 				break;
-			
 			case "und": openGenericPopup(
 					'<?= UNI_SERVICE_NAME ?>',
 					'<?= UNI_USD_IN_ACCOUNT ?>',
@@ -313,8 +309,6 @@ $payable_amount =
 					$('#delayed_ru').val(),
 					amount_usd);
 				break;
-
-
 			case "gcr": openGenericPopup(
 					'<?= GC_SERVICE_NAME ?>',
 					'<?= GC_USD_IN_ACCOUNT ?>',
@@ -323,7 +317,6 @@ $payable_amount =
 					0,
 					amount_usd);
 				break;
-				
 			case "gcd": openGenericPopup(
 					'<?= GC_SERVICE_NAME ?>',
 					'<?= GC_USD_IN_ACCOUNT ?>',
@@ -332,7 +325,6 @@ $payable_amount =
 					$('#delayed_ru').val(),
 					amount_usd);
 				break;
-			
 			case "anr": openGenericPopup(
 					'<?= AN_SERVICE_NAME ?>',
 					'<?= AN_USD_IN_ACCOUNT ?>',
@@ -341,7 +333,6 @@ $payable_amount =
 					0,
 					amount_usd);
 				break;
-			
 			case "and": openGenericPopup(
 					'<?= AN_SERVICE_NAME ?>',
 					'<?= AN_USD_IN_ACCOUNT ?>',
@@ -350,7 +341,6 @@ $payable_amount =
 					$('#delayed_ru').val(),
 					amount_usd);
 				break;
-			
 			case "vm": openGenericPopup(
 					'<?= VM_SERVICE_NAME ?>',
 					'<?= VM_RUB_IN_ACCOUNT ?>',
@@ -359,8 +349,6 @@ $payable_amount =
 					0,
 					amount_usd);
 				break;
-				
-				
 			case "cus": openGenericPopup('<?= CUS_SERVICE_NAME ?>',
 					'<?= CUS_USD_IN_ACCOUNT ?>',
 					service,
@@ -528,7 +516,7 @@ $payable_amount =
 				<input type="hidden" id="delayed_ru" value="" />
 			</div>
 			<div class="total">
-				<span style="font-weight: bold;">Итого к оплате: <b style="margin-left: 82px;">0 RUB</b></span>
+				<span style="font-weight: bold;margin-left: 275px;">Итого к оплате: <b>0 RUB</b></span>
 				<div>
 					<div class='submit'>
 						<div>

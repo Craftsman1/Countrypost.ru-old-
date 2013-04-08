@@ -2770,10 +2770,14 @@ div.countrypost_payment_box span.label
 	margin-bottom: 20px;
 }
 
-div.manager_payment_box div.submit,
-div.countrypost_payment_box div.submit
+div.manager_payment_box div.submit
 {
 	margin-left: 187px;
+}
+
+div.countrypost_payment_box div.submit
+{
+	margin-left: 310px;
 }
 
 div.manager_payment_box textarea {
@@ -2833,7 +2837,7 @@ div.payment_type {
 
 div.countrypost_payment_box
 {
-	height: 700px;
+	height: 550px;
 }
 
 div.countrypost_payment_box label input, iv.countrypost_payment_box label img

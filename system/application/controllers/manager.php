@@ -416,8 +416,7 @@ class Manager extends BaseController {
 			$manager = $this->Manager->getById($this->user->user_id);
 
 			// валидация пользовательского ввода
-			$manager->cashback_limit = Check::int('limit');
-
+			$manager->cashback_limit 		= Check::int('limit');
 			$manager->is_mail_forwarding 	= Check::chkbox('mf');
 			$manager->is_internal_payments 	= Check::chkbox('payments');
 			$manager->about_me				= Check::str('about', 65535, 0);
@@ -527,14 +526,15 @@ class Manager extends BaseController {
 			$manager = $this->Managers->getById($this->user->user_id);
 
 			// валидация пользовательского ввода
-			Check::reset_empties();
-			$manager->order_tax = Check::float('order_tax');
 			$manager->order_mail_forwarding_tax = Check::float('mf_tax');
 			$manager->min_order_tax = Check::int('min_order_tax');
 			$manager->join_tax = Check::int('join_tax');
 			$manager->foto_tax = Check::int('foto_tax');
 			$manager->insurance_tax = Check::int('insurance_tax');
 			$manager->pricelist_description = Check::str('pricelist_message', 65535, 1);
+
+			Check::reset_empties();
+			$manager->order_tax = Check::float('order_tax');
 			$empties = Check::get_empties();
 
 			if ($empties)
