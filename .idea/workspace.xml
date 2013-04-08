@@ -6,12 +6,7 @@
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\23\00_-_USAliens.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\81\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders2in\82\00_-_13_Riders_Of_Omen.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/config/payments.php" afterPath="$PROJECT_DIR$/system/application/config/payments.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sberbank_o2i.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sberbank_o2i.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sv_o2i.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sv_o2i.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_o2i.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_o2i.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -111,7 +106,7 @@
       <file leaf-file-name="payments.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/application/config/payments.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="224" column="47" selection-start="7783" selection-end="7783" vertical-scroll-proportion="0.66480446">
+            <state line="216" column="0" selection-start="7412" selection-end="7412" vertical-scroll-proportion="3.0856612">
               <folding />
             </state>
           </provider>
@@ -418,6 +413,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -599,13 +616,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="916" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47707558" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.231875" sideWeight="0.34076828" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23125" sideWeight="0.75712514" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23125" sideWeight="0.75712514" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.238125" sideWeight="0.33375958" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.78516626" sideWeight="0.4980695" order="7" side_tool="true" content_ui="tabs" />
@@ -826,7 +843,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/config/payments.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="224" column="47" selection-start="7783" selection-end="7783" vertical-scroll-proportion="0.66480446">
+        <state line="216" column="0" selection-start="7412" selection-end="7412" vertical-scroll-proportion="3.0856612">
           <folding />
         </state>
       </provider>
