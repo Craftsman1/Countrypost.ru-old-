@@ -168,62 +168,62 @@ define('WU_USD_IN_TAX', 1);
 define('WU_RUB_IN_ACCOUNT', 'получателю: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
 define('WU_USD_IN_ACCOUNT', 'получателю: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
 define('WU_SERVICE_NAME', 'Western Union');
-define('WU_SERVICE_DESCRIPTION', 'Оплата переводом Western Union');
-define('WU_ACCOUNT_TYPE', 'Отправитель:');
-define('WU_ACCOUNT_EXAMPLE', 'Пример: TONKONOGOV...');
+define('WU_SERVICE_DESCRIPTION', 'Оплата переводом через Western Union');
+define('WU_ACCOUNT_TYPE', 'Номер перевода (MTCN):');
+define('WU_ACCOUNT_EXAMPLE', 'Пример: MTCN: 828-129-4453');
 
 // Contact
 define('CON_RUB_IN_TAX', 1);
 define('CON_USD_IN_TAX', 1);
-define('CON_RUB_IN_ACCOUNT', 'на счет: 12345');
-define('CON_USD_IN_ACCOUNT', 'на счет: 67890');
+define('CON_RUB_IN_ACCOUNT', 'получателю: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
+define('CON_USD_IN_ACCOUNT', 'получателю: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
 define('CON_SERVICE_NAME', 'Contact');
-define('CON_SERVICE_DESCRIPTION', 'Оплата переводом с карты на карту через Contact');
-define('CON_ACCOUNT_TYPE', 'Номер карты:');
-define('CON_ACCOUNT_EXAMPLE', 'Пример: 1234...000');
+define('CON_SERVICE_DESCRIPTION', 'Оплата переводом через Contact');
+define('CON_ACCOUNT_TYPE', 'Номер перевода:');
+define('CON_ACCOUNT_EXAMPLE', '');
 
 // Unistream
 define('UNI_RUB_IN_TAX', 1);
 define('UNI_USD_IN_TAX', 1);
-define('UNI_RUB_IN_ACCOUNT', 'на счет 11111 Unistream');
-define('UNI_USD_IN_ACCOUNT', 'на счет 22222 Unistream');
+define('UNI_RUB_IN_ACCOUNT', 'получателю: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
+define('UNI_USD_IN_ACCOUNT', 'получателю: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
 define('UNI_SERVICE_NAME', 'Unistream');
 define('UNI_SERVICE_DESCRIPTION', 'Оплата переводом через Unistream');
-define('UNI_ACCOUNT_TYPE', 'Отправитель:');
-define('UNI_ACCOUNT_EXAMPLE', 'Пример: 1234...1234');
+define('UNI_ACCOUNT_TYPE', 'Номер перевода:');
+define('UNI_ACCOUNT_EXAMPLE', '');
 
 // Золотая Корона
 define('GC_RUB_IN_TAX', 1);
 define('GC_USD_IN_TAX', 1);
-define('GC_RUB_IN_ACCOUNT', 'на карту 1234567890');
-define('GC_USD_IN_ACCOUNT', 'на карту 0987654321');
+define('GC_RUB_IN_ACCOUNT', 'получателю: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
+define('GC_USD_IN_ACCOUNT', 'получателю: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
 define('GC_SERVICE_NAME', 'Золотая Корона');
-define('GC_SERVICE_DESCRIPTION', 'Оплата картой через Золотая Корона');
-define('GC_ACCOUNT_TYPE', 'Счет:');
-define('GC_ACCOUNT_EXAMPLE', 'Пример: 1234...4321');
+define('GC_SERVICE_DESCRIPTION', 'Оплата переводом через Золотая Корона');
+define('GC_ACCOUNT_TYPE', 'Номер перевода:');
+define('GC_ACCOUNT_EXAMPLE', '');
 
 // Anelik
 define('AN_RUB_IN_TAX', 1);
 define('AN_USD_IN_TAX', 1);
-define('AN_RUB_IN_ACCOUNT', 'на карту Anelik 22222222222');
-define('AN_USD_IN_ACCOUNT', 'на карту Anelik 111111');
+define('AN_RUB_IN_ACCOUNT', 'получателю: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
+define('AN_USD_IN_ACCOUNT', 'получателю: TONKONOGOV YURIY ANDREEVICH (Moscow, Russia)');
 define('AN_SERVICE_NAME', 'Anelik');
-define('AN_SERVICE_DESCRIPTION', 'Оплата переводом с карты на карту через Anelik');
-define('AN_ACCOUNT_TYPE', 'Номер карты:');
-define('AN_ACCOUNT_EXAMPLE', 'Пример: 5555...5555');
+define('AN_SERVICE_DESCRIPTION', 'Оплата переводом через Anelik');
+define('AN_ACCOUNT_TYPE', 'Номер перевода:');
+define('AN_ACCOUNT_EXAMPLE', '');
 
 // Visa/Mastercard
 define('VM_RUB_IN_TAX', 1);
-define('VM_RUB_IN_ACCOUNT', 'на счет 1234...5678');
+define('VM_RUB_IN_ACCOUNT', 'на Qiwi кошелек 9161279091');
 define('VM_SERVICE_NAME', 'Visa/Mastercard');
-define('VM_SERVICE_DESCRIPTION', 'Оплата переводом с карты на карту через Visa/Mastercard');
-define('VM_ACCOUNT_TYPE', 'Номер счета:');
-define('VM_ACCOUNT_EXAMPLE', 'Пример: 1234...5678');
+define('VM_SERVICE_DESCRIPTION', 'Оплата любой картой Visa/Mastercard через Qiwi кошелек');
+define('VM_ACCOUNT_TYPE', 'Номер Вашего Qiwi кошелька:');
+define('VM_ACCOUNT_EXAMPLE', 'Пример: 9161234567');
 
 // Нал
 define('CUS_USD_IN_TAX', 1);
-define('CUS_USD_IN_ACCOUNT', 'на адрес: 1111111');
-define('CUS_SERVICE_NAME', 'Наличные');
-define('CUS_SERVICE_DESCRIPTION', 'Оплата наличными');
-define('CUS_ACCOUNT_TYPE', 'Адрес:');
-define('CUS_ACCOUNT_EXAMPLE', 'Пример: 0000...0000');
+define('CUS_USD_IN_ACCOUNT', '');
+define('CUS_SERVICE_NAME', 'Наличными в Москве');
+define('CUS_SERVICE_DESCRIPTION', 'Оплата наличными в Москве');
+define('CUS_ACCOUNT_TYPE', 'ФИО платильщика:');
+define('CUS_ACCOUNT_EXAMPLE', '');
