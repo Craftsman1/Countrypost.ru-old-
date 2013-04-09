@@ -303,7 +303,6 @@ sSignatureValue
 		
 		try
 		{
-			Check::reset_empties();
 			$user_id		= Check::int('ShpUser');
 			$amount			= Check::float('OutSum');
 			$raw_amount		= Check::str('OutSum', 32, 1);
@@ -313,13 +312,13 @@ sSignatureValue
 			$raw_tax_usd	= Check::str('ShpTax', 32, 1);
 			$ptransfer		= Check::int('InvId');
 			$rawSign		= Check::str('SignatureValue', 320,32);
-			
+
+			Check::reset_empties();
 			if (Check::get_empties())
 			{
 				throw new Exception('Invalid params/one or more fields is empty!');
 			}
 
-			$user_comment	= Check::str('ShpComment', 255, 0);
 			$sign = strtoupper(md5(join(':', array($raw_amount,
 				$ptransfer,
 				RK_PASS2,
@@ -336,8 +335,6 @@ sSignatureValue
 			##########	
 			// TODO: OK
 			##########
-			$user_comment							= Check::var_str(base64_decode($user_comment), 512, 1);
-
 			$payment_obj = new stdClass();
 			$payment_obj->payment_from				= '[RK]';// зачисление на счет пользователя
 			$payment_obj->payment_to				= $user_id;
@@ -347,7 +344,7 @@ sSignatureValue
 			$payment_obj->payment_amount_tax		= $tax_usd;
 			$payment_obj->payment_amount_to			= $amount_usd;
 			$payment_obj->payment_purpose			= 'оплата заказа';
-			$payment_obj->payment_comment			= $user_comment;
+			$payment_obj->payment_comment			= $order_id;
 			$payment_obj->payment_type				= 'in';
 			$payment_obj->payment_status			= 'complite';
 			$payment_obj->payment_transfer_info		= 'RK Transfer';
@@ -391,7 +388,13 @@ sSignatureValue
 		}
 
 		$this->Orders->saveOrder($order);
+	}
 
+	protected function processOrderPayment($order, $payment)
+	{
+		// записываем платеж в историю
+		$this->load->model('PaymentModel', 'History');
+		$this->History->processImmediateOrderPayment($order, $payment);
 	}
 
 	// Liqpay

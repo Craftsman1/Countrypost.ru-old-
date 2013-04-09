@@ -721,7 +721,7 @@ class PaymentModel extends BaseModel implements IModel{
 		$history->order2in_id				= $o2i->order2in_id;
 		$history->payment_service_id		= $o2i->order2in_payment_service;
 		$history->payment_service_name		= $o2i->payment_service_name;
-		$history->excess_amount			= $o2i->excess_amount;
+		$history->excess_amount				= $o2i->excess_amount;
 
 		if ($o2i->is_countrypost)
 		{
@@ -747,6 +747,44 @@ class PaymentModel extends BaseModel implements IModel{
 			// округляем до центов в пользу посредника
 			$history->amount_usd = ceil(
 				floatval($o2i->order2in_amount) /
+					floatval($exchange_rate) *
+					100) *
+				0.01;
+
+			$history->usd_conversion_rate = $exchange_rate;
+		}
+
+		// погнали
+		if ( ! $this->makePayment($history, true))
+		{
+			throw new Exception('Ошибка оплаты заказа. Попробуйте еще раз.');
+		}
+
+		if (empty($order->payed_date))
+		{
+			$order->payed_date = date('Y-m-d H:i:s');
+		}
+	}
+
+	public function processImmediateOrderPayment($order, $payment)
+	{
+		$history = $payment;
+
+		// собираем валюты и курсы
+		$ci = get_instance();
+		$ci->load->model('OrderModel', 'Orders');
+		$ci->load->model('CurrencyModel', 'Currencies');
+
+		if ($order->order_country_from AND
+			$order->order_country_to)
+		{
+			$order->order_currency = $ci->Orders->getOrderCurrency($order->order_id);
+			$history->payment_currency = $order->order_currency;
+			$exchange_rate = $ci->Currencies->getExchangeRate('USD', $order->order_currency, 'manager');
+
+			// округляем до центов в пользу посредника
+			$history->amount_usd = ceil(
+				floatval($history->payment_amount) /
 					floatval($exchange_rate) *
 					100) *
 				0.01;
