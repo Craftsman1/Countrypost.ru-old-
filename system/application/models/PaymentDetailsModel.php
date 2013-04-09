@@ -24,7 +24,8 @@ class PaymentDetailsModel extends BaseModel implements IModel{
     	$this->properties->payment_details_amount = '';
     	$this->properties->payment_details_amount_rur = '';
     	$this->properties->payment_details_tax = '';
-    	
+    	$this->properties->order_id = '';
+
         parent::__construct();
     }
     

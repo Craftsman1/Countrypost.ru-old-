@@ -423,9 +423,11 @@ $payable_amount =
 			case "wmr":
 			case "qw1":
 			case "rk":
+				$('.countrypost_payment_box form.immediate input.total_local').val($('div.delayed input:text').val());
 				$('.countrypost_payment_box form.immediate').submit();
 				break;
 			case "wmz":
+				$('.countrypost_payment_box form.usd input.total_local').val($('#delayed_ru').val());
 				$('.countrypost_payment_box form.usd').submit();
 				break;
 		}
@@ -593,11 +595,13 @@ $payable_amount =
 		<form method="POST" action="/syspay/showGate/<?= $order->order_id ?>" class="usd">
 			<input type="hidden" name="section" value="usd">
 			<input type="hidden" name="total_usd" id="total_usd">
+			<input type="hidden" name="total_local" class="total_local" value="">
 			<input type="hidden" name="payment_selector" value="wmz">
 		</form>
 		<form method="POST" action="/syspay/showGate/<?= $order->order_id ?>" class="immediate">
 			<input type="hidden" name="section" value="immediate">
 			<input type="hidden" name="total_ru" id="immediate_ru" value="">
+			<input type="hidden" name="total_local" class="total_local" value="">
 			<div class="immediate">
 				<div title="<?= QW_SERVICE_DESCRIPTION ?>"
 					 class="payment_type">

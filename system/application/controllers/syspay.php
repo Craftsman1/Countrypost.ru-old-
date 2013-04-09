@@ -200,6 +200,7 @@ class Syspay extends SyspayBaseController {
 		$section		= Check::str('section', 20, 1);
 		$amount			= Check::int('total_ru');
 		$amount_usd		= Check::float('total_usd');
+		$amount_local	= Check::float('total_local');
 		$payment_system	= Check::str('payment_selector', 3, 2);
 		$tax	 		= 0;//self::getTax($payment_system, $section);
 		$extra	 		= 0;//self::getExtra($payment_system, $section);
@@ -217,6 +218,7 @@ class Syspay extends SyspayBaseController {
 			'order_id'		=> $order_id,
 			'number'		=> $number,
 			'amount'		=> $amount,
+			'amount_local'	=> $amount_local,
 			'amount_usd'	=> $amount_usd,
 			'User_tax'		=> $tax * $amount_usd * 0.01,
 			'tax'			=> $tax,
@@ -240,14 +242,14 @@ class Syspay extends SyspayBaseController {
 	}
 	
 	private function backupPayment($details, $payment_system)
-	{
+	{//print_r($_POST);die();
 		$this->load->model('PaymentDetailsModel', 'Payments');
 		
 		$payment = new stdClass();
 		$payment->payment_details_number = $details['number'];
     	$payment->payment_details_user = $this->user->user_id;
     	$payment->payment_details_payment_system = $payment_system;
-    	$payment->payment_details_amount = $details['amount_usd'];
+    	$payment->payment_details_amount = $details['amount_local'];
     	$payment->payment_details_amount_rur = $details['amount'];
     	$payment->order_id = $details['order_id'];
     	$payment->status = 'sent_by_client';
@@ -368,7 +370,7 @@ sSignatureValue
 			$addLog	= "Status: FAIL! ".$e->getMessage()."\n";
 		}
 			
-		echo $status;
+		//echo $status;
 		
 		PayLog::put('RK', "Status:$status\n");
 	}
@@ -762,13 +764,15 @@ sSignatureValue
 				$payment_obj->payment_amount_from		= $payment->payment_details_amount;
 				$payment_obj->payment_amount_tax		= $payment->payment_details_tax;
 				$payment_obj->payment_amount_to			= $payment->payment_details_amount;
-				$payment_obj->payment_purpose			= 'зачисление на счет пользователя';
-				$payment_obj->payment_type				= 'in';
+				$payment_obj->payment_purpose			= 'оплата заказа';
+				$payment_obj->payment_type				= 'order';
 				$payment_obj->payment_status			= 'complite';
 				$payment_obj->payment_transfer_info		= 'QW Transfer ID: '.$payment->payment_details_number;
 				$payment_obj->payment_transfer_order_id	= $payment->payment_details_number;
 				$payment_obj->payment_transfer_sign		= $i;
 				$payment_obj->payment_service_id		= $payment->payment_details_payment_system;
+				$payment_obj->status					= 'not_payed';
+				$payment_obj->order_id					= $payment->order_id;
 
 				$this->payOrder($payment_obj->order_id, $payment_obj, $payment->payment_details_amount);
 			}
