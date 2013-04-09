@@ -225,5 +225,5 @@ define('CUS_USD_IN_TAX', 1);
 define('CUS_USD_IN_ACCOUNT', '');
 define('CUS_SERVICE_NAME', 'Наличными в Москве');
 define('CUS_SERVICE_DESCRIPTION', 'Оплата наличными в Москве');
-define('CUS_ACCOUNT_TYPE', 'ФИО платильщика:');
+define('CUS_ACCOUNT_TYPE', 'ФИО плательщика:');
 define('CUS_ACCOUNT_EXAMPLE', '');

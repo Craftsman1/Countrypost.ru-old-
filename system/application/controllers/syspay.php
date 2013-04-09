@@ -27,17 +27,13 @@ class Syspay extends SyspayBaseController {
 	
 	function index()
 	{
-		if (!Check::user()){
-			Func::redirect('/main');
+		if ( ! Check::user()){
+			Func::redirect(BASEURL);
 			return;
-		}
-		else if ($this->user->user_group == 'admin')
-		{
-			Func::redirect(BASEURL.'syspay/showClientOpenOrders2In');
 		}
 		else
 		{
-			Func::redirect(BASEURL.'syspay/showOpenOrders2In');
+			Func::redirect(BASEURL."{$this->user->user_group}/history");
 		}
 	}
 		
