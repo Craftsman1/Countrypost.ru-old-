@@ -727,9 +727,8 @@ class OrderModel extends BaseModel implements IModel{
 	public function getClientOrderById($order_id, $client_id)
 	{
 		$order = $this->getById($order_id);
-
         $temp_client_id = UserModel::getTemporaryKey(false);
-		
+
 		// Если пользователь создавший заказ совпадает с авторизованным пользователем в рамках текущей сессии
 		if ($order AND
             $order->order_status != 'deleted' AND
@@ -765,14 +764,15 @@ class OrderModel extends BaseModel implements IModel{
 
                 if ($details)
                 {
-                    foreach ($details as $odetail) :
+                    foreach ($details as $odetail)
+					{
                         if ($odetail->odetail_img === null AND
                             file_exists('{$_SERVER["DOCUMENT_ROOT"]}/upload/orders/{$client_id}/{$odetail->odetail_id}.jpg'))
                         {
                             copy('{$_SERVER["DOCUMENT_ROOT"]}/upload/orders/{$client_id}/{$odetail->odetail_id}.jpg',
                                 '{$_SERVER["DOCUMENT_ROOT"]}/upload/orders/{$odetail->odetail_client}/{$odetail->odetail_id}.jpg');
                         }
-                    endforeach;
+					}
                 }
 			}
 			
@@ -846,7 +846,8 @@ class OrderModel extends BaseModel implements IModel{
 
         if ($orders)
         {
-            foreach ($orders as $k=>$order) :
+            foreach ($orders as $k=>$order)
+			{
                 $odetails = $this->db->query(
                     "SELECT *
                     FROM `odetails`
@@ -855,7 +856,7 @@ class OrderModel extends BaseModel implements IModel{
                 )->result();
 
                 $orders[$k]->details = $odetails;
-            endforeach;
+			}
 
             return $orders;
         }

@@ -1143,12 +1143,12 @@ Email: {$this->user->user_email}";
 			}
 			
 			$order_id = Check::int('order_id');
-			
+
 			if (empty($order_id))
 			{				
 				throw new Exception('Невозможно создать заказ.');
 			}
-			
+
 			$this->load->model('OrderModel', 'Orders');
 			$order = $this->Orders->getClientOrderById($order_id, $this->user->user_id);
 

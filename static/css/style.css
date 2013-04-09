@@ -56,7 +56,7 @@ input[type="checkbox"] { vertical-align: bottom; *vertical-align: baseline; }
 label, input[type=button], input[type=submit], button { cursor: pointer; }
 
 h1, h2, h3, h4, h5, h6 {font-weight:normal;}
-h2 {font:bold 20px Calibri;color:#000;text-transform:uppercase;}
+h2 {font:bold 15px Tahoma;font-family:Tahoma,sans-serif;color:#000;text-transform:uppercase;}
 ::-moz-selection{ background: #8097BB; color:#fff; text-shadow: none; }
 ::selection { background:#8097BB; color:#fff; text-shadow: none; } 
 div.home h2 {font:bold 30px Arial;margin-bottom:0;}
@@ -306,14 +306,14 @@ body {
 		.autorization .remember-password {
 			display:block;
 			position:absolute;
-			top:92px;
+			top:87px;
 			right:26px;
 			text-decoration:none;
 			}
 		.autorization .register {
 			display:block;
 			position:absolute;
-			top:58px;
+			top:53px;
 			right:26px;
 			text-decoration:none;
 			}
@@ -653,10 +653,8 @@ body {
 		color:#fff;
 		}
 	.footer .menu{
-		margin:14px 0 0;
-		overflow:hidden;
-		left: 930px;
-		position: absolute;
+		margin: 14px 0 0 734px;
+		overflow: hidden;
 		}
 		.footer .menu li {
 			float:left;
@@ -691,7 +689,7 @@ body {
 			padding-right:10px;
 			}
 			.block-user .left-block h2 {
-				margin:14px 0 15px;
+				margin:18px 0 15px;
 				}
 			.block-user .left-block em{
 				padding:0 3px;

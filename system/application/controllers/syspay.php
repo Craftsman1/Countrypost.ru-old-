@@ -205,8 +205,8 @@ class Syspay extends SyspayBaseController {
 		$amount			= Check::int('total_ru');
 		$amount_usd		= Check::float('total_usd');
 		$payment_system	= Check::str('payment_selector', 3, 2);
-		$tax	 		= self::getTax($payment_system, $section);
-		$extra	 		= self::getExtra($payment_system, $section);
+		$tax	 		= 0;//self::getTax($payment_system, $section);
+		$extra	 		= 0;//self::getExtra($payment_system, $section);
 
 		// заполняем форму
 		//$this->load->model('CurrencyModel', 'Currencies');
@@ -224,7 +224,7 @@ class Syspay extends SyspayBaseController {
 			'amount_usd'	=> $amount_usd,
 			'User_tax'		=> $tax * $amount_usd * 0.01,
 			'tax'			=> $tax,
-			'extra'			=> $extra,
+			'extra'			=> $extra
             //'config'        => $config
 		);
 
@@ -312,7 +312,7 @@ sSignatureValue
 			$amount			= Check::float('OutSum');
 			$raw_amount		= Check::str('OutSum', 32, 1);
 			$amount_usd		= Check::int('ShpAmount');
-			$order_id		= Check::int('ShpOrder');
+			$order_id		= Check::int('ShpComment');
 			$tax_usd		= Check::float('ShpTax');
 			$raw_tax_usd	= Check::str('ShpTax', 32, 1);
 			$ptransfer		= Check::int('InvId');
@@ -328,10 +328,9 @@ sSignatureValue
 				$ptransfer,
 				RK_PASS2,
 				'ShpAmount='.$amount_usd,
-				'ShpComment='.$user_comment,
+				'ShpComment='.$order_id,
 				'ShpTax='.$raw_tax_usd,
-				'ShpUser='.$user_id,
-				'ShpOrder='.$order_id))));
+				'ShpUser='.$user_id))));
 			
 			if ($sign != $rawSign)
 			{
@@ -346,12 +345,12 @@ sSignatureValue
 			$payment_obj = new stdClass();
 			$payment_obj->payment_from				= '[RK]';// зачисление на счет пользователя
 			$payment_obj->payment_to				= $user_id;
-			$payment_obj->payment_tax				= RK_IN_TAX . '%';
+			$payment_obj->payment_tax				= 0;
 			$payment_obj->payment_amount_rur		= $amount;
 			$payment_obj->payment_amount_from		= $amount_usd;
 			$payment_obj->payment_amount_tax		= $tax_usd;
 			$payment_obj->payment_amount_to			= $amount_usd;
-			$payment_obj->payment_purpose			= 'зачисление на счет пользователя';
+			$payment_obj->payment_purpose			= 'оплата заказа';
 			$payment_obj->payment_comment			= $user_comment;
 			$payment_obj->payment_type				= 'in';
 			$payment_obj->payment_status			= 'complite';
@@ -772,7 +771,7 @@ sSignatureValue
 				$payment_obj->payment_transfer_sign		= $i;
 				$payment_obj->payment_service_id		= $payment->payment_details_payment_system;
 
-				$this->payOrder($payment_obj->order_id, $payment_obj, $amount_usd);
+				$this->payOrder($payment_obj->order_id, $payment_obj, $payment->payment_details_amount);
 			}
 			catch (Exception $ex)
 			{

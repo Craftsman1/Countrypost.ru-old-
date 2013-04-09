@@ -5,12 +5,10 @@ $crc  = md5(
 	RK_PASS1.
 	":ShpAmount=".
 	$amount.
-	":ShpComment=:ShpTax=".
+	":ShpComment=$order_id:ShpTax=".
 	$User_tax.
 	":ShpUser=".
-	$user->user_id.
-	":ShpOrder=".
-	$order_id);
+	$user->user_id);
 
 if (TESTMODE==1)
 {
@@ -28,10 +26,9 @@ $psform	= $psform .
 	"IncCurrLabel:<input type=text name=IncCurrLabel value=RuPayR>".
 	"Culture:<input type=text name=Culture value=ru>".
 	"ShpAmount:<input type=text name=ShpAmount value='$amount'>".
-	"ShpComment:<input type=text name=ShpComment value=''>".
+	"ShpComment:<input type=text name=ShpComment value='$order_id'>".
 	"ShpTax:<input type=text name=ShpTax value='$User_tax'>".
 	"ShpUser:<input type=text name=ShpUser value='".$user->user_id."'>".
-	"ShpOrder:<input type=text name=ShpOrder value='$order_id'>".
 	"</form>";
 echo $psform;
 ?>
