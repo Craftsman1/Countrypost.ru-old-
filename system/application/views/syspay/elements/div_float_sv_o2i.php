@@ -7,7 +7,7 @@
 		Оплата заказа через <b><?= SV_SERVICE_NAME ?></b>:
 		<br />
 		<br />
-		Вам нужно перевести <b><b class="sv_amount_ru"></b> рублей</b> на карту <?= SV_IN_ACCOUNT ?>.
+		Вам нужно перевести <b><b class="sv_amount_ru"></b> рублей</b> на карту <?= SV_IN_ACCOUNT ?>. После перевода сохраните квитанцию.
 	</p>
 	<br />
 	<form class='admin-inside' action="/client/addOrder2In/<?= $order->order_id ?>" enctype="multipart/form-data" method="POST">
