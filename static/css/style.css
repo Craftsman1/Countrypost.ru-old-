@@ -2491,8 +2491,15 @@ div.rating_group {
 	margin-top: 10px;
 }
 
-div.rating_group > div {
+form div.rating_group > div {
 	height: 26px;
+}
+
+div.rating_item {
+	float: right;
+	position: relative;
+	height: 52px;
+	width: 350px;
 }
 
 div.rating_group img {

@@ -4,7 +4,7 @@ $crc  = md5(
 	":$amount:$number:".
 	RK_PASS1.
 	":ShpAmount=".
-	$amount.
+	$amount_local.
 	":ShpComment=$order_id:ShpTax=".
 	$User_tax.
 	":ShpUser=".
@@ -25,7 +25,7 @@ $psform	= $psform .
 	"SignatureValue:<input type=text name=SignatureValue value=$crc>".
 	"IncCurrLabel:<input type=text name=IncCurrLabel value=RuPayR>".
 	"Culture:<input type=text name=Culture value=ru>".
-	"ShpAmount:<input type=text name=ShpAmount value='$amount'>".
+	"ShpAmount:<input type=text name=ShpAmount value='$amount_local'>".
 	"ShpComment:<input type=text name=ShpComment value='$order_id'>".
 	"ShpTax:<input type=text name=ShpTax value='$User_tax'>".
 	"ShpUser:<input type=text name=ShpUser value='".$user->user_id."'>".

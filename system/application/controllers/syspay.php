@@ -39,8 +39,23 @@ class Syspay extends SyspayBaseController {
 		
 	public function showSuccess()
 	{
-		
-		View::showChild($this->viewpath.'/pages/showSuccess');
+		try
+		{
+			if (empty($this->user->user_id))
+			{
+				View::showChild($this->viewpath.'/pages/showSuccess');
+			}
+			else
+			{
+				$this->load->model('PaymentModel', 'Payments');
+				$order_id = $this->Payments->getLastPayedOrder($this->user->user_id);
+				Func::redirect(BASEURL . "{$this->user->user_group}/order/$order_id");
+			}
+		}
+		catch(Exception $ex)
+		{
+			Func::redirect(BASEURL);
+		}
 	}
 	
 	public function showFail()
@@ -72,6 +87,11 @@ class Syspay extends SyspayBaseController {
 			View::showChild($this->viewpath.'/pages/showFail');
 			return;
 		}
+	}
+
+	public function showResultRK()
+	{
+		$this->getResultRK();
 	}
 
     // paypal
@@ -206,11 +226,6 @@ class Syspay extends SyspayBaseController {
 		$extra	 		= 0;//self::getExtra($payment_system, $section);
 
 		// заполняем форму
-		//$this->load->model('CurrencyModel', 'Currencies');
-		//$usd = $this->Currencies->getById('USD');
-
-        $config = $this->config->config;
-
 		$this->getPrivilegedOrder($order_id,
 			'Заказ недоступен.');
 
@@ -223,8 +238,7 @@ class Syspay extends SyspayBaseController {
 			'User_tax'		=> $tax * $amount_usd * 0.01,
 			'tax'			=> $tax,
 			'extra'			=> $extra
-            //'config'        => $config
-		);
+        );
 
 		if ($payment_system == 'qw')
 		{
@@ -338,16 +352,16 @@ sSignatureValue
 			// TODO: OK
 			##########
 			$payment_obj = new stdClass();
-			$payment_obj->payment_from				= '[RK]';// зачисление на счет пользователя
-			$payment_obj->payment_to				= $user_id;
+			$payment_obj->payment_from				= $user_id;
+			//$payment_obj->payment_to				= '[RK] ' . $ptransfer;// зачисление на счет пользователя
 			$payment_obj->payment_tax				= 0;
 			$payment_obj->payment_amount_rur		= $amount;
 			$payment_obj->payment_amount_from		= $amount_usd;
 			$payment_obj->payment_amount_tax		= $tax_usd;
 			$payment_obj->payment_amount_to			= $amount_usd;
 			$payment_obj->payment_purpose			= 'оплата заказа';
-			$payment_obj->payment_comment			= $order_id;
-			$payment_obj->payment_type				= 'in';
+			$payment_obj->payment_comment			= '№ ' . $order_id;
+			$payment_obj->payment_type				= 'order';
 			$payment_obj->payment_status			= 'complite';
 			$payment_obj->payment_transfer_info		= 'RK Transfer';
 			$payment_obj->payment_transfer_order_id	= $ptransfer;
@@ -359,7 +373,6 @@ sSignatureValue
 			$this->payOrder($order_id, $payment_obj, $amount_usd);
 
 			$status	= 'OK'.$ptransfer;
-			$addLog	= "Status: OK! [payment_id=$ptransfer]\n";
 		}
 		catch (Exception $e)
 		{
@@ -367,20 +380,27 @@ sSignatureValue
 			// TODO: FAIL!
 			##########
 			$status	= 'Fail! ('.$e->getMessage().')';
-			$addLog	= "Status: FAIL! ".$e->getMessage()."\n";
 		}
-			
-		//echo $status;
-		
+
 		PayLog::put('RK', "Status:$status\n");
 	}
 
 	private function payOrder($order_id, $payment_obj, $amount_usd)
 	{
-		$order = $this->getPrivilegedOrder($order_id,
-			'Заказ не найден.');
+		// находим заказ
+		$this->load->model('OrderModel', 'Orders');
+		$order = $this->Orders->getById($order_id);
+
+		if (empty($order)/* OR
+			$order->order_status == 'deleted' OR
+			$order->order_client != $payment_obj->payment_to */)
+		{
+			throw new Exception('Заказ не найден.');
+		}
 
 		$order->order_cost_payed += $amount_usd;
+		$payment_obj->payment_to = $order->order_manager;
+
 		$this->processOrderPayment($order, $payment_obj);
 
 		// пересчитываем заказ
@@ -727,7 +747,7 @@ sSignatureValue
 		$this->output->enable_profiler(false);
 		PayLog::put('QW');
 		$addLog	= '';
-		
+
 		// 300 это исключение для киви
 		$resultCode = 300;
 
@@ -757,8 +777,8 @@ sSignatureValue
 				}
 				
 				$payment_obj = new stdClass();
-				$payment_obj->payment_from				= '[QW] '.$payment->payment_details_number;
-				$payment_obj->payment_to				= $payment->payment_details_user;
+				$payment_obj->payment_from				= $payment->payment_details_user;//'[QW] '.$payment->payment_details_number;
+				//$payment_obj->payment_to				= $payment->payment_details_user;
 				$payment_obj->payment_tax				= $payment->payment_details_tax;
 				$payment_obj->payment_amount_rur		= $payment->payment_details_amount_rur;
 				$payment_obj->payment_amount_from		= $payment->payment_details_amount;

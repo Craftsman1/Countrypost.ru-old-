@@ -803,5 +803,24 @@ class PaymentModel extends BaseModel implements IModel{
 			$order->payed_date = date('Y-m-d H:i:s');
 		}
 	}
+
+	public function getLastPayedOrder($user_id)
+	{
+		$order = $this->db->query("
+			SELECT order_id
+			FROM `{$this->table}`
+			WHERE payment_from = $user_id
+			ORDER BY `payment_id` DESC
+			LIMIT 1
+		")->result();
+
+		if (empty($order))
+		{
+			return FALSE;
+		}
+
+		$order = $order[0];
+		return $order->order_id;
+	}
 }
 ?>
