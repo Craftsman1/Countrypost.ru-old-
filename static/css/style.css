@@ -2153,9 +2153,14 @@ div.managerinfo  div.status, div.clientinfo  div.status
 	margin-top: 0;
 }
 
-div.managerinfo  div, div.clientinfo  div, div.ratinginfo  div.created
+div.managerinfo  div, div.clientinfo  div
 {
 	margin-top: 25px;
+}
+
+div.ratinginfo  div.created
+{
+	display: inline;
 }
 
 div.clientinfo ul.tabs div
@@ -2491,6 +2496,10 @@ div.rating_group {
 	margin-top: 10px;
 }
 
+div.ratinginfo div.rating_group {
+	margin-top: 0px;
+}
+
 form div.rating_group > div {
 	height: 26px;
 }
@@ -2499,7 +2508,7 @@ div.rating_item {
 	float: right;
 	position: relative;
 	height: 52px;
-	width: 350px;
+	margin-left: 30px;
 }
 
 div.rating_group img {

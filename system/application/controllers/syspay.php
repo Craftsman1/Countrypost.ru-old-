@@ -27,9 +27,9 @@ class Syspay extends SyspayBaseController {
 	
 	function index()
 	{
-		if ( ! Check::user()){
+		if ( ! Check::user())
+		{
 			Func::redirect(BASEURL);
-			return;
 		}
 		else
 		{
@@ -389,18 +389,38 @@ sSignatureValue
 	{
 		// находим заказ
 		$this->load->model('OrderModel', 'Orders');
+		$this->load->model('CurrencyModel', 'Currencies');
+
 		$order = $this->Orders->getById($order_id);
 
-		if (empty($order)/* OR
-			$order->order_status == 'deleted' OR
-			$order->order_client != $payment_obj->payment_to */)
+		if (empty($order))
 		{
 			throw new Exception('Заказ не найден.');
 		}
 
+		// собираем оставшиеся данные
 		$order->order_cost_payed += $amount_usd;
 		$payment_obj->payment_to = $order->order_manager;
 
+		// валюты и курсы
+		if ($order->order_country_from AND
+			$order->order_country_to)
+		{
+			$order->order_currency = $this->Orders->getOrderCurrency($order->order_id);
+			$payment_obj->payment_currency = $order->order_currency;
+			$exchange_rate = $this->Currencies->getExchangeRate('USD', $order->order_currency, 'manager');
+
+			// округляем до центов в пользу посредника
+			$payment_obj->amount_usd = ceil(
+				floatval($payment_obj->payment_amount_from) /
+					floatval($exchange_rate) *
+					100) *
+				0.01;
+
+			$payment_obj->usd_conversion_rate = $exchange_rate;
+		}
+
+		// добавляем платеж в статистику
 		$this->processOrderPayment($order, $payment_obj);
 
 		// пересчитываем заказ
