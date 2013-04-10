@@ -46,7 +46,7 @@
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='requested_delivery_delivery' name="requested_delivery" />
                 </div>
                 <div style="clear:both;" ></div>
-                <div>
+                <div style="display: none;">
 					<span class="label dealer_number_switch" style='<?= (!$order OR empty($order->order_manager)) ? '' : 'display:none;' ?>'>
 						<a href="javascript: void(0);" onclick="">Выбрать посредника</a>
 					</span>

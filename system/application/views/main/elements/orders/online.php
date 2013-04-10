@@ -45,7 +45,7 @@
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='requested_delivery_online' name="requested_delivery" />
 				</div>
 				<div style="clear:both;" ></div>
-				<div>
+				<div style="display: none;">
 					<span class="label dealer_number_switch" style='<?= (!$order OR empty($order->order_manager)) ? '' : 'display:none;' ?>'>
 						<a href="javascript: void(0);" onclick="">Выбрать посредника</a>
 					</span>
@@ -57,7 +57,6 @@
                         <img src="/static/images/lightbox-ico-loading.gif" style="position: absolute; margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
 					</span>
 				</div>
-				<div style="clear:both;" ></div>
 			</div>
 		</form>
 	</div>
@@ -116,7 +115,7 @@
 			</div>
 		</div>
 		<h3>Дополнительная информация по товару:</h3>
-		<div class='add_detail_box' style="position:relative;">
+		<div class='add_detail_box' style="margin-top: 20px;position:relative;">
 			<div class='new_order_box'>
 				<div style="clear:both;" ></div>
 				<div>

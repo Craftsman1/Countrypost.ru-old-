@@ -2057,6 +2057,11 @@ div.new_order_box span.label {
 	float: left;
 	}
 
+div.add_detail_box {
+	margin-top: 20px!important;
+	position:relative!important;
+}
+
 .add_detail_box.table div.new_order_box span.label.currency {
     left: 378px;
     margin: 7px 0;
@@ -2069,6 +2074,10 @@ div.new_order_box span.label {
     margin: 7px 0;
     position: absolute;
     width: auto;
+}
+
+div.new_order_box {
+	height: auto!important;
 }
 
 div.new_order_box .textbox {
@@ -2116,7 +2125,7 @@ span.dealer_number_box img,span.screenshot_uploader_box img {
 
 div.online_order_form  div.table:first-child
 {
-	height: 190px;
+	height: 150px;
 }
 
 div.requestForm span.request_comment 

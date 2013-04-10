@@ -47,7 +47,7 @@
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='requested_delivery_offline' name="requested_delivery" />
                 </div>
                 <div style="clear:both;" ></div>
-                <div>
+                <div style="display: none;">
 					<span class="label dealer_number_switch" style='<?= (!$order OR empty($order->order_manager)) ? '' : 'display:none;' ?>'>
 						<a href="javascript: void(0);" onclick="">Выбрать посредника</a>
 					</span>
@@ -59,7 +59,6 @@
                         <img src="/static/images/lightbox-ico-loading.gif" style="position: absolute; margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
 					</span>
                 </div>
-                <div style="clear:both;" ></div>
             </div>
         </form>
     </div>
@@ -72,7 +71,7 @@
         <input type='hidden' name="city_to" class="cityTo" value="<?= ($order) ? (int) $order->order_city_to : '' ?>" />
         <input type='hidden' name="dealer_id" class="dealerId" value="<?= ($order) ? (int) $order->order_manager : '' ?>" />
         <input type='hidden' name="userfileimg" value="12345" />
-        <div class='table add_detail_box' style="position:relative;">
+        <div class='table add_detail_box'>
             <div class='angle angle-lt'></div>
             <div class='angle angle-rt'></div>
             <div class='angle angle-lb'></div>
@@ -172,7 +171,8 @@
             </div>
         </div>
     </form>
-    <div style="height: 50px;" class="admin-inside">
+    <div style="height: 50px;"
+		 class="admin-inside">
         <div class="submit">
             <div>
                 <input type="button" value="Добавить товар" id="addItemOffline" name="add" onclick="/*addItem();*/">

@@ -74,7 +74,7 @@ endfor; ?>
                 <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Tracking номер*: <img style="margin-left: 7px;" src="/static/images/mini_help.gif"></span>
-                    <input style="width:180px;" class="textbox" maxlength="11" type='text' id='otracking' name="otracking" />
+                    <input style="width:180px;" class="textbox" maxlength="80" type='text' id='otracking' name="otracking" />
                 </div>
                 <div style="clear:both;" ></div>
                 <div>

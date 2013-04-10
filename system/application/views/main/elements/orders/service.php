@@ -1,12 +1,3 @@
-<?
-/*$order = null;
-for ($i = 0, $n = count($orders); $i<$n; $i++) :
-    if ($orders[$i]->order_type == 'service') :
-        $order = $orders[$i];
-        break;
-    endif;
-endfor;*/
-?>
 <div class="service_order_form">
     <div class='table' style="position:relative;">
         <div class='angle angle-lt'></div>
@@ -17,7 +8,7 @@ endfor;*/
             <input type='hidden' name="order_id" class="order_id" value="<?= ($order) ? (int) $order->order_id : 0 ?>" />
             <input type='hidden' name="order_type" class="order_type" value="service" />
             <input type='hidden' name="order_currency" class="order_currency" value="<?= $order_currency ?>" />
-            <div class='new_order_box'>
+            <div class='new_order_box' style="height: auto!important;">
                 <div>
                     <span class="label">Заказать из*:</span>
                     <!--onchange="setCountryFrom(this.value)"-->
@@ -61,7 +52,7 @@ endfor;*/
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='requested_delivery_service' name="requested_delivery" />
                 </div>
                 <div style="clear:both;" ></div>
-                <div>
+                <div style="display: none;">
 					<span class="label dealer_number_switch" style='<?= (!$order OR empty($order->order_manager)) ? '' : 'display:none;' ?>'>
 						<a href="javascript: void(0);" onclick="">Выбрать посредника</a>
 					</span>
@@ -73,7 +64,6 @@ endfor;*/
                         <img src="/static/images/lightbox-ico-loading.gif" style="position: absolute; margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
 					</span>
                 </div>
-                <div style="clear:both;" ></div>
             </div>
         </form>
     </div>
@@ -113,7 +103,7 @@ endfor;*/
                     <input style="width:180px;" class="textbox" maxlength="11" type='text' id='odeliveryprice' name="odeliveryprice" />
                     <span class="label currency"><?= $order_currency ?></span>
                 </div>
-                <div style="clear:both;" ></div><br/>
+                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">
                         Скриншот (max. 3 Mb):
@@ -140,11 +130,14 @@ endfor;*/
     <div style="height: 50px;" class="admin-inside">
         <div class="submit">
             <div>
-                <input type="button" value="Добавить товар" id="addItemService" name="add" onclick="/*addItem();*/">
+                <input type="button"
+					   value="Добавить товар"
+					   id="addItemService"
+					   name="add"
+					   onclick="/*addItem();*/">
             </div>
         </div>
     </div>
-
 	<? View::show('main/ajax/showNewOrderDetails', array('order_type' => 'service', 'order' => $order)); ?>
 </div>
 <script type="text/javascript">
