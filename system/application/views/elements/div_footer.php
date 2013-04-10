@@ -5,8 +5,8 @@
 						</br>
 					</p>
 					<ul class='menu'>
-						<li><a href='<?= BASEURL ?>main/showHowItWork'>Посредники</a></li>
-						<li><a href='<?= BASEURL ?>main/showPricelist'>Клиенты</a></li>
+						<li><a href='<?= BASEURL ?>dealers'>Посредники</a></li>
+						<li><a href='<?= BASEURL ?>clients'>Клиенты</a></li>
 						<li><a href='<?= BASEURL ?>main/showFAQ'>FAQ</a></li>
 						<li>&nbsp;</li>
 						<li><!--LiveInternet counter--><script type="text/javascript"><!--
