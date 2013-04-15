@@ -1813,7 +1813,7 @@ abstract class BaseController extends Controller
 			$this->load->model('ManagerModel', 'Managers');
 			$this->load->model('UserModel', 'Users');
 			$this->load->model('ClientModel', 'Clients');
-
+/*
 			Mailer::sendAdminNotification(
 				Mailer::SUBJECT_ORDER_DELETED_STATUS, 
 				Mailer::ORDER_DELETED_NOTIFICATION,
@@ -1844,7 +1844,7 @@ abstract class BaseController extends Controller
 				$order->order_client, 
 				NULL,
 				$this->Clients);
-
+*/
 			$this->result->m = 'Заказ успешно удален.';
 			Stack::push('result', $this->result);
 		}

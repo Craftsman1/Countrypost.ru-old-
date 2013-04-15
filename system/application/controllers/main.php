@@ -968,7 +968,6 @@ Email: {$this->user->user_email}";
             $this->load->model('OdetailJointModel', 'Joints');
 
 			$view['order_types'] = $this->Orders->getOrderTypes();
-
             $view['order_currency'] = '';
 
             // Создаем пустой заказ
@@ -996,23 +995,26 @@ Email: {$this->user->user_email}";
             $view['joints'] = null;
             $view['odetails'] = null;
 
-
-            for($i = 0, $n = count($view['orders']); $i < $n; $i++) :
+            for ($i = 0, $n = count($view['orders']); $i < $n; $i++)
+			{
                 $order = $view['orders'][$i];
 
                 $order_type_name = ($order_type == 'mailforwarding') ? 'mail_forwarding' : $order_type;
 
-                if ($order->order_type == $order_type_name) :
+                if ($order->order_type == $order_type_name)
+				{
                     $view['order'] = $order;
                     $view['odetails'] = $this->Odetails->getOrderDetails($order->order_id);
                     $view['joints'] = $this->Joints->getOrderJoints($order->order_id);
+
                     if ($order_type != 'mailforwarding')
                     {
                         $this->Orders->prepareOrderView($view);
                     }
+
                     break;
-                endif;
-            endfor;
+				}
+			}
 
 
             // тип заказа для построения страницы
@@ -1049,6 +1051,7 @@ Email: {$this->user->user_email}";
                 endswitch;
             }
 
+			//print_r($view['order']);die();
 			View::showChild($this->viewpath.'/pages/createorder', $view);
 		}
 		catch (Exception $e) 
@@ -1195,20 +1198,33 @@ Email: {$this->user->user_email}";
 			// валидируем выбранного посредника и привязываем заказ к его стране (для mail_forwarding)
 			$order->order_manager = Check::int('dealer_id');
 
-			if ($order->order_manager)
+			if ($order->order_type == 'mail_forwarding')
 			{
+				if (empty($order->order_manager))
+				{
+					throw new Exception('Посредник не найден. Попробуйте еще раз.');
+				}
+
 				$this->load->model('ManagerModel', 'Managers');
 
 				$manager = $this->Managers->getById($order->order_manager);
 
-				if (empty($manager) OR
-					$manager->manager_status != 1 OR
-					($order->order_country_from > 0 AND
-						$order->order_country_from != $manager->manager_country) OR
-					($manager->is_mail_forwarding == 0 AND
-						$order->order_type == 'mail_forwarding'))
+				if (empty($manager))
 				{
 					throw new Exception('Посредник не найден. Попробуйте еще раз.');
+				}
+
+				if ($manager->manager_status != 1 OR
+					$manager->is_mail_forwarding == 0)
+				{
+					throw new Exception('Выбранный посредник не обслуживает Mail Forwarding заказы. Пожалуйста,
+					выберите другого посредника.');
+				}
+
+				if ($order->order_country_from > 0 AND
+					$order->order_country_from != $manager->manager_country)
+				{
+					$order->order_country_from = $manager->manager_country;
 				}
 
 				$order->order_country_from = $manager->manager_country;
@@ -1234,8 +1250,6 @@ Email: {$this->user->user_email}";
 				$order->order_products_cost = $odetails_total->order_products_cost;
 				$order->order_delivery_cost = $odetails_total->order_delivery_cost;
 				$order->order_weight = $odetails_total->order_product_weight;
-				//$odetails_total->odetail_joint_id;
-				//$odetails_total->odetail_joint_count;			
 			}
 
 			if ( ! ($Order = $this->Orders->addOrder($order)))

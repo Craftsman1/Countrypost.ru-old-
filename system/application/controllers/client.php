@@ -123,264 +123,226 @@ class Client extends BaseController {
 		View::showChild($this->viewpath.'/pages/show_shop', $view);
 	}
 	
-	public function addProductManual() {
-		
-		Check::reset_empties();
-		$detail									= new stdClass();
-		$detail->odetail_link					= Check::str('olink', 500, 1);
-		$detail->odetail_img					= Check::str('userfileimg', 500, 1);
-		$userfile								= isset($_FILES['userfile']) && !$_FILES['userfile']['error'];
-		$detail->odetail_shop_name				= Check::str('shop', 255, 0);
-		$detail->odetail_product_name			= Check::str('oname', 255, 0);
-		$detail->odetail_product_amount			= Check::int('oamount');
-		$detail->odetail_product_color			= Check::str('ocolor', 32, 0);
-		$detail->odetail_product_size			= Check::str('osize', 32, 0);
-		$detail->odetail_client					= $this->user->user_id;
-		$detail->odetail_order					= Check::int('order_id');
-		$detail->odetail_manager				= 0;
-		$country_manager						= Check::str('ocountry', 255, 1);
-		$empties								= Check::get_empties();		
-		
-		try 
-		{
-			// обязательны для заполнения:
-			// olink
-			// ocountry
-			// userfileimg либо клиентская картинка
-			if (!$detail->odetail_link)
-			{
-				throw new Exception('Неверная ссылка на товар!');
-			}
-				
-			if (!$detail->odetail_product_amount)
-			{
-				$detail->odetail_product_amount = 1;
-			}				
-			
-			if ($empties &&
-				!$detail->odetail_img && 
-				!$userfile)
-			{
-				throw new Exception('Загрузите или добавьте ссылку на скриншот.');
-			}
-			
-			if ($userfile)
-			{
-				unset($detail->odetail_img);
-			}
-				
-			$this->load->model('OdetailModel', 'OdetailModel');
-			$Odetails = $this->OdetailModel->getFilteredDetails(array('odetail_client' => $this->user->user_id, 'odetail_order' => 0));
-				
-			if (count($Odetails)) {
-				$detail->odetail_manager = $Odetails[0]->odetail_manager;
-			}
-			else {
-				$this->load->model('CountryModel', 'CountryModel');
-				$Countries = $this->CountryModel->getClientAvailableCountries($this->user->user_id);
-
-				foreach ($Countries as $Country) {
-					if ($Country->country_id == $country_manager) {
-						$detail->odetail_manager = $Country->manager_user;
-					}
-				}
-
-				if (!$detail->odetail_manager)
-					throw new Exception('Ошибка переданных данных');
-			}
-			
-			// открываем транзакцию
-			$this->db->trans_begin();	
-
-			$detail = $this->OdetailModel->addOdetail($detail);
-
-			// если заказ уже создан, вычисляем его статус
-			if ($detail->odetail_order)
-			{
-				// находим заказ
-				$this->load->model('OrderModel', 'Orders');
-
-				$order = $this->Orders->getClientOrderById($detail->odetail_order, $this->user->user_id);
-				
-				if (!$order)
-				{
-					throw new Exception('Невозможно изменить статусы товаров. Заказ не найден.');
-				}
-		
-				// вычисляем общий статус товаров
-				$status = $this->OdetailModel->getTotalStatus($detail->odetail_order);
-				
-				if (!$status)
-				{
-					throw new Exception('Статус заказа не определен. Попоробуйте еще раз.');
-				}
-				
-				$order->order_status = $this->Orders->calculateOrderStatus($status);
-				
-				// меняем статус заказа
-				$new_order = $this->Orders->saveOrder($order);
-				
-				if (!$new_order)
-				{
-					throw new Exception('Невожможно изменить статус заказа. Попоробуйте еще раз.');
-				}
-			}
-			
- 			// загружаем файл
-			if ($userfile)
-			{
-				$old = umask(0);
-				// загрузка файла
-				//$config['upload_path'] = BASEPATH.'../upload/orders/'.$this->user->user_id.'/';
-				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/orders/{$this->user->user_id}")){
-					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/orders/{$this->user->user_id}",0777);
-				}
-
-				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT'].'/upload/orders/'.$this->user->user_id;
-				$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
-				$config['max_size']				= '3072';
-				$config['encrypt_name'] 		= TRUE;
-				$max_width						= 1024;
-				$max_height						= 768;
-				$this->load->library('upload', $config);
-
-				if (!$this->upload->do_upload()) {
-					throw new Exception(strip_tags(trim($this->upload->display_errors())));
-				}
-				
-				$uploadedImg = $this->upload->data();
-				if (!rename($uploadedImg['full_path'],$_SERVER['DOCUMENT_ROOT'].'/upload/orders/'.$this->user->user_id.'/'.$detail->odetail_id.'.jpg')){
-					throw new Exception("Bad file name!");
-				}
-				
-				$uploadedImg	= $_SERVER['DOCUMENT_ROOT'].'/upload/orders/'.$this->user->user_id.'/'.$detail->odetail_id.'.jpg';
-				$imageInfo		= getimagesize($uploadedImg);
-				if ($imageInfo[0]>$max_width || $imageInfo[1]>$max_height){
-					
-					$config['image_library']	= 'gd2';
-					$config['source_image']		= $uploadedImg;
-					$config['maintain_ratio']	= TRUE;
-					$config['width']			= $max_width;
-					$config['height']			= $max_height;
-					
-					$this->load->library('image_lib', $config); // загружаем библиотеку
-					
-					$this->image_lib->resize(); // и вызываем функцию
-				}
-			}
-			
-			// закрываем транзакцию
-			$this->db->trans_commit();
-
-			if ($detail->odetail_order > 0 )
-			{
-				Func::redirect(BASEURL.$this->cname.'/showOrderDetails/'.$detail->odetail_order);
-			}
-			else
-			{
-				Func::redirect(BASEURL.$this->cname.'/showBasket');
-			}
-			return;
-			
-		}catch (Exception $e){
-			$this->db->trans_rollback();
-			$this->result->m = $e->getMessage();		
-			Stack::push('result', $this->result);
-
-			if ($detail->odetail_order > 0 )
-			{
-				Func::redirect(BASEURL.$this->cname.'/showOrderDetails/'.$detail->odetail_order);
-			}
-			else
-			{
-				Func::redirect(BASEURL.$this->cname.'/showBasket');
-			}
-			return;
-		}
-		
-		Func::redirect(BASEURL.$this->cname.'/showOpenOrders');
-	}
-	
-	public function addProductManualAjax() 
+	public function addProductToPrivilegedOrder($order_id)
 	{
-		parent::addProductManualAjax();
+		try
+		{
+			// валидация
+			if (empty($order_id) OR
+				! is_numeric($order_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			$order = $this->getPrivilegedOrder($order_id, 'Заказ не найден.');
+
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'OdetailModel');
+
+			// необязательные поля
+			Check::reset_empties();
+			$detail = new OdetailModel();
+
+			$detail->odetail_shop				    = Check::str('oshop', 255, 0);
+			$detail->odetail_volume				    = Check::float('ovolume', 0);
+			$detail->odetail_tnved				    = Check::str('otnved', 255, 1);
+			$detail->odetail_insurance				= Check::chkbox('insurance');
+			$detail->odetail_comment                = Check::str('ocomment', 255, 0);
+			$detail->odetail_tracking               = Check::str('otracking', 80, 0);
+			$detail->odetail_status                 = 'processing';
+			$detail->odetail_img					= Check::str('userfileimg', 500, 1);
+			$detail->odetail_product_amount			= Check::int('oamount');
+			$detail->odetail_product_color			= Check::str('ocolor', 32, 0);
+			$detail->odetail_product_size			= Check::str('osize', 32, 0);
+			$detail->odetail_client					= $this->user->user_id;
+			$detail->odetail_manager				= $order->order_manager;
+			$detail->odetail_country				= Check::str('ocountry', 255, 1);
+			$detail->odetail_foto_requested			= Check::chkbox('foto_requested');
+			$detail->odetail_search_requested		= Check::chkbox('search_requested');
+			$userfile								= (isset($_FILES['userfile']) AND ! $_FILES['userfile']['error']);
+
+			// обязательные поля
+			$detail->odetail_order 					= $order_id;
+			$detail->odetail_link					= Check::str('olink', 500, 1);
+			$detail->odetail_product_name			= Check::str('oname', 255, 1);
+			$detail->odetail_price					= Check::float('oprice');
+			$detail->odetail_pricedelivery			= Check::float('odeliveryprice');
+			$detail->odetail_weight					= Check::float('oweight');
+
+			switch ($order->order_type)
+			{
+				case 'online' :
+					$this->onlineProductCheck($detail);
+					break;
+				case 'offline' :
+					$this->offlineProductCheck($detail);
+					break;
+				case 'service' :
+					$this->serviceProductCheck($detail);
+					break;
+				case 'delivery' :
+					$this->deliveryProductCheck($detail);
+					break;
+				case 'mail_forwarding' :
+					$this->mailforwardProductCheck($detail);
+					break;
+			}
+
+			// погнали
+			$detail = $this->OdetailModel->addOdetail($detail);
+
+			// загружаем файл
+			if (isset($userfile) AND $userfile)
+			{
+				$this->uploadOrderScreenshot($detail, $this->user->user_id);
+			}
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+
+			// возвращаем json с инфой по заказу и товару
+			$result = new stdClass();
+			$result->order_id = $order->order_id;
+			$result->odetail_id = $detail->odetail_id;
+			$result->odetail_img = $detail->odetail_img;
+
+			echo json_encode($result);
+		}
+		catch (Exception $e)
+		{
+			echo $e->getMessage();
+		}
 	}
 
-	public function addProduct() {
-		
-		Check::reset_empties();
-		$detail							= new stdClass();
-		$detail->odetail_link			= Check::str('olink', 500, 10);
-		$detail->odetail_shop_name		= Stack::shift('shop', true);
-		$detail->odetail_product_name	= Check::str('oname', 255, 1);
-		$detail->odetail_product_amount	= Check::int('oamount');
-		$detail->odetail_product_color	= Check::str('ocolor', 255, 1);
-		$detail->odetail_product_size	= Check::str('osize', 255, 1);
-		$detail->odetail_client			= $this->user->user_id;
-		$detail->odetail_order			= 0;
-		$detail->odetail_manager		= 0;
-		$x1								= Check::int('x1');
-		$x2								= Check::int('x2');
-		$y1								= Check::int('y1');
-		$y2								= Check::int('y2');
-		$width							= Check::int('sh_width');
-		$fname							= Check::str('fname', 255, 1);
-		$empties						= Check::get_empties();
-		
-		$country_manager				= Check::str('ocountry', 255, 1);
-		
-		try {
-			if ($empties)
-				throw new Exception('Ошибка переданных данных! Одно или несколько полей не заполнено!');
-				
-			$this->load->model('OdetailModel', 'OdetailModel');
-			$Odetails = $this->OdetailModel->getFilteredDetails(array(
-																'odetail_client' => $this->user->user_id, 
-																'odetail_order' => 0
-			));
-			
-			if (count($Odetails)) {
-				$detail->odetail_manager = $Odetails[0]->odetail_manager;
-			}
-			else {
-				
-				if (!$country_manager)
-					throw new Exception('Не указанна страна.');
-				
-				$this->load->model('CountryModel', 'CountryModel');
-				$Countries = $this->CountryModel->getClientAvailableCountries($this->user->user_id);
-				foreach ($Countries as $Country) {
-					if ($Country->country_id == $country_manager) {
-						$detail->odetail_manager = $Country->manager_user;
-					}
-				}
-				if (!$detail->odetail_manager)
-					throw new Exception('Ошибка переданных данных');
-			}
-			
-			$this->db->trans_begin();	
-			
-			$detail->odetail_link = str_replace($this->config->item('base_url').'proxy/?url=', '', $detail->odetail_link);
-			$detail->odetail_link = urldecode($detail->odetail_link);
-			
-			if (strpos($detail->odetail_link, 'http://') !== 0)
-				$detail->odetail_link = 'http://'.$detail->odetail_link;
-				
-			$detail = $this->OdetailModel->addOdetail($detail);
-			
-			$this->OdetailModel->makeScreenshot($detail, $x1, $y1, $x2+$x1, $y2+$y1, $width);
-			
-			$this->db->trans_commit();
-			
-			Func::redirect(BASEURL.$this->cname.'/showBasket');
-			
-		}catch (Exception $e){
-			$this->db->trans_rollback();
-			$this->result->m = $e->getMessage();		
-			Stack::push('result', $this->result);
+	// BOF: костыль
+	// TODO: этот код дублирует методы из main. поскольку страница временная, оставляем как есть ради экономии времени
+	protected function onlineProductCheck ($detail)
+	{
+
+		if (empty($detail->odetail_link))
+		{
+			throw new Exception('Добавьте ссылку на товар.');
 		}
-		
-		$this->proxy($detail->odetail_link);
+
+		if (empty($detail->odetail_product_name))
+		{
+			throw new Exception('Добавьте наименование товара.');
+		}
+
+		if (empty($detail->odetail_price))
+		{
+			throw new Exception('Добавьте цену товара.');
+		}
+
+		if (empty($detail->odetail_weight))
+		{
+			throw new Exception('Добавьте примерный вес товара.');
+		}
+
+		if (empty($detail->odetail_country))
+		{
+			throw new Exception('Выберите страну.');
+		}
+
+		if ( ! $detail->odetail_product_amount)
+		{
+			$detail->odetail_product_amount = 1;
+		}
+	}
+
+	protected function offlineProductCheck ($detail)
+	{
+		if (empty($detail->odetail_product_name))
+		{
+			throw new Exception('Добавьте наименование товара.');
+		}
+
+		if (empty($detail->odetail_price))
+		{
+			throw new Exception('Добавьте цену товара.');
+		}
+
+		if (empty($detail->odetail_weight))
+		{
+			throw new Exception('Добавьте примерный вес товара.');
+		}
+
+		if (empty($detail->odetail_country))
+		{
+			throw new Exception('Выберите страну.');
+		}
+
+		if ( ! $detail->odetail_product_amount)
+		{
+			$detail->odetail_product_amount = 1;
+		}
+	}
+
+	protected function deliveryProductCheck ($detail)
+	{
+		if (empty($detail->odetail_product_name))
+		{
+			throw new Exception('Добавьте наименование товара.');
+		}
+
+		if (empty($detail->odetail_weight))
+		{
+			throw new Exception('Добавьте примерный вес товара.');
+		}
+
+		if ( ! $detail->odetail_product_amount)
+		{
+			$detail->odetail_product_amount = 1;
+		}
+	}
+
+	protected function serviceProductCheck ($detail)
+	{
+		if (empty($detail->odetail_product_name))
+		{
+			throw new Exception('Добавьте наименование товара.');
+		}
+	}
+
+	protected function mailforwardProductCheck ($detail)
+	{
+		if (empty($detail->odetail_product_name))
+		{
+			throw new Exception('Добавьте наименование товара.');
+		}
+	}
+	// EOF: костыль
+
+	public function addproduct($order_id)
+	{
+		try
+		{
+			if (empty($order_id) OR
+				! is_numeric($order_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			$order = $this->getPrivilegedOrder($order_id, 'Заказ не найден.');
+
+			// крошки
+			$this->showOrderBreadcrumb($order);
+			Breadcrumb::setCrumb(array("/client/addproduct/$order_id" => 'Добавление товара'), 3, TRUE);
+
+			View::showChild($this->viewpath.'/pages/showAddProduct', array(
+				'order' => $order,
+				'order_currency' => $this->Orders->getOrderCurrency($order->order_id)
+			));
+		}
+		catch (Exception $ex)
+		{
+			print_r($ex);
+		}
 	}
 
 	public function deleteDetail($oid) {
@@ -436,32 +398,7 @@ class Client extends BaseController {
 		}
 	}
 	
-	public function showBasket() 
-	{		
-		$this->load->model('OdetailModel', 'OdetailModel');
-		$Odetails = $this->OdetailModel->getNewDetails($this->user->user_id);
-		
-		if (empty($Odetails))
-		{
-			Func::redirect(BASEURL.$this->cname.'/showOpenOrders');
-		}
-		
-		$odetail = $Odetails[0];
-		
-		$this->load->model('CountryModel', 'CountryModel');
-		$Countries	= $this->CountryModel->getClientAvailableCountries($this->user->user_id);
-		$Country = $this->CountryModel->getById($odetail->odetail_country);
-		
-		$view = array(
-			'Odetails'	=> $Odetails,
-			'Countries'	=> $Countries,
-			'Country'	=> $Country
-		);
-		
-		View::showChild($this->viewpath.'/pages/show_basket', $view);
-	}
-	
-	public function showScreen($oid=null) 
+	public function showScreen($oid=null)
 	{
         header('Content-type: image/jpg');
         $this->load->model('OdetailModel', 'OdetailModel');
@@ -518,12 +455,6 @@ class Client extends BaseController {
 		View::showChild($this->viewpath.'/pages/news', 
 			array('news' => $news, 
 			'pagination' => ''));		
-	}
-	
-	public function showAddBalance()
-	{
-		Func::redirect('/syspay');
-		return;
 	}
 	
 	public function addOrder2In($order_id)
@@ -721,26 +652,6 @@ class Client extends BaseController {
 		Func::redirect(BASEURL . "client/order/$order_id");
 	}
 	
-	private function getOrder2inDetails()
-	{
-		$order2in = new stdClass();
-		$order2in->bm_amount = $_POST['bm_amount'];
-		$order2in->payment_service = $_POST['payment_service'];
-		
-		$order2in->bm_surname = $_POST['bm_surname'];
-		$order2in->bm_name = $_POST['bm_name'];
-		$order2in->bm_otc = $_POST['bm_otc'];
-		$order2in->bm_date = $_POST['bm_date'];
-		$order2in->bm_number = $_POST['bm_number'];
-		
-		return $order2in;
-	}
-	
-	public function deletePayment($oid)
-	{
-		parent::deletePayment($oid);
-	}
-	
 	public function getScreenshot($fname)
 	{
 		header('Content-Type: image/jpeg');
@@ -752,62 +663,6 @@ class Client extends BaseController {
 		echo "<img src='/client/getScreenshot/$fname' />";
 	}
 	
-	private function putScreenshot($url, $fname)
-	{
-		Stack::clear('screenshot');
-		//@unlink("/home/omni/kio.teralabs.ru/html/upload/orders/{$this->user->user_id}/tmp/");
-		
-		if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/orders/{$this->user->user_id}/tmp/")){
-			mkdir($_SERVER['DOCUMENT_ROOT']."/upload/orders/{$this->user->user_id}/tmp/", 0777, true);
-		}
-		
-		exec("wkhtmltoimage-amd64 --load-error-handling ignore --width 1266 '$url' ".$_SERVER['DOCUMENT_ROOT']."/upload/orders/{$this->user->user_id}/tmp/$fname.jpg");
-	}
-	
-	public function proxy($url=null) 
-	{
-		$this->output->enable_profiler(false);
-		
-		error_reporting(E_ERROR);
-		header("Content-Type: text/html; charset=windows-1251");
-		parse_str($_SERVER['QUERY_STRING'],$_GET);
-		
-		if (!$url){
-			$url	= @$_GET['url'];
-		}
-		
-		preg_match("/^.+?\.(jpg|gif|png|jpeg|bmp)$/",$url,$img_ch);
-		preg_match("/^.+?\.(css|js)$/",$url,$res_ch);
-		$url		= (strpos($url, 'http://') === 0 || strpos($url, 'https://') === 0  || strpos($src, '//') === 0) ? $url : 'http://'.$url;
-		$parse		= parse_url($url);
-		$host		= $parse['host'];
-		$server_host= $_SERVER['HTTP_HOST'];
-
-		if (!Stack::last('curHost'))
-			Stack::push('curHost',$host);
-
-		$fname = md5(time().$this->user->user_id.$this->user->user_group);
-		$this->putScreenshot($url, $fname);
-		
-		$this->load->model('OdetailModel', 'OdetailModel');
-		$Odetails	= $this->OdetailModel->getFilteredDetails(array(
-																'odetail_client' => $this->user->user_id, 
-																'odetail_order' => 0
-		));
-		
-		$this->load->model('CountryModel', 'CountryModel');
-		$Countries	= $this->CountryModel->getClientAvailableCountries($this->user->user_id);
-			
-		View::show($this->viewpath.'proxy3', array(
-													'fname'			=> $fname,
-													'Odetails'		=> $Odetails,
-													'Countries'		=> $Countries,
-													'url'			=> $url,
-													'server_host'	=> $server_host,
-													'host'			=> $host,
-		));
-	}
-
 	public function orders()
 	{
 		$this->showOpenOrders();
@@ -1732,15 +1587,104 @@ class Client extends BaseController {
 		}
 	}
 
-	// BOF: перенаправление обработчиков в базовый контроллер
-	public function showO2oComments()
+	protected function init_paging()
 	{
-		parent::showO2oComments();
+		$this->load->helper('url');
+		$this->load->library('pagination');
+
+		$handler = $this->uri->segment(2);
+
+		if ($handler == 'order' OR
+			$handler == 'showOpenPayments' OR
+			$handler == 'showPayedPayments')
+		{
+			if ($handler == 'order')
+			{
+				$this->paging_base_url =
+					'/client/showOpenPayments' .
+						'/' .
+						($this->uri->segment(3) ? $this->uri->segment(3) : 0);
+			}
+			else
+			{
+				$this->paging_base_url =
+					'/client/' .
+						($this->uri->segment(2) ? $this->uri->segment(2) : 0) .
+						'/' .
+						($this->uri->segment(3) ? $this->uri->segment(3) : 0);
+			}
+
+			$this->paging_uri_segment = 4;
+			$this->paging_offset = $this->uri->segment(4);
+		}
+		else
+		{
+			parent::init_paging();
+		}
 	}
 
-	public function addO2oComment()
+	protected function processBalanceFilter()
 	{
-		parent::addO2oComment();
+		$filter = $this->initBalanceFilter();
+
+		// сброс фильтра
+		if (isset($_POST['resetFilter']) AND $_POST['resetFilter'] == '1')
+		{
+			return $filter;
+		}
+
+		$filter->svalue		= Check::str('svalue', 255, 1, '');
+
+		if (isset($filter->sfield) AND
+			$filter->sfield)
+		{
+			$filter->condition['like'] = array(
+				'manager_id' => $filter->svalue,
+				'manager_login' => $filter->svalue
+			);
+		}
+
+		return $filter;
+	}
+
+	protected function initBalanceFilter()
+	{
+		$filter = new stdClass();
+		$filter->svalue		= '';
+
+		return $filter;
+	}
+
+	public function balance()
+	{
+		try
+		{
+			$filter = $this->initFilter('Balance');
+			$this->load->model('OrderModel', 'Orders');
+
+			$view['balance'] = $this->Orders->getFilteredBalance($this->user->user_id, $filter->svalue);
+
+			// парсим шаблон
+			$view['selfurl'] = BASEURL.$this->cname.'/';
+			$view['viewpath'] = $this->viewpath;
+
+			$this->load->view($this->viewpath."ajax/showBalance", $view);
+		}
+		catch (Exception $e)
+		{
+			//$error->m	= $e->getMessage();
+		}
+	}
+
+	// BOF: перенаправление обработчиков в базовый контроллер
+	public function deletePayment($oid)
+	{
+		parent::deletePayment($oid);
+	}
+
+	public function addProductManualAjax()
+	{
+		parent::addProductManualAjax();
 	}
 
 	public function addO2iComment()
@@ -1812,43 +1756,6 @@ class Client extends BaseController {
 	{
 		parent::removeJoint($order_id, $joint_id);
 	}
-	// EOF: перенаправление обработчиков в базовый контроллер
-
-	protected function init_paging()
-	{
-		$this->load->helper('url');
-		$this->load->library('pagination');
-
-		$handler = $this->uri->segment(2);
-
-		if ($handler == 'order' OR
-			$handler == 'showOpenPayments' OR
-			$handler == 'showPayedPayments')
-		{
-			if ($handler == 'order')
-			{
-				$this->paging_base_url =
-					'/client/showOpenPayments' .
-					'/' .
-					($this->uri->segment(3) ? $this->uri->segment(3) : 0);
-			}
-			else
-			{
-				$this->paging_base_url =
-					'/client/' .
-					($this->uri->segment(2) ? $this->uri->segment(2) : 0) .
-					'/' .
-					($this->uri->segment(3) ? $this->uri->segment(3) : 0);
-			}
-
-			$this->paging_uri_segment = 4;
-			$this->paging_offset = $this->uri->segment(4);
-		}
-		else
-		{
-			parent::init_paging();
-		}
-	}
 
 	public function showOpenPayments($order_id)
 	{
@@ -1865,6 +1772,11 @@ class Client extends BaseController {
 		parent::showPaymentHistory();
 	}
 
+	public function filterBalance()
+	{
+		$this->filter('Balance', 'balance');
+	}
+
 	public function addPaymentFoto()
 	{
 		parent::addPaymentFoto();
@@ -1874,62 +1786,5 @@ class Client extends BaseController {
 	{
 		parent::deletePaymentFoto($o2i_id, $filename);
 	}
-
-	public function filterBalance()
-	{
-		$this->filter('Balance', 'balance');
-	}
-
-	protected function processBalanceFilter()
-	{
-		$filter = $this->initBalanceFilter();
-
-		// сброс фильтра
-		if (isset($_POST['resetFilter']) AND $_POST['resetFilter'] == '1')
-		{
-			return $filter;
-		}
-
-		$filter->svalue		= Check::str('svalue', 255, 1, '');
-
-		if (isset($filter->sfield) AND
-			$filter->sfield)
-		{
-			$filter->condition['like'] = array(
-				'manager_id' => $filter->svalue,
-				'manager_login' => $filter->svalue
-			);
-		}
-
-		return $filter;
-	}
-
-	protected function initBalanceFilter()
-	{
-		$filter = new stdClass();
-		$filter->svalue		= '';
-
-		return $filter;
-	}
-
-	public function balance()
-	{
-		try
-		{
-			$filter = $this->initFilter('Balance');
-			$this->load->model('OrderModel', 'Orders');
-
-			$view['balance'] = $this->Orders->getFilteredBalance($this->user->user_id, $filter->svalue);
-
-			// парсим шаблон
-			$view['selfurl'] = BASEURL.$this->cname.'/';
-			$view['viewpath'] = $this->viewpath;
-
-			$this->load->view($this->viewpath."ajax/showBalance", $view);
-		}
-		catch (Exception $e)
-		{
-			//$error->m	= $e->getMessage();
-		}
-	}
+	// EOF: перенаправление обработчиков в базовый контроллер
 }

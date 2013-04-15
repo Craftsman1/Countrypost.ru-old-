@@ -237,6 +237,20 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 			<td <? if ($is_editable AND $order->order_type != 'service') : ?>colspan="2"<? endif; ?>>&nbsp;</td>
 		</tr>
 		<? endif; ?>
+		<? if ($is_editable) : ?>
+		<tr class="last-row">
+			<td colspan="6">
+					<div class="admin-inside float-left">
+						<div class="submit">
+							<div>
+								<input type="button" value="Добавить товар" onclick="addItem(<?= $order->order_id ?>);">
+							</div>
+						</div>
+					</div>
+
+			</td>
+		</tr>
+		<? endif ?>
 	</table>
 </div>
 <? if ($is_joinable) : ?>

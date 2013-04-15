@@ -1067,7 +1067,7 @@ body {
 	height:25px;
 	}
 	.sorting .first-title {
-		wi dth:137px;
+		width:137px;
 		}
 .sorting span {
 	display:block;
@@ -1145,14 +1145,14 @@ body {
 	display:block;
 	margin:2px 0 0;
 	}
-.admin-inside table .last-row td {
+table .last-row td {
 	padding:0;
 	border:none;
 	}
-	.admin-inside table .last-row .float {
+table .last-row .float {
 		float:right;
 		}
-	.admin-inside table .last-row .floatleft {
+table .last-row .floatleft {
 		float:left;
 		}
 	.admin-inside .submit {
@@ -1164,7 +1164,7 @@ body {
 		width:145px;
 		margin-top:10px;
 		}
-	.admin-inside table .last-row span {
+table .last-row span {
 		display:block;
 		float:left;
 		margin:15px 5px 0 0;
@@ -2030,7 +2030,7 @@ div.order_type_selector div.order {
 }
 
 div.order_type_selector div.order b {
-	font: 20px sans-serif #000 bold!important;
+	font: 20px sans-serif #00000 bold!important;
 	font-size: 17px!important;
 	margin-right: 20px;
 }

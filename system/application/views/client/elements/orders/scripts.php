@@ -210,6 +210,10 @@ function deleteItem(id) {
 	}
 }
 
+function addItem(order_id) {
+	window.location.href = '<?= $selfurl ?>addProduct/' + order_id;
+}
+
 function payItem(id) {
 	if (confirm("Оплатить заказ №" + id + "?")){
 		window.location.href = '<?= $selfurl ?>payOrder/' + id;

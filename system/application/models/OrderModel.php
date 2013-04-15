@@ -21,14 +21,14 @@ class OrderModel extends BaseModel implements IModel{
 		'client' => array(
 			'pending',
 			'processing',
-			'not_payed'),
+			'not_payed',
+			'payed'),
 		'manager' => array(
 			'processing',
 			'not_payed',
 			'not_available',
 			'payed',
-			'bought',
-			'completed'),
+			'bought'),
 		'admin' => array(
 			'processing',
 			'not_payed',
@@ -959,7 +959,7 @@ class OrderModel extends BaseModel implements IModel{
 		{
 			// 1. пробегаем по товарам, собираем суммы
 			$order = $this->calculateTotals($order);
-		
+
 			if (empty($order))
 			{
 				return FALSE;
