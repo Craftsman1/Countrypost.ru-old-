@@ -201,16 +201,16 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 			</td>
 			<? endif; ?>
 			<? if ($is_editable) : ?>
-			<td>
+			<td class="edit_box">
 				<a href="javascript:editItem(<?= $odetail->odetail_id ?>)"
 				   class="edit">
 					<img border="0" src="/static/images/comment-edit.png" title="Редактировать"></a>
-				<br class="cancel" style="display: none;">
+				<a href="javascript:deleteProduct(<?= $odetail->odetail_id ?>)"
+				   class="delete"><img border="0" src="/static/images/delete.png" title="Удалить"></a>
 				<a href="javascript:cancelItem(<?= $odetail->odetail_id ?>)"
 				   class="cancel"
 				   style="display: none;">
 					<img border="0" src="/static/images/comment-delete.png" title="Отменить"></a>
-				<br class="save" style="display: none;">
 				<a href="javascript:saveItem(<?= $odetail->odetail_id ?>)"
 				   class="save"
 				   style="display: none;">
@@ -240,17 +240,16 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 		<? if ($is_editable) : ?>
 		<tr class="last-row">
 			<td colspan="6">
-					<div class="admin-inside float-left">
-						<div class="submit">
-							<div>
-								<input type="button" value="Добавить товар" onclick="addItem(<?= $order->order_id ?>);">
-							</div>
+				<div class="admin-inside float-left">
+					<div class="submit">
+						<div>
+							<input type="button" value="Добавить товар" onclick="addItem(<?= $order->order_id ?>);">
 						</div>
 					</div>
-
+				</div>
 			</td>
 		</tr>
-		<? endif ?>
+		<? endif; ?>
 	</table>
 </div>
 <? if ($is_joinable) : ?>

@@ -185,11 +185,11 @@ function joinProducts()
 		});
 
 		$.post('<?= $selfurl ?>joinProducts/<?= $order->order_id ?>',
-				queryString,
-				function()
-				{
-					self.location.reload();
-				}
+			queryString,
+			function()
+			{
+				self.location.reload();
+			}
 		);
 	}
 }
@@ -202,6 +202,12 @@ function removeJoint(id)
 		window.location.href = '<?= $selfurl ?>removeJoint/<?= $order->order_id ?>/' + id;
 	}
 }
+
+function deleteProduct(id) {
+	if (confirm("Вы уверены, что хотите удалить товар №" + id + "?")){
+		window.location.href = '<?= $selfurl ?>deleteProduct/' + id;
+	}
+}
 // EOF: редактирование деталей заказа
 
 function deleteItem(id) {
@@ -212,17 +218,5 @@ function deleteItem(id) {
 
 function addItem(order_id) {
 	window.location.href = '<?= $selfurl ?>addProduct/' + order_id;
-}
-
-function payItem(id) {
-	if (confirm("Оплатить заказ №" + id + "?")){
-		window.location.href = '<?= $selfurl ?>payOrder/' + id;
-	}
-}
-
-function repayItem(id) {
-	if (confirm("Доплатить за заказ №" + id + "?")){
-		window.location.href = '<?= $selfurl ?>repayOrder/' + id;
-	}
 }
 </script>

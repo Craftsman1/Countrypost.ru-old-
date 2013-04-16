@@ -2893,4 +2893,8 @@ div.countrypost_payment_box label.payment_hover div.totals
 {
 }
 
+td.edit_box img
+{
+	display: block;
+}
 

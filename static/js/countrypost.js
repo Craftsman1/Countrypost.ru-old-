@@ -409,6 +409,7 @@ function cancelItem(id)
 		$tr.find('span.plaintext').show();
 		$tr.find('span.producteditor').hide();
 		$tr.find('.edit').show();
+		$tr.find('.delete').show();
 		$tr.find('.cancel').hide();
 		$tr.find('.save').hide();
 	}
@@ -426,6 +427,7 @@ function editItem(id)
 		$tr.find('span.plaintext').hide();
 		$tr.find('span.producteditor').show();
 		$tr.find('.edit').hide();
+		$tr.find('.delete').hide();
 		$tr.find('.cancel').show();
 		$tr.find('.save').show();
 

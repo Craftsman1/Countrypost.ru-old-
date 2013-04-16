@@ -2942,30 +2942,16 @@ abstract class BaseController extends Controller
     {
         try
         {
-            /*
-            if ( ! $this->user OR
-                 ! $this->user->user_id OR
-                !is_numeric($odid))
+            if ( ! is_numeric($odid))
             {
                 throw new Exception('Доступ запрещен.');
             }
-            */
+
             // безопасность: проверяем связку клиента и товара
             $this->load->model('OdetailModel', 'ODetails');
             $this->load->model('OdetailJointModel', 'Joints');
 
-            if (empty($this->user))
-            {
-                $odetail = $this->ODetails->getById($odid);
-            }
-            else if ($this->user->user_group == 'client')
-            {
-                $odetail = $this->ODetails->getClientOdetailById($odid, $this->user->user_id);
-            }
-            else if ($this->user->user_group == 'admin')
-            {
-                $odetail = $this->ODetails->getById($odid);
-            }
+            $odetail = $this->ODetails->getById($odid);
 
             if ( ! $odetail)
             {
@@ -2977,15 +2963,8 @@ abstract class BaseController extends Controller
                 $odetail->odetail_order,
                 'Невозможно изменить статусы товаров. Заказ не найден.');
 
-            // сохранение результатов
-            if ($this->user->user_group == 'client')
-            {
-                OdetailModel::markUpdatedByClient($order, $odetail, $this->getOrderModel());
-            }
-
             $odetail->odetail_status = 'deleted';
 
-            $this->db->trans_begin();
             // удаляем товар из объединенной доставки
             if ($odetail->odetail_joint_id)
             {
@@ -3009,7 +2988,6 @@ abstract class BaseController extends Controller
                 }
             }
 
-            // TODO : Возвращает BOOL значение а не объект, работает каким-то чудом =)
             $deleted_odetail = $this->ODetails->addOdetail($odetail);
 
             if ( ! $deleted_odetail)
@@ -3017,149 +2995,19 @@ abstract class BaseController extends Controller
                 throw new Exception('Товар не удален. Попробуйте еще раз.');
             }
 
-            // Закоментировал ибо ломает удаление товара из заказа
-            //$is_order_deleted = TRUE;
-            /*
-                        // меняем статус заказа
-                        if ( ! $this->ODetails->getOrderDetails($order->order_id))
-                        {
-                            $order->order_status = 'deleted';
-                            $is_order_deleted = TRUE;
-                        }
-                        else
-                        {
-                            $status = $this->ODetails->getTotalStatus($order->order_id);
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order))
+			{
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
 
-                            if ( ! $status)
-                            {
-                                throw new Exception('Невозможно изменить статус заказа. Попоробуйте еще раз.');
-                            }
-
-                            $recent_status = $order->order_status;
-
-                            if ($recent_status != 'payed' AND $recent_status != 'sent')
-                            {
-                                $order->order_status = $this->Orders->calculateOrderStatus($status);
-                                $is_new_status = ($recent_status != $order->order_status);
-                                $status_caption = $this->Orders->getOrderStatusDescription($order->order_status);
-                            }
-                        }
-
-                        // пересчитываем стоимость заказа
-                        $this->load->model('ConfigModel', 'Config');
-
-                        if ( ! $this->Orders->recalculate($order, $this->ODetails, $this->Joints, $this->Config))
-                        {
-                            throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
-                        }
-
-                        // сохраняем изменения в заказе
-                        $new_order = $this->Orders->saveOrder($order);
-
-                        if ( ! $new_order)
-                        {
-                            throw new Exception('Невожможно изменить статус заказа. Попоробуйте еще раз.');
-                        }
-            */
-            $this->db->trans_commit();
-
-            // уведомления, только если остались товары в заказе
-            if (isset($is_new_status) AND $is_new_status AND !isset($is_order_deleted))
-            {
-                $this->load->model('ManagerModel', 'Managers');
-                $this->load->model('UserModel', 'Users');
-                $this->load->model('ClientModel', 'Clients');
-
-                /*
-                Mailer::sendAdminNotification(
-                    Mailer::SUBJECT_NEW_ORDER_STATUS,
-                    Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-                    0,
-                    $order->order_id,
-                    0,
-                    "http://countrypost.ru/admin/showOrderDetails/{$order->order_id}",
-                    NULL,
-                    NULL,
-                    $status_caption);
-
-                Mailer::sendManagerNotification(
-                    Mailer::SUBJECT_NEW_ORDER_STATUS,
-                    Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-                    $order->order_manager,
-                    $order->order_id,
-                    0,
-                    "http://countrypost.ru/manager/showOrderDetails/{$order->order_id}",
-                    $this->Managers,
-                    NULL,
-                    $status_caption);
-
-                Mailer::sendClientNotification(
-                    Mailer::SUBJECT_NEW_ORDER_STATUS,
-                    Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-                    $order->order_id,
-                    $order->order_client,
-                    "http://countrypost.ru/client/showOrderDetails/{$order->order_id}",
-                    $this->Clients,
-                    $status_caption);
-                */
-            }
-        }
+			$this->Orders->saveOrder($order);
+		}
         catch (Exception $e)
         {
-            $this->db->trans_rollback();
-
-            $this->result->e = -1;
-            $this->result->m = $e->getMessage();
         }
 
-        // открываем заказы
-        Stack::push('result', $this->result);
-        $this->result->e = 1;
-        $this->result->join_status = 1;
-
-        if (isset($is_order_deleted))
-        {
-            // уведомления, удаленный заказ
-            $this->load->model('ManagerModel', 'Managers');
-            $this->load->model('UserModel', 'Users');
-            $this->load->model('ClientModel', 'Clients');
-
-            Mailer::sendAdminNotification(
-                Mailer::SUBJECT_ORDER_DELETED_STATUS,
-                Mailer::ORDER_DELETED_NOTIFICATION,
-                0,
-                $order->order_id,
-                0,
-                NULL,
-                NULL,
-                NULL);
-
-            Mailer::sendManagerNotification(
-                Mailer::SUBJECT_ORDER_DELETED_STATUS,
-                Mailer::ORDER_DELETED_NOTIFICATION,
-                $order->order_manager,
-                $order->order_id,
-                0,
-                NULL,
-                $this->Managers,
-                NULL);
-
-            Mailer::sendClientNotification(
-                Mailer::SUBJECT_ORDER_DELETED_STATUS,
-                Mailer::ORDER_DELETED_NOTIFICATION,
-                $order->order_id,
-                $order->order_client,
-                NULL,
-                $this->Clients);
-
-            $this->result->m = 'Заказ успешно удален.';
-            Func::redirect(BASEURL.$this->cname.'/showOpenOrders');
-        }
-        else
-        {
-            $this->result->m = 'Товар успешно удален.';
-            Func::redirect($_SERVER['HTTP_REFERER']);
-        }
+		Func::redirect($_SERVER['HTTP_REFERER']);
     }
 
     protected function deleteNewProduct($oid, $odid)
