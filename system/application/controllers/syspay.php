@@ -372,7 +372,7 @@ sSignatureValue
 
 			$this->payOrder($order_id, $payment_obj, $amount_usd);
 
-			$status	= 'OK'.$ptransfer;
+			$status	= 'OK' . $ptransfer;
 		}
 		catch (Exception $e)
 		{
@@ -735,15 +735,14 @@ sSignatureValue
 				$user_from			= Check::str('LMI_PAYER_PURSE', 64,1);
 
 				$payment_obj = new stdClass();
-				$payment_obj->payment_from				= '[WM] LMI_PAYER_PURSE]: '.$user_from;// зачисление на счет пользователя
-				$payment_obj->payment_to				= $user_id;
+				$payment_obj->payment_from				= $user_id;
 				$payment_obj->payment_tax				= WM_IN_TAX.'%';
 				$payment_obj->payment_amount_rur		= $amount;
 				$payment_obj->payment_amount_from		= $amount_usd;
 				$payment_obj->payment_amount_tax		= $tax_usd;
 				$payment_obj->payment_amount_to			= $amount_usd;
 				$payment_obj->payment_purpose			= 'зачисление на счет пользователя';
-				$payment_obj->payment_comment			= $user_comment;
+				$payment_obj->payment_comment			= '№ ' . $order_id;
 				$payment_obj->payment_type				= 'in';
 				$payment_obj->payment_status			= 'complite';
 				$payment_obj->payment_transfer_info		= 'WM Transfer ID: '.$wm_transfer_id;
@@ -885,15 +884,14 @@ sSignatureValue
 				$user_from			= Check::str('LMI_PAYER_PURSE', 64,1);
 				
 				$payment_obj = new stdClass();
-				$payment_obj->payment_from				= '[WMZ] LMI_PAYER_PURSE]: ' . $user_from;
-				$payment_obj->payment_to				= $user_id;
+				$payment_obj->payment_from				= $user_id;
 				$payment_obj->payment_tax				= $tax_usd;
 				$payment_obj->payment_amount_rur		= '';
 				$payment_obj->payment_amount_from		= $amount_usd;
 				$payment_obj->payment_amount_tax		= $tax_usd;
 				$payment_obj->payment_amount_to			= $amount_usd;
-				$payment_obj->payment_purpose			= 'зачисление на счет пользователя';
-				$payment_obj->payment_comment			= '';
+				$payment_obj->payment_purpose			= 'оплата заказа';
+				$payment_obj->payment_comment			= '№ ' . $order_id;
 				$payment_obj->payment_type				= 'in';
 				$payment_obj->payment_status			= 'complite';
 				$payment_obj->payment_transfer_info		= 'WMZ Transfer ID: ' . $wm_transfer_id;
@@ -903,25 +901,7 @@ sSignatureValue
 				$payment_obj->status					= 'not_payed';
 				$payment_obj->order_id					= $order_id;
 
-				$this->load->model('PaymentModel', 'Payment');
-				$this->Payment->_load($payment_obj);
-				$r = $this->Payment->makeCharge();
-				
-				if (is_object($r))
-				{
-					echo 'NO ->>'.$r->getMessage();
-					$addLog	= "Status: FAIL! ".$r->getMessage()."\n";
-				}
-				elseif ((int)$r)
-				{
-					echo "YES";
-					$addLog	= "Status: OK! [payment_id=$r]\n";
-				}
-				else
-				{
-					echo "NO ->> unknown merchant error!\n" ;
-					$addLog	= "Status: FAIL! (unknown merchant error)\n";
-				}
+				$this->payOrder($order_id, $payment_obj, $amount_usd);
 			}
 		}
 		
