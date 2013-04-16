@@ -11,23 +11,23 @@
 	<? View::show('elements/div_bottom'); ?>
 	<? View::show('elements/div_footer'); ?>
 	<script type="text/javascript">
-	reformal_wdg_domain    = "Countrypost";
-	reformal_wdg_mode    = 0;
-	reformal_wdg_title   = "Countrypost.ru - сервис покупок в Китае и Корее";
-	reformal_wdg_ltitle  = "Оставьте свой отзыв";
-	reformal_wdg_lfont   = "";
-	reformal_wdg_lsize   = "";
-	reformal_wdg_color   = "#5c567d";
-	reformal_wdg_bcolor  = "#516683";
-	reformal_wdg_tcolor  = "#FFFFFF";
-	reformal_wdg_align   = "left";
-	reformal_wdg_charset = "windows-1251";
-	reformal_wdg_waction = 0;
-	reformal_wdg_vcolor  = "#9FCE54";
-	reformal_wdg_cmline  = "#E0E0E0";
-	reformal_wdg_glcolor  = "#105895";
-	reformal_wdg_tbcolor  = "#FFFFFF";
-	reformal_wdg_bimage = "7688f5685f7701e97daa5497d3d9c745.png";
-	</script>
-	<script type="text/javascript" language="JavaScript" src="http://reformal.ru/tab6.js?charset=windows-1251"></script><noscript><a href="http://Countrypost.reformal.ru">Countrypost.ru - сервис покупок в Китае и Корее feedback </a> <a href="http://reformal.ru"><img src="http://reformal.ru/i/logo.gif" /></a></noscript>
+    var reformalOptions = {
+        project_id: 41409,
+        project_host: "Countrypost.reformal.ru",
+        tab_orientation: "left",
+        tab_indent: "50%",
+        tab_bg_color: "#5c567d",
+        tab_border_color: "#FFFFFF",
+        tab_image_url: "http://tab.reformal.ru/T9GC0LfRi9Cy0Ysg0Lgg0L%252FRgNC10LTQu9C%252B0LbQtdC90LjRjw==/FFFFFF/4bfb34d91c8d7fb481972ca3c84aec38/left/0/tab.png",
+        tab_border_width: 2
+    };
+    
+    (function() {
+        var script = document.createElement('script');
+        script.type = 'text/javascript'; script.async = true;
+        script.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'media.reformal.ru/widgets/v3/reformal.js';
+        document.getElementsByTagName('head')[0].appendChild(script);
+    })();
+	</script><noscript><a href="http://reformal.ru"><img src="http://media.reformal.ru/reformal.png" /></a><a href="http://Countrypost.reformal.ru">Oтзывы и предложения для Countrypost.ru - сервис покупок за рубежом</a></noscript>
+	
 </body>
