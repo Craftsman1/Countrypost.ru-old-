@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbscripts/2013-04-16 21-27 cash uah.sql" afterPath="$PROJECT_DIR$/dbscripts/2013-04-16 21-27 cash uah.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OrderModel.php" afterPath="$PROJECT_DIR$/system/application/models/OrderModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/client.php" afterPath="$PROJECT_DIR$/system/application/controllers/client.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -20,6 +24,9 @@
     <file path="/syspay.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366124665077" ignored="false" />
     <file path="/BidModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366276993512" ignored="false" />
     <file path="/manager.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366277460628" ignored="false" />
+    <file path="/2013-04-16 21-27 cash uah.sql" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366291386764" ignored="false" />
+    <file path="/div_o2i.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366304665142" ignored="false" />
+    <file path="/generic_popup.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366304218090" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,46 +51,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="syspay.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/syspay.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="781" column="51" selection-start="25266" selection-end="25266" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="newBid.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="33" selection-start="973" selection-end="973" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="countrypost.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="418" column="0" selection-start="9371" selection-end="9371" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="editBid.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="45" selection-start="858" selection-end="858" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="OrderModel.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1001" column="77" selection-start="26226" selection-end="26226" vertical-scroll-proportion="-19.0">
+            <state line="25" column="12" selection-start="698" selection-end="698" vertical-scroll-proportion="-17.241379">
               <folding />
             </state>
           </provider>
@@ -98,37 +69,80 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="div_o2i.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="div_o2i.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="704" column="35" selection-start="18849" selection-end="18849" vertical-scroll-proportion="0.6662234">
+            <state line="39" column="21" selection-start="1467" selection-end="1467" vertical-scroll-proportion="-21.793104">
+              <folding>
+                <element signature="e#5207#5428#0" expanded="false" />
+                <element signature="e#5474#5562#0" expanded="false" />
+                <element signature="e#5609#6006#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="client.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="562" column="0" selection-start="15278" selection-end="15278" vertical-scroll-proportion="-19.965517">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manager.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
+      <file leaf-file-name="terms.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/terms.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="286" column="58" selection-start="6352" selection-end="6352" vertical-scroll-proportion="-2.4629629">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ManagerModel.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/models/ManagerModel.php">
+      <file leaf-file-name="syspay.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/syspay.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="52" selection-start="1907" selection-end="1907" vertical-scroll-proportion="0.0">
+            <state line="241" column="0" selection-start="6463" selection-end="6916" vertical-scroll-proportion="-4.685185">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editBidForm.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/editBidForm.php">
+      <file leaf-file-name="form_immediate_wmr.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/form_immediate_wmr.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="190" selection-end="190" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="generic_popup.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="66" column="20" selection-start="2115" selection-end="2115" vertical-scroll-proportion="-0.6896552">
+              <folding>
+                <element signature="n#style#0;n#b#3;n#p#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#b#4;n#p#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="countrypost.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="436" column="55" selection-start="9905" selection-end="9905" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="payments.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/config/payments.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="225" column="33" selection-start="8039" selection-end="8039" vertical-scroll-proportion="-19.034483">
               <folding />
             </state>
           </provider>
@@ -154,22 +168,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/views/client/pages/showAddProduct.php" />
-        <option value="$PROJECT_DIR$/static/css/style.css" />
-        <option value="$PROJECT_DIR$/static/js/countrypost.js" />
         <option value="$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
         <option value="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" />
-        <option value="$PROJECT_DIR$/system/application/config/payments.php" />
-        <option value="$PROJECT_DIR$/dbscripts/2013-04-16 21-27 cash uah.sql" />
         <option value="$PROJECT_DIR$/system/application/views/syspay/elements/form_immediate_wmr.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/syspay.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php" />
         <option value="$PROJECT_DIR$/system/application/models/ManagerModel.php" />
-        <option value="$PROJECT_DIR$/system/application/models/OrderModel.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
         <option value="$PROJECT_DIR$/system/application/models/BidModel.php" />
+        <option value="$PROJECT_DIR$/system/application/models/OrderModel.php" />
+        <option value="$PROJECT_DIR$/dbscripts/2013-04-16 21-27 cash uah.sql" />
+        <option value="$PROJECT_DIR$/system/application/config/payments.php" />
+        <option value="$PROJECT_DIR$/static/js/countrypost.js" />
+        <option value="$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php" />
         <option value="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
       </list>
     </option>
   </component>
@@ -598,7 +612,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.231875" sideWeight="0.34076828" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23125" sideWeight="0.3135068" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.316875" sideWeight="0.3135068" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.238125" sideWeight="0.33375958" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24229075" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
@@ -688,100 +702,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2941" column="5" selection-start="83008" selection-end="83008" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="207" column="49" selection-start="7018" selection-end="7018" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/config/payments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="224" column="15" selection-start="7992" selection-end="7992" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dbscripts/2013-04-16 21-27 cash uah.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/form_immediate_rbk.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="67" selection-start="930" selection-end="943" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/form_immediate_wmr.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="7" selection-start="1456" selection-end="1456" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/syspay.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="781" column="51" selection-start="25266" selection-end="25266" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="33" selection-start="973" selection-end="973" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="418" column="0" selection-start="9371" selection-end="9371" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/editBidForm.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="190" selection-end="190" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="45" selection-start="858" selection-end="858" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/ManagerModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="52" selection-start="1907" selection-end="1907" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1001" column="77" selection-start="26226" selection-end="26226" vertical-scroll-proportion="-19.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="286" column="58" selection-start="6352" selection-end="6352" vertical-scroll-proportion="-2.4629629">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/models/BidModel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="250" column="0" selection-start="5012" selection-end="5012" vertical-scroll-proportion="-14.586206">
@@ -789,9 +709,114 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="12" selection-start="698" selection-end="698" vertical-scroll-proportion="-17.241379">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbscripts/2013-02-12 23-51 payments.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbscripts/2013-04-04 17-13 managers.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbscripts/2013-04-01 11-58 payment systems.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="0" selection-start="1416" selection-end="1616" vertical-scroll-proportion="-23.28">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbscripts/2013-04-16 21-27 cash uah.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="83" selection-start="0" selection-end="199" vertical-scroll-proportion="0.027210884">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbscripts/2013-02-25 15-59 exchange rates.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbscripts/2013-02-22 19-02 payments + history.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/config/payments.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="225" column="33" selection-start="8039" selection-end="8039" vertical-scroll-proportion="-19.034483">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="436" column="55" selection-start="9905" selection-end="9905" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="20" selection-start="2115" selection-end="2115" vertical-scroll-proportion="-0.6896552">
+          <folding>
+            <element signature="n#style#0;n#b#3;n#p#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#b#4;n#p#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="704" column="35" selection-start="18849" selection-end="18849" vertical-scroll-proportion="0.6662234">
+        <state line="39" column="21" selection-start="1467" selection-end="1467" vertical-scroll-proportion="-21.793104">
+          <folding>
+            <element signature="e#5207#5428#0" expanded="false" />
+            <element signature="e#5474#5562#0" expanded="false" />
+            <element signature="e#5609#6006#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="562" column="0" selection-start="15278" selection-end="15278" vertical-scroll-proportion="-19.965517">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/terms.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/syspay.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="241" column="0" selection-start="6463" selection-end="6916" vertical-scroll-proportion="-4.685185">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/form_immediate_wmr.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>

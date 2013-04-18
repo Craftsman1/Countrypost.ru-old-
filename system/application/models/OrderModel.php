@@ -22,6 +22,7 @@ class OrderModel extends BaseModel implements IModel{
 			'pending',
 			'processing',
 			'not_payed',
+			'not_available',
 			'payed'),
 		'manager' => array(
 			'processing',

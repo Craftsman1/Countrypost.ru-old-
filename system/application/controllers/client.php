@@ -553,9 +553,14 @@ class Client extends BaseController {
 						$order2in->order2in_amount_local = Check::float('total_usd');
 						$order2in->order2in_currency = 'USD';
 						break;
+					case 'cuu' :
+						$order2in->order2in_amount = Check::int('total_local');
+						$order2in->order2in_amount_local = Check::float('total_uah');
+						$order2in->order2in_currency = 'UAH';
+						break;
 				}
 			}
-//print_r($order2in);die();
+
 			if ($order2in->order2in_amount <= 0 OR
 				$order2in->order2in_amount_local <= 0)
 			{

@@ -12,6 +12,7 @@
 		Вам нужно перевести
 		<b><b class="generic_amount_ru"></b> RUB</b>
 		<b><b class="generic_amount_usd"></b> USD</b>
+		<b style="display: none;"><b class="generic_amount_uah"></b> UAH</b>
 		<b class="generic_account" style="font-weight: normal;"></b>.
 		После перевода сохраните квитанцию.
 	</p>
@@ -20,6 +21,7 @@
 		<input type="hidden" name="payment_service" class="generic_service" value="" />
 		<input type="hidden" name="total_ru" class="generic_amount_ru" value="" />
 		<input type="hidden" name="total_usd" class="generic_amount_usd" value="" />
+		<input type="hidden" name="total_uah" class="generic_amount_uah" value="" />
 		<input type="hidden" name="total_local" class="generic_amount_local" value="" />
 		<table>
 			<tr>
@@ -66,7 +68,8 @@
 							  generic_service,
 							  amount_ru,
 							  amount_usd,
-							  payment_amount)
+							  payment_amount,
+							  currency)
 	{
 		$('.generic_service').val(generic_service).html(generic_service);
 		$('.generic_name').html(generic_name).val(generic_name);
@@ -83,6 +86,10 @@
 			.html(payment_amount);
 
 		$('.generic_amount_ru')
+			.val(amount_ru)
+			.html(amount_ru);
+
+		$('.generic_amount_uah')
 			.val(amount_ru)
 			.html(amount_ru);
 
@@ -103,6 +110,21 @@
 				.hide();
 
 			$('.generic_amount_usd')
+				.parent()
+				.show();
+		}
+
+		if (currency == 'UAH')
+		{
+			$('.generic_amount_ru')
+				.parent()
+				.hide();
+
+			$('.generic_amount_usd')
+				.parent()
+				.hide();
+
+			$('.generic_amount_uah')
 				.parent()
 				.show();
 		}
