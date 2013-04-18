@@ -222,6 +222,7 @@ define('VM_ACCOUNT_EXAMPLE', 'Пример: 9161234567');
 
 // Нал
 define('CUS_USD_IN_TAX', 1);
+define('CUS_UAH_IN_TAX', 1);
 define('CUS_USD_IN_ACCOUNT', '');
 define('CUS_SERVICE_NAME', 'Наличными в Москве');
 define('CUS_SERVICE_DESCRIPTION', 'Оплата наличными в Москве');

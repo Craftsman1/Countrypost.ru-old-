@@ -284,7 +284,7 @@ class Manager extends BaseController {
 			}
 
 			// 6. пересчитываем и сохраняем предложение и заказ
-			if ( ! $this->Orders->recalculate($order))
+			if ( ! $this->Orders->recalculate($order, TRUE))
 			{
 				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}

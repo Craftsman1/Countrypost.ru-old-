@@ -953,7 +953,7 @@ class OrderModel extends BaseModel implements IModel{
 	
 	// полный пересчет стоимости заказа
 	// например, при удалении товара
-	public function recalculate($order)
+	public function recalculate($order, $skip_manager_tax = FALSE)
 	{
 		try
 		{
@@ -999,7 +999,7 @@ class OrderModel extends BaseModel implements IModel{
 			{
 				$bid->bid_extras = $ci->Bids->getBidExtras($bid->bid_id);
 
-				if ( ! $ci->Bids->recalculate($bid, $order))
+				if ( ! $ci->Bids->recalculate($bid, $order, $skip_manager_tax))
 				{
 					return FALSE;
 				}
@@ -1033,7 +1033,6 @@ class OrderModel extends BaseModel implements IModel{
 				{
 					$order->order_status = 'payed';
 				}
-				//print_r($total_status);die();
 			}
 		}
 		catch (Exception $e) 

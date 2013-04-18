@@ -54,7 +54,7 @@ class ManagerModel extends BaseModel implements IModel{
 		$this->properties->manager_balance_local	=0;
 		$this->properties->manager_description		='';
 		$this->properties->order_tax				='';
-		$this->properties->order_mail_forwarding_tax				='';
+		$this->properties->order_mail_forwarding_tax='';
 		$this->properties->min_order_tax			='';
 		$this->properties->join_tax					='';
 		$this->properties->foto_tax					='';

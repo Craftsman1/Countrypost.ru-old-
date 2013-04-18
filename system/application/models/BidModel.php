@@ -252,11 +252,18 @@ class BidModel extends BaseModel implements IModel{
 			// при добавлении и редактировании предложения пропускаем пересчет комиссии, оставляем то что он ввел
 			if ( ! $skip_manager_tax)
 			{
-				$bid->manager_tax = ceil(
-					$manager->order_tax *
-					($order->order_products_cost +
-						$order->order_delivery_cost) *
-					0.01);
+				if ($order->order_type == 'mail_forwarding')
+				{
+					$bid->manager_tax = $manager->order_mail_forwarding_tax;
+				}
+				else
+				{
+					$bid->manager_tax = ceil(
+						$manager->order_tax *
+						($order->order_products_cost +
+							$order->order_delivery_cost) *
+						0.01);
+				}
 			}
 
 			if ($bid->manager_tax < $manager->min_order_tax)

@@ -723,24 +723,23 @@ sSignatureValue
 				##########	
 				// TODO: OK
 				##########
-				$user_comment		= Check::str('User_comment', 512,1);
 				$amount_usd			= Check::int('User_amount');
+				$amount		= Check::float('User_comment');
 				$tax_usd			= Check::float('User_tax');
 				$user_id			= Check::int('User_id');
 				$order_id			= Check::int('order');
 
-				$amount				= Check::int('LMI_PAYMENT_AMOUNT');
+				$amount_ru				= Check::int('LMI_PAYMENT_AMOUNT');
 				$wm_transfer_id		= Check::int('LMI_SYS_TRANS_NO');
 				$transfer_order_id	= Check::int('LMI_PAYMENT_NO');
-				$user_from			= Check::str('LMI_PAYER_PURSE', 64,1);
 
 				$payment_obj = new stdClass();
 				$payment_obj->payment_from				= $user_id;
 				$payment_obj->payment_tax				= WM_IN_TAX.'%';
-				$payment_obj->payment_amount_rur		= $amount;
-				$payment_obj->payment_amount_from		= $amount_usd;
+				$payment_obj->payment_amount_rur		= $amount_ru;
+				$payment_obj->payment_amount_from		= $amount;
 				$payment_obj->payment_amount_tax		= $tax_usd;
-				$payment_obj->payment_amount_to			= $amount_usd;
+				$payment_obj->payment_amount_to			= $amount;
 				$payment_obj->payment_purpose			= 'зачисление на счет пользователя';
 				$payment_obj->payment_comment			= '№ ' . $order_id;
 				$payment_obj->payment_type				= 'in';
