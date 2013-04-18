@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/BidModel.php" afterPath="$PROJECT_DIR$/system/application/models/BidModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/ManagerModel.php" afterPath="$PROJECT_DIR$/system/application/models/ManagerModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OrderModel.php" afterPath="$PROJECT_DIR$/system/application/models/OrderModel.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/form_immediate_wmr.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/form_immediate_wmr.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/manager.php" afterPath="$PROJECT_DIR$/system/application/controllers/manager.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/config/payments.php" afterPath="$PROJECT_DIR$/system/application/config/payments.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/syspay.php" afterPath="$PROJECT_DIR$/system/application/controllers/syspay.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -110,10 +101,8 @@
       <file leaf-file-name="div_o2i.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="710" column="17" selection-start="19033" selection-end="19033" vertical-scroll-proportion="0.82579786">
-              <folding>
-                <element signature="e#18776#19033#0" expanded="true" />
-              </folding>
+            <state line="704" column="35" selection-start="18849" selection-end="18849" vertical-scroll-proportion="0.6662234">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -802,10 +791,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="710" column="17" selection-start="19033" selection-end="19033" vertical-scroll-proportion="0.82579786">
-          <folding>
-            <element signature="e#18776#19033#0" expanded="true" />
-          </folding>
+        <state line="704" column="35" selection-start="18849" selection-end="18849" vertical-scroll-proportion="0.6662234">
+          <folding />
         </state>
       </provider>
     </entry>

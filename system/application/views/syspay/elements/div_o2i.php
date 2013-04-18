@@ -701,13 +701,13 @@ $payable_amount =
 				'image' => 'anelik.png',
 				'selected' => FALSE
 			)); ?>
-			<? /*View::show('/syspay/elements/generic_o2i', array(
-				'service_code' => 'cuu',
+			<? View::show('/syspay/elements/generic_o2i', array(
+				'service_code' => '',
 				'service_code_usd' => 'cus',
 				'service_name' => CUS_SERVICE_NAME,
 				'title' => CUS_SERVICE_DESCRIPTION,
 				'image' => 'cash_usd.png',
 				'selected' => FALSE
-			));*/ ?>
+			)); ?>
 	</div>
 </div>
