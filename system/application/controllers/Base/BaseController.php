@@ -403,8 +403,8 @@ abstract class BaseController extends Controller
 
 			// находим клиента
 			$view['client'] = $this->Clients->getClientById($view['order']->order_client);
-			if ($this->user->user_group == 'manager')	$view['user'] = $this->Managers->getClientById($this->user->user_id);
-			if ($this->user->user_group == 'client')	$view['user'] = $this->Clients->getClientById($this->user->user_id);
+			if ($this->user->user_group == 'manager')	$view['user_data'] = $this->Managers->getById($this->user->user_id);
+			if ($this->user->user_group == 'client')	$view['user_data'] = $this->Clients->getClientById($this->user->user_id);
 		
  
 			$this->processStatistics($view['client'], $statistics, 'client_user', $view['client']->client_user, 'client');
@@ -1421,7 +1421,9 @@ abstract class BaseController extends Controller
 			$this->load->model('ManagerModel', 'Managers');
 			$this->load->model('CountryModel', 'Countries');
 			$this->processStatistics($comment, array(), 'user_id', $this->user->user_id, $this->user->user_group);
-			
+			if ($this->user->user_group == 'manager')	$view['user'] = $this->Managers->getById($this->user->user_id);
+			if ($this->user->user_group == 'client')	$view['user'] = $this->Clients->getClientById($this->user->user_id);
+		
 			$view['comment'] = $comment;
 			$view['countries'] = $this->Countries->getArray();
 
