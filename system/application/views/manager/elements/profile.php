@@ -4,11 +4,12 @@
 	<div class='angle angle-lb'></div>
 	<div class='angle angle-rb'></div>
 	<div class="dealer_profile_left">
-		<form action="<?= $selfurl ?>addProductManualAjax" id="onlineItemForm" method="POST">
-			<img src="<?= IMG_PATH ?>avatar_big.png" width="200px" height="200px">
+		<form action="/manager/saveProfilePhoto" enctype='multipart/form-data'  id="profilePhotoForm" method="POST">
+			<img src="<? if(!$manager->avatar){echo IMG_PATH ?>avatar_big.png<?}else echo $manager->avatar?>" id="img_place" width="200px" height="200px">
 			<br>
 			<br>
-			<a href="javascript:void(0);">изменить фото</a>
+			<input class="textbox screenshot_uploader_box" type='file' id='pr_file' name="userfile" style='display:none;width:180px;'>
+			<a id="select_file" href="javascript:void();">изменить фото</a>
 		</form>
 	</div>
 	<div class='profile_box admin-inside'>
@@ -205,7 +206,37 @@
             expression: "if (VAL.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) return true; else return false;",
             message: "Введите правильный email"
         });
+		
+		$('a#select_file').click(function(e) {
+			$('#pr_file').click();
+		});
+		
+		$('#pr_file').change(function(e) {
+			$('#profilePhotoForm').submit();
+		});
 
+		$('#profilePhotoForm').ajaxForm({
+			target: '/manager/saveProfilePhoto',
+			type: 'POST',
+			dataType: 'html',
+			iframe: true,
+			beforeSubmit: function(formData, jqForm, options)
+			{
+				$("#profileProgress").show();
+
+			},
+			success: function(response)
+			{
+				$("#profileProgress").hide();
+				success('top', 'Аватар успешно сохранен!');
+				$("#img_place").attr('src',response);
+			},
+			error: function(response)
+			{
+				$("#profileProgress").hide();
+			}
+		});
+		
 		$('#profileForm').ajaxForm({
 			target: '/manager/saveProfile',
 			type: 'POST',
