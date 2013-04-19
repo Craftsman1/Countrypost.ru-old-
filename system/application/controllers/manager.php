@@ -402,7 +402,86 @@ class Manager extends BaseController {
 	{
 		parent::addPaymentComment($payment_id, $comment_id);
 	}
+	
+	public function saveProfilePhoto()
+	{
+		try
+		{
+			// находим пользователя
+			$this->load->model('UserModel', 'User');
+			$user = $this->User->getById($this->user->user_id);
 
+			// находим партнера
+			$this->load->model('ManagerModel', 'Manager');
+			$manager 		= $this->Manager->getById($this->user->user_id);
+			$userfile		= (isset($_FILES['userfile']) AND ! $_FILES['userfile']['error']);
+			
+			
+			$this->db->trans_begin();
+			
+			if ($userfile)
+			{ 
+				// загрузка файла
+
+				
+				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/avatars";
+				$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
+				$config['max_size']				= '3072';
+				$config['encrypt_name'] 		= TRUE;
+				$max_width						= 1024;
+				$max_height						= 768;
+				$this->load->library('upload', $config);
+
+				if ( ! $this->upload->do_upload())
+				{
+					throw new Exception(strip_tags(trim($this->upload->display_errors())));
+				}
+				
+				$uploadedImg = $this->upload->data();
+				if (!rename($uploadedImg['full_path'],$_SERVER['DOCUMENT_ROOT']."/upload/avatars/".$this->user->user_id.".jpg"))
+				{
+					throw new Exception("Bad file name!");
+				}
+				
+				$uploadedImg	= $_SERVER['DOCUMENT_ROOT']."/upload/avatars/".$this->user->user_id.".jpg";
+				$imageInfo		= getimagesize($uploadedImg);
+
+				if ($imageInfo[0]>$max_width OR $imageInfo[1]>$max_height)
+				{
+					$config['image_library']	= 'gd2';
+					$config['source_image']		= $uploadedImg;
+					$config['maintain_ratio']	= TRUE;
+					$config['width']			= $max_width;
+					$config['height']			= $max_height;
+					
+					$this->load->library('image_lib', $config); // загружаем библиотеку
+					$this->image_lib->resize(); // и вызываем функцию
+				}
+
+                $manager->avatar = "/upload/avatars/".$this->user->user_id.".jpg";
+			}
+			// наконец, все сохраняем
+			$manager = $this->Manager->updateManager($manager);
+
+            if (!$manager)
+			{ 
+				throw new Exception('Клиент не сохранен. Попробуйте еще раз.');
+			}
+			
+			// коммитим транзакцию
+			if ($this->db->trans_status() === FALSE) 
+			{ 
+				throw new Exception('Невозможно сохранить данные партнера. Попробуйте еще раз.');
+			} 
+			echo $manager->avatar.'?r='.rand(0,99999);		
+			$this->db->trans_commit();
+		}
+		catch (Exception $e) 
+		{
+			$this->db->trans_rollback();
+		}
+	}
+		
 	public function saveProfile()
 	{
 		try

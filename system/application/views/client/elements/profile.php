@@ -4,11 +4,12 @@
 	<div class='angle angle-lb'></div>
 	<div class='angle angle-rb'></div>
 	<div class="dealer_profile_left">
-		<form action="/client/saveProfile" id="onlineItemForm" method="POST">
-			<img src="<?= IMG_PATH ?>avatar_big.png" width="200px" height="200px">
+		<form action="/client/saveProfilePhoto" enctype='multipart/form-data'  id="profilePhotoForm" method="POST">
+			<img src="<? if(!$client->avatar){echo IMG_PATH ?>avatar_big.png<?}else echo $client->avatar?>" id="img_place" width="200px" height="200px">
 			<br>
 			<br>
-			<a href="javascript:void();">изменить фото</a>
+			<input class="textbox screenshot_uploader_box" type='file' id='pr_file' name="userfile" style='display:none;width:180px;'>
+			<a id="select_file" href="javascript:void();">изменить фото</a>
 		</form>
 	</div>
 	<div class='profile_box admin-inside'>
@@ -173,6 +174,42 @@
             message: "Введите правильный email"
         });
 		
+		$('a#select_file').click(function(e) {
+			$('#pr_file').click();
+		});
+		
+		$('#pr_file').change(function(e) {
+			$('#profilePhotoForm').submit();
+		});
+
+		$('#profilePhotoForm').ajaxForm({
+			target: '/client/saveProfilePhoto',
+			type: 'POST',
+			dataType: 'html',
+			iframe: true,
+			beforeSubmit: function(formData, jqForm, options)
+			{
+				$("#profileProgress").show();
+				// Валидация перед отправкой
+                var valid = validateProfileForm();
+
+                if (!valid)
+                    $("#profileProgress").hide();
+
+				return validateProfileForm();
+			},
+			success: function(response)
+			{
+				$("#profileProgress").hide();
+				success('top', 'Аватар успешно сохранен!');
+				$("#img_place").attr('src',response);
+			},
+			error: function(response)
+			{
+				$("#profileProgress").hide();
+			}
+		});
+		
 		$('#profileForm').ajaxForm({
 			target: '/client/saveProfile',
 			type: 'POST',
@@ -193,6 +230,7 @@
 			{
 				$("#profileProgress").hide();
 				success('top', 'Персональные данные успешно сохранены!');
+			 
 			},
 			error: function(response)
 			{
