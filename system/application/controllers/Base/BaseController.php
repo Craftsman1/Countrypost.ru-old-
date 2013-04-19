@@ -403,7 +403,10 @@ abstract class BaseController extends Controller
 
 			// находим клиента
 			$view['client'] = $this->Clients->getClientById($view['order']->order_client);
-
+			if ($this->user->user_group == 'manager')	$view['user'] = $this->Managers->getClientById($this->user->user_id);
+			if ($this->user->user_group == 'client')	$view['user'] = $this->Clients->getClientById($this->user->user_id);
+		
+ 
 			$this->processStatistics($view['client'], $statistics, 'client_user', $view['client']->client_user, 'client');
 
 			// если клиент выбрал предложение, достаем для него данные посредника
