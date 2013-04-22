@@ -784,7 +784,7 @@ class PaymentModel extends BaseModel implements IModel{
 
 			// округляем до центов в пользу посредника
 			$history->amount_usd = ceil(
-				floatval($history->payment_amount) /
+				floatval($history->payment_amount_from) /
 					floatval($exchange_rate) *
 					100) *
 				0.01;

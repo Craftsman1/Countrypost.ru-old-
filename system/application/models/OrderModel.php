@@ -1051,7 +1051,7 @@ class OrderModel extends BaseModel implements IModel{
 		$order->delivery_cost = $bid->delivery_cost;
 		$order->delivery_name = $bid->delivery_name;
 		$order->extra_tax = $bid->extra_tax;
-		$order->order_cost = $bid->total_cost;
+		$order->order_cost = ceil($bid->total_cost);
 
 		return $order->order_cost ? $order : FALSE;
 	}

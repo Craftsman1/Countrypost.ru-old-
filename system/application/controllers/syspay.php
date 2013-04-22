@@ -876,17 +876,19 @@ sSignatureValue
 				$tax_usd			= Check::float('User_tax');
 				$user_id			= Check::int('User_id');
 				$order_id			= Check::int('order');
-				$amount_usd			= Check::int('User_amount');
+				$amount_usd			= $_POST['LMI_PAYMENT_AMOUNT'];
+				$amount_local		= Check::int('User_amount');
 				$wm_transfer_id		= Check::int('LMI_SYS_TRANS_NO');
 				$transfer_order_id	= Check::int('LMI_PAYMENT_NO');
-				$user_from			= Check::str('LMI_PAYER_PURSE', 64,1);
-				
+
 				$payment_obj = new stdClass();
 				$payment_obj->payment_from				= $user_id;
 				$payment_obj->payment_tax				= $tax_usd;
-				$payment_obj->payment_amount_from		= $amount_usd;
+				$payment_obj->payment_amount_rur		= $amount_local;
+				$payment_obj->amount_usd				= $amount_usd;
+				$payment_obj->payment_amount_from		= $amount_local;
 				$payment_obj->payment_amount_tax		= $tax_usd;
-				$payment_obj->payment_amount_to			= $amount_usd;
+				$payment_obj->payment_amount_to			= $amount_local;
 				$payment_obj->payment_purpose			= 'оплата заказа';
 				$payment_obj->payment_comment			= '№ ' . $order_id;
 				$payment_obj->payment_type				= 'order';
@@ -898,7 +900,7 @@ sSignatureValue
 				$payment_obj->status					= 'not_payed';
 				$payment_obj->order_id					= $order_id;
 
-				$this->payOrder($order_id, $payment_obj, $amount_usd);
+				$this->payOrder($order_id, $payment_obj, $amount_local);
 			}
 		}
 		

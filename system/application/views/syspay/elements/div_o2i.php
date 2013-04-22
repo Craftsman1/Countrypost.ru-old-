@@ -461,7 +461,7 @@ $payable_amount =
 				$('.countrypost_payment_box form.immediate').submit();
 				break;
 			case "wmz":
-				$('.countrypost_payment_box form.usd input.total_local').val($('#delayed_ru').val());
+				$('.countrypost_payment_box form.usd input.total_local').val($('.user_total').val());
 				$('.countrypost_payment_box form.usd').submit();
 				break;
 		}
@@ -559,7 +559,7 @@ $payable_amount =
 			<div class="amount delayed">
 				<span class="label">Сумма к оплате* :</span>
 				<input type="text"
-					   class="textbox"
+					   class="textbox user_total"
 					   rel="delayed"
 					   name="total_usd"
 					   value="<?= $payable_amount ?>" >

@@ -12,6 +12,6 @@ $amount_usd ?> USD. User: <?= $user->user_id ?>"><br />
 	LMI_FAIL_METHOD:<input type="text" name="LMI_FAIL_METHOD" value="2"><br />
 	User_id:<input type="text" name="User_id" value="<?= $user->user_id ?>"><br />
 	User_tax:<input type="text" name="User_tax" value="<?= $amount * $tax * 0.01 + $extra?>"><br />
-	User_amount:<input type="text" name="User_amount" value="<?= $amount ?>"><br />
+	User_amount:<input type="text" name="User_amount" value="<?= $amount_local ?>"><br />
 	User_order:<input type="text" name="order" value="<?= $order_id ?>">
 </form>
