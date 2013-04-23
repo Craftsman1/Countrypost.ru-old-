@@ -97,6 +97,7 @@ class BlogModel extends BaseModel implements IModel{
 	
 	public function deleteBlog($blog_id)
 	{		
+	  return $this->db->delete($this->table, array('blog_id' => $blog_id));
 	}
 	
 	/**
