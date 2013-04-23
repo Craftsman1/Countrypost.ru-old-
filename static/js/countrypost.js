@@ -473,6 +473,66 @@ function editItem(id)
 	}
 }
 
+function editBlog(id)
+{
+	var blog = eval('blog' + id);
+ 
+		 
+		$tr = $('tr#blog' + id);
+
+		$tr.find('span.plaintext').hide();
+		$tr.find('span.producteditor').show();
+		$tr.find('.edit').hide();
+		$tr.find('.delete').hide();
+		$tr.find('.cancel').show();
+		$tr.find('.save').show();
+		$('#title').val(blog['title']).focus();
+		$('#blog_id').val(blog['blog_id']);
+		var oEditor = FCKeditorAPI.GetInstance('message');
+		oEditor.SetHTML(blog['message']);
+
+		$tr.find('textarea.link').val(odetail['link']);
+		$tr.find('textarea.name').val(odetail['name']);
+		$tr.find('textarea.amount').val(odetail['amount']);
+		$tr.find('textarea.size').val(odetail['size']);
+		$tr.find('textarea.color').val(odetail['color']);
+		$tr.find('textarea.volume').val(odetail['volume']);
+		$tr.find('textarea.tnved').val(odetail['tnved']);
+		$tr.find('textarea.ocomment').val(odetail['comment']);
+		$tr.find('textarea.image').val(odetail['img']);
+
+		if (odetail['foto_requested'] == 1)
+		{
+			$tr.find('input.foto_requested').attr('checked', 'checked');
+		}
+		else
+		{
+			$tr.find('input.foto_requested').removeAttr('checked');
+		}
+
+		if (odetail['search_requested'] == 1)
+		{
+			$tr.find('input.search_requested').attr('checked', 'checked');
+		}
+		else
+		{
+			$tr.find('input.search_requested').removeAttr('checked');
+		}
+
+		if (odetail['insurance'] == 1)
+		{
+			$tr.find('input.insurance').attr('checked', 'checked');
+		}
+		else
+		{
+			$tr.find('input.insurance').removeAttr('checked');
+		}
+
+		$tr.find('input.img_file').val(odetail['img_file']);
+		$tr.find('input.img_selector[value="' + odetail['img_selector'] + '"]').attr('checked', 'checked');
+	 
+}
+
 function init_profile()
 {
 	$('ul.tabs a').click(function(e) {

@@ -563,7 +563,7 @@ class Manager extends BaseController {
 			$this->load->model('BlogModel', 'Blogs');
 			
 			if ($blog_id)
-			{
+			{ 	echo 'edit';
 				$blog = $this->Blogs->getById($blog_id);
 			}
 			else
@@ -595,6 +595,21 @@ class Manager extends BaseController {
 		catch (Exception $e) 
 		{
 		}
+	}
+	
+	public function deleteBlog()
+	{
+		 
+			// находим новость
+			$blog_id = Check::int('blog_id');
+			$this->load->model('BlogModel', 'Blogs');
+			
+			if ($blog_id)
+			{ 	 
+				$blog = $this->Blogs->deleteBlog($blog_id);
+				if($blog) echo 1;
+			}
+			 
 	}
 
 	public function savePricelist()
