@@ -234,7 +234,12 @@ class Manager extends BaseController {
 				throw new Exception('Некоторые поля не заполнены. Попробуйте еще раз.');
 			}
 
-			// 6. пересчитываем и сохраняем предложение и заказ
+			// 6. пересчитываем и сохраняем предложение
+			if ( ! $this->Bids->recalculate($bid, $order, TRUE))
+			{
+				throw new Exception('Невожможно пересчитать предложение. Попробуйте еще раз.');
+			}
+
 			if ( ! ($bid = $this->Bids->addBid($bid)))
 			{
 				throw new Exception('Ошибка сохранения предложения. Обратитесь к администрации сервиса.');
@@ -283,20 +288,20 @@ class Manager extends BaseController {
 				$bid->comments[] = $new_comment;
 			}
 
-			// 6. пересчитываем и сохраняем предложение и заказ
+			// 9. пересчитываем и сохраняем предложение и заказ
 			if ( ! $this->Orders->recalculate($order, TRUE))
 			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попробуйте еще раз.');
 			}
 
 			$this->Orders->saveOrder($order);
 
-			// 9. отрисовка предложения
+			// 10. отрисовка предложения
 			$this->load->model('CountryModel', 'Countries');
 			$this->load->model('OdetailModel', 'Odetails');
 			$view['countries'] = $this->Countries->getArray();
 
-			$view['selfurl'] = BASEURL.$this->cname.'/';
+			$view['selfurl'] = BASEURL . $this->cname . '/';
 			$view['viewpath'] = $this->viewpath;
 
 			if (isset($bid_extras))
@@ -376,7 +381,7 @@ class Manager extends BaseController {
 
 				if ( ! $this->Orders->recalculate($order))
 				{
-					throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+					throw new Exception('Невозможно пересчитать стоимость заказа. Попробуйте еще раз.');
 				}
 
 				$this->Orders->saveOrder($order);
@@ -883,7 +888,7 @@ class Manager extends BaseController {
 			// пересчитываем заказ
 			if ( ! $this->Orders->recalculate($order))
 			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попробуйте еще раз.');
 			}
 
 			$this->Orders->saveOrder($order);

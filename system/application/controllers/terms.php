@@ -1,5 +1,4 @@
-<?php
-require_once BASE_CONTROLLERS_PATH.'BaseController'.EXT;
+<? require_once BASE_CONTROLLERS_PATH.'BaseController'.EXT;
 
 class Terms extends BaseController {
 	function __construct()
