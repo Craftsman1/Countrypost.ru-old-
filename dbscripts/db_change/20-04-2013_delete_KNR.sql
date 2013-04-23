@@ -1,0 +1,1 @@
+DELETE FROM `countries` WHERE (`country_id`='109')
