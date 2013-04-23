@@ -81,11 +81,12 @@
 							<? endforeach; ?>
 						</select>
 						<br>
-						<a class="floatleft" href="/profile">редактировать адреса</a>
+						
 						<? endif; ?>
 					<? else : ?>
 					<?= $order->order_address ?>
 					<? endif; ?>
+					<a class="floatleft" href="/profile">редактировать адреса</a>
 				</td>
 			</tr>
 			<tr>
