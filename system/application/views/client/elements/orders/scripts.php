@@ -3,9 +3,19 @@ $(function() {
 	$(".int").keypress(function(event){validate_number(event);});
 
 	$('#select_all').change(function() {
-		$('table.products td input[type=checkbox]').attr('checked', ($(this).attr('checked') == 'checked'));
+		$('input.item_check').attr('checked', ($(this).attr('checked') == 'checked'));
+		updateMoveItemsCount();
+	});
+
+	$('input.item_check').change(function() {
+		updateMoveItemsCount();
 	});
 });
+
+function updateMoveItemsCount()
+{
+	$('b.move_count').html($('input.item_check:checked').length);
+}
 
 // BOF: сохранение статуса, веса, стоимости, местной доставки и трекинг номера
 function update_odetail_weight(order_id, odetail_id)

@@ -1426,5 +1426,40 @@ class OrderModel extends BaseModel implements IModel{
 
 		return (count($result > 0) AND $result) ? $result : FALSE;
 	}
+
+	public function getNeighbourOrders($order_id, $user_group)
+	{
+		$order = $this->getById($order_id);
+
+		if (empty($order))
+		{
+			return FALSE;
+		}
+
+		$where = '1 = 1';
+
+		if ($user_group == 'manager')
+		{
+			$where = "order_manager = '$order->order_manager'";
+		}
+
+		$result = $this->db->query("
+			SELECT GROUP_CONCAT(order_id SEPARATOR ',') AS ids
+			FROM orders
+			WHERE
+				order_id <> '$order->order_id' AND
+				order_status <> 'deleted' AND
+				order_client = '$order->order_client' AND
+				order_type = '$order->order_type' AND
+				$where")->result();
+
+		if (empty($result[0]->ids))
+		{
+			return FALSE;
+		}
+
+		// ставим ограничение на 100 заказов. пока от балды, дальше будет видно на что менять
+		return explode(',', $result[0]->ids);
+	}
 }
 ?>

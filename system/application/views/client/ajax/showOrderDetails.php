@@ -23,7 +23,7 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 		<tr>
 			<th nowrap>
 				№
-				<? if ($is_joinable) : ?>
+				<? if ($is_editable) : ?>
 				<input type='checkbox' id='select_all'>
 				<? endif; ?>
 			</th>
@@ -59,9 +59,11 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 		<tr id='product<?= $odetail->odetail_id ?>'>
 			<td id='odetail_id<?= $odetail->odetail_id ?>'>
 				<?= $odetail->odetail_id ?>
-				<? if ($is_joinable) : ?>
+				<? if ($is_editable) : ?>
 				<br>
-				<input type='checkbox' name='join<?= $odetail->odetail_id ?>'>
+				<input type='checkbox'
+					   class='item_check'
+					   name='join<?= $odetail->odetail_id ?>'>
 				<? endif; ?>
 				<? if ($is_editable) : ?>
 				<br>
@@ -239,7 +241,7 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 		<? endif; ?>
 		<? if ($is_editable) : ?>
 		<tr class="last-row">
-			<td colspan="6">
+			<td colspan="8">
 				<div class="admin-inside float-left">
 					<div class="submit">
 						<div>
@@ -247,6 +249,24 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 						</div>
 					</div>
 				</div>
+				<? if ( ! empty($neighbour_orders)) : ?>
+				<div class="admin-inside floatright">
+					<div class="submit floatright" style="margin: 7px 0 0 6px;">
+						<div>
+							<input type="button" value="Перенести" onclick="moveItems(<?= $order->order_id ?>);">
+						</div>
+					</div>
+				</div>
+				<div class="floatright" style="margin: 14px 0 0 0;">
+					Перенести <b class="move_count">0</b> товаров в заказ №
+					<select id="move_to_order" style="margin-top: 0;">
+						<option>выберите номер...</option>
+						<? foreach ($neighbour_orders as $neighbour) : ?>
+						<option value="<?= $neighbour ?>"><?= $neighbour ?></option>
+						<? endforeach; ?>
+					</select>
+				</div>
+				<? endif; ?>
 			</td>
 		</tr>
 		<? endif; ?>

@@ -419,11 +419,14 @@ abstract class BaseController extends Controller
 			// адреса клиента
 			$view['addresses'] = $this->Addresses->getAddressesByUserId($view['order']->order_client);
 
-			// статусы, в которых можно редактировать заказ
+			// статусы, в которых можно редактировать/оплачивать заказ, перемещать товары
 			if (isset($this->user->user_group))
 			{
 				$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
 				$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
+				$view['neighbour_orders'] = $this->Orders->getNeighbourOrders(
+					$view['order']->order_id,
+					$this->user->user_group);
 			}
 
 			// статусы заказов и товаров, сгруппированные по типу заказа
