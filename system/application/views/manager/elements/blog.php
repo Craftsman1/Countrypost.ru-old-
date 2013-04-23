@@ -6,7 +6,7 @@
 			<div class='angle angle-lb'></div>
 			<div class='angle angle-rb'></div>
 			<div class="blog_box admin-inside">
-				<input type="hidden" name="blog_id" />
+				<input type="hidden" name="blog_id" id="blog_id" />
 				<div>
 					<span class="label">Заголовок*:</span>
 				</div>
@@ -35,7 +35,7 @@
 	<br style="clear:both;" />
 	<h3 id="news_header">Все новости</h3>
 	<? if ($blogs) : foreach ($blogs as $blog) : ?>
-	<div class="table">
+	<div class="table" id="blog_t<?= $blog->blog_id ?>">
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>
 		<div class='angle angle-lb'></div>
@@ -45,18 +45,66 @@
 				<?= isset($blog->created) ? date('d.m.Y H:i', strtotime($blog->created)) : '' ?>
 			</span>
 			<span class="label">
-				<b><?= $blog->title ?></b>
+				<b id="blog_title<?= $blog->blog_id ?>"><?= $blog->title ?></b>
 			</span>
-		</div>
-		<div>
+		</div><div class="edit_box" style="float:right;">
+				<a href="javascript:editBlog(<?= $blog->blog_id ?>)"
+				   class="edit">
+					<img border="0" src="/static/images/comment-edit.png" title="Редактировать"></a><br />
+				<a href="javascript:deleteBlog(<?= $blog->blog_id ?>)"
+				   class="delete"><img border="0" src="/static/images/delete.png" title="Удалить"></a><br />
+				 
+			</div>
+		<div id="blog_message<?= $blog->blog_id ?>">
 			<?= html_entity_decode($blog->message) ?>
 		</div>
+		 
 	</div>
 	<br>
 	<br>
+	<script>
+	var blog<?= $blog->blog_id ?> = {
+		"message":"<?= html_entity_decode($blog->message) ?>",
+		"title":"<?= $blog->title ?>",
+		"blog_id":"<?= $blog->blog_id ?>"
+	};
+
+	$(function() {
+		$('tr#blog<?= $blog->blog_id ?> form').ajaxForm({
+			dataType: 'json',
+			iframe: true,
+			beforeSubmit: function()
+			{
+				$('img#progress<?= $blog->blog_id ?>').show();
+			},
+			error: function()
+			{
+				error('top', 'Новость №<?= $blog->blog_id ?> не сохранено.');
+			},
+			success: function(data) {
+				$('img#progress<?= $blog->blog_id ?>').hide();
+
+				submitItem(<?= $blog->blog_id ?>, data);
+			}
+		});
+	});
+</script>
 	<? endforeach; endif; ?>
 </div>
 <script>
+function deleteBlog(id) {
+	if (confirm("Вы уверены, что хотите удалить новость?")){
+		 $.post('/manager/deleteBlog', {blog_id : id}, function(data) {
+                        if(data == 1)
+                        {	
+							$('#blog_t'+id).remove();
+                            success('top', 'Новость успешно удалена!');
+                        }
+                       
+                    });
+
+	}
+}
 	$(function() {
 		$('#blogForm').ajaxForm({
 			target: '/manager/saveBlog',
@@ -74,7 +122,10 @@
 
 				var oEditor = FCKeditorAPI.GetInstance('message');
 				var message = oEditor.GetHTML(true);
-				
+				if(response=='edit') {
+				$('#blog_title'+$('.blog_box input#blog_id').val()).text($('.blog_box input#title').val()); 
+				$('#blog_message'+$('.blog_box input#blog_id').val()).html(message); 
+				}else{
 				var news_snippet = '<div class="table"><div class="angle angle-lt"></div><div class="angle angle-rt"></div><div class="angle angle-lb"></div><div class="angle angle-rb"></div><div><span class="label">' +
 				getNowDate() +
 				'</span> <span class="label"><b>' +
@@ -82,10 +133,11 @@
 				'</b></span></div><div>' +
 				message +
 				'</div></div><br><br>';
-				
-				$('#news_header').after(news_snippet);
+				}
+				if(response!='edit') $('#news_header').after(news_snippet);
 				
 				$('.blog_box input#title').val('');
+				$('.blog_box input#blog_id').val('');
 				oEditor.SetHTML('');
 			},
 			error: function(response)
