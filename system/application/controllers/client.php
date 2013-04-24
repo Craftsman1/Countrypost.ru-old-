@@ -1871,5 +1871,10 @@ class Client extends BaseController {
 	{
 		parent::deletePaymentFoto($o2i_id, $filename);
 	}
+
+	public function moveProducts($old_order_id, $new_order_id)
+	{
+		parent::moveProducts($old_order_id, $new_order_id);
+	}
 	// EOF: перенаправление обработчиков в базовый контроллер
 }

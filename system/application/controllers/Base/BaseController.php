@@ -2627,17 +2627,7 @@ abstract class BaseController extends Controller
 			// ищем товары в запросе
 			foreach($_POST as $param => $value)
 			{
-				if (stripos($param, 'join') === FALSE)
-				{
-					continue;
-				}
-				
-				$odetail_id = str_ireplace('join', '', $param);
-
-				if ( ! is_numeric($odetail_id))
-				{	
-					continue;
-				}
+				$odetail_id = $this->getCheckboxId($param, 'join');
 
 				// находим товар
 				$odetail = $this->Odetails->getPrivilegedOdetail(
@@ -2677,7 +2667,7 @@ abstract class BaseController extends Controller
 			// пересчитываем заказ
 			if ( ! $this->Orders->recalculate($order))
 			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
 			$this->Orders->saveOrder($order);
@@ -2730,7 +2720,7 @@ abstract class BaseController extends Controller
 			// пересчитываем заказ
 			if ( ! $this->Orders->recalculate($order))
 			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
 			$this->Orders->saveOrder($order);
@@ -2797,19 +2787,9 @@ abstract class BaseController extends Controller
             // ищем товары в запросе
             foreach($_POST as $param => $value)
             {
-                if (stripos($param, 'join') === FALSE)
-                {
-                    continue;
-                }
+				$odetail_id = $this->getCheckboxId($param, 'join');
 
-                $odetail_id = str_ireplace('join', '', $param);
-
-                if ( ! is_numeric($odetail_id))
-                {
-                    continue;
-                }
-
-                // находим товар
+				// находим товар
                 $odetail = $this->Odetails->getNewOdetail(
                     $order_id,
                     $odetail_id,
@@ -2847,7 +2827,7 @@ abstract class BaseController extends Controller
             // пересчитываем заказ
             if ( ! $this->Orders->recalculate($order))
             {
-                throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+                throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
             }
 
             $this->Orders->saveOrder($order);
@@ -2896,7 +2876,7 @@ abstract class BaseController extends Controller
             // пересчитываем заказ
             if ( ! $this->Orders->recalculate($order))
             {
-                throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+                throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
             }
 
             $this->Orders->saveOrder($order);
@@ -2921,7 +2901,72 @@ abstract class BaseController extends Controller
             Func::redirect(BASEURL);
         }
     }
-	
+
+	protected function moveProducts($old_order_id, $new_order_id)
+	{
+		try
+		{
+			// безопасность и разграничение доступа
+			$old_order = $this->getMovableOrder(
+				$old_order_id,
+				'Невозможно переместить выбранные товары. Исходный заказ не найден.');
+
+			$new_order = $this->getMovableOrder(
+				$new_order_id,
+				'Невозможно переместить выбранные товары. Новый заказ не найден.');
+
+			$this->load->model('OdetailModel', 'Odetails');
+
+			// ищем товары в запросе
+			foreach($_POST as $param => $value)
+			{
+				$odetail_id = $this->getCheckboxId($param, 'join');
+
+				// находим товар
+				$odetail = $this->Odetails->getPrivilegedOdetail(
+					$old_order_id,
+					$odetail_id,
+					$this->user->user_id,
+					$this->user->user_group);
+
+				if ( ! $odetail)
+				{
+					throw new Exception('Товар не найден.');
+				}
+
+				// сохраняем товар
+				$odetail->odetail_order = $new_order_id;
+
+				// удаляем старые джоинты
+				if ($odetail->odetail_joint_id)
+				{
+					$this->Odetails->clearJoints($odetail->odetail_joint_id);
+					$odetail->odetail_joint_id = 0;
+				}
+
+				$this->Odetails->addOdetail($odetail);
+			}
+
+			// пересчитываем заказы
+			if ( ! $this->Orders->recalculate($old_order))
+			{
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($old_order);
+
+			if ( ! $this->Orders->recalculate($new_order))
+			{
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($new_order);
+		}
+		catch (Exception $e)
+		{
+		}
+	}
+
 	public function updatePerPage($per_page)
 	{
 		if (!is_numeric($per_page) OR
@@ -3006,7 +3051,7 @@ abstract class BaseController extends Controller
 			// пересчитываем заказ
 			if ( ! $this->Orders->recalculate($order))
 			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
 			$this->Orders->saveOrder($order);
@@ -3177,6 +3222,46 @@ abstract class BaseController extends Controller
 		}
 		
 		return $order;
+	}
+
+	protected function getMovableOrder($order_id, $validate = TRUE)
+	{
+		if ( ! is_numeric($order_id))
+		{
+			throw new Exception('Доступ запрещен.');
+		}
+
+		// безопасность и разграничение доступа
+		$order = $this->getPrivilegedOrder(
+			$order_id,
+			$validate);
+
+		// позволяет ли текущий статус перенос
+		$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+
+		if ( ! in_array($order->order_status, $editable_statuses))
+		{
+			throw new Exception("Заказ №$order_id недоступен для переноса товаров.");
+		}
+
+		return $order;
+	}
+
+	protected function getCheckboxId($param, $checkboxName)
+	{
+		if (stripos($param, $checkboxName) === FALSE)
+		{
+			return FALSE;
+		}
+
+		$id = str_ireplace($checkboxName, '', $param);
+
+		if ( ! is_numeric($id))
+		{
+			return FALSE;
+		}
+
+		return $id;
 	}
 
     protected function getPrivilegedOrders2In($view, $status = 'open', $validate = TRUE)
@@ -3512,7 +3597,7 @@ abstract class BaseController extends Controller
 			// пересчитываем заказ
 			if ( ! $this->Orders->recalculate($order))
 			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
 			$this->Orders->saveOrder($order);
@@ -3577,7 +3662,7 @@ abstract class BaseController extends Controller
 			// пересчитываем заказ
 			if ( ! $this->Orders->recalculate($order))
 			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
 			$this->Orders->saveOrder($order);
@@ -3641,7 +3726,7 @@ abstract class BaseController extends Controller
 			// пересчитываем заказ
 			if ( ! $this->Orders->recalculate($order))
 			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
 			$this->Orders->saveOrder($order);
@@ -3706,7 +3791,7 @@ abstract class BaseController extends Controller
 			// пересчитываем заказ
 			if ( ! $this->Orders->recalculate($order))
 			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
 			$this->Orders->saveOrder($order);
@@ -3771,7 +3856,7 @@ abstract class BaseController extends Controller
 			// пересчитываем заказ
 			if ( ! $this->Orders->recalculate($order))
 			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
 			$this->Orders->saveOrder($order);
@@ -3844,7 +3929,7 @@ abstract class BaseController extends Controller
 			// пересчитываем заказ
 			if ( ! $this->Orders->recalculate($order))
 			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
 			$this->Orders->saveOrder($order);
@@ -3929,7 +4014,7 @@ abstract class BaseController extends Controller
 			// пересчитываем заказ
 			if ( ! $this->Orders->recalculate($order))
 			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
 			$this->Orders->saveOrder($order);
@@ -3989,7 +4074,7 @@ abstract class BaseController extends Controller
 			// пересчитываем заказ
 			if ( ! $this->Orders->recalculate($order))
 			{
-				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
 
 			// отправляем пересчитанные детали заказа
@@ -4175,7 +4260,7 @@ abstract class BaseController extends Controller
 				// пересчитываем заказ
 				if ( ! $this->Orders->recalculate($order))
 				{
-					throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+					throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 				}
 
 				$this->Orders->saveOrder($order);

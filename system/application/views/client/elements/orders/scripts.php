@@ -17,6 +17,45 @@ function updateMoveItemsCount()
 	$('b.move_count').html($('input.item_check:checked').length);
 }
 
+function moveItems()
+{
+	var selectedProds = $('input.item_check:checked');
+
+	if (selectedProds.length == 0)
+	{
+		alert("Выберите хотя бы 1 товар для переноса в другой заказ.");
+		return false;
+	}
+
+	var newOrderId = $('select#move_to_order').val();
+
+	if (newOrderId == 0)
+	{
+		alert("Выберите номер заказа.");
+		return false;
+	}
+
+	if (confirm('Перенести выбранные товары в заказ ' + newOrderId + '?'))
+	{
+		$('img#joinProgress').show();
+		var queryString = '';
+
+		selectedProds.each(function(index, item) {
+			queryString += (queryString.length ? '&' : '') +
+				$(item).attr('name') +
+				'=on';
+		});
+
+		$.post('<?= $selfurl ?>moveProducts/<?= $order->order_id ?>/' + newOrderId,
+			queryString,
+			function()
+			{
+				self.location.reload();
+			}
+		);
+	}
+}
+
 // BOF: сохранение статуса, веса, стоимости, местной доставки и трекинг номера
 function update_odetail_weight(order_id, odetail_id)
 {

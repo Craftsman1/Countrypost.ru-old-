@@ -1458,7 +1458,6 @@ class OrderModel extends BaseModel implements IModel{
 			return FALSE;
 		}
 
-		// ставим ограничение на 100 заказов. пока от балды, дальше будет видно на что менять
 		return explode(',', $result[0]->ids);
 	}
 }

@@ -9,25 +9,27 @@
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\avatars\index.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" afterPath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OrderModel.php" afterPath="$PROJECT_DIR$/system/application/models/OrderModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/client.php" afterPath="$PROJECT_DIR$/system/application/controllers/client.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/" />
-    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366620972958" ignored="false" />
+    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366821484949" ignored="false" />
     <file path="/OrderModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366739204594" ignored="false" />
     <file path="/a.dummy" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366191192780" ignored="false" />
     <file path="/main.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366008935407" ignored="false" />
-    <file path="/showOrderDetails.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366739582566" ignored="false" />
-    <file path="/scripts.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366730390306" ignored="false" />
+    <file path="/showOrderDetails.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366825907440" ignored="false" />
+    <file path="/scripts.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366810073855" ignored="false" />
     <file path="/client.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366043357426" ignored="false" />
     <file path="/showAddProduct.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366044453126" ignored="false" />
     <file path="/online.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366032439305" ignored="false" />
     <file path="/style.css" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366103894632" ignored="false" />
     <file path="/syspay.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366383669310" ignored="false" />
     <file path="/BidModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366276993512" ignored="false" />
-    <file path="/manager.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366701842934" ignored="false" />
+    <file path="/manager.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366810138855" ignored="false" />
     <file path="/2013-04-16 21-27 cash uah.sql" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366291386764" ignored="false" />
     <file path="/div_o2i.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366381936320" ignored="false" />
     <file path="/generic_popup.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366304218090" ignored="false" />
@@ -35,7 +37,7 @@
     <file path="/form_usd_wmz.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366382423279" ignored="false" />
     <file path="/PaymentModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366388129739" ignored="false" />
     <file path="/managerinfo.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366700428203" ignored="false" />
-    <file path="/BaseController.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366737554629" ignored="false" />
+    <file path="/BaseController.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366822396135" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,36 +62,51 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="newBid.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="54" selection-start="112" selection-end="118" vertical-scroll-proportion="-1.3793104">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="manager.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="888" column="54" selection-start="21435" selection-end="21435" vertical-scroll-proportion="-8.413794">
+            <state line="943" column="0" selection-start="22835" selection-end="22835" vertical-scroll-proportion="-4.137931">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="showOrderDetails.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="client.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1878" column="0" selection-start="48750" selection-end="48750" vertical-scroll-proportion="-23.137932">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="showOrderDetails.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="252" column="16" selection-start="8673" selection-end="8673" vertical-scroll-proportion="0.17920657">
+            <state line="259" column="38" selection-start="8876" selection-end="8876" vertical-scroll-proportion="-17.931034">
               <folding>
-                <element signature="e#8747#8775#0" expanded="true" />
-                <element signature="e#8946#8973#0" expanded="true" />
-                <element signature="e#9068#9090#0" expanded="true" />
-                <element signature="e#9403#9423#0" expanded="true" />
-                <element signature="e#9647#9694#0" expanded="true" />
+                <element signature="n#style#0;n#col#0;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#col#3;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#col#4;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#col#5;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#col#6;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#col#7;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#8;n#tr#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#td#0;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#form#0;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#a#1;n#span#0;n#td#1;n#form#0;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#1;n#td#1;n#form#0;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#td#1;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#td#2;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#td#3;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#td#4;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#td#5;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#2;n#td#7;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#3;n#td#7;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#td#0;n#tr#3;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#2;n#td#0;n#tr#3;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#3;n#td#0;n#tr#3;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#0;n#div#3;n#td#0;n#tr#3;n#table#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -98,16 +115,31 @@
       <file leaf-file-name="scripts.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="31" selection-start="255" selection-end="255" vertical-scroll-proportion="-3.4482758">
+            <state line="52" column="16" selection-start="1161" selection-end="1161" vertical-scroll-proportion="-3.4482758">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseController.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="BaseController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="426" column="23" selection-start="12421" selection-end="12437" vertical-scroll-proportion="-20.62069">
+            <state line="2942" column="48" selection-start="83608" selection-end="83619" vertical-scroll-proportion="0.24675325">
+              <folding>
+                <element signature="n#removeJoint#0;n#BaseController#0;n#!!top" expanded="false" />
+                <element signature="n#joinNewProducts#0;n#BaseController#0;n#!!top" expanded="false" />
+                <element signature="n#removeNewJoint#0;n#BaseController#0;n#!!top" expanded="false" />
+                <element signature="n#updatePerPage#0;n#BaseController#0;n#!!top" expanded="false" />
+                <element signature="n#updatePaymentsPerPage#0;n#BaseController#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OdetailModel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/models/OdetailModel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="387" column="31" selection-start="10722" selection-end="10733" vertical-scroll-proportion="-4.2777777">
               <folding />
             </state>
           </provider>
@@ -116,7 +148,7 @@
       <file leaf-file-name="BidModel.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/models/BidModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="256" column="20" selection-start="5212" selection-end="5212" vertical-scroll-proportion="-22.068966">
+            <state line="256" column="20" selection-start="5212" selection-end="5212" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -125,7 +157,7 @@
       <file leaf-file-name="OrderModel.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1461" column="43" selection-start="37082" selection-end="37082" vertical-scroll-proportion="-19.0">
+            <state line="111" column="27" selection-start="2706" selection-end="2720" vertical-scroll-proportion="-4.351852">
               <folding />
             </state>
           </provider>
@@ -134,16 +166,7 @@
       <file leaf-file-name="ClientModel.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/models/ClientModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="344" column="4" selection-start="9581" selection-end="9581" vertical-scroll-proportion="-12.092592">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bid.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="4" selection-start="509" selection-end="509" vertical-scroll-proportion="-11.034483">
+            <state line="344" column="4" selection-start="9581" selection-end="9581" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -152,7 +175,7 @@
       <file leaf-file-name="managerinfo.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="24" selection-start="314" selection-end="314" vertical-scroll-proportion="-5.5172415">
+            <state line="8" column="24" selection-start="314" selection-end="314" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -180,7 +203,6 @@
       <list>
         <option value="$PROJECT_DIR$/static/js/countrypost.js" />
         <option value="$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
         <option value="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" />
         <option value="$PROJECT_DIR$/system/application/views/syspay/elements/form_dollar_wmz.php" />
         <option value="$PROJECT_DIR$/system/application/views/syspay/elements/form_usd_wmz.php" />
@@ -190,10 +212,11 @@
         <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
         <option value="$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php" />
         <option value="$PROJECT_DIR$/system/application/models/OrderModel.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
         <option value="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
       </list>
     </option>
   </component>
@@ -235,74 +258,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="All">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="application">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="application">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="models">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -377,20 +332,88 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="All">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="system">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="system">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="application">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="system">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="application">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="models">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="202" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="230" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="recentsLimit" value="5" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="225" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="225" />
+    <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../bin/php/php5.3.13" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="234" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="883" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="891" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="883" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="227" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="222" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
@@ -566,7 +589,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.231875" sideWeight="0.34076828" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.269375" sideWeight="0.5935564" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.269375" sideWeight="0.3135068" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.238125" sideWeight="0.33375958" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24229075" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
@@ -656,122 +679,135 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="436" column="55" selection-start="9905" selection-end="9905" vertical-scroll-proportion="0.025608195">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/terms.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="3" selection-start="3" selection-end="3" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="642" column="0" selection-start="17492" selection-end="17492" vertical-scroll-proportion="0.026595745">
-          <folding />
-        </state>
+        <state line="0" column="3" selection-start="3" selection-end="3" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="124.413795">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="124.413795" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="126" column="14" selection-start="2639" selection-end="2640" vertical-scroll-proportion="-4.4814816">
-          <folding />
-        </state>
+        <state line="126" column="14" selection-start="2639" selection-end="2640" vertical-scroll-proportion="-4.4814816" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="54" selection-start="112" selection-end="118" vertical-scroll-proportion="-1.3793104">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="2" column="54" selection-start="112" selection-end="118" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="4" selection-start="509" selection-end="509" vertical-scroll-proportion="-11.034483">
+        <state line="16" column="4" selection-start="509" selection-end="509" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/models/BidModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="256" column="20" selection-start="5212" selection-end="5212" vertical-scroll-proportion="-22.068966">
+        <state line="256" column="20" selection-start="5212" selection-end="5212" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="24" selection-start="314" selection-end="314" vertical-scroll-proportion="-5.5172415">
+        <state line="8" column="24" selection-start="314" selection-end="314" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dbscripts/db_change/19.04.2013_avatar.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="169" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="169" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/models/ClientModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="344" column="4" selection-start="9581" selection-end="9581" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="888" column="54" selection-start="21435" selection-end="21435" vertical-scroll-proportion="-8.413794">
+        <state line="943" column="0" selection-start="22835" selection-end="22835" vertical-scroll-proportion="-4.137931">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1878" column="0" selection-start="48750" selection-end="48750" vertical-scroll-proportion="-23.137932">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="31" selection-start="255" selection-end="255" vertical-scroll-proportion="-3.4482758">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/ClientModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="344" column="4" selection-start="9581" selection-end="9581" vertical-scroll-proportion="-12.092592">
+        <state line="52" column="16" selection-start="1161" selection-end="1161" vertical-scroll-proportion="-3.4482758">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1461" column="43" selection-start="37082" selection-end="37082" vertical-scroll-proportion="-19.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="426" column="23" selection-start="12421" selection-end="12437" vertical-scroll-proportion="-20.62069">
+        <state line="111" column="27" selection-start="2706" selection-end="2720" vertical-scroll-proportion="-4.351852">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="252" column="16" selection-start="8673" selection-end="8673" vertical-scroll-proportion="0.17920657">
+        <state line="259" column="38" selection-start="8876" selection-end="8876" vertical-scroll-proportion="-17.931034">
           <folding>
-            <element signature="e#8747#8775#0" expanded="true" />
-            <element signature="e#8946#8973#0" expanded="true" />
-            <element signature="e#9068#9090#0" expanded="true" />
-            <element signature="e#9403#9423#0" expanded="true" />
-            <element signature="e#9647#9694#0" expanded="true" />
+            <element signature="n#style#0;n#col#0;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#col#3;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#col#4;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#col#5;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#col#6;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#col#7;n#colgroup#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#8;n#tr#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#td#0;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#form#0;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#a#1;n#span#0;n#td#1;n#form#0;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#td#1;n#form#0;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#td#1;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#td#2;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#td#3;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#td#4;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#td#5;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#2;n#td#7;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#3;n#td#7;n#tr#1;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#td#0;n#tr#3;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#2;n#td#0;n#tr#3;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#td#0;n#tr#3;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#div#3;n#td#0;n#tr#3;n#table#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/models/OdetailModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="387" column="31" selection-start="10722" selection-end="10733" vertical-scroll-proportion="-4.2777777">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2942" column="48" selection-start="83608" selection-end="83619" vertical-scroll-proportion="0.24675325">
+          <folding>
+            <element signature="n#removeJoint#0;n#BaseController#0;n#!!top" expanded="false" />
+            <element signature="n#joinNewProducts#0;n#BaseController#0;n#!!top" expanded="false" />
+            <element signature="n#removeNewJoint#0;n#BaseController#0;n#!!top" expanded="false" />
+            <element signature="n#updatePerPage#0;n#BaseController#0;n#!!top" expanded="false" />
+            <element signature="n#updatePaymentsPerPage#0;n#BaseController#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>

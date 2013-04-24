@@ -1,6 +1,6 @@
 <?
 $is_editable = in_array($order->order_status, $editable_statuses);
-$is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
+$is_joinable = ($is_editable AND isset($joinable_types[$order->order_type]));
 ?>
 <div class='table centered_td centered_th'>
 	<div class='angle angle-lt'></div>
@@ -249,6 +249,19 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 						</div>
 					</div>
 				</div>
+				<? if ($is_joinable) : ?>
+				<div class="admin-inside float-left">
+					<div class="submit">
+						<div>
+							<input type="button" value="Объединить доставку" onclick="joinProducts();">
+						</div>
+					</div>
+				</div>
+				<img class="float-left"
+					 id="joinProgress"
+					 style="display:none;margin:0px;margin-top:5px;"
+					 src="/static/images/lightbox-ico-loading.gif">
+				<? endif ?>
 				<? if ( ! empty($neighbour_orders)) : ?>
 				<div class="admin-inside floatright">
 					<div class="submit floatright" style="margin: 7px 0 0 6px;">
@@ -260,7 +273,7 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 				<div class="floatright" style="margin: 14px 0 0 0;">
 					Перенести <b class="move_count">0</b> товаров в заказ №
 					<select id="move_to_order" style="margin-top: 0;">
-						<option>выберите номер...</option>
+						<option value="0">выберите номер...</option>
 						<? foreach ($neighbour_orders as $neighbour) : ?>
 						<option value="<?= $neighbour ?>"><?= $neighbour ?></option>
 						<? endforeach; ?>
@@ -272,18 +285,3 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 		<? endif; ?>
 	</table>
 </div>
-<? if ($is_joinable) : ?>
-<div style="height:50px;">
-	<div class="admin-inside float-left">
-		<div class="submit">
-			<div>
-				<input type="button" value="Объединить доставку" onclick="joinProducts();">
-			</div>
-		</div>
-	</div>
-	<img class="float"
-		 id="joinProgress"
-		 style="display:none;margin:0px;margin-top:5px;"
-		 src="/static/images/lightbox-ico-loading.gif">
-</div>
-<? endif ?>
