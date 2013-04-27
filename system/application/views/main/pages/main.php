@@ -1,4 +1,4 @@
-﻿<br style="clear:both;" />
+<br style="clear:both;" />
 <div class='main-block'>
 	<div class='adittional-block'>
 		<? View::show($viewpath.'ajax/showUnassignedOrders', array(
@@ -21,35 +21,7 @@
 	<tr>
 		<td>&nbsp;</td>
 	</tr>
-	<tr>
-		<td><script type="text/javascript"><!--
-			google_ad_client = "ca-pub-5893168729052796";
-			/* Банер 1 */
-			google_ad_slot = "3026683060";
-			google_ad_width = 250;
-			google_ad_height = 230;
-			//-->
-			</script>
-			<script type="text/javascript"
-			src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-			</script></td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td><script type="text/javascript"><!--
-			google_ad_client = "ca-pub-5893168729052796";
-			/* Банер 2 */
-			google_ad_slot = "2887082269";
-			google_ad_width = 250;
-			google_ad_height = 250;
-			//-->
-			</script>
-			<script type="text/javascript"
-			src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-			</script></td>
-	</tr>
+	
 </table>
 		</div>
 		<? endif; ?>
