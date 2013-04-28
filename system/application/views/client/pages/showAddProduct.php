@@ -67,6 +67,4 @@
 		}
 		$('.screenshot_switch').hide('slow');
 	}
-
-
 </script>

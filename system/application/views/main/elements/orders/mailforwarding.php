@@ -22,14 +22,12 @@ endfor; ?>
             <input type='hidden' name="order_type" class="order_type" value="mail_forwarding" />
             <input type='hidden' name="order_currency" class="order_currency" value="<?= $order_currency ?>" />
             <div class='new_order_box'>
-                <div style="clear:both;" ></div>
-                <div>
+                <div style="height: 50px">
                     <span class="label dealer_number_box">Посредник*:</span>
                     <input class="textbox dealer_number_box" maxlength="255" type='text' id='dealer_id_ac_mail_forwarding' style='width:180px;' value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>" >
                     <input type='hidden' id='dealer_id_mail_forwarding' name="dealer_id" value="<?= ($order AND !empty($order->order_manager)) ? $order->order_manager : '' ?>">
                     <img src="/static/images/lightbox-ico-loading.gif" style="margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
                 </div>
-                <div style="clear:both;" ></div>
 				<div>
 					<span class="label">В какую страну доставить*:</span>
 					<select id="country_to_mail_forwarding" name="country_to" class="textbox" >
@@ -42,12 +40,10 @@ endfor; ?>
 						<? endforeach; ?>
 					</select>
 				</div>
-				<div style="clear:both;" ></div>
-				<div>
+				<div style="height: 45px">
                     <span class="label">Cпособ доставки*:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='requested_delivery_mail_forwarding' name="requested_delivery" />
                 </div>
-                <div style="clear:both;" ></div>
             </div>
         </form>
     </div>
@@ -71,41 +67,31 @@ endfor; ?>
                     <span class="label">Наименование товара*:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='oname' name="oname" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Tracking номер*: <img style="margin-left: 7px;" src="/static/images/mini_help.gif"></span>
                     <input style="width:180px;" class="textbox" maxlength="80" type='text' id='otracking' name="otracking" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Ссылка на товар:</span>
                     <input style="width:180px;" class="textbox" maxlength="500" type='text' id='olink' name="olink" />
                 </div>
-                <div style="clear:both;" ></div>
             </div>
         </div>
         <h3>Дополнительная информация по товару:</h3>
         <div class='add_detail_box' style="position:relative;">
             <div class='new_order_box'>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Цвет:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='ocolor' name="ocolor" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Размер:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='osize' name="osize" />
-					<span class="label">
-						<input class="border:auto;" type='button' value="подобрать размер" />
-					</span>
-                </div>
-                <div style="clear:both;" ></div>
+				</div>
                 <div>
                     <span class="label">Количество:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='oamount' name="oamount" value="1" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
 					<span class="label">
 						Скриншот (max. 3 Mb):
@@ -119,12 +105,10 @@ endfor; ?>
 						<img border="0" src="/static/images/delete.png" title="Удалить">
 					</span>
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Нужно ли фото товара?</span>
                     <input type='checkbox' id='foto_requested' name="foto_requested" value="1" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Комментарий к товару:</span>
                     <textarea style="width:180px;resize:vertical!important;"
@@ -133,10 +117,10 @@ endfor; ?>
 							  id='ocomment'
 							  name="ocomment"></textarea>
                 </div>
-                <div style="clear:both;" ></div>
             </div>
         </div>
     </form>
+	<br>
     <div style="height: 50px;" class="admin-inside">
         <div class="submit">
             <div>

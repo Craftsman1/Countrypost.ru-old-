@@ -21,38 +21,32 @@
                     <span class="label">Наименование товара*:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='oname' name="oname" />
                 </div>
-                <div style="clear:both;" ></div>
-                <div>
-                    <span class="label">Tracking номер*: <img style="margin-left: 7px;" src="/static/images/mini_help.gif"></span>
+                <div style="height: 30px;">
+                    <span class="label">Tracking номер посылки*: <img style="top: 3px;position: relative;"
+															   src="/static/images/mini_help.gif"></span>
                     <input style="width:180px;" class="textbox" maxlength="80" type='text' id='otracking' name="otracking" />
                 </div>
-                <div style="clear:both;" ></div>
-                <div>
-                    <span class="label">Ссылка на товар:</span>
-                    <input style="width:180px;" class="textbox" maxlength="500" type='text' id='olink' name="olink" />
-                </div>
-                <div style="clear:both;" ></div>
             </div>
         </div>
-        <h3>Дополнительная информация по товару:</h3>
+        <h3>Дополнительная информация о товаре:</h3>
         <div class='add_detail_box' style="position:relative;">
             <div class='new_order_box'>
-                <div style="clear:both;" ></div>
+				<div>
+					<span class="label">Ссылка на товар:</span>
+					<input style="width:180px;" class="textbox" maxlength="500" type='text' id='olink' name="olink" />
+				</div>
                 <div>
                     <span class="label">Цвет:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='ocolor' name="ocolor" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Размер:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='osize' name="osize" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Количество:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='oamount' name="oamount" value="1" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
 					<span class="label">
 						Скриншот (max. 3 Mb):
@@ -66,12 +60,10 @@
 						<img border="0" src="/static/images/delete.png" title="Удалить">
 					</span>
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Нужно ли фото товара?</span>
                     <input type='checkbox' id='foto_requested' name="foto_requested" value="1" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Комментарий к товару:</span>
                     <textarea style="width:180px;resize:vertical!important;"
@@ -80,9 +72,9 @@
 							  id='ocomment'
 							  name="ocomment"></textarea>
                 </div>
-                <div style="clear:both;" ></div>
             </div>
         </div>
+		<br>
 		<div style="height: 50px;" class="admin-inside">
 			<div class="submit">
 				<div>

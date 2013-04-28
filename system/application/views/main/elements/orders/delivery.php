@@ -11,7 +11,6 @@
             <div class='new_order_box'>
                 <div>
                     <span class="label">Заказать из*:</span>
-                    <!--onchange="setCountryFrom(this.value)"-->
                     <select id="country_from_delivery" name="country_from" class="textbox" >
                         <option value="0">выберите страну...</option>
                         <? foreach ($countries as $country) : ?>
@@ -22,7 +21,6 @@
                         <? endforeach; ?>
                     </select>
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">В какую страну доставить*:</span>
                     <select id="country_to_delivery" name="country_to" class="textbox" >
@@ -35,17 +33,14 @@
                         <? endforeach; ?>
                     </select>
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Город доставки*:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='city_to_delivery' name="city_to" value="<?= ($order) ? $order->order_city_to : '' ?>" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Cпособ доставки:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='requested_delivery_delivery' name="requested_delivery" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div style="display: none;">
 					<span class="label dealer_number_switch" style='<?= (!$order OR empty($order->order_manager)) ? '' : 'display:none;' ?>'>
 						<a href="javascript: void(0);" onclick="">Выбрать посредника</a>
@@ -58,7 +53,6 @@
                         <img src="/static/images/lightbox-ico-loading.gif" style="position: absolute; margin-top: -8px; margin-left: 10px; display: none;" class="float progress_ac" id="progress_ac">
 					</span>
                 </div>
-                <div style="clear:both;" ></div>
             </div>
         </form>
     </div>
@@ -81,59 +75,49 @@
                     <span class="label">Наименование товара*:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='oname' name="oname" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Ссылка на товар:</span>
                     <input style="width:180px;" class="textbox" maxlength="500" type='text' id='olink' name="olink" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Количество*:</span>
                     <input style="width:180px;" class="textbox" maxlength="11" type='text' id='oamount' name="oamount" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Примерный вес (кг)*:</span>
                     <input style="width:180px;" class="textbox" maxlength="255" type='text' id='oweight' name="oweight" />
                     <span style="float: left;margin: 2px 6px;">кг</span>
                     <div style="clear:both;" ></div>
                 </div>
-                <div style="clear:both;" ></div>
             </div>
         </div>
         <h3>Дополнительная информация по товару/грузу:</h3>
         <div class='add_detail_box' style="position:relative;">
             <div class='new_order_box'>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Объём:</span>
                     <input style="width:180px;" class="textbox" maxlength="11" type='text' id='ovolume' name="ovolume" />
                     <span style="float: left;margin: 2px 6px;">м³</span>
                     <span style="float: left;margin: 2px 6px;">Пример: 5,5</span>
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">ТН ВЭД:</span>
                     <input style="width:180px;" class="textbox" maxlength="11" type='text' id='otnved' name="otnved" />
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Требуется страховка?</span>
                    	<input type='checkbox' id='insurance' name="insurance" value="1" />
 				</div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Стоимость:</span>
                     <input style="width:180px;" class="textbox" maxlength="11" type='text' id='oprice' name="oprice" />
                     <span class="label currency"><?= $order_currency ?></span>
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Местная доставка:</span>
                     <input style="width:180px;" class="textbox" maxlength="11" type='text' id='odeliveryprice' name="odeliveryprice" />
                     <span class="label currency"><?= $order_currency ?></span>
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Комментарий к товару:</span>
                     <textarea style="width:180px;resize:vertical!important;"
@@ -142,10 +126,10 @@
 							  id='ocomment'
 							  name="ocomment"></textarea>
                 </div>
-                <div style="clear:both;" ></div>
             </div>
         </div>
     </form>
+	<br>
     <div style="height: 50px;" class="admin-inside">
         <div class="submit">
             <div>

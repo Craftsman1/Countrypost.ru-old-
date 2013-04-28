@@ -223,7 +223,6 @@ class Client extends BaseController {
 	// TODO: этот код дублирует методы из main. поскольку страница временная, оставляем как есть ради экономии времени
 	protected function onlineProductCheck ($detail)
 	{
-
 		if (empty($detail->odetail_link))
 		{
 			throw new Exception('Добавьте ссылку на товар.');
@@ -237,11 +236,6 @@ class Client extends BaseController {
 		if (empty($detail->odetail_price))
 		{
 			throw new Exception('Добавьте цену товара.');
-		}
-
-		if (empty($detail->odetail_weight))
-		{
-			throw new Exception('Добавьте примерный вес товара.');
 		}
 
 		if (empty($detail->odetail_country))
@@ -265,11 +259,6 @@ class Client extends BaseController {
 		if (empty($detail->odetail_price))
 		{
 			throw new Exception('Добавьте цену товара.');
-		}
-
-		if (empty($detail->odetail_weight))
-		{
-			throw new Exception('Добавьте примерный вес товара.');
 		}
 
 		if (empty($detail->odetail_country))
@@ -303,9 +292,9 @@ class Client extends BaseController {
 
 	protected function serviceProductCheck ($detail)
 	{
-		if (empty($detail->odetail_product_name))
+		if (empty($detail->odetail_comment))
 		{
-			throw new Exception('Добавьте наименование товара.');
+			throw new Exception('Добавьте описание услуги.');
 		}
 	}
 
@@ -314,6 +303,11 @@ class Client extends BaseController {
 		if (empty($detail->odetail_product_name))
 		{
 			throw new Exception('Добавьте наименование товара.');
+		}
+
+		if (empty($detail->odetail_tracking))
+		{
+			throw new Exception('Добавьте Tracking номер.');
 		}
 	}
 	// EOF: костыль

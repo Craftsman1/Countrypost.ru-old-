@@ -16,31 +16,24 @@
             <div class='angle angle-lb'></div>
             <div class='angle angle-rb'></div>
             <div class='new_order_box'>
-                <div>
-                    <span class="label">Наименование услуги*:</span>
-                    <input style="width:180px;" class="textbox" maxlength="255" type='text' id='oname' name="oname" />
-                </div>
-                <div style="clear:both;" ></div>
-                <div>
+                <div style="height: 60px;">
                     <span class="label">Подробное описание что<br/> нужно сделать*:</span>
-                    <textarea style="width:180px;resize:auto!important;" class="textbox" maxlength="255" id='ocomment' name="ocomment"></textarea>
+                    <textarea style="width:180px;resize:vertical;" class="textbox" maxlength="255" id='ocomment'
+							  name="ocomment"></textarea>
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Стоимость за выполнение:</span>
                     <input style="width:180px;" class="textbox" maxlength="11" type='text' id='oprice' name="oprice" />
                     <span class="label currency"><?= $order_currency ?></span>
                 </div>
-                <div style="clear:both;" ></div>
                 <div>
                     <span class="label">Местная доставка:</span>
                     <input style="width:180px;" class="textbox" maxlength="11" type='text' id='odeliveryprice' name="odeliveryprice" />
                     <span class="label currency"><?= $order_currency ?></span>
                 </div>
-                <div style="clear:both;" ></div>
-                <div>
+                <div style="height: 30px;">
                     <span class="label">
-                        Скриншот (max. 3 Mb):
+                        Скриншот (max. 3 MB):
                     </span>
                     <span class="label screenshot_switch" style="font-size:11px;margin:0;width:300px;">
                         <a href="javascript: showScreenshotLink();">Добавить ссылку</a>&nbsp;или&nbsp;<a href="javascript: showScreenshotUploader();" class="screenshot_switch">Загрузить файл</a>
@@ -51,7 +44,6 @@
                         <img border="0" src="/static/images/delete.png" title="Удалить">
                     </span>
                 </div>
-                <div style="clear:both;" ></div>
             </div>
         </div>
 		<div style="height: 50px;" class="admin-inside">

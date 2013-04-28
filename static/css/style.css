@@ -2080,6 +2080,10 @@ div.new_order_box {
 	height: auto!important;
 }
 
+div.new_order_box > div {
+	height: 45px;
+}
+
 div.new_order_box .textbox {
 	width: 188px;
 	float: left;
