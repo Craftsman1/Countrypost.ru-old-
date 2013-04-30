@@ -4152,7 +4152,7 @@ abstract class BaseController extends Controller
 			else
 			{
 				$userfile = FALSE;
-				$odetail->odetail_img = Check::str('img', 4096, 1, NULL);
+				$odetail->odetail_img = Check::str('img', 4096, 1, 0);
 			}
 
 			// ссылка на товар, обязательна только в онлайн заказах

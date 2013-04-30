@@ -263,8 +263,7 @@ function getSnippetByType(odetail, order_type)
 	}
 	else if (order_type == 'service')
 	{
-		snippet = '<b>' + odetail['name'] + '</b>' +
-			'<br><b>Описание</b>: ' +
+		snippet = '<b>Описание</b>: ' +
 			odetail['comment'];
 	}
 	else if (order_type == 'delivery')

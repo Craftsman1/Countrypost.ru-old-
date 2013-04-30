@@ -86,14 +86,15 @@ $is_joinable = ($is_editable AND isset($joinable_types[$order->order_type]));
 			</td>
 			<td>
 				<span class="plaintext">
-					<? if (isset($odetail->odetail_img)) : ?>
+					<? if (isset($odetail->odetail_img) AND
+						   $odetail->odetail_img) : ?>
 					<a target="_blank" href="<?= $odetail->odetail_img ?>"><?=
 						(strlen($odetail->odetail_img) > 17 ?
 							substr($odetail->odetail_img, 0, 17) . '...' :
 							$odetail->odetail_img) ?></a>
-					<? else : ?>
+					<? elseif ( ! isset($odetail->odetail_img)) : ?>
 					<a href="javascript:void(0)" onclick="setRel(<?= $odetail->odetail_id ?>);">
-						<img src='/client/showScreen/<?= $odetail->odetail_id ?>' width="55px" height="55px">
+						<img src='/client/showScreen/<?= $odetail->odetail_id ?>' height="55px">
 						<a rel="lightbox_<?= $odetail->odetail_id ?>" href="/client/showScreen/<?=
 							$odetail->odetail_id ?>" style="display:none;">Посмотреть</a>
 					</a>

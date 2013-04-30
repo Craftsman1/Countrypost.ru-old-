@@ -1,6 +1,4 @@
 <span class="plaintext">
-	<b><?= $odetail->odetail_product_name ?></b>
-	<br>
 	<b>Описание</b>: <?= $odetail->odetail_comment ?>
 </span>
 <? if ($is_editable) : ?>
@@ -40,13 +38,7 @@
 	});
 </script>
 <span class="producteditor" style="display: none;">
-	<!--textarea class="link" name="link" style="display: none;"></textarea>
-	<br-->
-	<b>Наименование:</b>
-	<textarea class="name" name="name"></textarea>
-	<br>
 	<b>Описание:</b>
 	<textarea class="ocomment" name="comment"></textarea>
-	<br>
 </span>
 <? endif; ?>

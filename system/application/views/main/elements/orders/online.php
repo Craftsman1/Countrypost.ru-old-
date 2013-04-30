@@ -21,7 +21,6 @@
 						<? endforeach; ?>
 					</select>
 				</div>
-				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">В какую страну доставить*:</span>
                     <select id="country_to_online" name="country_to" class="textbox" >
@@ -34,17 +33,14 @@
 						<? endforeach; ?>
 					</select>
 				</div>
-				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Город доставки*:</span>
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='city_to_online' name="city_to" value="<?= ($order) ? $order->order_city_to : '' ?>" />
 				</div>
-				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Cпособ доставки:</span>
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='requested_delivery_online' name="requested_delivery" />
 				</div>
-				<div style="clear:both;" ></div>
 				<div style="display: none;">
 					<span class="label dealer_number_switch" style='<?= (!$order OR empty($order->order_manager)) ? '' : 'display:none;' ?>'>
 						<a href="javascript: void(0);" onclick="">Выбрать посредника</a>
@@ -82,35 +78,24 @@
 					<span class="label">Ссылка на товар*:</span>
 					<input style="width:180px;" class="textbox" maxlength="4096" type='text' id='olink' name="olink" />
 				</div>
-				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Наименование товара*:</span>
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='oname' name="oname" />
 				</div>
-				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Цена товара*:</span>
 					<input style="width:180px;" class="textbox" maxlength="11" type='text' id='oprice' name="oprice" />
 					<span class="label currency"><?= $order_currency ?></span>
 				</div>
-				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Местная доставка:</span>
 					<input style="width:180px;" class="textbox" maxlength="11" type='text' id='odeliveryprice' name="odeliveryprice" />
 					<span class="label currency"><?= $order_currency ?></span>
 				</div>
-				<div style="clear:both;" ></div>
 				<div>
-					<span class="label">Примерный вес (г)*:
-						<br />
-						<i>1кг - 1000грамм
-						</i>
+					<span class="label">Примерный вес (кг)*:
 					</span>
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='oweight' name="oweight" />
-					<span class="label">
-						<input class="border:auto;" type='button' value="примерный вес товаров" />
-					</span>
-				<div style="clear:both;" ></div>
 				</div>
 			</div>
 		</div>
@@ -122,20 +107,14 @@
 					<span class="label">Цвет:</span>
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='ocolor' name="ocolor" />
 				</div>
-				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Размер:</span>
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='osize' name="osize" />
-					<span class="label">
-						<input class="border:auto;" type='button' value="подобрать размер" />
-					</span>
-				</div>
-				<div style="clear:both;" ></div>
+					</div>
 				<div>
 					<span class="label">Количество:</span>
 					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='oamount' name="oamount" value="1" />
 				</div>
-				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">
 						Скриншот (max. 3 Mb):
@@ -149,20 +128,18 @@
 						<img border="0" src="/static/images/delete.png" title="Удалить">
 					</span>
 				</div>
-				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Нужно ли фото товара?</span>
 					<input type='checkbox' id='foto_requested' name="foto_requested" value="1" />
 				</div>
-				<div style="clear:both;" ></div>
 				<div>
 					<span class="label">Комментарий к товару:</span>
 					<textarea style="width:180px;resize:auto!important;" class="textbox" maxlength="255" id='ocomment' name="ocomment"></textarea>
 				</div>
-				<div style="clear:both;" ></div>
 			</div>
 		</div>
 	</form>
+	<br>
 	<div style="height: 50px;" class="admin-inside">
 		<div class="submit">
 			<div>
