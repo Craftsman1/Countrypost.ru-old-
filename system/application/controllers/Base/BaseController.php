@@ -962,246 +962,98 @@ abstract class BaseController extends Controller
 		return $new_bid;
 	}
 
-    protected function addBlankOrder($client, $country_from, $country_to, $city_to, $preferred_delivery, $order_manager, $order_type)
-    {
-        // типы заказов
-        $this->load->model('OrderModel', 'Orders');
-
-        $order = new stdClass();
-        $order->order_client = $client;
-        $order->order_country_from = $country_from;
-        $order->order_country_to = $country_to;
-        $order->order_city_to = $city_to;
-        $order->preferred_delivery = $preferred_delivery;
-        $order->order_manager = $order_manager;
-        $order->order_type = $order_type;
-        $order->is_creating = 1;
-        $order = $this->Orders->addOrder($order);
-
-        return $order;
-    }
-
-	protected function addProductManualAjax()
+	protected function getOrderClient()
 	{
-		$this->load->model('OrderModel', 'Orders');
-		$this->load->model('OdetailModel', 'OdetailModel');
-		
-		Check::reset_empties();
-		$detail = new OdetailModel();
-        $detail->odetail_order = Check::int('order_id');
+		return isset($this->user->user_id) ?
+			$this->user->user_id :
+			UserModel::getTemporaryKey();
+	}
 
-        $order_type = Check::str('order_type', 40, 1);
-        $order_manager = Check::int('dealer_id');
-        $country_from = Check::int('ocountry');
-        $country_to = Check::int('ocountry_to');
-        $city_to = Check::str('city_to', 40, 0);
-        $preferred_delivery = Check::str('requested_delivery', 255, 0);
-
-        // Находим клиента
-        if (empty($this->user))
-        {
-            $client_id = UserModel::getTemporaryKey();
-        }
-        else
-        {
-            // если пользователь не клиент
-            if ($this->user->user_group != 'client')
-            {
-                throw new Exception('Вы не имеете прав на добавление товаров.');
-            }
-
-            $client_id = $this->user->user_id;
-        }
-
-        // Находим заказ
-		if ( ! $detail->odetail_order AND
-            $this->user AND
-			$this->user->user_group != 'client')
+	protected function addProductToOrder($order)
+	{
+		try
 		{
-			throw new Exception('Заказ не найден.');
-		}
-        elseif ( ! $detail->odetail_order )
-        {
-            // создаем пустой заказ
-            $order = $this->addBlankOrder($client_id, $country_from, $country_to, $city_to, $preferred_delivery, $order_manager, $order_type);
-            $detail->odetail_order = $order->order_id;
-        }
-        else
-        {
-            // TODO : В идеале проверять на данном этапе не сменился ли у заказа odetail_country
-            $order = new stdClass();
-            $order->order_id = $detail->odetail_order;
-        }
+			$this->load->model('OrderModel', 'Orders');
+			$this->load->model('OdetailModel', 'OdetailModel');
 
-        $order->order_type          = $order_type;
-        $order->order_manager       = $order_manager;
-        $order->country_from        = $country_from;
-        $order->country_to          = $country_to;
-        $order->city_to             = $city_to;
-        $order->preferred_delivery  = $preferred_delivery;
+			// необязательные поля
+			Check::reset_empties();
+			$detail = new OdetailModel();
+
+			$detail->odetail_shop				    = Check::str('oshop', 255, 0);
+			$detail->odetail_volume				    = Check::float('ovolume', 0);
+			$detail->odetail_tnved				    = Check::str('otnved', 255, 1);
+			$detail->odetail_insurance				= Check::chkbox('insurance');
+			$detail->odetail_comment                = Check::str('ocomment', 255, 0);
+			$detail->odetail_tracking               = Check::str('otracking', 80, 0);
+			$detail->odetail_status                 = 'processing';
+			$detail->odetail_img					= Check::str('userfileimg', 500, 1);
+			$detail->odetail_product_amount			= Check::int('oamount');
+			$detail->odetail_product_color			= Check::str('ocolor', 32, 0);
+			$detail->odetail_product_size			= Check::str('osize', 32, 0);
+			$detail->odetail_client					= $this->getOrderClient();
+			$detail->odetail_manager				= $order->order_manager;
+			$detail->odetail_country				= Check::str('ocountry', 255, 1);
+			$detail->odetail_foto_requested			= Check::chkbox('foto_requested');
+			$detail->odetail_search_requested		= Check::chkbox('search_requested');
+			$userfile								= (isset($_FILES['userfile']) AND ! $_FILES['userfile']['error']);
 
 
-        $detail->odetail_shop				    = Check::str('oshop', 255, 0);
-        $detail->odetail_volume				    = Check::float('ovolume', 0);
-        $detail->odetail_tnved				    = Check::str('otnved', 255, 1);
-        $detail->odetail_insurance				= Check::chkbox('insurance');
-        $detail->odetail_comment                = Check::str('ocomment', 255, 0);
-        $detail->odetail_tracking               = Check::str('otracking', 80, 0);
-        $detail->odetail_status                 = 'processing';
-		
-		Check::reset_empties();
-		$detail->odetail_link					= Check::str('olink', 500, 1);
-		$detail->odetail_product_name			= Check::str('oname', 255, 1);
-		$detail->odetail_price					= Check::float('oprice');
-		$detail->odetail_pricedelivery			= Check::float('odeliveryprice');
-		$detail->odetail_weight					= Check::float('oweight');	
-		$empties								= Check::get_empties();	
-		
-		$detail->odetail_img					= Check::str('userfileimg', 500, 1);
-		$userfile								= (isset($_FILES['userfile']) AND ! $_FILES['userfile']['error']);
-		$detail->odetail_product_amount			= Check::int('oamount');
-		$detail->odetail_product_color			= Check::str('ocolor', 32, 0);
-		$detail->odetail_product_size			= Check::str('osize', 32, 0);
-		$detail->odetail_client					= $client_id;
-		$detail->odetail_manager				= $order_manager;
-		$detail->odetail_country				= Check::str('ocountry', 255, 1);
-		$detail->odetail_foto_requested			= Check::chkbox('foto_requested');
-		$detail->odetail_search_requested		= Check::chkbox('search_requested');
+			//print_r($userfile);die();
+			// обязательные поля
+			$detail->odetail_order 					= $order->order_id;
+			$detail->odetail_link					= Check::str('olink', 500, 1);
+			$detail->odetail_product_name			= Check::str('oname', 255, 1);
+			$detail->odetail_price					= Check::float('oprice');
+			$detail->odetail_pricedelivery			= Check::float('odeliveryprice');
+			$detail->odetail_weight					= Check::float('oweight');
 
-		try 
-		{
-            switch ($order_type)
-            {
-                case 'online' :
-                    $this->onlineProductCheck($detail);
-                    break;
-                case 'offline' :
-                    $this->offlineProductCheck($detail);
-                    break;
+			if (empty($userfile))
+			{
+				$detail->odetail_img = 0;
+			}
+
+			switch ($order->order_type)
+			{
+				case 'online' :
+					$this->onlineProductCheck($detail);
+					break;
+				case 'offline' :
+					$this->offlineProductCheck($detail);
+					break;
 				case 'service' :
 					$this->serviceProductCheck($detail);
 					break;
 				case 'delivery' :
-                    $this->deliveryProductCheck($detail);
-                    break;
-                case 'mailforward' :
-                    $this->mailforwardProductCheck($detail);
-                    break;
-            }
-
-			if ($userfile)
-			{
-                unset($detail->odetail_img);
+					$this->deliveryProductCheck($detail);
+					break;
+				case 'mail_forwarding' :
+					$this->mailforwardProductCheck($detail);
+					break;
 			}
-            elseif ( ! $detail->odetail_img)
-            {
-                $detail->odetail_img = 0;
-            }
-				
-			// открываем транзакцию
-			$this->db->trans_begin();
 
-            $this->Orders->saveOrder($order);
-
+			// погнали
 			$detail = $this->OdetailModel->addOdetail($detail);
 
 			// загружаем файл
-			if ($userfile)
+			if (isset($userfile) AND $userfile)
 			{
-				$old = umask(0);
-				// загрузка файла
-
-				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/orders")){
-					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/orders",0777);
-				}
-				if (!is_dir($_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id")){
-					mkdir($_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id",0777);
-				}
-
-				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id";
-				$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
-				$config['max_size']				= '3072';
-				$config['encrypt_name'] 		= TRUE;
-				$max_width						= 1024;
-				$max_height						= 768;
-				$this->load->library('upload', $config);
-
-				if ( ! $this->upload->do_upload())
-				{
-					throw new Exception(strip_tags(trim($this->upload->display_errors())));
-				}
-				
-				$uploadedImg = $this->upload->data();
-				if (!rename($uploadedImg['full_path'],$_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id/{$detail->odetail_id}.jpg"))
-				{
-					throw new Exception("Bad file name!");
-				}
-				
-				$uploadedImg	= $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id/{$detail->odetail_id}.jpg";
-				$imageInfo		= getimagesize($uploadedImg);
-
-				if ($imageInfo[0]>$max_width OR $imageInfo[1]>$max_height)
-				{
-					$config['image_library']	= 'gd2';
-					$config['source_image']		= $uploadedImg;
-					$config['maintain_ratio']	= TRUE;
-					$config['width']			= $max_width;
-					$config['height']			= $max_height;
-					
-					$this->load->library('image_lib', $config); // загружаем библиотеку
-					$this->image_lib->resize(); // и вызываем функцию
-				}
-
-                $this->OdetailModel->addOdetail($detail);
+				$this->uploadOrderScreenshot($detail, $this->user->user_id);
 			}
-			
-			// закрываем транзакцию
-			$this->db->trans_commit();
-			
-			// уведомления
-/*			if (isset($is_new_status) AND $is_new_status)
+
+			// пересчитываем заказ
+			if ( ! $this->Orders->recalculate($order))
 			{
-				$this->load->model('ManagerModel', 'Managers');
-				$this->load->model('UserModel', 'Users');
-				$this->load->model('ClientModel', 'Clients');
-
-				Mailer::sendAdminNotification(
-					Mailer::SUBJECT_NEW_ORDER_STATUS, 
-					Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-					0,
-					$order->order_id, 
-					0,
-					"http://countrypost.ru/admin/showOrderDetails/{$order->order_id}",
-					NULL,
-					NULL,
-					$status_caption);
-
-				Mailer::sendManagerNotification(
-					Mailer::SUBJECT_NEW_ORDER_STATUS, 
-					Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-					$order->order_manager, 
-					$order->order_id, 
-					0,
-					"http://countrypost.ru/manager/showOrderDetails/{$order->order_id}",
-					$this->Managers,
-					NULL,
-					$status_caption);
-
-				Mailer::sendClientNotification(
-					Mailer::SUBJECT_NEW_ORDER_STATUS, 
-					Mailer::NEW_ORDER_STATUS_NOTIFICATION,
-					$order->order_id, 
-					$order->order_client, 
-					"http://countrypost.ru/client/showOrderDetails/{$order->order_id}",
-					$this->Clients,
-					$status_caption);
+				throw new Exception('Невожможно пересчитать стоимость заказа. Попоробуйте еще раз.');
 			}
-*/
+
+			$this->Orders->saveOrder($order);
+
 			// возвращаем json с инфой по заказу и товару
-            $result = new stdClass();
-            $result->order_id = $order->order_id;
-            $result->odetail_id = $detail->odetail_id;
-            $result->odetail_img = $detail->odetail_img;
+			$result = new stdClass();
+			$result->order_id = $order->order_id;
+			$result->odetail_id = $detail->odetail_id;
+			$result->odetail_img = $detail->odetail_img;
 
 			echo json_encode($result);
 		}
@@ -1210,7 +1062,76 @@ abstract class BaseController extends Controller
 			echo $e->getMessage();
 		}
 	}
-	
+
+	protected function addProductManualAjax()
+	{
+		try
+		{
+			$order = $this->updateOrder();
+			$this->addProductToOrder($order);
+		}
+		catch (Exception $e)
+		{
+		}
+	}
+
+	protected function updateOrder($order_id = 0)
+	{
+		// 1. валидация
+		if (empty($order_id))
+		{
+			$order_id = Check::int('order_id');
+
+			if (empty($order_id))
+			{
+				throw new Exception('Заказ не найден.');
+			}
+		}
+
+		// 2. Находим заказ
+		// TODO: добавить проверку доступа
+		$this->load->model('OrderModel', 'Orders');
+		$order = $this->Orders->getById($order_id);
+
+		if (empty($order))
+		{
+			throw new Exception('Заказ не найден.');
+		}
+
+		// 3. заполняем заказ
+		$order->order_manager       = Check::int('dealer_id');
+		$order->order_country_from  = Check::int('country_from');
+		$order->order_country_to	= Check::int('country_to');
+		$order->order_city_to		= Check::str('city_to', 40, 0);
+		$order->preferred_delivery	= Check::str('preferred_delivery', 255, 0);
+
+		// 4. проверяем выбранного посредника
+		$this->load->model('ManagerModel', 'Managers');
+/*
+		// TODO: причесать этот код
+		if ($manager->manager_status != 1 OR
+			$manager->is_mail_forwarding == 0)
+		{
+			throw new Exception('Выбранный посредник не обслуживает Mail Forwarding заказы. Пожалуйста,
+					выберите другого посредника.');
+		}
+
+		if ($order->order_country_from > 0 AND
+			$order->order_country_from != $manager->manager_country)
+		{
+			$order->order_country_from = $manager->manager_country;
+		}
+
+		$order->order_country_from = $manager->manager_country;
+	}
+
+*/
+		// 5. сохраняем и отдаем заказ
+		$this->Orders->saveOrder($order);
+
+		return $order;
+	}
+
 	protected function showO2iComments()
 	{
 		try
@@ -4412,6 +4333,91 @@ abstract class BaseController extends Controller
 			'status' => $order->order_status,
 			'bids' => (isset($bids) ? $bids : FALSE)
 		);
+	}
+
+	protected function onlineProductCheck ($detail)
+	{
+		if (empty($detail->odetail_link))
+		{
+			throw new Exception('Добавьте ссылку на товар.');
+		}
+
+		if (empty($detail->odetail_product_name))
+		{
+			throw new Exception('Добавьте наименование товара.');
+		}
+
+		if (empty($detail->odetail_price))
+		{
+			throw new Exception('Добавьте цену товара.');
+		}
+
+		if ( ! $detail->odetail_product_amount)
+		{
+			$detail->odetail_product_amount = 1;
+		}
+	}
+
+	protected function offlineProductCheck ($detail)
+	{
+		if (empty($detail->odetail_product_name))
+		{
+			throw new Exception('Добавьте наименование товара.');
+		}
+
+		if (empty($detail->odetail_price))
+		{
+			throw new Exception('Добавьте цену товара.');
+		}
+
+		if (empty($detail->odetail_country))
+		{
+			throw new Exception('Выберите страну.');
+		}
+
+		if ( ! $detail->odetail_product_amount)
+		{
+			$detail->odetail_product_amount = 1;
+		}
+	}
+
+	protected function deliveryProductCheck ($detail)
+	{
+		if (empty($detail->odetail_product_name))
+		{
+			throw new Exception('Добавьте наименование товара.');
+		}
+
+		if (empty($detail->odetail_weight))
+		{
+			throw new Exception('Добавьте примерный вес товара.');
+		}
+
+		if ( ! $detail->odetail_product_amount)
+		{
+			$detail->odetail_product_amount = 1;
+		}
+	}
+
+	protected function serviceProductCheck ($detail)
+	{
+		if (empty($detail->odetail_comment))
+		{
+			throw new Exception('Добавьте описание услуги.');
+		}
+	}
+
+	protected function mailforwardProductCheck ($detail)
+	{
+		if (empty($detail->odetail_product_name))
+		{
+			throw new Exception('Добавьте наименование товара.');
+		}
+
+		if (empty($detail->odetail_tracking))
+		{
+			throw new Exception('Добавьте Tracking номер.');
+		}
 	}
 }
 ?>

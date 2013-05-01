@@ -2041,7 +2041,9 @@ div.order_type_selector div.order div {
 	position: relative;
 }
 
-div.order_type_selector div.order:hover {}
+div.order_type_selector div.order:hover {
+	background-color: #f7f7f7;
+}
 
 div.order_type_selector div.order div:last-child {
 	left:180px;
@@ -2085,7 +2087,7 @@ div.new_order_box > div {
 }
 
 div.new_order_box .textbox {
-	width: 188px;
+	width: 180px;
 	float: left;
 	padding:4px 4px 3px;
 	background-color:#f7f7f7 !important;
@@ -2122,28 +2124,14 @@ span.dealer_number_box {
 	height: 25px!important;
 }
 
+input.screenshot_uploader_box {
+	width: 188px!important;
+	padding: 0!important;
+}
+
 span.dealer_number_box img,span.screenshot_uploader_box img {
 	margin-top: 3px;
 	cursor:pointer;
-}
-
-div.online_order_form  div.table:first-child
-{
-	height: 150px;
-}
-
-div.requestForm span.request_comment 
-{
-	vertical-align: top;
-}
-
-div#requestForm textarea 
-{
-	resize: auto;
-	width: 793px;
-	float:right;
-	height:80px;
-	margin-top: 2px;
 }
 
 div.managerinfo  span.status, div.clientinfo  span.status

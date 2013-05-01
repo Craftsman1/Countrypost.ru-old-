@@ -317,7 +317,7 @@ class OrderModel extends BaseModel implements IModel{
 	public function getList()
 	{
 		$sql = $this->select();
-		return ($sql)?($sql):(false);
+		return ($sql)?($sql):(FALSE);
 	}
 	
 	/**
@@ -330,7 +330,7 @@ class OrderModel extends BaseModel implements IModel{
 			$this->getPK()	=> (int) $id,
 		));					
 		
-		return ((count($r==1) &&  $r) ? array_shift($r) : false);
+		return ((count($r==1) &&  $r) ? array_shift($r) : FALSE);
 	}
 	
 	/**
@@ -364,7 +364,7 @@ class OrderModel extends BaseModel implements IModel{
 			return $this->getInfo(array($new_id));
 		}
 		
-		return false;
+		return FALSE;
 	}
 	
 	public function getClientOrders($client_id)
@@ -505,7 +505,7 @@ class OrderModel extends BaseModel implements IModel{
 		)->result();
 
 		// отдаем результат
-		return ((count($result) > 0 &&  $result) ? $result : false);		
+		return ((count($result) > 0 &&  $result) ? $result : FALSE);
 	}
 
 	public function getUnassignedOrders($filter = NULL, $clientId = NULL) 
@@ -589,7 +589,7 @@ class OrderModel extends BaseModel implements IModel{
 		)->result();
 
 		// отдаем результат
-		return ((count($result) > 0 &&  $result) ? $result : false);		
+		return ((count($result) > 0 &&  $result) ? $result : FALSE);
 	}
 		
 	public function getUnassignedOrdersCount(
@@ -728,7 +728,7 @@ class OrderModel extends BaseModel implements IModel{
 	public function getClientOrderById($order_id, $client_id)
 	{
 		$order = $this->getById($order_id);
-        $temp_client_id = UserModel::getTemporaryKey(false);
+        $temp_client_id = UserModel::getTemporaryKey(FALSE);
 
 		// Если пользователь создавший заказ совпадает с авторизованным пользователем в рамках текущей сессии
 		if ($order AND
@@ -783,86 +783,38 @@ class OrderModel extends BaseModel implements IModel{
 		return FALSE;
 	}
 
-    // TODO: расчистить говнокод!!!!
-	public function getClientBlankOrders($client_id, $order_type = '')
+    public function getCreatingOrder($order_type, $client_id)
     {
-        $where = " AND `orders`.`order_client` = '".$client_id."'";
+        $where = "`orders`.`order_client` = $client_id";
 
-        $temp_client_id = UserModel::getTemporaryKey(true);
+        $temp_client_id = UserModel::getTemporaryKey(TRUE);
 
         if ($client_id != $temp_client_id)
         {
-            $where .= ' OR `orders`.`order_client` = '.$temp_client_id;
+            $where .= " OR `orders`.`order_client` = $temp_client_id";
         }
 
         // выборка
         $orders = $this->db->query(
             "SELECT
-                `orders` . * ,
+                `orders`.* ,
                 `users`.`user_login` AS `client_login` ,
                 `countries`.`country_currency` AS `order_currency`
-            FROM `orders`
-            LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
-            INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'online' {$where}
-            UNION ALL
-            SELECT
-                `orders` . * ,
-                `users`.`user_login` AS `client_login` ,
-                `countries`.`country_currency` AS `order_currency`
-            FROM `orders`
-            LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
-            INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'offline' {$where}
-            UNION ALL
-            SELECT
-                `orders` . * ,
-                `users`.`user_login` AS `client_login` ,
-                `countries`.`country_currency` AS `order_currency`
-            FROM `orders`
-            LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
-            INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'delivery' {$where}
-            UNION ALL
-            SELECT
-                `orders` . * ,
-                `users`.`user_login` AS `client_login` ,
-                `countries`.`country_currency` AS `order_currency`
-            FROM `orders`
-            LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
-            INNER JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'service' {$where}
-            UNION ALL
-            SELECT
-                `orders` . * ,
-                `users`.`user_login` AS `client_login` ,
-                `countries`.`country_currency` AS `order_currency`
-            FROM `orders`
-            LEFT JOIN `users` ON `users`.`user_id` = `orders`.`order_client`
-            LEFT JOIN `countries` ON `countries`.`country_id` = `orders`.`order_country_from`
-            WHERE `orders`.`is_creating` = 1 AND `orders`.`order_type` = 'mail_forwarding' {$where}
-            ORDER BY order_id DESC
-            "
+            FROM
+            	`orders`
+            LEFT JOIN
+            	`users` ON `users`.`user_id` = `orders`.`order_client`
+            LEFT JOIN
+            	`countries` ON `countries`.`country_id` = `orders`.`order_country_from`
+            WHERE
+            	`orders`.`is_creating` = 1 AND
+            	`orders`.`order_type` = '$order_type' AND
+            	({$where})
+            ORDER BY `orders`.`order_id` DESC
+            LIMIT 1"
         )->result();
 
-        if ($orders)
-        {
-            foreach ($orders as $k=>$order)
-			{
-                $odetails = $this->db->query(
-                    "SELECT *
-                    FROM `odetails`
-                    WHERE `odetails`.`odetail_order` = {$order->order_id} AND odetail_status <> 'deleted'
-                    ORDER BY `odetails`.`odetail_id` DESC "
-                )->result();
-
-                $orders[$k]->details = $odetails;
-			}
-
-            return $orders;
-        }
-
-        return false;
+        return empty($orders) ? FALSE : $orders[0];
     }
 	
 	/**
@@ -1229,16 +1181,11 @@ class OrderModel extends BaseModel implements IModel{
 			$view['order']->order_currency = strval($order_country_from->country_currency);
 		}
 
-		//if (isset($order_country_from->country_name))
-		//{
-			$view['order']->order_country = $view['order']->order_country_from;
-			$view['order']->order_country_from = strval($order_country_from->country_name);
-		//}
-
-		//if (isset($order_country_to->country_name))
-		//{
-			$view['order']->order_country_to = $order_country_to ? strval($order_country_to->country_name) : '';
-		//}
+		$view['order']->order_country = $view['order']->order_country_from;
+		$view['order']->order_country_from = strval($order_country_from->country_name);
+		$view['order']->order_country_to = $order_country_to ?
+			strval($order_country_to->country_name) :
+			'';
 	}
 
 	public function getOrderCurrency($order_id)

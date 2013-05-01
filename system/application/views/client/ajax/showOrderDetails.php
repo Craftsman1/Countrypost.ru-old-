@@ -23,7 +23,8 @@ $is_joinable = ($is_editable AND isset($joinable_types[$order->order_type]));
 		<tr>
 			<th nowrap>
 				№
-				<? if ($is_editable) : ?>
+				<? if ($is_editable AND
+					! $order->is_creating) : ?>
 				<input type='checkbox' id='select_all'>
 				<? endif; ?>
 			</th>
@@ -51,15 +52,15 @@ $is_joinable = ($is_editable AND isset($joinable_types[$order->order_type]));
 			<th style="width:1px;"></th>
 			<? endif; ?>
 		</tr>
-		<?
-		$odetail_joint_id = 0;
-		$odetail_joint_count = 0;
+		<? $odetail_joint_id = 0;
+			$odetail_joint_count = 0;
 
 		if ( ! empty($odetails)) : foreach($odetails as $odetail) : ?>
 		<tr id='product<?= $odetail->odetail_id ?>'>
 			<td id='odetail_id<?= $odetail->odetail_id ?>'>
 				<?= $odetail->odetail_id ?>
-				<? if ($is_editable) : ?>
+				<? if ($is_editable AND
+					! $order->is_creating) : ?>
 				<br>
 				<input type='checkbox'
 					   class='item_check'
@@ -221,28 +222,36 @@ $is_joinable = ($is_editable AND isset($joinable_types[$order->order_type]));
 			</td>
 			<? endif; ?>
 		</tr>
-		<? endforeach; endif; ?>
-		<? if ($order->order_type != 'mail_forwarding') : ?>
+		<? endforeach; else : ?>
 		<tr>
+			<td colspan="8" align="center">
+				Товары не найдены.
+			</td>
+		</tr>
+		<? endif; ?>
+		<? if ($order->order_type != 'mail_forwarding') : ?>
+		<tr <? if (empty($odetails)) : ?>style="display: none"<? endif; ?>>
 			<td colspan="3">&nbsp;</td>
 			<td class="price_total product_total">
-				<b class="total_product_cost"><?= $order->order_products_cost ?></b>&nbsp;<?=
-				$order->order_currency ?>
+				<b class="total_product_cost"><?= $order->order_products_cost ?></b>&nbsp;<b class="currency"><?=
+				$order->order_currency ?></b>
 			</td>
 			<td class="delivery_total product_total">
-				<b class="total_delivery_cost"><?= $order->order_delivery_cost ?></b>&nbsp;<?= $order->order_currency ?>
+				<b class="total_delivery_cost"><?= $order->order_delivery_cost ?></b>&nbsp;<b class="currency"><?= $order->order_currency ?></b>
 			</td>
 			<? if ($order->order_type != 'service') : ?>
 			<td class="weight_total">
-				<b class="total_weight"><?= $order->order_weight ?></b> г
+				<b class="total_weight"><?= $order->order_weight ?></b> кг
 			</td>
 			<? endif; ?>
 			<td <? if ($is_editable AND $order->order_type != 'service') : ?>colspan="2"<? endif; ?>>&nbsp;</td>
 		</tr>
 		<? endif; ?>
-		<? if ($is_editable) : ?>
+		<? // BOF: кнопки
+		if ($is_editable) : ?>
 		<tr class="last-row">
 			<td colspan="8">
+				<? if ( ! $order->is_creating) : ?>
 				<div class="admin-inside float-left">
 					<div class="submit">
 						<div>
@@ -250,6 +259,17 @@ $is_joinable = ($is_editable AND isset($joinable_types[$order->order_type]));
 						</div>
 					</div>
 				</div>
+				<? endif; ?>
+				<? if ($order->is_creating AND
+					! empty($odetails)) : ?>
+				<div class="admin-inside">
+					<div class="submit">
+						<div>
+							<input type="button" value="Сформировать заказ" onclick="checkout();">
+						</div>
+					</div>
+				</div>
+				<? endif; ?>
 				<? if ($is_joinable) : ?>
 				<div class="admin-inside float-left">
 					<div class="submit">
@@ -283,6 +303,7 @@ $is_joinable = ($is_editable AND isset($joinable_types[$order->order_type]));
 				<? endif; ?>
 			</td>
 		</tr>
-		<? endif; ?>
+		<? endif;
+		// EOF: кнопки ?>
 	</table>
 </div>

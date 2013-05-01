@@ -3,7 +3,7 @@ require_once BASE_CONTROLLERS_PATH.'BaseController'.EXT;
 
 class Main extends BaseController {
     var $data = null;
-    var $root='/static/images/';
+    var $root = '/static/images/';
 
 	function __construct()
 	{
@@ -944,173 +944,92 @@ Email: {$this->user->user_email}";
 	{
 		try
 		{
+			// роли
 			if (isset($this->user->user_group) AND
 				$this->user->user_group == 'manager')
 			{
 				Func::redirect(BASEURL);
 			}
 
-			// страны
+			// погнали
 			$this->load->model('CountryModel', 'Country');
-			$view['countries'] = $this->Country->getList();
-			
-			if (empty($view['countries']))
-			{
-				throw new Exception('Страны не найдены. Попробуйте еще раз.');
-			}			
-
-			// валюты
-			$view['currencies'] = array();
-
-			// типы заказов
-		    $this->load->model('OrderModel', 'Orders');
+			$this->load->model('OrderModel', 'Orders');
             $this->load->model('OdetailModel', 'Odetails');
-            $this->load->model('OdetailJointModel', 'Joints');
 
 			$view['order_types'] = $this->Orders->getOrderTypes();
-            $view['order_currency'] = '';
+			$view['countries'] = $this->Country->getList();
+            $view['currencies'] = array();
+			$view['order'] = NULL;
+			$view['odetails'] = NULL;
+			$view['order_type'] = $order_type;
 
-            // Создаем пустой заказ
-            // TODO : проверить если, пользователь авторизован, на существование уже созданного ранее заказа
-            if($this->user AND $exist_orders = $this->blankExistOrderCheck($this->user->user_id, $order_type))
-            {
-                $view['orders'] = $exist_orders;
-            }
-            // TODO : Если не авторизован проверить нет ли временного заказа
-            else
-            {
-                $user_id = UserModel::getTemporaryKey();
+			$view['editable_statuses'] = $this->Orders->getEditableStatuses('client');
 
-                if ($exist_orders = $this->blankExistOrderCheck($user_id, $order_type))
-                {
-                    $view['orders'] = $exist_orders;
-                }
-                else
-                {
-                    $view['orders'] = null;
-                }
-            }
-
-            $view['order'] = null;
-            $view['joints'] = null;
-            $view['odetails'] = null;
-
-            for ($i = 0, $n = count($view['orders']); $i < $n; $i++)
+			if ($order = $this->getCreatingOrder($order_type))
 			{
-                $order = $view['orders'][$i];
-
-                $order_type_name = ($order_type == 'mailforwarding') ? 'mail_forwarding' : $order_type;
-
-                if ($order->order_type == $order_type_name)
-				{
-                    $view['order'] = $order;
-                    $view['odetails'] = $this->Odetails->getOrderDetails($order->order_id);
-                    $view['joints'] = $this->Joints->getOrderJoints($order->order_id);
-
-                    if ($order_type != 'mailforwarding')
-                    {
-                        $this->Orders->prepareOrderView($view);
-                    }
-
-                    break;
-				}
-			}
-
-
-            // тип заказа для построения страницы
-            $view['order_type'] = $order_type;
-
-			// крошки
-            if ( ! $order_type)
-            {
-                Breadcrumb::setCrumb(array('http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => 'Добавление нового заказа'), 1, TRUE);
-            }
-            else
-            {
-                Breadcrumb::setCrumb(array('http://'.$_SERVER['SERVER_NAME'].$this->viewpath.'createorder' => 'Добавление нового заказа'), 1, TRUE);
-
-                $result_url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-
-                switch ($order_type) :
-
-                    case 'online' :
-                        Breadcrumb::setCrumb(array($result_url => 'Online'), 2, TRUE);
-                        break;
-                    case 'offline' :
-                        Breadcrumb::setCrumb(array($result_url => 'Offline'), 2, TRUE);
-                        break;
-                    case 'service' :
-                        Breadcrumb::setCrumb(array($result_url => 'Услуга'), 2, TRUE);
-                        break;
-                    case 'delivery' :
-                        Breadcrumb::setCrumb(array($result_url => 'Заказ на доставку'), 2, TRUE);
-                        break;
-                    case 'mailforwarding' :
-                        Breadcrumb::setCrumb(array($result_url => 'Mail Forwarding'), 2, TRUE);
-                        break;
-                endswitch;
-            }
-
-			//print_r($view['order']);die();
-			View::showChild($this->viewpath.'/pages/createorder', $view);
-		}
-		catch (Exception $e) 
-		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
-		}
-	}
-
-    private function blankExistOrderCheck($client_id, $order_type = '')
-    {
-        // типы заказов
-        $this->load->model('OrderModel', 'Orders');
-        $orders = $this->Orders->getClientBlankOrders($client_id, $order_type);
-
-        if ($orders) return $orders;
-
-        return false;
-    }
-	
-	public function addEmptyOrder($order_type = 'online')
-	{
-		try
-		{
-			// типы заказов
-		    $this->load->model('OrderModel', 'Orders');
-			
-			if (empty($this->user))
-			{	
-				// Эта фишка не прокатывает, значение сессии не может быть типа INT
-				//$user_id = session_id();
-				
-				$user_id = UserModel::getTemporaryKey();
+				$view['order'] = $order;
+				$view['odetails'] = $this->Odetails->getOrderDetails($order->order_id);
+				$view['order_currency'] = $this->Orders->getOrderCurrency($order->order_id);
 			}
 			else
 			{
-				$user_id = $this->user->user_id;
+				$view['order'] = $this->initEmptyOrder($order_type);
 			}
-			
-			$order = new stdClass();
-			$order->order_client = $user_id;
-			$order->order_type = $order_type;
-            $order->is_creating = 1;
-		    $order = $this->Orders->addOrder($order);
 
-			print($order->order_id);
+			// крошки
+            if (empty($order_type))
+            {
+                Breadcrumb::setCrumb(array(
+					'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => 'Добавление нового заказа'),
+					1, TRUE);
+            }
+            else
+            {
+                Breadcrumb::setCrumb(array(
+					'http://'.$_SERVER['SERVER_NAME'].$this->viewpath.'createorder' => 'Добавление нового заказа'),
+					1, TRUE);
+
+                Breadcrumb::setCrumb(array(
+					'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => $view['order_types'][$order_type]),
+					2, TRUE);
+            }
+
+			View::showChild($this->viewpath . '/pages/createorder', $view);
 		}
 		catch (Exception $e) 
 		{
-			$this->result->e = $e->getCode();			
-			$this->result->m = $e->getMessage();
-			
-			Stack::push('result', $this->result);
 		}
 	}
-	
+
+	private function initEmptyOrder($order_type)
+	{
+		$order = new stdClass();
+		$order->order_type = $order_type;
+		$order->order_id = 0;
+		$order->order_manager = 0;
+		$order->order_client = $this->getOrderClient();
+		$order->is_creating = 1;
+		$order->order_status = 'pending';
+		$order->order_country_from = '';
+		$order->order_country_to = '';
+		$order->order_city_to = '';
+
+		$this->load->model('OrderModel', 'Orders');
+		return $this->Orders->addOrder($order);
+	}
+
+	private function getCreatingOrder($order_type)
+    {
+		$this->load->model('OrderModel', 'Orders');
+        return $this->Orders->getCreatingOrder($order_type, $this->getOrderClient());
+    }
+
 	public function addProductManualAjax() 
+	{
+		parent::addProductManualAjax();
+	}
+
+	public function addProduct()
 	{
 		parent::addProductManualAjax();
 	}
@@ -1135,111 +1054,27 @@ Email: {$this->user->user_email}";
         parent::removeNewJoint($order_id, $joint_id);
     }
 	
-	public function checkout()
+	public function checkout($order_id)
 	{
 		try 
 		{
+			// 1. безопасность
 			if (empty($this->user->user_group) OR
 				$this->user->user_group != 'client')
 			{				
 				throw new Exception('Необходимо зарегистрироваться в системе.');
 			}
-			
-			$order_id = Check::int('order_id');
 
-			if (empty($order_id))
-			{				
-				throw new Exception('Невозможно создать заказ.');
-			}
+			// 2. если после добавления товаров кто-то изменил заказ, сохраняем эти изменения
+			$order = $this->updateOrder($order_id);
 
-			$this->load->model('OrderModel', 'Orders');
-			$order = $this->Orders->getClientOrderById($order_id, $this->user->user_id);
-
-			if (empty($order))
-			{				
-				throw new Exception('Невозможно создать заказ.');
-			}
-
-            // проставляем тип заказа
-            $order->order_type = Check::str('order_type', 255, 1);
-            $order->order_type = ($order->order_type == '') ? 'online' : $order->order_type;
-
-            // проставляем фактически клиента (если авторизация прошла во время заполнения формы заказа)
-            $order->order_client = $this->user->user_id;
-            // TODO : отыскать все товары и поменять временный клиент айди на реальный
-
-            // Поставляем статус заказу
-            $order->order_status = 'pending';
-
-			Check::reset_empties();
-
-            // для некоторых заказов получаем необязательные поля отдельно
-            if ($order->order_type != 'mail_forwarding')
-            {
-                $order->order_country_from = Check::int('country_from');
-            }
-
-            // для некоторых заказов получаем необязательные поля отдельно
-            if ($order->order_type != 'service' AND $order->order_type != 'mail_forwarding')
-            {
-                $order->order_country_to = Check::int('country_to');
-                $order->order_city_to = Check::str('city_to', 255, 1);
-            }
-			
-			$empties = Check::get_empties();
-
-            // для некоторых заказов получаем необязательные поля отдельно
-            if ($order->order_type == 'service')
-            {
-                $order->order_country_to = Check::int('country_to');
-                $order->order_city_to = Check::str('city_to', 255, 1);
-            }
-
-			// валидируем выбранного посредника и привязываем заказ к его стране (для mail_forwarding)
-			$order->order_manager = Check::int('dealer_id');
-
-			if ($order->order_type == 'mail_forwarding')
-			{
-				if (empty($order->order_manager))
-				{
-					throw new Exception('Посредник не найден. Попробуйте еще раз.');
-				}
-
-				$this->load->model('ManagerModel', 'Managers');
-
-				$manager = $this->Managers->getById($order->order_manager);
-
-				if (empty($manager))
-				{
-					throw new Exception('Посредник не найден. Попробуйте еще раз.');
-				}
-
-				if ($manager->manager_status != 1 OR
-					$manager->is_mail_forwarding == 0)
-				{
-					throw new Exception('Выбранный посредник не обслуживает Mail Forwarding заказы. Пожалуйста,
-					выберите другого посредника.');
-				}
-
-				if ($order->order_country_from > 0 AND
-					$order->order_country_from != $manager->manager_country)
-				{
-					$order->order_country_from = $manager->manager_country;
-				}
-
-				$order->order_country_from = $manager->manager_country;
-			}
-
+			// 3. заполняем заказ
+			$order->order_client = $this->user->user_id;
 			$order->order_status = ($order->order_manager ? 'processing' : 'pending');
 			$order->order_date = date('Y-m-d H:i:s');			
 			$order->is_creating = 0;
 
-			if ($empties) 
-			{
-				throw new Exception('Некоторые поля не заполнены. Попробуйте еще раз.');
-			}
-						
-			// детали заказа  
+			/* детали заказа
 			$this->load->model('OdetailModel', 'Odetails');						
 			$odetails = $this->Odetails->getOrderDetails($order->order_id);
 
@@ -1251,19 +1086,28 @@ Email: {$this->user->user_email}";
 				$order->order_delivery_cost = $odetails_total->order_delivery_cost;
 				$order->order_weight = $odetails_total->order_product_weight;
 			}
+*/
 
+			// 4. пересчитываем и сохраняем заказ
+			if ( ! $this->Orders->recalculate($order))
+			{
+				throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+			}
+
+			$this->Orders->saveOrder($order);
+/*
 			if ( ! ($Order = $this->Orders->addOrder($order)))
 			{
 				throw new Exception('Ошибка создания заказа.');
 			}
-
-            // если выбрали посредника, генерируем его предложение
+*/
+            // 5. если выбран посредник, генерируем его предложение
             if ($order->order_manager)
             {
                 $this->load->model('BidModel', 'Bids');
 
                 $bid = new stdClass();
-                $bid->order_id = $order_id;
+                $bid->order_id = $order->order_id;
                 $bid->manager_id = $order->order_manager;
                 $bid->client_id = $order->order_client;
                 $bid->delivery_name = $order->preferred_delivery;
@@ -1325,7 +1169,6 @@ Email: {$this->user->user_email}";
 			"/main/order/{$order->order_id}" => "Заказ №{$order->order_id}"
 		), 1, TRUE);
 	}
-
 
     public function updateNewProduct($order_id, $odetail_id)
     {
@@ -1519,102 +1362,6 @@ Email: {$this->user->user_email}";
         }
 
         print(json_encode($response));
-    }
-
-    protected function onlineProductCheck ($detail)
-    {
-
-        if (empty($detail->odetail_link))
-        {
-            throw new Exception('Добавьте ссылку на товар.');
-        }
-
-        if (empty($detail->odetail_product_name))
-        {
-            throw new Exception('Добавьте наименование товара.');
-        }
-
-        if (empty($detail->odetail_price))
-        {
-            throw new Exception('Добавьте цену товара.');
-        }
-
-        if (empty($detail->odetail_weight))
-        {
-            throw new Exception('Добавьте примерный вес товара.');
-        }
-
-        if (empty($detail->odetail_country))
-        {
-            throw new Exception('Выберите страну.');
-        }
-
-        if ( ! $detail->odetail_product_amount)
-        {
-            $detail->odetail_product_amount = 1;
-        }
-    }
-
-    protected function offlineProductCheck ($detail)
-    {
-        if (empty($detail->odetail_product_name))
-        {
-            throw new Exception('Добавьте наименование товара.');
-        }
-
-        if (empty($detail->odetail_price))
-        {
-            throw new Exception('Добавьте цену товара.');
-        }
-
-        if (empty($detail->odetail_weight))
-        {
-            throw new Exception('Добавьте примерный вес товара.');
-        }
-
-        if (empty($detail->odetail_country))
-        {
-            throw new Exception('Выберите страну.');
-        }
-
-        if ( ! $detail->odetail_product_amount)
-        {
-            $detail->odetail_product_amount = 1;
-        }
-    }
-
-    protected function deliveryProductCheck ($detail)
-    {
-        if (empty($detail->odetail_product_name))
-        {
-            throw new Exception('Добавьте наименование товара.');
-        }
-
-        if (empty($detail->odetail_weight))
-        {
-            throw new Exception('Добавьте примерный вес товара.');
-        }
-
-        if ( ! $detail->odetail_product_amount)
-        {
-            $detail->odetail_product_amount = 1;
-        }
-    }
-
-    protected function serviceProductCheck ($detail)
-    {
-        if (empty($detail->odetail_product_name))
-        {
-            throw new Exception('Добавьте наименование товара.');
-        }
-    }
-
-    protected function mailforwardProductCheck ($detail)
-    {
-        if (empty($detail->odetail_product_name))
-        {
-            throw new Exception('Добавьте наименование товара.');
-        }
     }
 
     public function update_new_odetail_weight($order_id, $odetail_id, $weight)

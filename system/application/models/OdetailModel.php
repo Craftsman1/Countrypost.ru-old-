@@ -308,11 +308,13 @@ class OdetailModel extends BaseModel implements IModel{
 	{
 		$result = $this->db->query("
 			SELECT
-				`odetails`.*, `odetail_joints`.`cost` as `odetail_joint_cost`, `odetail_joints`.`count` AS `odetail_joint_count`
+				`odetails`.*,
+				`odetail_joints`.`cost` AS `odetail_joint_cost`,
+				`odetail_joints`.`count` AS `odetail_joint_count`
 			FROM
 				`odetails`
-			LEFT OUTER JOIN `odetail_joints` ON
-				`odetail_joints`.`joint_id` = `odetails`.`odetail_joint_id`
+			LEFT OUTER JOIN
+				`odetail_joints` ON `odetail_joints`.`joint_id` = `odetails`.`odetail_joint_id`
 			WHERE
 				`odetails`.`odetail_status` <> 'deleted'
 				AND `odetails`.`odetail_order` = '$id'
@@ -322,7 +324,7 @@ class OdetailModel extends BaseModel implements IModel{
 		")->result();
 
 		// статус джоинтов
-		if (count($result) > 0 &&  $result)
+		if (count($result) > 0 && $result)
 		{
 			$joint_statuses = array();
 		
@@ -353,7 +355,7 @@ class OdetailModel extends BaseModel implements IModel{
 				}
 			}
 		}
-		
+		//print_r($result);die();
 		return ((count($result) > 0 &&  $result) ? $result : FALSE);
 	}
 	
