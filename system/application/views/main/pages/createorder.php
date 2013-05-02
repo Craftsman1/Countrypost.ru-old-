@@ -9,6 +9,7 @@
 	<h3>Товары в заказе:</h3>
 	<? View::show('client/ajax/showOrderDetails'); ?>
 	<? View::show('main/elements/orders/scripts'); ?>
+	<? View::show('client/elements/orders/scripts'); ?>
 	<? endif; ?>
 </div>
 <script>
@@ -34,8 +35,6 @@
         });
 
 		$("select.country").msDropDown({mainCSS:'idd'});
-
-
     });
 
     var orderData = <?= ($order AND ($json = json_encode(array($order)))) ? $json : 'null' ?>;

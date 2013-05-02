@@ -60,7 +60,7 @@ function moveItems()
 function update_odetail_weight(order_id, odetail_id)
 {
 	var weight = $('input#odetail_weight' + odetail_id).val();
-	var uri = '<?= $selfurl ?>update_odetail_weight/' +
+	var uri = '/client/update_odetail_weight/' +
 			order_id + '/' +
 			odetail_id + '/' +
 			weight;
@@ -74,7 +74,7 @@ function update_odetail_weight(order_id, odetail_id)
 function update_odetail_price(order_id, odetail_id)
 {
 	var price = $('input#odetail_price' + odetail_id).val();
-	var uri = '<?= $selfurl ?>update_odetail_price/' +
+	var uri = '/client/update_odetail_price/' +
 			order_id + '/' +
 			odetail_id + '/' +
 			price;
@@ -88,7 +88,7 @@ function update_odetail_price(order_id, odetail_id)
 function update_odetail_tracking(order_id, odetail_id)
 {
 	var tracking = $('input#odetail_tracking' + odetail_id).val();
-	var uri = '<?= $selfurl ?>update_odetail_tracking/' +
+	var uri = '/client/update_odetail_tracking/' +
 			order_id + '/' +
 			odetail_id + '/' +
 			tracking;
@@ -102,7 +102,7 @@ function update_odetail_tracking(order_id, odetail_id)
 function update_odetail_pricedelivery(order_id, odetail_id)
 {
 	var pricedelivery = $('input#odetail_pricedelivery' + odetail_id).val();
-	var uri = '<?= $selfurl ?>update_odetail_pricedelivery/' +
+	var uri = '/client/update_odetail_pricedelivery/' +
 			order_id + '/' +
 			odetail_id + '/' +
 			pricedelivery;
@@ -116,7 +116,7 @@ function update_odetail_pricedelivery(order_id, odetail_id)
 function update_joint_pricedelivery(order_id, joint_id)
 {
 	var cost = $('input#joint_pricedelivery' + joint_id).val();
-	var uri = '<?= $selfurl ?>update_joint_pricedelivery/' +
+	var uri = '/client/update_joint_pricedelivery/' +
 			order_id + '/' +
 			joint_id + '/' +
 			cost;
