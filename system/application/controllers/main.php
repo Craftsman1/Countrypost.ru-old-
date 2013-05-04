@@ -13,7 +13,7 @@ class Main extends BaseController {
 		View::$main_view	= '/main/index';
 		Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
 	}
-	
+
 	function index()
 	{
 		try
@@ -1074,20 +1074,6 @@ Email: {$this->user->user_email}";
 			$order->order_date = date('Y-m-d H:i:s');			
 			$order->is_creating = 0;
 
-			/* детали заказа
-			$this->load->model('OdetailModel', 'Odetails');						
-			$odetails = $this->Odetails->getOrderDetails($order->order_id);
-
-			if ( ! empty($odetails))
-			{
-				$odetails_total = $this->Odetails->getOrderDetailsTotals($odetails);
-				
-				$order->order_products_cost = $odetails_total->order_products_cost;
-				$order->order_delivery_cost = $odetails_total->order_delivery_cost;
-				$order->order_weight = $odetails_total->order_product_weight;
-			}
-*/
-
 			// 4. пересчитываем и сохраняем заказ
 			if ( ! $this->Orders->recalculate($order))
 			{
@@ -1095,12 +1081,7 @@ Email: {$this->user->user_email}";
 			}
 
 			$this->Orders->saveOrder($order);
-/*
-			if ( ! ($Order = $this->Orders->addOrder($order)))
-			{
-				throw new Exception('Ошибка создания заказа.');
-			}
-*/
+
             // 5. если выбран посредник, генерируем его предложение
             if ($order->order_manager)
             {

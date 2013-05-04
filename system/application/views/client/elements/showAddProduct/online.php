@@ -5,9 +5,8 @@
 $target = $selfurl . $handler . '/' . $order->order_id;
 ?>
 <div class="online_order_form">
-	<form class='admin-inside'
+	<form class='admin-inside orderForm'
 		  action="<?= $target ?>"
-		  id="onlineItemForm"
 		  method="POST"
 		  enctype="multipart/form-data">
 		<? View::show('client/elements/showAddProduct/hiddens'); ?>
@@ -92,32 +91,12 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 					<div style="clear:both;" ></div>
 				</div>
 				<div>
-					<span class="label">
-						Скриншот (max. 3 MB):
-					</span>
-					<span class="label screenshot_switch" style="font-size:11px;margin:0;width:300px;">
-						<a href="javascript: showScreenshotLink();">Добавить ссылку</a>&nbsp;или&nbsp;<a href="javascript: showScreenshotUploader();" class="screenshot_switch">Загрузить файл</a>
-					</span>
-					<input class="textbox screenshot_link_box"
-						   type='text'
-						   id='oimg'
-						   name="userfileimg"
-						   style='display:none;width:180px;'
-						   value=""
-						   onfocus="javascript: if (this.value == 'ссылка на скриншот') this.value = '';"
-						   onblur="javascript: if (this.value == '') this.value = 'ссылка на скриншот';">
-					<input class="textbox screenshot_uploader_box"
-						   type='file'
-						   id='ofile'
-						   name="userfile"
-						   style='display:none;'>
-					<span class="label screenshot_link_box screenshot_uploader_box" style='display:none;'>
-						<img border="0" src="/static/images/delete.png" title="Удалить">
-					</span>
+					<? View::show("client/elements/showAddProduct/screenshot_box"); ?>
 				</div>
 				<div>
 					<span class="label">Нужно ли фото товара?</span>
 					<input type='checkbox' id='foto_requested' name="foto_requested" value="1" />
+					<label for="foto_requested" style="font: 13px sans-serif;">да</label>
 				</div>
 				<div>
 					<span class="label">Комментарий к товару:</span>

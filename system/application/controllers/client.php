@@ -135,10 +135,23 @@ class Client extends BaseController {
 			}
 
 			$order = $this->getPrivilegedOrder($order_id, 'Заказ не найден.');
-			$this->addProductToOrder($order);
+			$result = $this->addProductToOrder($order);
+
+			$view = new stdClass();
+			$view->error = $result['error'];
+
+			if (empty($view->error))
+			{
+				$view->odetail_id = $result['detail']->odetail_id;
+			}
+
+			// возвращаем json с инфой по заказу и товару
+			echo json_encode($view, JSON_HEX_TAG);
 		}
 		catch (Exception $e)
 		{
+			// возвращаем json с инфой по заказу и товару
+			echo json_encode(array('error' => $e->getMessage()));
 		}
 	}
 

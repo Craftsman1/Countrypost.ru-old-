@@ -998,8 +998,6 @@ abstract class BaseController extends Controller
 			$detail->odetail_search_requested		= Check::chkbox('search_requested');
 			$userfile								= (isset($_FILES['userfile']) AND ! $_FILES['userfile']['error']);
 
-
-			//print_r($userfile);die();
 			// обязательные поля
 			$detail->odetail_order 					= $order->order_id;
 			$detail->odetail_link					= Check::str('olink', 500, 1);
@@ -1049,17 +1047,19 @@ abstract class BaseController extends Controller
 
 			$this->Orders->saveOrder($order);
 
-			// возвращаем json с инфой по заказу и товару
-			$result = new stdClass();
-			$result->order_id = $order->order_id;
-			$result->odetail_id = $detail->odetail_id;
-			$result->odetail_img = $detail->odetail_img;
-
-			echo json_encode($result);
+			return array(
+				//'order' => $order,
+				'detail' => $detail,
+				'error' => 0
+			);
 		}
 		catch (Exception $e)
 		{
-			echo $e->getMessage();
+			return array(
+				//'order' => isset($order) ? $order : FALSE,
+				'detail' => isset($detail) ? $detail : FALSE,
+				'error' => $e->getMessage()
+			);
 		}
 	}
 
@@ -1068,10 +1068,33 @@ abstract class BaseController extends Controller
 		try
 		{
 			$order = $this->updateOrder();
-			$this->addProductToOrder($order);
+			$result = $this->addProductToOrder($order);
+
+			$view = new stdClass();
+			$view->error = $result['error'];
+
+			if (empty($view->error))
+			{
+				$view->odetail_id = $result['detail']->odetail_id;
+
+				$view->product = View::get('client/ajax/odetail', array(
+					'odetail'				=> $result['detail'],
+					'odetail_joint_id'		=> 0,
+					'odetail_joint_count'	=> 0,
+					'is_joinable'			=> FALSE,
+					'is_editable'			=> TRUE,
+					'order'					=> $order,
+					'selfurl'				=> BASEURL . $this->cname . '/',
+					'viewpath'				=> $this->viewpath
+				));
+			}
+
+			// возвращаем json с инфой по заказу и товару
+			echo json_encode($view, JSON_HEX_TAG);
 		}
 		catch (Exception $e)
 		{
+			echo json_encode(array('error' => $e->getMessage()));
 		}
 	}
 
