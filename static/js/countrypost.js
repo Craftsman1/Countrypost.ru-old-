@@ -532,6 +532,11 @@ function updateCountryTo()
 	$('input.country_to').val($('select#country_to').val());
 }
 
+function updateDealer()
+{
+	$('input.dealer_id').val($('select#dealer_id').val());
+}
+
 function updateCityTo()
 {
 	$('input.city_to').val($('input#city_to').val());

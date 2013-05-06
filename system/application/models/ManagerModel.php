@@ -293,7 +293,30 @@ class ManagerModel extends BaseModel implements IModel{
         return $managers;
     }
 	
-	public function getActiveManagers() {		
+    public function getMailForwardingManagers()
+    {
+        $managers = $this->db->query(
+            "SELECT
+                manager_user,
+                user_login,
+                manager_name,
+                country_name_en
+            FROM
+            	`managers`
+            LEFT JOIN
+            	`users` ON `users`.user_id = `managers`.manager_user
+            LEFT JOIN
+            	`countries` ON countries.country_id = managers.manager_country
+            WHERE
+            	is_mail_forwarding = 1
+            ORDER BY
+            	managers.manager_country ASC, managers.manager_name ASC
+        ")->result();
+
+        return $managers;
+    }
+
+	public function getActiveManagers() {
 		$result = $this->select(array('manager_status' => '1'));
 		
 		return ((count($result) > 0 &&  $result) ? $result : FALSE);		

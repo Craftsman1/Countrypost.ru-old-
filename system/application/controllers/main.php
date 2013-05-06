@@ -955,9 +955,11 @@ Email: {$this->user->user_email}";
 			$this->load->model('CountryModel', 'Country');
 			$this->load->model('OrderModel', 'Orders');
             $this->load->model('OdetailModel', 'Odetails');
+            $this->load->model('ManagerModel', 'Managers');
 
 			$view['order_types'] = $this->Orders->getOrderTypes();
 			$view['countries'] = $this->Country->getList();
+			$view['dealers'] = $this->Managers->getMailForwardingManagers();
             $view['currencies'] = array();
 			$view['order'] = NULL;
 			$view['odetails'] = NULL;
@@ -1023,11 +1025,6 @@ Email: {$this->user->user_email}";
 		$this->load->model('OrderModel', 'Orders');
         return $this->Orders->getCreatingOrder($order_type, $this->getOrderClient());
     }
-
-	public function addProductManualAjax() 
-	{
-		parent::addProductManualAjax();
-	}
 
 	public function addProduct()
 	{

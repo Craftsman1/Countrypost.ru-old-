@@ -20,7 +20,7 @@
 	   value="<?= $order->order_city_to ?>">
 <input type='hidden'
 	   name="dealer_id"
-	   class="dealerId"
+	   class="dealer_id"
 	   value="<?= $order->order_manager ?>">
 <input type='hidden'
 	   name="order_currency"

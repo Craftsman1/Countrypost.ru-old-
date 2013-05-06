@@ -118,6 +118,9 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 					<input type="submit" value="Добавить товар">
 				</div>
 			</div>
+			<img src="/static/images/lightbox-ico-loading.gif"
+				 style="margin-top: 3px; margin-left: 5px; display: none;"
+				 class="float progress">
 		</div>
 	</form>
 </div>

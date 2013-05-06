@@ -1027,7 +1027,7 @@ abstract class BaseController extends Controller
 					$this->deliveryProductCheck($detail);
 					break;
 				case 'mail_forwarding' :
-					$this->mailforwardProductCheck($detail);
+					$this->mail_forwardingProductCheck($order, $detail);
 					break;
 			}
 
@@ -1126,28 +1126,23 @@ abstract class BaseController extends Controller
 		$order->order_country_to	= Check::int('country_to');
 		$order->order_city_to		= Check::str('city_to', 40, 0);
 		$order->preferred_delivery	= Check::str('preferred_delivery', 255, 0);
-
+//print_r($_POST);die();
 		// 4. проверяем выбранного посредника
-		$this->load->model('ManagerModel', 'Managers');
-/*
-		// TODO: причесать этот код
-		if ($manager->manager_status != 1 OR
-			$manager->is_mail_forwarding == 0)
+		if ($order->order_manager)
 		{
-			throw new Exception('Выбранный посредник не обслуживает Mail Forwarding заказы. Пожалуйста,
-					выберите другого посредника.');
-		}
+			$this->load->model('ManagerModel', 'Managers');
+			$manager = $this->Managers->getById($order->order_manager);
 
-		if ($order->order_country_from > 0 AND
-			$order->order_country_from != $manager->manager_country)
-		{
+			if (empty($manager) OR
+				$manager->manager_status != 1 OR
+				$manager->is_mail_forwarding == 0)
+			{
+				throw new Exception('Посредник не найден.');
+			}
+
 			$order->order_country_from = $manager->manager_country;
 		}
 
-		$order->order_country_from = $manager->manager_country;
-	}
-
-*/
 		// 5. сохраняем и отдаем заказ
 		$this->Orders->saveOrder($order);
 
@@ -4424,8 +4419,13 @@ abstract class BaseController extends Controller
 		}
 	}
 
-	protected function mailforwardProductCheck ($detail)
+	protected function mail_forwardingProductCheck($order, $detail)
 	{
+		if (empty($order->order_manager))
+		{
+			throw new Exception('Выберите посредника.');
+		}
+
 		if (empty($detail->odetail_product_name))
 		{
 			throw new Exception('Добавьте наименование товара.');
