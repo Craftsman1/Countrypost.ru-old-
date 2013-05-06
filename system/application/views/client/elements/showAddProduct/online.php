@@ -33,7 +33,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 						   name="oname" />
 				</div>
 				<div>
-					<span class="label">Цена товара*:</span>
+					<span class="label">Стоимость*:</span>
 					<input class="textbox"
 						   maxlength="11"
 						   type='text'
@@ -95,7 +95,10 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 				</div>
 				<div>
 					<span class="label">Нужно ли фото товара?</span>
-					<input type='checkbox' id='foto_requested' name="foto_requested" value="1" />
+					<input type='checkbox'
+						   id='foto_requested'
+						   name="foto_requested"
+						   value="1" />
 					<label for="foto_requested" style="font: 13px sans-serif;">да</label>
 				</div>
 				<div>
@@ -112,7 +115,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 		<div style="height: 50px;" class="admin-inside">
 			<div class="submit">
 				<div>
-					<input type="submit" value="Добавить товар" id="addItem" name="add">
+					<input type="submit" value="Добавить товар">
 				</div>
 			</div>
 		</div>

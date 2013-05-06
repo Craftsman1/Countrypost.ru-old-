@@ -1,83 +1,67 @@
-<div class="delivery_order_form">
-    <form class='admin-inside'
-		  action="<?= $selfurl ?>addProductToPrivilegedOrder/<?= $order->order_id ?>"
-		  id="deliveryItemForm"
+<div class='table' style="position:relative;">
+	<div class='angle angle-lt'></div>
+	<div class='angle angle-rt'></div>
+	<div class='angle angle-lb'></div>
+	<div class='angle angle-rb'></div>
+	<form class='admin-inside'
+		  action="<?= $selfurl ?>checkout/<?= $order->order_id ?>"
+		  id="orderForm"
 		  method="POST">
-        <input type='hidden' name="order_id" class="order_id" value="<?= ($order) ? (int) $order->order_id : 0 ?>" />
-        <input type='hidden' name="order_type" class="order_type" value="delivery" />
-        <input type='hidden' name="ocountry" class="countryFrom" value="<?= ($order) ? (int) $order->order_country_from : '' ?>" />
-        <input type='hidden' name="ocountry_to" class="countryTo" value="<?= ($order) ? (int) $order->order_country_to : '' ?>" />
-        <input type='hidden' name="city_to" class="cityTo" value="<?= ($order) ? (int) $order->order_city_to : '' ?>" />
-        <input type='hidden' name="dealer_id" class="dealerId" value="<?= ($order) ? (int) $order->order_manager : '' ?>" />
-        <input type='hidden' name="userfileimg" value="" />
-        <div class='table add_detail_box' style="position:relative;">
-            <div class='angle angle-lt'></div>
-            <div class='angle angle-rt'></div>
-            <div class='angle angle-lb'></div>
-            <div class='angle angle-rb'></div>
-            <div class='new_order_box'>
-                <div>
-                    <span class="label">Наименование товара*:</span>
-                    <input style="width:180px;" class="textbox" maxlength="255" type='text' id='oname' name="oname" />
-                </div>
-                <div>
-                    <span class="label">Примерный вес (кг)*:</span>
-                    <input style="width:180px;" class="textbox" maxlength="255" type='text' id='oweight' name="oweight" />
-                </div>
-				<div style="height: 30px;">
-					<span class="label">Требуется страховка?</span>
-					<input type='checkbox' id='insurance' name="insurance" value="1" />
-				</div>
-            </div>
-        </div>
-        <h3>Дополнительная информация о товаре/грузу:</h3>
-        <div class='add_detail_box' style="position:relative;">
-            <div class='new_order_box'>
-				<div>
-					<span class="label">Ссылка на товар:</span>
-					<input style="width:180px;" class="textbox" maxlength="500" type='text' id='olink' name="olink" />
-				</div>
-                <div>
-                    <span class="label">Объём:</span>
-                    <input style="width:180px;" class="textbox" maxlength="11" type='text' id='ovolume' name="ovolume" />
-					<span class="label">м³&nbsp;&nbsp;<i>Пример: 5.5</i></span>
-                </div>
-                <div>
-                    <span class="label">ТН ВЭД:</span>
-                    <input style="width:180px;" class="textbox" maxlength="11" type='text' id='otnved' name="otnved" />
-                </div>
-				<div>
-					<span class="label">Количество*:</span>
-					<input style="width:180px;" class="textbox" maxlength="11" type='text' id='oamount'
-						   name="oamount" value="1" />
-				</div>
-                <div>
-                    <span class="label">Стоимость:</span>
-                    <input style="width:180px;" class="textbox" maxlength="11" type='text' id='oprice' name="oprice" />
-                    <span class="label currency"><?= $order_currency ?></span>
-                </div>
-                <div>
-                    <span class="label">Местная доставка:</span>
-                    <input style="width:180px;" class="textbox" maxlength="11" type='text' id='odeliveryprice' name="odeliveryprice" />
-                    <span class="label currency"><?= $order_currency ?></span>
-                </div>
-                <div>
-                    <span class="label">Комментарий к товару:</span>
-                    <textarea style="width:180px;resize:vertical!important;"
-							  class="textbox"
-							  maxlength="255"
-							  id='ocomment'
-							  name="ocomment"></textarea>
-                </div>
-            </div>
-        </div>
-		<br>
-		<div style="height: 50px;" class="admin-inside">
-			<div class="submit">
-				<div>
-					<input type="submit" value="Добавить товар" id="addItem" name="add">
-				</div>
+		<div class='new_order_box'>
+			<div>
+				<span class="label">Заказать из*:</span>
+				<select id="country_from"
+						name="country_from"
+						class="textbox country"
+						onchange="updateCountryFrom();">
+					<option value="0">выберите страну...</option>
+					<? foreach ($countries as $country) : ?>
+						<option
+							value="<?= $country->country_id ?>"
+							title="<?= IMG_PATH ?>/flags/<?= $country->country_name_en ?>.png"
+							<? if ($order->order_country_from == $country->country_id) : ?>selected<? endif; ?>>
+							<?= $country->country_name ?>
+						</option>
+					<? endforeach; ?>
+				</select>
+			</div>
+			<div>
+				<span class="label">В какую страну доставить*:</span>
+				<select id="country_to"
+						name="country_to"
+						class="textbox country"
+						onchange="updateCountryTo();">
+					<option value="0">выберите страну...</option>
+					<? foreach ($countries as $country) : ?>
+						<option
+							value="<?= $country->country_id ?>"
+							title="<?= IMG_PATH ?>/flags/<?= $country->country_name_en ?>.png"
+							<? if ($order->order_country_to == $country->country_id) : ?>selected<? endif; ?>>
+							<?= $country->country_name ?>
+						</option>
+					<? endforeach; ?>
+				</select>
+			</div>
+			<div>
+				<span class="label">Город доставки*:</span>
+				<input class="textbox"
+					   id="city_to"
+					   name="city_to"
+					   maxlength="255"
+					   type='text'
+					   value="<?= $order->order_city_to ?>"
+					   onchange="updateCityTo();">
+			</div>
+			<div>
+				<span class="label">Cпособ доставки:</span>
+				<input class="textbox"
+					   id="preferred_delivery"
+					   id="name"
+					   maxlength="255"
+					   type='text'
+					   value="<?= $order->preferred_delivery ?>"
+					   onchange="updateDelivery();">
 			</div>
 		</div>
-    </form>
+	</form>
 </div>

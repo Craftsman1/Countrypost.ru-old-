@@ -2890,3 +2890,19 @@ td.edit_box img
 	display: block;
 }
 
+input.screenshot_default
+{
+	font-style: italic!important;
+	color: #afafaf!important;
+}
+
+input.screenshot_link_box
+{
+
+}
+
+input#foto_requested,input#search_requested,input#insurance
+{
+	margin-left: 0;
+	border: #afafaf 1px solid;
+}

@@ -1,56 +1,75 @@
-<div class="service_order_form">
-    <form class='admin-inside'
-		  action="<?= $selfurl ?>addProductToPrivilegedOrder/<?= $order->order_id ?>"
-		  id="serviceItemForm"
+<div class='table' style="position:relative;">
+	<div class='angle angle-lt'></div>
+	<div class='angle angle-rt'></div>
+	<div class='angle angle-lb'></div>
+	<div class='angle angle-rb'></div>
+	<form class='admin-inside'
+		  action="<?= $selfurl ?>checkout/<?= $order->order_id ?>"
+		  id="orderForm"
 		  method="POST">
-        <input type='hidden' name="order_id" class="order_id" value="<?= ($order) ? (int) $order->order_id : 0 ?>" />
-        <input type='hidden' name="order_type" class="order_type" value="service" />
-        <input type='hidden' name="ocountry" class="countryFrom" value="<?= ($order) ? (int) $order->order_country_from : '' ?>" />
-        <input type='hidden' name="ocountry_to" class="countryTo" value="<?= ($order) ? (int) $order->order_country_to : '' ?>" />
-        <input type='hidden' name="city_to" class="cityTo" value="<?= ($order) ? (int) $order->order_city_to : '' ?>" />
-        <input type='hidden' name="dealer_id" class="dealerId" value="<?= ($order) ? (int) $order->order_manager : '' ?>" />
-        <input type='hidden' name="userfileimg" value="12345" />
-        <div class='table add_detail_box' style="position:relative;">
-            <div class='angle angle-lt'></div>
-            <div class='angle angle-rt'></div>
-            <div class='angle angle-lb'></div>
-            <div class='angle angle-rb'></div>
-            <div class='new_order_box'>
-                <div style="height: 60px;">
-                    <span class="label">Подробное описание что<br/> нужно сделать*:</span>
-                    <textarea style="width:180px;resize:vertical;" class="textbox" maxlength="255" id='ocomment'
-							  name="ocomment"></textarea>
-                </div>
-                <div>
-                    <span class="label">Стоимость за выполнение:</span>
-                    <input style="width:180px;" class="textbox" maxlength="11" type='text' id='oprice' name="oprice" />
-                    <span class="label currency"><?= $order_currency ?></span>
-                </div>
-                <div>
-                    <span class="label">Местная доставка:</span>
-                    <input style="width:180px;" class="textbox" maxlength="11" type='text' id='odeliveryprice' name="odeliveryprice" />
-                    <span class="label currency"><?= $order_currency ?></span>
-                </div>
-                <div style="height: 30px;">
-                    <span class="label">
-                        Скриншот (max. 3 MB):
-                    </span>
-                    <span class="label screenshot_switch" style="font-size:11px;margin:0;width:300px;">
-                        <a href="javascript: showScreenshotLink();">Добавить ссылку</a>&nbsp;или&nbsp;<a href="javascript: showScreenshotUploader();" class="screenshot_switch">Загрузить файл</a>
-                    </span>
-                    <input class="textbox screenshot_link_box" type='text' id='oimg' name="userfileimg" style='display:none;width:180px;' value="" onfocus="javascript: if (this.value == 'ссылка на скриншот') this.value = '';" onblur="javascript: if (this.value == '') this.value = 'ссылка на скриншот';">
-                    <input class="textbox screenshot_uploader_box" type='file' id='ofile' name="userfile" style='display:none;width:180px;'>
-                    <span class="label screenshot_link_box screenshot_uploader_box" style='display:none;'>
-                        <img border="0" src="/static/images/delete.png" title="Удалить">
-                    </span>
-                </div>
-            </div>
-        </div>
-		<div style="height: 50px;" class="admin-inside">
-			<div class="submit">
-				<div>
-					<input type="submit" value="Добавить товар" id="addItem" name="add">
-				</div>
+		<div class='new_order_box' style="height: auto!important;">
+			<div>
+				<span class="label">Заказать из*:</span>
+				<select id="country_from"
+						name="country_from"
+						class="textbox country"
+						onchange="updateCountryFrom();">
+					<option value="0">выберите страну...</option>
+					<? foreach ($countries as $country) : ?>
+						<option
+							value="<?= $country->country_id ?>"
+							title="<?= IMG_PATH ?>/flags/<?= $country->country_name_en ?>.png"
+							<? if ($order->order_country_from == $country->country_id) : ?>selected<? endif; ?>>
+							<?= $country->country_name ?>
+						</option>
+					<? endforeach; ?>
+				</select>
+			</div>
+			<!--div>
+				<span class="label">Нужна ли доставка?</span>
+				<label>
+					<input type="radio" name="delivery_need" id="delivery_need_y" value="1"/> Да
+				</label>
+				<label>
+					<input type="radio" name="delivery_need" id="delivery_need_n" value="0" checked="true"/> Нет
+				</label>
+			</div-->
+			<div>
+				<span class="label">В какую страну доставить:</span>
+				<select id="country_to"
+						name="country_to"
+						class="textbox country"
+						onchange="updateCountryTo();">
+					<option value="0">выберите страну...</option>
+					<? foreach ($countries as $country) : ?>
+						<option
+							value="<?= $country->country_id ?>"
+							title="<?= IMG_PATH ?>/flags/<?= $country->country_name_en ?>.png"
+							<? if ($order->order_country_to == $country->country_id) : ?>selected<? endif; ?>>
+							<?= $country->country_name ?>
+						</option>
+					<? endforeach; ?>
+				</select>
+			</div>
+			<div>
+				<span class="label">Город доставки:</span>
+				<input class="textbox"
+					   id="city_to"
+					   name="city_to"
+					   maxlength="255"
+					   type='text'
+					   value="<?= $order->order_city_to ?>"
+					   onchange="updateCityTo();">
+			</div>
+			<div style="height: 30px;">
+				<span class="label">Cпособ доставки:</span>
+				<input class="textbox"
+					   id="preferred_delivery"
+					   id="name"
+					   maxlength="255"
+					   type='text'
+					   value="<?= $order->preferred_delivery ?>"
+					   onchange="updateDelivery();">
 			</div>
 		</div>
 	</form>

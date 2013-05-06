@@ -980,33 +980,34 @@ abstract class BaseController extends Controller
 			Check::reset_empties();
 			$detail = new OdetailModel();
 
+			$detail->odetail_order 					= $order->order_id;
+			$detail->odetail_status                 = 'processing';
+			$detail->odetail_client					= $this->getOrderClient();
+			$detail->odetail_manager				= $order->order_manager;
+
 			$detail->odetail_shop				    = Check::str('oshop', 255, 0);
 			$detail->odetail_volume				    = Check::float('ovolume', 0);
 			$detail->odetail_tnved				    = Check::str('otnved', 255, 1);
 			$detail->odetail_insurance				= Check::chkbox('insurance');
 			$detail->odetail_comment                = Check::str('ocomment', 255, 0);
 			$detail->odetail_tracking               = Check::str('otracking', 80, 0);
-			$detail->odetail_status                 = 'processing';
-			$detail->odetail_img					= Check::str('userfileimg', 500, 1);
 			$detail->odetail_product_amount			= Check::int('oamount');
 			$detail->odetail_product_color			= Check::str('ocolor', 32, 0);
 			$detail->odetail_product_size			= Check::str('osize', 32, 0);
-			$detail->odetail_client					= $this->getOrderClient();
-			$detail->odetail_manager				= $order->order_manager;
 			$detail->odetail_country				= Check::str('ocountry', 255, 1);
 			$detail->odetail_foto_requested			= Check::chkbox('foto_requested');
 			$detail->odetail_search_requested		= Check::chkbox('search_requested');
-			$userfile								= (isset($_FILES['userfile']) AND ! $_FILES['userfile']['error']);
-
-			// обязательные поля
-			$detail->odetail_order 					= $order->order_id;
 			$detail->odetail_link					= Check::str('olink', 500, 1);
 			$detail->odetail_product_name			= Check::str('oname', 255, 1);
 			$detail->odetail_price					= Check::float('oprice');
 			$detail->odetail_pricedelivery			= Check::float('odeliveryprice');
 			$detail->odetail_weight					= Check::float('oweight');
 
-			if (empty($userfile))
+			$detail->odetail_img					= Check::str('userfileimg', 4096, 1);
+			$userfile								= (isset($_FILES['userfile']) AND ! $_FILES['userfile']['error']);
+
+			if (empty($userfile) AND
+				empty($detail->odetail_img))
 			{
 				$detail->odetail_img = 0;
 			}
@@ -1048,7 +1049,6 @@ abstract class BaseController extends Controller
 			$this->Orders->saveOrder($order);
 
 			return array(
-				//'order' => $order,
 				'detail' => $detail,
 				'error' => 0
 			);
@@ -1056,7 +1056,6 @@ abstract class BaseController extends Controller
 		catch (Exception $e)
 		{
 			return array(
-				//'order' => isset($order) ? $order : FALSE,
 				'detail' => isset($detail) ? $detail : FALSE,
 				'error' => $e->getMessage()
 			);
@@ -4381,7 +4380,7 @@ abstract class BaseController extends Controller
 		}
 	}
 
-	protected function offlineProductCheck ($detail)
+	protected function offlineProductCheck($detail)
 	{
 		if (empty($detail->odetail_product_name))
 		{
@@ -4391,11 +4390,6 @@ abstract class BaseController extends Controller
 		if (empty($detail->odetail_price))
 		{
 			throw new Exception('Добавьте цену товара.');
-		}
-
-		if (empty($detail->odetail_country))
-		{
-			throw new Exception('Выберите страну.');
 		}
 
 		if ( ! $detail->odetail_product_amount)

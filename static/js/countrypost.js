@@ -483,3 +483,116 @@ function init_profile()
 			$(this).parent().parent().addClass('active');
 		});
 }
+
+function showProgress()
+{
+	$('img.progress').show();
+}
+
+function hideProgress()
+{
+	$('img.progress').hide();
+}
+
+function errorAddProduct()
+{
+	hideProgress();
+	error('top', 'Товар не добавлен. Заполните все обязательные поля и попробуйте еще раз.');
+}
+
+function errorAddOrder()
+{
+	hideProgress();
+	error('top', 'Заказ не сформирован. Заполните все обязательные поля и попробуйте еще раз.');
+}
+
+function updateCountryFrom()
+{
+	var country_id = $('select#country_from').val();
+	$('input.country_from').val(country_id);
+
+	for (var index in currencies)
+	{
+		var currency = currencies[index];
+
+		if (country_id == currency['country_id'])
+		{
+			$('.currency')
+				.html(currency['country_currency']);
+
+			$('.order_currency')
+				.val(currency['country_currency']);
+			break;
+		}
+	}
+}
+
+function updateCountryTo()
+{
+	$('input.country_to').val($('select#country_to').val());
+}
+
+function updateCityTo()
+{
+	$('input.city_to').val($('input#city_to').val());
+}
+
+function updateDelivery()
+{
+	$('input.preferred_delivery').val($('input#preferred_delivery').val());
+}
+
+function checkout()
+{
+	$('form#orderForm').submit();
+}
+
+// скриншот
+function showScreenshotLink()
+{
+	$('.screenshot_switch').hide();
+	$('.screenshot_link_box').show();
+
+	if ($('.screenshot_link_box').val() == '')
+	{
+		$('.screenshot_link_box').val('ссылка на скриншот')
+	}
+}
+
+function showScreenshotUploader()
+{
+	$('.screenshot_switch').hide();
+	$('.screenshot_uploader_box').show();
+
+	if ($('.screenshot_link_box').val() == 'ссылка на скриншот')
+	{
+		$('.screenshot_link_box').val('')
+	}
+}
+
+function screenshotUnDefault(element)
+{
+	if ($(element).val() == 'ссылка на скриншот')
+	{
+		$(element)
+			.val('')
+			.removeClass('screenshot_default');
+	}
+}
+
+function screenshotDefault(element)
+{
+	if ($(element).val() == '')
+	{
+		$(element)
+			.val('ссылка на скриншот')
+			.addClass('screenshot_default');
+	}
+}
+
+function showScreenshotSwitch()
+{
+	$('.screenshot_uploader_box').hide();
+	$('.screenshot_link_box').hide();
+	$('.screenshot_switch').show();
+}
