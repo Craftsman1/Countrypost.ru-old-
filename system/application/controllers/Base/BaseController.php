@@ -1089,7 +1089,8 @@ abstract class BaseController extends Controller
 			}
 
 			// возвращаем json с инфой по заказу и товару
-			echo json_encode($view, JSON_HEX_TAG);
+			//echo json_encode($view, JSON_HEX_TAG); // для PHP 5.3.x
+			echo str_replace(array("<", ">", "&"), array('\u003c', '\u003e', '\u0026'), json_encode($view)); // для PHP 5.2.x
 		}
 		catch (Exception $e)
 		{

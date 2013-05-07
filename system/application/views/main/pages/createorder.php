@@ -53,7 +53,8 @@
 					window.location = '<?= BASEURL . "client/order/$order->order_id" ?>';
 				}
 				else {
-					error('top', response.error);
+					window.location = '#';
+					error('top', response);
 				}
 			}
 		});

@@ -1073,7 +1073,7 @@ Email: {$this->user->user_email}";
 			if (empty($this->user->user_group) OR
 				$this->user->user_group != 'client')
 			{				
-				throw new Exception('Необходимо зарегистрироваться в системе.');
+				throw new Exception('Пожалуйста, войдите или зарегистрируйтесь на сайте.');
 			}
 
 			// 2. если после добавления товаров кто-то изменил заказ, сохраняем эти изменения
