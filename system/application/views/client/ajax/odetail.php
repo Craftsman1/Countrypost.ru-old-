@@ -37,8 +37,8 @@
 					$odetail->odetail_img) ?></a>
 		<? elseif ( ! isset($odetail->odetail_img)) : ?>
 			<a href="javascript:void(0)" onclick="setRel(<?= $odetail->odetail_id ?>);">
-				<img src='/client/showScreen/<?= $odetail->odetail_id ?>' height="55px">
-				<a rel="lightbox_<?= $odetail->odetail_id ?>" href="/client/showScreen/<?=
+				<img src='/main/showScreen/<?= $odetail->odetail_id ?>' height="55px">
+				<a rel="lightbox_<?= $odetail->odetail_id ?>" href="/main/showScreen/<?=
 				$odetail->odetail_id ?>" style="display:none;">Посмотреть</a>
 			</a>
 		<? endif; ?>

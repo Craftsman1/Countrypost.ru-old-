@@ -235,31 +235,28 @@ class Client extends BaseController {
 		}
 	}
 	
-	public function showScreen($oid=null)
+	public function showScreen($odetail_id)
 	{
         header('Content-type: image/jpg');
-        $this->load->model('OdetailModel', 'OdetailModel');
-        if ($Detail = $this->OdetailModel->getInfo(array('odetail_client' => $this->user->user_id, 'odetail_id' => intval($oid))))
-		{
-            readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/{$this->user->user_id}/$oid.jpg");
-        }
-        die();
 
-        /*if (!empty($this->user))
-        {
-            $client_id = $this->user->user_id;
-        }
-        else
-        {
-            $client_id = UserModel::getTemporaryKey();
-        }
-        // TODO : а если картинка не JPG!?
-		header('Content-type: image/jpg');
-		$this->load->model('OdetailModel', 'OdetailModel');
-		if ($Detail = $this->OdetailModel->getInfo(array('odetail_client' => $client_id, 'odetail_id' => intval($oid)))) {
-			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/{$Detail->client_id}/$oid.jpg");
+		$this->load->model('OdetailModel', 'Odetails');
+
+		$odetail = $this->Odetails->getPrivilegedProduct(
+			$odetail_id,
+			$this->user->user_id,
+			UserModel::getTemporaryKey());
+
+		if (empty($odetail))
+		{
+			return;
 		}
-		die();*/
+
+		$path = "{$_SERVER['DOCUMENT_ROOT']}/upload/orders/{$this->user->user_id}/$odetail_id.jpg";
+
+		if (is_file($path))
+		{
+			readfile($path);
+		}
 	}
 	
 	public function showPaymentFoto($oid, $filename)

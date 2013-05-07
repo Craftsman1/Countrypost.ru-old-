@@ -939,8 +939,24 @@ Email: {$this->user->user_email}";
 	
 		return $filter;
 	}
-	
-	public function createorder($order_type = null)
+
+	private function showOrderTypeSelector()
+	{
+		try
+		{
+			Breadcrumb::setCrumb(array(
+				'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => 'Добавление нового заказа'),
+				1, TRUE);
+
+			View::showChild($this->viewpath . '/pages/showOrderSelector');
+		}
+		catch (Exception $e)
+		{
+			Func::redirect(BASEURL);
+		}
+	}
+
+	public function createorder($order_type = NULL)
 	{
 		try
 		{
@@ -949,6 +965,12 @@ Email: {$this->user->user_email}";
 				$this->user->user_group == 'manager')
 			{
 				Func::redirect(BASEURL);
+			}
+
+			// показываем выбор вида заказа
+			if (empty($order_type))
+			{
+				return $this->showOrderTypeSelector();
 			}
 
 			// погнали
@@ -976,25 +998,17 @@ Email: {$this->user->user_email}";
 			else
 			{
 				$view['order'] = $this->initEmptyOrder($order_type);
+				$view['order_currency'] = '';
 			}
 
-			// крошки
-            if (empty($order_type))
-            {
-                Breadcrumb::setCrumb(array(
-					'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => 'Добавление нового заказа'),
-					1, TRUE);
-            }
-            else
-            {
-                Breadcrumb::setCrumb(array(
-					'http://'.$_SERVER['SERVER_NAME'].$this->viewpath.'createorder' => 'Добавление нового заказа'),
-					1, TRUE);
+			// рендер
+			Breadcrumb::setCrumb(array(
+				'http://'.$_SERVER['SERVER_NAME'].$this->viewpath.'createorder' => 'Добавление нового заказа'),
+				1, TRUE);
 
-                Breadcrumb::setCrumb(array(
-					'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => $view['order_types'][$order_type]),
-					2, TRUE);
-            }
+			Breadcrumb::setCrumb(array(
+				'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => $view['order_types'][$order_type]),
+				2, TRUE);
 
 			View::showChild($this->viewpath . '/pages/createorder', $view);
 		}
@@ -1015,7 +1029,7 @@ Email: {$this->user->user_email}";
 		$order->order_country_from = '';
 		$order->order_country_to = '';
 		$order->order_city_to = '';
-
+//print_r($order);die();
 		$this->load->model('OrderModel', 'Orders');
 		return $this->Orders->addOrder($order);
 	}

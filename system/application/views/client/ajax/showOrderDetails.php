@@ -76,7 +76,8 @@ $odetail_joint_count = 0;
 		</tr>
 		<? endif; ?>
 		<? if ($order->order_type != 'mail_forwarding') : ?>
-		<tr <? if (empty($odetails)) : ?>style="display: none"<? endif; ?>>
+		<tr class="totals"
+			<? if (empty($odetails)) : ?>style="display: none"<? endif; ?>>
 			<td colspan="3">&nbsp;</td>
 			<td class="price_total product_total">
 				<b class="total_product_cost"><?= $order->order_products_cost ?></b>&nbsp;<b class="currency"><?=

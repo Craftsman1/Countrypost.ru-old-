@@ -491,7 +491,46 @@ class OdetailModel extends BaseModel implements IModel{
 
 		return $row[0];		
 	}
-	
+
+	public function getPrivilegedProduct($odetail_id, $client_id, $temp_id)
+	{
+		$row = $this->db->query("
+			SELECT
+				`odetails`.*
+			FROM
+				`odetails`
+			INNER JOIN
+				`orders` ON `odetails`.`odetail_order` = `orders`.`order_id`
+			WHERE
+				`odetails`.`odetail_id` = '$odetail_id'
+				AND (`orders`.`order_client` = '$client_id'
+					OR `orders`.`order_client` = '$temp_id')
+				AND `orders`.`order_status` <> 'deleted'
+				AND `odetails`.`odetail_status` <> 'deleted'
+			LIMIT 1
+		")->result();
+		/*print_r("
+			SELECT
+				`odetails`.*
+			FROM
+				`odetails`
+			INNER JOIN
+				`orders` ON `odetails`.`odetail_order` = `orders`.`order_id`
+			WHERE
+				`odetails`.`odetail_id` = '$odetail_id'
+				AND `orders`.`order_client` = '$client_id'
+				AND `orders`.`order_status` <> 'deleted'
+				AND `odetails`.`odetail_status` <> 'deleted'
+			LIMIT 1
+		");*/
+		if (empty($row) OR count($row) != 1)
+		{
+			return FALSE;
+		}
+
+		return $row[0];
+	}
+
 	public function getManagerOdetailById($order_id, $odetail_id, $manager_id)
 	{
 		$row = $this->db->query("

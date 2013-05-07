@@ -982,7 +982,7 @@ abstract class BaseController extends Controller
 
 			$detail->odetail_order 					= $order->order_id;
 			$detail->odetail_status                 = 'processing';
-			$detail->odetail_client					= $this->getOrderClient();
+			$detail->odetail_client					= $order->order_client;
 			$detail->odetail_manager				= $order->order_manager;
 
 			$detail->odetail_shop				    = Check::str('oshop', 255, 0);
@@ -1037,7 +1037,7 @@ abstract class BaseController extends Controller
 			// загружаем файл
 			if (isset($userfile) AND $userfile)
 			{
-				$this->uploadOrderScreenshot($detail, $this->user->user_id);
+				$this->uploadOrderScreenshot($detail, $order->order_client);
 			}
 
 			// пересчитываем заказ
@@ -1126,7 +1126,7 @@ abstract class BaseController extends Controller
 		$order->order_country_to	= Check::int('country_to');
 		$order->order_city_to		= Check::str('city_to', 40, 0);
 		$order->preferred_delivery	= Check::str('preferred_delivery', 255, 0);
-//print_r($_POST);die();
+
 		// 4. проверяем выбранного посредника
 		if ($order->order_manager)
 		{
@@ -3161,7 +3161,34 @@ abstract class BaseController extends Controller
 		
 		return $order;
 	}
+/*
+	protected function getPrivilegedProduct($odetail_id, $validate = TRUE)
+	{
+		$order = FALSE;
+		$model = $this->getOdetailModel();
 
+		// залогиненным показываем только их заказ, либо заказ с их предложением
+		if (isset($this->user->user_group))
+		{
+			switch ($this->user->user_group)
+			{
+				case 'client' :
+					$order = $model->getClientOrderById($order_id, $this->user->user_id);
+					break;
+				// TODO: добавить логику админа и посредника
+			}
+		}
+
+		// валидация
+		if ($validate AND
+			empty($odetail))
+		{
+			throw new Exception($validate);
+		}
+
+		return $order;
+	}
+*/
 	protected function getMovableOrder($order_id, $validate = TRUE)
 	{
 		if ( ! is_numeric($order_id))
@@ -3399,6 +3426,16 @@ abstract class BaseController extends Controller
 		return $this->Orders;
 	}
 	
+	private function getOdetailModel()
+	{
+		if (empty($this->Odetails))
+		{
+			$this->load->model('OdetailModel', 'Odetails');
+		}
+
+		return $this->Odetails;
+	}
+
 	private function getOrder2InModel()
 	{
 		if (empty($this->Orders2In))
