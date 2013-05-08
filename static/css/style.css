@@ -380,7 +380,6 @@ body {
 				.adittional-block .headlines dt {
 					float: left;
 					clear: left;
-					margin-left: 17px;
 					margin-bottom: 20px;
 					font-size: 19px;
 				}
@@ -389,7 +388,6 @@ body {
 					text-align: right;
 					font-size: 19px;
 					margin-bottom: 20px;
-					margin-right: 20px;
 					}
 			.adittional-block .headlines a {
 				display:block;

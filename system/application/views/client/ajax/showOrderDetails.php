@@ -129,7 +129,8 @@ $odetail_joint_count = 0;
 					 style="display:none;margin:0px;margin-top:5px;"
 					 src="/static/images/lightbox-ico-loading.gif">
 				<? endif ?>
-				<? if ( ! empty($neighbour_orders)) : ?>
+				<? if ( ! empty($neighbour_orders) AND
+						$order->order_status != 'payed') : ?>
 				<div class="admin-inside floatright">
 					<div class="submit floatright" style="margin: 7px 0 0 6px;">
 						<div>

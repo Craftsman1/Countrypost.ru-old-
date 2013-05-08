@@ -3,37 +3,21 @@
 		<h2 style="margin-left: 52px;">Курсы валют</h2>
 		<br>
 		<dl style="width: 222px;">
-			<!--dt>Доллар ($)</dt>
-			<dd>
-				<?= number_format($rate_usd_rur, 2) ?> руб.
-			</dd>
-			<dt>Евро (&euro;)</dt>
-			<dd>
-				<?= number_format($rate_eur_rur, 2) ?> руб.
-			</dd>
-			<dt>Доллар ($)</dt>
-			<dd>
-				<?= number_format($rate_usd_kzt, 2)?>&nbsp;тенге&nbsp;(<em class="tenge">&nbsp;&nbsp;&nbsp;</em>)
-			</dd>
-			<dt>Доллар ($)</dt>
-			<dd>
-				<?= number_format($rate_usd_uah, 2)?>&nbsp;гривен&nbsp;(<em class="grivna">&nbsp;&nbsp;&nbsp;</em>)
-			</dd-->
 			<dt>1 <?= $order->order_currency ?> =</dt>
 			<dd>
-				<?= number_format($rate_rur, 2) ?> RUB
+				<?= number_format($rate_rur, 6) ?> RUB
 			</dd>
 			<dt>1 <?= $order->order_currency ?> =</dt>
 			<dd>
-				<?= number_format($rate_usd, 2) ?> USD
+				<?= number_format($rate_usd, 6) ?> USD
 			</dd>
 			<dt>1 <?= $order->order_currency ?> =</dt>
 			<dd>
-				<?= number_format($rate_kzt, 2) ?> KZT
+				<?= number_format($rate_kzt, 6) ?> KZT
 			</dd>
 			<dt>1 <?= $order->order_currency ?> =</dt>
 			<dd>
-				<?= number_format($rate_uah, 2)?> UAH
+				<?= number_format($rate_uah, 6)?> UAH
 			</dd>
 		</dl>
 	</div>
