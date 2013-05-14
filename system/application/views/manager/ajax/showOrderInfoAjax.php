@@ -1,5 +1,5 @@
 <form id="orderForm" action="<?= $selfurl ?>updateOrder/<?= $order->order_id ?>" method="POST">
-	<? if (in_array($order->order_status, $editable_statuses)) : ?>
+	<? if ($order->order_status != 'pending') : ?>
 	<div class="pricelist pricelist_main table clientOrderInfo">
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>

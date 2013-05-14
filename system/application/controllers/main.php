@@ -7,7 +7,7 @@ class Main extends BaseController {
 
 	function __construct()
 	{
-		parent::__construct();	
+		parent::__construct();
 
 		$this->paging_base_url = '/main/showUnassignedOrders';	 
 		View::$main_view	= '/main/index';
@@ -1029,8 +1029,10 @@ Email: {$this->user->user_email}";
 		$order->order_country_from = '';
 		$order->order_country_to = '';
 		$order->order_city_to = '';
-//print_r($order);die();
+
 		$this->load->model('OrderModel', 'Orders');
+		$order = $this->Orders->patchEmptyOrder($order);
+
 		return $this->Orders->addOrder($order);
 	}
 

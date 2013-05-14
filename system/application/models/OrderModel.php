@@ -1427,5 +1427,49 @@ class OrderModel extends BaseModel implements IModel{
 
 		return explode(',', $result[0]->ids);
 	}
+
+	private function getLastOrder($order_type, $client_id)
+	{
+		$result = $this->db->query("
+			SELECT *
+			FROM
+				orders
+			WHERE
+				order_status <> 'deleted' AND
+				order_client = '$client_id' AND
+				order_type = '$order_type' AND
+				is_creating = 0
+			ORDER BY
+				order_id DESC
+			LIMIT 1")->result();
+
+		return empty($result) ? FALSE : $result[0];
+	}
+
+	public function patchEmptyOrder($order)
+	{
+		$last_order = $this->getLastOrder($order->order_type, $order->order_client);
+
+		if (empty($last_order))
+		{
+			return $order;
+		}
+
+		$order->order_country_from = $last_order->order_country_from;
+		$order->order_country_to = $last_order->order_country_to;
+		$order->preferred_delivery = $last_order->preferred_delivery;
+
+		if ($last_order->order_type == 'mail_forwarding')
+		{
+			$order->order_manager = $last_order->order_manager;
+		}
+
+		if (isset($last_order->city_to))
+		{
+			$order->city_to = $last_order->city_to;
+		}
+
+		return $order;
+	}
 }
 ?>
