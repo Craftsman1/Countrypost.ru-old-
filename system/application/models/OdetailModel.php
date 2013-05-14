@@ -451,24 +451,6 @@ class OdetailModel extends BaseModel implements IModel{
         return FALSE;
     }
 
-    public function getNewOdetail($order_id, $odetail_id, $user_id, $user_group)
-    {
-        $odetail = FALSE;
-
-        if ($user_group == 'client')
-        {
-            $odetail = $this->getClientOdetailById($order_id, $odetail_id, $user_id);
-
-            if (!$odetail)
-            {
-                $user_id = UserModel::getTemporaryKey(true);
-                $odetail = $this->getClientOdetailById($order_id, $odetail_id, $user_id);
-            }
-        }
-
-        return $odetail;
-    }
-
 	public function getClientOdetailById($order_id, $odetail_id, $client_id)
 	{
 		$row = $this->db->query("
@@ -484,7 +466,7 @@ class OdetailModel extends BaseModel implements IModel{
 			LIMIT 1
 		")->result();
 
-		if (empty($row) OR count($row) != 1)
+		if (empty($row))
 		{
 			return FALSE;
 		}

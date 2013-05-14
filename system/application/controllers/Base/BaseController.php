@@ -422,7 +422,7 @@ abstract class BaseController extends Controller
 			// статусы, в которых можно редактировать/оплачивать заказ, перемещать товары
 			if (isset($this->user->user_group))
 			{
-				$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
+				$view['editable_statuses'] = $this->getEditableOrderStatuses();
 				$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
 				$view['neighbour_orders'] = $this->Orders->getNeighbourOrders(
 					$view['order']->order_id,
@@ -651,7 +651,7 @@ abstract class BaseController extends Controller
 			// статусы, в которых можно редактировать заказ
 			if (isset($this->user->user_group))
 			{
-				$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
+				$view['editable_statuses'] = $this->getEditableOrderStatuses();
 				$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
 			}
 
@@ -1074,8 +1074,6 @@ abstract class BaseController extends Controller
 
 			if (empty($view->error))
 			{
-				$view->odetail_id = $result['detail']->odetail_id;
-
 				$view->product = View::get('client/ajax/odetail', array(
 					'odetail'				=> $result['detail'],
 					'odetail_joint_id'		=> 0,
@@ -1086,6 +1084,11 @@ abstract class BaseController extends Controller
 					'selfurl'				=> BASEURL . $this->cname . '/',
 					'viewpath'				=> $this->viewpath
 				));
+
+				$view->odetail_id = $result['detail']->odetail_id;
+				$view->weight = $order->order_weight;
+				$view->products_cost = $order->order_products_cost;
+				$view->delivery_cost = $order->order_delivery_cost;
 			}
 
 			// возвращаем json с инфой по заказу и товару
@@ -2551,7 +2554,7 @@ abstract class BaseController extends Controller
 			$this->load->model('OdetailJointModel', 'Joints');
 
 			// позволяет ли текущий статус объединение
-			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+			$editable_statuses = $this->getEditableOrderStatuses();
 
 			if ( ! in_array($order->order_status, $editable_statuses))
 			{
@@ -2569,11 +2572,7 @@ abstract class BaseController extends Controller
 				$odetail_id = $this->getCheckboxId($param, 'join');
 
 				// находим товар
-				$odetail = $this->Odetails->getPrivilegedOdetail(
-					$order_id,
-					$odetail_id,
-					$this->user->user_id,
-					$this->user->user_group);
+				$odetail = $this->getPrivilegedOdetail($order_id, $odetail_id);
 
 				if ( ! $odetail)
 				{
@@ -2685,163 +2684,7 @@ abstract class BaseController extends Controller
 		}
 	}
 
-    protected function joinNewProducts($order_id)
-    {
-        try
-        {
-            if ( ! is_numeric($order_id))
-            {
-                throw new Exception('Доступ запрещен.');
-            }
-
-            // безопасность и разграничение доступа
-            $order = $this->getNewOrder(
-                $order_id,
-                'Невозможно объединить товары. Указанный заказ не найден.');
-
-            if (empty($this->user))
-            {
-                throw new Exception('Необходима авторизация. Доступ запрещен.');
-            }
-
-            $this->load->model('OdetailModel', 'Odetails');
-            $this->load->model('OdetailJointModel', 'Joints');
-
-
-
-
-            // позволяет ли текущий статус объединение
-            $editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
-
-            if ( ! in_array($order->order_status, $editable_statuses))
-            {
-                throw new Exception('Заказ недоступен.');
-            }
-
-            // погнали
-            $this->db->trans_begin();
-
-            $joint = $this->Joints->generateJoint();
-
-            // ищем товары в запросе
-            foreach($_POST as $param => $value)
-            {
-				$odetail_id = $this->getCheckboxId($param, 'join');
-
-				// находим товар
-                $odetail = $this->Odetails->getNewOdetail(
-                    $order_id,
-                    $odetail_id,
-                    $this->user->user_id,
-                    $this->user->user_group);
-
-                if ( ! $odetail)
-                {
-                    throw new Exception('Невозможно объединить товары. Некоторые товары не найдены.');
-                }
-
-                // вычисляем суммарную стоимость
-                $joint->cost += $odetail->odetail_pricedelivery;
-                $joint->count++;
-
-                // удаляем старые джоинты
-                if ($odetail->odetail_joint_id)
-                {
-                    $this->Odetails->clearJoints($odetail->odetail_joint_id);
-                }
-
-                // сохраняем товар
-                $odetail->odetail_joint_id = $joint->joint_id;
-
-                $this->Odetails->addOdetail($odetail);
-            }
-
-            if ($joint->count < 2)
-            {
-                throw new Exception('Выберите хотя бы 2 товара для объединения.');
-            }
-
-            $this->Joints->addOdetailJoint($joint);
-
-            // пересчитываем заказ
-            if ( ! $this->Orders->recalculate($order))
-            {
-                throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
-            }
-
-            $this->Orders->saveOrder($order);
-
-            // закрываем транзакцию
-            if ($this->db->trans_status() !== FALSE)
-            {
-                $this->db->trans_commit();
-            }
-            $result['message'] = 'Доставка успешно обьединена.';
-        }
-        catch (Exception $e)
-        {
-            $result['is_error'] = 1;
-            $result['message'] = 'Доставка не обьединена. '.$e->getMessage();
-            $this->db->trans_rollback();
-        }
-
-        echo json_encode($result);
-        exit;
-    }
-
-    protected function removeNewJoint($order_id, $joint_id)
-    {
-        try
-        {
-            if ( ! is_numeric($joint_id) OR
-                ! is_numeric($order_id))
-            {
-                throw new Exception('Доступ запрещен.');
-            }
-
-            // безопасность: проверяем связку менеджера и заказа
-            $order = $this->getNewOrder(
-                $order_id,
-                'Заказ не найден.');
-
-            $this->load->model('OdetailModel', 'Odetails');
-            $this->load->model('OdetailJointModel', 'Joints');
-
-            // погнали
-            $this->db->trans_begin();
-
-            $this->Odetails->clearJoints($joint_id);
-
-            // пересчитываем заказ
-            if ( ! $this->Orders->recalculate($order))
-            {
-                throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
-            }
-
-            $this->Orders->saveOrder($order);
-
-            // закрываем транзакцию
-            if ($this->db->trans_status() !== FALSE)
-            {
-                $this->db->trans_commit();
-            }
-        }
-        catch (Exception $e)
-        {
-        }
-
-        // открываем детали заказа
-        if (isset($order) AND $order)
-        {
-            Func::redirect(BASEURL . "{$this->cname}/createorder/{$order->order_type}");
-        }
-        else
-        {
-            Func::redirect(BASEURL);
-        }
-    }
-
-	protected function moveProducts($old_order_id, $new_order_id)
+    protected function moveProducts($old_order_id, $new_order_id)
 	{
 		try
 		{
@@ -2862,11 +2705,7 @@ abstract class BaseController extends Controller
 				$odetail_id = $this->getCheckboxId($param, 'join');
 
 				// находим товар
-				$odetail = $this->Odetails->getPrivilegedOdetail(
-					$old_order_id,
-					$odetail_id,
-					$this->user->user_id,
-					$this->user->user_group);
+				$odetail = $this->getPrivilegedOdetail($old_order_id, $odetail_id);
 
 				if ( ! $odetail)
 				{
@@ -3152,6 +2991,10 @@ abstract class BaseController extends Controller
 					break;
 			}
 		}
+		else
+		{
+			$order = $model->getIsCreatingOrder($order_id, UserModel::getTemporaryKey());
+		}
 
 		// валидация
 		if ($validate AND
@@ -3159,7 +3002,7 @@ abstract class BaseController extends Controller
 		{
 			throw new Exception($validate);
 		}
-		
+		//print_r($order);die();
 		return $order;
 	}
 /*
@@ -3203,7 +3046,7 @@ abstract class BaseController extends Controller
 			$validate);
 
 		// позволяет ли текущий статус перенос
-		$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+		$editable_statuses = $this->getEditableOrderStatuses();
 
 		if ( ! in_array($order->order_status, $editable_statuses))
 		{
@@ -3546,7 +3389,7 @@ abstract class BaseController extends Controller
 			$this->load->model('OdetailJointModel', 'Joints');
 
 			// позволяет ли текущий статус редактирование
-			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+			$editable_statuses = $this->getEditableOrderStatuses();
 
 			if ( ! in_array($order->order_status, $editable_statuses))
 			{
@@ -3554,11 +3397,7 @@ abstract class BaseController extends Controller
 			}
 
 			// находим товар
-			$odetail = $this->Odetails->getPrivilegedOdetail(
-				$order_id,
-				$odetail_id,
-				$this->user->user_id,
-				$this->user->user_group);
+			$odetail = $this->getPrivilegedOdetail($order_id, $odetail_id);
 
 			if (empty($odetail))
 			{
@@ -3611,7 +3450,7 @@ abstract class BaseController extends Controller
 			$this->load->model('OdetailJointModel', 'Joints');
 
 			// позволяет ли текущий статус редактирование
-			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+			$editable_statuses = $this->getEditableOrderStatuses();
 
 			if ( ! in_array($order->order_status, $editable_statuses))
 			{
@@ -3619,11 +3458,7 @@ abstract class BaseController extends Controller
 			}
 
 			// находим товар
-			$odetail = $this->Odetails->getPrivilegedOdetail(
-				$order_id,
-				$odetail_id,
-				$this->user->user_id,
-				$this->user->user_group);
+			$odetail = $this->getPrivilegedOdetail($order_id, $odetail_id);
 
 			if (empty($odetail))
 			{
@@ -3675,7 +3510,7 @@ abstract class BaseController extends Controller
 			$this->load->model('OdetailJointModel', 'Joints');
 
 			// позволяет ли текущий статус редактирование
-			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+			$editable_statuses = $this->getEditableOrderStatuses();
 
 			if ( ! in_array($order->order_status, $editable_statuses))
 			{
@@ -3683,11 +3518,7 @@ abstract class BaseController extends Controller
 			}
 
 			// находим товар
-			$odetail = $this->Odetails->getPrivilegedOdetail(
-				$order_id,
-				$odetail_id,
-				$this->user->user_id,
-				$this->user->user_group);
+			$odetail = $this->getPrivilegedOdetail($order_id, $odetail_id);
 
 			if (empty($odetail))
 			{
@@ -3740,7 +3571,7 @@ abstract class BaseController extends Controller
 			$this->load->model('OdetailJointModel', 'Joints');
 
 			// позволяет ли текущий статус редактирование
-			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+			$editable_statuses = $this->getEditableOrderStatuses();
 
 			if ( ! in_array($order->order_status, $editable_statuses))
 			{
@@ -3748,11 +3579,7 @@ abstract class BaseController extends Controller
 			}
 
 			// находим товар
-			$odetail = $this->Odetails->getPrivilegedOdetail(
-				$order_id,
-				$odetail_id,
-				$this->user->user_id,
-				$this->user->user_group);
+			$odetail = $this->getPrivilegedOdetail($order_id, $odetail_id);
 
 			if (empty($odetail))
 			{
@@ -3805,7 +3632,7 @@ abstract class BaseController extends Controller
 			$this->load->model('OdetailJointModel', 'Joints');
 
 			// позволяет ли текущий статус редактирование
-			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+			$editable_statuses = $this->getEditableOrderStatuses();
 
 			if ( ! in_array($order->order_status, $editable_statuses))
 			{
@@ -4084,7 +3911,7 @@ abstract class BaseController extends Controller
 			$this->load->model('OdetailModel', 'Odetails');
 
 			// позволяет ли текущий статус редактирование
-			$editable_statuses = $this->Orders->getEditableStatuses($this->user->user_group);
+			$editable_statuses = $this->getEditableOrderStatuses();
 
 			if ( ! in_array($order->order_status, $editable_statuses))
 			{
@@ -4092,11 +3919,7 @@ abstract class BaseController extends Controller
 			}
 
 			// находим товар
-			$odetail = $this->Odetails->getPrivilegedOdetail(
-				$order_id,
-				$odetail_id,
-				$this->user->user_id,
-				$this->user->user_group);
+			$odetail = $this->getPrivilegedOdetail($order_id, $odetail_id);
 
 			if (empty($odetail))
 			{
@@ -4344,7 +4167,7 @@ abstract class BaseController extends Controller
 		if (isset($this->user->user_group) AND
 			$this->user->user_group != 'admin')
 		{
-			$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
+			$view['editable_statuses'] = $this->getEditableOrderStatuses();
 			$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
 		}
 
@@ -4472,6 +4295,38 @@ abstract class BaseController extends Controller
 		if (empty($detail->odetail_tracking))
 		{
 			throw new Exception('Добавьте Tracking номер.');
+		}
+	}
+
+	protected function getEditableOrderStatuses()
+	{
+		if (isset($this->user->user_group))
+		{
+			return $this->Orders->getEditableStatuses($this->user->user_group);
+		}
+		else
+		{
+			return array('pending');
+		}
+	}
+
+	protected function getPrivilegedOdetail($order_id, $odetail_id)
+	{
+		if (isset($this->user->user_id))
+		{
+			return $this->Odetails->getPrivilegedOdetail(
+				$order_id,
+				$odetail_id,
+				$this->user->user_id,
+				$this->user->user_group);
+		}
+		else
+		{
+			return $this->Odetails->getPrivilegedOdetail(
+				$order_id,
+				$odetail_id,
+				UserModel::getTemporaryKey(),
+				'client');
 		}
 	}
 }

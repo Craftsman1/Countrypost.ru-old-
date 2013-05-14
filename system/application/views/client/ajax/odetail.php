@@ -63,7 +63,7 @@
 			   id="odetail_tracking<?= $odetail->odetail_id ?>"
 			   name="odetail_tracking<?= $odetail->odetail_id ?>"
 			   value="<?= $odetail->odetail_tracking ?>"
-			   style="width:60px"
+			   style="width:160px"
 			   maxlength="80"
 			   onchange="update_odetail_tracking('<?= $order->order_id ?>',
 				   '<?= $odetail->odetail_id ?>');">

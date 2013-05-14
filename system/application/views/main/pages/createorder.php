@@ -8,9 +8,27 @@
 <script>
 	var currencies = <?= json_encode($countries); ?>;
 	var selectedCurrency = '<?= isset($order_currency) ? $order_currency : '' ?>';
+	var countryControl = false;
 
     $(function() {
-		$("select.country").msDropDown({mainCSS:'idd'});
+		countryControl = $("select.country").msDropDown({mainCSS:'idd'});
+
+		$('input#delivery_requested').change(function() {
+			if ($(this).filter(':checked').length == 1)
+			{
+				$('.delivery_section').show('slow');
+			}
+			else
+			{
+				$('.delivery_section').hide('slow');
+				$('input#city_to,input#preferred_delivery').val('');
+
+				if (countryControl[1])
+				{
+					(countryControl[1]).selectedIndex = 0;
+				}
+			}
+		});
 
 		$('form.orderForm').ajaxForm({
 			dataType: 'json',
@@ -24,7 +42,8 @@
 				{
 					if (response.error == 0)
 					{
-						success('top', 'Товар №' + response.odetail_id + ' успешно добавлен в заказ.');
+						refreshOrderTotals(response, 'Товар №' + response.odetail_id + ' успешно добавлен в заказ.', response.error);
+
 						$('table.products tr:first').after(response.product);
 
 						$('div.checkout,tr.totals').show('slow');

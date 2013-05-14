@@ -259,6 +259,7 @@ $payable_amount =
 	{
 		var payment_option = $('input:radio#' + x).filter(':checked').attr('id');
         var service = getService(payment_option);
+		calculateTotals();
 		var amount_usd = $('.payment_system input:text').val();
 		var user_id = '<?= isset($user->user_id) ? $user->user_id : '' ?>';
 

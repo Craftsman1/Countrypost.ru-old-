@@ -1685,4 +1685,29 @@ Email: {$this->user->user_email}";
 		header('Content-type: image/jpg');
 		readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/$user_id/$oid.jpg");
 	}
+
+	public function update_odetail_weight($order_id, $odetail_id, $weight)
+	{
+		parent::update_odetail_weight($order_id, $odetail_id, $weight);
+	}
+
+	public function update_odetail_price($order_id, $odetail_id, $price)
+	{
+		parent::update_odetail_price($order_id, $odetail_id, $price);
+	}
+
+	public function update_odetail_tracking($order_id, $odetail_id, $tracking)
+	{
+		parent::update_odetail_tracking($order_id, $odetail_id, $tracking);
+	}
+
+	public function update_odetail_pricedelivery($order_id, $odetail_id, $pricedelivery)
+	{
+		parent::update_odetail_pricedelivery($order_id, $odetail_id, $pricedelivery);
+	}
+
+	public function update_joint_pricedelivery($order_id, $joint_id, $cost)
+	{
+		parent::update_joint_pricedelivery($order_id, $joint_id, $cost);
+	}
 }

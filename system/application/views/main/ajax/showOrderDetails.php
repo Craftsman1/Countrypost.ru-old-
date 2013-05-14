@@ -96,7 +96,7 @@ $is_offer_accepted = (empty($this->user->user_group) OR
 			</td>
 			<? endif; ?>
 			<td>
-				<?= $odetail->odetail_weight ?> г
+				<?= $odetail->odetail_weight ?> кг
 			</td>
 			<? endif; ?>
 		</tr>
@@ -111,7 +111,7 @@ $is_offer_accepted = (empty($this->user->user_group) OR
 				<?= $order->order_delivery_cost ?> <?= $order->order_currency ?>
 			</td>
 			<td class="weight_total">
-				<?= $order->order_weight ?> г
+				<?= $order->order_weight ?> кг
 			</td>
 		</tr>
 		<? endif; ?>

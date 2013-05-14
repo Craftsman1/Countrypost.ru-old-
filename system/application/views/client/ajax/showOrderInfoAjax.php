@@ -1,4 +1,7 @@
-<form id="orderForm" action="<?= $selfurl ?>updateOrder/<?= $order->order_id ?>" method="POST">
+<form id="orderForm"
+	  class="order_details"
+	  action="<?= $selfurl ?>updateOrder/<?= $order->order_id ?>"
+	  method="POST">
 	<? if ($order->order_client != $this->user->user_id) : ?>
 	<div class='clientOrderInfo' style="display:none;"></div>
 	<? else :

@@ -816,7 +816,25 @@ class OrderModel extends BaseModel implements IModel{
 
         return empty($orders) ? FALSE : $orders[0];
     }
-	
+
+    public function getIsCreatingOrder($order_id, $client_id)
+    {
+		$orders = $this->db->query(
+            "SELECT
+                `orders`.*
+            FROM
+            	`orders`
+            WHERE
+            	`orders`.`is_creating` = 1 AND
+            	`orders`.`order_id` = $order_id AND
+            	`orders`.`order_client` = $client_id
+            ORDER BY `orders`.`order_id` DESC
+            LIMIT 1"
+        )->result();
+
+        return empty($orders) ? FALSE : $orders[0];
+    }
+
 	/**
 	 * Добавление/изменение заказа
 	 * Выкидывает исключения на некорректные данные
@@ -1042,26 +1060,28 @@ class OrderModel extends BaseModel implements IModel{
 		$odetails = $ci->Odetails->getOrderDetails($order->order_id);
 
 		// одиночные товары
-		foreach ($odetails as $odetail)
+		if ( ! empty($odetails))
 		{
-			// подсчет сумм цен
-			$total_price += $odetail->odetail_price;
-			$total_weight += $odetail->odetail_weight;
-
-			// для объединенных товаров доставку считаем ниже
-			if ($odetail->odetail_joint_id)
+			foreach ($odetails as $odetail)
 			{
-				if ( ! in_array($odetail->odetail_joint_id, $joints))
+				// подсчет сумм цен
+				$total_price += $odetail->odetail_price;
+				$total_weight += $odetail->odetail_weight;
+
+				// для объединенных товаров доставку считаем ниже
+				if ($odetail->odetail_joint_id)
 				{
-					$joints[] = $odetail->odetail_joint_id;
+					if ( ! in_array($odetail->odetail_joint_id, $joints))
+					{
+						$joints[] = $odetail->odetail_joint_id;
+					}
+				}
+				else
+				{
+					$total_pricedelivery += $odetail->odetail_pricedelivery;
 				}
 			}
-			else
-			{
-				$total_pricedelivery += $odetail->odetail_pricedelivery;
-			}
 		}
-
 		// объединенные товары
 		foreach ($joints as $joint_id)
 		{
