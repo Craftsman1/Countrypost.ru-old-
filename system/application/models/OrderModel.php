@@ -1464,9 +1464,9 @@ class OrderModel extends BaseModel implements IModel{
 			$order->order_manager = $last_order->order_manager;
 		}
 
-		if (isset($last_order->city_to))
+		if (isset($last_order->order_city_to))
 		{
-			$order->city_to = $last_order->city_to;
+			$order->order_city_to = $last_order->order_city_to;
 		}
 
 		return $order;

@@ -43,7 +43,7 @@
 				<?= $order->order_products_cost + $order->order_delivery_cost ?> <?= $order->currency ?>
 			</td>
 			<td>
-				<?= round($order->order_weight/1000, 3) ?>кг<br />
+				<?= $order->order_weight ?>кг<br />
 			</td>
 			<td>
 				<? // 1. счетчик

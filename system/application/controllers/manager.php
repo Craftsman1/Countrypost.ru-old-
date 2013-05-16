@@ -227,13 +227,6 @@ class Manager extends BaseController {
 			$bid->manager_tax = Check::int('manager_tax');
 			$bid->manager_tax_percentage = Check::int('manager_tax_percentage');
 
-			$empties = Check::get_empties();
-
-			if ($empties) 
-			{
-				throw new Exception('Некоторые поля не заполнены. Попробуйте еще раз.');
-			}
-
 			// 6. пересчитываем и сохраняем предложение
 			if ( ! $this->Bids->recalculate($bid, $order, TRUE))
 			{
