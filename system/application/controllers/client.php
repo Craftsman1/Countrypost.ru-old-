@@ -1284,10 +1284,15 @@ class Client extends BaseController {
             $address->address_address = Check::str('address', 4096, 1);
             $address->address_phone = Check::str('phone', 255, 1);
             $address->address_is_default = false;
-
+            
+            if(isset($_POST['addr_id']) and !empty($_POST['addr_id']) and Check::int('addr_id'))
+            {
+            	$address->address_id = Check::int('addr_id');
+            }
 
             // валидация пользовательского ввода
             $empties = Check::get_empties();
+
             if ($empties)
             {
                 throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
@@ -1328,6 +1333,19 @@ class Client extends BaseController {
             echo (int)$this->Addresses->deleteAddress($address_id); die();
         }
         echo 0; die();
+    }
+
+    /*
+    
+     */
+    public function getAddress($address_id = 0)
+    {
+    	if ($address_id !=0)
+    	{
+    		$this->load->model('AddressModel', 'Addresses');
+    		$address = $this->Addresses->getAddressById($address_id);
+    		echo json_encode($address);
+    	}
     }
 
 	public function saveRating()

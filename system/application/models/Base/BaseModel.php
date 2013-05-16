@@ -162,6 +162,7 @@ abstract class BaseModel extends Model implements IBaseModel {
 			case 'update':
 					$this->db->where($this->PK, $this->properties->$PK);
 					$result = $this->db->update($this->table/*, $this->properties*/);
+					$result = $result ? $this->properties->address_id : $result;
 				break;
 			default:
 					return false;
@@ -181,7 +182,7 @@ abstract class BaseModel extends Model implements IBaseModel {
 	public function update()
 	{
 		$result = $this->iou('update');
-		return (bool) $result;
+		return $result;
 	}
 	
 	/**
@@ -206,7 +207,7 @@ abstract class BaseModel extends Model implements IBaseModel {
 		$PK = $this->PK;
 		$this->strict = $strict_mode;
 		$query = $this->db->get_where($this->table, array($this->PK => $this->properties->$PK));
-		
+
 		//return (($this->properties->$PK && $query->num_rows) ? $this->update() : $this->insert());
 		return ((!is_null($this->properties->$PK) && $query->num_rows) ? $this->update() : $this->insert());
 	}	

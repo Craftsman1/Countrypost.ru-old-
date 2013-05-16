@@ -1,4 +1,4 @@
-<div class="delivery_address client_tab" style="display:none;">
+<div class="delivery_address client_tab" style="display: none;">
     <form action="/client/saveAddress" id="addressForm" method="POST">
         <div class="table" style="height: 303px;">
             <div class='angle angle-lt'></div>
@@ -46,6 +46,7 @@
         <br style="clear:both;" />
         <div class="submit floatleft">
             <div>
+                <input type="hidden" id="addr_id" name="addr_id" value="">
                 <input type="submit" value="Добавить">
             </div>
         </div>
@@ -139,6 +140,37 @@
                 }
             }
 
+        }
+
+        var getAddress = function()
+        {
+            var iconContainer = $(this).parent(),
+            row = $(this).parent().parent(),
+            tkey = row.find('td.address_id').text();
+
+            if (tkey != '' && !isNaN(tkey))
+            {
+                var ikey = parseInt(tkey, 10);
+                $.getJSON("/client/getAddress/" + ikey,
+                    function(data){
+                        $('#recipient').val(data[0].address_recipient);
+                        var i = 0;
+                        $('#country option').each(function() {
+                            if (data[0].address_country == $(this).val())
+                            {
+                                k = i;
+                            }
+                            i++;
+                        });
+                        $('#country').msDropDown({mainCSS:'idd'}).data('dd').set('selectedIndex', k);
+                        $('#city').val(data[0].address_town);
+                        $('#index').val(data[0].address_zip);
+                        $('#address').val(data[0].address_address);
+                        $('#phone').val(data[0].address_phone);
+                        $('#addr_id').val(data[0].address_id);
+                    }
+                );
+            }
         }
 
         var addAddressItemProgress = function(obj)
@@ -291,6 +323,15 @@
                     return;
                 }
 
+                // проверка на одинаковые address_id
+                $('#deliveryAddressTable tr').each(function() {
+                    attr = 'addressRow' + response_[0].address_id;
+                    // если одинаковые id, то удаляем строку в браузере
+                    if ($(this).attr('id') == attr) {
+                        $(this).remove();
+                    }
+                });
+
                 var news_snippet = '<tr id="addressRow'+response_[0].address_id+'"><td class="address_id">' +
                         response_[0].address_id +
                         '</td><td>' +
@@ -304,6 +345,7 @@
                 $('#deliveryAddressTable').find('tr:last').after(news_snippet);
                 $('.deliveryAddressTableContainer, #delivery_addressess_header').show();
                 $('.delete_icon').unbind('click').bind('click', deleteAddress);
+                $('.edit_icon').unbind('click').bind('click', getAddress);
 
                 $('#recipient').val('');
                 $('#city').val('');
@@ -320,6 +362,7 @@
             }
         });
         $('.delete_icon').unbind('click').bind('click', deleteAddress);
+        $('.edit_icon').unbind('click').bind('click', getAddress);
     });
 
 </script>

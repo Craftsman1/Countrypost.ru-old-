@@ -11,7 +11,7 @@
 |	http://www.your-site.com/
 |
 */
-$config['base_url']	= "http://dziro.dyndns.tv/";
+$config['base_url']	= "http://s2.loc/";
 
 /*
 |--------------------------------------------------------------------------
