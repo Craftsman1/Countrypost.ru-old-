@@ -226,6 +226,7 @@ class Manager extends BaseController {
 			// 5. комиссия
 			$bid->manager_tax = Check::int('manager_tax');
 			$bid->manager_tax_percentage = Check::int('manager_tax_percentage');
+			$bid->manager_tax_type = Check::str('manager_tax_type', 17, 6);
 
 			// 6. пересчитываем и сохраняем предложение
 			if ( ! $this->Bids->recalculate($bid, $order, TRUE))
