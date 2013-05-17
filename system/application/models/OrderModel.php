@@ -1264,20 +1264,34 @@ class OrderModel extends BaseModel implements IModel{
 			}
 		}
 
+		// заполняем данные для динамических расчетов
+		$order->manager_tax_percentage = $manager->order_tax;
+		$order->manager_foto_tax_percentage = $manager->foto_tax;
+
+		$order->products_delivery_tax = ceil(
+			($order->order_products_cost + $order->order_delivery_cost) *
+				$manager->order_tax *
+				0.01);
+
+		$order->products_tax = ceil(
+			$order->order_products_cost *
+				$manager->order_tax *
+				0.01);
+
 		// расчитываем комиссии
-		// 1. комиссия посредника
-		if ($order->order_type == 'mail_forwarding')
+		// 1. комиссия посредника по умолчанию
+		if ($order->order_type == 'mail_forwarding' OR
+			$order->order_type == 'service' OR
+			$order->order_type == 'delivery')
 		{
 			$order->manager_tax = $manager->order_mail_forwarding_tax;
 		}
 		else
 		{
-			$order->manager_tax = ceil(
-				($order->order_products_cost + $order->order_delivery_cost) *
-				$manager->order_tax *
-				0.01);
+			$order->manager_tax = $order->products_delivery_tax;
 		}
 
+		// 1.1 минимальная комиссия
 		if ($order->manager_tax < $manager->min_order_tax)
 		{
 			$order->manager_tax = $manager->min_order_tax;
@@ -1292,10 +1306,6 @@ class OrderModel extends BaseModel implements IModel{
 			$order->order_delivery_cost +
 			$order->manager_tax +
 			$order->foto_tax;
-
-		// 4. заполняем данные для динамических расчетов
-		$order->manager_tax_percentage = $manager->order_tax;
-		$order->manager_foto_tax_percentage = $manager->foto_tax;
 	}
 
 	public function processExcessAmountTransfer($order)
