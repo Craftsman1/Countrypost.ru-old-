@@ -43,10 +43,12 @@
 				<td>
 					<? if ($is_editable) : ?>
 					<? if (empty($addresses)) : ?>
-						<textarea name="address_text"
-								  id="address_text"
-								  style="width: 100%;resize: vertical;"
-								  onchange="updateOrder();"><?= $order->order_address ?></textarea>
+						<select style="width: 100%">
+                            <option value=""></option>
+       
+						</select>
+					<br>
+					<a class="floatleft" href="/profile">редактировать адреса</a>
 						<? else : ?>
 						<select id="address"
 								name="address"
