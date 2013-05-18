@@ -7,7 +7,7 @@
 		onchange="showTaxEditor();"
 		<? if (isset($order->bid) AND $bid->manager_tax_type == 'custom') : ?>style="display:none;"<? endif; ?>>
 	<option value="products_delivery"
-			<? if (isset($order->bid) AND $bid->manager_tax_type == 'products_delivery') : ?>selected<? endif; ?>>стоимость оваров + местная
+			<? if (isset($order->bid) AND $bid->manager_tax_type == 'products_delivery') : ?>selected<? endif; ?>>стоимость товаров + местная
 		доставка -
 		<?= $order->manager_tax_percentage ?>%
 		(<?= $order->products_delivery_tax ?> <?= $order->order_currency ?>)</option>

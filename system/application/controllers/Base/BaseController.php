@@ -454,13 +454,13 @@ abstract class BaseController extends Controller
 			}
 
 			// для формы нового предложения у посредника
+			if (isset($this->user->user_id) AND $this->user->user_group == 'manager')
+			{
+				$this->Orders->prepareNewBidView($view['order'], $this->user->user_id);
+			}
+
 			if ($view['bids_accepted'])
 			{
-				if (isset($this->user->user_id))
-				{
-					$this->Orders->prepareNewBidView($view['order'], $this->user->user_id);
-				}
-
 				$new_bid = new stdClass();
 				$new_bid->bid_id = 0;
 				$new_bid->manager_id = isset($this->user->user_id) ? $this->user->user_id : 0;

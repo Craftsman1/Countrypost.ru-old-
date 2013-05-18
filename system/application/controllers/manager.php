@@ -306,10 +306,12 @@ class Manager extends BaseController {
 			$view['bid'] = $bid;
 			$view['order'] = $order;
 			$view['odetails'] = $this->Odetails->getOrderDetails($order_id);
-			
+
+			$this->Orders->prepareNewBidView($view['order'], $this->user->user_id);
 			$this->Orders->prepareOrderView($view);
+
 			$view['user_data'] = $this->Managers->getById($this->user->user_id);
-			
+
 			$this->load->view("/main/elements/orders/bid", $view);
 		}
 		catch (Exception $e)
