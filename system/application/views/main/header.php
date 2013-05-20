@@ -3,8 +3,9 @@
 	<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Countrypost - Лучший сервис покупок за рубежом</title>
-	<meta name="description" content="">
+	<title>Лучший сервис покупок товаров за рубежом. Посредники в Китае, Америке, Германии и др.</title>
+	<meta name="description" content="Сервис покупок товаров за рубежом. Посредники в США. Посредники Таобао. Посредники в Германии. Отзывы о посредниках. Заказ и доставка товаров из любой страны мира." />
+	<meta name="keywords" content="посредник таобао, посредник в китае, посредник в германии, посредники в сша, посредник taobao, посредник в финляндии, посредник польша, посредник ebay, посредник в турции, посредник в англии, посредник в испании, посредник в италии, посредник в америке, посредник таобао в китае, посредник в японии" />
 	<meta name='yandex-verification' content='794c4994f3186105' />
 	<meta name="author" content="">
 	<meta name="w1-verification" content="135670173257" />

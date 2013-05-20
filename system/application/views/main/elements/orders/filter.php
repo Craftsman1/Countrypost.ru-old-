@@ -1,8 +1,7 @@
 <div class='step-by-step'>
 	<p style="text-align: justify;">
-		<b>Countrypost</b> – поможет Вам легко и быстро найти исполнителя для Вашего заказа на покупку (online/offline), доставку или оказание любой услуги в <b>любой стране</b>. Добавьте заказ и дождитесь предложений от исполнителя с итоговой стоимостью за выполнение заказа или услуги.
-		<br />
-		<a href="/main/createorder">Добавить</a> заказ прямо сейчас <b>БЕСПЛАТНО</b>.
+		<b>Countrypost</b> – поможет Вам легко и быстро найти посредника для покупки и доставки любого товара из любого online или offline магазина Китая, США, Германии, Испании и любой другой страны мира. 
+		<a href="/main/createorder">Добавьте</a> заказ прямо сейчас и Вы получите<b> БЕСПЛАТНО </b>предложения от посредников с итоговой стоимостью за выполнение заказа или услуги.
 	</p>
 	<form class='admin-inside' action="<?= $selfurl ?>filterUnassignedOrders" id="filterForm" method="POST">
 		<div class='table' style="position:relative;background:#fff;">
