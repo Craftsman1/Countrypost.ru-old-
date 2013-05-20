@@ -1147,7 +1147,13 @@ abstract class BaseController extends Controller
 			$order->order_country_from = $manager->manager_country;
 		}
 
-		// 5. сохраняем и отдаем заказ
+		// 5. проверяем страну заказа, необходимо для вычисления валюты
+		if (empty($order->order_country_from))
+		{
+			throw new Exception('Выберите страну.');
+		}
+
+		// 6. сохраняем и отдаем заказ
 		$this->Orders->saveOrder($order);
 
 		return $order;

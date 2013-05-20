@@ -1267,6 +1267,7 @@ class OrderModel extends BaseModel implements IModel{
 		// заполняем данные для динамических расчетов
 		$order->manager_tax_percentage = $manager->order_tax;
 		$order->manager_foto_tax_percentage = $manager->foto_tax;
+		$order->min_order_tax = $manager->min_order_tax;
 
 		$order->products_delivery_tax = ceil(
 			($order->order_products_cost + $order->order_delivery_cost) *
@@ -1277,6 +1278,17 @@ class OrderModel extends BaseModel implements IModel{
 			$order->order_products_cost *
 				$manager->order_tax *
 				0.01);
+
+		// 1.1 минимальная комиссия
+		if ($order->products_delivery_tax < $order->min_order_tax)
+		{
+			$order->products_delivery_tax = $order->min_order_tax;
+		}
+
+		if ($order->products_tax < $order->min_order_tax)
+		{
+			$order->products_tax = $order->min_order_tax;
+		}
 
 		// расчитываем комиссии
 		// 1. комиссия посредника по умолчанию
@@ -1289,12 +1301,6 @@ class OrderModel extends BaseModel implements IModel{
 		else
 		{
 			$order->manager_tax = $order->products_delivery_tax;
-		}
-
-		// 1.1 минимальная комиссия
-		if ($order->manager_tax < $manager->min_order_tax)
-		{
-			$order->manager_tax = $manager->min_order_tax;
 		}
 
 		// 2. комиссия за фото

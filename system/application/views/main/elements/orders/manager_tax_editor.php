@@ -1,6 +1,4 @@
-<span>
-	Комиссия посредника:
-</span>
+<span>Комиссия посредника:</span>
 <? if ($order->order_type == 'online' OR $order->order_type == 'offline') : ?>
 <select name="manager_tax_type"
 		class="manager_tax_type textbox"
@@ -17,7 +15,8 @@
 		(<?= $order->products_tax ?> <?= $order->order_currency ?>)</option>
 	<option value="custom">указать другую комиссию</option>
 </select>
-<span style="display: none;" class="manager_tax_editor">
+<span <? if (empty($bid->manager_tax_type) OR $bid->manager_tax_type != 'custom') : ?>style="display:none;"<? endif; ?>
+	  class="manager_tax_editor">
 	<input type="text int"
 		   name="manager_tax"
 		   class="textbox manager_tax"
@@ -39,8 +38,9 @@
 			.show();
 		$('.manager_tax_editor').hide();
 
-		manager_tax = <?= $order->products_delivery_tax ?>;
-		refreshTotals();
+		manager_tax = products_delivery_tax;
+		//refreshTotals();
+		recalculateBid(edit_bid_id);
 	}
 
 	function showTaxEditor()
@@ -54,16 +54,17 @@
 		}
 		else if ($('select.manager_tax_type').val() == 'products_delivery')
 		{
-			manager_tax = <?= $order->products_delivery_tax ?>;
+			manager_tax = products_delivery_tax;
 			$('input.manager_tax').val(manager_tax);
 		}
 		else if ($('select.manager_tax_type').val() == 'products')
 		{
-			manager_tax = <?= $order->products_tax ?>;
+			manager_tax = products_tax;
 			$('input.manager_tax').val(manager_tax);
 		}
 
-		refreshTotals();
+		//refreshTotals();
+		recalculateBid(edit_bid_id);
 	}
 </script>
 <? else : ?>

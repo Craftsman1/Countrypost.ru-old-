@@ -36,7 +36,6 @@
 			beforeSubmit: showProgress,
 			error: errorAddProduct,
 			complete: hideProgress,
-			resetForm: true,
 			success: function(response) {
 				if (response)
 				{
@@ -48,6 +47,7 @@
 
 						$('div.checkout,tr.totals').show('slow');
 						$('tr.missing_products').hide();
+						$('form.orderForm').resetForm();
 					}
 					else {
 						error('top', response.error);

@@ -649,16 +649,22 @@ function cancelBid()
 
 function refreshTotals()
 {
-	refreshBidTotals(0);
+	recalculateBid(0);
 }
 
 function refreshEditTotals()
 {
-	refreshBidTotals(edit_bid_id);
+	recalculateBid(edit_bid_id);
 }
 
-function refreshBidTotals(bid_id)
+function recalculateBid(bid_id)
 {
+	if (manager_tax < min_order_tax)
+	{
+		manager_tax = min_order_tax;
+		success('top', 'Минимальная комиссия за заказ составляет ' + min_order_tax + ' ' + order_currency);
+	}
+
 	order_total_cost =
 		order_products_cost +
 			manager_tax +
@@ -789,4 +795,65 @@ function removeExtraTax(image)
 
 	updateExtraTax();
 	refreshTotals();
+}
+
+function editBid(bid_id)
+{
+	edit_bid_id = bid_id;
+	initEditBidForm();
+	$('#editBidForm').show('slow');
+
+
+	var bid = $('div#bid' + bid_id);
+
+	bid
+		.find('a.edit_button')
+		.attr('href', 'javascript:cancelEditBid(' + bid_id + ');')
+		.html('отмена');
+
+	bid
+		.find('div.bid_buttons')
+		.hide('slow');
+
+	bid
+		.find('div#comments' + bid_id)
+		.hide('slow');
+}
+
+function cancelEditBid(bid_id)
+{
+	$('div#editBidForm').hide('slow');
+
+	var bid = $('div#bid' + bid_id);
+
+	bid
+		.find('a.edit_button')
+		.attr('href', 'javascript:editBid(' + bid_id + ');')
+		.html('изменить');
+
+	bid
+		.find('div.bid_buttons')
+		.show('slow');
+
+	bid
+		.find('div#comments' + bid_id)
+		.show('slow');
+}
+
+function initEditBidForm()
+{
+	editBidFormInitialized = true;
+	refreshEditTotals();
+}
+
+function showEditBidForm()
+{
+	$('div#editBidForm').show();
+
+	if ( ! editBidFormInitialized)
+	{
+		initEditBidForm();
+	}
+
+	window.location = '#edit_bid';
 }
