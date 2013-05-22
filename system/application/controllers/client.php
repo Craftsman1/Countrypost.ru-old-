@@ -1211,7 +1211,13 @@ class Client extends BaseController {
             // получаем необязательные поля
             $client->skype					= Check::str('skype', 255, 0);
             $client->about_me				= Check::str('about_me', 65535, 0);
-		 
+            $f                               = Check::str('fio', 255, 1, '');
+            $fio = explode(' ', $f);
+            
+            $client->client_surname = $fio[0];
+            $client->client_name = $fio[1];
+            $client->client_otc = $fio[2];
+        
 			// валидация пользовательского ввода
 			Check::reset_empties();
             $user->user_email = Check::email(Check::str('email', 128, 4));

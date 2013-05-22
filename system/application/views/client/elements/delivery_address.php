@@ -47,7 +47,10 @@
         <div class="submit floatleft">
             <div>
                 <input type="hidden" id="addr_id" name="addr_id" value="">
-                <input type="submit" value="Добавить">
+                 
+                <input type="submit" id="add_edit" value="Добавить">
+                
+                
             </div>
         </div>
         <img class="float" id="blogProgress" style="display:none;margin:0px;margin-top:4px;" src="/static/images/lightbox-ico-loading.gif"/>
@@ -168,6 +171,7 @@
                         $('#address').val(data[0].address_address);
                         $('#phone').val(data[0].address_phone);
                         $('#addr_id').val(data[0].address_id);
+                        $('#add_edit').val('Сохранить');
                     }
                 );
             }
@@ -183,6 +187,7 @@
         {
             $(obj).find('#addressItemProgress').remove();
             $(obj).find('.edit_icon, .delete_icon').show();
+            
         },
 
         validateAddressForm = function() {
@@ -354,6 +359,7 @@
                 $('#phone').val('');
 
                 success('top', 'Адрес успешно сохранен!');
+                $('#add_edit').val('Добавить');
             },
             error: function(response)
             {
