@@ -1,3 +1,23 @@
+<script>
+function checkLetterOnly( evt ) {
+        evt = ( evt ) ? evt : ( ( window.event ) ? event : null );
+        evt.CancelBubble = true;
+        if(
+                ( evt.keyCode < 65 || evt.keyCode > 90 ) &&
+                ( evt.keyCode != 189 ) &&
+                ( evt.keyCode != 32 ) &&
+                ( evt.keyCode != 46 ) &&
+                ( evt.keyCode < 34 || evt.keyCode > 40 ) && 
+                ( evt.keyCode != 219 ) && ( evt.keyCode != 221 ) && ( evt.keyCode != 186 ) && ( evt.keyCode != 222 ) &&
+                ( evt.keyCode != 188 ) && ( evt.keyCode != 190 ) && ( evt.keyCode != 191 ) && ( evt.keyCode != 192 ) &&
+                ( evt.keyCode != 8 ) &&
+                ( evt.keyCode != 9 )
+        )
+                return false;
+        
+        return true;                
+}
+</script>
 <div class="profile table client_tab" style="height: 530px;">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
@@ -5,20 +25,25 @@
 	<div class='angle angle-rb'></div>
 	<div class="dealer_profile_left">
 		<form action="/client/saveProfilePhoto" enctype='multipart/form-data'  id="profilePhotoForm" method="POST">
-			<img src="<? if(!$client->avatar){echo IMG_PATH ?>avatar_big.png<?}else echo $client->avatar?>" id="img_place" width="200px" height="200px">
+			<img src="<? if(!$client->avatar){echo IMG_PATH ?>avatar_big.png<?}else echo $client->avatar?>" id="img_place" width="200px" height="200px"> 
 			<br>
 			<br>
 			<input class="textbox screenshot_uploader_box" type='file' id='pr_file' name="userfile" style='display:none;width:180px;'>
 			<a id="select_file" href="javascript:void();">изменить фото</a>
 		</form>
 	</div>
+        
 	<div class='profile_box admin-inside'>
 		<form id="profileForm" action="/client/saveProfile">           
 			<br style="clear:both;" />
 			<div>
 				<span class="label">Логин:</span>
                 <span class="label" style="margin-left: 0;"><b><?= $client->statistics->login ?></b></span>
-			</div>
+			</div><br style="clear:both;" />
+            <div>
+                <span class="label">ФИО*:</span>
+                <input style="width:180px;" class="textbox" maxlength="128" type='text' id='fio' name="fio" value="<?= $client->client_surname ?> <?= $client->client_name?> <?= $client->client_otc?>" pattern="^[a-zA-Z\s]+$"/>
+            </div>
 			<br style="clear:both;" />
 			<div>
 				<span class="label">Пароль*:</span>
