@@ -1010,7 +1010,7 @@ class OrderModel extends BaseModel implements IModel{
 		{
 			return FALSE;
 		}
-		
+
 		return TRUE;
 	}
 
@@ -1486,6 +1486,12 @@ class OrderModel extends BaseModel implements IModel{
 		}
 
 		return $order;
+	}
+
+	public function getCountrypostTax()
+	{
+		// TODO: определить корректное место для этой комиссии
+		return 7;
 	}
 }
 ?>
