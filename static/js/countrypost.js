@@ -500,6 +500,30 @@ function errorAddProduct()
 	error('top', 'Товар не добавлен. Заполните все обязательные поля и попробуйте еще раз.');
 }
 
+function successAddProduct(response)
+{
+	if (response)
+	{
+		if (response.error == 0)
+		{
+			refreshOrderTotals(response, 'Товар №' + response.odetail_id + ' успешно добавлен в заказ.', response.error);
+
+			$('table.products tr:first').after(response.product);
+
+			$('div.checkout,tr.totals').show('slow');
+			$('tr.missing_products').hide();
+			$('form.orderForm').resetForm();
+		}
+		else {
+			error('top', response.error);
+		}
+	}
+	else
+	{
+		errorAddProduct();
+	}
+}
+
 function errorAddOrder()
 {
 	hideProgress();
@@ -659,12 +683,6 @@ function refreshEditTotals()
 
 function recalculateBid(bid_id)
 {
-	if (manager_tax < min_order_tax)
-	{
-		manager_tax = min_order_tax;
-		success('top', 'Минимальная комиссия за заказ составляет ' + min_order_tax + ' ' + order_currency);
-	}
-
 	order_total_cost =
 		order_products_cost +
 			manager_tax +

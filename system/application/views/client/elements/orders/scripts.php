@@ -164,6 +164,23 @@ function refreshOrderTotals(order, success_message, error_message)
 	$('.total_weight').html(order['weight']);
 	$('.order_status').val(order['status']);
 
+	$('div.description .sum').html(parseFloat(order['products_cost']) + parseFloat(order['delivery_cost']));
+
+	if (order['country'] != '' && order['country'] != undefined)
+	{
+		$('div.description .country').html(order['country']);
+	}
+
+	if (order['city'] != '' && order['city'] != undefined)
+	{
+		$('div.description .city').html('(' + order['city'] + ')');
+	}
+
+	if (parseFloat(order['weight']) > 0)
+	{
+		$('div.description .weight').html(': ' + order['weight'] + 'кг');
+	}
+
 	if ($.isArray(order['bids']))
 	{
 		refreshBidTotals(order);
@@ -214,7 +231,7 @@ function submitItem(id, data)
 
 function joinProducts()
 {
-	var selectedProds = $('table.products input[type="checkbox"]:checked');
+	var selectedProds = $('table.products input[type="checkbox"].item_check:checked');
 
 	if (selectedProds.length < 2)
 	{

@@ -1074,6 +1074,23 @@ abstract class BaseController extends Controller
 
 			if (empty($view->error))
 			{
+				$view->odetail_id = $result['detail']->odetail_id;
+				$view->weight = $order->order_weight;
+				$view->products_cost = $order->order_products_cost;
+				$view->delivery_cost = $order->order_delivery_cost;
+
+				if ($order->order_country_to)
+				{
+					$country = $this->Countries->getById($order->order_country_to);
+
+					if ($country)
+					{
+						$view->country = $country->country_name;
+					}
+				}
+
+				$view->city = $order->order_city_to;
+
 				$view->product = View::get('client/ajax/odetail', array(
 					'odetail'				=> $result['detail'],
 					'odetail_joint_id'		=> 0,
@@ -1084,11 +1101,6 @@ abstract class BaseController extends Controller
 					'selfurl'				=> BASEURL . $this->cname . '/',
 					'viewpath'				=> $this->viewpath
 				));
-
-				$view->odetail_id = $result['detail']->odetail_id;
-				$view->weight = $order->order_weight;
-				$view->products_cost = $order->order_products_cost;
-				$view->delivery_cost = $order->order_delivery_cost;
 			}
 
 			// возвращаем json с инфой по заказу и товару
@@ -2568,8 +2580,6 @@ abstract class BaseController extends Controller
 			}
 
 			// погнали
-			$this->db->trans_begin();
-			
 			$joint = $this->Joints->generateJoint();
 
 			// ищем товары в запросе
@@ -2615,16 +2625,9 @@ abstract class BaseController extends Controller
 			}
 
 			$this->Orders->saveOrder($order);
-
-			// закрываем транзакцию
-			if ($this->db->trans_status() !== FALSE)
-			{
-				$this->db->trans_commit();
-			}
 		}
 		catch (Exception $e) 
 		{
-			$this->db->trans_rollback();
 		}
 
 		// открываем детали заказа
@@ -2813,18 +2816,18 @@ abstract class BaseController extends Controller
                 }
 
                 // сносим объединенную посылку
-                if ($joint->odetail_joint_count < 3)
+                if ($joint->count < 3)
                 {
                     $this->ODetails->clearJoints($joint->odetail_joint_id);
                 }
                 // или правим ее
                 else
                 {
-                    $joint->odetail_joint_count = $joint->odetail_joint_count - 1;
+                    $joint->count = $joint->count - 1;
                     $this->Joints->addOdetailJoint($joint);
                 }
             }
-
+			//print_r($joint);die();
             $deleted_odetail = $this->ODetails->addOdetail($odetail);
 
             if ( ! $deleted_odetail)
@@ -3008,7 +3011,7 @@ abstract class BaseController extends Controller
 		{
 			throw new Exception($validate);
 		}
-		//print_r($order);die();
+
 		return $order;
 	}
 /*

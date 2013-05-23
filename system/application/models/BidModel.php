@@ -261,6 +261,19 @@ class BidModel extends BaseModel implements IModel{
 					$manager->order_tax *
 					0.01);
 
+
+			// 2.1 минимальная комиссия
+			if ($products_delivery_tax < $manager->min_order_tax)
+			{
+				$products_delivery_tax = $manager->min_order_tax;
+			}
+
+			if ($products_tax < $manager->min_order_tax)
+			{
+				$products_tax = $manager->min_order_tax;
+			}
+
+			// 2.2 логика расчета комиссии
 			if ( ! $skip_manager_tax) // в некоторых случаях не пересчитываем комиссию
 			{
 				if ($order->order_type == 'mail_forwarding' OR
@@ -285,12 +298,6 @@ class BidModel extends BaseModel implements IModel{
 						// ничего не меняем, если задана комиссия вручную
 					}
 				}
-			}
-
-			// 2.1 минимальная комиссия
-			if ($bid->manager_tax < $manager->min_order_tax)
-			{
-				$bid->manager_tax = $manager->min_order_tax;
 			}
 
 			// 3. подбиваем сумму

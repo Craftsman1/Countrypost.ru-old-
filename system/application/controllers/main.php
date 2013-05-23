@@ -993,13 +993,16 @@ Email: {$this->user->user_email}";
 			{
 				$view['order'] = $order;
 				$view['odetails'] = $this->Odetails->getOrderDetails($order->order_id);
-				$view['order_currency'] = $this->Orders->getOrderCurrency($order->order_id);
+				//$view['order_currency'] = $this->Orders->getOrderCurrency($order->order_id);
 			}
 			else
 			{
 				$view['order'] = $this->initEmptyOrder($order_type);
-				$view['order_currency'] = '';
+				//print_r($view['order']);die();
+								//$view['order']->order_currency = '';
 			}
+
+			$view['order_currency'] = $view['order']->order_currency;
 
 			// рендер
 			Breadcrumb::setCrumb(array(
@@ -1009,7 +1012,7 @@ Email: {$this->user->user_email}";
 			Breadcrumb::setCrumb(array(
 				'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] => $view['order_types'][$order_type]),
 				2, TRUE);
-
+//print_r($view);
 			View::showChild($this->viewpath . '/pages/createorder', $view);
 		}
 		catch (Exception $e) 
@@ -1021,19 +1024,23 @@ Email: {$this->user->user_email}";
 	{
 		$order = new stdClass();
 		$order->order_type = $order_type;
-		$order->order_id = 0;
-		$order->order_manager = 0;
 		$order->order_client = $this->getOrderClient();
 		$order->is_creating = 1;
 		$order->order_status = 'pending';
+
+		$order->order_manager = 0;
+		$order->order_id = 0;
 		$order->order_country_from = '';
 		$order->order_country_to = '';
 		$order->order_city_to = '';
+		$order->preferred_delivery = '';
+		$order->order_cost = '';
+		$order->order_weight = '';
 
 		$this->load->model('OrderModel', 'Orders');
 		$order = $this->Orders->patchEmptyOrder($order);
 
-		return $this->Orders->addOrder($order);
+		return $order;
 	}
 
 	private function getCreatingOrder($order_type)

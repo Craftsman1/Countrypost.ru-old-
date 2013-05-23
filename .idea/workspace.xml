@@ -10,20 +10,27 @@
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders\10\831.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders\4\797.jpg" afterPath="" />
       <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders\4\99.jpg" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" afterPath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/BidModel.php" afterPath="$PROJECT_DIR$/system/application/models/BidModel.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OrderModel.php" afterPath="$PROJECT_DIR$/system/application/models/OrderModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/config/sys.php" afterPath="$PROJECT_DIR$/system/application/config/sys.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/client.php" afterPath="$PROJECT_DIR$/system/application/controllers/client.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/countrypost.js" afterPath="$PROJECT_DIR$/static/js/countrypost.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" afterPath="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/main.php" afterPath="$PROJECT_DIR$/system/application/controllers/main.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/manager_tax_editor.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/manager_tax_editor.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/" />
-    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369045341565" ignored="false" />
-    <file path="/OrderModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369153484853" ignored="false" />
+    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369300690872" ignored="false" />
+    <file path="/OrderModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369320344996" ignored="false" />
     <file path="/a.dummy" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366191192780" ignored="false" />
-    <file path="/main.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1368545265068" ignored="false" />
-    <file path="/showOrderDetails.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1368451925092" ignored="false" />
-    <file path="/scripts.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366810073855" ignored="false" />
+    <file path="/main.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369319524916" ignored="false" />
+    <file path="/showOrderDetails.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369307578506" ignored="false" />
+    <file path="/scripts.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369327011934" ignored="false" />
     <file path="/client.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367920241269" ignored="false" />
     <file path="/showAddProduct.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366044453126" ignored="false" />
     <file path="/online.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367828143562" ignored="false" />
@@ -38,13 +45,13 @@
     <file path="/form_usd_wmz.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366382423279" ignored="false" />
     <file path="/PaymentModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366388129739" ignored="false" />
     <file path="/managerinfo.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366700428203" ignored="false" />
-    <file path="/BaseController.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369065406263" ignored="false" />
+    <file path="/BaseController.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369327474863" ignored="false" />
     <file path="/offline.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367828157840" ignored="false" />
     <file path="/service.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1368530433121" ignored="false" />
     <file path="/delivery.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367829110765" ignored="false" />
     <file path="/mailforwarding.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367162645485" ignored="false" />
     <file path="/mail_forwarding.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367870378673" ignored="false" />
-    <file path="/countrypost.js" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369050114215" ignored="false" />
+    <file path="/countrypost.js" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369301485333" ignored="false" />
     <file path="/createorder.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369066136808" ignored="false" />
     <file path="/filter.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367306529278" ignored="false" />
     <file path="/OdetailModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1368509240527" ignored="false" />
@@ -84,84 +91,68 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="sys.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/config/sys.php">
+      <file leaf-file-name="OrderModel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="109" selection-end="109" vertical-scroll-proportion="-3.4482758">
+            <state line="1492" column="2" selection-start="36662" selection-end="36662" vertical-scroll-proportion="-14.5172415">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_agents.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/config/user_agents.php">
+      <file leaf-file-name="client.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="159" column="18" selection-start="5064" selection-end="5064" vertical-scroll-proportion="-9.689655">
+            <state line="1671" column="26" selection-start="43167" selection-end="43167" vertical-scroll-proportion="-14.379311">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ManagerModel.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/models/ManagerModel.php">
+      <file leaf-file-name="CurrencyModel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/models/CurrencyModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TaxModel.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/models/TaxModel.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="121" column="35" selection-start="2287" selection-end="2287" vertical-scroll-proportion="-14.448276">
+            <state line="128" column="53" selection-start="2594" selection-end="2627" vertical-scroll-proportion="-13.068966">
               <folding>
-                <element signature="e#195#219#0" expanded="false" />
-                <element signature="n#__construct#0;n#TaxModel#0;n#!!top" expanded="false" />
-                <element signature="e#880#959#0" expanded="false" />
-                <element signature="n#getPK#0;n#TaxModel#0;n#!!top" expanded="false" />
-                <element signature="e#1017#1096#0" expanded="false" />
-                <element signature="n#getTable#0;n#TaxModel#0;n#!!top" expanded="false" />
-                <element signature="e#1169#1205#0" expanded="false" />
-                <element signature="n#getList#0;n#TaxModel#0;n#!!top" expanded="false" />
-                <element signature="e#1299#1351#0" expanded="false" />
-                <element signature="n#getPropertyList#0;n#TaxModel#0;n#!!top" expanded="false" />
-                <element signature="n#getById#0;n#TaxModel#0;n#!!top" expanded="false" />
-                <element signature="e#1484#1541#0" expanded="false" />
-                <element signature="e#1498#1540#1" expanded="false" />
-                <element signature="n#saveTax#0;n#TaxModel#0;n#!!top" expanded="false" />
-                <element signature="e#1887#2097#0" expanded="false" />
-                <element signature="e#1920#2093#0" expanded="false" />
-                <element signature="e#1953#2088#0" expanded="false" />
-                <element signature="e#2034#2088#0" expanded="false" />
-                <element signature="e#2137#2177#0" expanded="false" />
+                <element signature="e#51#363#0" expanded="false" />
+                <element signature="e#598#626#0" expanded="false" />
+                <element signature="n#__construct#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+                <element signature="e#935#1014#0" expanded="false" />
+                <element signature="n#getPK#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+                <element signature="e#1073#1152#0" expanded="false" />
+                <element signature="n#getTable#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+                <element signature="e#1220#1259#0" expanded="false" />
+                <element signature="n#getList#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+                <element signature="e#1353#1405#0" expanded="false" />
+                <element signature="n#getPropertyList#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+                <element signature="e#1498#1550#0" expanded="false" />
+                <element signature="n#getById#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+                <element signature="e#1589#1640#0" expanded="false" />
+                <element signature="e#1603#1639#1" expanded="false" />
+                <element signature="e#1716#1920#0" expanded="false" />
+                <element signature="n#saveCurrency#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+                <element signature="e#2005#2115#0" expanded="false" />
+                <element signature="e#2035#2111#0" expanded="false" />
+                <element signature="e#2233#2291#0" expanded="false" />
+                <element signature="n#getCountryByCurrency#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+                <element signature="e#2357#2491#0" expanded="false" />
+                <element signature="n#getExchangeRate#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+                <element signature="e#3063#3272#0" expanded="false" />
+                <element signature="e#3287#3635#0" expanded="false" />
+                <element signature="e#3519#3613#0" expanded="false" />
+                <element signature="n#getRate#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+                <element signature="n#getCrossRate#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+                <element signature="n#getArray#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+                <element signature="e#4067#4152#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConfigModel.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/models/ConfigModel.php">
+      <file leaf-file-name="CountryModel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/models/CountryModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="6.862069">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OrderModel.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1013" column="0" selection-start="25169" selection-end="25169" vertical-scroll-proportion="-19.344828">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="manager.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="921" column="35" selection-start="22433" selection-end="22433" vertical-scroll-proportion="-10.462963">
+            <state line="28" column="0" selection-start="828" selection-end="828" vertical-scroll-proportion="-19.310345">
               <folding />
             </state>
           </provider>
@@ -170,25 +161,58 @@
       <file leaf-file-name="BaseController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4161" column="23" selection-start="112987" selection-end="112987" vertical-scroll-proportion="-0.95149785">
+            <state line="2829" column="14" selection-start="78834" selection-end="78834" vertical-scroll-proportion="0.20114122">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BidModel.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/models/BidModel.php">
+      <file leaf-file-name="countrypost.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="309" column="0" selection-start="6563" selection-end="6563" vertical-scroll-proportion="-62.103447">
+            <state line="522" column="26" selection-start="11831" selection-end="11831" vertical-scroll-proportion="-11.8">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2013-05-21 19-27 countrypost tax.sql" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dbscripts/2013-05-21 19-27 countrypost tax.sql">
+      <file leaf-file-name="main.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="26" selection-end="26" vertical-scroll-proportion="-1.6">
+            <state line="1040" column="47" selection-start="27363" selection-end="27378" vertical-scroll-proportion="-18.62069">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scripts.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="256" column="16" selection-start="6567" selection-end="6567" vertical-scroll-proportion="-9.851851">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="showOrderDetails.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="97" column="30" selection-start="3346" selection-end="3346" vertical-scroll-proportion="-19.344828">
+              <folding>
+                <element signature="n#style#0;n#div#2;n#td#0;n#tr#2;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#td#0;n#tr#2;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#4;n#td#0;n#tr#2;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#5;n#td#0;n#tr#2;n#table#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#0;n#div#5;n#td#0;n#tr#2;n#table#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="createorder.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/createorder.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -214,21 +238,21 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/controllers/main.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" />
-        <option value="$PROJECT_DIR$/dbscripts/2013-05-16 14-13 manager_tax_type.sql" />
-        <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/editBidForm.php" />
-        <option value="$PROJECT_DIR$/static/js/countrypost.js" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/manager_tax_editor.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" />
         <option value="$PROJECT_DIR$/system/application/config/sys.php" />
         <option value="$PROJECT_DIR$/dbscripts/2013-05-21 19-27 countrypost tax.sql" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/manager_tax_editor.php" />
         <option value="$PROJECT_DIR$/system/application/models/BidModel.php" />
+        <option value="$PROJECT_DIR$/static/js/countrypost.js" />
+        <option value="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/main.php" />
         <option value="$PROJECT_DIR$/system/application/models/OrderModel.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
       </list>
     </option>
@@ -407,7 +431,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -429,7 +453,209 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ajax" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="showAddOrder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="orders" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -441,14 +667,14 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="202" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="230" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="225" />
     <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="225" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../bin/php/php5.3.13" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="234" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="891" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="883" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="891" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="227" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="222" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
@@ -617,19 +843,19 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="886" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47619048" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.231875" sideWeight="0.34076828" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.215" sideWeight="0.5945946" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.215" sideWeight="0.71814674" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.238125" sideWeight="0.33375958" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24229075" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.497426" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4054054" sideWeight="0.4925" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2818533" sideWeight="0.4925" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -714,138 +940,149 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/manager_tax_editor.php">
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="24" selection-start="1214" selection-end="1214" vertical-scroll-proportion="-15.862069">
-          <folding>
-            <element signature="e#212#303#0" expanded="true" />
-            <element signature="e#946#1047#0" expanded="true" />
-            <element signature="e#1294#1342#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1046" column="26" selection-start="27458" selection-end="27458" vertical-scroll-proportion="-9.907408">
+        <state line="921" column="35" selection-start="22433" selection-end="22433" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/createorder.php">
+    <entry file="file://$PROJECT_DIR$/dbscripts/2013-05-16 14-13 manager_tax_type.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="9" selection-start="2012" selection-end="2012" vertical-scroll-proportion="-22.793104">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/config/payments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="8.275862">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/config/constants.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="7.551724">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/config/cron.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/config/sys.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="109" selection-end="109" vertical-scroll-proportion="-3.4482758">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/config/user_agents.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="159" column="18" selection-start="5064" selection-end="5064" vertical-scroll-proportion="-9.689655">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/ManagerModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/TaxModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="121" column="35" selection-start="2287" selection-end="2287" vertical-scroll-proportion="-14.448276">
-          <folding>
-            <element signature="e#195#219#0" expanded="false" />
-            <element signature="n#__construct#0;n#TaxModel#0;n#!!top" expanded="false" />
-            <element signature="e#880#959#0" expanded="false" />
-            <element signature="n#getPK#0;n#TaxModel#0;n#!!top" expanded="false" />
-            <element signature="e#1017#1096#0" expanded="false" />
-            <element signature="n#getTable#0;n#TaxModel#0;n#!!top" expanded="false" />
-            <element signature="e#1169#1205#0" expanded="false" />
-            <element signature="n#getList#0;n#TaxModel#0;n#!!top" expanded="false" />
-            <element signature="e#1299#1351#0" expanded="false" />
-            <element signature="n#getPropertyList#0;n#TaxModel#0;n#!!top" expanded="false" />
-            <element signature="n#getById#0;n#TaxModel#0;n#!!top" expanded="false" />
-            <element signature="e#1484#1541#0" expanded="false" />
-            <element signature="e#1498#1540#1" expanded="false" />
-            <element signature="n#saveTax#0;n#TaxModel#0;n#!!top" expanded="false" />
-            <element signature="e#1887#2097#0" expanded="false" />
-            <element signature="e#1920#2093#0" expanded="false" />
-            <element signature="e#1953#2088#0" expanded="false" />
-            <element signature="e#2034#2088#0" expanded="false" />
-            <element signature="e#2137#2177#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/ConfigModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="6.862069">
-          <folding />
-        </state>
+        <state line="4" column="73" selection-start="0" selection-end="325" vertical-scroll-proportion="0.10958904" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dbscripts/2013-05-21 19-27 countrypost tax.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="26" selection-end="26" vertical-scroll-proportion="-1.6">
-          <folding />
-        </state>
+        <state line="2" column="0" selection-start="26" selection-end="26" vertical-scroll-proportion="0.056737587" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/manager_tax_editor.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="921" column="35" selection-start="22433" selection-end="22433" vertical-scroll-proportion="-10.462963">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1013" column="0" selection-start="25169" selection-end="25169" vertical-scroll-proportion="-19.344828">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/models/BidModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="309" column="0" selection-start="6563" selection-end="6563" vertical-scroll-proportion="-62.103447">
+        <state line="264" column="39" selection-start="5449" selection-end="5449" vertical-scroll-proportion="-0.6896552">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/online.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="37" selection-start="583" selection-end="922" vertical-scroll-proportion="-14.4827585">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/createorder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/ajax/showOrderDetails.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="97" column="30" selection-start="3346" selection-end="3346" vertical-scroll-proportion="-19.344828">
+          <folding>
+            <element signature="n#style#0;n#div#2;n#td#0;n#tr#2;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#td#0;n#tr#2;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#4;n#td#0;n#tr#2;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#5;n#td#0;n#tr#2;n#table#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#div#5;n#td#0;n#tr#2;n#table#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/models/CurrencyModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="128" column="53" selection-start="2594" selection-end="2627" vertical-scroll-proportion="-13.068966">
+          <folding>
+            <element signature="e#51#363#0" expanded="false" />
+            <element signature="e#598#626#0" expanded="false" />
+            <element signature="n#__construct#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+            <element signature="e#935#1014#0" expanded="false" />
+            <element signature="n#getPK#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+            <element signature="e#1073#1152#0" expanded="false" />
+            <element signature="n#getTable#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+            <element signature="e#1220#1259#0" expanded="false" />
+            <element signature="n#getList#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+            <element signature="e#1353#1405#0" expanded="false" />
+            <element signature="n#getPropertyList#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+            <element signature="e#1498#1550#0" expanded="false" />
+            <element signature="n#getById#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+            <element signature="e#1589#1640#0" expanded="false" />
+            <element signature="e#1603#1639#1" expanded="false" />
+            <element signature="e#1716#1920#0" expanded="false" />
+            <element signature="n#saveCurrency#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+            <element signature="e#2005#2115#0" expanded="false" />
+            <element signature="e#2035#2111#0" expanded="false" />
+            <element signature="e#2233#2291#0" expanded="false" />
+            <element signature="n#getCountryByCurrency#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+            <element signature="e#2357#2491#0" expanded="false" />
+            <element signature="n#getExchangeRate#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+            <element signature="e#3063#3272#0" expanded="false" />
+            <element signature="e#3287#3635#0" expanded="false" />
+            <element signature="e#3519#3613#0" expanded="false" />
+            <element signature="n#getRate#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+            <element signature="n#getCrossRate#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+            <element signature="n#getArray#0;n#CurrencyModel#0;n#!!top" expanded="false" />
+            <element signature="e#4067#4152#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/models/CountryModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="0" selection-start="828" selection-end="828" vertical-scroll-proportion="-19.310345">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1040" column="47" selection-start="27363" selection-end="27378" vertical-scroll-proportion="-18.62069">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/models/OrderModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1492" column="2" selection-start="36662" selection-end="36662" vertical-scroll-proportion="-14.5172415">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1671" column="26" selection-start="43167" selection-end="43167" vertical-scroll-proportion="-14.379311">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="522" column="26" selection-start="11831" selection-end="11831" vertical-scroll-proportion="-11.8">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/orders/scripts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="256" column="16" selection-start="6567" selection-end="6567" vertical-scroll-proportion="-9.851851">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4161" column="23" selection-start="112987" selection-end="112987" vertical-scroll-proportion="-0.95149785">
+        <state line="2829" column="14" selection-start="78834" selection-end="78834" vertical-scroll-proportion="0.20114122">
           <folding />
         </state>
       </provider>

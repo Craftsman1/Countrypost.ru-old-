@@ -36,28 +36,7 @@
 			beforeSubmit: showProgress,
 			error: errorAddProduct,
 			complete: hideProgress,
-			success: function(response) {
-				if (response)
-				{
-					if (response.error == 0)
-					{
-						refreshOrderTotals(response, 'Товар №' + response.odetail_id + ' успешно добавлен в заказ.', response.error);
-
-						$('table.products tr:first').after(response.product);
-
-						$('div.checkout,tr.totals').show('slow');
-						$('tr.missing_products').hide();
-						$('form.orderForm').resetForm();
-					}
-					else {
-						error('top', response.error);
-					}
-				}
-				else
-				{
-					errorAddProduct();
-				}
-			}
+			success: successAddProduct
 		});
 
 		$('form#orderForm').ajaxForm({

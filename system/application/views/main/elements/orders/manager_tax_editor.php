@@ -39,7 +39,6 @@
 		$('.manager_tax_editor').hide();
 
 		manager_tax = products_delivery_tax;
-		//refreshTotals();
 		recalculateBid(edit_bid_id);
 	}
 
@@ -63,7 +62,6 @@
 			$('input.manager_tax').val(manager_tax);
 		}
 
-		//refreshTotals();
 		recalculateBid(edit_bid_id);
 	}
 </script>

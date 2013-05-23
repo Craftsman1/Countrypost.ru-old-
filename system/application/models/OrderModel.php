@@ -1464,13 +1464,17 @@ class OrderModel extends BaseModel implements IModel{
 
 	public function patchEmptyOrder($order)
 	{
+		// 1. ишем последний добавленный заказ такого же типа
 		$last_order = $this->getLastOrder($order->order_type, $order->order_client);
 
 		if (empty($last_order))
 		{
+			$order = $this->addOrder($order);
+			$order->order_currency = '';
 			return $order;
 		}
 
+		// 2. собираем его данные
 		$order->order_country_from = $last_order->order_country_from;
 		$order->order_country_to = $last_order->order_country_to;
 		$order->preferred_delivery = $last_order->preferred_delivery;
@@ -1483,6 +1487,21 @@ class OrderModel extends BaseModel implements IModel{
 		if (isset($last_order->order_city_to))
 		{
 			$order->order_city_to = $last_order->order_city_to;
+		}
+
+		$order = $this->addOrder($order);
+//print_r($test);die();
+		if ($order->order_country_from)
+		{
+			$ci = get_instance();
+			$ci->load->model('CountryModel', 'Countries');
+
+			$country = $ci->Countries->getById($order->order_country_from);
+			$order->order_currency = $country->country_currency;
+		}
+		else
+		{
+			$order->order_currency = '';
 		}
 
 		return $order;
