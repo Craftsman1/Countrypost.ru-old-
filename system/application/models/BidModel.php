@@ -280,7 +280,8 @@ class BidModel extends BaseModel implements IModel{
 					$order->order_type == 'service' OR
 					$order->order_type == 'delivery')
 				{
-					$bid->manager_tax = $manager->order_mail_forwarding_tax;
+					//$bid->manager_tax = $manager->order_mail_forwarding_tax;
+					// ничего не меняем, комиссия всегда задана вручную
 				}
 				else if ($order->order_type == 'online' OR
 					$order->order_type == 'offline')

@@ -2818,7 +2818,7 @@ abstract class BaseController extends Controller
                 // сносим объединенную посылку
                 if ($joint->count < 3)
                 {
-                    $this->ODetails->clearJoints($joint->odetail_joint_id);
+                    $this->ODetails->clearJoints($joint->joint_id);
                 }
                 // или правим ее
                 else
