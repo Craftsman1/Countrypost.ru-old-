@@ -2,23 +2,21 @@
 	<div class='autorization'>
 		<h2>Здравствуйте</h2>
 		<p>
-			<!--b>Здравствуйте:</b>
-			<br-->
 			<span class='big-text'>
 				<a href='<?= BASEURL . $this->user->user_group?>'><?= $this->user->user_login ?></a>
 			</span>
 		</p>
-		<!--p>
-			<b>Ваш номер на сайте:</b>
-			<?= $this->user->user_id ?>
-		</p-->
-
 		<p>
 			<? if ($this->user->user_group == 'client' OR
 				$this->user->user_group == 'manager') : ?>
 			<a href='<?= BASEURL ?>profile'>Мой профиль</a>
 			<? else : ?>
 			<br>
+			<? if (isset($_SESSION['countrypost_balance']) AND $_SESSION['countrypost_balance']) : ?>
+			<p>
+				<a href='/<?= $this->user->user_group ?>/'>Баланс Countrypost.ru: <?= $_SESSION['countrypost_balance'] ?></a>
+			</p>
+			<? endif; ?>
 			<? endif; ?>
 		</p>
 		<br>

@@ -1490,7 +1490,7 @@ class OrderModel extends BaseModel implements IModel{
 		}
 
 		$order = $this->addOrder($order);
-//print_r($test);die();
+
 		if ($order->order_country_from)
 		{
 			$ci = get_instance();

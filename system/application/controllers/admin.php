@@ -6,6 +6,8 @@ class Admin extends AdminBaseController {
 	{
 		parent::__construct();
 
+		$_SESSION['countrypost_balance'] = $this->getCountrypostBalance();
+
 		Breadcrumb::setCrumb(array(BASEURL => 'Главная'), 0, TRUE);
 	}
 	
@@ -13,7 +15,13 @@ class Admin extends AdminBaseController {
 	{
 		Func::redirect(BASEURL . "admin/history");
 	}
-	
+
+	private function getCountrypostBalance()
+	{
+		$this->load->model('TaxModel', 'Taxes');
+		return $this->Taxes->getAdminBalance();
+	}
+
 	public function autocompleteClient($query)
 	{
 		$this->load->model('ClientModel', 'Clients');

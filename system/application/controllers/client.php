@@ -983,7 +983,7 @@ class Client extends BaseController {
 	{
 		try 
 		{
-			// предложение
+			// 1. находим предложение
 			if ( ! is_numeric($bid_id))
 			{				
 				throw new Exception('Доступ запрещен.');
@@ -999,18 +999,18 @@ class Client extends BaseController {
 
 			$order_id = $bid->order_id;
 
-			// заказ
+			// 2. меняем заказ
 			$order = $this->getPrivilegedOrder(
 				$order_id,
 				'Заказ недоступен.');
 
-			//
+			// 3. валидация
 			if ( ! empty($order->order_manager))
 			{
 				throw new Exception('Извините, уже выбран другой исполнитель.');
 			}
 
-			// позволяет ли текущий статус редактирование
+			// 4. позволяет ли текущий статус редактирование
 			$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
 
 			if ( ! in_array($order->order_status, $view['editable_statuses']))
@@ -1018,7 +1018,7 @@ class Client extends BaseController {
 				throw new Exception('Доступ запрещен.');
 			}
 
-			// пересчитываем заказ
+			// 5. пересчитываем заказ
 			$order->order_manager = $bid->manager_id;
 			$order->order_status = 'processing';
 
@@ -1027,13 +1027,13 @@ class Client extends BaseController {
 				throw new Exception('Предложение не выбрано. Ошибка расчета стоимости заказа.');
 			}
 
-			// сохраняем заказ
+			// 6. сохраняем заказ
 			if ( ! $this->Orders->saveOrder($order))
 			{
 				throw new Exception('Предложение не выбрано. Обновите страницу и попробуйте еще раз.');
 			}
 
-			// показываем новую форму заказа
+			// 8. показываем новую форму заказа
 			$this->load->model('ClientModel', 'Clients');
 			$this->load->model('AddressModel', 'Addresses');
 			$this->load->model('ManagerModel', 'Managers');
@@ -1052,7 +1052,6 @@ class Client extends BaseController {
 		}
 		catch (Exception $e)
 		{
-			//echo $e->getMessage();
 		}
 	}
 

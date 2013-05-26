@@ -19,23 +19,19 @@
 			</div>
 		</div>
 		<div class='right-block'>
-			<?	$credit = $this->session->userdata('manager_credit');
-			$credit_date = $this->session->userdata('manager_credit_date');
-			if (FALSE && isset($credit) && $credit && isset($credit_date) && $credit_date) : ?>
-				<p>
-					<? $date = new DateTime($credit_date); echo $date->format('d.m.Y');?>
-					Кредит на
-				<span class='big-text'>
-					$<?= $credit ?>
-				</span>
-				</p>
-				<? endif; ?>
+			<!--p>
+			</p-->
 		</div>
 		<div class='center-block'>
 			<h3>
 				ВАШ НОМЕР НА САЙТЕ: <?= $this->user->user_id ?>
 			</h3>
 			<br>
+			<? if (isset($_SESSION['countrypost_balance']) AND $_SESSION['countrypost_balance']) : ?>
+			<p>
+				<a href='/<?= $this->user->user_group ?>/'>Баланс Countrypost.ru: <?= $_SESSION['countrypost_balance'] ?></a>
+			</p>
+			<? endif; ?>
 			<p>
 				<a href='/<?= $this->user->user_group ?>/history'>Статистика платежей</a>
 			</p>

@@ -14,18 +14,16 @@ class TaxModel extends BaseModel implements IModel
     {
     	$this->properties						= new stdClass();
     	$this->properties->tax_id				='';
-    	$this->properties->country_id			='';
-    	$this->properties->package				='';
-    	$this->properties->package_disconnected	='';
-    	$this->properties->order				='';
-    	$this->properties->package_joint		='';
-    	$this->properties->package_declaration	='';
-    	$this->properties->package_insurance	='';
-    	$this->properties->min_order			='';
-    	$this->properties->max_package_insurance='';
-    	$this->properties->package_foto			='';
-    	$this->properties->package_foto_system	='';
-    	
+
+		$this->properties->manager_id			='';
+		$this->properties->order_id				='';
+		$this->properties->status				='';
+		$this->properties->amount				='';
+		$this->properties->amount_usd			='';
+		$this->properties->usd_conversion_rate	='';
+		$this->properties->usd_conversion_date	='';
+		$this->properties->currency				='';
+
         parent::__construct();
     }
     
@@ -79,15 +77,6 @@ class TaxModel extends BaseModel implements IModel
 		return ((count($r==1) &&  $r) ? array_shift($r) : FALSE);
 	}
 		
-	public function getByCountryId($country_id)
-	{
-		$r = $this->select(array(
-			'country_id' => (int) $country_id,
-		));					
-		
-		return ((count($r==1) &&  $r) ? array_shift($r) : FALSE);
-	}
-		
 	public function saveTax($tax)
 	{
 		$props = $this->getPropertyList();
@@ -116,16 +105,74 @@ class TaxModel extends BaseModel implements IModel
 		
 		return $this->getInfo(array($new_id));
 	}
-	
-	public function getTaxes()
+
+	public function getFilteredTaxes($filter)
+	{
+
+	}
+
+	public function generateTax($order)
+	{
+		$tax = new stdClass();
+		$tax->order_id = $order->order_id;
+		$tax->manager_id = $order->order_manager;
+
+		$ci = get_instance();
+		$ci->load->model('OrderModel', 'Orders');
+
+		$tax->amount_usd = $ci->Orders->getCountrypostTax();
+
+		if ($order->order_country_from)
+		{
+			$tax->currency = $ci->Orders->getOrderCurrency($order->order_id);
+			$tax->usd_conversion_rate = $ci->Currencies->getExchangeRate('USD', $tax->currency, 'manager');
+
+			// округляем до центов в пользу countrypost.ru
+			$tax->amount = ceil(
+				floatval($tax->amount_usd) *
+					floatval($tax->usd_conversion_rate) *
+					100) *
+				0.01;
+
+			$this->saveTax($tax);
+		}
+	}
+
+	public function getCountrypostBalance($manager_id)
 	{
 		$result = $this->db->query("
-			SELECT `taxes`.*, `countries`.`country_id`, `countries`.`country_name`
-			FROM `taxes`
-				LEFT JOIN `countries` ON `taxes`.`country_id` = `countries`.`country_id`")
-		->result();
+			SELECT SUM(amount) AS 'balance', currency
+			FROM
+				taxes
+			WHERE
+				manager_id = $manager_id AND
+				status = 'not_payed'
+			GROUP BY
+				currency")->result();
 
-		return $result ? $result : FALSE;	
-	}	
+		if (empty($result))
+		{
+			return FALSE;
+		}
+
+		return round($result[0]->balance, 2) . ' ' . $result[0]->currency;
+	}
+
+	public function getAdminBalance()
+	{
+		$result = $this->db->query("
+			SELECT SUM(amount_usd) AS 'balance'
+			FROM
+				taxes
+			WHERE
+				status = 'not_payed'")->result();
+
+		if (empty($result))
+		{
+			return FALSE;
+		}
+
+		return round($result[0]->balance, 2) . ' USD';
+	}
 }
 ?>

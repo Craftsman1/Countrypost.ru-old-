@@ -998,8 +998,6 @@ Email: {$this->user->user_email}";
 			else
 			{
 				$view['order'] = $this->initEmptyOrder($order_type);
-				//print_r($view['order']);die();
-								//$view['order']->order_currency = '';
 			}
 
 			$view['order_currency'] = $view['order']->order_currency;

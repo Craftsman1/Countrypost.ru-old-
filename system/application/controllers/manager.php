@@ -13,6 +13,8 @@ class Manager extends BaseController {
 			Func::redirect(BASEURL);
 		}
 
+		$_SESSION['countrypost_balance'] = $this->getCountrypostBalance();
+
 		Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
 		Breadcrumb::setCrumb(array('/manager/orders/' => 'Мои заказы'), 1, TRUE);
 	}
@@ -20,6 +22,12 @@ class Manager extends BaseController {
 	function index()
 	{
 		Func::redirect(BASEURL.$this->cname.'/orders');
+	}
+
+	private function getCountrypostBalance()
+	{
+		$this->load->model('TaxModel', 'Taxes');
+		return $this->Taxes->getCountrypostBalance($this->user->user_id);
 	}
 
 	public function updateOdetailStatuses()

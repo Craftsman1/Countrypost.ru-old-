@@ -736,6 +736,7 @@ class PaymentModel extends BaseModel implements IModel{
 		$ci = get_instance();
 		$ci->load->model('OrderModel', 'Orders');
 		$ci->load->model('CurrencyModel', 'Currencies');
+		$ci->load->model('TaxModel', 'Taxes');
 
 		if ($order->order_country_from AND
 			$order->order_country_to)
@@ -764,6 +765,9 @@ class PaymentModel extends BaseModel implements IModel{
 		{
 			$order->payed_date = date('Y-m-d H:i:s');
 		}
+
+		// генерируем комиссию посредника
+		$ci->Taxes->generateTax($order);
 	}
 
 	public function processImmediateOrderPayment($order, $payment)
@@ -774,6 +778,7 @@ class PaymentModel extends BaseModel implements IModel{
 		$ci = get_instance();
 		$ci->load->model('OrderModel', 'Orders');
 		$ci->load->model('CurrencyModel', 'Currencies');
+		$ci->load->model('TaxModel', 'Taxes');
 
 		if ($order->order_country_from AND
 			$order->order_country_to)
@@ -802,6 +807,9 @@ class PaymentModel extends BaseModel implements IModel{
 		{
 			$order->payed_date = date('Y-m-d H:i:s');
 		}
+
+		// генерируем комиссию посредника
+		$ci->Taxes->generateTax($order);
 	}
 
 	public function getLastPayedOrder($user_id)
