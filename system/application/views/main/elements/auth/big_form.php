@@ -56,14 +56,9 @@ $(function() {
 					{
 						login_handler();
 					}
-					else
-					{
-						//alert('111');
-					}
 				}
 				catch (e)
 				{
-					//alert('222');
 				}
 			}
 			else

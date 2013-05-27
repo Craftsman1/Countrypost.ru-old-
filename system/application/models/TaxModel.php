@@ -6,7 +6,12 @@ class TaxModel extends BaseModel implements IModel
 	protected $properties	= null;
 	protected $table = 'taxes';
 	protected $PK = 'tax_id';
-	
+	private $statuses = array(
+		'not_payed' => 'К выплате',
+		'payed' => 'Выплачено'
+	);
+
+
 	/**
 	 * конструктор
 	 */
@@ -26,8 +31,13 @@ class TaxModel extends BaseModel implements IModel
 
         parent::__construct();
     }
-    
-   /**
+
+	public function getStatuses()
+	{
+		return $this->statuses;
+	}
+
+	/**
      * @see IModel
      * Инкапсуляция
      *
@@ -106,11 +116,6 @@ class TaxModel extends BaseModel implements IModel
 		return $this->getInfo(array($new_id));
 	}
 
-	public function getFilteredTaxes($filter)
-	{
-
-	}
-
 	public function generateTax($order)
 	{
 		$tax = new stdClass();
@@ -173,6 +178,157 @@ class TaxModel extends BaseModel implements IModel
 		}
 
 		return round($result[0]->balance, 2) . ' USD';
+	}
+
+	public function getFilteredTaxes($filter = array(), $from = NULL, $to = NULL, $extra_where = NULL)
+	{
+		$where = '1';
+
+		// обход полей фильтра
+		if (is_string($filter))
+		{
+			$where	= $filter;
+		}
+		else
+		{
+			foreach ($filter as $key => $val)
+			{
+				if ($key == 'like' AND
+					is_array($val))
+				{
+					foreach ($val as $key1 => $val1)
+					{
+						$where .= " AND $key1 LIKE '%$val1%'";
+					}
+				}
+				else
+				{
+					$where .= " AND $key = '$val'";
+				}
+			}
+		}
+
+		// фильтр дат
+		if ($from AND $to)
+		{
+			$from_date = new DateTime($from);
+			$from_date = $from_date->format('Y-m-d H:i:s');
+			$to_date = new DateTime($to);
+			$to_date->modify('+1 day');
+			$to_date = $to_date->format('Y-m-d H:i:s');
+
+			$where .= " AND `usd_conversion_date` BETWEEN '$from_date' AND '$to_date'";
+		}
+		else if ($from)
+		{
+			$from_date = new DateTime($from);
+			$from_date = $from_date->format('Y-m-d H:i:s');
+
+			$where .= " AND `usd_conversion_date` >= '$from_date'";
+		}
+		else if ($to)
+		{
+			$to_date = new DateTime($to);
+			$to_date->modify('+1 day');
+			$to_date = $to_date->format('Y-m-d H:i:s');
+
+			$where .= " AND `usd_conversion_date` < '$to_date'";
+		}
+
+		// дополнительные условия
+		if ( ! empty($extra_where))
+		{
+			$where .= $extra_where;
+		}
+
+		/*print_r("
+			SELECT
+				`{$this->table}`.*,
+				`users`.`user_login`
+			FROM `{$this->table}`
+				LEFT OUTER JOIN `users`
+					ON `users`.`user_id` = `{$this->table}`.`manager_id`
+			WHERE $where
+			ORDER BY `tax_id` DESC
+		");//die();
+*/
+		// погнали
+		return $this->db->query("
+			SELECT
+				`{$this->table}`.*,
+				`users`.`user_login`
+			FROM `{$this->table}`
+				LEFT OUTER JOIN `users`
+					ON `users`.`user_id` = `{$this->table}`.`manager_id`
+			WHERE $where
+			ORDER BY `tax_id` DESC
+		")->result();
+	}
+
+	public function getTotalLocal($view, $is_admin = TRUE)
+	{
+		if (empty($view['taxes']))
+		{
+			return FALSE;
+		}
+
+		if ($is_admin AND
+			(empty($view['filter']->sfield) OR
+				($view['filter']->sfield != 'manager_id' AND
+					$view['filter']->sfield != 'manager_login')))
+		{
+			return FALSE;
+		}
+
+		$total = 0;
+		$currency = '';
+
+		foreach ($view['taxes'] as $tax)
+		{
+			if ($tax->status == 'not_payed')
+			{
+				$total += $tax->amount;
+			}
+
+			if (empty($currency) AND
+				! empty($tax->currency))
+			{
+				$currency = $tax->currency;
+			}
+		}
+
+		$result['total_local'] = $total;
+		$result['total_currency'] = $currency;
+
+		return $result;
+	}
+
+	public function getTotalUSD($view, $is_admin = TRUE)
+	{
+		if (empty($view['taxes']))
+		{
+			return FALSE;
+		}
+
+		if ($is_admin AND
+			(empty($view['filter']->sfield) OR
+				($view['filter']->sfield != 'manager_id' AND
+					$view['filter']->sfield != 'manager_login')))
+		{
+			return FALSE;
+		}
+
+		$total = 0;
+
+		foreach ($view['taxes'] as $tax)
+		{
+			if ($tax->status == 'not_payed')
+			{
+				$total += $tax->amount_usd;
+			}
+		}
+
+		return $total;
 	}
 }
 ?>

@@ -1129,4 +1129,9 @@ class Manager extends BaseController {
 			}
 		}
 	}
+
+	public function taxes()
+	{
+		parent::showCountrypostTaxes();
+	}
 }

@@ -2098,6 +2098,11 @@ class Admin extends AdminBaseController {
 		$this->filter('allPayments', 'showAllOpenPayments/0/ajax');
 	}
 
+	public function filterTaxes()
+	{
+		$this->filter('taxes', 'taxes/0/ajax');
+	}
+
 	public function updateOpenOrdersStatus()
 	{
 		$this->updateStatus('open', 'showOpenOrders', 'OrderModel');
@@ -4042,6 +4047,49 @@ class Admin extends AdminBaseController {
 		print(json_encode($response));
 	}
 
+	public function update_tax_status($tax_id, $status)
+	{
+		try
+		{
+			if ( ! is_numeric($tax_id))
+			{
+				throw new Exception('Доступ запрещен.');
+			}
+
+			$this->load->model('TaxModel', 'Taxes');
+
+			// роли и разграничение доступа
+			$payment = $this->Taxes->getById($tax_id);
+
+			if (empty($tax))
+			{
+				throw new Exception('Комиссия не найдена.');
+			}
+
+			$tax->status = $status;
+
+			// сохранение результатов
+			$this->Taxes->updateTax($tax);
+
+			// отправляем итого
+			$filter = $this->initFilter('taxes');
+			$taxs = $this->Taxes->getFilteredTaxes(
+				$filter->condition,
+				$filter->from,
+				$filter->to);
+
+			$response['total_usd'] = $this->Taxes->getTotalUSD($taxes);
+			$response['is_error'] = FALSE;
+		}
+		catch (Exception $e)
+		{
+			$response['is_error'] = TRUE;
+			$response['message'] = $e->getMessage();
+		}
+
+		print(json_encode($response));
+	}
+
 	protected function init_paging()
 	{
 		$this->load->helper('url');
@@ -4065,5 +4113,10 @@ class Admin extends AdminBaseController {
 		{
 			parent::init_paging();
 		}
+	}
+
+	public function taxes()
+	{
+		parent::showCountrypostTaxes();
 	}
 }

@@ -29,14 +29,15 @@
 			<br>
 			<? if (isset($_SESSION['countrypost_balance']) AND $_SESSION['countrypost_balance']) : ?>
 			<p>
-				<a href='/<?= $this->user->user_group ?>/'>Баланс Countrypost.ru: <?= $_SESSION['countrypost_balance'] ?></a>
+				<a href='<?= BASEURL . $this->user->user_group ?>/taxes'>Баланс Countrypost.ru: <?=
+					$_SESSION['countrypost_balance'] ?></a>
 			</p>
 			<? endif; ?>
 			<p>
-				<a href='/<?= $this->user->user_group ?>/history'>Статистика платежей</a>
+				<a href='<?= BASEURL . $this->user->user_group ?>/history'>Статистика платежей</a>
 			</p>
 			<p>
-				<a href='/<?= $this->user->user_group ?>/payments'>Заявки на оплату заказов</a>
+				<a href='<?= BASEURL . $this->user->user_group ?>/payments'>Заявки на оплату заказов</a>
 			</p>
 		</div>
 	</div>

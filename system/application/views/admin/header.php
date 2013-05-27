@@ -18,6 +18,6 @@
 	<script src="<?= JS_PATH ?>jquery-ui.min.1.10.1.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
 	<!--[if IE]>
-		<link rel="stylesheet" type="text/css" href="<?= CSS_PATH ?>ie.css">
+	<link rel="stylesheet" type="text/css" href="<?= CSS_PATH ?>ie.css">
 	<![endif]-->
 </head>

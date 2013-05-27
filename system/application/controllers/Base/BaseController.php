@@ -807,6 +807,83 @@ abstract class BaseController extends Controller
 		}
 	}
 
+	protected function showCountrypostTaxes()
+	{
+		$this->load->model('TaxModel', 'Taxes');
+
+		if ($this->user->user_group == 'manager')
+		{
+			$view['filter'] = $this->initFilter('taxes');
+
+			$view['taxes'] = $this->Taxes->getFilteredTaxes(
+				$view['filter']->condition,
+				$view['filter']->from,
+				$view['filter']->to,
+				" AND (users.user_id = {$this->user->user_id})");
+
+			$view['total_usd'] = $this->Taxes->getTotalUSD($view, FALSE);
+
+			if ($totals = $this->Taxes->getTotalLocal($view, FALSE))
+			{
+				$view['total_local'] = $totals['total_local'];
+				$view['total_currency'] = $totals['total_currency'];
+			}
+		}
+		else if ($this->user->user_group == 'admin')
+		{
+			$view['filter'] = $this->initFilter('taxes');
+			$view['taxes'] = $this->Taxes->getFilteredTaxes(
+				$view['filter']->condition,
+				$view['filter']->from,
+				$view['filter']->to);
+
+			$view['total_usd'] = $this->Taxes->getTotalUSD($view, FALSE);
+
+			if ($totals = $this->Taxes->getTotalLocal($view, FALSE))
+			{
+				$view['total_local'] = $totals['total_local'];
+				$view['total_currency'] = $totals['total_currency'];
+			}
+		}
+
+		/* пейджинг */
+		$per_page = isset($this->session->userdata['taxes_per_page']) ? $this->session->userdata['taxes_per_page']
+			: $this->per_page;
+		$this->per_page = $per_page;
+		$view['per_page'] = $per_page;
+
+		$this->init_paging();
+		$this->paging_count = count($view['taxes']);
+
+		if (isset($view['taxes']) AND $view['taxes'])
+		{
+			$view['taxes'] = array_slice($view['taxes'], $this->paging_offset, $this->per_page);
+		}
+
+		$view['pager'] = $this->get_paging();
+
+		// собираем платежные системы
+		$view['statuses'] = $this->Taxes->getStatuses();
+		$view['user'] = $this->user;
+
+		// крошки
+		Breadcrumb::setCrumb(array(
+			"/{$this->user->user_group}/taxes"  =>
+			"Баланс Countrypost.ru"), 1,	TRUE);
+
+		// парсим шаблон
+		if ($this->uri->segment(4) == 'ajax')
+		{
+			$view['selfurl'] = BASEURL.$this->cname.'/';
+			$view['viewpath'] = $this->viewpath;
+			$this->load->view($this->viewpath."ajax/showCountrypostTaxes", $view);
+		}
+		else
+		{
+			View::showChild($this->viewpath.'pages/showCountrypostTaxes', $view);
+		}
+}
+
 	protected function showPublicOrder()
 	{
 		try
@@ -1554,6 +1631,9 @@ abstract class BaseController extends Controller
 				case ('allPayments') :
 					$filter = $this->processAllPaymentsFilter();
 					break;
+				case ('taxes') :
+					$filter = $this->processTaxesFilter();
+					break;
 				case ('UnassignedOrders') :
 					$filter = $this->processUnassignedOrdersFilter($filter);
 					break;
@@ -1596,10 +1676,8 @@ abstract class BaseController extends Controller
 			$filter->search_client			= '';
 			$filter->id_type				= '';
 			$filter->id_status				= '';
-			$filter->pricelist_country_from	= '';
-			$filter->pricelist_country_to	= '';
-			//$filter->our_pricelist			= '';
-			//$filter->pricelist_delivery		= '';
+			//$filter->pricelist_country_from	= '';
+			//$filter->pricelist_country_to	= '';
 
 			// погнали
 			switch ($filterType)
@@ -1616,13 +1694,15 @@ abstract class BaseController extends Controller
 				case 'allPayments' :
 					$filter = $this->initAllPaymentsFilter($filter);
 					break;
+				case ($filterType == 'taxes') :
+					$filter = $this->initTaxesFilter($filter);
+					break;
 			}
 
 			// кладем фильтр в сессию
 			$_SESSION[$filterType.'Filter'] = $filter;
 		}
 
-		//print_r($_SESSION[$filterType.'Filter']);die();
 		return $_SESSION[$filterType.'Filter'];
 	}
 
@@ -1644,6 +1724,21 @@ abstract class BaseController extends Controller
 		return $filter;
 	}
 
+	protected function initTaxesFilter()
+	{
+		$filter = new stdClass();
+		$filter->tax_from = '';
+		$filter->condition = array();
+		$filter->sfield		= '';
+		$filter->sdate		= '';
+		$filter->svalue		= '';
+		$filter->status		= '';
+		$filter->from		= '';
+		$filter->to		= '';
+
+		return $filter;
+	}
+
 	protected function initAllPaymentsFilter()
 	{
 		$filter = new stdClass();
@@ -1656,9 +1751,9 @@ abstract class BaseController extends Controller
 		return $filter;
 	}
 
-	protected function processPaymentHistoryFilter()
+	protected function processTaxesFilter()
 	{
-		$filter = $this->initPaymentHistoryFilter();
+		$filter = $this->initTaxesFilter();
 
 		// сброс фильтра
 		if (isset($_POST['resetFilter']) AND $_POST['resetFilter'] == '1')
@@ -1676,12 +1771,6 @@ abstract class BaseController extends Controller
 		{
 			switch ($filter->sfield)
 			{
-				case 'client_id' :
-					if (is_numeric($filter->svalue))
-					{
-						$filter->condition['like'] = array('payment_from' => $filter->svalue);
-					}
-					break;
 				case 'manager_id' :
 					if (is_numeric($filter->svalue))
 					{
@@ -1692,20 +1781,17 @@ abstract class BaseController extends Controller
 					$filter->condition['payment_type'] = 'order';
 					$filter->condition['like'] = array('payment_comment' => $filter->svalue);
 					break;
-				case 'client_login' :
-					$filter->condition['like'] = array('user_from.user_login' => $filter->svalue);
-					break;
 				case 'manager_login' :
 					if (is_numeric($filter->svalue))
 					{
 						$filter->condition['like'] = array('user_to.user_login' => $filter->svalue);
 					}
 					break;
-				case 'payment_id' :
-					$filter->condition['like'] = array('payment_id' => $filter->svalue);
+				case 'tax_id' :
+					$filter->condition['like'] = array('tax_id' => $filter->svalue);
 					break;
-				case 'payment_amount' :
-					$filter->condition["payment_amount_from"] = $filter->svalue;
+				case 'amount' :
+					$filter->condition["amount"] = $filter->svalue;
 					break;
 			}
 		}
@@ -2778,6 +2864,18 @@ abstract class BaseController extends Controller
 		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
 
+    public function updateTaxesPerPage($per_page)
+	{
+		if (!is_numeric($per_page) OR
+			 ! $this->user)
+		{
+			throw new Exception('Доступ запрещен.');
+		}
+
+		$this->session->set_userdata(array('taxes_per_page' => $per_page));
+		Func::redirect($_SERVER['HTTP_REFERER']);
+	}
+
     protected function deleteProduct($odid)
     {
         try
@@ -2827,8 +2925,8 @@ abstract class BaseController extends Controller
                     $this->Joints->addOdetailJoint($joint);
                 }
             }
-			//print_r($joint);die();
-            $deleted_odetail = $this->ODetails->addOdetail($odetail);
+
+			$deleted_odetail = $this->ODetails->addOdetail($odetail);
 
             if ( ! $deleted_odetail)
             {

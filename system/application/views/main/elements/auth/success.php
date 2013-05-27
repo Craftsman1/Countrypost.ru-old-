@@ -12,17 +12,21 @@
 			<a href='<?= BASEURL ?>profile'>Мой профиль</a>
 			<? else : ?>
 			<br>
-			<? if (isset($_SESSION['countrypost_balance']) AND $_SESSION['countrypost_balance']) : ?>
-			<p>
-				<a href='/<?= $this->user->user_group ?>/'>Баланс Countrypost.ru: <?= $_SESSION['countrypost_balance'] ?></a>
-			</p>
-			<? endif; ?>
 			<? endif; ?>
 		</p>
 		<br>
+		<? if (isset($_SESSION['countrypost_balance']) AND $_SESSION['countrypost_balance']) : ?>
+		<p>
+			<a href='<?= BASEURL . $this->user->user_group ?>/taxes'>Баланс Countrypost.ru: <?=
+				$_SESSION['countrypost_balance'] ?></a>
+		</p>
+		<? endif; ?>
 		<div class='submit' style="width: 227px!important;">
 			<div>
-				<input style="width: 211px!important;" type='submit' value='Выйти'  onclick="javascript:window.location='<?= BASEURL ?>user/logout';" />
+				<input style="width: 211px!important;"
+					   type='submit'
+					   value='Выйти'
+					   onclick="javascript:window.location='<?= BASEURL ?>user/logout';" />
 			</div>
 		</div>
 	</div>
