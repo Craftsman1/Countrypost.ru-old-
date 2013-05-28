@@ -10,7 +10,7 @@
 			<br>
 			<? if (isset($_SESSION['countrypost_balance']) AND $_SESSION['countrypost_balance']) : ?>
 			<p>
-				<a href='<?= BASEURL . $this->user->user_group ?>/taxes'>Баланс Countrypost.ru: <?= $_SESSION['countrypost_balance'] ?></a>
+				<a href='<?= BASEURL . $this->user->user_group ?>/taxes'>Комиссия Countrypost: <?= $_SESSION['countrypost_balance'] ?></a>
 			</p>
 			<? endif; ?>
 			<p><a href='<?=BASEURL?>admin/history'>Статистика платежей</a></p>

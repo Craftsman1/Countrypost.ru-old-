@@ -819,7 +819,7 @@ abstract class BaseController extends Controller
 				$view['filter']->condition,
 				$view['filter']->from,
 				$view['filter']->to,
-				" AND (users.user_id = {$this->user->user_id})");
+				" AND (dealers.user_id = {$this->user->user_id})");
 
 			$view['total_usd'] = $this->Taxes->getTotalUSD($view, FALSE);
 
@@ -1611,8 +1611,6 @@ abstract class BaseController extends Controller
 			if (isset($_POST['client_country'])) $filter->client_country					= Check::int('client_country');
 			if (isset($_POST['search_id'])) $filter->search_id								= Check::txt('search_id', 11, 1, '');
 			if (isset($_POST['search_client'])) $filter->search_client						= Check::txt('search_client', 11, 1, '');
-			//if (isset($_POST['pricelist_delivery'])) $filter->pricelist_delivery			= Check::int('pricelist_delivery');
-			//if (isset($_POST['period'])) $filter->period									= Check::txt('period', 5,3, '');
 			if (isset($_POST['id_type'])) $filter->id_type									= Check::txt('id_type', 13, 5, '');
 			if (isset($_POST['id_status'])) $filter->id_status								= Check::txt('id_status', 20, 1, '');
 
@@ -1762,7 +1760,7 @@ abstract class BaseController extends Controller
 		}
 
 		$filter->svalue		= Check::str('svalue', 255, 1, '');
-		$filter->sfield		= Check::str('sfield', 20, 1, 'manager_id');
+		$filter->sfield		= Check::str('sfield', 20, 1, '');
 		$filter->status		= Check::str('status', 20, 1, '');
 		$filter->from		= Check::str('from', 10, 10, '');
 		$filter->to			= Check::str('to', 10, 10, '');
@@ -1774,24 +1772,29 @@ abstract class BaseController extends Controller
 				case 'manager_id' :
 					if (is_numeric($filter->svalue))
 					{
-						$filter->condition['like'] = array('payment_to' => $filter->svalue);
+						$filter->condition['like'] = array('manager_id' => $filter->svalue);
 					}
 					break;
 				case 'order_id' :
-					$filter->condition['payment_type'] = 'order';
-					$filter->condition['like'] = array('payment_comment' => $filter->svalue);
-					break;
-				case 'manager_login' :
 					if (is_numeric($filter->svalue))
 					{
-						$filter->condition['like'] = array('user_to.user_login' => $filter->svalue);
+						$filter->condition['like'] = array('order_id' => $filter->svalue);
 					}
 					break;
+				case 'manager_login' :
+					$filter->condition['like'] = array('dealers.user_login' => $filter->svalue);
+					break;
 				case 'tax_id' :
-					$filter->condition['like'] = array('tax_id' => $filter->svalue);
+					if (is_numeric($filter->svalue))
+					{
+						$filter->condition['like'] = array('tax_id' => $filter->svalue);
+					}
 					break;
 				case 'amount' :
-					$filter->condition["amount"] = $filter->svalue;
+					if (is_numeric($filter->svalue))
+					{
+						$filter->condition["like"] = array('amount' => $filter->svalue);
+					}
 					break;
 			}
 		}

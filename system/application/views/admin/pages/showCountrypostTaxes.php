@@ -1,7 +1,7 @@
 <div class='content'>
 	<?  Breadcrumb::showCrumbs(); ?>
 	<a name="pagerScroll"></a>
-	<h2>Баланс Countrypost.ru</h2>
+	<h2>Комиссия Countrypost</h2>
 	<? View::show($viewpath.'elements/taxes_filter'); ?>
 	<br />
 	<? View::show($viewpath.'ajax/showCountrypostTaxes'); ?>

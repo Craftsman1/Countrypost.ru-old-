@@ -15,12 +15,6 @@
 			<? endif; ?>
 		</p>
 		<br>
-		<? if (isset($_SESSION['countrypost_balance']) AND $_SESSION['countrypost_balance']) : ?>
-		<p>
-			<a href='<?= BASEURL . $this->user->user_group ?>/taxes'>Баланс Countrypost.ru: <?=
-				$_SESSION['countrypost_balance'] ?></a>
-		</p>
-		<? endif; ?>
 		<div class='submit' style="width: 227px!important;">
 			<div>
 				<input style="width: 211px!important;"

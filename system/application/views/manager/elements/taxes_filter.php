@@ -13,14 +13,6 @@
 	по
 	<select name='sfield'
 			onchange="processFilter();">
-		<!--option value='manager_id'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'manager_id') ?
-			'selected' :
-			'' ?>>номеру посредника</option>
-		<option value='manager_login'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'manager_login') ?
-			'selected' :
-			'' ?>>логину посредника</option-->
 		<option value='client_id'
 			<?= (isset($filter->sfield) AND $filter->sfield == 'client_id') ?
 			'selected' :
@@ -33,12 +25,12 @@
 			<?= (isset($filter->sfield) AND $filter->sfield == 'order_id') ?
 			'selected' :
 			'' ?>>номеру заказа</option>
-		<option value='payment_id'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'payment_id') ?
+		<option value='tax_id'
+			<?= (isset($filter->sfield) AND $filter->sfield == 'tax_id') ?
 			'selected' :
 			'' ?>>номеру комиссии</option>
-		<option value='payment_amount'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'payment_amount') ?
+		<option value='amount'
+			<?= (isset($filter->sfield) AND $filter->sfield == 'amount') ?
 			'selected' :
 			'' ?>>сумме комиссии</option>
 	</select>

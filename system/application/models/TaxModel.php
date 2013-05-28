@@ -256,10 +256,17 @@ class TaxModel extends BaseModel implements IModel
 		return $this->db->query("
 			SELECT
 				`{$this->table}`.*,
-				`users`.`user_login`
+				dealers.`user_login` dealer_login,
+				clients.`user_login` client_login,
+				clients.`user_id` client_id,
+				order_type
 			FROM `{$this->table}`
-				LEFT OUTER JOIN `users`
-					ON `users`.`user_id` = `{$this->table}`.`manager_id`
+				LEFT OUTER JOIN `users` dealers
+					ON dealers.`user_id` = `{$this->table}`.`manager_id`
+				LEFT OUTER JOIN `orders`
+					ON `orders`.`order_id` = `{$this->table}`.`order_id`
+				LEFT OUTER JOIN `users` clients
+					ON clients.`user_id` = `orders`.`order_client`
 			WHERE $where
 			ORDER BY `tax_id` DESC
 		")->result();

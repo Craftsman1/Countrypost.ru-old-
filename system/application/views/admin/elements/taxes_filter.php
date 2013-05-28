@@ -21,24 +21,16 @@
 			<?= (isset($filter->sfield) AND $filter->sfield == 'manager_login') ?
 			'selected' :
 			'' ?>>логину посредника</option>
-		<option value='client_id'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'client_id') ?
-			'selected' :
-			'' ?>>номеру клиента</option>
-		<option value='client_login'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'client_login') ?
-			'selected' :
-			'' ?>>логину клиента</option>
 		<option value='order_id'
 			<?= (isset($filter->sfield) AND $filter->sfield == 'order_id') ?
 			'selected' :
 			'' ?>>номеру заказа</option>
-		<option value='payment_id'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'payment_id') ?
+		<option value='tax_id'
+			<?= (isset($filter->sfield) AND $filter->sfield == 'tax_id') ?
 			'selected' :
 			'' ?>>номеру комиссии</option>
-		<option value='payment_amount'
-			<?= (isset($filter->sfield) AND $filter->sfield == 'payment_amount') ?
+		<option value='amount'
+			<?= (isset($filter->sfield) AND $filter->sfield == 'amount') ?
 			'selected' :
 			'' ?>>сумме комиссии</option>
 	</select>

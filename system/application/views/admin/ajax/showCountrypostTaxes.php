@@ -22,8 +22,10 @@
 		</tr>
 		<tr>
 			<th>№ / Дата</th>
-			<th>Заказ</th>
-			<th>Сумма оплаты</th>
+			<th>Посредник</th>
+			<th>Назначение платежа</th>
+			<th>Комментарий</th>
+			<th>Комиссия Countrypost</th>
 			<th>Сумма USD</th>
 			<th>Статус</th>
 		</tr>
@@ -32,6 +34,21 @@
 			<td>
 				<b><?= $tax->tax_id ?></b>
 				<?= date('d-m-Y H:i', strtotime($tax->usd_conversion_date)) ?>
+			</td>
+			<td>
+				<a href='<?= BASEURL . $tax->dealer_login ?>'><?= $tax->dealer_login ?>
+					(№ <?= $tax->manager_id ?>)</a>
+			</td>
+			<td>
+				Оплата <? switch($tax->order_type)
+				{
+					case 'online' : echo 'Online заказа'; break;
+					case 'offline' : echo 'Offline заказа'; break;
+					case 'service' : echo 'услуги'; break;
+					case 'delivery' : echo 'доставки'; break;
+					case 'mail_forwarding' : echo 'заказа Mail Forwarding'; break;
+				}
+				?>
 			</td>
 			<td>
 				<a href="<?= BASEURL . $this->user->user_group . '/order/' . $tax->order_id ?>">№ <?=
