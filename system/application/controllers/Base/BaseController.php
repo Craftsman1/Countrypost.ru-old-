@@ -3424,18 +3424,25 @@ abstract class BaseController extends Controller
 
 	protected function uploadOrderScreenshot($odetail, $client_id)
 	{
-		// создаем новый каталог для картинок клиента
-		if ( ! is_dir($_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$client_id"))
-		{
-			mkdir($_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$client_id", 0777);
-		}
+		$max_width	= 1024;
+		$max_height	= 768;
+		$filename	= $_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$client_id/{$odetail->odetail_id}.jpg";
 
 		$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id";
 		$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
 		$config['max_size']				= '3072';
 		$config['encrypt_name'] 		= TRUE;
-		$max_width						= 1024;
-		$max_height						= 768;
+
+		$this->uploadImageGeneric($max_width, $max_height, $config, $filename);
+	}
+
+	private function uploadImageGeneric($max_width, $max_height, $config, $filename)
+	{
+			// создаем новый каталог для картинок клиента
+		if ( ! is_dir($config['upload_path']))
+		{
+			mkdir($config['upload_path'], 0777);
+		}
 
 		$this->load->library('upload', $config);
 
@@ -3447,8 +3454,6 @@ abstract class BaseController extends Controller
 
 		$uploadedImg = $this->upload->data();
 
-		$filename = $_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$client_id/{$odetail->odetail_id}.jpg";
-
 		// прибиваем старый файл
 		if (file_exists($filename))
 		{
@@ -3458,7 +3463,7 @@ abstract class BaseController extends Controller
 		// копируем новый из папки temp
 		if ( ! rename($uploadedImg['full_path'], $filename))
 		{
-			throw new Exception("Измените название файла и загрузите его еще раз.");
+			throw new Exception("Переименуйте файл и загрузите его еще раз.");
 		}
 
 		$imageInfo = getimagesize($filename);
@@ -4437,6 +4442,31 @@ abstract class BaseController extends Controller
 				UserModel::getTemporaryKey(),
 				'client');
 		}
+	}
+
+	protected function saveProfilePhoto()
+	{
+		try
+		{
+			if (isset($_FILES['userfile']) AND ! $_FILES['userfile']['error'])
+			{
+				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/avatars";
+				$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
+				$config['max_size']				= '3072';
+				$config['encrypt_name'] 		= TRUE;
+
+				$max_width	= 1024;
+				$max_height	= 768;
+				$filename	= "{$config['upload_path']}/{$this->user->user_id}.jpg";
+
+				$this->uploadImageGeneric($max_width, $max_height, $config, $filename);
+			}
+		}
+		catch (Exception $e)
+		{
+		}
+
+		echo "/main/avatar/{$this->user->user_id}";
 	}
 }
 ?>

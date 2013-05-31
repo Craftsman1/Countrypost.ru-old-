@@ -78,8 +78,7 @@ class ManagerModel extends BaseModel implements IModel{
 		$this->properties->cashback_limit	='';
 		$this->properties->is_mail_forwarding ='';
 		$this->properties->is_internal_payments ='';
-		$this->properties->avatar ='';
-		
+
 		parent::__construct();
     }
     
