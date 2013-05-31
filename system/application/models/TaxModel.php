@@ -118,29 +118,36 @@ class TaxModel extends BaseModel implements IModel
 
 	public function generateTax($order)
 	{
-		$tax = new stdClass();
-		$tax->order_id = $order->order_id;
-		$tax->manager_id = $order->order_manager;
+		// 1. проверяем, не добавлена ли уже комиссия за данный заказ
+		$duplicated_taxes = $this->db->query("
+			SELECT 1
+			FROM
+				taxes
+			WHERE
+				manager_id = $order->order_manager AND
+				order_id = $order->order_id
+				status <> 'deleted'
+			LIMIT 1")->result();
 
+		if ( ! empty($duplicated_taxes))
+		{
+			return;
+		}
+
+		// 2. переносим комиссию на счет посредника
 		$ci = get_instance();
 		$ci->load->model('OrderModel', 'Orders');
 
-		$tax->amount_usd = $ci->Orders->getCountrypostTax();
+		$tax = new stdClass();
+		$tax->order_id = $order->order_id;
+		$tax->manager_id = $order->order_manager;
+		$tax->amount_usd = $order->countrypost_tax_usd;
+		$tax->usd_conversion_rate = $order->usd_conversion_rate;
+		$tax->amount = $order->countrypost_tax;
 
-		if ($order->order_country_from)
-		{
-			$tax->currency = $ci->Orders->getOrderCurrency($order->order_id);
-			$tax->usd_conversion_rate = $ci->Currencies->getExchangeRate('USD', $tax->currency, 'manager');
+		$tax->currency = $ci->Orders->getOrderCurrency($order->order_id);
 
-			// округляем до центов в пользу countrypost.ru
-			$tax->amount = ceil(
-				floatval($tax->amount_usd) *
-					floatval($tax->usd_conversion_rate) *
-					100) *
-				0.01;
-
-			$this->saveTax($tax);
-		}
+		$this->saveTax($tax);
 	}
 
 	public function getCountrypostBalance($manager_id)

@@ -250,6 +250,9 @@ class OrderModel extends BaseModel implements IModel{
     	$this->properties->order_weight				= '';
     	$this->properties->order_cost				= '';
     	$this->properties->order_cost_payed			= '';
+    	$this->properties->countrypost_tax			= '';
+    	$this->properties->countrypost_tax_usd		= '';
+    	$this->properties->usd_conversion_rate		= '';
     	$this->properties->manager_tax				= '';
     	$this->properties->foto_tax					= '';
     	$this->properties->delivery_cost			= '';
@@ -856,7 +859,7 @@ class OrderModel extends BaseModel implements IModel{
 		
 		$new_id = $this->save(TRUE);
 		
-		if (!$new_id) return FALSE;
+		if ( ! $new_id) return FALSE;
 		
 		return $this->getInfo(array($new_id));
 	}
@@ -1016,12 +1019,15 @@ class OrderModel extends BaseModel implements IModel{
 
 	public function calculateCost($order, $bid)
 	{
+		$order->countrypost_tax = $bid->countrypost_tax;
+		$order->countrypost_tax_usd = $bid->countrypost_tax_usd;
+		$order->usd_conversion_rate = $bid->usd_conversion_rate;
 		$order->manager_tax = $bid->manager_tax;
 		$order->foto_tax = $bid->foto_tax;
 		$order->delivery_cost = $bid->delivery_cost;
 		$order->delivery_name = $bid->delivery_name;
 		$order->extra_tax = $bid->extra_tax;
-		$order->order_cost = ceil($bid->total_cost);
+		$order->order_cost = $bid->total_cost;
 
 		return $order->order_cost ? $order : FALSE;
 	}
@@ -1196,10 +1202,17 @@ class OrderModel extends BaseModel implements IModel{
 		$order_country_from = $ci->Countries->getById($view['order']->order_country_from);
 		$order_country_to = $ci->Countries->getById($view['order']->order_country_to);
 
+
 		if (isset($order_country_from->country_currency))
 		{
 			$view['order']->order_currency = strval($order_country_from->country_currency);
 		}
+
+		$countrypost_tax = $this->generateCountrypostTax($view['order']);
+
+		$view['order']->countrypost_tax = $countrypost_tax->countrypost_tax;
+		$view['order']->countrypost_tax_usd = $countrypost_tax->countrypost_tax_usd;
+		$view['order']->usd_conversion_rate = $countrypost_tax->countrypost_tax_usd;
 
 		$view['order']->order_country = $view['order']->order_country_from;
 		$view['order']->order_country_from = strval($order_country_from->country_name);
@@ -1511,6 +1524,31 @@ class OrderModel extends BaseModel implements IModel{
 	{
 		// TODO: определить корректное место для этой комиссии
 		return 7;
+	}
+
+	public function generateCountrypostTax($order)
+	{
+		$ci = get_instance();
+		$ci->load->model('CurrencyModel', 'Currencies');
+		$ci->load->model('CountryModel', 'Countries');
+
+		$countrypost_tax = new stdClass();
+
+		// 1. валюта
+		$order_country_from = $ci->Countries->getById($order->order_country_from);
+		$countrypost_tax->order_currency = strval($order_country_from->country_currency);
+
+		// 2. комиссия в долларах
+		$countrypost_tax->countrypost_tax_usd = $this->getCountrypostTax();
+		$countrypost_tax->usd_conversion_rate = $ci->Currencies->getExchangeRate('USD', $countrypost_tax->order_currency, 'manager');
+
+		// 3. конвертируем в местную валюту,
+		// округляем в пользу countrypost.ru
+		$countrypost_tax->countrypost_tax = ceil(
+			floatval($countrypost_tax->countrypost_tax_usd) *
+				floatval($countrypost_tax->usd_conversion_rate));
+
+		return $countrypost_tax;
 	}
 }
 ?>

@@ -685,10 +685,11 @@ function recalculateBid(bid_id)
 {
 	order_total_cost =
 		order_products_cost +
-			manager_tax +
-			manager_foto_tax +
-			extra_tax +
-			parseFloat(order_delivery_cost);
+		countrypost_tax +
+		manager_tax +
+		manager_foto_tax +
+		extra_tax +
+		parseFloat(order_delivery_cost);
 
 	$bid = $('#bid' + bid_id);
 
@@ -700,6 +701,10 @@ function recalculateBid(bid_id)
 		.find('.manager_tax_percentage')
 		.val(manager_tax_percentage)
 		.html(manager_tax_percentage);
+	$bid
+		.find('.countrypost_tax')
+		.val(countrypost_tax)
+		.html(countrypost_tax);
 	$bid
 		.find('.manager_foto_tax')
 		.val(manager_foto_tax)

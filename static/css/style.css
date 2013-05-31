@@ -2163,15 +2163,10 @@ div.managerinfo  center, div.clientinfo center
 	display: inline-block;
 }
 
-div.managerinfo, div.clientinfo  
-{
-	_height:116px;
-}
-
 div.managerinfo img, div.clientinfo img
 {
 	float:left;
-	margin-right:10px;
+	margin-right: 20px;
 	margin-bottom:0px;
 }
 
@@ -2383,7 +2378,7 @@ div.managerinfo ul.tabs div {
 }
 			
 div.managerinfo .tabs, div.clientinfo .tabs {
-    margin: 16px 0 0;
+    margin: 34px 0 0;
 }
 
 div.dealer_profile_left {
@@ -2652,11 +2647,11 @@ div.new_bid_box {
 div.new_bid_box b {
 	font-weight: normal;
 }
-
+/*
 div.new_bid_box > div {
 	height: 36px;
 }
-
+*/
 div.new_bid_box span.bold,div.new_bid_box span.bold b {
 	font-weight: bold;
 }

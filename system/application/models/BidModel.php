@@ -29,8 +29,11 @@ class BidModel extends BaseModel implements IModel{
     	$this->properties->manager_tax_percentage	='';
     	$this->properties->foto_tax_percentage	='';
     	$this->properties->requested_foto_count	='';
+    	$this->properties->countrypost_tax	='';
+    	$this->properties->countrypost_tax_usd	='';
+    	$this->properties->usd_conversion_rate	='';
 
-        parent::__construct();
+		parent::__construct();
     }
     
    /**
@@ -250,7 +253,7 @@ class BidModel extends BaseModel implements IModel{
 				return FALSE;
 			}
 
-			// при добавлении и редактировании предложения пропускаем пересчет комиссии, оставляем то что он ввел
+			// 2.1 значения комиссий для типов "стоимость товаров" и "стоимость товаров + местная доставка"
 			$products_delivery_tax = ceil(
 				($order->order_products_cost + $order->order_delivery_cost) *
 					$manager->order_tax *
@@ -262,7 +265,7 @@ class BidModel extends BaseModel implements IModel{
 					0.01);
 
 
-			// 2.1 минимальная комиссия
+			// 2.2 минимальная комиссия посредника
 			if ($products_delivery_tax < $manager->min_order_tax)
 			{
 				$products_delivery_tax = $manager->min_order_tax;
@@ -273,15 +276,14 @@ class BidModel extends BaseModel implements IModel{
 				$products_tax = $manager->min_order_tax;
 			}
 
-			// 2.2 логика расчета комиссии
-			if ( ! $skip_manager_tax) // в некоторых случаях не пересчитываем комиссию
+			// 2.3 основная логика расчета комиссии посредника
+			if ( ! $skip_manager_tax)
 			{
 				if ($order->order_type == 'mail_forwarding' OR
 					$order->order_type == 'service' OR
 					$order->order_type == 'delivery')
 				{
-					//$bid->manager_tax = $manager->order_mail_forwarding_tax;
-					// ничего не меняем, комиссия всегда задана вручную
+					// ничего не меняем, комиссия в этих заказах ВСЕГДА задана вручную
 				}
 				else if ($order->order_type == 'online' OR
 					$order->order_type == 'offline')
@@ -301,14 +303,22 @@ class BidModel extends BaseModel implements IModel{
 				}
 			}
 
-			// 3. подбиваем сумму
+			// 3. комиссия countrypost
+			$ci->load->model('OrderModel', 'Orders');
+			$countrypost_tax = $ci->Orders->generateCountrypostTax($order);
+			$bid->countrypost_tax = $countrypost_tax->countrypost_tax;
+			$bid->countrypost_tax_usd = $countrypost_tax->countrypost_tax_usd;
+			$bid->usd_conversion_rate = $countrypost_tax->usd_conversion_rate;
+
+			// 4. подбиваем сумму
 			$bid->total_cost =
 				$order->order_products_cost +
-					$order->order_delivery_cost +
-					$bid->manager_tax +
-					$bid->foto_tax +
-					$bid->extra_tax +
-					$bid->delivery_cost;
+				$order->order_delivery_cost +
+				$bid->countrypost_tax +
+				$bid->manager_tax +
+				$bid->foto_tax +
+				$bid->extra_tax +
+				$bid->delivery_cost;
 		}
 		catch (Exception $e)
 		{

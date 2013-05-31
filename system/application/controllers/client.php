@@ -1028,10 +1028,7 @@ class Client extends BaseController {
 			}
 
 			// 6. сохраняем заказ
-			if ( ! $this->Orders->saveOrder($order))
-			{
-				throw new Exception('Предложение не выбрано. Обновите страницу и попробуйте еще раз.');
-			}
+			$this->Orders->saveOrder($order);
 
 			// 8. показываем новую форму заказа
 			$this->load->model('ClientModel', 'Clients');
@@ -1052,6 +1049,7 @@ class Client extends BaseController {
 		}
 		catch (Exception $e)
 		{
+			print($e);
 		}
 	}
 
