@@ -49,11 +49,7 @@
 					</td>
                     <td style="text-align:left;">
                         <span>
-                        <? if ($client->statistics->avatar) : ?>
-                                <img style="width:48px; height:48px;" src="<?=BASEURL.ltrim($client->statistics->avatar,"/");?>" />
-                            <? else : ?>
-                                <img style="width:48px; height:48px;" src="<?=BASEURL."static/images/avatar_big.png";?>" />
-                        <? endif; ?>
+                            <img style="width:48px; height:48px;" src="/main/avatar_big/<?= $client->client_user ?>" />
                         </span>
                         <span style="display: inline-block; position: relative; margin-top: 15px; margin-left: 7px;">
                         <a target="_blank" href="<?= empty($client->website) ? BASEURL.$client->statistics->login : $client->website ?>"><?=$client->statistics->fullname?></a> (<?=$client->statistics->login?>)

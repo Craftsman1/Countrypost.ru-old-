@@ -40,11 +40,7 @@
                         </td>
                         <td style="text-align:left;">
                             <span>
-                            <? if ($manager->statistics->avatar) : ?>
-                                <img style="width:48px; height:48px;" src="<?=BASEURL.ltrim($manager->statistics->avatar,"/");?>" />
-                            <? else : ?>
-                                <img style="width:48px; height:48px;" src="<?=BASEURL."static/images/avatar_big.png";?>" />
-                            <? endif; ?>
+                                <img style="width:48px; height:48px;" src="/main/avatar_big/<?= $manager->manager_user; ?>" />
                             </span>
                             <span style="display: inline-block; position: relative; margin-left: 7px;">
                                 <a href="<?=BASEURL.$manager->statistics->login;?>"><?= $manager->statistics->fullname ?></a>

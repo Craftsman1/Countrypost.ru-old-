@@ -1692,6 +1692,50 @@ Email: {$this->user->user_email}";
 		}
 	}
 
+
+	public function avatar($user_id)
+	{
+		header('Content-type: image/jpg');
+
+		if (is_file("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg"))
+		{
+    			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg");
+    		}
+		else
+		{
+    			readfile("{$_SERVER['DOCUMENT_ROOT']}/static/images/avatar.png");
+    		}
+	}
+
+	public function avatar_big($user_id)
+	{
+    		header('Content-type: image/jpg');
+
+    		if (is_file("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg"))
+        		{
+        			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg");
+        		}
+		else
+		{
+        			readfile("{$_SERVER['DOCUMENT_ROOT']}/static/images/avatar_big.png");
+        		}
+	}
+
+	public function avatar_medium($user_id)
+	{
+    		header('Content-type: image/jpg');
+
+    		if (is_file("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg"))
+        		{
+        			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg");
+        		}
+		else
+		{
+        			readfile("{$_SERVER['DOCUMENT_ROOT']}/static/images/avatar_big.png");
+        		}
+	}
+
+
 	private function showScreenshot($oid, $user_id)
 	{
 		header('Content-type: image/jpg');
