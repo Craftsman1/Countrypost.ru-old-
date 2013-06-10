@@ -29,6 +29,7 @@ class BidCommentModel extends BaseModel implements IModel{
     	$this->properties->message = '';
     	$this->properties->created = '';
     	$this->properties->status = '';
+        $this->properties->new = '';
     	
         parent::__construct();
     }
@@ -122,7 +123,7 @@ class BidCommentModel extends BaseModel implements IModel{
 	public function getCommentsByOrderId($order_id)
 	{
 		$id = intval($order_id);
-		
+
 		$result = $this->db->query("
 			SELECT `bid_comments`.*
 			FROM `bid_comments`
@@ -134,6 +135,18 @@ class BidCommentModel extends BaseModel implements IModel{
 
 		return (isset($result)) ? $result : FALSE;
 	}
+
+    public function getNewCommentsByOrderId($order_id)
+    {
+        $id = intval($order_id);
+        $result = $this->db->query("
+            SELECT comment_id
+            FROM bid_comments
+            WHERE new = 0 AND bid_id = $id
+        ")->result();
+
+        return (isset($result)) ? $result : FALSE;
+    }
 
 	public function getCommentsByBidId($bid_id)
 	{
@@ -150,5 +163,18 @@ class BidCommentModel extends BaseModel implements IModel{
 
 		return (isset($result)) ? $result : FALSE;
 	}
+
+    public function clearNewComments($bid_id)
+    {
+        $id = intval($bid_id);
+
+        $result = $this->db->query("
+            UPDATE `bid_comments`
+            SET new = 1
+            WHERE bid_id = '$id'")->result();
+
+        return (isset($result)) ? $result : FALSE;
+
+    }
 }
 ?>

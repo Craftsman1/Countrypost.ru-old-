@@ -6,12 +6,7 @@ class TaxModel extends BaseModel implements IModel
 	protected $properties	= null;
 	protected $table = 'taxes';
 	protected $PK = 'tax_id';
-	private $statuses = array(
-		'not_payed' => 'К выплате',
-		'payed' => 'Выплачено'
-	);
-
-
+	
 	/**
 	 * конструктор
 	 */
@@ -19,25 +14,22 @@ class TaxModel extends BaseModel implements IModel
     {
     	$this->properties						= new stdClass();
     	$this->properties->tax_id				='';
-
-		$this->properties->manager_id			='';
-		$this->properties->order_id				='';
-		$this->properties->status				='';
-		$this->properties->amount				='';
-		$this->properties->amount_usd			='';
-		$this->properties->usd_conversion_rate	='';
-		$this->properties->usd_conversion_date	='';
-		$this->properties->currency				='';
-
+    	$this->properties->country_id			='';
+    	$this->properties->package				='';
+    	$this->properties->package_disconnected	='';
+    	$this->properties->order				='';
+    	$this->properties->package_joint		='';
+    	$this->properties->package_declaration	='';
+    	$this->properties->package_insurance	='';
+    	$this->properties->min_order			='';
+    	$this->properties->max_package_insurance='';
+    	$this->properties->package_foto			='';
+    	$this->properties->package_foto_system	='';
+    	
         parent::__construct();
     }
-
-	public function getStatuses()
-	{
-		return $this->statuses;
-	}
-
-	/**
+    
+   /**
      * @see IModel
      * Инкапсуляция
      *
@@ -87,6 +79,15 @@ class TaxModel extends BaseModel implements IModel
 		return ((count($r==1) &&  $r) ? array_shift($r) : FALSE);
 	}
 		
+	public function getByCountryId($country_id)
+	{
+		$r = $this->select(array(
+			'country_id' => (int) $country_id,
+		));					
+		
+		return ((count($r==1) &&  $r) ? array_shift($r) : FALSE);
+	}
+		
 	public function saveTax($tax)
 	{
 		$props = $this->getPropertyList();
@@ -115,234 +116,16 @@ class TaxModel extends BaseModel implements IModel
 		
 		return $this->getInfo(array($new_id));
 	}
-
-	public function generateTax($order)
-	{
-		// 1. проверяем, не добавлена ли уже комиссия за данный заказ
-		$duplicated_taxes = $this->db->query("
-			SELECT 1
-			FROM
-				taxes
-			WHERE
-				manager_id = $order->order_manager AND
-				order_id = $order->order_id
-				status <> 'deleted'
-			LIMIT 1")->result();
-
-		if ( ! empty($duplicated_taxes))
-		{
-			return;
-		}
-
-		// 2. переносим комиссию на счет посредника
-		$ci = get_instance();
-		$ci->load->model('OrderModel', 'Orders');
-
-		$tax = new stdClass();
-		$tax->order_id = $order->order_id;
-		$tax->manager_id = $order->order_manager;
-		$tax->amount_usd = $order->countrypost_tax_usd;
-		$tax->usd_conversion_rate = $order->usd_conversion_rate;
-		$tax->amount = $order->countrypost_tax;
-
-		$tax->currency = $ci->Orders->getOrderCurrency($order->order_id);
-
-		$this->saveTax($tax);
-	}
-
-	public function getCountrypostBalance($manager_id)
+	
+	public function getTaxes()
 	{
 		$result = $this->db->query("
-			SELECT SUM(amount) AS 'balance', currency
-			FROM
-				taxes
-			WHERE
-				manager_id = $manager_id AND
-				status = 'not_payed'
-			GROUP BY
-				currency")->result();
+			SELECT `taxes`.*, `countries`.`country_id`, `countries`.`country_name`
+			FROM `taxes`
+				LEFT JOIN `countries` ON `taxes`.`country_id` = `countries`.`country_id`")
+		->result();
 
-		if (empty($result))
-		{
-			return FALSE;
-		}
-
-		return round($result[0]->balance, 2) . ' ' . $result[0]->currency;
-	}
-
-	public function getAdminBalance()
-	{
-		$result = $this->db->query("
-			SELECT SUM(amount_usd) AS 'balance'
-			FROM
-				taxes
-			WHERE
-				status = 'not_payed'")->result();
-
-		if (empty($result))
-		{
-			return FALSE;
-		}
-
-		return round($result[0]->balance, 2) . ' USD';
-	}
-
-	public function getFilteredTaxes($filter = array(), $from = NULL, $to = NULL, $extra_where = NULL)
-	{
-		$where = '1';
-
-		// обход полей фильтра
-		if (is_string($filter))
-		{
-			$where	= $filter;
-		}
-		else
-		{
-			foreach ($filter as $key => $val)
-			{
-				if ($key == 'like' AND
-					is_array($val))
-				{
-					foreach ($val as $key1 => $val1)
-					{
-						$where .= " AND $key1 LIKE '%$val1%'";
-					}
-				}
-				else
-				{
-					$where .= " AND $key = '$val'";
-				}
-			}
-		}
-
-		// фильтр дат
-		if ($from AND $to)
-		{
-			$from_date = new DateTime($from);
-			$from_date = $from_date->format('Y-m-d H:i:s');
-			$to_date = new DateTime($to);
-			$to_date->modify('+1 day');
-			$to_date = $to_date->format('Y-m-d H:i:s');
-
-			$where .= " AND `usd_conversion_date` BETWEEN '$from_date' AND '$to_date'";
-		}
-		else if ($from)
-		{
-			$from_date = new DateTime($from);
-			$from_date = $from_date->format('Y-m-d H:i:s');
-
-			$where .= " AND `usd_conversion_date` >= '$from_date'";
-		}
-		else if ($to)
-		{
-			$to_date = new DateTime($to);
-			$to_date->modify('+1 day');
-			$to_date = $to_date->format('Y-m-d H:i:s');
-
-			$where .= " AND `usd_conversion_date` < '$to_date'";
-		}
-
-		// дополнительные условия
-		if ( ! empty($extra_where))
-		{
-			$where .= $extra_where;
-		}
-
-		/*print_r("
-			SELECT
-				`{$this->table}`.*,
-				`users`.`user_login`
-			FROM `{$this->table}`
-				LEFT OUTER JOIN `users`
-					ON `users`.`user_id` = `{$this->table}`.`manager_id`
-			WHERE $where
-			ORDER BY `tax_id` DESC
-		");//die();
-*/
-		// погнали
-		return $this->db->query("
-			SELECT
-				`{$this->table}`.*,
-				dealers.`user_login` dealer_login,
-				clients.`user_login` client_login,
-				clients.`user_id` client_id,
-				order_type
-			FROM `{$this->table}`
-				LEFT OUTER JOIN `users` dealers
-					ON dealers.`user_id` = `{$this->table}`.`manager_id`
-				LEFT OUTER JOIN `orders`
-					ON `orders`.`order_id` = `{$this->table}`.`order_id`
-				LEFT OUTER JOIN `users` clients
-					ON clients.`user_id` = `orders`.`order_client`
-			WHERE $where
-			ORDER BY `tax_id` DESC
-		")->result();
-	}
-
-	public function getTotalLocal($view, $is_admin = TRUE)
-	{
-		if (empty($view['taxes']))
-		{
-			return FALSE;
-		}
-
-		if ($is_admin AND
-			(empty($view['filter']->sfield) OR
-				($view['filter']->sfield != 'manager_id' AND
-					$view['filter']->sfield != 'manager_login')))
-		{
-			return FALSE;
-		}
-
-		$total = 0;
-		$currency = '';
-
-		foreach ($view['taxes'] as $tax)
-		{
-			if ($tax->status == 'not_payed')
-			{
-				$total += $tax->amount;
-			}
-
-			if (empty($currency) AND
-				! empty($tax->currency))
-			{
-				$currency = $tax->currency;
-			}
-		}
-
-		$result['total_local'] = $total;
-		$result['total_currency'] = $currency;
-
-		return $result;
-	}
-
-	public function getTotalUSD($view, $is_admin = TRUE)
-	{
-		if (empty($view['taxes']))
-		{
-			return FALSE;
-		}
-
-		if ($is_admin AND
-			(empty($view['filter']->sfield) OR
-				($view['filter']->sfield != 'manager_id' AND
-					$view['filter']->sfield != 'manager_login')))
-		{
-			return FALSE;
-		}
-
-		$total = 0;
-
-		foreach ($view['taxes'] as $tax)
-		{
-			if ($tax->status == 'not_payed')
-			{
-				$total += $tax->amount_usd;
-			}
-		}
-
-		return $total;
-	}
+		return $result ? $result : FALSE;	
+	}	
 }
 ?>

@@ -8,11 +8,6 @@
 		<div class='center-block'>
 			<h3>ВАШ НОМЕР НА САЙТЕ: <?=$user->user_id;?></h3>
 			<br>
-			<? if (isset($_SESSION['countrypost_balance']) AND $_SESSION['countrypost_balance']) : ?>
-			<p>
-				<a href='<?= BASEURL . $this->user->user_group ?>/taxes'>Комиссия Countrypost: <?= $_SESSION['countrypost_balance'] ?></a>
-			</p>
-			<? endif; ?>
 			<p><a href='<?=BASEURL?>admin/history'>Статистика платежей</a></p>
 			<p><a href='<?=BASEURL?>admin/payments'>Заявки на оплату</a></p>
 			<p><a href="<?=BASEURL?>admin/showEditFAQ">Редактировать F.A.Q.</a></p>

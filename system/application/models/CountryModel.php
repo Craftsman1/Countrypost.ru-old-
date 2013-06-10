@@ -62,7 +62,7 @@ class CountryModel extends BaseModel implements IModel{
      */
 	public function getList()
 	{
-		$sql = $this->select();
+		$sql = $this->select(null,null,null,'country_name');
 		return ($sql)?($sql):(false);
 	}
 

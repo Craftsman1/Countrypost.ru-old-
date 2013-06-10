@@ -43,7 +43,7 @@ class Clients extends BaseController {
 			}
 			
 			$this->load->model('CountryModel', 'Country');
-			$Countries	= $this->Country->getList();
+			$Countries	= parent::Country_Order_Prio();
 			$countries = array();
 			$countries_en = array();
 			

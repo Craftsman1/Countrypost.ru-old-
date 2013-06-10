@@ -27,37 +27,48 @@
                 <col width='auto' />
                 <col width='auto' />
                 <tr>
-                    <th>Рейтинг / №</th>
-                    <th>Страна</th>	
+                    <th>Рейтинг</th>
                     <th>Посредник</th>
+                    <th>Страна</th>
                     <th>Отзывы</th>
-                    <th>Сайт</th>
                     <th>Выполненных&nbsp;заказов</th>
-                    <th>Профиль</th>
                 </tr>
                 <? if ($managers): foreach ($managers as $manager) : ?>
                     <tr>
                         <td>
                             <b style=""><?= $manager->rating ?></b>
-                            <br>
-                            <b style="color:#D7D7D7;">№ <?=$manager->manager_user?></b>
+                        </td>
+                        <td style="text-align:left;">
+                            <span>
+                                <img style="width:48px; height:48px;" src="/main/avatar_big/<?= $manager->manager_user; ?>" />
+                            </span>
+                            <span style="display: inline-block; position: relative; margin-left: 7px;">
+                                <a href="<?=BASEURL.$manager->statistics->login;?>"><?= $manager->statistics->fullname ?></a>
+                                (<?=$manager->user_login;?>)
+                                <? if ($manager->is_cashback OR $manager->is_mail_forwarding) : ?>
+                                    <? if ($manager->is_cashback) : ?>
+                                        <div>
+                                        <b class="cashback">100% CASHBACK</b>
+                                        </div>
+                                        <? endif; ?>
+                                        <? if ($manager->is_mail_forwarding) : ?>
+                                        <div>
+                                        <b class="mf">Принимает заказы MailForwarding</b>
+                                        </div>
+                                    <? endif; ?>
+                                <? endif; ?>
+                            </span>
                         </td>
                         <td>
-                            <img src="/static/images/flags/big/<?= $countries_en[$manager->manager_country] ?>.png" style="float:left;margin-right:10px;" />
-                            <!--b style="position:relative;top:17px;"><?=$countries[$manager->manager_country]?></b-->
-							<?= shortenCountryName($countries[$manager->manager_country], 'position:relative;top:17px;') ?>
-						</td>
-                        <td style="text-align:left;">
-                            <?= $manager->statistics->fullname ?>
-                            <? if ($manager->is_cashback OR $manager->is_mail_forwarding) : ?>
-							<br>
-							<? if ($manager->is_cashback) : ?>
-							<b class="cashback">100% CASHBACK</b>
-							<? endif; ?>
-							<? if ($manager->is_mail_forwarding) : ?>
-							<b class="mf">MF</b>
-							<? endif; ?>
-							<? endif; ?>
+                            <div style="text-align: left;">
+                            <img src="/static/images/flags/big/<?= $countries_en[$manager->manager_country] ?>.png" />
+                                <span style="display: inline-block; margin: 17px 0px 0px 5px;">
+                                <?= shortenCountryName($countries[$manager->manager_country], '') ?>
+                                <? if ($manager->city) : ?>
+                                    (<?=$manager->city;?>)
+                                <? endif; ?>
+                                </span>
+                            </div>
                         </td>
                         <td>
 							<? View::show('main/elements/ratings/reviews', array(
@@ -67,14 +78,8 @@
 							?>
                         </td>
                         <td>
-                            <a target="_blank" href="<?= empty($manager->website) ? BASEURL.$manager->statistics->login : $manager->website ?>"><?= empty($manager->website) ? BASEURL.$manager->statistics->login : $manager->website ?></a>
-                        </td>
-                        <td>
 							<?= $manager->statistics->completed_orders ?>
 						</td>
-                        <td>
-                            <a href='<?= BASEURL.$manager->statistics->login ?>'>посмотреть</a>
-                        </td>
                     </tr>
                     <? endforeach; ?>
                 	<? else : ?>

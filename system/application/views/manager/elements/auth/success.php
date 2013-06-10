@@ -19,25 +19,28 @@
 			</div>
 		</div>
 		<div class='right-block'>
-			<!--p>
-			</p-->
+			<?	$credit = $this->session->userdata('manager_credit');
+			$credit_date = $this->session->userdata('manager_credit_date');
+			if (FALSE && isset($credit) && $credit && isset($credit_date) && $credit_date) : ?>
+				<p>
+					<? $date = new DateTime($credit_date); echo $date->format('d.m.Y');?>
+					Кредит на
+				<span class='big-text'>
+					$<?= $credit ?>
+				</span>
+				</p>
+				<? endif; ?>
 		</div>
 		<div class='center-block'>
 			<h3>
 				ВАШ НОМЕР НА САЙТЕ: <?= $this->user->user_id ?>
 			</h3>
 			<br>
-			<? if (isset($_SESSION['countrypost_balance'])/* AND $_SESSION['countrypost_balance']*/) : ?>
 			<p>
-				<a href='<?= BASEURL . $this->user->user_group ?>/taxes'>Комиссия Countrypost: <?=
-					$_SESSION['countrypost_balance'] ? $_SESSION['countrypost_balance'] : 0 ?></a>
-			</p>
-			<? endif; ?>
-			<p>
-				<a href='<?= BASEURL . $this->user->user_group ?>/history'>Статистика платежей</a>
+				<a href='/<?= $this->user->user_group ?>/history'>Статистика платежей</a>
 			</p>
 			<p>
-				<a href='<?= BASEURL . $this->user->user_group ?>/payments'>Заявки на оплату заказов</a>
+				<a href='/<?= $this->user->user_group ?>/payments'>Заявки на оплату заказов</a>
 			</p>
 		</div>
 	</div>

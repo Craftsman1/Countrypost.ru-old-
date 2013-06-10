@@ -13,8 +13,6 @@ class Manager extends BaseController {
 			Func::redirect(BASEURL);
 		}
 
-		$_SESSION['countrypost_balance'] = $this->getCountrypostBalance();
-
 		Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
 		Breadcrumb::setCrumb(array('/manager/orders/' => 'Мои заказы'), 1, TRUE);
 	}
@@ -22,12 +20,6 @@ class Manager extends BaseController {
 	function index()
 	{
 		Func::redirect(BASEURL.$this->cname.'/orders');
-	}
-
-	private function getCountrypostBalance()
-	{
-		$this->load->model('TaxModel', 'Taxes');
-		return $this->Taxes->getCountrypostBalance($this->user->user_id);
 	}
 
 	public function updateOdetailStatuses()
@@ -269,6 +261,7 @@ class Manager extends BaseController {
 			// 8. комменты
 			$comment = new stdClass();
 			$comment->message = Check::txt('comment', 8096, 1);
+            $bid->new_comments = 0;
 
 			if ( ! empty($comment->message) AND
 				$comment->message != '<p></p>')
@@ -288,6 +281,7 @@ class Manager extends BaseController {
 				
 				$bid->comments = array();
 				$bid->comments[] = $new_comment;
+                $bid->new_comments = count($this->Comments->getNewCommentsByOrderId($bid->bid_id));
 			}
 
 			// 9. пересчитываем и сохраняем предложение и заказ
@@ -297,6 +291,20 @@ class Manager extends BaseController {
 			}
 
 			$this->Orders->saveOrder($order);
+
+            // уведомление на почту клиенту
+            $clientInfo = $this->Bids->getClientInfo($bid->client_id);
+
+            $email_data["client_name"] = $clientInfo->client_name;
+            $email_data["order_id"] = $bid->order_id;
+            $msg = $this->load->view("/mail/email_2", $email_data, true);
+
+            $this->load->library('email');
+            $this->email->from('info@countrypost.ru', 'Countrypost.ru');
+            $this->email->to($clientInfo->user_email);
+            $this->email->subject('Countrypost.ru');
+            $this->email->message($msg);
+            $this->email->send();
 
 			// 10. отрисовка предложения
 			$this->load->model('CountryModel', 'Countries');
@@ -412,12 +420,86 @@ class Manager extends BaseController {
 	{
 		parent::addPaymentComment($payment_id, $comment_id);
 	}
-
+	
 	public function saveProfilePhoto()
 	{
-		parent::saveProfilePhoto();
-	}
+		try
+		{
+			// находим пользователя
+			$this->load->model('UserModel', 'User');
+			$user = $this->User->getById($this->user->user_id);
 
+			// находим партнера
+			$this->load->model('ManagerModel', 'Manager');
+			$manager 		= $this->Manager->getById($this->user->user_id);
+			$userfile		= (isset($_FILES['userfile']) AND ! $_FILES['userfile']['error']);
+			
+			
+			$this->db->trans_begin();
+			
+			if ($userfile)
+			{ 
+				// загрузка файла
+
+				
+				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/avatars";
+				$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
+				$config['max_size']				= '3072';
+				$config['encrypt_name'] 		= TRUE;
+				$max_width						= 1024;
+				$max_height						= 768;
+				$this->load->library('upload', $config);
+
+				if ( ! $this->upload->do_upload())
+				{
+					throw new Exception(strip_tags(trim($this->upload->display_errors())));
+				}
+				
+				$uploadedImg = $this->upload->data();
+				if (!rename($uploadedImg['full_path'],$_SERVER['DOCUMENT_ROOT']."/upload/avatars/".$this->user->user_id.".jpg"))
+				{
+					throw new Exception("Bad file name!");
+				}
+				
+				$uploadedImg	= $_SERVER['DOCUMENT_ROOT']."/upload/avatars/".$this->user->user_id.".jpg";
+				$imageInfo		= getimagesize($uploadedImg);
+
+				if ($imageInfo[0]>$max_width OR $imageInfo[1]>$max_height)
+				{
+					$config['image_library']	= 'gd2';
+					$config['source_image']		= $uploadedImg;
+					$config['maintain_ratio']	= TRUE;
+					$config['width']			= $max_width;
+					$config['height']			= $max_height;
+					
+					$this->load->library('image_lib', $config); // загружаем библиотеку
+					$this->image_lib->resize(); // и вызываем функцию
+				}
+
+                $manager->avatar = "/upload/avatars/".$this->user->user_id.".jpg";
+			}
+			// наконец, все сохраняем
+			$manager = $this->Manager->updateManager($manager);
+
+            if (!$manager)
+			{ 
+				throw new Exception('Клиент не сохранен. Попробуйте еще раз.');
+			}
+			
+			// коммитим транзакцию
+			if ($this->db->trans_status() === FALSE) 
+			{ 
+				throw new Exception('Невозможно сохранить данные партнера. Попробуйте еще раз.');
+			} 
+			echo $manager->avatar.'?r='.rand(0,99999);		
+			$this->db->trans_commit();
+		}
+		catch (Exception $e) 
+		{
+			$this->db->trans_rollback();
+		}
+	}
+		
 	public function saveProfile()
 	{
 		try
@@ -1054,10 +1136,5 @@ class Manager extends BaseController {
 				}
 			}
 		}
-	}
-
-	public function taxes()
-	{
-		parent::showCountrypostTaxes();
 	}
 }
