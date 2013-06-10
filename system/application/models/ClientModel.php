@@ -48,7 +48,30 @@ class ClientModel extends BaseModel implements IModel{
     	$this->properties->skype			    ='';
         $this->properties->notifications_on	    ='';
         $this->properties->about_me     		='';
-
+        $this->properties->avatar     			='';
+    	
+    	/*$this->properties->client_user			='';
+    	$this->properties->client_name			='';
+    	$this->properties->client_otc			='';
+    	$this->properties->client_surname		='';
+    	$this->properties->client_country		='';
+    	$this->properties->client_address		='';
+    	$this->properties->client_index			='';
+    	$this->properties->client_town			='';
+    	$this->properties->client_phone_city	='';
+    	$this->properties->client_phone_country	='';
+    	$this->properties->client_phone_value	='';
+    	$this->properties->client_phone			='';
+    	$this->properties->website  			='';
+    	$this->properties->skype    			='';
+    	$this->properties->client_country		='';
+    	$this->properties->manager_login		='';
+    	$this->properties->manager_country		='';
+    	$this->properties->user_coints			='';
+    	$this->properties->package_count		='';*/
+    	$this->properties->order_count			='';
+    	/*$this->properties->notifications_on		='';*/
+    	
         parent::__construct();
     }
     
@@ -201,6 +224,7 @@ class ClientModel extends BaseModel implements IModel{
 			}
 		}
 	
+
 		// выборка
 		return $this->db->query('
 			SELECT `'.$this->table.'`.*, 
@@ -366,7 +390,7 @@ class ClientModel extends BaseModel implements IModel{
 	public function getStatistics($client_id)
 	{
 		$statistics = $this->getById($client_id);
-				
+
 		// login
 		$result = $this->db->query(
 			"SELECT 
@@ -382,7 +406,18 @@ class ClientModel extends BaseModel implements IModel{
 		)->result();
 		
 		$user = ($result) ? $result[0] : FALSE;
-		
+
+        // counters
+        $result = $this->db->query(
+            "SELECT count(order_id) order_count
+              FROM orders
+              WHERE order_client = {$client_id}
+            "
+        )->result();
+        $order_count = ($result) ? $result[0] : FALSE;
+        $statistics->order_count = 0;
+        $statistics->order_count = $order_count->order_count;
+
 		if ($user)
 		{
 			$statistics->login = $user->login;
@@ -398,7 +433,7 @@ class ClientModel extends BaseModel implements IModel{
 	
 	public function getClientsData($filters = null) 
 	{
-		$where = '';
+        $where = '';
 		
 		if (!empty($filters->country_from) OR
 			!empty($filters->client_id) OR

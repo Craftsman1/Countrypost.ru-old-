@@ -379,6 +379,8 @@ abstract class BaseController extends Controller
 
 				// комментарии
 				$bid->comments = $this->Comments->getCommentsByBidId($bid->bid_id);
+                // кол-во новых комментариев
+                $bid->new_comments = count($this->Comments->getNewCommentsByOrderId($bid->bid_id));
 
 				if (empty($bid->comments))
 				{
@@ -405,7 +407,8 @@ abstract class BaseController extends Controller
 			$view['client'] = $this->Clients->getClientById($view['order']->order_client);
 			if ($this->user->user_group == 'manager')	$view['user_data'] = $this->Managers->getById($this->user->user_id);
 			if ($this->user->user_group == 'client')	$view['user_data'] = $this->Clients->getClientById($this->user->user_id);
-
+		
+ 
 			$this->processStatistics($view['client'], $statistics, 'client_user', $view['client']->client_user, 'client');
 
 			// если клиент выбрал предложение, достаем для него данные посредника
@@ -806,86 +809,10 @@ abstract class BaseController extends Controller
 		}
 	}
 
-	protected function showCountrypostTaxes()
-	{
-		$this->load->model('TaxModel', 'Taxes');
-
-		if ($this->user->user_group == 'manager')
-		{
-			$view['filter'] = $this->initFilter('taxes');
-
-			$view['taxes'] = $this->Taxes->getFilteredTaxes(
-				$view['filter']->condition,
-				$view['filter']->from,
-				$view['filter']->to,
-				" AND (dealers.user_id = {$this->user->user_id})");
-
-			$view['total_usd'] = $this->Taxes->getTotalUSD($view, FALSE);
-
-			if ($totals = $this->Taxes->getTotalLocal($view, FALSE))
-			{
-				$view['total_local'] = $totals['total_local'];
-				$view['total_currency'] = $totals['total_currency'];
-			}
-		}
-		else if ($this->user->user_group == 'admin')
-		{
-			$view['filter'] = $this->initFilter('taxes');
-			$view['taxes'] = $this->Taxes->getFilteredTaxes(
-				$view['filter']->condition,
-				$view['filter']->from,
-				$view['filter']->to);
-
-			$view['total_usd'] = $this->Taxes->getTotalUSD($view, FALSE);
-
-			if ($totals = $this->Taxes->getTotalLocal($view, FALSE))
-			{
-				$view['total_local'] = $totals['total_local'];
-				$view['total_currency'] = $totals['total_currency'];
-			}
-		}
-
-		/* пейджинг */
-		$per_page = isset($this->session->userdata['taxes_per_page']) ? $this->session->userdata['taxes_per_page']
-			: $this->per_page;
-		$this->per_page = $per_page;
-		$view['per_page'] = $per_page;
-
-		$this->init_paging();
-		$this->paging_count = count($view['taxes']);
-
-		if (isset($view['taxes']) AND $view['taxes'])
-		{
-			$view['taxes'] = array_slice($view['taxes'], $this->paging_offset, $this->per_page);
-		}
-
-		$view['pager'] = $this->get_paging();
-
-		// собираем платежные системы
-		$view['statuses'] = $this->Taxes->getStatuses();
-		$view['user'] = $this->user;
-
-		// крошки
-		Breadcrumb::setCrumb(array(
-			"/{$this->user->user_group}/taxes"  =>
-			"Баланс Countrypost.ru"), 1,	TRUE);
-
-		// парсим шаблон
-		if ($this->uri->segment(4) == 'ajax')
-		{
-			$view['selfurl'] = BASEURL.$this->cname.'/';
-			$view['viewpath'] = $this->viewpath;
-			$this->load->view($this->viewpath."ajax/showCountrypostTaxes", $view);
-		}
-		else
-		{
-			View::showChild($this->viewpath.'pages/showCountrypostTaxes', $view);
-		}
-}
-
 	protected function showPublicOrder()
 	{
-		try
+
+        try
 		{
 			// безопасность
 			if ( ! is_numeric($this->uri->segment(3)))
@@ -927,15 +854,17 @@ abstract class BaseController extends Controller
 			$statistics = array();
 
 			// комментарии и статистика
-			if (empty($this->user->user_group) OR
+            if (empty($this->user->user_group) OR
 				$this->user->user_group == 'manager' OR
 				$this->user->user_group == 'client')
 			{
-				foreach ($view['bids'] as $bid)
+
+                foreach ($view['bids'] as $bid)
 				{
 					// статистика видна всем
 					$this->processStatistics($bid, $statistics, 'manager_id', $bid->manager_id, 'manager');
 
+                    $bid->new_comments = 0;
 					// а комменты только партнеру и клиенту
 					if (isset($this->user->user_group))
 					{
@@ -1456,6 +1385,38 @@ abstract class BaseController extends Controller
 				throw new Exception('Комментарий не добавлен. Попробуйте еще раз.');
 			}
 
+            if ($this->user->user_group == 'client')
+            {
+                // уведомление на почту посреднику
+                $managerInfo = $this->Bids->getManagerInfo($bid->manager_id);
+
+                $email_data["manager_name"] = $managerInfo->manager_name;
+                $email_data["order_id"] = $bid->order_id;
+                $msg = $this->load->view("/mail/email_4", $email_data, true);
+
+                $this->load->library('email');
+                $this->email->from('info@countrypost.ru', 'Countrypost.ru');
+                $this->email->to($managerInfo->user_email);
+                $this->email->subject('Countrypost.ru');
+                $this->email->message($msg);
+                $this->email->send();
+            }else if ($this->user->user_group == 'manager'){
+                // уведомление на почту клиенту
+                $clientInfo = $this->Bids->getClientInfo($bid->client_id);
+
+                $email_data["client_name"] = $clientInfo->client_name;
+                $email_data["order_id"] = $bid->order_id;
+                $msg = $this->load->view("/mail/email_3", $email_data, true);
+
+                $this->load->library('email');
+                $this->email->from('info@countrypost.ru', 'Countrypost.ru');
+                $this->email->to($clientInfo->user_email);
+                $this->email->subject('Countrypost.ru');
+                $this->email->message($msg);
+                $this->email->send();
+            }
+
+
 			$this->load->model('ClientModel', 'Clients');
 			$this->load->model('ManagerModel', 'Managers');
 			$this->load->model('CountryModel', 'Countries');
@@ -1610,6 +1571,8 @@ abstract class BaseController extends Controller
 			if (isset($_POST['client_country'])) $filter->client_country					= Check::int('client_country');
 			if (isset($_POST['search_id'])) $filter->search_id								= Check::txt('search_id', 11, 1, '');
 			if (isset($_POST['search_client'])) $filter->search_client						= Check::txt('search_client', 11, 1, '');
+			//if (isset($_POST['pricelist_delivery'])) $filter->pricelist_delivery			= Check::int('pricelist_delivery');
+			//if (isset($_POST['period'])) $filter->period									= Check::txt('period', 5,3, '');
 			if (isset($_POST['id_type'])) $filter->id_type									= Check::txt('id_type', 13, 5, '');
 			if (isset($_POST['id_status'])) $filter->id_status								= Check::txt('id_status', 20, 1, '');
 
@@ -1627,9 +1590,6 @@ abstract class BaseController extends Controller
 					break;
 				case ('allPayments') :
 					$filter = $this->processAllPaymentsFilter();
-					break;
-				case ('taxes') :
-					$filter = $this->processTaxesFilter();
 					break;
 				case ('UnassignedOrders') :
 					$filter = $this->processUnassignedOrdersFilter($filter);
@@ -1673,8 +1633,10 @@ abstract class BaseController extends Controller
 			$filter->search_client			= '';
 			$filter->id_type				= '';
 			$filter->id_status				= '';
-			//$filter->pricelist_country_from	= '';
-			//$filter->pricelist_country_to	= '';
+			$filter->pricelist_country_from	= '';
+			$filter->pricelist_country_to	= '';
+			//$filter->our_pricelist			= '';
+			//$filter->pricelist_delivery		= '';
 
 			// погнали
 			switch ($filterType)
@@ -1691,15 +1653,13 @@ abstract class BaseController extends Controller
 				case 'allPayments' :
 					$filter = $this->initAllPaymentsFilter($filter);
 					break;
-				case ($filterType == 'taxes') :
-					$filter = $this->initTaxesFilter($filter);
-					break;
 			}
 
 			// кладем фильтр в сессию
 			$_SESSION[$filterType.'Filter'] = $filter;
 		}
 
+		//print_r($_SESSION[$filterType.'Filter']);die();
 		return $_SESSION[$filterType.'Filter'];
 	}
 
@@ -1721,21 +1681,6 @@ abstract class BaseController extends Controller
 		return $filter;
 	}
 
-	protected function initTaxesFilter()
-	{
-		$filter = new stdClass();
-		$filter->tax_from = '';
-		$filter->condition = array();
-		$filter->sfield		= '';
-		$filter->sdate		= '';
-		$filter->svalue		= '';
-		$filter->status		= '';
-		$filter->from		= '';
-		$filter->to		= '';
-
-		return $filter;
-	}
-
 	protected function initAllPaymentsFilter()
 	{
 		$filter = new stdClass();
@@ -1748,9 +1693,9 @@ abstract class BaseController extends Controller
 		return $filter;
 	}
 
-	protected function processTaxesFilter()
+	protected function processPaymentHistoryFilter()
 	{
-		$filter = $this->initTaxesFilter();
+		$filter = $this->initPaymentHistoryFilter();
 
 		// сброс фильтра
 		if (isset($_POST['resetFilter']) AND $_POST['resetFilter'] == '1')
@@ -1759,7 +1704,7 @@ abstract class BaseController extends Controller
 		}
 
 		$filter->svalue		= Check::str('svalue', 255, 1, '');
-		$filter->sfield		= Check::str('sfield', 20, 1, '');
+		$filter->sfield		= Check::str('sfield', 20, 1, 'manager_id');
 		$filter->status		= Check::str('status', 20, 1, '');
 		$filter->from		= Check::str('from', 10, 10, '');
 		$filter->to			= Check::str('to', 10, 10, '');
@@ -1768,32 +1713,36 @@ abstract class BaseController extends Controller
 		{
 			switch ($filter->sfield)
 			{
+				case 'client_id' :
+					if (is_numeric($filter->svalue))
+					{
+						$filter->condition['like'] = array('payment_from' => $filter->svalue);
+					}
+					break;
 				case 'manager_id' :
 					if (is_numeric($filter->svalue))
 					{
-						$filter->condition['like'] = array('manager_id' => $filter->svalue);
+                        $filter->condition['like'] = array('payment_to' => $filter->svalue);
 					}
 					break;
 				case 'order_id' :
-					if (is_numeric($filter->svalue))
-					{
-						$filter->condition['like'] = array('order_id' => $filter->svalue);
-					}
+					$filter->condition['payment_type'] = 'order';
+					$filter->condition['like'] = array('payment_comment' => $filter->svalue);
+					break;
+				case 'client_login' :
+					$filter->condition['like'] = array('user_from.user_login' => $filter->svalue);
 					break;
 				case 'manager_login' :
-					$filter->condition['like'] = array('dealers.user_login' => $filter->svalue);
-					break;
-				case 'tax_id' :
 					if (is_numeric($filter->svalue))
 					{
-						$filter->condition['like'] = array('tax_id' => $filter->svalue);
+						$filter->condition['like'] = array('user_to.user_login' => $filter->svalue);
 					}
 					break;
-				case 'amount' :
-					if (is_numeric($filter->svalue))
-					{
-						$filter->condition["like"] = array('amount' => $filter->svalue);
-					}
+				case 'payment_id' :
+					$filter->condition['like'] = array('payment_id' => $filter->svalue);
+					break;
+				case 'payment_amount' :
+					$filter->condition["payment_amount_from"] = $filter->svalue;
 					break;
 			}
 		}
@@ -2866,18 +2815,6 @@ abstract class BaseController extends Controller
 		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
 
-    public function updateTaxesPerPage($per_page)
-	{
-		if (!is_numeric($per_page) OR
-			 ! $this->user)
-		{
-			throw new Exception('Доступ запрещен.');
-		}
-
-		$this->session->set_userdata(array('taxes_per_page' => $per_page));
-		Func::redirect($_SERVER['HTTP_REFERER']);
-	}
-
     protected function deleteProduct($odid)
     {
         try
@@ -2927,8 +2864,8 @@ abstract class BaseController extends Controller
                     $this->Joints->addOdetailJoint($joint);
                 }
             }
-
-			$deleted_odetail = $this->ODetails->addOdetail($odetail);
+			//print_r($joint);die();
+            $deleted_odetail = $this->ODetails->addOdetail($odetail);
 
             if ( ! $deleted_odetail)
             {
@@ -3424,25 +3361,18 @@ abstract class BaseController extends Controller
 
 	protected function uploadOrderScreenshot($odetail, $client_id)
 	{
-		$max_width	= 1024;
-		$max_height	= 768;
-		$filename	= $_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$client_id/{$odetail->odetail_id}.jpg";
+		// создаем новый каталог для картинок клиента
+		if ( ! is_dir($_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$client_id"))
+		{
+			mkdir($_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$client_id", 0777);
+		}
 
 		$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/orders/$client_id";
 		$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
 		$config['max_size']				= '3072';
 		$config['encrypt_name'] 		= TRUE;
-
-		$this->uploadImageGeneric($max_width, $max_height, $config, $filename);
-	}
-
-	private function uploadImageGeneric($max_width, $max_height, $config, $filename)
-	{
-			// создаем новый каталог для картинок клиента
-		if ( ! is_dir($config['upload_path']))
-		{
-			mkdir($config['upload_path'], 0777);
-		}
+		$max_width						= 1024;
+		$max_height						= 768;
 
 		$this->load->library('upload', $config);
 
@@ -3454,6 +3384,8 @@ abstract class BaseController extends Controller
 
 		$uploadedImg = $this->upload->data();
 
+		$filename = $_SERVER['DOCUMENT_ROOT'] . "/upload/orders/$client_id/{$odetail->odetail_id}.jpg";
+
 		// прибиваем старый файл
 		if (file_exists($filename))
 		{
@@ -3463,7 +3395,7 @@ abstract class BaseController extends Controller
 		// копируем новый из папки temp
 		if ( ! rename($uploadedImg['full_path'], $filename))
 		{
-			throw new Exception("Переименуйте файл и загрузите его еще раз.");
+			throw new Exception("Измените название файла и загрузите его еще раз.");
 		}
 
 		$imageInfo = getimagesize($filename);
@@ -4444,29 +4376,25 @@ abstract class BaseController extends Controller
 		}
 	}
 
-	protected function saveProfilePhoto()
-	{
-		try
-		{
-			if (isset($_FILES['userfile']) AND ! $_FILES['userfile']['error'])
-			{
-				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/avatars";
-				$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
-				$config['max_size']				= '3072';
-				$config['encrypt_name'] 		= TRUE;
-
-				$max_width	= 1024;
-				$max_height	= 768;
-				$filename	= "{$config['upload_path']}/{$this->user->user_id}.jpg";
-
-				$this->uploadImageGeneric($max_width, $max_height, $config, $filename);
-			}
-		}
-		catch (Exception $e)
-		{
-		}
-
-		echo "/main/avatar/{$this->user->user_id}";
-	}
+    protected function Country_Order_Prio()
+    {
+        // выводим на верх списка некоторые странны
+        $result_country_priory = array();
+        $result_country = $this->Country->getList();
+        $i = 0;
+        foreach($result_country as $row)
+        {
+            if ($row->country_id == 3 || $row->country_id == 7 || $row->country_id == 5)
+            {
+                $result_country_priory[$row->country_id] = $row;
+            }else{
+                $result_country[$i] = $row;
+            }
+            $i++;
+        }
+        list($result_country_priory[3],$result_country_priory[7],$result_country_priory[5]) = array($result_country_priory[7],$result_country_priory[5], $result_country_priory[3]);
+        $result_country = array_merge($result_country_priory,$result_country);
+        return $result_country;
+    }
 }
 ?>
