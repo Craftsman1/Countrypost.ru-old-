@@ -880,3 +880,76 @@ function showEditBidForm()
 
 	window.location = '#edit_bid';
 }
+
+
+// BOF: комментарии
+function addComment(id)
+{
+	$('#comments' + id)
+		.find('.add_comment,.expand_comments,.collapse_comments,.delete_bid')
+		.hide('slow');
+	$('#comments' + id)
+		.find('.save_comment,.cancel_comment,.add-comment')
+		.show('slow');
+}
+
+function cancelComment(id)
+{
+	$('#comments' + id).find('.add_comment,.delete_bid').show('slow');
+
+	if (true == eval('window.comment' + id + 'expanded'))
+	{
+		$('#comments' + id).find('.collapse_comments').show('slow');
+	}
+	else
+	{
+		$('#comments' + id).find('.expand_comments').show('slow');
+	}
+
+	$('#comments' + id).find('.save_comment,.cancel_comment,.add-comment').hide('slow');
+}
+
+function saveComment(id)
+{
+	$('#bidCommentForm' + id).submit();
+	$('#ratingCommentForm' + id).submit();
+}
+
+function expandComments(bid_id)
+{
+	var $comments = $('div#comments' + bid_id);
+
+	$comments
+		.find('tr.comment')
+		.show('slow');
+
+	$comments
+		.find('div.expand_comments')
+		.hide('slow');
+
+	$comments
+		.find('div.collapse_comments')
+		.show('slow');
+
+	eval('window.comment' + bid_id + 'expanded = true;');
+}
+
+function collapseComments(bid_id)
+{
+	var $comments = $('div#comments' + bid_id);
+
+	$comments
+		.find('tr.comment')
+		.hide('slow');
+
+	$comments
+		.find('div.expand_comments')
+		.show('slow');
+
+	$comments
+		.find('div.collapse_comments')
+		.hide('slow');
+
+	eval('window.comment' + bid_id + 'expanded = false;');
+}
+// EOF: комментарии

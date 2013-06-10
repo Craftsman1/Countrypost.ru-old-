@@ -152,9 +152,7 @@ class Profile extends BaseController {
 				
 			$view['manager_user'] = $manager->manager_user;
 			$view['manager'] = $manager;
-			//$view['manager']->currency_symbol = $this->Currencies->getCurrencyByCountry
-			//($view['manager']->manager_country)->currency_symbol;
-			
+
 			$this->load->model('CountryModel', 'Country');
 			$view['Countries'] = $this->Country->getList();
 
@@ -180,14 +178,30 @@ class Profile extends BaseController {
 			// отзывы
 			$statistics = array();
 			$this->load->model('ManagerRatingsModel', 'Ratings');
+			$this->load->model('RatingCommentModel', 'Comments');
 			$this->load->model('ClientModel', 'Clients');
 			$view['manager_ratings'] = $this->Ratings->getRatings($manager->manager_user);
 
+			// комментарии
 			if ($view['manager_ratings'])
 			{
 				foreach ($view['manager_ratings'] as $rating)
 				{
 					$this->processStatistics($rating, $statistics, 'client_id', 0, 'client');
+					$rating->comments = $this->Comments->getCommentsByRatingId($rating->rating_id);
+
+					// находим данные комментатора для каждого коммента
+					foreach ($rating->comments as $comment)
+					{
+						if ($comment->user_id == $rating->client_id)
+						{
+							$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'client');
+						}
+						else if ($comment->user_id == $rating->manager_id)
+						{
+							$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'manager');
+						}
+					}
 				}
 			}
 

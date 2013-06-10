@@ -125,7 +125,7 @@ class TaxModel extends BaseModel implements IModel
 				taxes
 			WHERE
 				manager_id = $order->order_manager AND
-				order_id = $order->order_id
+				order_id = $order->order_id AND
 				status <> 'deleted'
 			LIMIT 1")->result();
 

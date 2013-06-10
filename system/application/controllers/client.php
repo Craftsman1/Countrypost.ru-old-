@@ -1265,6 +1265,7 @@ class Client extends BaseController {
 			$rating->buy_rating = Check::float('buy_rating', -1);
 			$rating->consolidation_rating = Check::float('consolidation_rating', -1);
 			$rating->pack_rating = Check::float('pack_rating', -1);
+			$message = Check::str('rating_message', 65535);
 
 			// валидация пользовательского ввода
 			Check::reset_empties();
@@ -1321,6 +1322,18 @@ class Client extends BaseController {
 			if (empty($rating))
 			{
 				throw new Exception('Отзыв не сохранен. Попробуйте еще раз.');
+			}
+
+			if ( ! empty($message))
+			{
+				$rating_message = new stdClass();
+				$rating_message->user_id = $this->user->user_id;
+				$rating_message->rating_id = $rating->rating_id;
+				$rating_message->message = $message;
+				$rating_message->status = 'active';
+
+				$this->load->model('RatingCommentModel', 'Comments');
+				$this->Comments->addComment($rating_message);
 			}
 		}
 		catch (Exception $e)
