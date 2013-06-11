@@ -683,7 +683,8 @@ function refreshEditTotals()
 
 function recalculateBid(bid_id)
 {
-	order_total_cost =
+    if ( typeof(countrypost_tax) == 'undefined') countrypost_tax = 0;
+    order_total_cost =
 		order_products_cost +
 		countrypost_tax +
 		manager_tax +

@@ -456,7 +456,12 @@ class Manager extends BaseController {
 				}
 				
 				$uploadedImg = $this->upload->data();
-				if (!rename($uploadedImg['full_path'],$_SERVER['DOCUMENT_ROOT']."/upload/avatars/".$this->user->user_id.".jpg"))
+                if (file_exists($_SERVER['DOCUMENT_ROOT']."/upload/avatars/".$this->user->user_id.".jpg"))
+                {
+                    unlink($_SERVER['DOCUMENT_ROOT']."/upload/avatars/".$this->user->user_id.".jpg");
+                }
+
+                if (!rename($uploadedImg['full_path'],$_SERVER['DOCUMENT_ROOT']."/upload/avatars/".$this->user->user_id.".jpg"))
 				{
 					throw new Exception("Bad file name!");
 				}
@@ -476,7 +481,6 @@ class Manager extends BaseController {
 					$this->image_lib->resize(); // и вызываем функцию
 				}
 
-                $manager->avatar = "/upload/avatars/".$this->user->user_id.".jpg";
 			}
 			// наконец, все сохраняем
 			$manager = $this->Manager->updateManager($manager);
@@ -491,7 +495,7 @@ class Manager extends BaseController {
 			{ 
 				throw new Exception('Невозможно сохранить данные партнера. Попробуйте еще раз.');
 			} 
-			echo $manager->avatar.'?r='.rand(0,99999);		
+			echo "/main/avatar_big/".$this->user->user_id.'/'.rand(0,99999);
 			$this->db->trans_commit();
 		}
 		catch (Exception $e) 

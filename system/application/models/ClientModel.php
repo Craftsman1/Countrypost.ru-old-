@@ -52,8 +52,8 @@ class ClientModel extends BaseModel implements IModel{
     	
     	/*$this->properties->client_user			='';
     	$this->properties->client_name			='';
-    	$this->properties->client_otc			='';
-    	$this->properties->client_surname		='';
+    	$this->properties->client_otc			='';*/
+    	/*$this->properties->client_surname		='';/*
     	$this->properties->client_country		='';
     	$this->properties->client_address		='';
     	$this->properties->client_index			='';
@@ -368,9 +368,14 @@ class ClientModel extends BaseModel implements IModel{
 	{
 		$fullname = '';
 
-		if ( ! empty($statistics))
+        if ( ! empty($statistics))
 		{
-			$fullname = trim($statistics->client_surname . ' ' . 
+            if ( !isset($statistics->client_surname) ) $statistics->client_surname = '';
+            if ( !isset($statistics->client_name) ) $statistics->client_name = '';
+            if ( !isset($statistics->client_otc) ) $statistics->client_otc = '';
+            if ( !isset($statistics->client_user) ) $statistics->client_user = '';
+
+			$fullname = trim($statistics->client_surname . ' ' .
 			$statistics->client_name . ' ' . 
 			$statistics->client_otc);
 
@@ -380,7 +385,8 @@ class ClientModel extends BaseModel implements IModel{
 				$ci->load->model('UserModel', 'Users');
 		
 				$user = $ci->Users->getById($statistics->client_user);
-				$fullname = $user->user_login;
+                if ( !isset($user->user_login) ) $user->user_login = '';
+                $fullname = $user->user_login;
 			}
 		}
 		

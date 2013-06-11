@@ -325,7 +325,8 @@ abstract class BaseController extends Controller
 	
 	protected function showOrderDetails()
 	{
-		try
+        $view = array();
+        try
 		{
 			// безопасность
 			if ( ! is_numeric($this->uri->segment(3)))
