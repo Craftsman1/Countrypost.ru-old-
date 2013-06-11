@@ -5,7 +5,7 @@
 	<div class='angle angle-rb'></div>
 	<div class="dealer_profile_left">
 		<form action="/manager/saveProfilePhoto" enctype='multipart/form-data'  id="profilePhotoForm" method="POST">
-			<img src="<? if(!$manager->avatar){echo IMG_PATH ?>avatar_big.png<?}else echo $manager->avatar?>" id="img_place" width="200px" height="200px">
+			<img src="/main/avatar_big/<?= $manager->manager_user; ?>" id="img_place" width="200px" height="200px">
 			<br>
 			<br>
 			<input class="textbox screenshot_uploader_box" type='file' id='pr_file' name="userfile" style='display:none;width:180px;'>
