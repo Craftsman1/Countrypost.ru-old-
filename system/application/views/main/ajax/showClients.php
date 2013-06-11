@@ -49,7 +49,7 @@
 					</td>
                     <td style="text-align:left;">
                         <span>
-                            <img style="width:48px; height:48px;" src="/main/avatar_big/<?= $client->client_user ?>" />
+                            <a target="_blank" href="<?= empty($client->website) ? BASEURL.$client->statistics->login : $client->website ?>"><img style="width:48px; height:48px;" src="/main/avatar_big/<?= $client->client_user ?>" /></a>
                         </span>
                         <span style="display: inline-block; position: relative; margin-top: 15px; margin-left: 7px;">
                         <a target="_blank" href="<?= empty($client->website) ? BASEURL.$client->statistics->login : $client->website ?>"><?=$client->statistics->fullname?></a> (<?=$client->statistics->login?>)

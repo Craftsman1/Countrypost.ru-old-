@@ -1,5 +1,5 @@
 <div class='clientinfo admin-inside'>
-	<img src="<? if(!$client->avatar){echo IMG_PATH ?>avatar_big.png<?}else echo $client->avatar?>" width="90px" height="90px">
+	<img src="/main/avatar_big/<?= $client->client_user ?>" width="90px" height="90px">
 	<h2 style='margin-bottom: 10px;text-transform: none;'><?= $client->statistics->fullname ?> (<?= $client->statistics->login ?>)</h2>
     <br/>
 	<ul class='tabs'>
