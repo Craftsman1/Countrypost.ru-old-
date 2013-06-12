@@ -49,16 +49,14 @@ class Main extends BaseController {
 			{
 				$view['orders'] = array_slice($view['orders'], $this->paging_offset, $this->per_page);
 			}
-
+			
 			// Принудительно проставляем ссылку для паджинатора 
 			$this->paging_base_url = "/main/showUnassignedOrders";
 			$view['pager'] = $this->get_paging();
 			
 			// страны для фильтра
 			$this->load->model('CountryModel', 'Country');
-
-            $view['countries'] = parent::Country_Order_Prio();
-
+			$view['countries'] = $this->Country->getList();
 			
 			if (empty($view['countries']))
 			{
@@ -74,8 +72,8 @@ class Main extends BaseController {
 			
 			Stack::push('result', $this->result);
 		}
-
-        View::showChild($this->viewpath.'/pages/main', array(
+		
+		View::showChild($this->viewpath.'/pages/main', array(
 			'orders' => $view['orders'],
 			'filter' => $view['filter'],
 			'orders_count' => $view['orders_count'],
@@ -1000,8 +998,6 @@ Email: {$this->user->user_email}";
 			else
 			{
 				$view['order'] = $this->initEmptyOrder($order_type);
-				//print_r($view['order']);die();
-								//$view['order']->order_currency = '';
 			}
 
 			$view['order_currency'] = $view['order']->order_currency;
@@ -1138,8 +1134,7 @@ Email: {$this->user->user_email}";
 	
 	public function order($order_id)
 	{
-
-        $order = $this->getPrivilegedOrder($order_id, FALSE);
+		$order = $this->getPrivilegedOrder($order_id, FALSE);
 
 		// залогиненных отправляем в личный кабинет
 		if ($order AND
@@ -1692,6 +1687,11 @@ Email: {$this->user->user_email}";
 		}
 	}
 
+	private function showScreenshot($oid, $user_id)
+	{
+		header('Content-type: image/jpg');
+		readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/$user_id/$oid.jpg");
+	}
 
 	public function avatar($user_id)
 	{
@@ -1699,47 +1699,40 @@ Email: {$this->user->user_email}";
 
 		if (is_file("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg"))
 		{
-    			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg");
-    		}
+			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg");
+		}
 		else
 		{
-    			readfile("{$_SERVER['DOCUMENT_ROOT']}/static/images/avatar.png");
-    		}
+			readfile("{$_SERVER['DOCUMENT_ROOT']}/static/images/avatar.png");
+		}
 	}
 
 	public function avatar_big($user_id)
 	{
-    		header('Content-type: image/jpg');
+		header('Content-type: image/jpg');
 
-    		if (is_file("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg"))
-        		{
-        			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg");
-        		}
+		if (is_file("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg"))
+		{
+			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg");
+		}
 		else
 		{
-        			readfile("{$_SERVER['DOCUMENT_ROOT']}/static/images/avatar_big.png");
-        		}
+			readfile("{$_SERVER['DOCUMENT_ROOT']}/static/images/avatar_big.png");
+		}
 	}
 
 	public function avatar_medium($user_id)
 	{
-    		header('Content-type: image/jpg');
+		header('Content-type: image/jpg');
 
-    		if (is_file("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg"))
-        		{
-        			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg");
-        		}
+		if (is_file("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg"))
+		{
+			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/avatars/$user_id.jpg");
+		}
 		else
 		{
-        			readfile("{$_SERVER['DOCUMENT_ROOT']}/static/images/avatar_big.png");
-        		}
-	}
-
-
-	private function showScreenshot($oid, $user_id)
-	{
-		header('Content-type: image/jpg');
-		readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/$user_id/$oid.jpg");
+			readfile("{$_SERVER['DOCUMENT_ROOT']}/static/images/avatar_big.png");
+		}
 	}
 
 	public function update_odetail_weight($order_id, $odetail_id, $weight)

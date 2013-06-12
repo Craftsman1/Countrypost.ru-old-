@@ -2,7 +2,7 @@
 	<? if (isset($filter)) View::show('main/elements/orders/filter'); ?>
 	<form class='autorization smallAuthForm'
 		  method="POST"
-		  action='<?= BASEURL ?>user/loginMain'>
+		  action='<?= BASEURL ?>user/loginAjaxMain'>
 		<h2>Вход</h2>
 		<img class="float login_progress"
 			 style="display: none;left: 88px;top: 10px;position: absolute;"
@@ -34,7 +34,6 @@
 	</form>
 	<? View::show('main/elements/div_social'); ?>
 </div>
-<!--
 <script type="text/javascript">
 	$(function() {
 		$('form.smallAuthForm').ajaxForm({
@@ -51,7 +50,7 @@
 				if (response)
 				{
 					success('top', 'Вы успешно вошли в Countrypost.ru.');
-                    $('form.smallAuthForm').replaceWith(response);
+					$('form.smallAuthForm').replaceWith(response);
 				}
 				else
 				{
@@ -66,4 +65,3 @@
 		});
 	});
 </script>
-!-->

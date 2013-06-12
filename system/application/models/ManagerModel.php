@@ -78,7 +78,11 @@ class ManagerModel extends BaseModel implements IModel{
 		$this->properties->cashback_limit	='';
 		$this->properties->is_mail_forwarding ='';
 		$this->properties->is_internal_payments ='';
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> parent of 6c2ba62... Задачи: 16+37+35+33+30+31
 		parent::__construct();
     }
     
@@ -180,7 +184,6 @@ class ManagerModel extends BaseModel implements IModel{
 				INNER JOIN `countries` ON `countries`.`country_id` = `'.$this->table.'`.`manager_country`				
 			WHERE `users`.`user_deleted` = 0 '.$where.'
 			GROUP BY `'.$this->table.'`.`manager_user`
-			ORDER BY rating DESC
 		')->result();
 	}
 	

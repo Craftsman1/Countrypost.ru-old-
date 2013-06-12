@@ -48,6 +48,7 @@ class ClientModel extends BaseModel implements IModel{
     	$this->properties->skype			    ='';
         $this->properties->notifications_on	    ='';
         $this->properties->about_me     		='';
+<<<<<<< HEAD
         $this->properties->avatar     			='';
     	
     	/*$this->properties->client_user			='';
@@ -72,6 +73,9 @@ class ClientModel extends BaseModel implements IModel{
     	$this->properties->order_count			='';
     	/*$this->properties->notifications_on		='';*/
     	
+=======
+
+>>>>>>> parent of 6c2ba62... Задачи: 16+37+35+33+30+31
         parent::__construct();
     }
     
@@ -224,7 +228,6 @@ class ClientModel extends BaseModel implements IModel{
 			}
 		}
 	
-
 		// выборка
 		return $this->db->query('
 			SELECT `'.$this->table.'`.*, 
@@ -396,7 +399,7 @@ class ClientModel extends BaseModel implements IModel{
 	public function getStatistics($client_id)
 	{
 		$statistics = $this->getById($client_id);
-
+				
 		// login
 		$result = $this->db->query(
 			"SELECT 
@@ -412,18 +415,7 @@ class ClientModel extends BaseModel implements IModel{
 		)->result();
 		
 		$user = ($result) ? $result[0] : FALSE;
-
-        // counters
-        $result = $this->db->query(
-            "SELECT count(order_id) order_count
-              FROM orders
-              WHERE order_client = {$client_id}
-            "
-        )->result();
-        $order_count = ($result) ? $result[0] : FALSE;
-        $statistics->order_count = 0;
-        $statistics->order_count = $order_count->order_count;
-
+		
 		if ($user)
 		{
 			$statistics->login = $user->login;
@@ -439,7 +431,7 @@ class ClientModel extends BaseModel implements IModel{
 	
 	public function getClientsData($filters = null) 
 	{
-        $where = '';
+		$where = '';
 		
 		if (!empty($filters->country_from) OR
 			!empty($filters->client_id) OR

@@ -43,8 +43,8 @@ class Dealers extends BaseController {
 			}
 			
 			$this->load->model('CountryModel', 'Country');
-            $Countries = parent::Country_Order_Prio();
-            $countries = array();
+			$Countries	= $this->Country->getList();
+			$countries = array();
 			$countries_en = array();
 			
 			foreach ($Countries as $Country)

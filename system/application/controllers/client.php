@@ -679,8 +679,8 @@ class Client extends BaseController {
 
 			$view['partner_id']	= $partner_id;
 		}
-
-        View::showChild($this->viewpath.'/pages/showAddresses', $view);
+		
+		View::showChild($this->viewpath.'/pages/showAddresses', $view);
 	}
 	
 	public function showAddImage()
@@ -983,7 +983,7 @@ class Client extends BaseController {
 	{
 		try 
 		{
-			// предложение
+			// 1. находим предложение
 			if ( ! is_numeric($bid_id))
 			{				
 				throw new Exception('Доступ запрещен.');
@@ -999,18 +999,18 @@ class Client extends BaseController {
 
 			$order_id = $bid->order_id;
 
-			// заказ
+			// 2. меняем заказ
 			$order = $this->getPrivilegedOrder(
 				$order_id,
 				'Заказ недоступен.');
 
-			//
+			// 3. валидация
 			if ( ! empty($order->order_manager))
 			{
 				throw new Exception('Извините, уже выбран другой исполнитель.');
 			}
 
-			// позволяет ли текущий статус редактирование
+			// 4. позволяет ли текущий статус редактирование
 			$view['editable_statuses'] = $this->Orders->getEditableStatuses($this->user->user_group);
 
 			if ( ! in_array($order->order_status, $view['editable_statuses']))
@@ -1018,7 +1018,7 @@ class Client extends BaseController {
 				throw new Exception('Доступ запрещен.');
 			}
 
-			// пересчитываем заказ
+			// 5. пересчитываем заказ
 			$order->order_manager = $bid->manager_id;
 			$order->order_status = 'processing';
 
@@ -1027,27 +1027,10 @@ class Client extends BaseController {
 				throw new Exception('Предложение не выбрано. Ошибка расчета стоимости заказа.');
 			}
 
-			// сохраняем заказ
-			if ( ! $this->Orders->saveOrder($order))
-			{
-				throw new Exception('Предложение не выбрано. Обновите страницу и попробуйте еще раз.');
-			}
+			// 6. сохраняем заказ
+			$this->Orders->saveOrder($order);
 
-            // уведомление на почту
-            $managerInfo = $this->Bids->getManagerInfo($bid->manager_id);
-
-            $email_data["manager_name"] = $managerInfo->manager_name;
-            $email_data["order_id"] = $order_id;
-            $msg = $this->load->view("/mail/email_1", $email_data, true);
-
-            $this->load->library('email');
-            $this->email->from('info@countrypost.ru', 'Countrypost.ru');
-            $this->email->to($managerInfo->user_email);
-            $this->email->subject('Countrypost.ru');
-            $this->email->message($msg);
-            $this->email->send();
-
-			// показываем новую форму заказа
+			// 8. показываем новую форму заказа
 			$this->load->model('ClientModel', 'Clients');
 			$this->load->model('AddressModel', 'Addresses');
 			$this->load->model('ManagerModel', 'Managers');
@@ -1066,7 +1049,7 @@ class Client extends BaseController {
 		}
 		catch (Exception $e)
 		{
-			//echo $e->getMessage();
+			print($e);
 		}
 	}
 
@@ -1134,81 +1117,7 @@ class Client extends BaseController {
 
 	public function saveProfilePhoto()
 	{
-		try
-		{
-			// находим пользователя
-			$this->load->model('UserModel', 'User');
-			$user = $this->User->getById($this->user->user_id);
-
-			// находим партнера
-			$this->load->model('ClientModel', 'Client');
-			$client = $this->Client->getById($this->user->user_id);
-			$userfile						= (isset($_FILES['userfile']) AND ! $_FILES['userfile']['error']);
-			
-			
-			$this->db->trans_begin();
-			
-			if ($userfile)
-			{ 
-				// загрузка файла
-
-				
-				$config['upload_path']			= $_SERVER['DOCUMENT_ROOT']."/upload/avatars";
-				$config['allowed_types']		= 'gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG';
-				$config['max_size']				= '3072';
-				$config['encrypt_name'] 		= TRUE;
-				$max_width						= 1024;
-				$max_height						= 768;
-				$this->load->library('upload', $config);
-
-				if ( ! $this->upload->do_upload())
-				{
-					throw new Exception(strip_tags(trim($this->upload->display_errors())));
-				}
-				
-				$uploadedImg = $this->upload->data();
-				if (!rename($uploadedImg['full_path'],$_SERVER['DOCUMENT_ROOT']."/upload/avatars/".$this->user->user_id.".jpg"))
-				{
-					throw new Exception("Bad file name!");
-				}
-				
-				$uploadedImg	= $_SERVER['DOCUMENT_ROOT']."/upload/avatars/".$this->user->user_id.".jpg";
-				$imageInfo		= getimagesize($uploadedImg);
-
-				if ($imageInfo[0]>$max_width OR $imageInfo[1]>$max_height)
-				{
-					$config['image_library']	= 'gd2';
-					$config['source_image']		= $uploadedImg;
-					$config['maintain_ratio']	= TRUE;
-					$config['width']			= $max_width;
-					$config['height']			= $max_height;
-					
-					$this->load->library('image_lib', $config); // загружаем библиотеку
-					$this->image_lib->resize(); // и вызываем функцию
-				}
-
-                $client->avatar = "/upload/avatars/".$this->user->user_id.".jpg";
-			}
-			// наконец, все сохраняем
-			$client = $this->Client->updateClient($client);
-
-            if (!$client)
-			{ 
-				throw new Exception('Клиент не сохранен. Попробуйте еще раз.');
-			}
-			
-			// коммитим транзакцию
-			if ($this->db->trans_status() === FALSE) 
-			{ 
-				throw new Exception('Невозможно сохранить данные партнера. Попробуйте еще раз.');
-			} 
-			echo $client->avatar.'?r='.rand(0,99999);		
-			$this->db->trans_commit();
-		}
-		catch (Exception $e) 
-		{
-			$this->db->trans_rollback();
-		}
+		parent::saveProfilePhoto();
 	}
 		
 	public function saveProfile()
@@ -1663,19 +1572,6 @@ class Client extends BaseController {
 	{
 		parent::showOrderDetails();
 	}
-
-    public function clearNewComments($bid_id)
-    {
-        // безопасность
-        if ( ! is_numeric($this->uri->segment(3)))
-        {
-            throw new Exception('Доступ запрещен.');
-        }
-
-        $this->load->model('BidCommentModel', 'Comments');
-        $this->Comments->clearNewComments($bid_id);
-
-    }
 
 	public function update_odetail_weight($order_id, $odetail_id, $weight)
 	{

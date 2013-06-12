@@ -13,6 +13,8 @@ class Manager extends BaseController {
 			Func::redirect(BASEURL);
 		}
 
+		$_SESSION['countrypost_balance'] = $this->getCountrypostBalance();
+
 		Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
 		Breadcrumb::setCrumb(array('/manager/orders/' => 'Мои заказы'), 1, TRUE);
 	}
@@ -20,6 +22,12 @@ class Manager extends BaseController {
 	function index()
 	{
 		Func::redirect(BASEURL.$this->cname.'/orders');
+	}
+
+	private function getCountrypostBalance()
+	{
+		$this->load->model('TaxModel', 'Taxes');
+		return $this->Taxes->getCountrypostBalance($this->user->user_id);
 	}
 
 	public function updateOdetailStatuses()
@@ -261,7 +269,6 @@ class Manager extends BaseController {
 			// 8. комменты
 			$comment = new stdClass();
 			$comment->message = Check::txt('comment', 8096, 1);
-            $bid->new_comments = 0;
 
 			if ( ! empty($comment->message) AND
 				$comment->message != '<p></p>')
@@ -281,7 +288,6 @@ class Manager extends BaseController {
 				
 				$bid->comments = array();
 				$bid->comments[] = $new_comment;
-                $bid->new_comments = count($this->Comments->getNewCommentsByOrderId($bid->bid_id));
 			}
 
 			// 9. пересчитываем и сохраняем предложение и заказ
@@ -291,20 +297,6 @@ class Manager extends BaseController {
 			}
 
 			$this->Orders->saveOrder($order);
-
-            // уведомление на почту клиенту
-            $clientInfo = $this->Bids->getClientInfo($bid->client_id);
-
-            $email_data["client_name"] = $clientInfo->client_name;
-            $email_data["order_id"] = $bid->order_id;
-            $msg = $this->load->view("/mail/email_2", $email_data, true);
-
-            $this->load->library('email');
-            $this->email->from('info@countrypost.ru', 'Countrypost.ru');
-            $this->email->to($clientInfo->user_email);
-            $this->email->subject('Countrypost.ru');
-            $this->email->message($msg);
-            $this->email->send();
 
 			// 10. отрисовка предложения
 			$this->load->model('CountryModel', 'Countries');
@@ -420,9 +412,10 @@ class Manager extends BaseController {
 	{
 		parent::addPaymentComment($payment_id, $comment_id);
 	}
-	
+
 	public function saveProfilePhoto()
 	{
+<<<<<<< HEAD
 		try
 		{
 			// находим пользователя
@@ -502,8 +495,11 @@ class Manager extends BaseController {
 		{
 			$this->db->trans_rollback();
 		}
+=======
+		parent::saveProfilePhoto();
+>>>>>>> parent of 6c2ba62... Задачи: 16+37+35+33+30+31
 	}
-		
+
 	public function saveProfile()
 	{
 		try
@@ -1140,5 +1136,10 @@ class Manager extends BaseController {
 				}
 			}
 		}
+	}
+
+	public function taxes()
+	{
+		parent::showCountrypostTaxes();
 	}
 }

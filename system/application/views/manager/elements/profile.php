@@ -5,7 +5,11 @@
 	<div class='angle angle-rb'></div>
 	<div class="dealer_profile_left">
 		<form action="/manager/saveProfilePhoto" enctype='multipart/form-data'  id="profilePhotoForm" method="POST">
+<<<<<<< HEAD
 			<img src="/main/avatar_big/<?= $manager->manager_user; ?>" id="img_place" width="200px" height="200px">
+=======
+			<img src="/main/avatar_big/<?= $this->user->user_id ?>" id="img_place" width="200px" height="200px">
+>>>>>>> parent of 6c2ba62... Задачи: 16+37+35+33+30+31
 			<br>
 			<br>
 			<input class="textbox screenshot_uploader_box" type='file' id='pr_file' name="userfile" style='display:none;width:180px;'>

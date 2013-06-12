@@ -125,7 +125,11 @@ class TaxModel extends BaseModel implements IModel
 				taxes
 			WHERE
 				manager_id = $order->order_manager AND
+<<<<<<< HEAD
 				order_id = $order->order_id AND
+=======
+				order_id = $order->order_id
+>>>>>>> parent of 6c2ba62... Задачи: 16+37+35+33+30+31
 				status <> 'deleted'
 			LIMIT 1")->result();
 

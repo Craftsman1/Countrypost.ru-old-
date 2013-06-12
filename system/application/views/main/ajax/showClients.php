@@ -29,10 +29,12 @@
                 <col width='auto' />
                 <tr>
                     <th>№</th>
+                    <th>Страна</th>	
                     <th>Клиент</th>
-                    <th>Страна</th>
                     <th>Отзывы</th>
                     <th>Всего&nbsp;заказов</th>
+                    <th>Всего&nbsp;посылок</th>
+                    <th>&nbsp;</th>
                 </tr>
                 <style>
                     #partnersForm td,#partnersForm th
@@ -45,8 +47,9 @@
                 <? if ($clients): foreach ($clients as $client):?>
 				<tr>
 					<td>
-						<b style="color:#D7D7D7;"><?=$client->client_user?></b>
+						<b style="color:#D7D7D7;">№ <?=$client->client_user?></b>
 					</td>
+<<<<<<< HEAD
                     <td style="text-align:left;">
                         <span>
                             <a target="_blank" href="<?= empty($client->website) ? BASEURL.$client->statistics->login : $client->website ?>"><img style="width:48px; height:48px;" src="/main/avatar_big/<?= $client->client_user ?>" /></a>
@@ -63,17 +66,28 @@
                             (<?=$client->client_town;?>)
                         <? endif; ?>
                         </span>
+=======
+					<td>
+						<img src="/static/images/flags/big/<?= $countries_en[$client->client_country] ?>.png" style="float:left;margin-right:10px;" />
+						<!--b style="position:relative;top:17px;"><?=$countries[$client->client_country]?></b-->
+						<?= shortenCountryName($countries[$client->client_country], 'position:relative;top:17px;') ?>
+					</td>
+					<td style="text-align:left;">
+						<a target="_blank" href="<?= empty($client->website) ? BASEURL.$client->statistics->login : $client->website ?>"><?=$client->statistics->fullname?> (<?=$client->statistics->login?>)</a>
+>>>>>>> parent of 6c2ba62... Задачи: 16+37+35+33+30+31
 					</td>
 					<td>
-						<div style="margin-left: 35px;">
-                        <? View::show('main/elements/clients/reviews', array(
+						<? View::show('main/elements/clients/reviews', array(
 							'positive' =>  $client->statistics->positive_reviews,
 							'neutral' =>  $client->statistics->neutral_reviews,
 							'negative' =>  $client->statistics->negative_reviews
 						)); ?>
-                        </div>
 					</td>
-					<td><?=$client->statistics->order_count;?></td>
+					<td>123</td>
+					<td>456</td>
+					<td>
+						<a href='<?= BASEURL.$client->statistics->login ?>'>подробнее</a>
+					</td>
 				</tr>
 				<?endforeach;?>
                 <?else:?>

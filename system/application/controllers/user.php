@@ -85,9 +85,7 @@ class User extends BaseController {
 					
 					// находим местную валюту
 					$this->load->model('CurrencyModel', 'Currency');
-                    $currency = $this->Currency->getCurrencyByCountry($manager_summary->manager_country);
-                    if (!isset($currency->currency_symbol)) $currency->currency_symbol = '';
-
+					$currency = $this->Currency->getCurrencyByCountry($manager_summary->manager_country);
 
 					$country = $this->Countries->getById($manager_summary->manager_country);
 
@@ -254,23 +252,8 @@ class User extends BaseController {
             $view['allowed_segments'][] = 'mailforwarding';
 		}
 
-        $this->load->view("/main/elements/auth/success", $view, true);
-
+		$this->load->view("/main/elements/auth/success", $view);
 	}
-
-    public function loginMain()
-    {
-        $view['is_manager'] = 0;
-        $view['is_client'] = 0;
-        $view['allowed_segments'] = array();
-        $view['segment'] = Check::str('segment', 32, 1);
-
-        if ( ! $this->loginInternal(NULL, NULL, TRUE))
-        {
-            return;
-        }
-
-    }
 
 	private function getLoginData($handler, $id, &$view)
 	{
@@ -391,8 +374,8 @@ class User extends BaseController {
 		View::showChild($this->viewpath.'pages/recovery', array('result' => $result));
 	}
 	
-	public function showProfile(){
-        /**
+	public function showProfile(){ 
+		/**
 		 * load country list form stack, if it exists;
 		 * so, we dont touch models every time
 		 */
