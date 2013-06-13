@@ -99,7 +99,8 @@ class User extends BaseController {
 					$this->session->set_userdata('manager_credit_local', $manager_summary->manager_credit_local);
 					$this->session->set_userdata('manager_credit_date_local', $manager_summary->manager_credit_date_local);
 					$this->session->set_userdata('manager_balance_local', $manager_summary->manager_balance_local);
-					$this->session->set_userdata('manager_currency', $currency->currency_symbol);
+                    if (!isset($currency->currency_symbol)) $currency->currency_symbol = '';
+                    $this->session->set_userdata('manager_currency', $currency->currency_symbol);
 					$this->session->set_userdata('manager_website', $manager_summary->website);
 					$this->session->set_userdata('manager_rating', $manager_summary->rating);
 					$this->session->set_userdata('manager_status', $manager_summary->website);
@@ -254,6 +255,20 @@ class User extends BaseController {
 
 		$this->load->view("/main/elements/auth/success", $view);
 	}
+
+    public function loginMain()
+    {
+        $view['is_manager'] = 0;
+        $view['is_client'] = 0;
+        $view['allowed_segments'] = array();
+        $view['segment'] = Check::str('segment', 32, 1);
+
+        if ( ! $this->loginInternal(NULL, NULL, TRUE))
+        {
+            return;
+        }
+
+    }
 
 	private function getLoginData($handler, $id, &$view)
 	{
