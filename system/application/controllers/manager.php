@@ -298,6 +298,20 @@ class Manager extends BaseController {
 
 			$this->Orders->saveOrder($order);
 
+            // уведомление на почту клиенту
+            $clientInfo = $this->Bids->getClientInfo($bid->client_id);
+
+            $email_data["client_name"] = $clientInfo->client_name;
+            $email_data["order_id"] = $bid->order_id;
+            $msg = $this->load->view("/mail/email_2", $email_data, true);
+
+            $this->load->library('email');
+            $this->email->from('info@countrypost.ru', 'Countrypost.ru');
+            $this->email->to($clientInfo->user_email);
+            $this->email->subject('Countrypost.ru');
+            $this->email->message($msg);
+            $this->email->send();
+
 			// 10. отрисовка предложения
 			$this->load->model('CountryModel', 'Countries');
 			$this->load->model('OdetailModel', 'Odetails');

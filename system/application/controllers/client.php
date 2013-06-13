@@ -1030,6 +1030,20 @@ class Client extends BaseController {
 			// 6. сохраняем заказ
 			$this->Orders->saveOrder($order);
 
+            // уведомление на почту
+            $managerInfo = $this->Bids->getManagerInfo($bid->manager_id);
+
+            $email_data["manager_name"] = $managerInfo->manager_name;
+            $email_data["order_id"] = $order_id;
+            $msg = $this->load->view("/mail/email_1", $email_data, true);
+
+            $this->load->library('email');
+            $this->email->from('info@countrypost.ru', 'Countrypost.ru');
+            $this->email->to($managerInfo->user_email);
+            $this->email->subject('Countrypost.ru');
+            $this->email->message($msg);
+            $this->email->send();
+
 			// 8. показываем новую форму заказа
 			$this->load->model('ClientModel', 'Clients');
 			$this->load->model('AddressModel', 'Addresses');

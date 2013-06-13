@@ -1,30 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\avatars\.htaccess" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\avatars\10.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\avatars\4.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\avatars\index.html" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders\10\831.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders\4\797.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Program Files\wamp\www\countrypost.service\upload\orders\4\99.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/upload/avatars/10.jpg" afterPath="$PROJECT_DIR$/upload/avatars/10.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/client.php" afterPath="$PROJECT_DIR$/system/application/controllers/client.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/countrypost.js" afterPath="$PROJECT_DIR$/static/js/countrypost.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/header.php" afterPath="$PROJECT_DIR$/system/application/views/main/header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/profile.php" afterPath="$PROJECT_DIR$/system/application/controllers/profile.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/ratings/ratinginfo.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/ratings/ratinginfo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="" />
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/" />
-    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1370884559588" ignored="false" />
+    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1371155343913" ignored="false" />
     <file path="/OrderModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369974080197" ignored="false" />
     <file path="/a.dummy" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366191192780" ignored="false" />
     <file path="/main.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369984900506" ignored="false" />
@@ -106,73 +87,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ratinginfo.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/ratinginfo.php">
+      <file leaf-file-name="BaseController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="82" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rating_block.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_block.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ratings_plugin.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/ratings_plugin.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="manager_rating.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="54" selection-start="412" selection-end="412" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rating_list.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="33" selection-start="1798" selection-end="1809" vertical-scroll-proportion="0.39942938">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="countrypost.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="885" column="9" selection-start="18166" selection-end="18166" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="comment.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/comment.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="51" selection-start="107" selection-end="144" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="comment.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/comment.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="30" selection-start="465" selection-end="465" vertical-scroll-proportion="0.0">
+            <state line="1458" column="0" selection-start="41597" selection-end="43058" vertical-scroll-proportion="-1.2631578">
               <folding />
             </state>
           </provider>
@@ -181,52 +99,52 @@
       <file leaf-file-name="client.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1344" column="43" selection-start="35354" selection-end="35354" vertical-scroll-proportion="0.0">
+            <state line="1032" column="0" selection-start="26500" selection-end="27104" vertical-scroll-proportion="-18.038462">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
+      <file leaf-file-name="manager.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="398" column="17" selection-start="10792" selection-end="11215" vertical-scroll-proportion="0.0">
+            <state line="300" column="0" selection-start="6790" selection-end="7400" vertical-scroll-proportion="-17.653847">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
+      <file leaf-file-name="email_1.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/mail/email_1.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="193" column="24" selection-start="4931" selection-end="4931" vertical-scroll-proportion="0.0">
+            <state line="12" column="9" selection-start="337" selection-end="337" vertical-scroll-proportion="-7.8461537">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="newComment.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php">
+      <file leaf-file-name="email_2.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/mail/email_2.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="87" selection-start="1421" selection-end="1432" vertical-scroll-proportion="0.0">
+            <state line="12" column="9" selection-start="336" selection-end="336" vertical-scroll-proportion="-7.8461537">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/style.css">
+      <file leaf-file-name="email_3.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/mail/email_3.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2162" column="19" selection-start="41157" selection-end="41157" vertical-scroll-proportion="0.0">
+            <state line="12" column="9" selection-start="359" selection-end="359" vertical-scroll-proportion="-7.8461537">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RatingCommentModel.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/models/RatingCommentModel.php">
+      <file leaf-file-name="email_4.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/system/application/views/mail/email_4.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="127" column="53" selection-start="2386" selection-end="2419" vertical-scroll-proportion="0.0">
+            <state line="12" column="9" selection-start="358" selection-end="358" vertical-scroll-proportion="0.2632258">
               <folding />
             </state>
           </provider>
@@ -252,37 +170,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/editBid.php" />
-        <option value="$PROJECT_DIR$/dbscripts/2013-05-29 00-12 countrypost taxes.sql" />
-        <option value="$PROJECT_DIR$/system/application/models/BidModel.php" />
-        <option value="$PROJECT_DIR$/system/application/models/TaxModel.php" />
-        <option value="$PROJECT_DIR$/system/application/models/OrderModel.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/newComment.php" />
-        <option value="$PROJECT_DIR$/system/application/views/manager/elements/profile.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/comment.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/main.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/clients/profile_header.php" />
-        <option value="$PROJECT_DIR$/system/application/views/client/elements/profile.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
-        <option value="$PROJECT_DIR$/dbscripts/2013-05-30 18-16 avatars.sql" />
-        <option value="$PROJECT_DIR$/system/application/models/ClientModel.php" />
-        <option value="$PROJECT_DIR$/system/application/models/ManagerModel.php" />
-        <option value="$PROJECT_DIR$/system/application/views/manager/elements/auth/success.php" />
-        <option value="$PROJECT_DIR$/.htaccess" />
-        <option value="$PROJECT_DIR$/system/application/views/main/header.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/ratinginfo.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php" />
         <option value="$PROJECT_DIR$/static/js/countrypost.js" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/profile.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/comment.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" />
         <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
+        <option value="$PROJECT_DIR$/system/application/views/mail/email_1.php" />
+        <option value="$PROJECT_DIR$/system/application/views/mail/email_2.php" />
+        <option value="$PROJECT_DIR$/system/application/views/mail/email_3.php" />
+        <option value="$PROJECT_DIR$/system/application/views/mail/email_4.php" />
       </list>
     </option>
   </component>
@@ -295,8 +198,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1616" />
-    <option name="height" value="886" />
+    <option name="width" value="1296" />
+    <option name="height" value="1000" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -324,268 +227,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="elements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="elements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ratings" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Base" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="countrypost.service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="All">
           <PATH>
@@ -654,20 +295,168 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mail" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="202" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="230" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="recentsLimit" value="5" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="225" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="225" />
+    <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../bin/php/php5.3.13" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="234" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="883" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="891" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="883" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="227" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="222" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
@@ -679,9 +468,20 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="options.lastSelected" value="editor.preferences.tabs" />
+    <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="PublishConfig">
+    <servers>
+      <server id="6ef82994-50ed-4c84-8c5e-424023729a95">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </server>
+    </servers>
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -713,6 +513,9 @@
       <method />
     </configuration>
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <list size="1">
@@ -836,14 +639,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="886" extended-state="0" />
+    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47619048" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.231875" sideWeight="0.34076828" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.215" sideWeight="0.71814674" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21880065" sideWeight="0.71814674" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.238125" sideWeight="0.33375958" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24229075" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
@@ -885,7 +688,7 @@
     <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
-    <option name="SHORT_DIFF_HORISONTALLY" value="true" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
     <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
     <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
     <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
@@ -933,185 +736,112 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="16.551723" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/pages/editProfile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/profile_header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile_header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="14" selection-start="49" selection-end="96" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/embed.rnc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="30" selection-start="829" selection-end="829" vertical-scroll-proportion="0.3328767" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/profile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="38" selection-start="380" selection-end="380" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="492" column="5" selection-start="11508" selection-end="11508" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dbscripts/2013-05-30 18-16 avatars.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="19" selection-start="60" selection-end="60" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/ClientModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="0" selection-start="1509" selection-end="1509" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/ManagerModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="19" selection-start="3090" selection-end="3090" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/div_header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/auth/success.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="92" selection-start="938" selection-end="938" vertical-scroll-proportion="-0.6896552" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.htaccess">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="23" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="81" selection-start="1717" selection-end="1717" vertical-scroll-proportion="-11.310345" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/ratings_viewer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="124" column="0" selection-start="914" selection-end="4451" vertical-scroll-proportion="-17.931034" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="124" column="4" selection-start="2442" selection-end="2442" vertical-scroll-proportion="-13.793103" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/ratinginfo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="82" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_block.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/ratings_plugin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/RatingCommentModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="53" selection-start="2386" selection-end="2419" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/comment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="51" selection-start="107" selection-end="144" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1344" column="43" selection-start="35354" selection-end="35354" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="398" column="17" selection-start="10792" selection-end="11215" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/comment.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="30" selection-start="465" selection-end="465" vertical-scroll-proportion="0.0">
+        <state line="9" column="30" selection-start="465" selection-end="465" vertical-scroll-proportion="0.19947849">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2162" column="19" selection-start="41157" selection-end="41157" vertical-scroll-proportion="0.0">
+        <state line="2162" column="19" selection-start="41157" selection-end="41157" vertical-scroll-proportion="0.02122347">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="193" column="24" selection-start="4931" selection-end="4931" vertical-scroll-proportion="0.0">
+        <state line="193" column="24" selection-start="4931" selection-end="4931" vertical-scroll-proportion="0.021573603">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="87" selection-start="1421" selection-end="1432" vertical-scroll-proportion="0.0">
+        <state line="30" column="87" selection-start="1421" selection-end="1432" vertical-scroll-proportion="0.24492386">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="54" selection-start="412" selection-end="412" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="9" column="54" selection-start="412" selection-end="412" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="885" column="9" selection-start="18166" selection-end="18166" vertical-scroll-proportion="0.0">
+        <state line="885" column="9" selection-start="18166" selection-end="18166" vertical-scroll-proportion="0.021794872">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="33" selection-start="1798" selection-end="1809" vertical-scroll-proportion="0.39942938">
+        <state line="69" column="33" selection-start="1798" selection-end="1809" vertical-scroll-proportion="0.022164276">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/SyspayBaseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/clients.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1458" column="0" selection-start="41597" selection-end="43058" vertical-scroll-proportion="-1.2631578">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1032" column="0" selection-start="26500" selection-end="27104" vertical-scroll-proportion="-18.038462">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="300" column="0" selection-start="6790" selection-end="7400" vertical-scroll-proportion="-17.653847">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/mail/email_1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="9" selection-start="337" selection-end="337" vertical-scroll-proportion="-7.8461537">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/mail/email_2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="9" selection-start="336" selection-end="336" vertical-scroll-proportion="-7.8461537">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/mail/email_3.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="9" selection-start="359" selection-end="359" vertical-scroll-proportion="-7.8461537">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/mail/email_4.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="9" selection-start="358" selection-end="358" vertical-scroll-proportion="0.2632258">
           <folding />
         </state>
       </provider>

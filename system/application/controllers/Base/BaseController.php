@@ -1456,6 +1456,37 @@ abstract class BaseController extends Controller
 				throw new Exception('Комментарий не добавлен. Попробуйте еще раз.');
 			}
 
+            if ($this->user->user_group == 'client')
+            {
+                // уведомление на почту посреднику
+                $managerInfo = $this->Bids->getManagerInfo($bid->manager_id);
+
+                $email_data["manager_name"] = $managerInfo->manager_name;
+                $email_data["order_id"] = $bid->order_id;
+                $msg = $this->load->view("/mail/email_4", $email_data, true);
+
+                $this->load->library('email');
+                $this->email->from('info@countrypost.ru', 'Countrypost.ru');
+                $this->email->to($managerInfo->user_email);
+                $this->email->subject('Countrypost.ru');
+                $this->email->message($msg);
+                $this->email->send();
+            }else if ($this->user->user_group == 'manager'){
+                // уведомление на почту клиенту
+                $clientInfo = $this->Bids->getClientInfo($bid->client_id);
+
+                $email_data["client_name"] = $clientInfo->client_name;
+                $email_data["order_id"] = $bid->order_id;
+                $msg = $this->load->view("/mail/email_3", $email_data, true);
+
+                $this->load->library('email');
+                $this->email->from('info@countrypost.ru', 'Countrypost.ru');
+                $this->email->to($clientInfo->user_email);
+                $this->email->subject('Countrypost.ru');
+                $this->email->message($msg);
+                $this->email->send();
+            }
+
 			$this->load->model('ClientModel', 'Clients');
 			$this->load->model('ManagerModel', 'Managers');
 			$this->load->model('CountryModel', 'Countries');
