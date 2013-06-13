@@ -114,19 +114,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="div_header.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/div_header.php">
+      <file leaf-file-name="profile_header.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile_header.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="6" column="39" selection-start="459" selection-end="459" vertical-scroll-proportion="0.1316129">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="div_header.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="div_header.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/div_header.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="93" selection-start="265" selection-end="265" vertical-scroll-proportion="0.043147206">
+            <state line="2" column="93" selection-start="265" selection-end="265" vertical-scroll-proportion="-1.3076923">
               <folding />
             </state>
           </provider>
@@ -152,7 +152,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/profile.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/comment.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" />
@@ -168,6 +167,7 @@
         <option value="$PROJECT_DIR$/system/application/views/main/elements/auth/small_form.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/user.php" />
         <option value="$PROJECT_DIR$/system/application/views/client/elements/div_header.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/clients/profile_header.php" />
       </list>
     </option>
   </component>
@@ -427,7 +427,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="clients" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -454,10 +462,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="elements" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -804,11 +808,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="54" selection-start="412" selection-end="412" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="885" column="9" selection-start="18166" selection-end="18166" vertical-scroll-proportion="0.021794872">
@@ -893,9 +892,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/div_header.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="670" column="33" selection-start="17765" selection-end="17778" vertical-scroll-proportion="-4.901961">
+        <state line="2" column="93" selection-start="265" selection-end="265" vertical-scroll-proportion="-1.3076923">
           <folding />
         </state>
       </provider>
@@ -907,9 +906,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/div_header.php">
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="93" selection-start="265" selection-end="265" vertical-scroll-proportion="0.043147206">
+        <state line="670" column="33" selection-start="17765" selection-end="17778" vertical-scroll-proportion="-4.901961">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile_header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="39" selection-start="459" selection-end="459" vertical-scroll-proportion="0.1316129">
           <folding />
         </state>
       </provider>

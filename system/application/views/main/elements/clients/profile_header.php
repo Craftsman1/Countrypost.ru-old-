@@ -5,8 +5,8 @@
 	<ul class='tabs'>
         <li class='active profile'><div><a class='profile' href='/<?= $client->statistics->login ?>/profile'>Профиль</a></div></li>
         <? if( ! empty($this->user) AND
-			($this->user->user_group == 'manager' OR
-			$this->user->user_id == $client->client_user)) : ?>
+            //($this->user->user_group == 'manager' OR
+            $this->user->user_id == $client->client_user) ://) : ?>
             <li class='delivery_address'><div><a class='delivery_address' href='/<?= $client->statistics->login ?>/profile'>Адреса доставки</a></div></li>
         <? endif; ?>
     </ul>
