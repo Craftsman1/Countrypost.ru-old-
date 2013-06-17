@@ -180,7 +180,7 @@ class ManagerModel extends BaseModel implements IModel{
 				INNER JOIN `countries` ON `countries`.`country_id` = `'.$this->table.'`.`manager_country`				
 			WHERE `users`.`user_deleted` = 0 '.$where.'
 			GROUP BY `'.$this->table.'`.`manager_user`
-			ORDER BY rating DESC
+            ORDER BY rating DESC
 		')->result();
 	}
 	
@@ -503,7 +503,7 @@ class ManagerModel extends BaseModel implements IModel{
 		
 		if ($user)
 		{
-			$statistics->login = $user->login;
+            $statistics->login = $user->login;
 			$statistics->email = $user->email;
 			$statistics->positive_reviews = $user->positive_reviews;
 			$statistics->neutral_reviews = $user->neutral_reviews;
@@ -511,7 +511,7 @@ class ManagerModel extends BaseModel implements IModel{
 		}
 
 		$statistics->fullname = $this->getFullName($statistics);
-		
+
 		$result = $this->db->query(
 			"SELECT 
 				countries.*

@@ -187,7 +187,7 @@ class Profile extends BaseController {
 			{
 				foreach ($view['manager_ratings'] as $rating)
 				{
-					$this->processStatistics($rating, $statistics, 'client_id', 0, 'client');
+                    $this->processStatistics($rating, $statistics, 'client_id', 0, 'client');
 					$rating->comments = $this->Comments->getCommentsByRatingId($rating->rating_id);
 
 					// находим данные комментатора для каждого коммента

@@ -356,7 +356,10 @@ class ClientModel extends BaseModel implements IModel{
 				$ci->load->model('UserModel', 'Users');
 		
 				$user = $ci->Users->getById($statistics->client_user);
-				$fullname = $user->user_login;
+                if (empty($fullname) AND isset($user->user_login))
+                {
+                    $fullname = $user->user_login;
+                }
 			}
 		}
 		
@@ -366,7 +369,13 @@ class ClientModel extends BaseModel implements IModel{
 	public function getStatistics($client_id)
 	{
 		$statistics = $this->getById($client_id);
-				
+
+        $statistics->client_surname = "";
+        $statistics->client_name = "";
+        $statistics->client_otc = "";
+        $statistics->client_user = $client_id;
+        $statistics->login = "";
+
 		// login
 		$result = $this->db->query(
 			"SELECT 
@@ -392,10 +401,10 @@ class ClientModel extends BaseModel implements IModel{
         $order_count = ($result) ? $result[0] : FALSE;
         $statistics->order_count = 0;
         $statistics->order_count = $order_count->order_count;
-		
+
 		if ($user)
 		{
-			$statistics->login = $user->login;
+            $statistics->login = $user->login;
 			$statistics->email = $user->email;
 			$statistics->positive_reviews = $user->positive_reviews;
 			$statistics->neutral_reviews = $user->neutral_reviews;
