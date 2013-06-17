@@ -382,6 +382,16 @@ class ClientModel extends BaseModel implements IModel{
 		)->result();
 		
 		$user = ($result) ? $result[0] : FALSE;
+
+        // counters
+        $result = $this->db->query(
+                "SELECT count(order_id) order_count
+                  FROM orders
+                  WHERE order_client = {$client_id}"
+        )->result();
+        $order_count = ($result) ? $result[0] : FALSE;
+        $statistics->order_count = 0;
+        $statistics->order_count = $order_count->order_count;
 		
 		if ($user)
 		{

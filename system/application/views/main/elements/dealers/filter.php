@@ -26,8 +26,8 @@
 				<div>
 					<span class="label">Mail Forwarding:</span>
 					<input style="" class="order_check" maxlength="6" type='checkbox' id='is_mail_forwarding' name="is_mail_forwarding" value="1" <? if (isset($filter->is_mail_forwarding) AND $filter->is_mail_forwarding == 1) : ?>checked="checked"<? endif; ?>/>
-					<span class="label">
-						<b class="mf">MF</b>
+                    <span class="label" style="width: 250px;">
+                        Принимает заказы MailForwarding <b class="mf">MF</b>
 					</span>
 				</div>
 				<br />

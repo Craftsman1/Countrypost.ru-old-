@@ -180,6 +180,7 @@ class ManagerModel extends BaseModel implements IModel{
 				INNER JOIN `countries` ON `countries`.`country_id` = `'.$this->table.'`.`manager_country`				
 			WHERE `users`.`user_deleted` = 0 '.$where.'
 			GROUP BY `'.$this->table.'`.`manager_user`
+			ORDER BY rating DESC
 		')->result();
 	}
 	
