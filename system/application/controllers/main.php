@@ -56,7 +56,7 @@ class Main extends BaseController {
 			
 			// страны для фильтра
 			$this->load->model('CountryModel', 'Country');
-			$view['countries'] = $this->Country->getList();
+            $view['countries'] = parent::Country_Order_Prio();
 			
 			if (empty($view['countries']))
 			{

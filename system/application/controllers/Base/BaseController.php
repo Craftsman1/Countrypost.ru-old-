@@ -4503,6 +4503,27 @@ abstract class BaseController extends Controller
 		echo "/main/avatar/{$this->user->user_id}";
 	}
 
+    protected function Country_Order_Prio()
+    {
+        // выводим на верх списка некоторые странны
+        $result_country_priory = array();
+        $result_country = $this->Country->getList();
+        $i = 0;
+        foreach($result_country as $row)
+        {
+            if ($row->country_id == 3 || $row->country_id == 7 || $row->country_id == 5)
+            {
+                $result_country_priory[$row->country_id] = $row;
+            }else{
+                $result_country[$i] = $row;
+                $i++;
+            }
+        }
+        list($result_country_priory[3],$result_country_priory[7],$result_country_priory[5]) = array($result_country_priory[3],$result_country_priory[5], $result_country_priory[7]);
+        $result_country = array_merge($result_country_priory,$result_country);
+        return $result_country;
+    }
+
     protected function processPaymentHistoryFilter()
     {
         $filter = $this->initPaymentHistoryFilter();
