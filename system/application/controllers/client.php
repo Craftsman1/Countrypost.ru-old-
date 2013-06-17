@@ -1587,6 +1587,19 @@ class Client extends BaseController {
 		parent::showOrderDetails();
 	}
 
+    public function clearNewComments($bid_id)
+    {
+        // безопасность
+        if ( ! is_numeric($this->uri->segment(3)))
+        {
+            throw new Exception('Доступ запрещен.');
+        }
+
+        $this->load->model('BidCommentModel', 'Comments');
+        $this->Comments->clearNewComments($bid_id);
+
+    }
+
 	public function update_odetail_weight($order_id, $odetail_id, $weight)
 	{
 		parent::update_odetail_weight($order_id, $odetail_id, $weight);

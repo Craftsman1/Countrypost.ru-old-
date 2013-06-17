@@ -931,6 +931,18 @@ function expandComments(bid_id)
 		.find('div.collapse_comments')
 		.show('slow');
 
+    // новые сообщения
+    $comments
+        .find('div#new_comments')
+        .hide('slow');
+
+    $('.angle').removeClass('new');
+    $('.table.bid').removeClass('new');
+    $('.table.admin-inside').removeClass('new');
+
+    $.post("/client/clearNewComments/" + bid_id).success(function(response) {
+    });
+
 	eval('window.comment' + bid_id + 'expanded = true;');
 }
 

@@ -327,5 +327,22 @@ class BidModel extends BaseModel implements IModel{
 
 		return $bid;
 	}
+
+    public function getManagerInfo($manager_id)
+    {
+        $query = $this->db->query("SELECT m.manager_name, u.user_email
+                                    FROM managers AS m, users AS u
+                                    WHERE m.manager_user = '$manager_id' AND u.user_id = '$manager_id'");
+        return $query->row();
+    }
+
+    public function getClientInfo($client_id)
+    {
+        $query = $this->db->query("SELECT c.client_name, u.user_email
+                                    FROM clients AS c, users AS u
+                                    WHERE c.client_user = '$client_id' AND u.user_id = '$client_id'");
+        return $query->row();
+    }
+
 }
 ?>

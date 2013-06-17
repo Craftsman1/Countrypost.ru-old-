@@ -1,0 +1,1 @@
+ALTER TABLE  `bid_comments` ADD `new` BOOLEAN NOT NULL DEFAULT FALSE AFTER `status`;

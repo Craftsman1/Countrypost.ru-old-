@@ -269,6 +269,7 @@ class Manager extends BaseController {
 			// 8. комменты
 			$comment = new stdClass();
 			$comment->message = Check::txt('comment', 8096, 1);
+            $bid->new_comments = 0;
 
 			if ( ! empty($comment->message) AND
 				$comment->message != '<p></p>')
@@ -288,6 +289,7 @@ class Manager extends BaseController {
 				
 				$bid->comments = array();
 				$bid->comments[] = $new_comment;
+                $bid->new_comments = count($this->Comments->getNewCommentsByOrderId($bid->bid_id));
 			}
 
 			// 9. пересчитываем и сохраняем предложение и заказ

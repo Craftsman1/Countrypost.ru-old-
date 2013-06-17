@@ -379,6 +379,8 @@ abstract class BaseController extends Controller
 
 				// комментарии
 				$bid->comments = $this->Comments->getCommentsByBidId($bid->bid_id);
+                // кол-во новых комментариев
+                $bid->new_comments = count($this->Comments->getNewCommentsByOrderId($bid->bid_id));
 
 				if (empty($bid->comments))
 				{
@@ -937,6 +939,7 @@ abstract class BaseController extends Controller
 					$this->processStatistics($bid, $statistics, 'manager_id', $bid->manager_id, 'manager');
 
 					// а комменты только партнеру и клиенту
+                    $bid->new_comments = 0;
 					if (isset($this->user->user_group))
 					{
 						$bid->comments = $this->Comments->getCommentsByBidId($bid->bid_id);
@@ -4499,5 +4502,67 @@ abstract class BaseController extends Controller
 
 		echo "/main/avatar/{$this->user->user_id}";
 	}
+
+    protected function processPaymentHistoryFilter()
+    {
+        $filter = $this->initPaymentHistoryFilter();
+
+        // сброс фильтра
+        if (isset($_POST['resetFilter']) AND $_POST['resetFilter'] == '1')
+        {
+            return $filter;
+        }
+
+        $filter->svalue		= Check::str('svalue', 255, 1, '');
+        $filter->sfield		= Check::str('sfield', 20, 1, 'manager_id');
+        $filter->status		= Check::str('status', 20, 1, '');
+        $filter->from		= Check::str('from', 10, 10, '');
+        $filter->to			= Check::str('to', 10, 10, '');
+
+        if ($filter->sfield)
+        {
+            switch ($filter->sfield)
+            {
+                case 'client_id' :
+                    if (is_numeric($filter->svalue))
+                    {
+                        $filter->condition['like'] = array('payment_from' => $filter->svalue);
+                    }
+                    break;
+                case 'manager_id' :
+                    if (is_numeric($filter->svalue))
+                    {
+                        $filter->condition['like'] = array('payment_to' => $filter->svalue);
+                    }
+                    break;
+                case 'order_id' :
+                    $filter->condition['payment_type'] = 'order';
+                    $filter->condition['like'] = array('payment_comment' => $filter->svalue);
+                    break;
+                case 'client_login' :
+                    $filter->condition['like'] = array('user_from.user_login' => $filter->svalue);
+                    break;
+                case 'manager_login' :
+                    if (is_numeric($filter->svalue))
+                    {
+                        $filter->condition['like'] = array('user_to.user_login' => $filter->svalue);
+                    }
+                    break;
+                case 'payment_id' :
+                    $filter->condition['like'] = array('payment_id' => $filter->svalue);
+                    break;
+                case 'payment_amount' :
+                    $filter->condition["payment_amount_from"] = $filter->svalue;
+                    break;
+            }
+        }
+
+        if ($filter->status)
+        {
+            $filter->condition["status"] = $filter->status;
+        }
+
+        return $filter;
+    }
 }
 ?>
