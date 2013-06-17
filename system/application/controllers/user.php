@@ -210,7 +210,8 @@ class User extends BaseController {
 			$this->getLoginData($handler, $id, $view);
 		}
 
-		if (isset($handler))
+		echo $this->user->user_login;
+		/*if (isset($handler))
 		{
 			$this->load->view("/{$this->user->user_group}/elements/div_header", $view);
 		}
@@ -221,7 +222,7 @@ class User extends BaseController {
 		else
 		{
 			$this->load->view("/{$this->user->user_group}/elements/auth/success", $view);
-		}
+		}*/
 	}
 
 	public function loginAjaxMain()
@@ -265,6 +266,7 @@ class User extends BaseController {
 
         if ( ! $this->loginInternal(NULL, NULL, TRUE))
         {
+            header('Location: ' . BASEURL);
             return;
         }
 

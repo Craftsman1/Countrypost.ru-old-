@@ -2,7 +2,7 @@
 	<? if (isset($filter)) View::show('main/elements/orders/filter'); ?>
 	<form class='autorization smallAuthForm'
 		  method="POST"
-          action='<?= BASEURL ?>user/loginMain'>
+          action='<?= BASEURL ?>user/loginAjax'>
 		<h2>Вход</h2>
 		<img class="float login_progress"
 			 style="display: none;left: 88px;top: 10px;position: absolute;"
@@ -34,3 +34,46 @@
 	</form>
 	<? View::show('main/elements/div_social'); ?>
 </div>
+<script type="text/javascript">
+    $(function() {
+        $('form.smallAuthForm').ajaxForm({
+            dataType: 'html',
+            iframe: true,
+            beforeSubmit: function(formData, jqForm, options)
+            {
+                $('form.bigAuthForm img.login_progress').show();
+            },
+            success: function(response)
+            {
+                $('form.bigAuthForm img.login_progress').hide();
+
+                if (response)
+                {
+                    success('top', 'Вы успешно вошли в Countrypost.ru.');
+                    //$('div.top-block').replaceWith(response);
+
+                    try
+                    {
+                        window.location = '<?= BASEURL ?>'+response;
+                        /*if (login_handler != undefined)
+                        {
+                            login_handler();
+                        }*/
+                    }
+                    catch (e)
+                    {
+                    }
+                }
+                else
+                {
+                    error('top', 'Логин или пароль введен неверно. Попробуйте еще раз.');
+                }
+            },
+            error: function(response)
+            {
+                error('top', 'Логин или пароль введен неверно. Попробуйте еще раз.');
+                $('form.bigAuthForm img.login_progress').hide();
+            }
+        });
+    });
+</script>

@@ -48,14 +48,15 @@ $(function() {
 			if (response)
 			{
 				success('top', 'Вы успешно вошли в Countrypost.ru.');
-				$('div.top-block').replaceWith(response);
+				//$('div.top-block').replaceWith(response);
 
 				try
 				{
-					if (login_handler != undefined)
+                    window.location = '<?= BASEURL ?>'+response;
+					/*if (login_handler != undefined)
 					{
 						login_handler();
-					}
+					}*/
 				}
 				catch (e)
 				{
