@@ -4564,10 +4564,7 @@ abstract class BaseController extends Controller
                     $filter->condition['like'] = array('user_from.user_login' => $filter->svalue);
                     break;
                 case 'manager_login' :
-                    if (is_numeric($filter->svalue))
-                    {
-                        $filter->condition['like'] = array('user_to.user_login' => $filter->svalue);
-                    }
+                    $filter->condition['like'] = array('user_to.user_login' => $filter->svalue);
                     break;
                 case 'payment_id' :
                     $filter->condition['like'] = array('payment_id' => $filter->svalue);
