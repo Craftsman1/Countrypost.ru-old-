@@ -18,7 +18,7 @@
 	</center>
 	<br />
 	
-	<form class='admin-inside' action='<?=BASEURL?>main/addShop' method="POST">
+	<form class='admin-inside' action='<?=$this->config->item('base_url')?>main/addShop' method="POST">
 		
 		<div class='table'>
 			<div class='angle angle-lt'></div>
@@ -94,7 +94,7 @@
 	<?endif;?>
 	
 	
-	<form action='<?=BASEURL?>main/addShop' method='POST'>
+	<form action='<?=$this->config->item('base_url')?>main/addShop' method='POST'>
 	<table>
 		<tr>
 			<td>Ссылка на магазин:</td>

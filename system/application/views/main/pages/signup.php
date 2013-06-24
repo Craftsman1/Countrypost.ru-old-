@@ -20,7 +20,7 @@
 								<div>
 									<input type="button"
 										   value="ЗАРЕГИСТРИРОВАТЬСЯ"
-											onclick="window.location='<?= BASEURL ?>signup/client'">
+											onclick="window.location='<?= $this->config->item('base_url') ?>signup/client'">
 								</div>
 							</div>
 						</div>
@@ -53,7 +53,7 @@
 							<div>
 								<input type="button"
 									   value="ЗАРЕГИСТРИРОВАТЬСЯ"
-									   onclick="window.location='<?= BASEURL ?>signup/dealer'">
+									   onclick="window.location='<?= $this->config->item('base_url') ?>signup/dealer'">
 							</div>
 						</div>
 					</div>

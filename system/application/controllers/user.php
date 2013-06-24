@@ -30,7 +30,7 @@ class User extends BaseController {
 	
 	function index()
 	{
-		Func::redirect(BASEURL);
+		Func::redirect($this->config->item('base_url'));
 	}
 	
 	public function login($l = null, $p = null, $redirect = true, $vk = false)
@@ -122,7 +122,7 @@ class User extends BaseController {
 
 				if ($redirect)
 				{
-					header('Location: '.BASEURL.$user->user_group);
+					header('Location: '.$this->config->item('base_url').$user->user_group);
 				}
 					
 				return TRUE;
@@ -266,7 +266,7 @@ class User extends BaseController {
 
         if ( ! $this->loginInternal(NULL, NULL, TRUE))
         {
-            header('Location: ' . BASEURL);
+            header('Location: ' . $this->config->item('base_url'));
             return;
         }
 
@@ -313,18 +313,18 @@ class User extends BaseController {
 			$this->session->unset_userdata(array($prop => ''));
 		}
 		
-		header('Location: ' . BASEURL);
+		header('Location: ' . $this->config->item('base_url'));
 	}
 
 	public function showPasswordRecovery()
 	{
-		Func::redirect(BASEURL . 'user/remindpassword');
+		Func::redirect($this->config->item('base_url') . 'user/remindpassword');
 	}	
 
 	public function remindpassword()
 	{
-		Breadcrumb::setCrumb(array(BASEURL => 'Главная'), 0);
-		Breadcrumb::setCrumb(array(BASEURL . 'user/remindpassword' => 'Восстановление пароля'), 1, TRUE);
+		Breadcrumb::setCrumb(array($this->config->item('base_url') => 'Главная'), 0);
+		Breadcrumb::setCrumb(array($this->config->item('base_url') . 'user/remindpassword' => 'Восстановление пароля'), 1, TRUE);
 
 		View::showChild($this->viewpath.'pages/recovery');
 	}

@@ -5,7 +5,7 @@
 			<p>
 				Здравствуйте,
 				<span class='big-text'>
-					<a href='<?= BASEURL . $this->user->user_group ?>'><?=$this->user->user_login;?></a>
+					<a href='<?= $this->config->item('base_url') . $this->user->user_group ?>'><?=$this->user->user_login;?></a>
 				</span>
 			</p>
 			<p><a href='/profile'>Изменить личные данные</a></p>
@@ -13,7 +13,7 @@
 				<div>
 					<input type='submit'
 						   value='Выйти'
-						   onclick="javascript:window.location='<?=	BASEURL ?>user/logout';" />
+						   onclick="javascript:window.location='<?=	$this->config->item('base_url') ?>user/logout';" />
 				</div>
 			</div>
 		</div>

@@ -29,11 +29,11 @@ class Syspay extends SyspayBaseController {
 	{
 		if ( ! Check::user())
 		{
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 		else
 		{
-			Func::redirect(BASEURL."{$this->user->user_group}/history");
+			Func::redirect($this->config->item('base_url')."{$this->user->user_group}/history");
 		}
 	}
 		
@@ -49,12 +49,12 @@ class Syspay extends SyspayBaseController {
 			{
 				$this->load->model('PaymentModel', 'Payments');
 				$order_id = $this->Payments->getLastPayedOrder($this->user->user_id);
-				Func::redirect(BASEURL . "{$this->user->user_group}/order/$order_id");
+				Func::redirect($this->config->item('base_url') . "{$this->user->user_group}/order/$order_id");
 			}
 		}
 		catch(Exception $ex)
 		{
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 	}
 	

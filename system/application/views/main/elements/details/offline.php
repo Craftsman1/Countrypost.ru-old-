@@ -54,7 +54,7 @@
 	});
 </script>
 <span class="producteditor" style="display: none;">
-	<input type="hidden" name="link" class="link" value="<?= BASEURL ?>" />
+	<input type="hidden" name="link" class="link" value="<?= $this->config->item('base_url') ?>" />
 	<br>
 	<b>Магазин:</b>
 	<textarea class="shop" name="shop"></textarea>

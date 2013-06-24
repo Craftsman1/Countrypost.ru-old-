@@ -40,10 +40,10 @@
                         </td>
                         <td style="text-align:left;">
                             <span>
-                                <a href="<?=BASEURL.$manager->statistics->login;?>"><img style="width:48px; height:48px;" src="/main/avatar_big/<?= $manager->manager_user; ?>" /></a>
+                                <a href="<?=$this->config->item('base_url').$manager->statistics->login;?>"><img style="width:48px; height:48px;" src="/main/avatar_big/<?= $manager->manager_user; ?>" /></a>
                             </span>
                             <span style="display: inline-block; position: relative; margin-left: 7px;">
-                                <a href="<?=BASEURL.$manager->statistics->login;?>"><?= $manager->statistics->fullname ?></a>
+                                <a href="<?=$this->config->item('base_url').$manager->statistics->login;?>"><?= $manager->statistics->fullname ?></a>
                                 (<?=$manager->user_login;?>)
                                 <div style="margin-top: 17px;">
                                 <? if ($manager->is_cashback OR $manager->is_mail_forwarding) : ?>

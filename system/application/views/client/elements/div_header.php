@@ -5,7 +5,7 @@ if ((empty($segment) OR empty($allowed_segments) OR in_array($segment, $allowed_
 else : ?>
 <script>
 $(function() {
-	window.location = '<?= BASEURL ?>';
+	window.location = '<?= $this->config->item('base_url') ?>';
 });
 </script>
 <? endif; ?>

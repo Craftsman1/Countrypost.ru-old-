@@ -1,7 +1,7 @@
 <div class='managerinfo admin-inside'>
 	<h2>Мой профиль
 		<a target="_blank"
-		   href="<?= BASEURL . $this->session->userdata['user_login'] ?>"
+		   href="<?= $this->config->item('base_url') . $this->session->userdata['user_login'] ?>"
 		   style="font-size: 11px; text-transform: none; font-weight: normal;">Посмотреть мою страницу в новом
 			окне</a></h2>
 	<ul class='tabs'>

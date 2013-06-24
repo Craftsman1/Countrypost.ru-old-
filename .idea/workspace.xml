@@ -5,9 +5,9 @@
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/" />
-    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1371582268451" ignored="false" />
+    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372103287625" ignored="false" />
     <file path="/OrderModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369974080197" ignored="false" />
-    <file path="/a.dummy" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372082463254" ignored="false" />
+    <file path="/a.dummy" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372090471491" ignored="false" />
     <file path="/main.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1371484357976" ignored="false" />
     <file path="/showOrderDetails.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369307578506" ignored="false" />
     <file path="/scripts.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369327011934" ignored="false" />
@@ -66,6 +66,63 @@
     <file path="/user.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1371481948994" ignored="false" />
     <file path="/small_form.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1371481845520" ignored="false" />
     <file path="/ClientModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1371503554195" ignored="false" />
+    <file path="/config.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372085687279" ignored="false" />
+    <file path="/ssl.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372103414958" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/tools/elements/div_menu.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showNewBid.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showSentOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/main/elements/orders/newBidForm.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/pages/signup.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/main/elements/orders/newbidinfo.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/elements/div_menu.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/client/ajax/showBalance.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/admin/pages/faq.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/mail/email_3.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/main/ajax/showCategory.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/admin/pages/showOrders2In.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/main/ajax/showUnassignedOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/admin/pages/news.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/elements/div_top.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/client/pages/signup.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/elements/profile_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/mail/email_1.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/client/pages/showAddProduct.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/admin/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/main/elements/details/offline.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/syspay/elements/div_top.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/admin/elements/div_menu.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/client/pages/show_shop.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/client/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/elements/auth/success.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/client/elements/div_top.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/admin/elements/div_top.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/main/elements/payments/comment.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/mail/email_2.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/client/elements/profile_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/mail/email_4.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/syspay/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/user/pages/profile.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/user/pages/confirmation.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/client/elements/auth/success.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/admin/elements/auth/success.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showCountrypostTaxes.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/user/pages/recovery.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/elements/div_footer.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/user/pages/registration.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/user/elements/div_menu.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/user/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/client/elements/orders/import_excel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showBidOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/client/elements/payments/manager_filter.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/tools/pages/generate_model.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showPayedOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showOpenOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/main/elements/orders/newComment.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/tools/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,30 +147,82 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="routes.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/config/routes.php">
+      <file leaf-file-name="BaseController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="38" selection-start="1773" selection-end="1773" vertical-scroll-proportion="-15.923077">
+            <state line="79" column="27" selection-start="2100" selection-end="2100" vertical-scroll-proportion="-0.65384614">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile.php">
+      <file leaf-file-name="config.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/config/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="27" column="25" selection-start="965" selection-end="965" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile_header.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile_header.php">
+      <file leaf-file-name="ssl.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/system/application/hooks/ssl.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="99" selection-start="387" selection-end="387" vertical-scroll-proportion="0.10967742">
+            <state line="12" column="52" selection-start="238" selection-end="238" vertical-scroll-proportion="0.2398957">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="big_form.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/big_form.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="54" column="77" selection-start="1631" selection-end="1631" vertical-scroll-proportion="-19.615385">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="small_form.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/small_form.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="56" column="91" selection-start="1934" selection-end="1942" vertical-scroll-proportion="-18.961538">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/user.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="227" column="33" selection-start="7073" selection-end="7086" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".htaccess" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.htaccess">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="96" column="0" selection-start="2768" selection-end="2768" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dealers.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/dealers.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="68" column="35" selection-start="1904" selection-end="1904" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -139,22 +248,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/filter.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/clients.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/dealers.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/main.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/profile.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/ratinginfo.php" />
-        <option value="$PROJECT_DIR$/system/application/models/ClientModel.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/comment.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
         <option value="$PROJECT_DIR$/system/application/models/PaymentModel.php" />
         <option value="$PROJECT_DIR$/system/application/views/manager/elements/profile.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/manager.php" />
         <option value="$PROJECT_DIR$/system/application/models/ManagerModel.php" />
         <option value="$PROJECT_DIR$/system/application/config/routes.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/clients/profile_header.php" />
+        <option value="$PROJECT_DIR$/system/application/config/hooks.php" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
+        <option value="$PROJECT_DIR$/system/application/config/config.php" />
+        <option value="$PROJECT_DIR$/system/application/views/admin/ajax/showCountrypostTaxes.php" />
+        <option value="$PROJECT_DIR$/system/application/hooks/ssl.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/auth/big_form.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/auth/small_form.php" />
       </list>
     </option>
   </component>
@@ -196,6 +305,74 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="All">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="system">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="system">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="application">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="system">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="application">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="models">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -474,7 +651,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auth" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -496,7 +685,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
+              <option name="myItemId" value="hooks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -512,74 +723,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="All">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="application">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="application">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="models">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -785,10 +928,9 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47619048" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3440476" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.231875" sideWeight="0.34076828" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25121555" sideWeight="0.6559524" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25931928" sideWeight="0.6559524" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.238125" sideWeight="0.33375958" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24229075" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
@@ -797,6 +939,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3440476" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -877,116 +1020,102 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php">
+    <entry file="file://$PROJECT_DIR$/system/application/config/routes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="30" selection-start="33" selection-end="33" vertical-scroll-proportion="0.02254642">
+        <state line="45" column="38" selection-start="1773" selection-end="1773" vertical-scroll-proportion="-15.923077" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile_header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="99" selection-start="387" selection-end="387" vertical-scroll-proportion="-3.2692308" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/config/autoload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="23" selection-start="23" selection-end="23" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.htaccess">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/admin/ajax/showCountrypostTaxes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="29" selection-start="1322" selection-end="1322" vertical-scroll-proportion="0.22281167" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/dealers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="35" selection-start="1904" selection-end="1904" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2624" column="67" selection-start="74153" selection-end="74172" vertical-scroll-proportion="-8.90196">
+        <state line="79" column="27" selection-start="2100" selection-end="2100" vertical-scroll-proportion="-0.65384614">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/PaymentModel.php">
+    <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="627" column="53" selection-start="14289" selection-end="14289" vertical-scroll-proportion="0.49866667">
+        <state line="96" column="0" selection-start="2768" selection-end="2768" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile.php">
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="227" column="33" selection-start="7073" selection-end="7086" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/config/hooks.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="2" selection-start="642" selection-end="642" vertical-scroll-proportion="0.44328552" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="25" selection-start="965" selection-end="965" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/success.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/profile.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/big_form.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="12" selection-start="3486" selection-end="3486" vertical-scroll-proportion="-0.18037136">
+        <state line="54" column="77" selection-start="1631" selection-end="1631" vertical-scroll-proportion="-19.615385">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/delivery.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/small_form.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="14" selection-start="1027" selection-end="1037" vertical-scroll-proportion="0.48258063">
+        <state line="56" column="91" selection-start="1934" selection-end="1942" vertical-scroll-proportion="-18.961538">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
+    <entry file="file://$PROJECT_DIR$/system/application/hooks/ssl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="175" column="71" selection-start="4253" selection-end="4273" vertical-scroll-proportion="-19.346153">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/ManagerDeliveryModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="20" selection-start="1915" selection-end="1915" vertical-scroll-proportion="1.9522581">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/DeliveryModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.4238579">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/profile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="213" column="29" selection-start="8111" selection-end="8111" vertical-scroll-proportion="4.802387">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/admin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1665" column="30" selection-start="43660" selection-end="43786" vertical-scroll-proportion="0.3316129">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="639" column="91" selection-start="15361" selection-end="15382" vertical-scroll-proportion="0.7562254">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/ManagerModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="422" column="9" selection-start="12330" selection-end="12330" vertical-scroll-proportion="0.612">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/config/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="38" selection-start="1773" selection-end="1773" vertical-scroll-proportion="-15.923077">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile_header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="99" selection-start="387" selection-end="387" vertical-scroll-proportion="0.10967742">
+        <state line="12" column="52" selection-start="238" selection-end="238" vertical-scroll-proportion="0.2398957">
           <folding />
         </state>
       </provider>

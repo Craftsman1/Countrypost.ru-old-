@@ -2,7 +2,7 @@
 	<? if (isset($filter)) View::show('main/elements/orders/filter'); ?>
 	<form class='autorization smallAuthForm'
 		  method="POST"
-          action='<?= BASEURL ?>user/loginAjax'>
+          action='<?= $this->config->item('base_url') ?>user/loginAjax'>
 		<h2>Вход</h2>
 		<img class="float login_progress"
 			 style="display: none;left: 88px;top: 10px;position: absolute;"
@@ -29,8 +29,8 @@
 				<input type='submit' value='Войти'>
 			</div>
 		</div>
-		<a href='<?= BASEURL ?>user/remindpassword' class='remember-password'>Напомнить</a>
-		<a href='<?= BASEURL ?>signup' class='register'>Регистрация</a>
+		<a href='<?= $this->config->item('base_url') ?>user/remindpassword' class='remember-password'>Напомнить</a>
+		<a href='<?= $this->config->item('base_url') ?>signup' class='register'>Регистрация</a>
 	</form>
 	<? View::show('main/elements/div_social'); ?>
 </div>
@@ -54,11 +54,7 @@
 
                     try
                     {
-                        window.location = '<?= BASEURL ?>'+response;
-                        /*if (login_handler != undefined)
-                        {
-                            login_handler();
-                        }*/
+                        window.location = '<?= $this->config->item('base_url') ?>'+response;
                     }
                     catch (e)
                     {

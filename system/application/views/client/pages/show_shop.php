@@ -1,7 +1,7 @@
 <?if ($error->m):?>
 	<div align="center">
 		<?=$error->m?><br/>
-		<form action="<?=BASEURL?>client/showShop" method="POST">
+		<form action="<?=$this->config->item('base_url')?>client/showShop" method="POST">
 			<table>
 				<tr>
 					<td>Название магазина:</td>
@@ -53,7 +53,7 @@
 	<div id="error" style="display: none; color: red;"></div>
 	<div align="center">
 		<div>
-			<form action="<?=BASEURL?>client/addProduct" method="POST">
+			<form action="<?=$this->config->item('base_url')?>client/addProduct" method="POST">
 				<?if ($country):?>
 				Страна: 
 				<select name="ocountry" id="ocountry">
@@ -77,6 +77,6 @@
 				Ниже откройте тот товар, который хотите купить, так чтобы его было видно и нажмите кнопку купить, расположенную справа вверху.
 			</p>
 		</div>
-		<iframe src="<?=BASEURL?>proxy/?url=<?=urlencode($shop['url'])?>" width="90%" height="70%" id="shop"></iframe>
+		<iframe src="<?=$this->config->item('base_url')?>proxy/?url=<?=urlencode($shop['url'])?>" width="90%" height="70%" id="shop"></iframe>
 	</div>
 <?endif;?>

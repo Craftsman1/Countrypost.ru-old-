@@ -8,7 +8,7 @@
 	</div>
 	<div id="add" align="center" style="display: none;">
 		<br />
-		<form class='admin-inside' name="addForm" id="addForm" method="POST" action="<?= BASEURL ?>admin/saveFaq">
+		<form class='admin-inside' name="addForm" id="addForm" method="POST" action="<?= $this->config->item('base_url') ?>admin/saveFaq">
 			<div class='table'>
 				<div class='angle angle-lt'></div>
 				<div class='angle angle-rt'></div>
@@ -53,7 +53,7 @@
 	</div>
 	<div id="addSection" align="center" style="display: none;">
 		<br />
-		<form class='admin-inside' name="addSectionForm" id="addSectionForm" method="POST" action="<?= BASEURL ?>admin/addFaqSection">
+		<form class='admin-inside' name="addSectionForm" id="addSectionForm" method="POST" action="<?= $this->config->item('base_url') ?>admin/addFaqSection">
 			<div class='table'>
 				<div class='angle angle-lt'></div>
 				<div class='angle angle-rt'></div>

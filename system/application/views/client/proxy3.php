@@ -80,7 +80,7 @@
 					
 					send_form.setAttribute('id', 'send_form_id');
 					send_form.setAttribute('onsubmit', 'return validate_send();');
-					send_form.setAttribute('action', '<?=BASEURL?>client/addProduct');
+					send_form.setAttribute('action', '<?=$this->config->item('base_url')?>client/addProduct');
 					send_form.setAttribute('method', 'POST');
 					send_form.innerHTML = '<?=(($country) ? "Страна: ".$countries_str : '' )?> Товар: <input type="text" name="oname" id="oname"/> Цвет: <input type="text" name="ocolor" size="15"/> Размер: <input type="text" name="osize" size="10"/> Количество: <input type="text" name="oamount" id="oamount" size="10"/><input type="hidden" name="olink" value="<?=$url?>"/><input type="hidden" name="x1" id="input_crop_x"/><input type="hidden" name="y1" id="input_crop_y"/><input type="hidden" name="x2" id="input_crop_width"/><input type="hidden" name="y2" id="input_crop_height"/><input type="hidden" name="sh_width" id="sh_width"/><input type="hidden" name="fname" value="<?=$fname;?>" /><input type="submit" id="buy_btn" name="buy" value="Выделить" />';
 					send_form_div.appendChild(send_form);

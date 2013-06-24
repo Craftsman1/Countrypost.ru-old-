@@ -6,7 +6,7 @@
 } ?>
 <div class='content'>
 	<? Breadcrumb::showCrumbs(); ?>
-	<form name='registration' class='registration' method="post" action='<?= BASEURL ?>user/passwordRecovery'>
+	<form name='registration' class='registration' method="post" action='<?= $this->config->item('base_url') ?>user/passwordRecovery'>
 		<input type='hidden' name='country' value='' id='country' />
 		<h2 style="left:-19px;position:relative;">восстановление пароля</h2>
 		<br>

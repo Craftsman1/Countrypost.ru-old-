@@ -14,3 +14,8 @@
 
 /* End of file hooks.php */
 /* Location: ./system/application/config/hooks.php */
+$hook['post_controller_constructor'][] = array(
+    'function' => 'check_ssl',
+    'filename' => 'ssl.php',
+    'filepath' => 'hooks'
+);

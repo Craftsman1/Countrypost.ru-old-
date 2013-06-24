@@ -8,7 +8,7 @@
 	</center>
 	<?if ($is_authorized):?>
 		<div style='float:left;'>	
-			<div class='submit'><div><input type='submit' style="width:150px;" value='Добавить новый магазин' onclick="window.location = '<?=BASEURL?>main/showAddShop'" /></div></div>
+			<div class='submit'><div><input type='submit' style="width:150px;" value='Добавить новый магазин' onclick="window.location = '<?=$this->config->item('base_url')?>main/showAddShop'" /></div></div>
 		</div>
 		<br /><br /><br />
 	<?endif;?>

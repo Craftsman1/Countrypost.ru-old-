@@ -13,7 +13,7 @@
 		<? endif; ?>
 		<tr>
 			<td style="text-align: justify;border-right: 0;">
-				<a href="<?= BASEURL . $manager->user_login ?>"><?= $manager->manager_name ?></a>
+				<a href="<?= $this->config->item('base_url') . $manager->user_login ?>"><?= $manager->manager_name ?></a>
 				(<?= $manager->user_login ?>)
 			</td>
 			<td style="text-align: right;border-left: 0;">

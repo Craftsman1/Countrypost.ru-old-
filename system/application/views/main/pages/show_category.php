@@ -1,19 +1,19 @@
 <div class='content'>
-	<h2>Каталог магазинов</h2>
+	<h2>пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</h2>
 	<div class="back">
-		<a href="javascript:history.back();" class="back"><span>Назад</span></a>
+		<a href="javascript:history.back();" class="back"><span>пїЅпїЅпїЅпїЅпїЅ</span></a>
 	</div><br />
 	<center>
 		<h3><?=$category->scategory_name?></h3>
 	</center>
 		<?if ($shops):?>
-		Отсортировать по:&nbsp;
-		<a href='<?=BASEURL?>main/showCategory/<?=$category->scategory_id?>/country'>Стране</a> 
-		<a href='<?=BASEURL?>main/showCategory/<?=$category->scategory_id?>/comments'>Отзывам</a>
+		пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ:&nbsp;
+		<a href='<?=$this->config->item('base_url')?>main/showCategory/<?=$category->scategory_id?>/country'>пїЅпїЅпїЅпїЅпїЅпїЅ</a>
+		<a href='<?=$this->config->item('base_url')?>main/showCategory/<?=$category->scategory_id?>/comments'>пїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a>
 	<?endif;?>
 	<?if ($is_authorized):?>
 		<div align="right" style="float:right;">
-			<a href='<?=BASEURL?>main/showAddShop'>Добавить новый магазин</a>
+			<a href='<?=$this->config->item('base_url')?>main/showAddShop'>пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a>
 		</div>
 	<?endif;?>
 	<div>&nbsp;</div>
@@ -31,25 +31,25 @@
 				<col width='auto' />
 				<col width='auto' />
 				<tr>
-					<th>№</th>
-					<th>Магазин</th>
-					<th>Страна</th>
-					<th>Описание</th>
-					<th>Отзывы</th>
+					<th>пїЅ</th>
+					<th>пїЅпїЅпїЅпїЅпїЅпїЅпїЅ</th>
+					<th>пїЅпїЅпїЅпїЅпїЅпїЅ</th>
+					<th>пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</th>
+					<th>пїЅпїЅпїЅпїЅпїЅпїЅ</th>
 				</tr>
 				<?if ($shops):?>
 					<?foreach ($shops as $shop):?>
 					<tr>
 						<td><?=$shop->shop_id?></td>
-						<td><a href='<?=$shop->shop_name?>'><?=$shop->shop_name?></a></td><!--<?=BASEURL?>main/showShop/<?=$shop->shop_id?> -->
+						<td><a href='<?=$shop->shop_name?>'><?=$shop->shop_name?></a></td><!--<?=$this->config->item('base_url')?>main/showShop/<?=$shop->shop_id?> -->
 						<td><?=$countries[$shop->shop_country]?></td>
 						<td><?=$shop->shop_desc?></td>
-						<td><a href='<?=BASEURL?>main/showShop/<?=$shop->shop_id?>'><?=$shop->count?></a></td>
+						<td><a href='<?=$this->config->item('base_url')?>main/showShop/<?=$shop->shop_id?>'><?=$shop->count?></a></td>
 					</tr>
 					<?endforeach;?>	
 				<?else:?>
 					<tr>
-						<td colspan="5">Магазинов нет!</td>
+						<td colspan="5">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ!</td>
 					</tr>
 				<?endif;?>
 			</table>
@@ -63,26 +63,26 @@
 
 
 <?/*
-<a href='<?=BASEURL?>main/showShopCatalog'>Назад</a>
+<a href='<?=$this->config->item('base_url')?>main/showShopCatalog'>пїЅпїЅпїЅпїЅпїЅ</a>
 <center><b><?=$category->scategory_name?></b>
 <?if ($is_authorized):?>
-<br/><a href='<?=BASEURL?>main/showAddShop'>Добавить новый магазин</a>
+<br/><a href='<?=$this->config->item('base_url')?>main/showAddShop'>пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a>
 <?endif;?>
 <br/>
 <?if ($shops):?>
-Отсортировать по: <a href='<?=BASEURL?>main/showCategory/<?=$category->scategory_id?>/country'>Стране</a> <a href='<?=BASEURL?>main/showCategory/<?=$category->scategory_id?>/comments'>Отзывам</a>
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ: <a href='<?=$this->config->item('base_url')?>main/showCategory/<?=$category->scategory_id?>/country'>пїЅпїЅпїЅпїЅпїЅпїЅ</a> <a href='<?=$this->config->item('base_url')?>main/showCategory/<?=$category->scategory_id?>/comments'>пїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a>
 <table>
 	<tr>
-		<td>№</td>
-		<td>Магазин</td>
-		<td>Страна</td>
-		<td>Описание</td>
-		<td>Отзывы</td>
+		<td>пїЅ</td>
+		<td>пїЅпїЅпїЅпїЅпїЅпїЅпїЅ</td>
+		<td>пїЅпїЅпїЅпїЅпїЅпїЅ</td>
+		<td>пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</td>
+		<td>пїЅпїЅпїЅпїЅпїЅпїЅ</td>
 	</tr>
 	<?foreach ($shops as $shop):?>
 	<tr>
 		<td><?=$shop->shop_id?></td>
-		<td><a href='<?=BASEURL?>main/showShop/<?=$shop->shop_id?>'><?=$shop->shop_name?></a></td>
+		<td><a href='<?=$this->config->item('base_url')?>main/showShop/<?=$shop->shop_id?>'><?=$shop->shop_name?></a></td>
 		<td><?=$countries[$shop->shop_country]?></td>
 		<td><?=$shop->shop_desc?></td>
 		<td><?=$shop->count?></td>
@@ -90,7 +90,7 @@
 	<?endforeach;?>	
 </table>
 <?else:?>
-Магазинов нет!
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ!
 <?endif;?>
 </center>
 */?>

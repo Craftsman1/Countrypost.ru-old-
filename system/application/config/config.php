@@ -11,7 +11,9 @@
 |	http://www.your-site.com/
 |
 */
-$config['base_url']	= "http://dziro.dyndns.tv/";
+//$config['base_url']	= "http://dziro.dyndns.tv/";
+$proto = "http" . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "s" : "") . "://";
+$config['base_url'] = $proto . $_SERVER['HTTP_HOST'].'/';
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +25,7 @@ $config['base_url']	= "http://dziro.dyndns.tv/";
 | variable so that it is blank.
 |
 */
-$config['index_page'] = "index.php";
+$config['index_page'] = "";
 
 /*
 |--------------------------------------------------------------------------
@@ -88,7 +90,7 @@ $config['charset'] = "UTF-8";
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = FALSE;
+$config['enable_hooks'] = TRUE;
 
 
 /*

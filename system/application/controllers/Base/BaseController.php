@@ -77,7 +77,7 @@ abstract class BaseController extends Controller
 			 */
 			'viewpath'	=> $this->viewpath,
 			// example: http://omni.kio.samaraauto.ru/kio.php/admin/
-			'selfurl'	=> BASEURL.$this->cname.'/',
+			'selfurl'	=> $this->config->item('base_url').$this->cname.'/',
 			// postback
 			'result'	=> $this->result,
 			// добавляем информацию для счётчиков в меню
@@ -245,7 +245,7 @@ abstract class BaseController extends Controller
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
-			$view['selfurl'] = BASEURL.$this->cname.'/';
+			$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 			$this->load->view($this->viewpath."ajax/$pageName", $view);
 		}
@@ -313,7 +313,7 @@ abstract class BaseController extends Controller
 			Stack::push('result', $this->result);
 			
 			// открываем новые заказы
-			Func::redirect(BASEURL.$this->cname.'/showNewOrders');
+			Func::redirect($this->config->item('base_url').$this->cname.'/showNewOrders');
 			return;
 		}
 
@@ -485,7 +485,7 @@ abstract class BaseController extends Controller
 		catch (Exception $e) 
 		{
 			// если чтото свалилось, уходим на главную
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 
 		// показываем заказ
@@ -669,7 +669,7 @@ abstract class BaseController extends Controller
 			$view = $this->getOrders2In($view, $status);
 
 			// отрисовка
-			$view['selfurl'] = BASEURL . $this->cname . '/';
+			$view['selfurl'] = $this->config->item('base_url') . $this->cname . '/';
 			$view['viewpath'] = $this->viewpath;
 
 			$status = ucfirst($status);
@@ -789,7 +789,7 @@ abstract class BaseController extends Controller
 
 			if ($this->uri->segment(4) == 'ajax')
 			{
-				$view['selfurl'] = BASEURL.$this->cname.'/';
+				$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 				$view['viewpath'] = $this->viewpath;
 				$this->load->view($this->viewpath."ajax/showAll{$status}Payments", $view);
 			}
@@ -875,7 +875,7 @@ abstract class BaseController extends Controller
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
-			$view['selfurl'] = BASEURL.$this->cname.'/';
+			$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 			$this->load->view($this->viewpath."ajax/showCountrypostTaxes", $view);
 		}
@@ -1018,7 +1018,7 @@ abstract class BaseController extends Controller
 		catch (Exception $e)
 		{
 			// если вдруг чтото не сработало, уходим на главную
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 
 		// показываем детали заказа
@@ -1177,7 +1177,7 @@ abstract class BaseController extends Controller
 					'is_joinable'			=> FALSE,
 					'is_editable'			=> TRUE,
 					'order'					=> $order,
-					'selfurl'				=> BASEURL . $this->cname . '/',
+					'selfurl'				=> $this->config->item('base_url') . $this->cname . '/',
 					'viewpath'				=> $this->viewpath
 				));
 			}
@@ -1690,7 +1690,7 @@ abstract class BaseController extends Controller
 		}
 
 		// уходим на страницу с результатами фильтрации
-		Func::redirect(BASEURL.$this->cname.'/'.$pageName);
+		Func::redirect($this->config->item('base_url').$this->cname.'/'.$pageName);
 	}
 	
 	protected function initFilter($filterType)
@@ -1947,7 +1947,7 @@ abstract class BaseController extends Controller
 		}
 		
 		// открываем заказы
-		Func::redirect(BASEURL.$this->cname.'/showOpenOrders');
+		Func::redirect($this->config->item('base_url').$this->cname.'/showOpenOrders');
 	}
 	
 	protected function updateOrderStatus($param, $order_status)
@@ -2308,11 +2308,11 @@ abstract class BaseController extends Controller
 		// открываем детали заказа
 		if (isset($order_id))
 		{
-			Func::redirect(BASEURL.$this->cname.'/showOrderDetails/'.$order_id);
+			Func::redirect($this->config->item('base_url').$this->cname.'/showOrderDetails/'.$order_id);
 		}
 		else
 		{
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}
 	}
 	
@@ -2348,11 +2348,11 @@ abstract class BaseController extends Controller
 		// открываем детали заказа
 		if (isset($order_id))
 		{
-			Func::redirect(BASEURL.$this->cname.'/showOrderDetails/'.$order_id);
+			Func::redirect($this->config->item('base_url').$this->cname.'/showOrderDetails/'.$order_id);
 		}
 		else
 		{
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}
 	}
 	
@@ -2439,11 +2439,11 @@ abstract class BaseController extends Controller
 		
 		if ($this->user->user_group == 'admin')
 		{
-			Func::redirect(BASEURL.'syspay/showClientOpenOrders2In');
+			Func::redirect($this->config->item('base_url').'syspay/showClientOpenOrders2In');
 		}
 		else
 		{
-			Func::redirect(BASEURL.'syspay');
+			Func::redirect($this->config->item('base_url').'syspay');
 		}
 	}
 
@@ -2524,7 +2524,7 @@ abstract class BaseController extends Controller
 		}
 		
 		// открываем комментарии к посылке
-		Func::redirect(BASEURL.$this->cname.'/showOrderDetails/'.$order_id);		
+		Func::redirect($this->config->item('base_url').$this->cname.'/showOrderDetails/'.$order_id);
 	}
 	
 	protected function get_paging($per_page = NULL)
@@ -2666,7 +2666,7 @@ abstract class BaseController extends Controller
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
+        	$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 			$this->load->view($this->viewpath."ajax/showPaymentHistory", $view);
 		}
@@ -2755,11 +2755,11 @@ abstract class BaseController extends Controller
 		// открываем детали заказа
 		if (isset($order) AND $order)
 		{
-			Func::redirect(BASEURL."{$this->cname}/order/{$order->order_id}");
+			Func::redirect($this->config->item('base_url')."{$this->cname}/order/{$order->order_id}");
 		}
 		else
 		{
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 	}
 	
@@ -2807,11 +2807,11 @@ abstract class BaseController extends Controller
 		// открываем детали заказа
 		if (isset($order) AND $order)
 		{
-			Func::redirect(BASEURL . "{$this->cname}/order/{$order->order_id}");
+			Func::redirect($this->config->item('base_url') . "{$this->cname}/order/{$order->order_id}");
 		}
 		else
 		{
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 	}
 

@@ -8,7 +8,7 @@
 <?endif;?>
 <br>
 <br>
-<form action="<?=BASEURL?>tools/generateModel" method="POST">
+<form action="<?=$this->config->item('base_url')?>tools/generateModel" method="POST">
 	<table>
 		<tr>
 			<td>Model name:</td>

@@ -16,7 +16,7 @@
   	<b>Также Вы можете задать нам вопрос, воспользовавшись формой, указанной ниже:</b>
 	<br /><br />
 	<div class="contacts">
-	<form name='contactsForm' class='registration' action='<?=BASEURL?>main/contactUs' method="POST">
+	<form name='contactsForm' class='registration' action='<?=$this->config->item('base_url')?>main/contactUs' method="POST">
 		<? $result = Stack::last('contactResult'); 
 			Stack::clear('contactResult'); 
 			if (isset($result) && $result) : if ($result->e) : ?>
@@ -44,7 +44,7 @@
 			<textarea class="textarea"  maxlength="1024" name="message"/></textarea>
 		</div>
 		<br />
-		<div class='captcha'><img src='<?=BASEURL.'user/showCaptchaImage/'.rand(0,255)?>' /></div>
+		<div class='captcha'><img src='<?=$this->config->item('base_url').'user/showCaptchaImage/'.rand(0,255)?>' /></div>
 		Введите текст на картинке:
 		<div class='field'>
 			<div class='text-field'><div><input type='text' name='captchacode' value='' /></div></div>

@@ -28,7 +28,7 @@
 						<td><a href='<?=$shop->shop_name?>' target='_blank'><?=$shop->shop_name?></a>
 						<td><?=$countries[$shop->shop_country]?></td>
 						<td><?=$shop->shop_desc?></td>
-						<td><a href='<?=BASEURL?>main/showShop/<?=$shop->shop_id?>'>
+						<td><a href='<?=$this->config->item('base_url')?>main/showShop/<?=$shop->shop_id?>'>
 							<? if ($shop->count) : ?>Посмотреть (<?=$shop->count?>)
 							<? elseif ($is_authorized) : ?>Добавить
 							<? endif; ?>

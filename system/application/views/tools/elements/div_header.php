@@ -1,20 +1,20 @@
 <div id="header">
 	<div style="float:left; width: 1000px;">&nbsp;
 		
-		<a href="<?=BASEURL?>">На главную</a>
+		<a href="<?=$this->config->item('base_url')?>">пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a>
 	
 	</div>
 	<? if (isset($user) && $user):?>
 	
 		<div id="welcome">
-			Здравствуйте, <?=$user->user_login;?>
-			<a href="<?=BASEURL?>user/logout" >Выход</a>
+			пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, <?=$user->user_login;?>
+			<a href="<?=$this->config->item('base_url')?>user/logout" >пїЅпїЅпїЅпїЅпїЅ</a>
 		</div>
 	
 	<? else:?>
 	
 		<div id="loginForm">
-			<form id="loginForm" name="loginForm" method="POST" action="<?=BASEURL?>user/login">
+			<form id="loginForm" name="loginForm" method="POST" action="<?=$this->config->item('base_url')?>user/login">
 				<table>
 					<tr>
 						<td>Login: </td>
@@ -31,9 +31,9 @@
 				</table>
 			</form>
 			
-			<a href="/user/registration">регистрация</a>
+			<a href="/user/registration">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a>
 			|
-			<a href="/user/passwordRecovery">восстановление пароля</a>
+			<a href="/user/passwordRecovery">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ</a>
 			
 		</div>
 	

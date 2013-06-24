@@ -10,7 +10,7 @@
 		<em id="importmessage" style="display:none;" class="red-color"></em>
 	</center>
 	<p>
-		Если у Вас большое количество товаров в заказе, Вы можете <a href="<?= BASEURL ?>Zakaz-Countrypost.ru.xlsx">скачать</a> нашу форму в Exсel, заполнить ее и загрузить из нее товары на сайт.
+		Если у Вас большое количество товаров в заказе, Вы можете <a href="<?= $this->config->item('base_url') ?>Zakaz-Countrypost.ru.xlsx">скачать</a> нашу форму в Exсel, заполнить ее и загрузить из нее товары на сайт.
 	</p>
 	<br />
 	<form class='admin-inside' id="importOrderForm" action="<?= $selfurl ?>importOrder" enctype="multipart/form-data" method="POST">
@@ -44,7 +44,7 @@
 			</tr>
 			<tr class='last-row'>
 				<td colspan='9'>
-					<a class="float-left" href="<?= BASEURL ?>Zakaz-Countrypost.ru.xls">
+					<a class="float-left" href="<?= $this->config->item('base_url') ?>Zakaz-Countrypost.ru.xls">
 						<br />
 						Скачать форму
 					</a>

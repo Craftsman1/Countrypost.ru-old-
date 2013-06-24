@@ -16,13 +16,13 @@
 <div id="menu">
 	<ul class="menu">
 		
-			<li><a href="<?=BASEURL?>main/showHowItWork">Как это работает</a></li>
+			<li><a href="<?=$this->config->item('base_url')?>main/showHowItWork">Как это работает</a></li>
 			<li><a href="<?=$selfurl?>">Личный кабинет</a></li>
-			<li><a href="<?=BASEURL?>main/showPays">Способы оплаты</a></li>
-			<li><a href="<?=BASEURL?>main/showPricelist">Тарифы на доставку</a></li>
-			<li><a href="<?=BASEURL?>main/showCollaboration">Сотрудничество</a></li>
-			<li><a href="<?=BASEURL?>main/showShopCatalog">Каталог интернет магазинов</a></li>
-			<li><a href="<?=BASEURL?>main/showContacts">Контакты</a></li>
+			<li><a href="<?=$this->config->item('base_url')?>main/showPays">Способы оплаты</a></li>
+			<li><a href="<?=$this->config->item('base_url')?>main/showPricelist">Тарифы на доставку</a></li>
+			<li><a href="<?=$this->config->item('base_url')?>main/showCollaboration">Сотрудничество</a></li>
+			<li><a href="<?=$this->config->item('base_url')?>main/showShopCatalog">Каталог интернет магазинов</a></li>
+			<li><a href="<?=$this->config->item('base_url')?>main/showContacts">Контакты</a></li>
 		
 	</ul>
 </div>

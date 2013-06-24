@@ -1,6 +1,6 @@
 <div class='top-block'>
 	<form class='block-user autorization-inner bigAuthForm'
-		  action='<?= BASEURL ?>user/loginAjax'
+		  action='<?= $this->config->item('base_url') ?>user/loginAjax'
 		  method="POST">
 		<h2 style="float: left; margin-right: 50px;">Вход</h2>
 		<div class='text-field'>
@@ -25,8 +25,8 @@
 				<input type='submit' value='Войти'>
 			</div>
 		</div>
-		<a href='<?= BASEURL ?>user/remindpassword' class='remember-password'>Напомнить</a>
-		<a href='<?= BASEURL ?>signup' class='register'>Регистрация</a>
+		<a href='<?= $this->config->item('base_url') ?>user/remindpassword' class='remember-password'>Напомнить</a>
+		<a href='<?= $this->config->item('base_url') ?>signup' class='register'>Регистрация</a>
 		<img class="float login_progress"
 			 style="display:none;margin-left:20px;margin-top:8px;"
 			 src="/static/images/lightbox-ico-loading.gif"/>
@@ -52,7 +52,7 @@ $(function() {
 
 				try
 				{
-                    window.location = '<?= BASEURL ?>'+response;
+                    window.location = '<?= $this->config->item('base_url') ?>'+response;
 					/*if (login_handler != undefined)
 					{
 						login_handler();

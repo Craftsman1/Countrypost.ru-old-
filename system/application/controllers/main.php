@@ -142,7 +142,7 @@ class Main extends BaseController {
 			Stack::push('result', $this->result);
 		}
 		
-		$view['selfurl'] = BASEURL.$this->cname.'/';
+		$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 		$view['viewpath'] = $this->viewpath;
 		$this->load->view($this->viewpath."ajax/showUnassignedOrders", $view);
 	}
@@ -209,7 +209,7 @@ class Main extends BaseController {
 	public function showAddShop()
 	{
 		if (!$this->user) {
-			header('Location: '.BASEURL.'main/showShopCatalog');			
+			header('Location: '.$this->config->item('base_url').'main/showShopCatalog');
 			return true;
 		}
 		$view = array();
@@ -229,7 +229,7 @@ class Main extends BaseController {
 	{
 		
 		if (!$this->user) {
-			header('Location: '.BASEURL.'main/showShopCatalog');			
+			header('Location: '.$this->config->item('base_url').'main/showShopCatalog');
 			return true;
 		}
 		
@@ -291,7 +291,7 @@ class Main extends BaseController {
 			}
 			
 			Stack::push('add_shop', 1);
-			Func::redirect(BASEURL.'main/showShopCatalog');			
+			Func::redirect($this->config->item('base_url').'main/showShopCatalog');
 			return true;
 		} catch (Exception $e){
 			
@@ -378,7 +378,7 @@ class Main extends BaseController {
 		}
 		Stack::push('result', $this->result);
 		
-		Func::redirect(BASEURL.'main/showCategory/'.$shop_scategory);
+		Func::redirect($this->config->item('base_url').'main/showCategory/'.$shop_scategory);
 		
 		
 		
@@ -397,7 +397,7 @@ class Main extends BaseController {
 		$this->load->model('ShopModel', 'ShopModel');		
 		if ( ! ($Shop = $this->ShopModel->select(array('shop_id' => intval($id))) ) ) 
 		{
-			header('Location: '.BASEURL.'main/showShopCatalog');			
+			header('Location: '.$this->config->item('base_url').'main/showShopCatalog');
 			return true;
 		}
 		
@@ -424,7 +424,7 @@ class Main extends BaseController {
 			$id &&
 			!($Category = $this->CategoryModel->select(array('scategory_id' => intval($id)))))
 		{
-			header('Location: '.BASEURL.'main/showShopCatalog');			
+			header('Location: '.$this->config->item('base_url').'main/showShopCatalog');
 			return true;
 		}
 		
@@ -477,7 +477,7 @@ class Main extends BaseController {
 		// парсим шаблон
 		if ($this->uri->segment(6) == 'ajax')
 		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
+        	$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 			$this->load->view($this->viewpath."ajax/showCategory", $view);
 		}
@@ -513,7 +513,7 @@ class Main extends BaseController {
 		}
 		
 		Stack::push('shop_deleted', $this->result);
-		Func::redirect(BASEURL.'main/showShopCatalog');
+		Func::redirect($this->config->item('base_url').'main/showShopCatalog');
 	}
 	
 	public function deleteSComment($id, $shop_id)
@@ -542,14 +542,14 @@ class Main extends BaseController {
 		}
 		
 		//Stack::push('shop_deleted', $this->result);
-		Func::redirect(BASEURL."main/showShop/{$shop_id}");
+		Func::redirect($this->config->item('base_url')."main/showShop/{$shop_id}");
 	}
 	
 	public function showShop($id=null) {
 		
 		$this->load->model('ShopModel', 'ShopModel');		
 		if (!($Shop = $this->ShopModel->select(array('shop_id' => intval($id))))) {
-			header('Location: '.BASEURL.'/main/showShopCatalog');			
+			header('Location: '.$this->config->item('base_url').'/main/showShopCatalog');
 			return true;
 		}
 		
@@ -737,7 +737,7 @@ class Main extends BaseController {
 			$this->data->id = $id;
 
 			// загрузка файла
-			$this->data->upload_path = BASEURL.'static/images/'.$this->data->dir.'/';
+			$this->data->upload_path = $this->config->item('base_url').'static/images/'.$this->data->dir.'/';
 			$config['upload_path'] = BASEPATH.'static/images/'.$this->data->dir.'/';
 			$config['allowed_types'] = 'gif|jpg|png';
 			$config['max_size']	= '4096';
@@ -758,7 +758,7 @@ class Main extends BaseController {
 				$this->data->err = '';
 				$this->update($this->upload->data());
 
-				Func::redirect(BASEURL.'main/getFile/'.$this->data->dir.'/'.$this->data->id);
+				Func::redirect($this->config->item('base_url').'main/getFile/'.$this->data->dir.'/'.$this->data->id);
 			}
 		}
 		catch (Exception $e) 
@@ -901,7 +901,7 @@ Email: {$this->user->user_email}";
 		}
 
 		Stack::push('contactResult', $this->result);
-		Func::redirect(BASEURL.'main/showContacts');
+		Func::redirect($this->config->item('base_url').'main/showContacts');
 	}
 	
 	public function filterUnassignedOrders()
@@ -952,7 +952,7 @@ Email: {$this->user->user_email}";
 		}
 		catch (Exception $e)
 		{
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 	}
 
@@ -964,7 +964,7 @@ Email: {$this->user->user_email}";
 			if (isset($this->user->user_group) AND
 				$this->user->user_group == 'manager')
 			{
-				Func::redirect(BASEURL);
+				Func::redirect($this->config->item('base_url'));
 			}
 
 			// показываем выбор вида заказа
@@ -1155,11 +1155,11 @@ Email: {$this->user->user_email}";
 		// если заказа нет, уходим на главную
 		if (empty($order))
 		{
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 
 		// если вдруг чтото не сработало, уходим на главную
-		Func::redirect(BASEURL);
+		Func::redirect($this->config->item('base_url'));
 	}
 
 	protected function showOrderBreadcrumb($order)
@@ -1633,7 +1633,7 @@ Email: {$this->user->user_email}";
 		{
 			if (isset($this->user->user_group))
 			{
-				Func::redirect(BASEURL . $this->user->user_group . '/showScreen/' . $oid);
+				Func::redirect($this->config->item('base_url') . $this->user->user_group . '/showScreen/' . $oid);
 			}
 			else
 			{

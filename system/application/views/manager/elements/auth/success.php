@@ -5,7 +5,7 @@
 			<p>
 				Здравствуйте,
 				<span class='big-text'>
-					<a href='<?= BASEURL . $this->user->user_group ?>'><?= $this->user->user_login ?></a>
+					<a href='<?= $this->config->item('base_url') . $this->user->user_group ?>'><?= $this->user->user_login ?></a>
 				</span>
 			</p>
 			<p>
@@ -14,7 +14,7 @@
 			<div class='submit'>
 				<div>
 					<input type='submit' value='Выйти' onclick="javascript:window.location='<?=
-					BASEURL ?>user/logout';" >
+					$this->config->item('base_url') ?>user/logout';" >
 				</div>
 			</div>
 		</div>
@@ -29,15 +29,15 @@
 			<br>
 			<? if (isset($_SESSION['countrypost_balance'])/* AND $_SESSION['countrypost_balance']*/) : ?>
 			<p>
-				<a href='<?= BASEURL . $this->user->user_group ?>/taxes'>Комиссия Countrypost: <?=
+				<a href='<?= $this->config->item('base_url') . $this->user->user_group ?>/taxes'>Комиссия Countrypost: <?=
 					$_SESSION['countrypost_balance'] ? $_SESSION['countrypost_balance'] : 0 ?></a>
 			</p>
 			<? endif; ?>
 			<p>
-				<a href='<?= BASEURL . $this->user->user_group ?>/history'>Статистика платежей</a>
+				<a href='<?= $this->config->item('base_url') . $this->user->user_group ?>/history'>Статистика платежей</a>
 			</p>
 			<p>
-				<a href='<?= BASEURL . $this->user->user_group ?>/payments'>Заявки на оплату заказов</a>
+				<a href='<?= $this->config->item('base_url') . $this->user->user_group ?>/payments'>Заявки на оплату заказов</a>
 			</p>
 		</div>
 	</div>

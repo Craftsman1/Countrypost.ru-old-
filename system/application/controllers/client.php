@@ -12,7 +12,7 @@ class Client extends BaseController {
 
 		if (empty($user) OR $user->user_group !== 'client')
 		{
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 
 		Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
@@ -21,7 +21,7 @@ class Client extends BaseController {
 	
 	function index()
 	{
-		Func::redirect(BASEURL.$this->cname.'/orders');
+		Func::redirect($this->config->item('base_url').$this->cname.'/orders');
 
 		$this->load->model('NewsModel', 'News');
 
@@ -228,11 +228,11 @@ class Client extends BaseController {
 
 		if ($Odetails)
 		{
-			Func::redirect(BASEURL.$this->cname.'/showBasket');
+			Func::redirect($this->config->item('base_url').$this->cname.'/showBasket');
 		}
 		else
 		{
-			Func::redirect(BASEURL.$this->cname.'/showOpenOrders');
+			Func::redirect($this->config->item('base_url').$this->cname.'/showOpenOrders');
 		}
 	}
 	
@@ -489,7 +489,7 @@ class Client extends BaseController {
 		}
 		
 		Stack::push('result', $this->result);
-		Func::redirect(BASEURL . "client/order/$order_id");
+		Func::redirect($this->config->item('base_url') . "client/order/$order_id");
 	}
 	
 	public function getScreenshot($fname)
@@ -530,7 +530,7 @@ class Client extends BaseController {
 
 		if ( ! empty($basket))
 		{
-			Func::redirect(BASEURL.$this->cname.'/showBasket');
+			Func::redirect($this->config->item('base_url').$this->cname.'/showBasket');
 			return;
 		}
 
@@ -586,7 +586,7 @@ class Client extends BaseController {
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
-			$view['selfurl'] = BASEURL.$this->cname.'/';
+			$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 			$this->load->view('/client/ajax/showOpenOrders2In', $view);
 		}
@@ -665,7 +665,7 @@ class Client extends BaseController {
 
 		}
 
-		Func::redirect(BASEURL . "client/order/$order_id");
+		Func::redirect($this->config->item('base_url') . "client/order/$order_id");
 	}
 	
 	public function showAddresses($partner_id = null)
@@ -1057,7 +1057,7 @@ class Client extends BaseController {
 			$view['order'] = $order;
 			$this->Orders->prepareOrderView($view);
 
-			$view['selfurl'] = BASEURL.$this->cname.'/';
+			$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 			$this->load->view("/client/ajax/showOrderInfoAjax", $view);
 		}
@@ -1119,7 +1119,7 @@ class Client extends BaseController {
 
 			$this->Orders->prepareOrderView($view);
 
-			$view['selfurl'] = BASEURL.$this->cname.'/';
+			$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 			$this->load->view("/client/ajax/showOrderInfoAjax", $view);
 		}
@@ -1535,7 +1535,7 @@ class Client extends BaseController {
 			$view['balance'] = $this->Orders->getFilteredBalance($this->user->user_id, $filter->svalue);
 
 			// парсим шаблон
-			$view['selfurl'] = BASEURL.$this->cname.'/';
+			$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 
 			$this->load->view($this->viewpath."ajax/showBalance", $view);

@@ -48,7 +48,7 @@
 				if (response == '')
 				{
 					success('top', 'Заказ №<?= $order->order_id ?> успешно cформирован!');
-					window.location = '<?= BASEURL . "client/order/$order->order_id" ?>';
+					window.location = '<?= $this->config->item('base_url') . "client/order/$order->order_id" ?>';
 				}
 				else {
 					window.location = '#';

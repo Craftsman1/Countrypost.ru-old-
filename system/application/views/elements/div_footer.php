@@ -5,9 +5,9 @@
 						</br>
 					</p>
 					<ul class='menu'>
-						<li><a href='<?= BASEURL ?>dealers'>Посредники</a></li>
-						<li><a href='<?= BASEURL ?>clients'>Клиенты</a></li>
-						<li><a href='<?= BASEURL ?>main/showFAQ'>FAQ</a></li>
+						<li><a href='<?= $this->config->item('base_url') ?>dealers'>Посредники</a></li>
+						<li><a href='<?= $this->config->item('base_url') ?>clients'>Клиенты</a></li>
+						<li><a href='<?= $this->config->item('base_url') ?>main/showFAQ'>FAQ</a></li>
 						<li>&nbsp;</li>
 						<li><!--LiveInternet counter--><script type="text/javascript"><!--
 		document.write("<a href='http://www.liveinternet.ru/click' "+

@@ -7,7 +7,7 @@
 	<br />
 	<div id="add" align="center" style="display: none;">
 	<br />
-		<form class='admin-inside' name="addForm" id="addForm" method="POST" action="<?=BASEURL?>admin/saveNews">
+		<form class='admin-inside' name="addForm" id="addForm" method="POST" action="<?=$this->config->item('base_url')?>admin/saveNews">
 			<div class='table'>
 				<div class='angle angle-lt'></div>
 				<div class='angle angle-rt'></div>
@@ -91,7 +91,7 @@
 </div>
 
 <div id="add" align="center">
-	<form name="addForm" id="addForm" method="POST" action="<?=BASEURL?>admin/saveNews">
+	<form name="addForm" id="addForm" method="POST" action="<?=$this->config->item('base_url')?>admin/saveNews">
 		<table>
 			<tr>
 				<td>Заголовок:</td>

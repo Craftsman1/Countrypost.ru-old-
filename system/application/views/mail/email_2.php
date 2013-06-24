@@ -5,7 +5,7 @@
 Сообщаем Вам, что в заказе №<?=$order_id?> было добавлено новое предложение. Чтобы его просмотреть перейдите по этой ссылке:
 {/unwrap}
 {unwrap}
-<?=BASEURL?>client/order/<?=$order_id?>
+<?=$this->config->item('base_url')?>client/order/<?=$order_id?>
 {/unwrap}
 {unwrap}
 C уважением,

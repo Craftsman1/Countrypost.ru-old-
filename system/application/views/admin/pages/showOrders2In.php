@@ -63,7 +63,7 @@
 					<?endif;?>
 				</td>
 				<td>
-					<select onchange="window.location.href='<?=BASEURL?>admin/changeOrder2InStatus/<?=$order->order2in_id;?>/'+this.value">
+					<select onchange="window.location.href='<?=$this->config->item('base_url')?>admin/changeOrder2InStatus/<?=$order->order2in_id;?>/'+this.value">
 					<?foreach ($Orders2InStatuses as $o2istatus => $statusName):?>
 							<option value="<?=$o2istatus?>" <?=$o2istatus==$order->order2in_status?'selected':''?>><?=$statusName?></option>
 					<?endforeach;?>

@@ -1,5 +1,5 @@
 <div style="display:block;" class='top-block bid_auth'>
-	<form class='autorization bidAuthForm' method="POST" action='<?= BASEURL ?>user/loginAjax/newBid/<?=
+	<form class='autorization bidAuthForm' method="POST" action='<?= $this->config->item('base_url') ?>user/loginAjax/newBid/<?=
 	$order->order_id ?>' style="float:left;">
     	<input type="hidden" name="segment" value="<?= $this->uri->segment(2) ?>" />
 		<h2>Авторизация</h2>
@@ -20,8 +20,8 @@
 				<input type='submit' value='Войти' />
 			</div>
 		</div>
-		<a href='<?= BASEURL ?>user/showPasswordRecovery' class='remember-password'>Напомнить</a>
-		<a href='<?= BASEURL ?>user/showRegistration' class='register'>Регистрация</a>
+		<a href='<?= $this->config->item('base_url') ?>user/showPasswordRecovery' class='remember-password'>Напомнить</a>
+		<a href='<?= $this->config->item('base_url') ?>user/showRegistration' class='register'>Регистрация</a>
 	</form>
 	<img class="float login_progress" style="display:none;margin-left:10px;margin-top:119px;" src="/static/images/lightbox-ico-loading.gif"/>
 </div>

@@ -3,7 +3,7 @@
 	<form id='registration'
 		  name='registration'
 		  class='registration'
-		  action='<?= BASEURL ?>signup/signupClient'
+		  action='<?= $this->config->item('base_url') ?>signup/signupClient'
 		  method="POST">
 		<h2 style="left:50px;position:relative;">регистрация</h2>
 		<br>
@@ -81,7 +81,7 @@
 		</div>
 		<!--div class='hr'></div>
 		<div class='captcha'>
-			<img src='<?= BASEURL . 'signup/showCaptchaImage/' . rand(0, 255) ?>'>
+			<img src='<?= $this->config->item('base_url') . 'signup/showCaptchaImage/' . rand(0, 255) ?>'>
 		</div>
 		<div id='captcha' class='field'>
 			<span>Введите текст на картинке* :</span>

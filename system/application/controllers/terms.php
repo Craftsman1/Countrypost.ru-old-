@@ -5,8 +5,8 @@ class Terms extends BaseController {
 	{
 		parent::__construct();
 
-		Breadcrumb::setCrumb(array(BASEURL => 'Главная'), 0);
-		Breadcrumb::setCrumb(array(BASEURL . "terms" => 'Правила использования'), 1, TRUE);
+		Breadcrumb::setCrumb(array($this->config->item('base_url') => 'Главная'), 0);
+		Breadcrumb::setCrumb(array($this->config->item('base_url') . "terms" => 'Правила использования'), 1, TRUE);
 	}
 	
 	function index()

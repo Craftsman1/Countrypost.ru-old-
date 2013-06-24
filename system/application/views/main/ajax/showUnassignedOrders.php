@@ -1,4 +1,4 @@
-<? $order_link = BASEURL . 'main/order/'; ?>
+<? $order_link = $this->config->item('base_url') . 'main/order/'; ?>
 <div class='table centered_th centered_td' style="margin:0;" id="unassignedOrders">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>

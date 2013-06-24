@@ -33,7 +33,7 @@
 	</form>
 	
 	<h3>Комментарии</h3>
-	<form class='comments' action='<?=BASEURL?>main/showShop/<?=$shop->shop_id?>' method='POST'>
+	<form class='comments' action='<?=$this->config->item('base_url')?>main/showShop/<?=$shop->shop_id?>' method='POST'>
 		<?if (!$comments):?>
 			<div class='comment'>
 				Пока нет комментариев<br/>

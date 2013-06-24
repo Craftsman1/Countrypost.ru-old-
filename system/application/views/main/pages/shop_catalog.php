@@ -10,7 +10,7 @@
 			<?endif;?>
 					<?if ($is_authorized):?>
 						<div style='float:left;'>	
-							<div class='submit'><div><input type='submit' style="width:150px;" value='Добавить новый магазин' onclick="window.location = '<?=BASEURL?>main/showAddShop'" /></div></div>
+							<div class='submit'><div><input type='submit' style="width:150px;" value='Добавить новый магазин' onclick="window.location = '<?=$this->config->item('base_url')?>main/showAddShop'" /></div></div>
 						</div>
 						<br /><br /><br />
 						<?endif;?>
@@ -38,7 +38,7 @@
 					<? $i++; ?>
 						<td>
 							<h4 style="font-size:1.4em;">
-								<a href='<?=BASEURL?>main/showCategory/<?=$Category->scategory_id?>'><?=$Category->scategory_name?></a>
+								<a href='<?=$this->config->item('base_url')?>main/showCategory/<?=$Category->scategory_id?>'><?=$Category->scategory_name?></a>
 								(<?=$Category->count?>)
 							</h4>
 							<?=$Category->scategory_details?>

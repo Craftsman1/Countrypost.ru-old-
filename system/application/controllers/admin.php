@@ -8,12 +8,12 @@ class Admin extends AdminBaseController {
 
 		$_SESSION['countrypost_balance'] = $this->getCountrypostBalance();
 
-		Breadcrumb::setCrumb(array(BASEURL => 'Главная'), 0, TRUE);
+		Breadcrumb::setCrumb(array($this->config->item('base_url') => 'Главная'), 0, TRUE);
 	}
 	
 	function index()
 	{
-		Func::redirect(BASEURL . "admin/history");
+		Func::redirect($this->config->item('base_url') . "admin/history");
 	}
 
 	private function getCountrypostBalance()
@@ -79,7 +79,7 @@ class Admin extends AdminBaseController {
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
+        	$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 			$this->load->view($this->viewpath."ajax/showExtraPayments", $view);
 		}
@@ -118,7 +118,7 @@ class Admin extends AdminBaseController {
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
+        	$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 			$this->load->view($this->viewpath."ajax/showClientOrdersToOut", $view);
 		}
@@ -157,7 +157,7 @@ class Admin extends AdminBaseController {
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
+        	$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 			$this->load->view($this->viewpath."ajax/showClientPayedOrdersToOut", $view);
 		}
@@ -196,7 +196,7 @@ class Admin extends AdminBaseController {
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
+        	$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 			$this->load->view($this->viewpath."ajax/showManagerOrdersToOut", $view);
 		}
@@ -235,7 +235,7 @@ class Admin extends AdminBaseController {
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
-        	$view['selfurl'] = BASEURL.$this->cname.'/';
+        	$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 			$view['viewpath'] = $this->viewpath;
 			$this->load->view($this->viewpath."ajax/showManagerPayedOrdersToOut", $view);
 		}
@@ -288,7 +288,7 @@ class Admin extends AdminBaseController {
 			}
 			
 		}
-		Func::redirect(BASEURL.$this->cname."/$page");
+		Func::redirect($this->config->item('base_url').$this->cname."/$page");
 	}
 	
 	public function saveOrders2in($page) 
@@ -385,7 +385,7 @@ class Admin extends AdminBaseController {
 			Stack::push('result', $this->result);
 		}
 
-		Func::redirect(BASEURL."syspay/$page");
+		Func::redirect($this->config->item('base_url')."syspay/$page");
 	}
 	
 	public function deleteOrder2out($oid) 
@@ -440,7 +440,7 @@ class Admin extends AdminBaseController {
 		
 		Stack::push('result', $this->result);
 		
-		Func::redirect(BASEURL.$this->cname.'/showEditNews');
+		Func::redirect($this->config->item('base_url').$this->cname.'/showEditNews');
 		
 	}
 	
@@ -464,7 +464,7 @@ class Admin extends AdminBaseController {
 		
 		Stack::push('result',$this->result);
 		
-		Func::redirect(BASEURL.$this->cname.'/showEditNews');		
+		Func::redirect($this->config->item('base_url').$this->cname.'/showEditNews');
 
 	}
 	
@@ -530,7 +530,7 @@ class Admin extends AdminBaseController {
 		
 		Stack::push('result', $this->result);
 		
-		Func::redirect(BASEURL.$this->cname.'/showEditFaq');
+		Func::redirect($this->config->item('base_url').$this->cname.'/showEditFaq');
 		
 	}
 	
@@ -563,7 +563,7 @@ class Admin extends AdminBaseController {
 		}
 		
 		Stack::push('result', $this->result);		
-		Func::redirect(BASEURL.$this->cname.'/showEditFaq');		
+		Func::redirect($this->config->item('base_url').$this->cname.'/showEditFaq');
 	}
 	
 	public function deleteFaq($faq_id){
@@ -586,7 +586,7 @@ class Admin extends AdminBaseController {
 		
 		Stack::push('result',$this->result);
 		
-		Func::redirect(BASEURL.$this->cname.'/showEditFaq');
+		Func::redirect($this->config->item('base_url').$this->cname.'/showEditFaq');
 
 	}
 	
@@ -673,7 +673,7 @@ class Admin extends AdminBaseController {
 		$this->CountryPricelist->saveCountryPricelist($pricelist);
 		
 		Stack::push('result',$this->result);
-		Func::redirect(BASEURL.$this->cname.'/showEditServicesPrice');
+		Func::redirect($this->config->item('base_url').$this->cname.'/showEditServicesPrice');
 	}
 
 	#---------------------------------------------------------------------------
@@ -715,7 +715,7 @@ class Admin extends AdminBaseController {
 			// парсим шаблон
 			if ($this->uri->segment(4) == 'ajax')
 			{
-				$view['selfurl'] = BASEURL.$this->cname.'/';
+				$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 				$view['viewpath'] = $this->viewpath;
 				$this->load->view($this->viewpath."ajax/showPartners", $view);
 			}
@@ -730,7 +730,7 @@ class Admin extends AdminBaseController {
 			$this->result->m = $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}		
 	}
 	
@@ -811,7 +811,7 @@ class Admin extends AdminBaseController {
 			// парсим шаблон
 			if ($this->uri->segment(4) == 'ajax')
 			{
-				$view['selfurl'] = BASEURL.$this->cname.'/';
+				$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 				$view['viewpath'] = $this->viewpath;
 				$this->load->view($this->viewpath."ajax/showClients", $view);
 			}
@@ -826,7 +826,7 @@ class Admin extends AdminBaseController {
 			$this->result->m = $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}		
 	}
 	
@@ -850,7 +850,7 @@ class Admin extends AdminBaseController {
 			$this->result->m = $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}		
 	}
 	
@@ -923,7 +923,7 @@ class Admin extends AdminBaseController {
 		
 		Stack::push('result', $this->result);
 		
-		Func::redirect(BASEURL.$this->cname.'/showPartners');
+		Func::redirect($this->config->item('base_url').$this->cname.'/showPartners');
 	}
 	
 	public function deleteClient($uid) 
@@ -979,7 +979,7 @@ class Admin extends AdminBaseController {
 		
 		Stack::push('result', $this->result);
 		
-		Func::redirect(BASEURL.$this->cname.'/showClients');
+		Func::redirect($this->config->item('base_url').$this->cname.'/showClients');
 	}
 	
 	public function deletePricelistCountries($from, $to) 
@@ -1014,7 +1014,7 @@ class Admin extends AdminBaseController {
 		}
 		
 		Stack::push('result', $this->result);
-		Func::redirect(BASEURL.$this->cname.'/editPricelist');
+		Func::redirect($this->config->item('base_url').$this->cname.'/editPricelist');
 	}
 	
 	public function deleteCountry($uid) 
@@ -1057,7 +1057,7 @@ class Admin extends AdminBaseController {
 		
 		Stack::push('result', $this->result);
 		
-		Func::redirect(BASEURL.$this->cname.'/showCountries');
+		Func::redirect($this->config->item('base_url').$this->cname.'/showCountries');
 	}
 	
 	public function moveClients() 
@@ -1149,7 +1149,7 @@ class Admin extends AdminBaseController {
 		}		
 
 		Stack::push('result', $this->result);
-		Func::redirect(BASEURL.$this->cname.'/showClients');
+		Func::redirect($this->config->item('base_url').$this->cname.'/showClients');
 	}
 	
 	public function editClient($uid) 
@@ -1218,7 +1218,7 @@ class Admin extends AdminBaseController {
 			$result->m	= $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}
 	}
 	
@@ -1259,7 +1259,7 @@ class Admin extends AdminBaseController {
 			$result->m	= $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname.'/showClients');
+			Func::redirect($this->config->item('base_url').$this->cname.'/showClients');
 		}
 	}
 	
@@ -1290,7 +1290,7 @@ class Admin extends AdminBaseController {
 			$result->m	= $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname.'/showCountries');
+			Func::redirect($this->config->item('base_url').$this->cname.'/showCountries');
 		}
 	}
 	
@@ -1388,7 +1388,7 @@ class Admin extends AdminBaseController {
 		}
 	
 		Stack::push('result', $this->result);
-		Func::redirect(BASEURL.$this->cname.'/editClient/'.$uid);
+		Func::redirect($this->config->item('base_url').$this->cname.'/editClient/'.$uid);
 	}
 
 	public function updateClientBalance($uid)
@@ -1438,7 +1438,7 @@ class Admin extends AdminBaseController {
 		}
 	
 		Stack::push('result', $this->result);
-		Func::redirect(BASEURL.$this->cname.'/editClientBalance/'.$uid);
+		Func::redirect($this->config->item('base_url').$this->cname.'/editClientBalance/'.$uid);
 	}
 
 	public function updateCountry($uid)
@@ -1486,7 +1486,7 @@ class Admin extends AdminBaseController {
 		}
 	
 		Stack::push('result', $this->result);
-		Func::redirect(BASEURL.$this->cname.'/editCountry/'.$uid);
+		Func::redirect($this->config->item('base_url').$this->cname.'/editCountry/'.$uid);
 	}
 
 	public function updatePartner($uid) 
@@ -1753,12 +1753,12 @@ class Admin extends AdminBaseController {
 			
 			Stack::push('result', $this->result);
 			// открываем детали партнера
-			Func::redirect(BASEURL.$this->cname.'/showPartnerInfo/'.$uid);
+			Func::redirect($this->config->item('base_url').$this->cname.'/showPartnerInfo/'.$uid);
 			return;
 		}
 		
 		// открываем детали партнера
-		Func::redirect(BASEURL.$this->cname.'/showPartners');
+		Func::redirect($this->config->item('base_url').$this->cname.'/showPartners');
 	}
 	
 	public function showAddPartner(){
@@ -1840,7 +1840,7 @@ class Admin extends AdminBaseController {
 			$this->result->m = $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}		
 	}
 	
@@ -2020,7 +2020,7 @@ class Admin extends AdminBaseController {
 			}
 		
 			$this->db->trans_commit();
-			Func::redirect(BASEURL.$this->cname.'/showPartners');	
+			Func::redirect($this->config->item('base_url').$this->cname.'/showPartners');
 			return true;
 		}
 		catch (Exception $e)
@@ -2052,7 +2052,7 @@ class Admin extends AdminBaseController {
 		
 		Stack::push('view', $view);
 		View::showChild($this->viewpath.'pages/showPartnerInfo', $view);
-		//Func::redirect(BASEURL.$this->cname.'/showPartnerInfo');
+		//Func::redirect($this->config->item('base_url').$this->cname.'/showPartnerInfo');
 	}
 
 	public function refreshSummary() {
@@ -2060,7 +2060,7 @@ class Admin extends AdminBaseController {
 		$stat = $this->Payment->getSummaryStat();
 		Stack::clear('admin_summary_stat');
 		Stack::push('admin_summary_stat', $stat);
-		Func::redirect(BASEURL.$this->cname);
+		Func::redirect($this->config->item('base_url').$this->cname);
 	}
 	
 	public function deleteOrder()
@@ -2150,7 +2150,7 @@ class Admin extends AdminBaseController {
 			$this->result->m = $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}
 	}
 	
@@ -2166,7 +2166,7 @@ class Admin extends AdminBaseController {
 			$this->result->m = $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}
 	}
 	
@@ -2204,7 +2204,7 @@ class Admin extends AdminBaseController {
 			Stack::push('result', $this->result);
 			
 			// открываем тарифы
-			Func::redirect(BASEURL.$this->cname.'/editPricelist');
+			Func::redirect($this->config->item('base_url').$this->cname.'/editPricelist');
 		}
 		catch (Exception $e) 
 		{
@@ -2212,7 +2212,7 @@ class Admin extends AdminBaseController {
 			$this->result->m = $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname.'/showAddDelivery');
+			Func::redirect($this->config->item('base_url').$this->cname.'/showAddDelivery');
 		}
 	}
 	
@@ -2248,7 +2248,7 @@ class Admin extends AdminBaseController {
 			}			
 
 			// открываем тарифы
-			Func::redirect(BASEURL.$this->cname.'/editPricelist');
+			Func::redirect($this->config->item('base_url').$this->cname.'/editPricelist');
 		}
 		catch (Exception $e) 
 		{
@@ -2256,7 +2256,7 @@ class Admin extends AdminBaseController {
 			$this->result->m = $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname.'/showAddDelivery');
+			Func::redirect($this->config->item('base_url').$this->cname.'/showAddDelivery');
 		}
 	}
 	
@@ -2415,7 +2415,7 @@ class Admin extends AdminBaseController {
 		}
 		
 		// открываем прайслист
-		Func::redirect(BASEURL.$this->cname.'/editPricelist');
+		Func::redirect($this->config->item('base_url').$this->cname.'/editPricelist');
 	}
 	
 	private function parsePricelistFile()
@@ -2461,7 +2461,7 @@ class Admin extends AdminBaseController {
 		$this->db->trans_commit();
 
 		// открываем прайслист
-		Func::redirect(BASEURL.$this->cname.'/editPricelist');
+		Func::redirect($this->config->item('base_url').$this->cname.'/editPricelist');
 	}
 		
 	protected function updatePricelistItem($pricelist_id)
@@ -2677,11 +2677,11 @@ class Admin extends AdminBaseController {
 		
 		if (isset($package) && isset($package->package_manager))
 		{
-			Func::redirect(BASEURL.$this->cname.'/editPartner/'.$package->package_manager);
+			Func::redirect($this->config->item('base_url').$this->cname.'/editPartner/'.$package->package_manager);
 		}
 		else
 		{
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}
 	}
 	
@@ -2756,11 +2756,11 @@ class Admin extends AdminBaseController {
 		
 		if (isset($order) && isset($order->order_manager))
 		{
-			Func::redirect(BASEURL.$this->cname.'/editPartner/'.$order->order_manager);
+			Func::redirect($this->config->item('base_url').$this->cname.'/editPartner/'.$order->order_manager);
 		}
 		else
 		{
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}
 	}
 	
@@ -3026,7 +3026,7 @@ class Admin extends AdminBaseController {
 		}
 		
 		// открываем посылки
-		Func::redirect(BASEURL.$this->cname.'/showDeclaration/'.$this->uri->segment(3));
+		Func::redirect($this->config->item('base_url').$this->cname.'/showDeclaration/'.$this->uri->segment(3));
 	}
 	
 	public function addPackageFoto($redirect)
@@ -3467,7 +3467,7 @@ class Admin extends AdminBaseController {
 		}
 		
 		Stack::push('result', $this->result);		
-		Func::redirect(BASEURL.$this->cname.'/extraPayments');
+		Func::redirect($this->config->item('base_url').$this->cname.'/extraPayments');
 	}
 	
 	public function deleteExtraPayment($id) 
@@ -3561,7 +3561,7 @@ class Admin extends AdminBaseController {
 		}
 		
 		Stack::push('result', $this->result);		
-		Func::redirect(BASEURL.$this->cname.'/extraPayments');
+		Func::redirect($this->config->item('base_url').$this->cname.'/extraPayments');
 	}
 	
 	public function addPdetailFoto()

@@ -45,7 +45,7 @@
 					<? endif; ?>
 				</td>
 				<td>
-					<a target="_blank" href="<?= BASEURL . $order->client_login ?>"><?= $order->client_login ?></b>
+					<a target="_blank" href="<?= $this->config->item('base_url') . $order->client_login ?>"><?= $order->client_login ?></b>
 				</td>
 				<td style="text-align:left;">
 					<? if (empty($order->order_country_to_en)) : ?>

@@ -16,7 +16,7 @@ class Profile extends BaseController {
 	{
 		if (empty($this->user->user_group))
 		{
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 
 		switch ($this->user->user_group)
@@ -33,7 +33,7 @@ class Profile extends BaseController {
 			}
 			default : 
 			{
-				Func::redirect(BASEURL);
+				Func::redirect($this->config->item('base_url'));
 			}
 		}		
 	}
@@ -47,7 +47,7 @@ class Profile extends BaseController {
 
 			if (empty($user))
 			{
-				Func::redirect(BASEURL);
+				Func::redirect($this->config->item('base_url'));
 			}
 						
 			$this->load->model('ManagerModel', 'Managers');
@@ -60,7 +60,7 @@ class Profile extends BaseController {
 			
 				if (empty($client))
 				{
-					Func::redirect(BASEURL);
+					Func::redirect($this->config->item('base_url'));
 				}
 				
 				$this->showClientProfile($client, $login);
@@ -72,7 +72,7 @@ class Profile extends BaseController {
 		}
 		catch (Exception $e) 
 		{
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}	
 	}
 	
@@ -111,7 +111,7 @@ class Profile extends BaseController {
 		}
 		catch (Exception $e) 
 		{
-			//Func::redirect(BASEURL);
+			//Func::redirect($this->config->item('base_url'));
 		}		
 	}
 
@@ -132,7 +132,7 @@ class Profile extends BaseController {
 		}
 		catch (Exception $e) 
 		{
-			//Func::redirect(BASEURL);
+			//Func::redirect($this->config->item('base_url'));
 		}		
 	}
 

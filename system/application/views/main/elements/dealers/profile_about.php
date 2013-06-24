@@ -48,7 +48,7 @@
 			Сайт:
 		</span>
 		<span>
-			<a target="_blank" href="<?= empty($manager->website) ? BASEURL.$manager->statistics->login : $manager->website ?>"><?= empty($manager->website) ? BASEURL.$manager->statistics->login : $manager->website ?></a>
+			<a target="_blank" href="<?= empty($manager->website) ? $this->config->item('base_url').$manager->statistics->login : $manager->website ?>"><?= empty($manager->website) ? $this->config->item('base_url').$manager->statistics->login : $manager->website ?></a>
 		</span>
 	</div>
 	<div>

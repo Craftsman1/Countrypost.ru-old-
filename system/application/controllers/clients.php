@@ -68,7 +68,7 @@ class Clients extends BaseController {
 			// парсим шаблон
 			if ($this->uri->segment(4) == 'ajax')
 			{
-				$view['selfurl'] = BASEURL.$this->cname.'/';
+				$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 				$view['viewpath'] = $this->viewpath;
 				$this->load->view("main/ajax/showClients", $view);
 			}
@@ -83,7 +83,7 @@ class Clients extends BaseController {
 			$this->result->m = $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}	
 	}
 	
@@ -180,10 +180,10 @@ class Clients extends BaseController {
 			$this->result->m = $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}	
 		
-		$view['selfurl'] = BASEURL.$this->cname.'/';
+		$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 		$view['viewpath'] = $this->viewpath;
 		$this->load->view("main/ajax/showClients", $view);
 	}

@@ -36,7 +36,7 @@
 					<?= date('d-m-Y H:i', strtotime($tax->usd_conversion_date)) ?>
 				</td>
 				<td>
-					<a href='<?= BASEURL . $tax->client_login ?>'><?= $tax->client_login ?>
+					<a href='<?= $this->config->item('base_url') . $tax->client_login ?>'><?= $tax->client_login ?>
 					(№ <?= $tax->client_id ?>)</a>
 				</td>
 				<td>
@@ -51,7 +51,7 @@
 					?>
 				</td>
 				<td>
-					<a href="<?= BASEURL . $this->user->user_group . '/order/' . $tax->order_id ?>">№ <?=
+					<a href="<?= $this->config->item('base_url') . $this->user->user_group . '/order/' . $tax->order_id ?>">№ <?=
 						$tax->order_id ?>
 				</td>
 				<td>

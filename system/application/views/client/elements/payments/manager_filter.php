@@ -1,6 +1,6 @@
 <form class='admin-inside'
 	  id="balanceFilterForm"
-	  action='<?= BASEURL ?>client/filterBalance'
+	  action='<?= $this->config->item('base_url') ?>client/filterBalance'
 	  method='POST'
 	  style="position: relative;">
 	<input type='hidden' name='balanceReset' id='balanceReset' value='' />

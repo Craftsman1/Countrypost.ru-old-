@@ -17,7 +17,7 @@
 		<?endif;?>
 	</center>
 	
-	<form class='admin-inside' action='<?=BASEURL?>main/saveShop/<?=$shop->shop_id?>' method="POST">
+	<form class='admin-inside' action='<?=$this->config->item('base_url')?>main/saveShop/<?=$shop->shop_id?>' method="POST">
     	<input type="hidden" name="shop_id" value="<?=$shop->shop_id?>" />
 		
 		<div class='table'>

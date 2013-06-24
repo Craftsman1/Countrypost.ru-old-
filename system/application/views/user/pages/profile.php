@@ -1,4 +1,4 @@
-		<form name='registration' class='registration' action='<?=BASEURL?>user/showProfile' method="POST">
+		<form name='registration' class='registration' action='<?=$this->config->item('base_url')?>user/showProfile' method="POST">
 			<h2 style="left:35px;position:relative;">личные данные</h2>
 			<p style="left:-10px;position:relative;">Все поля заполняются только латинскими буквами</p>
 			

@@ -17,7 +17,7 @@ window.extra_tax = 0;
 window.extra_tax_counter = 0;
 
 $('.bidinfo_name')
-	.attr('href', '<?= BASEURL . $user->user_login ?>')
+	.attr('href', '<?= $this->config->item('base_url') . $user->user_login ?>')
 	.html('<?= $manager->manager_name ?>')
 	.after(' (<?= $user->user_login ?>)');
 

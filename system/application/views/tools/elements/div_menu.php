@@ -16,13 +16,13 @@
 <div id="menu">
 	<ul class="menu">
 		
-			<li><a href="<?=BASEURL?>main/showHowItWork">Как это работает</a></li>
-			<li><a href="<?=$selfurl?>">Личный кабинет</a></li>
-			<li><a href="<?=BASEURL?>main/showPays">Способы оплаты</a></li>
-			<li><a href="<?=BASEURL?>main/showTariffs">Тарифы на доставку</a></li>
-			<li><a href="<?=BASEURL?>main/showCollaboration">Сотрудничество</a></li>
-			<li><a href="<?=BASEURL?>main/showShopCatalog">Каталог интернет магазинов</a></li>
-			<li><a href="<?=BASEURL?>main/showContacts">Контакты</a></li>
+			<li><a href="<?=$this->config->item('base_url')?>main/showHowItWork">пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a></li>
+			<li><a href="<?=$selfurl?>">пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a></li>
+			<li><a href="<?=$this->config->item('base_url')?>main/showPays">пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ</a></li>
+			<li><a href="<?=$this->config->item('base_url')?>main/showTariffs">пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a></li>
+			<li><a href="<?=$this->config->item('base_url')?>main/showCollaboration">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a></li>
+			<li><a href="<?=$this->config->item('base_url')?>main/showShopCatalog">пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a></li>
+			<li><a href="<?=$this->config->item('base_url')?>main/showContacts">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a></li>
 		
 	</ul>
 </div>
@@ -30,17 +30,17 @@
 <div>&nbsp;<br /></div>
 
 <div class="adminMenu">
-	<a href="<?=$selfurl?>showPaymentHistory">Добавить новую посылку</a>
+	<a href="<?=$selfurl?>showPaymentHistory">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a>
 	<br />
-	<a href="<?=$selfurl?>showEditServicesPrice">Изменение тарифов на доставку</a>
+	<a href="<?=$selfurl?>showEditServicesPrice">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a>
 	<br />
-	<a href="<?=$selfurl?>showPaymentHistory">Изменить цены за услуги</a>
+	<a href="<?=$selfurl?>showPaymentHistory">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ</a>
 	<br />
-	<a href="<?=$selfurl?>showEditNews">Редактирование новостей</a>
+	<a href="<?=$selfurl?>showEditNews">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a>
 	<br />
-	<a href="<?=$selfurl?>showEditFAQ">Редактирование FAQа</a>
+	<a href="<?=$selfurl?>showEditFAQ">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ FAQпїЅ</a>
 	<br />
-	<a href="<?=$selfurl?>showEditFAQ">Партнеры</a>
+	<a href="<?=$selfurl?>showEditFAQ">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</a>
 	<br />
-	<a href="<?=$selfurl?>showOrderToOut">Заявки на вывод</a>
+	<a href="<?=$selfurl?>showOrderToOut">пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ</a>
 </div>

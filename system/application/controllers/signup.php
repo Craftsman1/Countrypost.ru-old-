@@ -25,8 +25,8 @@ class Signup extends User {
 		$this->paging_base_url = '/clients/index';
 		View::$main_view	= '/main/index';
 
-		Breadcrumb::setCrumb(array(BASEURL => 'Главная'), 0);
-		Breadcrumb::setCrumb(array(BASEURL . "signup" => 'Регистрация'), 1, TRUE);
+		Breadcrumb::setCrumb(array($this->config->item('base_url') => 'Главная'), 0);
+		Breadcrumb::setCrumb(array($this->config->item('base_url') . "signup" => 'Регистрация'), 1, TRUE);
 	}
 
 	public function index()
@@ -37,7 +37,7 @@ class Signup extends User {
 			if (isset($this->user->user_id) AND
 				$this->user->user_id)
 			{
-				Func::redirect(BASEURL);
+				Func::redirect($this->config->item('base_url'));
 			}
 
 			// находим куда редиректить после логина
@@ -47,7 +47,7 @@ class Signup extends User {
 		}
 		catch (Exception $e)
 		{
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 	}
 
@@ -246,7 +246,7 @@ class Signup extends User {
 			$this->load->model('CountryModel', 'Country');
 			$view['Countries'] = $this->Country->getList();
 
-			Breadcrumb::setCrumb(array(BASEURL . "signup/client" => 'Клиент'), 2, TRUE);
+			Breadcrumb::setCrumb(array($this->config->item('base_url') . "signup/client" => 'Клиент'), 2, TRUE);
 			View::showChild('/client/pages/signup', $view);
 		}
 		catch (Exception $e)
@@ -255,7 +255,7 @@ class Signup extends User {
 			$this->result->m = $e->getMessage();
 
 			$this->result->d = FALSE;
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 	}
 	
@@ -266,7 +266,7 @@ class Signup extends User {
 			$this->load->model('CountryModel', 'Country');
 			$view['Countries'] = $this->Country->getList();
 
-			Breadcrumb::setCrumb(array(BASEURL . "signup/dealer" => 'Посредник'), 2, TRUE);
+			Breadcrumb::setCrumb(array($this->config->item('base_url') . "signup/dealer" => 'Посредник'), 2, TRUE);
 			View::showChild('/manager/pages/signup', $view);
 		}
 		catch (Exception $e)
@@ -275,7 +275,7 @@ class Signup extends User {
 			$this->result->m = $e->getMessage();
 
 			$this->result->d = FALSE;
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 	}
 
@@ -333,7 +333,7 @@ class Signup extends User {
 		}
 
 		$this->result->terms_accepted = (self::TERMS_ERROR != $this->result->e);
-		Breadcrumb::setCrumb(array(BASEURL . "signup/client" => 'Клиент'), 2, TRUE);
+		Breadcrumb::setCrumb(array($this->config->item('base_url') . "signup/client" => 'Клиент'), 2, TRUE);
 		View::showChild('/client/pages/signup', $view);
 	}
 
@@ -390,7 +390,7 @@ class Signup extends User {
 		}
 
 		$this->result->terms_accepted = (self::TERMS_ERROR != $this->result->e);
-		Breadcrumb::setCrumb(array(BASEURL . "signup/dealer" => 'Посредник'), 2, TRUE);
+		Breadcrumb::setCrumb(array($this->config->item('base_url') . "signup/dealer" => 'Посредник'), 2, TRUE);
 		View::showChild('/manager/pages/signup', $view);
 	}
 
@@ -407,7 +407,7 @@ class Signup extends User {
 			$_SERVER['HTTP_REFERER'] :
 			'';
 
-		if (stripos($referer, BASEURL) !== FALSE AND
+		if (stripos($referer, $this->config->item('base_url')) !== FALSE AND
 			stripos($referer, 'signup') === FALSE)
 		{
 			$_SESSION['signup_redirect'] = $referer;
@@ -428,7 +428,7 @@ class Signup extends User {
 		}
 		else
 		{
-			$redirect = BASEURL . 'profile';
+			$redirect = $this->config->item('base_url') . 'profile';
 		}
 
 		unset($_SESSION['signup_redirect']);

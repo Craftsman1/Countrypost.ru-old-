@@ -10,7 +10,7 @@ class Manager extends BaseController {
 
 		if (empty($user) OR $user->user_group !== 'manager')
 		{
-			Func::redirect(BASEURL);
+			Func::redirect($this->config->item('base_url'));
 		}
 
 		$_SESSION['countrypost_balance'] = $this->getCountrypostBalance();
@@ -21,7 +21,7 @@ class Manager extends BaseController {
 	
 	function index()
 	{
-		Func::redirect(BASEURL.$this->cname.'/orders');
+		Func::redirect($this->config->item('base_url').$this->cname.'/orders');
 	}
 
 	private function getCountrypostBalance()
@@ -319,7 +319,7 @@ class Manager extends BaseController {
 			$this->load->model('OdetailModel', 'Odetails');
 			$view['countries'] = $this->Countries->getArray();
 
-			$view['selfurl'] = BASEURL . $this->cname . '/';
+			$view['selfurl'] = $this->config->item('base_url') . $this->cname . '/';
 			$view['viewpath'] = $this->viewpath;
 
 			if (isset($bid_extras))

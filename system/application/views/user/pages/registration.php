@@ -1,4 +1,4 @@
-<form id='registration' name='registration' class='registration' action='<?=BASEURL?>user/registration' method="POST">
+<form id='registration' name='registration' class='registration' action='<?=$this->config->item('base_url')?>user/registration' method="POST">
 	<h2 style="left:50px;position:relative;">регистрация</h2>
 	<p style="left:-10px;position:relative;">Все поля заполняются только латинскими буквами</p>
 	<em id=errortext style="color:red !important"><?=$result->m?></em>
@@ -30,7 +30,7 @@
 	</div>
 	<div class='hr'></div>
 	<div class='captcha'>
-		<img src='<?= BASEURL . 'user/showCaptchaImage/' . rand(0,255) ?>'>
+		<img src='<?= $this->config->item('base_url') . 'user/showCaptchaImage/' . rand(0,255) ?>'>
 	</div>
 	<div id=captcha class='field'>
 		<span>Введите текст на картинке:</span>

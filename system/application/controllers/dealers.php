@@ -66,7 +66,7 @@ class Dealers extends BaseController {
 			// парсим шаблон
 			if ($this->uri->segment(4) == 'ajax')
 			{
-				$view['selfurl'] = BASEURL.$this->cname.'/';
+				$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 				$view['viewpath'] = $this->viewpath;
 				$this->load->view("main/ajax/showDealers", $view);
 			}
@@ -81,7 +81,7 @@ class Dealers extends BaseController {
 			$this->result->m = $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}	
 	}
 	
@@ -178,10 +178,10 @@ class Dealers extends BaseController {
 			$this->result->m = $e->getMessage();
 			
 			Stack::push('result', $this->result);
-			Func::redirect(BASEURL.$this->cname);
+			Func::redirect($this->config->item('base_url').$this->cname);
 		}	
 		
-		$view['selfurl'] = BASEURL.$this->cname.'/';
+		$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 		$view['viewpath'] = $this->viewpath;
 		$this->load->view("main/ajax/showDealers", $view);
 	}

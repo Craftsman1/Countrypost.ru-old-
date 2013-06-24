@@ -5,7 +5,7 @@
 Сообщаем Вам, что в заказе №<?=$order_id?> Вы были выбраны исполнителем. Чтобы просмотреть заказ, перейдите по этой ссылке:
 {/unwrap}
 {unwrap}
-<?=BASEURL?>manager/order/<?=$order_id?>
+<?=$this->config->item('base_url')?>manager/order/<?=$order_id?>
 {/unwrap}
 {unwrap}
 C уважением,

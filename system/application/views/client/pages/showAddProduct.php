@@ -1,7 +1,7 @@
 <div class='content'>
 	<? Breadcrumb::showCrumbs(); ?>
 	<h2>Добавление товара в
-		<a href="<?= BASEURL . "client/order/$order->order_id" ?>">заказ №<?= $order->order_id ?></a>
+		<a href="<?= $this->config->item('base_url') . "client/order/$order->order_id" ?>">заказ №<?= $order->order_id ?></a>
 	</h2>
 	<? View::show("/client/elements/showAddProduct/$order->order_type"); ?>
 </div>
@@ -25,7 +25,7 @@
 					if (response.error == 0)
 					{
 						success('top', 'Товар №' + response.odetail_id + ' успешно добавлен в заказ.');
-						window.location = '<?= BASEURL . "client/order/$order->order_id" ?>';
+						window.location = '<?= $this->config->item('base_url') . "client/order/$order->order_id" ?>';
 					}
 					else {
 						error('top', response.error);
