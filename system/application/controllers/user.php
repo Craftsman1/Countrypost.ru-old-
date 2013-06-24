@@ -210,7 +210,7 @@ class User extends BaseController {
 			$this->getLoginData($handler, $id, $view);
 		}
 
-		echo $this->user->user_login;
+		echo $this->user->user_group;
 		/*if (isset($handler))
 		{
 			$this->load->view("/{$this->user->user_group}/elements/div_header", $view);

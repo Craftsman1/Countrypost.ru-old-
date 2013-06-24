@@ -165,19 +165,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ssl.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ssl.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/hooks/ssl.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="52" selection-start="238" selection-end="238" vertical-scroll-proportion="0.2398957">
+            <state line="12" column="52" selection-start="238" selection-end="238" vertical-scroll-proportion="-7.076923">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="big_form.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="big_form.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/big_form.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="77" selection-start="1631" selection-end="1631" vertical-scroll-proportion="-19.615385">
+            <state line="54" column="98" selection-start="1652" selection-end="1652" vertical-scroll-proportion="0.68709254">
               <folding />
             </state>
           </provider>
@@ -186,7 +186,7 @@
       <file leaf-file-name="small_form.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/small_form.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="91" selection-start="1934" selection-end="1942" vertical-scroll-proportion="-18.961538">
+            <state line="56" column="91" selection-start="1942" selection-end="1942" vertical-scroll-proportion="-22.884615">
               <folding />
             </state>
           </provider>
@@ -195,7 +195,7 @@
       <file leaf-file-name="user.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/user.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="227" column="33" selection-start="7073" selection-end="7086" vertical-scroll-proportion="0.0">
+            <state line="212" column="36" selection-start="6739" selection-end="6739" vertical-scroll-proportion="-24.192308">
               <folding />
             </state>
           </provider>
@@ -213,7 +213,7 @@
       <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="96" column="0" selection-start="2768" selection-end="2768" vertical-scroll-proportion="0.0">
+            <state line="96" column="0" selection-start="2768" selection-end="2768" vertical-scroll-proportion="-0.65384614">
               <folding />
             </state>
           </provider>
@@ -222,7 +222,7 @@
       <file leaf-file-name="dealers.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/dealers.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="35" selection-start="1904" selection-end="1904" vertical-scroll-proportion="0.0">
+            <state line="68" column="35" selection-start="1904" selection-end="1904" vertical-scroll-proportion="-0.65384614">
               <folding />
             </state>
           </provider>
@@ -248,7 +248,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/comment.php" />
         <option value="$PROJECT_DIR$/system/application/models/PaymentModel.php" />
         <option value="$PROJECT_DIR$/system/application/views/manager/elements/profile.php" />
@@ -262,8 +261,9 @@
         <option value="$PROJECT_DIR$/system/application/config/config.php" />
         <option value="$PROJECT_DIR$/system/application/views/admin/ajax/showCountrypostTaxes.php" />
         <option value="$PROJECT_DIR$/system/application/hooks/ssl.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/auth/big_form.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/user.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/auth/small_form.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/auth/big_form.php" />
       </list>
     </option>
   </component>
@@ -1052,30 +1052,9 @@
         <state line="38" column="29" selection-start="1322" selection-end="1322" vertical-scroll-proportion="0.22281167" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/dealers.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="35" selection-start="1904" selection-end="1904" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="79" column="27" selection-start="2100" selection-end="2100" vertical-scroll-proportion="-0.65384614">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="0" selection-start="2768" selection-end="2768" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/user.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="227" column="33" selection-start="7073" selection-end="7086" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1099,23 +1078,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/big_form.php">
+    <entry file="file://$PROJECT_DIR$/system/application/hooks/ssl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="77" selection-start="1631" selection-end="1631" vertical-scroll-proportion="-19.615385">
+        <state line="12" column="52" selection-start="238" selection-end="238" vertical-scroll-proportion="-7.076923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="0" selection-start="2768" selection-end="2768" vertical-scroll-proportion="-0.65384614">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/dealers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="35" selection-start="1904" selection-end="1904" vertical-scroll-proportion="-0.65384614">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="212" column="36" selection-start="6739" selection-end="6739" vertical-scroll-proportion="-24.192308">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/small_form.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="91" selection-start="1934" selection-end="1942" vertical-scroll-proportion="-18.961538">
+        <state line="56" column="91" selection-start="1942" selection-end="1942" vertical-scroll-proportion="-22.884615">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/hooks/ssl.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/auth/big_form.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="52" selection-start="238" selection-end="238" vertical-scroll-proportion="0.2398957">
+        <state line="54" column="98" selection-start="1652" selection-end="1652" vertical-scroll-proportion="0.68709254">
           <folding />
         </state>
       </provider>

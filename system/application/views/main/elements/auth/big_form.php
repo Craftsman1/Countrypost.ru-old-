@@ -52,11 +52,7 @@ $(function() {
 
 				try
 				{
-                    window.location = '<?= $this->config->item('base_url') ?>'+response;
-					/*if (login_handler != undefined)
-					{
-						login_handler();
-					}*/
+                    window.location = '<?= $this->config->item('base_url') ?>'+response+'/orders';
 				}
 				catch (e)
 				{
