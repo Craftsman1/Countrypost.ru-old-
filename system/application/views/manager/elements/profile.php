@@ -143,6 +143,17 @@
                 $.fn.removeProfileFieldError($('#country_msdd'));
             }
 
+            field = $('#city');
+            if(field.val() == '')
+            {
+                $.fn.addProfileFieldError(field, 'Укажите город');
+                errorCount++;
+            }
+            else
+            {
+                $.fn.removeProfileFieldError(field);
+            }
+
             field = $('#email');
             if(!field.val().match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/))
             {

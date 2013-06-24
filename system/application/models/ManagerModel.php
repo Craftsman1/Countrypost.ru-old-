@@ -398,6 +398,34 @@ class ManagerModel extends BaseModel implements IModel{
 		return ($result) ? $ordered_result : FALSE;
 	}
 
+    public function saveManagerDelivery($manager_id,$country_id,$payments_description)
+    {
+        $result = $this->db->query(
+            "SELECT description, country_id
+			FROM manager_pricelists
+			WHERE
+				manager_id = $manager_id
+				AND country_id = $country_id"
+        )->result();
+
+        if ($result)
+        {
+            // update
+            $data = array('description' => $payments_description);
+            $where = "manager_id = $manager_id AND country_id = $country_id";
+            $str = $this->db->update_string('manager_pricelists', $data, $where);
+            $result = $this->db->query($str)->result();
+        }else{
+            // insert
+            $data = array('manager_id' => $manager_id, 'country_id' => $country_id, 'description' => $payments_description);
+            $str = $this->db->insert_string('manager_pricelists', $data);
+            $result = $this->db->query($str)->result();
+        }
+
+        return ($result) ? $result : FALSE;
+
+    }
+
 	public function isOrdersLimitReached($manager_id)
 	{
 		$active_orders = $this->db->query(
