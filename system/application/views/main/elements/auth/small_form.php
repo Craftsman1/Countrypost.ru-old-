@@ -54,7 +54,15 @@
 
                     try
                     {
-                        window.location = '<?= $this->config->item('base_url') ?>'+response+'/orders';
+						if (response == 'admin')
+						{
+		                      window.location = '<?= $this->config->item('base_url') ?>'+response+'/history';
+ 						}
+						else
+						{
+							window.location = '<?= $this->config->item('base_url') ?>'+response+'/orders';
+						}
+                        
                     }
                     catch (e)
                     {
