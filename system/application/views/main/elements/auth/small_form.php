@@ -56,11 +56,11 @@
                     {
 						if (response == 'admin')
 						{
-		                      window.location = '<?= $this->config->item('base_url') ?>'+response+'/history';
+							window.location = 'https://<?= $_SERVER['HTTP_HOST'] ?>/'+response+'/history';
  						}
 						else
 						{
-							window.location = '<?= $this->config->item('base_url') ?>'+response+'/orders';
+							window.location = 'https://<?= $_SERVER['HTTP_HOST'] ?>/'+response+'/orders';
 						}
                         
                     }
