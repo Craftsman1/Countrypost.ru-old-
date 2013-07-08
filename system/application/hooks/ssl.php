@@ -9,17 +9,19 @@ function check_ssl()
 {
     $CI =& get_instance();
     $class = $CI->router->fetch_class();
-
-    $ssl = array('client','profile','manager','admin', 'main');
+    $ssl = array('client','profile','manager','admin');
     $partial =  array('');
-
-    if(in_array($class,$ssl))
+    $segment2 = $CI->uri->segment(2);
+    if(in_array($class,$ssl) )
     {
         force_ssl();
     }
-    else if(in_array($class,$partial))
+    else if(in_array($class,$partial) 
+			|| (strpos($segment2,'avatar') !== false) 
+			|| (strpos($segment2,'order') !== false)
+			)
     {
-        return;
+        force_ssl();
     }
     else
     {
