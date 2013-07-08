@@ -10,7 +10,7 @@ function check_ssl()
     $CI =& get_instance();
     $class = $CI->router->fetch_class();
 
-    $ssl = array('client','profile','manager','admin');
+    $ssl = array('client','profile','manager','admin', 'main');
     $partial =  array('');
 
     if(in_array($class,$ssl))
