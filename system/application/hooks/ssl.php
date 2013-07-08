@@ -21,6 +21,7 @@ function check_ssl()
 			|| (strpos($segment2,'order') !== false)
 			|| (strpos($segment2,'showPublicScreenshot') !== false)
 			|| (strpos($segment2,'loginAjax') !== false)
+			|| (strpos($segment2,'addProduct') !== false)			
 			)
     {
         force_ssl();
