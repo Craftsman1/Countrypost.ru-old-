@@ -19,6 +19,7 @@ function check_ssl()
     else if(in_array($class,$partial) 
 			|| (strpos($segment2,'avatar') !== false) 
 			|| (strpos($segment2,'order') !== false)
+			|| (strpos($segment2,'showPublicScreenshot') !== false)
 			)
     {
         force_ssl();
