@@ -25,7 +25,7 @@ class BlogModel extends BaseModel implements IModel{
     	$this->properties = new stdClass();
     	$this->properties->blog_id = '';
     	$this->properties->user_id = '';
-    	$this->properties->title = '';
+    	//$this->properties->title = '';
     	$this->properties->message = '';
     	$this->properties->created = '';
     	$this->properties->status = 'active';
@@ -93,10 +93,28 @@ class BlogModel extends BaseModel implements IModel{
 		
 		return FALSE;
 	}
+
+    public function editBlog($blog){
+
+        $result = $this->db->query("
+			SELECT created
+            FROM blogs
+            WHERE blog_id = $blog->message_edit")->result();
+
+        $data = array( 'message' => $blog->message, 'created' => $result[0]->created);
+        $where = "blog_id = ".$blog->message_edit;
+        $str = $this->db->update_string('blogs', $data, $where);
+        $result = $this->db->query($str)->result();
+        return (isset($result)) ? $result : FALSE;
+    }
 	
 	
-	public function deleteBlog($blog_id)
-	{		
+	public function delBlog($blog_id)
+	{
+        $result = $this->db->query("
+			DELETE FROM blogs
+            WHERE blog_id = $blog_id")->result();
+        return (isset($result)) ? $result : FALSE;
 	}
 	
 	/**

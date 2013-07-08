@@ -524,29 +524,48 @@ class Manager extends BaseController {
 
 			// валидация пользовательского ввода
 			Check::reset_empties();
-			$blog->title = Check::str('title', 255, 1);
 			$blog->message = Check::str('message', 65535, 1);
 			$blog->user_id = $this->user->user_id;
-			
+            $blog->message_edit = intval( Check::str('message_edit',65535,1) );
+
 			$empties = Check::get_empties();			
-			
+
 			if ($empties)
 			{
 				throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
 			}
 			
-			// сохраняем
-			$blog = $this->Blogs->addBlog($blog);
+			if (intval($blog->message_edit) == 0){
+			    // сохраняем
+			    $blog = $this->Blogs->addBlog($blog);
+            }else{
+                // редактируем
+                $blog = $this->Blogs->editBlog($blog);
+            }
 			
 			if (empty($blog))
 			{
 				throw new Exception('Новость не сохранена. Попробуйте еще раз.');
 			}
+            echo $blog->blog_id;
 		}
 		catch (Exception $e) 
 		{
 		}
 	}
+
+    public function delBlog()
+    {
+        try
+        {
+            $blog_id = Check::int('blog_id');
+            $this->load->model('BlogModel', 'Blogs');
+            $this->Blogs->delBlog($blog_id);
+        }
+        catch (Exception $e)
+        {
+        }
+    }
 
 	public function savePricelist()
 	{
