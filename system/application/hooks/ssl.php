@@ -32,7 +32,7 @@ function force_ssl()
     $CI =& get_instance();
     $CI->load->helper('url');
     $CI->config->config['base_url'] = str_replace('http://', 'https://', $CI->config->config['base_url']);
-    if ($_SERVER['SERVER_PORT'] != 443) redirect($CI->uri->uri_string());
+    if (!(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")) redirect($CI->uri->uri_string());
 }
 
 function unforce_ssl()
@@ -40,5 +40,5 @@ function unforce_ssl()
     $CI =& get_instance();
     $CI->load->helper('url');
     $CI->config->config['base_url'] = str_replace('https://', 'http://', $CI->config->config['base_url']);
-    if ($_SERVER['SERVER_PORT'] == 443) redirect($CI->uri->uri_string());
+    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") redirect($CI->uri->uri_string());
 }
