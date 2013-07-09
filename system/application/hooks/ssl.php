@@ -20,13 +20,13 @@ function check_ssl()
 			|| (strpos($segment2,'avatar') !== false) 
 			|| (strpos($segment2,'order') !== false)
 			|| (strpos($segment2,'showPublicScreenshot') !== false)
-			|| (strpos($segment2,'loginAjax') !== false)
+			|| (strpos($segment2,'checkout') !== false)
 			|| (strpos($segment2,'addProduct') !== false)			
 			)
     {
         force_ssl();
     }
-    else
+    else if ( (strpos($segment2,'loginAjax') === false))
     {
         unforce_ssl();
     }
