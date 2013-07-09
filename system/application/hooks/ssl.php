@@ -9,7 +9,7 @@ function check_ssl()
 {
     $CI =& get_instance();
     $class = $CI->router->fetch_class();
-    $ssl = array('client','profile','manager','admin');
+    $ssl = array('client','profile','manager','admin','syspay');
     $partial =  array('');
     $segment2 = $CI->uri->segment(2);
     if(in_array($class,$ssl) )
