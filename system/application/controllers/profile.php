@@ -75,6 +75,14 @@ class Profile extends BaseController {
 			Func::redirect($this->config->item('base_url'));
 		}	
 	}
+
+    public function getMoreBlogAjax($user_id,$start,$count)
+    {
+
+        $this->load->model('BlogModel', 'Blogs');
+        $rows = $this->Blogs->getBlogsByUserId($user_id,$start,$count);
+        echo json_encode($rows);
+    }
 	
 	private function showDealerProfile($manager, $login)
 	{
