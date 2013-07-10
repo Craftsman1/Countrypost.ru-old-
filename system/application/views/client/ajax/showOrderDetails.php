@@ -76,15 +76,15 @@ $odetail_joint_count = 0;
 					</div>
 				</div>
 				<div class="description" style="font-weight: bold; float: right; padding-top: 7px;">
-					<div class="floatright">
+					<!--<div class="floatright">
 						Итого:
-						<b class="sum"><?= $order->order_cost ?></b>
-						<b class="currency"><?= $order->order_currency ?></b>
+						<b class="sum"><?/*= $order->order_cost */?></b>
+						<b class="currency"><?/*= $order->order_currency */?></b>
 					</div>
 					<br>
 					<div class="delivery floatright">
 						Доставка в
-						<b class="country"><?
+						<b class="country"><?/*
 							if ($order->order_country_to)
 							{
 								foreach ($countries as $country)
@@ -95,12 +95,12 @@ $odetail_joint_count = 0;
 										break;
 									}
 								}
-							} ?></b>
-						<b class="city"><? if ($order->order_city_to) : ?>(<?=
-								$order->order_city_to ?>)<? endif; ?></b><b class="weight"><? if
-							($order->order_weight) : ?>: <?=
-							$order->order_weight ?>кг<? endif; ?></b>
-					</div>
+							} */?></b>
+						<b class="city"><?/* if ($order->order_city_to) : */?>(<?/*=
+								$order->order_city_to */?>)<?/* endif; */?></b><b class="weight"><?/* if
+							($order->order_weight) : */?>: <?/*=
+							$order->order_weight */?>кг<? /*endif;*/ ?></b>
+					</div>-->
 				</div>
 				<? endif; ?>
 				<? if ($is_joinable) : ?>
