@@ -7,14 +7,6 @@
 			<div class='angle angle-rb'></div>
 			<div class="blog_box admin-inside">
 				<input type="hidden" name="blog_id" />
-				<!--
-                <div>
-					<span class="label">Заголовок*:</span>
-				</div>
-				<br style="clear:both;" />
-				<div>
-					<input style="width:910px;" class="textbox" maxlength="255" type='text' id='title' name="title" />
-				</div>!-->
 				<br style="clear:both;" />
 				<div id="textarea_point">
 					<span class="label">Текст новости*:</span>
@@ -28,7 +20,7 @@
 		<br style="clear:both;" />
 		<div class="submit floatleft">
 			<div>
-				<input type="submit" value="Сохранить">
+				<input id="btnSubmit" type="submit" value="Добавить новость">
 			</div>
 		</div>
 		<img class="float" id="blogProgress" style="display:none;margin:0px;margin-top:4px;" src="/static/images/lightbox-ico-loading.gif"/>
@@ -45,18 +37,22 @@
 		<div>
 			<span class="label">
 				<?= isset($blog->created) ? date('d.m.Y H:i', strtotime($blog->created)) : '' ?>
+                <span style="float: right;" id="message_<?=$blog->blog_id?>">
+                    <img class="edit_news" style="cursor:pointer; display: block;" src="static/images/comment-edit.png">
+                    <img class="delete_news" style="cursor:pointer;" src="static/images/delete.png">
+                </span>
 			</span>
 		</div>
 		<div>
 			<?= html_entity_decode($blog->message) ?>
 		</div>
-        <div style="float:right;" id="message_<?=$blog->blog_id?>" >
-            <img class="edit_news" style="cursor:pointer; display: block; margin-top: -47px;" src="static/images/comment-edit.png">
-            <img class="delete_news" style="cursor:pointer;" src="static/images/delete.png">
-        </div>
 	</div>
 	<? endforeach; endif; ?>
+    <div id="insert_more_message" style="text-align: center; margin-top: 20px;">
+        <input id="btnMore" type="button" value="Ещё...">
+    </div>
 </div>
+
 <script>
 	$(function() {
 		$('#blogForm').ajaxForm({
@@ -82,28 +78,36 @@
                     var news_snippet = '<div id="table_'+response+'" style="margin-top: 20px;" class="table"><div class="angle angle-lt"></div><div class="angle angle-rt"></div><div class="angle angle-lb"></div><div class="angle angle-rb"></div><div><span class="label">' +
                     getNowDate() +
                     '</span> <span class="label"><b>' +
-                    '</b></span></div><div>' +
+                    '</b>'+
+
+                    '<span style="float: right;" id="message_'+response+'">'+
+                    '<img class="edit_news" style="cursor:pointer; display: block;" src="static/images/comment-edit.png">'+
+                    '<img class="delete_news" style="cursor:pointer;" src="static/images/delete.png">'+
+                    '</span>'+
+
+                    '</span></div><div>' +
                     message +
-                    '</div>'+
-                    '<div style="float:right;" id="message_'+response+'" >'+
-                    '<img class="edit_news" style="position:relative; cursor:pointer; display: block; margin-top: -47px;" src="static/images/comment-edit.png">'+
-                    '<img class="delete_news" style="position:relative;cursor:pointer;" src="static/images/delete.png">'+
                     '</div></div>';
 
                     $('#news_header').after(news_snippet);
                 }else{
+
                     var id_message = $("#message_edit").attr('value');
-                    $("#message_"+id_message).prev().html(message);
+                    $("#message_"+id_message).parent().parent().next().html(message);
                     scrollToDiv ( $("#table_"+id_message),40);
 
                     var color = $("#table_"+id_message).css('color');
-                    //alert(color);
+
                     $("#table_"+id_message).animate({
                         color:"red"
                     }, 1000);
                     $("#table_"+id_message).animate({
                         color:color
                     }, 1000);
+                    $("#message_edit").attr('value',0);
+
+                    $("#btnSubmit").attr('value','Добавить новость');
+
                 }
 
 				oEditor.SetHTML('');
@@ -120,7 +124,9 @@
             var re = /message_/; id_message = id_message.replace(re,'');
             $("#message_edit").attr('value',id_message);
 
-            var mes = $(this).parent().prev().html();
+            $("#btnSubmit").attr('value','Сохранить изменения');
+
+            var mes = $(this).parent().parent().parent().next().html();
             var oEditor = FCKeditorAPI.GetInstance('message');
             var message = oEditor.SetHTML(mes);
 
@@ -145,6 +151,36 @@
             }
         })
 
+        var start = 5;
+        $('#btnMore').click(function(){
+            var count = 5;
+            $.ajax({
+                type: "POST",
+                url: "/manager/getMoreBlogAjax/"+start+"/"+count,
+                success: function(result){
+                    start = start + count;
+                    result = JSON.parse(result);
+                    for (var i = 0; i < result.length; i++) {
+                        var date = (result[i].created).replace(/(\d+)-(\d+)-(\d+) (\d+):(\d+):(\d+)/,'$3.$2.$1 $4:$5');
+                        var news_snippet = '<div id="table_'+result[i].blog_id+'" style="margin-top: 20px;" class="table"><div class="angle angle-lt"></div><div class="angle angle-rt"></div><div class="angle angle-lb"></div><div class="angle angle-rb"></div><div><span class="label">' +
+                            date +
+                            '</span> <span class="label"><b>' +
+                            '</b>'+
+
+                            '<span style="float: right;" id="message_'+result[i].blog_id+'">'+
+                            '<img class="edit_news" style="cursor:pointer; display: block;" src="static/images/comment-edit.png">'+
+                            '<img class="delete_news" style="cursor:pointer;" src="static/images/delete.png">'+
+                            '</span>'+
+
+                            '</span></div><div>' +
+                            htmlUnescape(result[i].message)+
+                            '</div></div>';
+                        $('#insert_more_message').before(news_snippet);
+                    }
+                }
+            });
+        })
+
         function scrollToDiv(element,navheight){
             var offset = element.offset();
             var offsetTop = offset.top;
@@ -156,6 +192,16 @@
         }
 
 	});
+
+    function htmlUnescape(value){
+        return String(value)
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, "'")
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&amp;/g, '&');
+    }
+
 
 	<?= editor('message', 200, 920, 'PackageComment') ?>
 </script>

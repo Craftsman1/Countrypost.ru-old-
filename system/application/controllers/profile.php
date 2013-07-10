@@ -170,7 +170,7 @@ class Profile extends BaseController {
 
 			// блог
 			$this->load->model('BlogModel', 'Blogs');
-			$view['blogs']	= $this->Blogs->getBlogsByUserId($manager->manager_user);
+			$view['blogs']	= $this->Blogs->getBlogsByUserId($manager->manager_user,0,5);
 
 			// доставка
 			$view['deliveries']	= $this->Managers->getManagerDeliveries($manager->manager_user);

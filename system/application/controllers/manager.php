@@ -1095,4 +1095,11 @@ class Manager extends BaseController {
 	{
 		parent::showCountrypostTaxes();
 	}
+
+    public function getMoreBlogAjax($start,$count)
+    {
+        $this->load->model('BlogModel', 'Blogs');
+        $rows = $this->Blogs->getBlogsByUserId($this->user->user_id,$start,$count);
+        echo json_encode($rows);
+    }
 }
