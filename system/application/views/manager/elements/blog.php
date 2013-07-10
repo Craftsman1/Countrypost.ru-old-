@@ -47,9 +47,22 @@
 			<?= html_entity_decode($blog->message) ?>
 		</div>
 	</div>
-	<? endforeach; endif; ?>
+	<? endforeach; ?>
+    <? else: ?>
+        <div class="table" id="no_news">
+            <div class='angle angle-lt'></div>
+            <div class='angle angle-rt'></div>
+            <div class='angle angle-lb'></div>
+            <div class='angle angle-rb'></div>
+            <p>
+                Нет новостей.
+            </p>
+        </div>
+    <? endif ?>
     <div id="insert_more_message" style="text-align: center; margin-top: 20px;">
-        <input id="btnMore" type="button" value="Ещё...">
+        <? if ( (count($blogs) < $blogs_allcount) && count($blogs) > 0 ) : ?>
+            <a id="btnMore" style="cursor: pointer;">Показать еще 5 новостей</a>
+        <? endif ?>
     </div>
 </div>
 
@@ -75,6 +88,7 @@
 				if( $("#message_edit").attr('value') == 0 )
                 {
 
+                    $("#no_news").hide();
                     var news_snippet = '<div id="table_'+response+'" style="margin-top: 20px;" class="table"><div class="angle angle-lt"></div><div class="angle angle-rt"></div><div class="angle angle-lb"></div><div class="angle angle-rb"></div><div><span class="label">' +
                     getNowDate() +
                     '</span> <span class="label"><b>' +
@@ -152,8 +166,10 @@
         })
 
         var start = 5;
+        var all_message = <?=$blogs_allcount?>;
         $('#btnMore').click(function(){
             var count = 5;
+            if ( (start+count) >= all_message ) $("#btnMore").hide();
             $.ajax({
                 type: "POST",
                 url: "/manager/getMoreBlogAjax/"+start+"/"+count,

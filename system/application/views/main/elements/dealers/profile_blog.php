@@ -28,14 +28,18 @@
     </div>
 <? endif ?>
 <div id="insert_more_message" style="text-align: center; margin-top: 20px;">
-    <input id="btnMore" type="button" value="Ещё...">
+    <? if ( (count($blogs) < $blogs_allcount) && count($blogs) > 0 ) : ?>
+        <a id="btnMore" style="cursor: pointer;">Показать еще 5 новостей</a>
+    <? endif ?>
 </div>
 <script>
     $(function() {
 
         var start = 5;
+        var all_message = <?=$blogs_allcount?>;
         $('#btnMore').click(function(){
             var count = 5;
+            if ( (start+count) >= all_message ) $("#btnMore").hide();
             $.ajax({
                 type: "POST",
                 url: "/profile/getMoreBlogAjax/<?=$manager_user?>/"+start+"/"+count,

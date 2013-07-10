@@ -145,5 +145,20 @@ class BlogModel extends BaseModel implements IModel{
 
 		return (isset($result)) ? $result : FALSE;
 	}
+
+    public function getBlogsByUserIdAllCount($user_id)
+    {
+        $id = intval($user_id);
+
+        $result = $this->db->query("
+			SELECT COUNT(*) AS all_blogs
+			FROM `blogs`
+			WHERE
+				`blogs`.`user_id` = '$user_id' AND
+				status <> 'deleted'
+			")->result();
+
+        return (isset($result)) ? $result[0]->all_blogs : FALSE;
+    }
 }
 ?>
