@@ -60,7 +60,7 @@ function validate_float(evt)
 	validate_generic(evt, /[0-9]|\./);
 }
 
-function validate_number(evt) 
+function validate_number(evt)
 {
 	validate_generic(evt, /[0-9]/);
 }
@@ -114,7 +114,7 @@ function getNowDate()
 	var month = date.getMonth();
 	var hours = date.getHours();
 	var minutes = date.getMinutes();
-	
+
 	if (month < 10)
 	{
 		month = '0' + month;
@@ -134,7 +134,7 @@ function getNowDate()
 	{
 		minutes = '0' + minutes;
 	}
-	
+
 	return (day + "." + month + "." + date.getFullYear() + ' ' + hours + ':' + minutes);
 }
 
@@ -940,7 +940,7 @@ function expandComments(bid_id)
     $('.table.bid').removeClass('new');
     $('.table.admin-inside').removeClass('new');
 
-    $.post("/client/clearNewComments/" + bid_id).success(function(response) {
+    $.post("/"+window.user_group+"/clearNewComments/" + bid_id).success(function(response) {
     });
 
 	eval('window.comment' + bid_id + 'expanded = true;');

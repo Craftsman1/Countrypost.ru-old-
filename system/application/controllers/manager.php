@@ -18,7 +18,7 @@ class Manager extends BaseController {
 		Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
 		Breadcrumb::setCrumb(array('/manager/orders/' => 'Мои заказы'), 1, TRUE);
 	}
-	
+
 	function index()
 	{
 		Func::redirect($this->config->item('base_url').$this->cname.'/orders');
@@ -34,7 +34,7 @@ class Manager extends BaseController {
 	{
 		parent::updateOdetailStatuses();
 	}
-	
+
 	protected function processOrdersFilter($filter)
 	{
 		$filter->search_id	= Check::txt('search_id', 11, 1, '');
@@ -73,12 +73,12 @@ class Manager extends BaseController {
 	{
 		$this->showOrders('open');
 	}
-	
+
 	public function showPayedOrders()
 	{
 		$this->showOrders('payed');
 	}
-	
+
 	public function showSentOrders()
 	{
 		$this->showOrders('sent');
@@ -93,6 +93,19 @@ class Manager extends BaseController {
 	{
 		parent::showOrderDetails();
 	}
+
+    public function clearNewComments($bid_id)
+    {
+        // безопасность
+        if ( ! is_numeric($this->uri->segment(3)))
+        {
+            throw new Exception('Доступ запрещен.');
+        }
+
+        $this->load->model('BidCommentModel', 'Comments');
+        $this->Comments->clearNewComments($bid_id);
+
+    }
 
 	protected function showOrderBreadcrumb($order, $bids)
 	{
@@ -139,7 +152,7 @@ class Manager extends BaseController {
 	{
 		$this->filter('Orders', 'orders/0/ajax');
 	}
-	
+
 	public function filterPaymentHistory()
 	{
 		$this->filter('paymentHistory', 'history');
@@ -152,14 +165,14 @@ class Manager extends BaseController {
 
 	public function addBid($order_id, $bid_id = 0)
 	{
-		try 
+		try
 		{
 			if (empty($order_id) OR
 				! is_numeric($order_id))
-			{				
+			{
 				throw new Exception('Невозможно добавить предложение.');
 			}
-						
+
 			// 1. роли и разграничение доступа: новое предложение можно добавлять только в публичный заказ,
 			// а редактировать можно любой
 			if (empty($bid_id) OR
@@ -286,7 +299,7 @@ class Manager extends BaseController {
 				}
 
 				$new_comment->statistics = $bid->statistics;
-				
+
 				$bid->comments = array();
 				$bid->comments[] = $new_comment;
                 $bid->new_comments = count($this->Comments->getNewCommentsByOrderId($bid->bid_id));
@@ -453,53 +466,53 @@ class Manager extends BaseController {
 			$manager->about_me				= Check::str('about', 65535, 0);
 			$manager->skype					= Check::str('skype', 255, 0);
 			$manager->website				= Check::str('website', 4096, 0);
-			
+
 			Check::reset_empties();
-			
+
 			$user->user_email = Check::email(Check::str('email', 128, 4));
-			
+
 			if (isset($_POST['password']) &&
 				$_POST['password'])
 			{
 				$user->user_password = Check::str('password', 32, 1);
-			
+
 				if (isset($user->user_password))
 				{
 					$user->user_password = md5($user->user_password);
 				}
 			}
-			
+
 			$manager->manager_name			= Check::str('fio', 255, 0);
 			$manager->manager_country		= Check::int('country');
 			$manager->city					= Check::str('city', 255, 1);
-			
-			$empties = Check::get_empties();			
-			
+
+			$empties = Check::get_empties();
+
 			if ($empties)
 			{
 				throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
 			}
-			
+
 			$this->db->trans_begin();
-					
+
 			// наконец, все сохраняем
 			$user = $this->User->updateUser($user);
 			$manager = $this->Manager->updateManager($manager);
-			
+
 			if ( ! $user || ! $manager)
 			{
 				throw new Exception('Партнер не сохранен. Попробуйте еще раз.');
 			}
-			
+
 			// коммитим транзакцию
-			if ($this->db->trans_status() === FALSE) 
+			if ($this->db->trans_status() === FALSE)
 			{
 				throw new Exception('Невозможно сохранить данные партнера. Попробуйте еще раз.');
 			}
-					
+
 			$this->db->trans_commit();
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
 		}
@@ -512,7 +525,7 @@ class Manager extends BaseController {
 			// находим новость
 			$blog_id = Check::int('blog_id');
 			$this->load->model('BlogModel', 'Blogs');
-			
+
 			if ($blog_id)
 			{
 				$blog = $this->Blogs->getById($blog_id);
@@ -528,13 +541,13 @@ class Manager extends BaseController {
 			$blog->user_id = $this->user->user_id;
             $blog->message_edit = intval( Check::str('message_edit',65535,1) );
 
-			$empties = Check::get_empties();			
+			$empties = Check::get_empties();
 
 			if ($empties)
 			{
 				throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.');
 			}
-			
+
 			if (intval($blog->message_edit) == 0){
 			    // сохраняем
 			    $blog = $this->Blogs->addBlog($blog);
@@ -542,14 +555,14 @@ class Manager extends BaseController {
                 // редактируем
                 $blog = $this->Blogs->editBlog($blog);
             }
-			
+
 			if (empty($blog))
 			{
 				throw new Exception('Новость не сохранена. Попробуйте еще раз.');
 			}
             echo $blog->blog_id;
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
 		}
 	}
