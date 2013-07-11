@@ -130,20 +130,35 @@ class BlogModel extends BaseModel implements IModel{
 		return ((count($r==1) &&  $r) ? array_shift($r) : FALSE);
 	}
 	
-	public function getBlogsByUserId($user_id)
+	public function getBlogsByUserId($user_id,$start,$count)
 	{
 		$id = intval($user_id);
-		
-		$result = $this->db->query("
+
+        $result = $this->db->query("
 			SELECT `blogs`.*
 			FROM `blogs`
 			WHERE 
 				`blogs`.`user_id` = '$user_id' AND 
 				status <> 'deleted'
 			ORDER BY 
-				created DESC")->result();
+				created DESC LIMIT $start,$count")->result();
 
 		return (isset($result)) ? $result : FALSE;
 	}
+
+    public function getBlogsByUserIdAllCount($user_id)
+    {
+        $id = intval($user_id);
+
+        $result = $this->db->query("
+			SELECT COUNT(*) AS all_blogs
+			FROM `blogs`
+			WHERE
+				`blogs`.`user_id` = '$user_id' AND
+				status <> 'deleted'
+			")->result();
+
+        return (isset($result)) ? $result[0]->all_blogs : FALSE;
+    }
 }
 ?>
