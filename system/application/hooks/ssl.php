@@ -16,12 +16,13 @@ function check_ssl()
     {
         force_ssl();
     }
-    else if(in_array($class,$partial) 
-			|| (strpos($segment2,'avatar') !== false) 
+    else if(in_array($class,$partial)
+			|| (strpos($segment2,'avatar') !== false)
 			|| (strpos($segment2,'order') !== false)
 			|| (strpos($segment2,'showPublicScreenshot') !== false)
 			|| (strpos($segment2,'checkout') !== false)
-			|| (strpos($segment2,'addProduct') !== false)			
+			|| (strpos($segment2,'addProduct') !== false)
+            || (strpos($segment2,'updateProduct') !== false)
 			)
     {
         force_ssl();
