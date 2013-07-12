@@ -23,6 +23,9 @@ function check_ssl()
 			|| (strpos($segment2,'checkout') !== false)
 			|| (strpos($segment2,'addProduct') !== false)
             || (strpos($segment2,'updateProduct') !== false)
+			|| (strpos($segment2,'update_odetail_price') !== false)
+			|| (strpos($segment2,'update_odetail_pricedelivery') !== false)
+			|| (strpos($segment2,'update_odetail_weight') !== false)
 			)
     {
         force_ssl();
