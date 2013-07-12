@@ -61,7 +61,7 @@
     <? endif ?>
     <div id="insert_more_message" style="text-align: center; margin-top: 20px;">
         <? if ( (count($blogs) < $blogs_allcount) && count($blogs) > 0 ) : ?>
-            <a id="btnMore" style="cursor: pointer;">Показать еще 5 новостей</a>
+            <a id="btnMore" style="cursor: pointer; font-size: medium;">Показать еще 5 новостей</a>
         <? endif ?>
     </div>
 </div>
