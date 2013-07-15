@@ -4077,6 +4077,7 @@ abstract class BaseController extends Controller
 			// парсим пользовательский ввод
 			$odetail->odetail_link				= Check::str('link', 500, 1, '');
 			$odetail->odetail_product_name		= Check::str('name', 255, 0, '');
+			$odetail->odetail_shop				= Check::str('shop', 255, 0, '');
 			$odetail->odetail_product_color		= Check::str('color', 255, 0, '');
 			$odetail->odetail_product_size		= Check::str('size', 255, 0, '');
 			$odetail->odetail_volume			= Check::float('volume');

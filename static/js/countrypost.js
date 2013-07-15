@@ -432,6 +432,7 @@ function editItem(id)
 
 		$tr.find('textarea.link').val(odetail['link']);
 		$tr.find('textarea.name').val(odetail['name']);
+		$tr.find('textarea.shop').val(odetail['shop']);
 		$tr.find('textarea.amount').val(odetail['amount']);
 		$tr.find('textarea.size').val(odetail['size']);
 		$tr.find('textarea.color').val(odetail['color']);

@@ -907,4 +907,182 @@ sSignatureValue
 		PayLog::put('WMZ', $addLog);
 		return;
 	}
+	
+	public function QiwiMakeBill($bill_id){
+		//PayLog::put('QIWI');
+		//$addLog = '';
+		
+		//phpinfo();
+		$c = curl_init();
+		$user = (int)$this->input->post('to');
+		$ccode = (int)$this->input->post('ccode');
+		$amount = (double)$this->input->post('amount_rub');
+		$ccy = 'RUB';
+		$comment = $this->input->post('com');
+		$lifetime =  date("c", strtotime("+1 day"));
+		$pay_source = "qw";
+		$prv_name = "Countrypost";
+		$txn_id = $this->input->post('txn_id');
+		$this->load->model('PaymentDetailsModel', 'Payments');
+		$payment = $this->Payments->getPaymentByNumber($txn_id);
+		
+		if($payment && isset($payment->payment_details_amount_rur) && (double)$payment->payment_details_amount_rur == $amount && isset($payment->payment_details_payment_system) && $payment->payment_details_payment_system=='qw')
+		{
+			$authpass = base64_encode(QW_LOGIN.':'.QIWI_PASS);
+			
+			$postdata = array("user"=>"tel:+{$ccode}{$user}",
+					"amount"=>$amount,
+					"ccy"=>$ccy,
+					"comment"=>$comment,
+					"lifetime"=>$lifetime,
+					"pay_source"=>$pay_source,
+					"prv_name"=>$prv_name);
+			//echo $authpass.'<br>';
+			//echo "user=".urlencode("tel:+{$ccode}{$user}")."&amount={$amount}&ccy={$ccy}&comment=".urlencode($comment)."&lifetime=".urlencode($lifetime)."&pay_source={$pay_source}&prv_name={$prv_name}";
+			//echo "https://w.qiwi.com/api/v2/prv/".QW_LOGIN."/bills/{$txn_id}";
+			curl_setopt($c, CURLOPT_URL, "https://w.qiwi.com/api/v2/prv/".QW_LOGIN."/bills/{$txn_id}");
+			curl_setopt($c, CURLOPT_PUT, TRUE);
+			curl_setopt($c, CURLOPT_HTTPHEADER, array(
+				'Accept:text/json', 
+				'Authorization: Basic '.$authpass, 
+				'Content-Type: application/x-www-form-urlencoded; charset=utf-8'));
+			curl_setopt($c, CURLOPT_POSTFIELDS, "amont=".$amount."&user=".urlencode("tel:+{$ccode}{$user}")."&ccy={$ccy}&comment=".urlencode($comment)."&lifetime=".urlencode($lifetime)."&pay_source={$pay_source}&prv_name={$prv_name}");
+			curl_setopt($c, CURLOPT_RETURNTRANSFER, TRUE);
+			$response = curl_exec($c);
+			curl_close($c);
+			if($response)
+			{
+				$data = json_decode($response);
+				if($data && isset($data->response->result_code) && $data->response->result_code==0 && isset($data->response->bill))
+				{
+					header("Location: https://w.qiwi.com/order/external/main.action?shop=".QW_LOGIN."&transaction={$txn_id}&successUrl=".  urlencode(base_url().'syspay/QiwiTransactionSuccess')."&failUrl=".  urlencode(base_url().'syspay/QiwiTransactionFail')."");//редирект на платежку для оплаты
+					
+				}
+				elseif($data && isset($data->response->result_code) && $data->response->result_code!=0)
+				{
+					$addLog = 'Bill Error code='.$data->response->result_code.' desc='.$data->response->description;
+					//PayLog::put('QIWI', $addLog);
+					$this->QiwiError($addLog); //ошибка формировани счета
+				}
+				else{
+					$addLog = 'Bill Error';
+					//PayLog::put('QIWI', $addLog);
+					$this->QiwiError($addLog); //ошибка формировани счета
+				}
+			}
+			$addLog = 'Response Error';
+			//PayLog::put('QIWI', $addLog);
+			$this->QiwiError($addLog); //ошибка формировани счета
+		}
+		else {
+			$addLog = 'Data Error';
+			//PayLog::put('QIWI', $addLog);
+			$this->QiwiError($addLog); //ошибка формировани счета
+		}
+	}
+	/**
+	* Страница успеха
+	*/
+   function QiwiTransactionSuccess(){
+	   $this->showSuccess();
+   }
+   /**
+	* Страница ошибки
+	*/
+   function QiwiTransactionFail(){
+	   $this->showFail();
+   }
+   /**
+	* Страница ошибки
+	*/
+   function QiwiError($error='')
+   {
+	   View::showChild($this->viewpath.'/pages/showError', array(
+				'error' => $error));
+   }
+   
+   /**
+	* Подтверждение успешного платежа со стороны QIWI
+	*/
+   function QiwiConfirmPayment(){
+	   //PayLog::put('QIWI');
+	   //$addLog = '';
+	   
+	   $headers = apache_request_headers();
+	   //функиция, принимающая уведомление о состоянии платежа
+	   if (!$headers || !isset($headers['Authorization']) || $headers['Authorization'] != 'Basic '.base64_encode(QW_LOGIN.':'.QIWI_PASS)){
+		   /*if($headers && isset($headers['Authorization']))
+				$addLog = 'Ошибка авторизации сервера: '.$headers['Authorization'];
+		   else
+			   $addLog = 'Ошибка авторизации сервера';
+		   PayLog::put('QIWI', $addLog);*/
+		   
+		   header("HTTP/1.1 200 OK");
+		   header("Content-Type: text/xml");
+		   echo '<?xml version="1.0"?> <result><result_code>150</result_code></result>';
+		   die(); 
+	   }
+	   $post = $this->input->post();
+	   $txn_id = $this->input->post('bill_id');
+	   $amount = (double)$this->input->post('amount');
+	   $error = $this->input->post('error');
+	   $status = $this->input->post('status');
+	   $ccy = $this->input->post('ccy');
+	   
+	   if($txn_id && $amount && $ccy && $status)
+	   {
+			$this->load->model('PaymentDetailsModel', 'Payments');
+			$payment = $this->Payments->getPaymentByNumber($txn_id);
+			if($payment && isset($payment->payment_details_amount_rur) && (double)$payment->payment_details_amount_rur == $amount && isset($payment->payment_details_payment_system) && $payment->payment_details_payment_system=='qw' && $ccy='RUB')
+			{
+				if ($status == 'success'){
+					$payment_obj = new stdClass();
+					$payment_obj->payment_from				= $payment->payment_details_user;//'[QW] '.$payment->payment_details_number;
+					//$payment_obj->payment_to				= $payment->payment_details_user;
+					$payment_obj->payment_tax				= $payment->payment_details_tax;
+					$payment_obj->payment_amount_rur		= $payment->payment_details_amount_rur;
+					$payment_obj->payment_amount_from		= $payment->payment_details_amount;
+					$payment_obj->payment_amount_tax		= $payment->payment_details_tax;
+					$payment_obj->payment_amount_to			= $payment->payment_details_amount;
+					$payment_obj->payment_purpose			= 'оплата заказа';
+					$payment_obj->payment_type				= 'order';
+					$payment_obj->payment_status			= 'complite';
+					$payment_obj->payment_transfer_info		= 'QW Transfer ID: '.$payment->payment_details_number;
+					$payment_obj->payment_transfer_order_id	= $payment->payment_details_number;
+					$payment_obj->payment_transfer_sign		= $i;
+					$payment_obj->payment_service_id		= $payment->payment_details_payment_system;
+					$payment_obj->status					= 'not_payed';
+					$payment_obj->order_id					= $payment->order_id;
+
+					$this->payOrder($payment_obj->order_id, $payment_obj, $payment->payment_details_amount);
+				}
+				/*$addLog = 'Ок';
+				PayLog::put('QIWI', $addLog);*/
+				header("HTTP/1.1 200 OK");
+				header("Content-Type: text/xml");
+				echo '<?xml version="1.0"?> <result><result_code>0</result_code></result>';
+				die();
+			}
+			else
+			{
+				
+				/*$addLog = 'Ошибка сверки данных:\n $txn_id='.$txn_id;
+				PayLog::put('QIWI', $addLog);*/
+				header("HTTP/1.1 200 OK");
+				header("Content-Type: text/xml");
+				echo '<?xml version="1.0"?> <result><result_code>13</result_code></result>';
+				die();
+			}
+	   }
+	   else
+	   {
+		   /*$addLog = 'Ошибка получения данных:\n $txn_id='.$txn_id.'\n $amount='.$amount.'\n $error='.$error.'\n $status='.$status.'\n $ccy='.$ccy;
+		   PayLog::put('QIWI', $addLog);*/
+		   header("HTTP/1.1 200 OK");
+		   header("Content-Type: text/xml");
+		   echo '<?xml version="1.0"?> <result><result_code>151</result_code></result>';
+		   die(); 
+	   }
+	   return;
+   }
 }

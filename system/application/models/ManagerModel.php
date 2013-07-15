@@ -414,12 +414,12 @@ class ManagerModel extends BaseModel implements IModel{
             $data = array('description' => $payments_description);
             $where = "manager_id = $manager_id AND country_id = $country_id";
             $str = $this->db->update_string('manager_pricelists', $data, $where);
-            $result = $this->db->query($str)->result();
+            $result = $this->db->query($str);
         }else{
             // insert
             $data = array('manager_id' => $manager_id, 'country_id' => $country_id, 'description' => $payments_description);
             $str = $this->db->insert_string('manager_pricelists', $data);
-            $result = $this->db->query($str)->result();
+            $result = $this->db->query($str);
         }
 
         return ($result) ? $result : FALSE;
