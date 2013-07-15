@@ -3,11 +3,10 @@
 {/unwrap}
 {unwrap}
 Сообщаем Вам, что в заказе №<?=$order_id?> было добавлено новое предложение. Чтобы его просмотреть перейдите по этой ссылке:
+<?=$this->config->item('base_url')?>main/order/<?=$order_id?>
 {/unwrap}
 {unwrap}
-<?=$this->config->item('base_url')?>client/order/<?=$order_id?>
-{/unwrap}
+C уважением,{/unwrap}
 {unwrap}
-C уважением,
 Countrypost.ru - лучший сервис покупок за рубежом
 {/unwrap}
