@@ -2980,8 +2980,14 @@ abstract class BaseController extends Controller
         catch (Exception $e)
         {
         }
-
-		Func::redirect($_SERVER['HTTP_REFERER']);
+		if(isset($_SERVER['HTTP_REFERER']))
+		{
+			Func::redirect($_SERVER['HTTP_REFERER']);
+		}
+		else
+		{
+			Func::redirect(base_url());
+		}
     }
 
     protected function deleteNewProduct($oid, $odid)

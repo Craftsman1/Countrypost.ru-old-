@@ -347,6 +347,7 @@ function saveItem(id)
 
 		odetail['link'] = $tr.find('textarea.link').val();
 		odetail['name'] = $tr.find('textarea.name').val();
+		odetail['shop'] = $tr.find('textarea.shop').val();
 		odetail['amount'] = $tr.find('textarea.amount').val();
 		odetail['size'] = $tr.find('textarea.size').val();
 		odetail['color'] = $tr.find('textarea.color').val();
