@@ -970,9 +970,12 @@ sSignatureValue
 					$this->QiwiError($addLog); //ошибка формировани счета
 				}
 			}
-			$addLog = 'Response Error';
-			//PayLog::put('QIWI', $addLog);
-			$this->QiwiError($addLog); //ошибка формировани счета
+			else
+			{
+				$addLog = 'Response Error';
+				//PayLog::put('QIWI', $addLog);
+				$this->QiwiError($addLog); //ошибка формировани счета
+			}
 		}
 		else {
 			$addLog = 'Data Error';
