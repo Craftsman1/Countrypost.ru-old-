@@ -853,7 +853,10 @@ class OrderModel extends BaseModel implements IModel{
 		{
 			if (isset($order->$prop))
 			{
-				$this->_set($prop, $order->$prop);
+				if($prop=='order_cost')
+					$this->_set($prop, ceil($order->$prop));
+				else
+					$this->_set($prop, $order->$prop);
 			}
 		}
 		
