@@ -946,7 +946,7 @@ sSignatureValue
 				'Accept:text/json', 
 				'Authorization: Basic '.$authpass, 
 				'Content-Type: application/x-www-form-urlencoded; charset=utf-8'));
-			curl_setopt($c, CURLOPT_POSTFIELDS, "amont=".$amount."&user=".urlencode("tel:+{$ccode}{$user}")."&ccy={$ccy}&comment=".urlencode($comment)."&lifetime=".urlencode($lifetime)."&pay_source={$pay_source}&prv_name={$prv_name}");
+			curl_setopt($c, CURLOPT_POSTFIELDS, "user=".urlencode("tel:+{$ccode}{$user}")."&amount={$amount}&ccy={$ccy}&comment=".urlencode($comment)."&lifetime=".urlencode($lifetime)."&pay_source={$pay_source}&prv_name={$prv_name}"); //"user=tel%3A%2B79031234567&amount=10.0&ccy=RUB&comment=test&lifetime=2013-11-25T09%3A00%3A00");
 			curl_setopt($c, CURLOPT_RETURNTRANSFER, TRUE);
 			$response = curl_exec($c);
 			curl_close($c);

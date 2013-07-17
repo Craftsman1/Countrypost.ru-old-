@@ -14,18 +14,6 @@ $(function() {
 			});
 		});
 	});
-	
-	$('.choose_payment_title').click(function()
-	{
-		$('.choose_payment_container').toggle();
-	});
-	$('.help').mouseenter(function(e){
-		console.log(e.pageX);
-		$(this).parent().find('.help_text').css('top',jQuery(this).offset().top-50).show();
-	})
-	$('.help').mouseleave(function(){
-		$(this).parent().find('.help_text').hide();
-	})
 });
 
 function processStarClick(index, star)
