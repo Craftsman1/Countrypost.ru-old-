@@ -213,6 +213,31 @@ class Profile extends BaseController {
 					}
 				}
 			}
+			
+			//количество заказов в работе
+			$this->load->model('OrderModel','Orders');
+			$view['filter'] = $this->initFilter('Orders');
+			$view['filter']->order_statuses = $this->Orders->getFilterStatuses();
+
+			$count =0;
+			// находим заказы по статусу и фильтру
+			$orders = $this->Orders->getOrders(
+				$view['filter'],
+				'open',
+				NULL,
+				$manager->manager_user);
+
+			$count += count($orders);
+
+			$orders = $this->Orders->getOrders(
+				$view['filter'],
+				'payed',
+				NULL,
+				$manager->manager_user);
+
+			$count += count($orders);
+
+			$view['orders_in_work']=(int)$count;
 
 			View::showChild($view_name, $view);
 		}

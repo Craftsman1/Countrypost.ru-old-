@@ -21,7 +21,7 @@
 			Заказов в работе:
 		</span>
 		<span>
-			12345678
+			<?= isset($orders_in_work)? (int)$orders_in_work : 0; ?>
 		</span>
 	</div>
 	<div>
