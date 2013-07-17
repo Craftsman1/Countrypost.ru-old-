@@ -534,6 +534,19 @@ $payable_amount =
 			})
 			.bind('keypress keydown mouseup keyup blur', function() {
 				calculateTotals();
+				
+				var payment_option = $('.payment_system input:radio').filter(':checked').attr('id');
+				var service = getService(payment_option);
+				if(service=='qw1')
+					service='qw';
+				else if(service=='bm')
+					service='sb';
+				else if(service=='rk')
+					service='rbk';
+				var total = $('div.total_' + service).html();
+				$('div.countrypost_payment_box div.total b').html(total);
+
+				$('#total_ru,#total_usd,#immediate_ru,#delayed_ru').val(total.substr(0, total.length - 4));
 			});
 
 		// переключение платежек
