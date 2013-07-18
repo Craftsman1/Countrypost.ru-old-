@@ -226,16 +226,16 @@ class Profile extends BaseController {
 				'open',
 				NULL,
 				$manager->manager_user);
-
-			$count += count($orders);
-
+			if($orders)
+				$count += count($orders);
+			
 			$orders = $this->Orders->getOrders(
 				$view['filter'],
 				'payed',
 				NULL,
 				$manager->manager_user);
-
-			$count += count($orders);
+			if($orders)
+				$count += count($orders);
 
 			$view['orders_in_work']=(int)$count;
 
