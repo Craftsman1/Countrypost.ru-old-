@@ -15,7 +15,17 @@ $(function() {
 		});
 	});
 });
-
+$(document).ready(function () {
+    $(window).on('popstate', function (e) {
+        console.log(location);
+        if (!location.hash){
+            eval($("#new").attr('href'));
+        }
+        else{
+            eval($(location.hash).attr('href'));
+        }
+    });
+});
 function processStarClick(index, star)
 {
 	var star_on = $(star).hasClass('on');
@@ -140,13 +150,14 @@ function getNowDate()
 
 function goto_page(page_url)
 {
-	window.location = '#pagerScroll';
+	//window.location = '#pagerScroll';
 
 	$.ajax({
 		url: page_url,
 		success: function (response){
 			$('.pages').remove();
 			$('#pagerForm,#packagesForm,#ordersForm,#partnersForm,#clientsForm,#unassignedOrders,#payments').before(response).remove();
+            window.location.hash = '#'+$('.active a', '#ordersForm .tabs').attr('name');
 		}});
 }
 
