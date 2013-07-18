@@ -12,7 +12,7 @@
 	</li>
 	<li <? if (strval($selected_submenu) == 'sent_orders') : ?>class='active'<? endif; ?>>
 	<div>
-			<a name='submitted' id='name='submitted'' href='javascript:goto_page("<?= $selfurl  ?>showSentOrders/0/ajax");'>Отправленные (<?=  empty
+			<a name='submitted' id='submitted' href='javascript:goto_page("<?= $selfurl  ?>showSentOrders/0/ajax");'>Отправленные (<?=  empty
 			($sent_orders) ? 0 : $sent_orders ?>)</a>
 		</div>
 	</li>
