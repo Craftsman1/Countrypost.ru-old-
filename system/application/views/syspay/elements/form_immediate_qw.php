@@ -1,9 +1,3 @@
-<?php 
-	$countries = array('+7'=>'Россия','+9955'=> "Грузия", '+507'=>"Панама", '+44'=>"Великобритания", '+992'=>"Таджикистан", 
-		'+370'=>"Литва", '+972'=>"Израиль", '+996'=>"Кыргызстан", '+380'=>"Украина", '+84'=>"Вьетнам", '+90'=>"Турция", 
-		'+994'=>"Азербайджан", '+374'=>"Армения", '+371'=>"Латвия", '+91'=>"Индия", '+66'=>"Таиланд", '+373'=>"Молдавия", 
-		'+1'=>"США", '+81'=>"Япония", '+998'=>"Узбекистан", '+82'=>"Южная Корея", '+77'=>"Казахстан");
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,7 +9,7 @@ var ie=document.all;var moz=(navigator.userAgent.indexOf("Mozilla")!=-1);var ope
 </head>
 <body>
 <div style="margin:0 auto; padding:5px; width:500px; border:1px solid #ddd; background:#fff; border-radius: 7px; -webkit-border-radius: 7px; -moz-border-radius: 7px; font:normal 14px/14px Geneva,Verdana,Arial,Helvetica,Tahoma,sans-serif;">
-	<form action="<?php echo base_url().'syspay/QiwiMakeBill/'.$psform['order_id']; ?>" method="post" accept-charset="UTF-8" onSubmit="return checkSubmit();">
+	<form action="http://w.qiwi.ru/setInetBill_utf.do" method="get" accept-charset="UTF-8" onSubmit="return checkSubmit();">
 		<input type="hidden" name="from" value="16801"/>
 		<input type="hidden" name="lifetime" value="1.0"/>
 		<input type="hidden" name="check_agt" value="false"/>
@@ -25,30 +19,17 @@ var ie=document.all;var moz=(navigator.userAgent.indexOf("Mozilla")!=-1);var ope
 		<input type="hidden" name="com" value="Оплата заказа №<?= $psform['order_id'] ?>. Сумма: <?= $psform['amount'] ?> RUB. Клиент: <?= $user->user_id ?>." />
 		<p style="text-align:center; color:#006699; padding:20px 0px; background:url(https://ishop.qiwi.ru/img/button/logo_31x50.jpg) no-repeat 10px 50%;">Выставить счёт за покупку</p>
 		<table style="border-collapse:collapse;">
-			<tr>
-				<td style="color:#a3b52d; padding:10px 0px; width:45%; text-align:center;">
-					Выберите страну
-				</td>
-				<td>
-					<select name="ccode">
-						<?php foreach($countries as $k=>$v): ?>
-						<option value="<?php echo $k; ?>"><?php echo $v; ?>&nbsp;<span style="text-align: right;">( <?php echo $k; ?> )</span></option>
-						<?php endforeach; ?>
-					</select>
-				</td>
-			</tr>
 			<tr style="background:#f1f5fa;">
-				<td style="color:#a3b52d; width:35%; text-align:center; padding:10px 0px;">Мобильный телефон<!--br />(пример: 9057772233)--></td>
+				<td style="color:#a3b52d; width:35%; text-align:center; padding:10px 0px;">Мобильный телефон<br />(пример: 9057772233)</td>
 				<td style="padding:10px">
 					<input type="text" name="to" id="idto" style="width:130px; border: 1px inset #555;"></input>
 					<span id="div_idto"></span>
 					<script type="text/javascript">
-						//inputMasks["idto"] = new Mask(document.getElementById("idto"));
+						inputMasks["idto"] = new Mask(document.getElementById("idto"));
 						function checkSubmit() {
-							var val = document.getElementById("idto").value;
-							if (val.match(/^\d{1,15}$/)) {
-								//document.getElementById("idto").setAttribute("disabled", "disabled");
-								//inputMasks["idto"].makeHInput();
+							if (inputMasks["idto"].getValue().match(/^\d{10}$/)) {
+								document.getElementById("idto").setAttribute("disabled", "disabled");
+								inputMasks["idto"].makeHInput();
 								return true;
 							} else {
 								alert("Введите номер телефона в федеральном формате без \"8\" и без \"+7\"");
