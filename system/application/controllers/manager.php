@@ -691,7 +691,7 @@ class Manager extends BaseController {
 			$manager->manager_address_local = Check::str('address', 1024, 1);
 			$manager->manager_address_name = Check::str('address_name', 255, 1, $manager->manager_name);
 			$manager->manager_phone = Check::str('phone', 255, 1);
-			$manager->manager_address_description = Check::str('address_description', 65535, 1);
+			$manager->manager_address_description = Check::str('address_description', 65535);
 
 			$empties = Check::get_empties();
 
