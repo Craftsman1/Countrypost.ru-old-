@@ -515,6 +515,7 @@ class Manager extends BaseController {
 		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
+            echo $e->getMessage();
 		}
 	}
 

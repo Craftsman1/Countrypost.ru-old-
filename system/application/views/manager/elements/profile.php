@@ -217,11 +217,11 @@
             expression: "if (VAL.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) return true; else return false;",
             message: "Введите правильный email"
         });
-		
+
 		$('a#select_file').click(function(e) {
 			$('#pr_file').click();
 		});
-		
+
 		$('#pr_file').change(function(e) {
 			$('#profilePhotoForm').submit();
 		});
@@ -247,7 +247,7 @@
 				$("#profileProgress").hide();
 			}
 		});
-		
+
 		$('#profileForm').ajaxForm({
 			target: '/manager/saveProfile',
 			type: 'POST',
@@ -266,8 +266,16 @@
 			},
 			success: function(response)
 			{
-				$("#profileProgress").hide();
-				success('top', 'Персональные данные успешно сохранены!');
+                if(response && (''+response).length>0)
+                {
+                    $("#profileProgress").hide();
+                    error('top', response);
+                }
+                else
+                {
+                    $("#profileProgress").hide();
+                    success('top', 'Персональные данные успешно сохранены!');
+                }
 			},
 			error: function(response)
 			{
