@@ -220,7 +220,7 @@
 				$("#profileProgress").show();
 				// Валидация перед отправкой
                 var valid = validateProfileForm();
-
+				
                 if (!valid)
                     $("#profileProgress").hide();
 
@@ -228,9 +228,16 @@
 			},
 			success: function(response)
 			{
-				$("#profileProgress").hide();
-				success('top', 'Персональные данные успешно сохранены!');
-			 
+				if(response && (''+response).length>0)
+				{
+					$("#profileProgress").hide();
+					error('top', response);
+				}
+				else
+				{
+					$("#profileProgress").hide();
+					success('top', 'Персональные данные успешно сохранены!');
+				}
 			},
 			error: function(response)
 			{
