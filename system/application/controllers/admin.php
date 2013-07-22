@@ -10,7 +10,7 @@ class Admin extends AdminBaseController {
 
 		Breadcrumb::setCrumb(array($this->config->item('base_url') => 'Главная'), 0, TRUE);
 	}
-	
+
 	function index()
 	{
 		Func::redirect($this->config->item('base_url') . "admin/history");
@@ -26,7 +26,7 @@ class Admin extends AdminBaseController {
 	{
 		$this->load->model('ClientModel', 'Clients');
 		$ids = $this->Clients->autocomplete(intval($query));
-		
+
 		if ($ids)
 		{
 			echo "[$ids]";
@@ -36,12 +36,12 @@ class Admin extends AdminBaseController {
 			echo '[]';
 		}
 	}
-	
+
 	public function autocompletePackage($query)
 	{
 		$this->load->model('PackageModel', 'Package');
 		$ids = $this->Package->autocomplete(intval($query));
-		
+
 		if ($ids)
 		{
 			echo "[$ids]";
@@ -51,7 +51,7 @@ class Admin extends AdminBaseController {
 			echo '[]';
 		}
 	}
-	
+
 	public function history()
 	{
 		parent::showPaymentHistory();
@@ -66,14 +66,14 @@ class Admin extends AdminBaseController {
 		$view['payments'] = $this->ExtraPayments->getList();
 
 		/* пейджинг */
-		$this->init_paging();		
+		$this->init_paging();
 		$this->paging_count = count($view['payments']);
-	
+
 		if (isset($view['payments']) && $view['payments'])
 		{
 			$view['payments'] = array_slice($view['payments'], $this->paging_offset, $this->per_page);
-		}			
-			
+		}
+
 		$view['pager'] = $this->get_paging();
 
 		// парсим шаблон
@@ -88,7 +88,7 @@ class Admin extends AdminBaseController {
 			View::showChild($this->viewpath.'/pages/extraPayments', $view);
 		}
 	}
-	
+
 	public function showClientOrdersToOut()
 	{
 		$this->load->model('Order2outModel', 'Order2out');
@@ -97,16 +97,16 @@ class Admin extends AdminBaseController {
 		$filter = $this->initFilter('openClientO2o');
 
 		$Orders = $this->Order2out->getClientFilteredOrders($filter);
-		
+
 		/* пейджинг */
-		$this->init_paging();		
+		$this->init_paging();
 		$this->paging_count = count($Orders);
-	
+
 		if ($Orders)
 		{
 			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
-		}			
-			
+		}
+
 		$view = array(
 			'Orders'	=> $Orders,
 			'statuses'	=> $this->Order2out->getStatuses(),
@@ -114,7 +114,7 @@ class Admin extends AdminBaseController {
 			'filter'	=> $filter,
 			'pager'		=> $this->get_paging()
 		);
-		
+
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
@@ -127,7 +127,7 @@ class Admin extends AdminBaseController {
 			View::showChild($this->viewpath.'/pages/showClientOrdersToOut', $view);
 		}
 	}
-	
+
 	public function showClientPayedOrdersToOut()
 	{
 		$this->load->model('Order2outModel', 'Order2out');
@@ -136,16 +136,16 @@ class Admin extends AdminBaseController {
 		$filter = $this->initFilter('payedClientO2o');
 
 		$Orders = $this->Order2out->getClientFilteredOrders($filter);
-		
+
 		/* пейджинг */
-		$this->init_paging();		
+		$this->init_paging();
 		$this->paging_count = count($Orders);
-	
+
 		if ($Orders)
 		{
 			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
-		}			
-			
+		}
+
 		$view = array(
 			'Orders'	=> $Orders,
 			'statuses'	=> $this->Order2out->getStatuses(),
@@ -153,7 +153,7 @@ class Admin extends AdminBaseController {
 			'filter'	=> $filter,
 			'pager'		=> $this->get_paging()
 		);
-		
+
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
@@ -166,7 +166,7 @@ class Admin extends AdminBaseController {
 			View::showChild($this->viewpath.'/pages/showClientPayedOrdersToOut', $view);
 		}
 	}
-	
+
 	public function showManagerOrdersToOut()
 	{
 		$this->load->model('Order2outModel', 'Order2out');
@@ -175,16 +175,16 @@ class Admin extends AdminBaseController {
 		$filter = $this->initFilter('openManagerO2o');
 
 		$Orders = $this->Order2out->getManagerFilteredOrders($filter);
-		
+
 		/* пейджинг */
-		$this->init_paging();		
+		$this->init_paging();
 		$this->paging_count = count($Orders);
-	
+
 		if ($Orders)
 		{
 			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
-		}			
-			
+		}
+
 		$view = array(
 			'Orders'	=> $Orders,
 			'statuses'	=> $this->Order2out->getStatuses(),
@@ -192,7 +192,7 @@ class Admin extends AdminBaseController {
 			'filter'	=> $filter,
 			'pager'		=> $this->get_paging()
 		);
-		
+
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
@@ -205,7 +205,7 @@ class Admin extends AdminBaseController {
 			View::showChild($this->viewpath.'/pages/showManagerOrdersToOut', $view);
 		}
 	}
-	
+
 	public function showManagerPayedOrdersToOut()
 	{
 		$this->load->model('Order2outModel', 'Order2out');
@@ -214,16 +214,16 @@ class Admin extends AdminBaseController {
 		$filter = $this->initFilter('payedManagerO2o');
 
 		$Orders = $this->Order2out->getManagerFilteredOrders($filter);
-		
+
 		/* пейджинг */
-		$this->init_paging();		
+		$this->init_paging();
 		$this->paging_count = count($Orders);
-	
+
 		if ($Orders)
 		{
 			$Orders = array_slice($Orders, $this->paging_offset, $this->per_page);
-		}			
-			
+		}
+
 		$view = array(
 			'Orders'	=> $Orders,
 			'statuses'	=> $this->Order2out->getStatuses(),
@@ -231,7 +231,7 @@ class Admin extends AdminBaseController {
 			'filter'	=> $filter,
 			'pager'		=> $this->get_paging()
 		);
-		
+
 		// парсим шаблон
 		if ($this->uri->segment(4) == 'ajax')
 		{
@@ -244,64 +244,64 @@ class Admin extends AdminBaseController {
 			View::showChild($this->viewpath.'/pages/showManagerPayedOrdersToOut', $view);
 		}
 	}
-	
-	public function searchOrders2out() 
+
+	public function searchOrders2out()
 	{
 		$this->load->model('Order2outModel', 'Order2out');
 		$Orders = $this->Order2out->getClientFilteredOrders(array(@$_POST['sfield'] => @$_POST['svalue']));
-		
+
 		$view = array(
 			'Orders'	=> $Orders,
 			'statuses'	=> $this->Order2out->getStatuses(),
 			'status'	=> 'none'
 		);
-		
+
 		View::showChild($this->viewpath.'/pages/order_to_out', $view);
 	}
-	
-	public function saveOrders2out($page) 
+
+	public function saveOrders2out($page)
 	{
 		$ids = Check::idsByFilter('status_');
-		
+
 		// ищем заявки с такими id
 		if (count($ids)) {
 			$this->load->model('Order2outModel', 'Order2out');
 			$Orders = $this->Order2out->getOrdersByIds($ids);
-			
+
 			$updated = 0;
-			
-			foreach ($Orders as $Order) 
+
+			foreach ($Orders as $Order)
 			{
-				if ($Order->order2out_status != $_POST['status_'.$Order->order2out_id]) 
+				if ($Order->order2out_status != $_POST['status_'.$Order->order2out_id])
 				{
 					$this->Order2out->_set('order2out_status', $_POST['status_'.$Order->order2out_id]);
 					$this->Order2out->_set('order2out_id', $Order->order2out_id);
 					if ($this->Order2out->save())
-						$updated++;	
+						$updated++;
 				}
 			}
-			
+
 			if($updated) {
 				$this->result->r = 1;
-				$this->result->m = 'Заявок успешно обновлено: '.$updated;		
+				$this->result->m = 'Заявок успешно обновлено: '.$updated;
 				Stack::push('result', $this->result);
 			}
-			
+
 		}
 		Func::redirect($this->config->item('base_url').$this->cname."/$page");
 	}
-	
-	public function saveOrders2in($page) 
+
+	public function saveOrders2in($page)
 	{
 		$ids = Check::idsByFilter('status_');
 		$updated = 0;
 		$this->load->model('Order2InModel', 'Order2in');
 		$this->load->model('PaymentModel', 'Payment');
-	
-		if (count($ids)) 
+
+		if (count($ids))
 		{
 			$Orders = $this->Order2in->getOrdersByIds($ids);
-			
+
 			// поддержка старой логики
 			if (empty($Order->order2in_amount_local))
 			{
@@ -314,28 +314,28 @@ class Admin extends AdminBaseController {
 					$Order->order2in_amount_local = $Order->order2in_amount_kzt;
 				}
 			}
-			
-			foreach ($Orders as $Order) 
+
+			foreach ($Orders as $Order)
 			{
-				$new_amount = isset($_POST['amount_'.$Order->order2in_id]) ? 
-					$_POST['amount_'.$Order->order2in_id] : 
+				$new_amount = isset($_POST['amount_'.$Order->order2in_id]) ?
+					$_POST['amount_'.$Order->order2in_id] :
 					$Order->order2in_amount;
 				$new_amount_local = isset($_POST['amount_local_'.$Order->order2in_id]) ?
 					$_POST['amount_local_'.$Order->order2in_id] :
 					$Order->order2in_amount_local;
 				$new_status = $_POST['status_'.$Order->order2in_id];
 				$changed = false;
-				
+
 				// ищем заявки с измененной суммой
-				if ($Order->order2in_amount != $new_amount) 
+				if ($Order->order2in_amount != $new_amount)
 				{
 					$Order->order2in_amount = $new_amount;
 					$Order->order2in_amount_local = $new_amount_local;
 					$changed = true;
-				}			
-				
+				}
+
 				// ищем заявки с измененным статусом
-				if ($Order->order2in_status != $new_status) 
+				if ($Order->order2in_status != $new_status)
 				{
 					if ($new_status == "payed")
 					{
@@ -347,7 +347,7 @@ class Admin extends AdminBaseController {
 						$payment_obj->payment_type			= 'in';
 						$payment_obj->payment_amount_from	= $Order->order2in_amount;
 						$payment_obj->payment_amount_to		= $Order->order2in_amount;
-								
+
 						if ($new_status == "payed")
 						{
 							$payment_obj->payment_from			= $Order->order2in_details;
@@ -360,39 +360,39 @@ class Admin extends AdminBaseController {
 							$payment_obj->payment_to			= $Order->order2in_details;
 							$payment_obj->payment_purpose		= 'отмена заявки на ввод';
 						}
-						
-						if ( ! $this->Payment->makePayment($payment_obj)) 
+
+						if ( ! $this->Payment->makePayment($payment_obj))
 						{
 							throw new Exception('Ошибка зачисления/списания денег со счета клиента. Попробуйте еще раз.');
 						}
 					}
-					
+
 					$Order->order2in_status = $new_status;
 					$changed = true;
 				}
-				
+
 				if ($changed && $this->Order2in->addOrder($Order))
 				{
-					$updated++;	
+					$updated++;
 				}
 			}
 		}
 
-		if ($updated) 
+		if ($updated)
 		{
 			$this->result->r = 1;
-			$this->result->m = 'Заявок успешно обновлено: '.$updated;		
+			$this->result->m = 'Заявок успешно обновлено: '.$updated;
 			Stack::push('result', $this->result);
 		}
 
 		Func::redirect($this->config->item('base_url')."syspay/$page");
 	}
-	
-	public function deleteOrder2out($oid) 
+
+	public function deleteOrder2out($oid)
 	{
 		parent::deleteOrder2out($oid);
 	}
-	
+
 	#---------------------------------------------------------------------------
 	#
 	#	News
@@ -402,30 +402,30 @@ class Admin extends AdminBaseController {
 	{
 		if ( ! isset($this->News))
 			$this->load->model('NewsModel', 'News');
-		
+
 		$news	= $this->News->select(null, 10);
-				
+
 		if ( ! $news) $news = array();
-			
+
 		View::showChild($this->viewpath.'/pages/news', array('news'=> $news));
 	}
-	
+
 	public function saveNews(){
 		Check::reset_empties();
 		$title	= Check::txt('title',	8096,1);
 		$body	= Check::txt('body',	8096,1);
-		
-		
+
+
 		// fild all fields
 		if ( ! Check::get_empties()){
 			$this->load->model('NewsModel', 'News');
 			$this->News->_set('news_title', $title);
 			$this->News->_set('news_body', $body);
-			
+
 			$id		= Check::int('id');
-			if ($id) 
-				$this->News->_set('news_id',	$id);			
-			
+			if ($id)
+				$this->News->_set('news_id',	$id);
+
 			if ( ! $this->News->save()){
 				$this->result->e	= -1;
 				$this->result->m	= 'Невозожно добавить запись.';
@@ -437,17 +437,17 @@ class Admin extends AdminBaseController {
 			$this->result->e	= -1;
 			$this->result->m	= 'Невозожно добавить запись. Возможно незаполнено одно или несколько полей.';
 		}
-		
+
 		Stack::push('result', $this->result);
-		
+
 		Func::redirect($this->config->item('base_url').$this->cname.'/showEditNews');
-		
+
 	}
-	
+
 	public function deleteNews($news_id){
-		
+
 		$id	= Check::var_int($news_id);
-		
+
 		if ($id){
 			$this->load->model('NewsModel', 'News');
 			if ($this->News->delete($id)){
@@ -461,13 +461,13 @@ class Admin extends AdminBaseController {
 			$this->result->e		= -2;
 			$this->result->m		= "Не корректный ID($news_id).";
 		}
-		
+
 		Stack::push('result',$this->result);
-		
+
 		Func::redirect($this->config->item('base_url').$this->cname.'/showEditNews');
 
 	}
-	
+
 	#---------------------------------------------------------------------------
 	#
 	#	FAQ
@@ -477,45 +477,45 @@ class Admin extends AdminBaseController {
 	{
 		$this->load->model('FaqModel', 'Faq');
 		$this->load->model('FaqSectionModel', 'FaqSections');
-			
+
 		$faq_sections = $this->FaqSections->getList();
-		
+
 		foreach ($faq_sections as $faq_section)
 		{
 			$faq_section->questions = $this->Faq->getBySectionId($faq_section->faq_section_id);
 
 		}
-		
+
 		////////////
-		
+
 		$faq	= $this->Faq->select(null, 10);
 		if ( ! $faq) $faq = array();
 
 		View::showChild($this->viewpath.'/pages/faq', array('faq'=> $faq, 'faq_sections' => $faq_sections));
 	}
-	
+
 	public function saveFaq()
 	{
 		Check::reset_empties();
 		$question	= Check::txt('question',	8096,1);
 		$answer		= Check::txt('answer',		8096,1);
 		$section	= Check::int('section');
-		
+
 		// fild all fields
 		if ( ! Check::get_empties()){
 			$this->load->model('FaqModel', 'Faq');
-			
+
 			$id	= Check::int('id');
-			
-			if ($id) 
+
+			if ($id)
 			{
 				$this->Faq->_set('faq_id',			$id);
 			}
-			
+
 			$this->Faq->_set('faq_question',	$question);
 			$this->Faq->_set('faq_answer',		$answer);
 			$this->Faq->_set('faq_section_id',	$section);
-			
+
 			if ( ! $this->Faq->save()){
 				$this->result->e	= -1;
 				$this->result->m	= 'Невозожно добавить запись.';
@@ -527,24 +527,24 @@ class Admin extends AdminBaseController {
 			$this->result->e	= -1;
 			$this->result->m	= 'Невозожно добавить запись. Возможно, одно или несколько полей не заполнены.';
 		}
-		
+
 		Stack::push('result', $this->result);
-		
+
 		Func::redirect($this->config->item('base_url').$this->cname.'/showEditFaq');
-		
+
 	}
-	
+
 	public function addFaqSection()
 	{
 		Check::reset_empties();
 		$section = Check::txt('faq_section_name', 255, 1);
-		
+
 		// fild all fields
 		if ( ! Check::get_empties())
 		{
 			$this->load->model('FaqSectionModel', 'Section');
 			$this->Section->_set('faq_section_name', $section);
-			
+
 			if ( ! $this->Section->save())
 			{
 				$this->result->e = -1;
@@ -561,15 +561,15 @@ class Admin extends AdminBaseController {
 			$this->result->e = -1;
 			$this->result->m = 'Невозожно добавить запись. Возможно, одно или несколько полей не заполнены.';
 		}
-		
-		Stack::push('result', $this->result);		
+
+		Stack::push('result', $this->result);
 		Func::redirect($this->config->item('base_url').$this->cname.'/showEditFaq');
 	}
-	
+
 	public function deleteFaq($faq_id){
-		
+
 		$id	= Check::var_int($faq_id);
-		
+
 		if ($id){
 			$this->load->model('FaqModel', 'Faq');
 			if ($this->Faq->delete($id)){
@@ -583,13 +583,13 @@ class Admin extends AdminBaseController {
 			$this->result->e		= -2;
 			$this->result->m		= "Не корректный ID($faq_id).";
 		}
-		
+
 		Stack::push('result',$this->result);
-		
+
 		Func::redirect($this->config->item('base_url').$this->cname.'/showEditFaq');
 
 	}
-	
+
 	#---------------------------------------------------------------------------
 	#
 	#	Tariffs
@@ -600,18 +600,18 @@ class Admin extends AdminBaseController {
 		$this->load->model("ConfigModel", "Config");
 		$this->load->model("TaxModel", "Taxes");
 		$this->load->model("CountryPricelistModel", "CountryPricelist");
-		
+
 		View::showChild($this->viewpath.'/pages/services', array(
 			'config'=> $this->Config->getConfig(),
 			'taxes'	=> $this->Taxes->getTaxes(),
 			'country_pricelist'	=> $this->CountryPricelist->getList()
 		));
 	}
-	
+
 	public function saveServicesPrice()
 	{
 		$this->load->model("ConfigModel", "ConfigModel");
-		
+
 		$conf = array(
 			'min_USD_rate' => Check::txt('min_USD_rate', 11, 1),
 			'min_EUR_rate' => Check::txt('min_EUR_rate', 11, 1),
@@ -620,11 +620,11 @@ class Admin extends AdminBaseController {
 			'min_TRY_rate' => Check::txt('min_TRY_rate', 11, 1),
 			'min_UAH_rate' => Check::txt('min_UAH_rate', 11, 1),
 			'min_KZT_rate' => Check::txt('min_KZT_rate', 11, 1),
-			'min_KRW_rate' => Check::txt('min_KRW_rate', 11, 1)						
+			'min_KRW_rate' => Check::txt('min_KRW_rate', 11, 1)
 		);
-		
+
 		$this->result->d = array();
-		
+
 		// сохраняем конфиг
 		foreach ($conf as $key => $value)
 		{
@@ -639,11 +639,11 @@ class Admin extends AdminBaseController {
 				$this->result->m		= SAVE_SUCCESS;
 			}
 		}
-		
+
 		// сохраняем тарифы по странам
 		$this->load->model("TaxModel", "Taxes");
 		$taxes = $this->Taxes->getList();
-		
+
 		foreach ($taxes as $tax)
 		{
 			$tax->package				= Check::float('package'.$tax->country_id, 0);
@@ -656,22 +656,22 @@ class Admin extends AdminBaseController {
 			$tax->max_package_insurance = Check::float('max_package_insurance'.$tax->country_id, 0);
 			$tax->package_foto			= Check::float('package_foto'.$tax->country_id, 0);
 			$tax->package_foto_system	= Check::float('package_foto_system'.$tax->country_id, 0);
-						
+
 			$this->Taxes->saveTax($tax);
 			//print_r($tax);die();
 		}
-		
+
 		// сохраняем наши тарифы
 		$country_id = Check::int('country_id');
-		
+
 		$this->load->model("CountryPricelistModel", "CountryPricelist");
 		$pricelist = $this->CountryPricelist->getById($country_id);
-		
-		$pricelist->country_id = $country_id;		
+
+		$pricelist->country_id = $country_id;
 		$pricelist->description = Check::str('country_pricelist', 1000000);
-		
+
 		$this->CountryPricelist->saveCountryPricelist($pricelist);
-		
+
 		Stack::push('result',$this->result);
 		Func::redirect($this->config->item('base_url').$this->cname.'/showEditServicesPrice');
 	}
@@ -681,22 +681,22 @@ class Admin extends AdminBaseController {
 	#	Partners
 	#
 	#---------------------------------------------------------------------------
-	public function showPartners($operation=null, $uid=null) 
+	public function showPartners($operation=null, $uid=null)
 	{
 		try
 		{
 			$this->load->model('ManagerModel', 'Manager');
 			$managers = $this->Manager->getManagersData();
-			
+
 			/* пейджинг */
-			$this->init_paging();		
+			$this->init_paging();
 			$this->paging_count = count($managers);
-		
+
 			if ($managers)
 			{
 				$managers = array_slice($managers,$this->paging_offset,$this->per_page);
 			}
-			
+
 			$this->load->model('CountryModel', 'Country');
 			$Countries	= $this->Country->getList();
 			$countries = array();
@@ -704,14 +704,14 @@ class Admin extends AdminBaseController {
 			{
 				$countries[$Country->country_id] = $Country->country_name;
 			}
-			
+
 			$view = array(
 				'managers' 	=> $managers,
 				'countries'	=> $countries,
 				'statuses'	=> $this->Manager->getStatuses(),
 				'pager'		=> $this->get_paging()
 			);
-		
+
 			// парсим шаблон
 			if ($this->uri->segment(4) == 'ajax')
 			{
@@ -724,33 +724,33 @@ class Admin extends AdminBaseController {
 				View::showChild($this->viewpath."pages/showPartners", $view);
 			}
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 			Func::redirect($this->config->item('base_url').$this->cname);
-		}		
+		}
 	}
-	
-	public function showClients() 
+
+	public function showClients()
 	{
 		try
 		{
 			// обработка фильтра
 			$view['filter'] = $this->initFilter('clients');
-				
+
 			// получаем список клиентов
 			$this->load->model('ClientModel', 'Client');
 			$view['clients'] = $this->Client->getClients($view['filter']);
-			
+
 			if ( ! $view['clients'])
 			{
 				$this->result->m = 'Клиенты не найдены. Попробуйте еще раз.';
 				Stack::push('result', $this->result);
 			}
-			
+
 			$view['clients_count'] = $this->Client->getClientsCount();
 
 			if ( ! $view['clients_count'])
@@ -761,34 +761,34 @@ class Admin extends AdminBaseController {
 			// получаем список партнеров
 			$this->load->model('ManagerModel', 'Managers');
 			$view['managers'] = $this->Managers->getManagersData();
-		
+
 			if ( ! $view['managers'])
 			{
 				throw new Exception('Партнеры не найдены. Попробуйте еще раз.');
 			}
 
 			/* пейджинг */
-			$this->init_paging();		
+			$this->init_paging();
 			$this->paging_count = count($view['clients']);
-		
+
 			if ($view['clients'])
 			{
 				$view['clients'] = array_slice($view['clients'],$this->paging_offset,$this->per_page);
 			}
 			$view['pager'] = $this->get_paging();
-			
+
 			// получаем связку клиентов и партнеров
 			$this->load->model('C2mModel', 'C2m');
-			
+
 			foreach ($view['clients'] as $client)
 			{
 				$client->managers = $this->Managers->getClientManagersById($client->client_user);
 			}
-			
+
 			// получаем список стран
 			$this->load->model('CountryModel', 'Country');
 			$view['countries']	= $this->Country->getList();
-			
+
 			if ( ! $view['countries'])
 			{
 				throw new Exception('Страны не найдены. Попробуйте еще раз.');
@@ -802,7 +802,7 @@ class Admin extends AdminBaseController {
 
 			// страны для фильтра
 			$view['countries']	= $this->Country->getToCountries();
-			
+
 			if (empty($view['countries']))
 			{
 				throw new Exception('Страны не найдены. Попробуйте еще раз.');
@@ -820,54 +820,54 @@ class Admin extends AdminBaseController {
 				View::showChild($this->viewpath."pages/showClients", $view);
 			}
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 			Func::redirect($this->config->item('base_url').$this->cname);
-		}		
+		}
 	}
-	
-	public function showCountries() 
+
+	public function showCountries()
 	{
 		try
 		{
 			$this->load->model('CountryModel', 'Country');
 			$view['countries'] = $this->Country->getCountriesWithDelivery();
-			
+
 			if ( ! $view['countries'])
 			{
 				throw new Exception('Страны не найдены. Попробуйте еще раз.');
 			}
-			
+
 			View::showChild($this->viewpath.'/pages/showCountries', $view);
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 			Func::redirect($this->config->item('base_url').$this->cname);
-		}		
+		}
 	}
-	
-	public function deletePartner($uid=null) 
+
+	public function deletePartner($uid=null)
 	{
 		$this->load->model('UserModel', 'User');
-		
+
 		$_u = $this->User->getById((int) $uid);
 		if ($_u && $_u->user_group == 'manager'){
 			try {
 				$this->User->deleteUser($_u);
-				
+
 				$this->load->model('ManagerModel', 'Manager');
 				$_m = $this->Manager->getById((int) $uid);
-				
-				//обновляем связки клиент-менеджер			
-				if ($_m->manager_status == 1) {					
+
+				//обновляем связки клиент-менеджер
+				if ($_m->manager_status == 1) {
 					$neighbor_managers = $this->Manager->select(array('manager_country' => $_m->manager_country, 'manager_status' => 1));
 					$this->load->model('C2mModel', 'C2m');
 					if (count($neighbor_managers) == 1) { // партнер единственный в стране, удаляем связки
@@ -891,12 +891,12 @@ class Admin extends AdminBaseController {
 									}
 								}
 							}
-							
+
 							// обновляем связки
 							foreach ($updated_managers as $key=>$value) {
 								$this->C2m->changePartner($_m->manager_user, $key, $value);
 								$manager = $this->Manager->fixMaxClientsCount($key);
-								
+
 								if ( ! $manager)
 								{
 									throw new Exception('Невозможно удалить партнера. Попробуйте еще раз.');
@@ -904,12 +904,12 @@ class Admin extends AdminBaseController {
 							}
 						}
 					}
-				}				
-				
+				}
+
 				$_m->manager_status = 2;
 				$this->Manager->updateManager($_m);
-				
-				
+
+
 				$this->result->r = 1;
 				$this->result->m = 'Партнер успешно удален';
 			} catch (Exception $e){
@@ -920,71 +920,71 @@ class Admin extends AdminBaseController {
 			$this->result->r = -2;
 			$this->result->m = 'Партнер не найден';
 		}
-		
+
 		Stack::push('result', $this->result);
-		
+
 		Func::redirect($this->config->item('base_url').$this->cname.'/showPartners');
 	}
-	
-	public function deleteClient($uid) 
+
+	public function deleteClient($uid)
 	{
-		try 
+		try
 		{
 			if ( ! $uid ||
 				! is_numeric($uid))
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
+
 			// валидация пользовательского ввода
 			$this->load->model('UserModel', 'User');
 			$this->db->trans_begin();
-			
+
 			$user = $this->User->getById((int)$uid);
-		
+
 			if ( ! $user ||
 				$user->user_group != 'client')
 			{
 				throw new Exception('Клиент не найден. Попробуйте еще раз.');
 			}
-			
+
 			// удаляем клиента
 			$user = $this->User->deleteUser($user);
-			
+
 			if ( ! $user)
 			{
 				throw new Exception('Невозможно удалить клиента. Попробуйте еще раз.');
 			}
-				
+
 			//обновляем связки клиент-менеджер
 			$this->load->model('C2mModel', 'C2m');
 			$this->C2m->deleteClientRelations($uid);
-					
+
 			// коммитим транзакцию
-			if ($this->db->trans_status() === FALSE) 
+			if ($this->db->trans_status() === FALSE)
 			{
 				throw new Exception('Невозможно удалить клиента. Попробуйте еще раз.');
 			}
-			
+
 			$this->result->m = 'Клиент успешно удален.';
-			$this->db->trans_commit();			
-		} 
+			$this->db->trans_commit();
+		}
 		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
-			
+
 			$this->result->r = $e->getCode();
 			$this->result->m = $e->getMessage();
 		}
-		
+
 		Stack::push('result', $this->result);
-		
+
 		Func::redirect($this->config->item('base_url').$this->cname.'/showClients');
 	}
-	
-	public function deletePricelistCountries($from, $to) 
+
+	public function deletePricelistCountries($from, $to)
 	{
-		try 
+		try
 		{
 			// валидация пользовательского ввода
 			if ( ! $from ||
@@ -994,73 +994,73 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
+
 			$this->load->model('PricelistModel', 'Pricelist');
-			
+
 			// удаление тарифов
 			$pricelist = $this->Pricelist->deletePricelistCountries($from, $to);
-		
+
 			if ( ! $pricelist)
 			{
 				throw new Exception('Тариф не удален. Попробуйте еще раз.');
 			}
-			
+
 			$this->result->m = 'Тариф успешно удален.';
-		} 
+		}
 		catch (Exception $e)
 		{
 			$this->result->r = $e->getCode();
 			$this->result->m = $e->getMessage();
 		}
-		
+
 		Stack::push('result', $this->result);
 		Func::redirect($this->config->item('base_url').$this->cname.'/editPricelist');
 	}
-	
-	public function deleteCountry($uid) 
+
+	public function deleteCountry($uid)
 	{
-		try 
+		try
 		{
 			if ( ! $uid ||
 				! is_numeric($uid))
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
+
 			// валидация пользовательского ввода
 			$this->load->model('CountryModel', 'Country');
-			
+
 			$country = $this->Country->getById((int)$uid);
-		
+
 			if ( ! $country)
 			{
 				throw new Exception('Страна не найдена. Попробуйте еще раз.');
 			}
-			
+
 			// удаляем страну
 			$deleted = $this->Country->delete($uid);
-				
+
 			if ( ! $deleted)
 			{
 				throw new Exception('Невозможно удалить страну. Попоробуйте еще раз.');
 			}
-	
+
 			$this->result->m = 'Страна успешно удалена.';
-		} 
+		}
 		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
-			
+
 			$this->result->r = $e->getCode();
 			$this->result->m = $e->getMessage();
 		}
-		
+
 		Stack::push('result', $this->result);
-		
+
 		Func::redirect($this->config->item('base_url').$this->cname.'/showCountries');
 	}
-	
-	public function moveClients() 
+
+	public function moveClients()
 	{
 		try
 		{
@@ -1070,9 +1070,9 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-				
+
 			$newPartnerId = $_POST['newPartnerId'];
-			
+
 			// находим партнера
 			$this->load->model('ManagerModel', 'Manager');
 			$manager = $this->Manager->getById($newPartnerId);
@@ -1086,10 +1086,10 @@ class Admin extends AdminBaseController {
 			$this->load->model('C2mModel', 'C2M');
 			$this->load->model('ClientModel', 'Clients');
 			$this->db->trans_start();
-			
+
 			foreach($_POST as $key=>$value)
 			{
-				if (stripos($key, 'move') === 0) 
+				if (stripos($key, 'move') === 0)
 				{
 					// находим клиента
 					$client_id = str_ireplace('move', '', $key);
@@ -1097,14 +1097,14 @@ class Admin extends AdminBaseController {
 					{
 						continue;
 					}
-			
+
 					$client = $this->Clients->getClientById($client_id);
 
 					if ( ! $client)
 					{
 						throw new Exception('Некоторые клиенты не найдены. Попробуйте еще раз.');
 					}
-					
+
 					// валидация пользовательского ввода
 					$relation = $this->C2M->getC2M($client_id, $manager->manager_user);
 
@@ -1112,47 +1112,47 @@ class Admin extends AdminBaseController {
 					{
 						throw new Exception('Некоторые клиенты не могут быть перемещены. Новый и старый партнеры совпадают.');
 					}
-					
+
 					// сохраняем результат
 					$relation = $this->C2M->moveClient($client_id, $manager->manager_user);
-					
+
 					if ( ! $relation)
 					{
 						throw new Exception('Некоторые клиенты не могут быть перемещены. Попробуйте еще раз.');
 					}
 				}
 			}
-			
+
 			// вычисляем максимальное число клиентов
 			$manager = $this->Manager->fixMaxClientsCount($manager->manager_user);
-				
+
 			if ( ! $manager)
 			{
 				throw new Exception('Ошибка вычисления максимального числа клиентов у партнера. Попробуйте еще раз.');
 			}
 
 			// коммитим транзакцию
-			if ($this->db->trans_status() === FALSE) 
+			if ($this->db->trans_status() === FALSE)
 			{
 				throw new Exception('Невозможно переместить клиентов. Попробуйте еще раз.');
 			}
-					
+
 			$this->db->trans_commit();
 			$this->result->m = 'Клиенты успешно перемещены.';
 		}
 		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
-			
-			$this->result->e = $e->getCode();			
+
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-		}		
+		}
 
 		Stack::push('result', $this->result);
 		Func::redirect($this->config->item('base_url').$this->cname.'/showClients');
 	}
-	
-	public function editClient($uid) 
+
+	public function editClient($uid)
 	{
 		try
 		{
@@ -1161,68 +1161,68 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-				
+
 			// пользователь
 			$this->load->model('UserModel', 'User');
-			$view['client_user'] = $this->User->getById($uid);			
+			$view['client_user'] = $this->User->getById($uid);
 
-			if ( ! $view['client_user'] || 
+			if ( ! $view['client_user'] ||
 				$view['client_user']->user_deleted)
 			{
 				throw new Exception('Пользователь не найден. Попробуйте еще раз.');
 			}
-			
+
 			// клиент
 			$this->load->model('ClientModel', 'Client');
-			$view['client'] = $this->Client->getClientById($uid);			
+			$view['client'] = $this->Client->getClientById($uid);
 
 			if ( ! $view['client'])
 			{
 				throw new Exception('Клиент не найден. Попробуйте еще раз.');
 			}
-			
+
 			// страны
 			$this->load->model('CountryModel', 'Country');
 			$view['countries'] = $this->Country->getList();
-			
+
 			if ( ! $view['countries'])
 			{
 				throw new Exception('Страны не найдены. Попробуйте еще раз.');
 			}
-		
+
 			// обработка фильтра
 			$view['filter'] = $this->initFilter('editClient');
-	
+
 			// отображаем посылки и заказы
 			$this->load->model('PackageModel', 'Packages');
-			$view['packages'] = $this->Packages->getPackages($view['filter'], 'sent', $uid, null);		
-			
+			$view['packages'] = $this->Packages->getPackages($view['filter'], 'sent', $uid, null);
+
 			$this->load->model('OrderModel', 'Orders');
-			$view['orders'] = $this->Orders->getOrders($view['filter'], 'sended', $uid, null);	
+			$view['orders'] = $this->Orders->getOrders($view['filter'], 'sended', $uid, null);
 
 			if ( ! $view['packages'])
 			{
 				$view['packages'] = array();
 			}
-			
+
 			if ($view['orders'])
 			{
 				$view['packages'] = array_merge($view['packages'], $view['orders']);
 			}
-			
+
 			View::showChild($this->viewpath.'pages/editClient', $view);
 		}
 		catch (Exception $e)
 		{
-			$result->e	= $e->getCode();			
+			$result->e	= $e->getCode();
 			$result->m	= $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 			Func::redirect($this->config->item('base_url').$this->cname);
 		}
 	}
-	
-	public function editClientBalance($uid) 
+
+	public function editClientBalance($uid)
 	{
 		try
 		{
@@ -1231,39 +1231,39 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-				
+
 			// пользователь
 			$this->load->model('UserModel', 'User');
-			$view['client_user'] = $this->User->getById($uid);			
+			$view['client_user'] = $this->User->getById($uid);
 
-			if ( ! $view['client_user'] || 
+			if ( ! $view['client_user'] ||
 				$view['client_user']->user_deleted)
 			{
 				throw new Exception('Пользователь не найден. Попробуйте еще раз.');
 			}
-			
+
 			// клиент
 			$this->load->model('ClientModel', 'Client');
-			$view['client'] = $this->Client->getById($uid);			
+			$view['client'] = $this->Client->getById($uid);
 
 			if ( ! $view['client'])
 			{
 				throw new Exception('Клиент не найден. Попробуйте еще раз.');
 			}
-			
+
 			View::showChild($this->viewpath.'pages/editClientBalance', $view);
 		}
 		catch (Exception $e)
 		{
-			$result->e	= $e->getCode();			
+			$result->e	= $e->getCode();
 			$result->m	= $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 			Func::redirect($this->config->item('base_url').$this->cname.'/showClients');
 		}
 	}
-	
-	public function editCountry($uid) 
+
+	public function editCountry($uid)
 	{
 		try
 		{
@@ -1272,28 +1272,28 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-				
+
 			// страна
 			$this->load->model('CountryModel', 'Country');
-			$view['country'] = $this->Country->getById($uid);			
+			$view['country'] = $this->Country->getById($uid);
 
 			if ( ! $view['country'])
 			{
 				throw new Exception('Страна не найдена. Попробуйте еще раз.');
 			}
-			
+
 			View::showChild($this->viewpath.'pages/editCountry', $view);
 		}
 		catch (Exception $e)
 		{
-			$result->e	= $e->getCode();			
+			$result->e	= $e->getCode();
 			$result->m	= $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 			Func::redirect($this->config->item('base_url').$this->cname.'/showCountries');
 		}
 	}
-	
+
 	public function updateClient($uid)
 	{
 		try
@@ -1303,26 +1303,26 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-				
+
 			// пользователь
 			$this->load->model('UserModel', 'User');
-			$user = $this->User->getById($uid);			
+			$user = $this->User->getById($uid);
 
-			if ( ! $user || 
+			if ( ! $user ||
 				$user->user_deleted)
 			{
 				throw new Exception('Пользователь не найден. Попробуйте еще раз.');
 			}
-			
+
 			// клиент
 			$this->load->model('ClientModel', 'Client');
-			$client = $this->Client->getClientById($uid);			
+			$client = $this->Client->getClientById($uid);
 
 			if ( ! $client)
 			{
 				throw new Exception('Клиент не найден. Попробуйте еще раз.');
 			}
-			
+
 			// валидация пользовательского ввода
 			Check::reset_empties();
 			$user->user_login		= Check::str('login',32,1);
@@ -1336,7 +1336,7 @@ class Admin extends AdminBaseController {
 				}
 			}
 			$user->user_email			= Check::email(Check::str('email',128,6));
-			
+
 			$client->client_name		= Check::latin('name',128,1);
 			$client->client_otc			= Check::latin('otc',128,1);
 			$client->client_surname		= Check::latin('surname',128,1);
@@ -1346,47 +1346,47 @@ class Admin extends AdminBaseController {
 			$client->client_address		= Check::latin('address',512,1);
 			$client->client_phone		= Check::int('phone');
 			$empties					= Check::get_empties();
-		
+
 			if ( ! $user->user_email){
 				throw new Exception('Не верный E-mail.', -13);
-			}			
-			
+			}
+
 			if ($empties && in_array('_latin', $empties)){
 				throw new Exception('Данные должны быть введены латиницей.', -14);
 			}
-		
+
 			if ($empties){
 				throw new Exception('Одно или несколько полей не заполнено.', -11);
 			}
-			
+
 			// сохранение результата
 			$this->db->trans_start();
 			$user = $this->User->updateUser($user);
-			
-			if ( ! $user || 
+
+			if ( ! $user ||
 				$user->user_deleted)
 			{
 				throw new Exception('Пользователь не сохранен. Попробуйте еще раз.');
 			}
-			
+
 			$client = $this->Client->updateClient($client);
-			
+
 			// коммитим транзакцию
-			if ($this->db->trans_status() === FALSE) 
+			if ($this->db->trans_status() === FALSE)
 			{
 				throw new Exception('Невозможно сохранить данные партнера. Попробуйте еще раз.');
 			}
-					
+
 			$this->db->trans_commit();
 			$this->result->m = 'Клиент успешно сохранен.';
 		}
 		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
 		}
-	
+
 		Stack::push('result', $this->result);
 		Func::redirect($this->config->item('base_url').$this->cname.'/editClient/'.$uid);
 	}
@@ -1400,43 +1400,43 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-				
+
 			// пользователь
 			$this->load->model('UserModel', 'User');
-			$user = $this->User->getById($uid);			
+			$user = $this->User->getById($uid);
 
-			if ( ! $user || 
+			if ( ! $user ||
 				$user->user_deleted)
 			{
 				throw new Exception('Пользователь не найден. Попробуйте еще раз.');
 			}
-			
+
 			// валидация пользовательского ввода
 			Check::reset_empties();
 			$user->user_coints = Check::int('user_coints');
 			$empties = Check::get_empties();
-		
+
 			if ($empties){
 				throw new Exception('Введите корректный баланс.');
 			}
-			
+
 			// сохранение результата
 			$user = $this->User->updateUser($user);
-			
-			if ( ! $user || 
+
+			if ( ! $user ||
 				$user->user_deleted)
 			{
 				throw new Exception('Пользователь не сохранен. Попробуйте еще раз.');
 			}
-			
+
 			$this->result->m = 'Баланс успешно сохранен.';
 		}
 		catch (Exception $e)
 		{
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
 		}
-	
+
 		Stack::push('result', $this->result);
 		Func::redirect($this->config->item('base_url').$this->cname.'/editClientBalance/'.$uid);
 	}
@@ -1450,46 +1450,46 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-				
+
 			// страна
 			$this->load->model('CountryModel', 'Country');
-			$country = $this->Country->getById($uid);			
+			$country = $this->Country->getById($uid);
 
 			if ( ! $country)
 			{
 				throw new Exception('Страна не найдена. Попробуйте еще раз.');
 			}
-			
+
 			// валидация пользовательского ввода
 			Check::reset_empties();
 			$country->country_name = Check::str('country_name', 64, 1);
 			$empties = Check::get_empties();
-		
+
 			if ($empties){
 				throw new Exception('Введите корректное название страны.');
 			}
-			
+
 			// сохранение результата
 			$country = $this->Country->saveCountry($country);
-			
+
 			/*if ( ! $country)
 			{
 				throw new Exception('Страна не сохранена. Попробуйте еще раз.');
 			}*/
-			
+
 			$this->result->m = 'Страна успешно сохранена.';
 		}
 		catch (Exception $e)
 		{
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
 		}
-	
+
 		Stack::push('result', $this->result);
 		Func::redirect($this->config->item('base_url').$this->cname.'/editCountry/'.$uid);
 	}
 
-	public function updatePartner($uid) 
+	public function updatePartner($uid)
 	{
 		try
 		{
@@ -1498,7 +1498,7 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-				
+
 			// находим пользователя
 			$this->load->model('UserModel', 'User');
 			$user = $this->User->getById((int) $uid);
@@ -1519,26 +1519,26 @@ class Admin extends AdminBaseController {
 
 			$prev_status	= $manager->manager_status;
 			$prev_country	= $manager->manager_country;
-			
+
 			// валидация пользовательского ввода
 			Check::reset_empties();
 			$user->user_email = Check::email(Check::str('user_email',128,4));
-			
+
 			if (isset($_POST['user_password']) &&
 				$_POST['user_password'])
 			{
 				$user->user_password = Check::str('user_password',32,1);
-			
+
 				if (isset($user->user_password))
 				{
 					$user->user_password = md5($user->user_password);
 				}
 			}
-			
+
 			// старый кредит партнера
 			$current_credit = $manager->manager_credit;
 			$current_credit_local = $manager->manager_credit_local;
-			
+
 			$manager->manager_name			= Check::str('manager_name',128,0);
 			$manager->manager_country		= Check::int('manager_country');
 			$manager->manager_addres		= Check::str('manager_addres',512,1);
@@ -1552,7 +1552,7 @@ class Admin extends AdminBaseController {
 			$manager->manager_description	= Check::str('description',4096,0);
 			$manager->package_foto_tax		= Check::chkbox('package_foto_tax');
 			$manager->package_foto_system_tax = Check::chkbox('package_foto_system_tax');
-			
+
 			if (isset($_POST['order_tax']))
 			{
 				$manager->order_tax			= Check::float('order_tax');
@@ -1562,7 +1562,7 @@ class Admin extends AdminBaseController {
 			{
 				unset($manager->order_tax);
 			}
-			
+
 			if (isset($_POST['package_tax']))
 			{
 				$manager->package_tax		= Check::float('package_tax');
@@ -1572,7 +1572,7 @@ class Admin extends AdminBaseController {
 			{
 				unset($manager->package_tax);
 			}
-			
+
 			if (isset($_POST['package_disconnected_tax']))
 			{
 				$manager->package_disconnected_tax = Check::float('package_disconnected_tax');
@@ -1582,7 +1582,7 @@ class Admin extends AdminBaseController {
 			{
 				unset($manager->package_disconnected_tax);
 			}
-			
+
 			if ( ! isset($_POST['manager_max_orders']) OR
 				! is_numeric($_POST['manager_max_orders']))
 			{
@@ -1592,13 +1592,13 @@ class Admin extends AdminBaseController {
 			{
 				$manager->manager_max_orders = Check::int('manager_max_orders');
 			}
-			
+
 			// костыли
 			if (empty($manager->manager_name))
 			{
 				$manager->manager_name = null;
 			}
-			
+
 			// меняем дату кредитов
 			if ($current_credit != $manager->manager_credit)
 			{
@@ -1608,9 +1608,9 @@ class Admin extends AdminBaseController {
 			{
 				$manager->manager_credit_date_local	= date("Y-m-d").' 00:00:00';
 			}
-			
-			$empties = Check::get_empties();			
-			
+
+			$empties = Check::get_empties();
+
 			if ($empties)
 			{
 				if ( ! $user->user_email)
@@ -1622,9 +1622,9 @@ class Admin extends AdminBaseController {
 					throw new Exception('Одно или несколько полей не заполнено. Попробуйте еще раз.', -11);
 				}
 			}
-			
+
 			$this->db->trans_begin();
-					
+
 			// закидываем добавленный кредит на счета партнера, только если они уменьшились
 			if ($manager->manager_credit < $current_credit)
 			{
@@ -1634,35 +1634,35 @@ class Admin extends AdminBaseController {
 			{
 				$manager->manager_balance_local += $manager->manager_credit_local - $current_credit_local;
 			}
-			
+
 			// наконец, все сохраняем
 			$user = $this->User->updateUser($user);
 			$manager = $this->Manager->updateManager($manager);
-			
+
 			if ( ! $user || ! $manager)
 			{
 				throw new Exception('Партнер не сохранен. Попробуйте еще раз.');
 			}
-			
+
 			// вычисляем максимальное число клиентов
 			if ($manager->manager_status == 1)
 			{
 				$manager = $this->Manager->fixMaxClientsCount($uid);
-				
+
 				if ( ! $manager)
 				{
 					throw new Exception('Ошибка вычисления максимального числа клиентов. Попробуйте еще раз.');
 				}
-			}			
-			
+			}
+
 			// сохраняем способы доставки
 			$this->load->model('ManagerDeliveryModel', 'Delivery');
 			$this->Delivery->clearManagerDelivery($manager->manager_user);
-			
+
 			if (isset($_POST['delivery']) && is_array($_POST['delivery']) && !empty($_POST['delivery'])){
 				foreach ($_POST['delivery'] as $delivery_id => $delivery_name){
 					if (is_numeric($delivery_id))
-					{	
+					{
 						$delivery = new stdClass();
 						$delivery->manager_id = $manager->manager_user;
 						$delivery->delivery_id = $delivery_id;
@@ -1674,7 +1674,7 @@ class Admin extends AdminBaseController {
 					}
 				}
 			}
-			
+
 			// обновляем связки клиент-менеджер когда блочим клиента:
 			// раскидываем клиентов менеджера по остальным менеджерам
 			if ($prev_status == 1 && $manager->manager_status == 2)
@@ -1682,132 +1682,132 @@ class Admin extends AdminBaseController {
 				$neighbour_managers = $this->Manager->select(array('manager_country' => $prev_country, 'manager_status' => 1));
 				$this->load->model('C2mModel', 'C2M');
 				// партнер единственный в стране, удаляем связки
-				if ( ! $neighbour_managers) 
-				{ 
+				if ( ! $neighbour_managers)
+				{
 					$this->C2M->deletePartnerRelations($manager->manager_user);
 				}
-				else 
+				else
 				{
 					$all_count = $this->C2M->getPartnerClientsCount($manager->manager_user);
-					if ($all_count>0) 
+					if ($all_count>0)
 					{
 						$updated_managers_count = count($neighbour_managers);
-						
+
 						$updated_managers = array(); //массив где ключ - id партнера, а значение - кол-во необходимых для обновления связок
 						$base = floor($all_count / $updated_managers_count);
-					
+
 						foreach ($neighbour_managers as $neighbor) {
 							$updated_managers[$neighbor->manager_user] = $base;
 						}
-						
-						if ($delta = ($all_count % $updated_managers_count)) 
+
+						if ($delta = ($all_count % $updated_managers_count))
 						{
-							foreach ($updated_managers as $key=>$value) 
+							foreach ($updated_managers as $key=>$value)
 							{
-								if ($delta>0) 
+								if ($delta>0)
 								{
 									$updated_managers[$key] = $value + 1;
 									$delta--;
 								}
 							}
 						}
-						
+
 						$mmm = $manager->manager_user;
 
 						// обновляем связки
-						foreach ($updated_managers as $key=>$value) 
+						foreach ($updated_managers as $key=>$value)
 						{
-							
+
 							$this->C2M->changePartner($mmm, $key, $value);
-							
+
 							// вычисляем максимальное число клиентов
 							$manager = $this->Manager->fixMaxClientsCount($key);
-								
+
 							if ( ! $manager)
 							{
 								throw new Exception('Ошибка переноса клиентов к активным партнерам. Попробуйте еще раз.');
 							}
 						}
-						
+
 					}
 				}
 			}
-			
+
 			// коммитим транзакцию
-			if ($this->db->trans_status() === FALSE) 
+			if ($this->db->trans_status() === FALSE)
 			{
 				throw new Exception('Невозможно сохранить данные партнера. Попробуйте еще раз.');
 			}
-					
+
 			$this->db->trans_commit();
 
 			$this->result->m = 'Партнер успешно сохранен.';
 			Stack::push('result', $this->result);
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
-			
-			$this->result->e = $e->getCode();			
+
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 			// открываем детали партнера
 			Func::redirect($this->config->item('base_url').$this->cname.'/showPartnerInfo/'.$uid);
 			return;
 		}
-		
+
 		// открываем детали партнера
 		Func::redirect($this->config->item('base_url').$this->cname.'/showPartners');
 	}
-	
+
 	public function showAddPartner(){
 		$this->showPartnerInfo();
 	}
-	
+
 	public function showPartnerInfo($partner_id = 0)
 	{
 		try
 		{
 			// находим страны
-			$this->load->model('CountryModel', 'Country');		
-			
+			$this->load->model('CountryModel', 'Country');
+
 			// при регистрации выводятся только те страны, в которые указана цена доставки
 			$view['countries']  = $this->Country->getFromCountries();
-			
+
 			if ( ! $view['countries'])
 			{
 				throw new Exception('Страны не найдены. Попробуйте еще раз.');
 			}
 
 			// находим статусы
-			$this->load->model('ManagerModel', 'Manager');		
+			$this->load->model('ManagerModel', 'Manager');
 			$view['statuses'] = $this->Manager->getStatuses();
-				
+
 			if ( ! $view['statuses'])
 			{
 				throw new Exception('Статусы не найдены. Попробуйте еще раз.');
 			}
-			
+
 			if ((int)$partner_id)
 			{
 				$this->load->model('UserModel', 'User');
-				$this->load->model('CurrencyModel', 'Currencies');		
-				
+				$this->load->model('CurrencyModel', 'Currencies');
+
 				$view['manager_user']	= $this->User->getById($partner_id);
 				$view['manager']	= $this->Manager->getById($partner_id);
 				$view['manager']->currency_symbol = $this->Currencies->getCurrencyByCountry($view['manager']->manager_country)->currency_symbol;
 			}
 
 			// находим способы доставки партнера
-			$this->load->model('ManagerDeliveryModel', 'MD');		
+			$this->load->model('ManagerDeliveryModel', 'MD');
 			$view['deliveries'] = $this->MD->getByManagerId($partner_id);
-			
+
 			if ( ! $view['deliveries'])
 			{
 				throw new Exception('Способы доставки не найдены. Попробуйте еще раз.');
 			}
-			
+
 			$this->load->model('PackageModel', 'Package');
 			$view['packages']	= $this->Package->getByManagerId($partner_id);
 
@@ -1816,7 +1816,7 @@ class Admin extends AdminBaseController {
 			{
 				$this->load->model('CurrencyModel', 'Currencies');
 				$this->load->model('TaxModel', 'Taxes');
-					
+
 				$country = $this->Country->getById($view['manager']->manager_country);
 				$cross_rate = $this->Currencies->getById($country->country_currency);
 
@@ -1826,25 +1826,25 @@ class Admin extends AdminBaseController {
 				{
 					throw new Exception('Невозможно рассчитать максимальную комиссию посылки. Данные для расчета недоступны.');
 				}
-				
+
 				$view['max_package_tax'] = $tax->package * $cross_rate->cbr_cross_rate;
 				$view['max_package_disconnected_tax'] = $tax->package_disconnected * $cross_rate->cbr_cross_rate;
 				$view['max_order_tax'] = $tax->order;
 			}
-			
+
 			View::showChild($this->viewpath.'/pages/showPartnerInfo', $view);
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 			Func::redirect($this->config->item('base_url').$this->cname);
-		}		
+		}
 	}
-	
-	public function addPartner() 
+
+	public function addPartner()
 	{
 		$countries = '';
 		if (Stack::size('all_countries') > 0)
@@ -1857,29 +1857,29 @@ class Admin extends AdminBaseController {
 			$countries  = $this->Country->getFromCountries();
 
 		}
-		
+
 		$countries_ids = array();
-		if ($countries) 
+		if ($countries)
 		{
 			foreach ($countries as $country)
 			{
 				$countries_ids[] = $country->country_id;
 			}
 		}
-		
+
 		$this->load->model('ManagerModel', 'Manager');
 		$statuses = $this->Manager->getStatuses();
-		
+
 		// находим способы доставки партнера
-		$this->load->model('ManagerDeliveryModel', 'MD');		
+		$this->load->model('ManagerDeliveryModel', 'MD');
 		$deliveries = $this->MD->getByManagerId(0);
-			
+
 		if ( ! $deliveries)
 		{
 			throw new Exception('Способы доставки не найдены. Попробуйте еще раз.');
 		}
 
-		// валидация пользовательского ввода	
+		// валидация пользовательского ввода
 		Check::reset_empties();
 		$user							= new stdClass();
 		$user->user_login				= Check::str('user_login',32,1);
@@ -1887,7 +1887,7 @@ class Admin extends AdminBaseController {
 		$user->user_email				= Check::email(Check::str('user_email',128,1));
 		$user->user_group				= 'manager';
 		$user->user_coints				= Check::float('manager_credit');
-		
+
 		$manager						= new stdClass();
 		$manager->manager_name			= Check::str('manager_name',128,0);
 		$manager->manager_country		= Check::int('manager_country');
@@ -1912,32 +1912,32 @@ class Admin extends AdminBaseController {
 			$manager->order_tax			= Check::float('order_tax');
 			$manager->order_tax 		= empty($manager->order_tax) ? 0 : $manager->order_tax;
 		}
-		
+
 		if (isset($_POST['package_tax']))
 		{
 			$manager->package_tax		= Check::float('package_tax');
 			$manager->package_tax 		= empty($manager->package_tax) ? 0 : $manager->package_tax;
 		}
-		
+
 		if (isset($_POST['package_disconnected_tax']))
 		{
 			$manager->package_disconnected_tax = Check::float('package_disconnected_tax');
 			$manager->package_disconnected_tax = empty($manager->package_disconnected_tax) ? 0 : $manager->package_disconnected_tax;
 		}
-		
+
 		try
 		{
 			if ( ! $user->user_email)
 			{
 				throw new Exception('Не верный e-mail.', -13);
 			}
-			
+
 			if ($empties && ! in_array('_email',$empties))
 			{
 				throw new Exception('Одно или несколько полей не заполнено.', -11);
 			}
-				
-			
+
+
 			if ( ! in_array($manager->manager_country, $countries_ids))
 			{
 				throw new Exception('Выберите страну.', -19);
@@ -1946,54 +1946,54 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Выберите статус.', -20);
 			}
-			
-			$this->load->model('UserModel', 'User');			
-			
+
+			$this->load->model('UserModel', 'User');
+
 			if ($this->User->select(array('user_email'=> $user->user_email))){
 				throw new Exception('Пользователь с такой электронной почтой уже существует!', -16);
 			}
-			
+
 			$user->user_password = md5($user->user_password);
-  
+
 			// создаем пользователя и партнера
-			$this->db->trans_begin();			
+			$this->db->trans_begin();
 
 			$u = $this->User->addUser($user);
-			
+
 			if ($u)
 				$this->Manager->addManagerData($u->user_id, $manager);
-			
-			if ($this->db->trans_status() === FALSE) {				
+
+			if ($this->db->trans_status() === FALSE) {
 				throw new Exception('Регистрация партнера невозможна.',-3);
 			}
-			
+
 			// добавляем партнеру клиентов
-			if ($manager->manager_status == 1) 
+			if ($manager->manager_status == 1)
 			{
 				$neighbour_managers = $this->Manager->select(array('manager_country' => $manager->manager_country, 'manager_status' => 1));
-			
+
 				// партнер единственный в стране, задаем его всем клиентам
-				if (count($neighbour_managers) == 1) 
-				{ 
+				if (count($neighbour_managers) == 1)
+				{
 					$this->load->model('ClientModel', 'Client');
 					$clients = $this->Client->getList();
-				
-					if ($clients) 
+
+					if ($clients)
 					{
 						// добавляем связи
 						$this->load->model('C2mModel', 'C2m');
-						foreach ($clients as $client) 
+						foreach ($clients as $client)
 						{
 							$relation = new stdClass();
 							$relation->client_id = $client->client_user;
 							$relation->manager_id = $u->user_id;
-							
+
 							$this->C2m->addRelation($relation);
 						}
-						
+
 						// вычисляем максимальное число клиентов
 						$manager = $this->Manager->fixMaxClientsCount($u->user_id);
-							
+
 						if ( ! $manager)
 						{
 							throw new Exception('Ошибка вычисления максимального числа клиентов. Попробуйте еще раз.');
@@ -2001,11 +2001,11 @@ class Admin extends AdminBaseController {
 					}
 				}
 			}
-			
+
 			// сохраняем способы доставки
 			$this->load->model('ManagerDeliveryModel', 'Delivery');
 			if (isset($_POST['delivery']) && $_POST['delivery'])
-			{		
+			{
 				foreach ($_POST['delivery'] as $delivery_id => $value)
 				{
 					$delivery = new stdClass();
@@ -2018,7 +2018,7 @@ class Admin extends AdminBaseController {
 					}
 				}
 			}
-		
+
 			$this->db->trans_commit();
 			Func::redirect($this->config->item('base_url').$this->cname.'/showPartners');
 			return true;
@@ -2026,22 +2026,22 @@ class Admin extends AdminBaseController {
 		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
-			
-			$this->result->e	= $e->getCode();			
+
+			$this->result->e	= $e->getCode();
 			$this->result->m	= $e->getMessage();
-			
+
 			switch ($this->result->e){
-				case -1:	
+				case -1:
 					$user->user_login		= '';
 					break;
 				case -2:
 				case -13:
 					$user->user_email		= '';
-					break;				
-			}		
+					break;
+			}
 			$this->result->d	= $user;
-		}		
-		
+		}
+
 		$view = array(
 			'countries'		=> $countries,
 			'manager'		=> $manager,
@@ -2049,7 +2049,7 @@ class Admin extends AdminBaseController {
 			'deliveries'	=> $deliveries,
 			'manager_user'	=> $user // переопределяем переменную $user (сейчас в ней хранится менеджер)
 		);
-		
+
 		Stack::push('view', $view);
 		View::showChild($this->viewpath.'pages/showPartnerInfo', $view);
 		//Func::redirect($this->config->item('base_url').$this->cname.'/showPartnerInfo');
@@ -2062,27 +2062,27 @@ class Admin extends AdminBaseController {
 		Stack::push('admin_summary_stat', $stat);
 		Func::redirect($this->config->item('base_url').$this->cname);
 	}
-	
+
 	public function deleteOrder()
 	{
 		parent::deleteOrder();
 	}
-	
+
 	public function filterOpenOrders()
 	{
 		$this->filter('not_payedOrders', 'showOpenOrders');
 	}
-	
+
 	public function filterSentOrders()
 	{
 		$this->filter('sendedOrders', 'showSentOrders');
 	}
-	
+
 	public function filterPayedOrders()
 	{
 		$this->filter('payedOrders', 'showPayedOrders');
 	}
-	
+
 	public function filterClients()
 	{
 		$this->filter('clients', 'showClients');
@@ -2107,69 +2107,69 @@ class Admin extends AdminBaseController {
 	{
 		$this->updateStatus('open', 'showOpenOrders', 'OrderModel');
 	}
-	
+
 	public function updatePayedOrdersStatus()
 	{
 		$this->updateStatus('payed', 'showPayedOrders', 'OrderModel');
 	}
-	
+
 	public function updateSentOrdersStatus()
 	{
 		$this->updateStatus('sended', 'showSentOrders', 'OrderModel');
 	}
-	
+
 	public function updateOdetailStatuses()
 	{
 		parent::updateOdetailStatuses();
 	}
-	
+
 	public function updatePdetailStatuses()
 	{
 		parent::updatePdetailStatuses();
 	}
-	
+
 	public function showOpenOrders()
 	{
 		$this->showOrders('not_payed', 'showOpenOrders');
 	}
-	
+
 	public function showSentOrders()
 	{
 		$this->showOrders('sended', 'showSentOrders');
 	}
-	
+
 	public function showAddDelivery()
 	{
 		try
 		{
 			View::showChild($this->viewpath.'/pages/showAddDelivery');
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 			Func::redirect($this->config->item('base_url').$this->cname);
 		}
 	}
-	
+
 	public function showAddCountry()
 	{
 		try
 		{
 			View::showChild($this->viewpath.'/pages/showAddCountry');
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 			Func::redirect($this->config->item('base_url').$this->cname);
 		}
 	}
-	
+
 	public function addCountry()
 	{
 		try
@@ -2179,43 +2179,43 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
+
 			// валидация пользовательского ввода
 			Check::reset_empties();
 			$country				= new stdClass();
 			$country->country_name	= Check::txt('country_name', 32, 1);
 			$empties				= Check::get_empties();
-			
-			if (is_array($empties)) 
+
+			if (is_array($empties))
 			{
 				throw new Exception('Заполните название страны.');
 			}
-			
+
 			// сохранение результатов
 			$this->load->model('CountryModel', 'Countries');
 			$new_country = $this->Countries->saveCountry($country);
-			
+
 			if ( ! $new_country)
 			{
 				throw new Exception('Страна не добавлена. Попробуйте еще раз.');
-			}			
+			}
 
 			$this->result->m = 'Страна успешно добавлена.';
 			Stack::push('result', $this->result);
-			
+
 			// открываем тарифы
 			Func::redirect($this->config->item('base_url').$this->cname.'/editPricelist');
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 			Func::redirect($this->config->item('base_url').$this->cname.'/showAddDelivery');
 		}
 	}
-	
+
 	public function addDelivery()
 	{
 		try
@@ -2225,101 +2225,101 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
+
 			// валидация пользовательского ввода
 			Check::reset_empties();
 			$delivery					= new stdClass();
 			$delivery->delivery_name	= Check::txt('delivery_name', 32, 1);
 			$delivery->delivery_time	= Check::txt('delivery_time', 32, 1);
 			$empties					= Check::get_empties();
-			
-			if (is_array($empties)) 
+
+			if (is_array($empties))
 			{
 				throw new Exception('Одно или несколько полей не заполнено.');
 			}
-			
+
 			// сохранение результатов
 			$this->load->model('DeliveryModel', 'Deliveries');
 			$new_delivery = $this->Deliveries->saveDelivery($delivery);
-			
+
 			if ( ! $new_delivery)
 			{
 				throw new Exception('Способ доставки не добавлен. Попробуйте еще раз.');
-			}			
+			}
 
 			// открываем тарифы
 			Func::redirect($this->config->item('base_url').$this->cname.'/editPricelist');
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 			Func::redirect($this->config->item('base_url').$this->cname.'/showAddDelivery');
 		}
 	}
-	
+
 	public function editPricelist()
 	{
 		try
 		{
 			// обработка фильтра
 			$view['filter'] = $this->initFilter('editPricelist');
-			
+
 			$this->load->model('CountryModel', 'Countries');
 			$view['countries'] = $this->Countries->getList();
-			
+
 			$this->load->model('DeliveryModel', 'Deliveries');
 			$view['deliveries'] = $this->Deliveries->getList();
-			
+
 			// выбираем валюту и курс
 			if ($view['filter']->pricelist_country_from != '')
 			{
 				$country = $this->Countries->getById($view['filter']->pricelist_country_from);
-				
+
 				if ($country)
 				{
 					$this->load->model('CurrencyModel', 'Currencies');
 					$view['currency'] = $this->Currencies->getById($country->country_currency);
 				}
 			}
-			
+
 			if ($view['filter']->pricelist_country_from == '' ||
 				$view['filter']->pricelist_country_to == '' ||
 				$view['filter']->pricelist_delivery == '')
 			{
 					throw new Exception('Выберите страны и способ доставки.');
 			}
-			
+
 			$view['delivery'] = $this->Deliveries->getById($view['filter']->pricelist_delivery);
-			
+
 			if ( ! $view['delivery'])
 			{
 				throw new Exception('Способ доставки не найден. Попробуйте еще раз.');
 			}
-			
+
 			// отображаем тарифы
 			$this->load->model('PricelistModel', 'Pricelist');
 			$view['pricelist'] = $this->Pricelist->getPricelist($view['filter']);
-			
+
 			// отображаем описание тарифа
 			$this->load->model('PricelistDescriptionModel', 'PricelistDescription');
 			$view['pricelist_description'] = $this->PricelistDescription->getDescription(
 				$view['filter']->pricelist_country_from,
 				$view['filter']->pricelist_country_to);
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 		}
 
 		View::showChild($this->viewpath.'/pages/editPricelist', $view);
 	}
-	
+
 	public function savePricelist()
 	{
 		try
@@ -2332,10 +2332,10 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
+
 			// отображаем описание тарифа
 			$this->load->model('PricelistDescriptionModel', 'PricelistDescription');
-			
+
 			$pricelist_description = $this->PricelistDescription->getDescription(
 				$this->uri->segment(3),
 				$this->uri->segment(4));
@@ -2348,22 +2348,22 @@ class Admin extends AdminBaseController {
 			$pricelist_description->pricelist_country_from = $this->uri->segment(3);
 			$pricelist_description->pricelist_country_to = $this->uri->segment(4);
 			$pricelist_description->pricelist_description = Check::txt('description', 1000000, 1);
-			
+
 			$this->PricelistDescription->saveDescription($pricelist_description);
-		
+
 			// находим способ доставки
 			$this->load->model('DeliveryModel', 'Deliveries');
 			$delivery = $this->Deliveries->getById($this->uri->segment(5));
-			
+
 			if ( ! $delivery)
 			{
 				throw new Exception('Невозможно сохранить тарифы. Способ доставки не найден.');
 			}
-			
+
 			$this->load->model('CountryModel', 'Countries');
 			$countryFrom = $this->Countries->getById($this->uri->segment(3));
 			$countryTo = $this->Countries->getById($this->uri->segment(4));
-			
+
 			if ( ! $countryFrom || ! $countryTo)
 			{
 				throw new Exception('Невозможно сохранить тарифы. Страны не найдены.');
@@ -2384,40 +2384,40 @@ class Admin extends AdminBaseController {
 
 			// итерируем по ценам в прайслисте
 			$this->db->trans_begin();
-			
+
 			foreach($_POST as $key=>$value)
 			{
-				if (stripos($key, 'pricelist_weight') === 0) 
+				if (stripos($key, 'pricelist_weight') === 0)
 				{
 					$price_id = str_ireplace('pricelist_weight', '', $key);
 					$this->updatePricelistItem($price_id);
 				}
-				else if (stripos($key, 'new_weight') === 0) 
+				else if (stripos($key, 'new_weight') === 0)
 				{
 					$price_id = str_ireplace('new_weight', '', $key);
 					$this->insertPricelistItem($price_id, $this->uri->segment(3), $this->uri->segment(4), $this->uri->segment(5));
 				}
 			}
-			
+
 			$this->db->trans_commit();
-			
+
 			// выводим сообщение
 			$this->result->m = 'Тарифы успешно сохранены.';
 			Stack::push('result', $this->result);
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 		}
-		
+
 		// открываем прайслист
 		Func::redirect($this->config->item('base_url').$this->cname.'/editPricelist');
 	}
-	
+
 	private function parsePricelistFile()
 	{
 		// сохраняем файл
@@ -2439,12 +2439,12 @@ class Admin extends AdminBaseController {
 
 		// парсим файл
 		$file = $this->upload->data();
-		
+
 		error_reporting(E_ALL ^ E_NOTICE);
 		$this->load->library('Spreadsheet_Excel_Reader');
 		$data = new Spreadsheet_Excel_Reader($file['full_path'], false);
 		//echo $data->dump(true,true);
-		
+
 		$this->load->model('PricelistModel', 'Pricelist');
 		$this->load->model('CountryModel', 'Countries');
 		$this->load->model('CurrencyModel', 'Currencies');
@@ -2452,18 +2452,18 @@ class Admin extends AdminBaseController {
 		// итерируем по ценам в прайслисте
 		$this->db->trans_begin();
 		$this->Pricelist->clear($this->uri->segment(3), $this->uri->segment(4), $this->uri->segment(5));
-		
+
 		for ($i = 1; $i <= $data->rowcount(); $i++)
 		{
 			$this->parsePricelistItem($this->uri->segment(3), $this->uri->segment(4), $this->uri->segment(5), $data->val($i, 1), $data->val($i, 2));
 		}
-		
+
 		$this->db->trans_commit();
 
 		// открываем прайслист
 		Func::redirect($this->config->item('base_url').$this->cname.'/editPricelist');
 	}
-		
+
 	protected function updatePricelistItem($pricelist_id)
 	{
 		if ( ! is_numeric($pricelist_id) ||
@@ -2482,15 +2482,15 @@ class Admin extends AdminBaseController {
 		if ($_POST['pricelist_weight'.$pricelist_id] == '')
 		{
 			$deleted = $this->Pricelist->delete($pricelist_id);
-				
+
 			if ( ! $deleted)
 			{
 				throw new Exception('Невозможно сохранить тариф. Попоробуйте еще раз.');
 			}
-			
+
 			return;
 		}
-			
+
 		// валидация пользовательского ввода
 		Check::reset_empties();
 		$convert							= isset($_POST['is_local_price']);
@@ -2498,18 +2498,18 @@ class Admin extends AdminBaseController {
 		$pricelist->pricelist_price_local	= Check::float('pricelist_price_local'.$pricelist_id);
 		$pricelist->pricelist_weight 		= Check::float('pricelist_weight'.$pricelist_id);
 		$empties							= Check::get_empties();
-		
+
 		if ($empties)
 		{
 			throw new Exception('Некоторые поля тарифа не заполнены. Попробуйте еще раз.');
 		}
-		
+
 		// конвертация в доллары
 		if ($convert)
 		{
 			$this->convert($pricelist);
 		}
-				
+
 		// сохранение тарифа
 		$new_pricelist = $this->Pricelist->savePricelist($pricelist);
 
@@ -2518,23 +2518,23 @@ class Admin extends AdminBaseController {
 			throw new Exception('Невозможно сохранить тариф. Попоробуйте еще раз.');
 		}
 	}
-	
+
 	protected function convert($pricelist)
 	{
 		$country = $this->Countries->getById($pricelist->pricelist_country_from);
-		
+
 		if ( ! $country)
 		{
 			throw new Exception('Невозможно конвертировать тариф в доллары. Курс не найден.');
 		}
-		
+
 		$cross_rate = $this->Currencies->getById($country->country_currency);
-		
+
 		if ( ! $cross_rate)
 		{
 			throw new Exception('Невозможно конвертировать тариф в доллары. Попробуйте еще раз.');
 		}
-		
+
 		// округляем
 		$pricelist->pricelist_price = ceil($pricelist->pricelist_price_local / $cross_rate->cbr_cross_rate);
 	}
@@ -2567,17 +2567,17 @@ class Admin extends AdminBaseController {
 		{
 			$this->convert($pricelist);
 		}
-				
+
 		// сохранение тарифа
 		$pricelist->pricelist_id = '';
 		$new_pricelist = $this->Pricelist->savePricelist($pricelist);
-				
+
 		if ( ! $new_pricelist)
 		{
 			throw new Exception('Невозможно сохранить тариф. Попоробуйте еще раз.');
 		}
 	}
-	
+
 	protected function parsePricelistItem($country_from, $country_to, $delivery, $weight, $price)
 	{
 		// валидация пользовательского ввода
@@ -2587,7 +2587,7 @@ class Admin extends AdminBaseController {
 		$pricelist->pricelist_country_from	= $country_from;
 		$pricelist->pricelist_country_to	= $country_to;
 		$pricelist->pricelist_delivery		= $delivery;
-		
+
 		if ($empties)
 		{
 			throw new Exception('Некоторые поля тарифа не заполнены. Попробуйте еще раз.');
@@ -2595,17 +2595,17 @@ class Admin extends AdminBaseController {
 
 		// конвертация в доллары
 		$this->convert($pricelist);
-				
+
 		// сохранение тарифа
 		$pricelist->pricelist_id = '';
 		$new_pricelist = $this->Pricelist->savePricelist($pricelist);
-				
+
 		if ( ! $new_pricelist)
 		{
 			throw new Exception('Невозможно сохранить тариф. Попоробуйте еще раз.');
 		}
 	}
-	
+
 	public function payPackageToManager()
 	{
 		try
@@ -2617,7 +2617,7 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
+
 			// безопасность: проверяем существование посылки
 			$this->load->model('PackageModel', 'Packages');
 			$package = $this->Packages->getById($this->uri->segment(3));
@@ -2627,7 +2627,7 @@ class Admin extends AdminBaseController {
 				$package->package_payed_to_manager)
 			{
 				throw new Exception('Посылка не найдена. Попробуйте еще раз.');
-			}			
+			}
 
 			// добавление платежа
 			$payment_obj = new stdClass();
@@ -2638,20 +2638,20 @@ class Admin extends AdminBaseController {
 			$payment_obj->payment_amount_tax	= 0;
 			$payment_obj->payment_purpose		= 'выплата партнеру за посылку';
 			$payment_obj->payment_comment		= '№ '.$package->package_id;
-			
+
 			$this->load->model('PaymentModel', 'Payment');
-			
+
 			$this->db->trans_begin();
 
-			if ( ! $this->Payment->makePayment($payment_obj, true)) 
+			if ( ! $this->Payment->makePayment($payment_obj, true))
 			{
 				throw new Exception('Ошибка выплаты партнеру. Попробуйте еще раз.');
-			}			
-			
+			}
+
 			// сохранение посылки
 			$package->package_payed_to_manager = true;
 			$payed_package = $this->Packages->savePackage($package);
-			
+
 			if ( ! $payed_package)
 			{
 				throw new Exception('Платеж не выполнен. Попробуйте еще раз.');
@@ -2661,20 +2661,20 @@ class Admin extends AdminBaseController {
 			{
 				$this->db->trans_commit();
 			}
-			
+
 			$this->result->m = 'Услуги партнера успешно оплачены.';
 		}
 		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
-		
-			$this->result->e = $e->getCode();			
+
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
 		}
-		
+
 		// открываем партнера
 		Stack::push('result', $this->result);
-		
+
 		if (isset($package) && isset($package->package_manager))
 		{
 			Func::redirect($this->config->item('base_url').$this->cname.'/editPartner/'.$package->package_manager);
@@ -2684,7 +2684,7 @@ class Admin extends AdminBaseController {
 			Func::redirect($this->config->item('base_url').$this->cname);
 		}
 	}
-	
+
 	public function payOrderToManager()
 	{
 		try
@@ -2696,7 +2696,7 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
+
 			// безопасность: проверяем существование заказа
 			$this->load->model('OrderModel', 'Orders');
 			$order = $this->Orders->getById($this->uri->segment(3));
@@ -2706,7 +2706,7 @@ class Admin extends AdminBaseController {
 				$order->order_payed_to_manager)
 			{
 				throw new Exception('Заказ не найден. Попробуйте еще раз.');
-			}			
+			}
 
 			// добавление платежа
 			$payment_obj = new stdClass();
@@ -2717,20 +2717,20 @@ class Admin extends AdminBaseController {
 			$payment_obj->payment_amount_tax	= 0;
 			$payment_obj->payment_purpose		= 'выплата партнеру за заказ';
 			$payment_obj->payment_comment		= '№ '.$order->order_id;
-			
+
 			$this->load->model('PaymentModel', 'Payment');
-			
+
 			$this->db->trans_begin();
 
-			if ( ! $this->Payment->makePayment($payment_obj, true)) 
+			if ( ! $this->Payment->makePayment($payment_obj, true))
 			{
 				throw new Exception('Ошибка выплаты партнеру. Попробуйте еще раз.');
-			}			
-			
+			}
+
 			// сохранение посылки
 			$order->order_payed_to_manager = true;
 			$payed_order = $this->Orders->saveOrder($order);
-			
+
 			if ( ! $payed_order)
 			{
 				throw new Exception('Платеж не выполнен. Попробуйте еще раз.');
@@ -2740,20 +2740,20 @@ class Admin extends AdminBaseController {
 			{
 				$this->db->trans_commit();
 			}
-			
+
 			$this->result->m = 'Услуги партнера успешно оплачены.';
 		}
 		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
-		
-			$this->result->e = $e->getCode();			
+
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
 		}
-		
+
 		// открываем партнера
 		Stack::push('result', $this->result);
-		
+
 		if (isset($order) && isset($order->order_manager))
 		{
 			Func::redirect($this->config->item('base_url').$this->cname.'/editPartner/'.$order->order_manager);
@@ -2763,12 +2763,12 @@ class Admin extends AdminBaseController {
 			Func::redirect($this->config->item('base_url').$this->cname);
 		}
 	}
-	
+
 	public function deletePackage()
 	{
 		parent::deletePackage();
 	}
-	
+
 	public function editPackageAddress()
 	{
 		parent::editPackageAddress();
@@ -2782,22 +2782,22 @@ class Admin extends AdminBaseController {
 	{
 		parent::showPackageDetails();
 	}
-	
+
 	public function showDeclaration()
 	{
 		parent::showDeclaration();
 	}
-	
+
 	public function addOrderComment($order_id, $comment_id = null)
 	{
 		parent::addOrderComment($order_id, $comment_id);
 	}
-	
+
 	public function saveDeclaration()
 	{
 		parent::saveDeclaration();
 	}
-	
+
 	public function filterEditPricelist()
 	{
 		$this->filter('editPricelist', 'editPricelist');
@@ -2817,7 +2817,7 @@ class Admin extends AdminBaseController {
 	{
 		parent::updatePackageAddress();
 	}
-	
+
 	public function updateOrderDetails()
 	{
 		parent::updateOrderDetails();
@@ -2826,7 +2826,7 @@ class Admin extends AdminBaseController {
 	{
 		parent::updatePackageDetails();
 	}
-	
+
 	public function showO2oComments()
 	{
 		parent::showO2oComments();
@@ -2835,8 +2835,8 @@ class Admin extends AdminBaseController {
 	public function addO2oComment()
 	{
 		parent::addO2oComment();
-	}	
-	
+	}
+
 	public function addPackageComment($package_id, $comment_id = null)
 	{
 		try
@@ -2845,7 +2845,7 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-				
+
 			$this->load->model('PackageModel', 'Packages');
 			$package = $this->Packages->getById((int) $package_id);
 
@@ -2853,18 +2853,18 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Невозможно добавить комментарий. Посылка не найдена.');
 			}
-			
+
 			$this->load->model('PCommentModel', 'Comments');
-			
+
 			// валидация пользовательского ввода
-			if (is_numeric($comment_id)) 
+			if (is_numeric($comment_id))
 			{
 				$pcomment = $this->Comments->getById($comment_id);
-				if ( ! $pcomment) 
+				if ( ! $pcomment)
 				{
 					throw new Exception('Невозможно изменить комментарий. Комментарий не найден.');
 				}
-				
+
 				$pcomment->pcomment_comment	= Check::txt('comment_update', 8096, 1);
 			}
 			else
@@ -2873,15 +2873,15 @@ class Admin extends AdminBaseController {
 				$pcomment->pcomment_comment	= Check::txt('comment', 8096, 1);
 				$pcomment->pcomment_user	= $this->user->user_id;
 			}
-				
+
 			$pcomment->pcomment_package	= $package_id;
 			$empties					= Check::get_empties();
-		
-			if ($empties) 
+
+			if ($empties)
 			{
 				throw new Exception('Текст комментария отсутствует. Попробуйте еще раз.');
 			}
-			
+
 			// сохранение результатов
 			if (is_numeric($comment_id)) $pcomment->pcomment_id = $comment_id;
 
@@ -2889,8 +2889,8 @@ class Admin extends AdminBaseController {
 				! is_numeric($comment_id))
 			{
 				throw new Exception('Комментарий не добавлен. Попробуйте еще раз.');
-			}			
-			
+			}
+
 			// выставляем флаг нового комментария
 			$package->comment_for_client	= TRUE;
 			$package->comment_for_manager	= TRUE;
@@ -2900,56 +2900,56 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Комментарий не добавлен. Попробуйте еще раз.');
 			}
-			
+
 			// уведомления
 			$this->load->model('ManagerModel', 'Managers');
 			$this->load->model('UserModel', 'Users');
 			$this->load->model('ClientModel', 'Clients');
-			
+
 			Mailer::sendManagerNotification(
-				Mailer::SUBJECT_NEW_COMMENT, 
-				Mailer::NEW_PACKAGE_COMMENT_NOTIFICATION, 
+				Mailer::SUBJECT_NEW_COMMENT,
+				Mailer::NEW_PACKAGE_COMMENT_NOTIFICATION,
 				$package->package_manager,
-				$package->package_id, 
+				$package->package_id,
 				0,
 				"http://countrypost.ru/manager/showPackageDetails/{$package->package_id}#comments",
 				$this->Managers,
 				null);
 
 			Mailer::sendClientNotification(
-				Mailer::SUBJECT_NEW_COMMENT, 
-				Mailer::NEW_PACKAGE_COMMENT_NOTIFICATION, 
-				$package->package_id, 
+				Mailer::SUBJECT_NEW_COMMENT,
+				Mailer::NEW_PACKAGE_COMMENT_NOTIFICATION,
+				$package->package_id,
 				$package->package_client,
 				"http://countrypost.ru/client/showPackageDetails/{$package->package_id}#comments",
 				$this->Clients,
 				$this->Users);
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 		}
-		
+
 		// открываем комментарии к посылке
 		Func::redirect($_SERVER['HTTP_REFERER'] . '#comments');
 	}
-	
+
 	public function delPackageComment($package_id, $comment_id){
 		parent::delPackageComment((int) $package_id, (int) $comment_id);
 	}
-	
+
 	public function getDeliveries(){
-		
-		$this->load->model('ManagerDeliveryModel', 'MD');		
+
+		$this->load->model('ManagerDeliveryModel', 'MD');
 		$deliveries['items'] = $this->MD->getDeliveries($_POST['country_id']);
 		echo json_encode($deliveries);
 		exit;
 	}
-	
-	public function deleteOrder2in($oid) 
+
+	public function deleteOrder2in($oid)
 	{
 		parent::deleteOrder2in($oid);
 	}
@@ -2967,12 +2967,12 @@ class Admin extends AdminBaseController {
 	{
 		parent::addO2iComment();
 	}
-	
+
 	public function addInsurance($add = 1)
 	{
 		parent::addInsurance($add);
 	}
-	
+
 	public function removeInsurance()
 	{
 		$this->addInsurance(0);
@@ -2989,7 +2989,7 @@ class Admin extends AdminBaseController {
 		{
 			$this->load->model('PackageModel', 'Packages');
 			$package = $this->Packages->getById($this->uri->segment(3));
-			
+
 			if ( ! $package)
 			{
 				throw new Exception('Невозможно сохранить декларацию. Посылка недоступна.');
@@ -3001,14 +3001,14 @@ class Admin extends AdminBaseController {
 			// вычисляем стоимость посылки
 			$this->load->model('ConfigModel', 'Config');
 			$this->load->model('PricelistModel', 'Pricelist');
-			
+
 			$package = $this->Packages->calculateCost($package, $this->Config, $this->Pricelist);
-			
-			if ( ! $package) 
+
+			if ( ! $package)
 			{
 				throw new Exception('Стоимость посылки не определена. Попробуйте еще раз.');
 			}
-			
+
 			// сохраняем декларацию
 			$package = $this->Packages->savePackage($package);
 
@@ -3017,22 +3017,22 @@ class Admin extends AdminBaseController {
 				throw new Exception('Декларация не сохранена. Попробуйте еще раз.');
 			}
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
-			$this->result->e = $e->getCode();			
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
-			
+
 			Stack::push('result', $this->result);
 		}
-		
+
 		// открываем посылки
 		Func::redirect($this->config->item('base_url').$this->cname.'/showDeclaration/'.$this->uri->segment(3));
 	}
-	
+
 	public function addPackageFoto($redirect)
 	{
 		$package_id	= Check::int('package_id');
-		
+
 		// загрузка файла
 		$config['allowed_types']		= 'jpg|gif|jpeg|png';
 		$config['max_size']				= '4096';
@@ -3043,29 +3043,29 @@ class Admin extends AdminBaseController {
 		$config['encrypt_name'] 		= TRUE;
 		$max_width						= 1024;
 		$max_height						= 768;
-		
+
 		try{
 			$this->load->model('PackageModel', 'Package');
 			$package	= $this->Package->getById($package_id);
-			
+
 			if ( ! $package || $package_id != $package->package_id){
 				throw new Exception('Не верный номер посылки!');
 			}
-			
+
 			$config['upload_path'] = UPLOAD_DIR.'packages/'.$package->package_manager.'/'.$package_id.'/';
 
 			if ( ! is_dir($config['upload_path']) && !(mkdir($config['upload_path'], 0777, true) || chmod($config['upload_path'], 0777))){
 				throw new Exception('Ошибка файловой системы. Обратитесь к администратору.');
 			}
-	
+
 			$this->load->library('upload', $config);
 			$uploaded = false;
 			foreach(array('userfile1','userfile2','userfile3','userfile4','userfile5') as $val)
 			{
-				if ($this->upload->do_upload($val))	
+				if ($this->upload->do_upload($val))
 				{
 					$uploaded = true;
-				
+
 					$uploadedImg = $this->upload->data();
 					$imageInfo = getimagesize($uploadedImg['full_path']);
 					if ($imageInfo[0]>$max_width || $imageInfo[1]>$max_height)
@@ -3093,29 +3093,29 @@ class Admin extends AdminBaseController {
 			$this->result->m	= $e->getMessage();
 			Stack::push('result', $this->result);
 		}
-		
+
 		Func::redirect('/'.$this->cname."/{$redirect}");
 	}
-	
+
 		public function showPackageFoto($pid, $filename){
 		$this->showPackagePhoto($pid, $filename);
 	}
-	
+
 	public function showScreen($oid=null) {
 		header('Content-type: image/jpg');
 		$this->load->model('OdetailModel', 'OdetailModel');
-		if ($detail = $this->OdetailModel->getInfo(array('odetail_id' => intval($oid)))) 
+		if ($detail = $this->OdetailModel->getInfo(array('odetail_id' => intval($oid))))
 		{
 			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/orders/{$detail->odetail_client}/$oid.jpg");
 		}
 		die();
 	}
-	
+
 	public function showPayedOrders()
 	{
 		$this->showOrders('payed', 'showPayedOrders');
 	}
-	
+
 	public function refundOrder()
 	{
 		try
@@ -3124,7 +3124,7 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
+
 			// безопасность: проверяем связку клиента и заказа
 			$this->load->model('OrderModel', 'Orders');
 			$order = $this->Orders->getById($this->uri->segment(3));
@@ -3132,12 +3132,12 @@ class Admin extends AdminBaseController {
 			if ( ! $order)
 			{
 				throw new Exception('Заказ не найден. Попробуйте еще раз.');
-			}			
+			}
 
 			// находим местную валюту
 			$this->load->model('CurrencyModel', 'Currency');
 			$currency = $this->Currency->getCurrencyByCountry($order->order_country);
-			
+
 			// добавление платежа партнера клиенту
 			$payment_manager = new stdClass();
 			$payment_manager->payment_from				= $order->order_manager;
@@ -3149,7 +3149,7 @@ class Admin extends AdminBaseController {
 			$payment_manager->payment_comment			= '№ '.$order->order_id;
 			$payment_manager->payment_type				= 'order';
 			$payment_manager->payment_transfer_order_id	= $this->user->user_id.date('Y').date('m').date('d').date('h').date('i').date('s');
-			
+
 			// добавление платежа партнеру в местной валюте
 			$payment_manager_local = new stdClass();
 			$payment_manager_local->payment_from		= $order->order_manager;
@@ -3162,7 +3162,7 @@ class Admin extends AdminBaseController {
 			$payment_manager_local->payment_type		= 'order';
 			$payment_manager_local->payment_currency	= $currency->currency_symbol;
 			$payment_manager_local->payment_transfer_order_id	= '';
-			
+
 			// добавление платежа системы клиенту
 			$payment_system = new stdClass();
 			$payment_system->payment_from				= 1;
@@ -3174,19 +3174,19 @@ class Admin extends AdminBaseController {
 			$payment_system->payment_comment			= '№ '.$order->order_id;
 			$payment_system->payment_type				= 'order';
 			$payment_system->payment_transfer_order_id	= '';
-			
+
 			$this->load->model('PaymentModel', 'Payment');
-			
+
 			// погнали
 			$this->db->trans_begin();
 
 			if ( ! $this->Payment->makePayment($payment_manager, true) ||
 				! $this->Payment->makePayment($payment_system, true) ||
-				! $this->Payment->makePaymentLocal($payment_manager_local, true)) 
+				! $this->Payment->makePaymentLocal($payment_manager_local, true))
 			{
 				throw new Exception('Ошибка возмещения средств. Попробуйте еще раз.');
-			}			
-			
+			}
+
 			// сохраняем данные об оплате
 			$order->order_cost_payed = $order->order_cost;
 			$order->order_manager_comission_payed = $order->order_manager_comission;
@@ -3196,12 +3196,12 @@ class Admin extends AdminBaseController {
 			$order->order_manager_comission_payed_local = $order->order_manager_comission_local;
 
 			$payed_order = $this->Orders->saveOrder($order);
-			
+
 			if ($this->db->trans_status() !== FALSE)
 			{
 				$this->db->trans_commit();
 			}
-			
+
 			$this->session->set_userdata(array('user_coints' => ($this->user->user_coints - $payment_system->payment_amount_to)));
 			$this->result->m = 'Недоставленные товары успешно возмещены клиенту.';
 
@@ -3210,77 +3210,77 @@ class Admin extends AdminBaseController {
 		{
 			print_r($e);die();
 			$this->db->trans_rollback();
-		
-			$this->result->e = $e->getCode();			
+
+			$this->result->e = $e->getCode();
 			$this->result->m = $e->getMessage();
 		}
-		
+
 		// открываем заказы
 		Stack::push('result', $this->result);
 		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
-	
+
 	public function refundPackage()
 	{
 		parent::refundPackage();
-	}	
+	}
 
 	public function joinProducts($order_id)
 	{
 		parent::joinProducts($order_id);
 	}
-	
+
 	public function removeOdetailJoint($order_id, $odetail_joint_id)
 	{
 		parent::removeOdetailJoint($order_id, $odetail_joint_id);
 	}
-	
+
 	public function delOrderComment($package_id, $comment_id){
 		parent::delOrderComment((int) $package_id, (int) $comment_id);
 	}
-	
+
 	public function sendOrderConfirmation($order_id){
 		parent::sendOrderConfirmation((int) $order_id);
 	}
-	
+
 	public function deleteProduct($odid)
 	{
 		parent::deleteProduct($odid);
 	}
-	
-	public function addProductManualAjax() 
+
+	public function addProductManualAjax()
 	{
 		parent::addProductManualAjax();
 	}
-	public function addProductManualAjaxP() 
+	public function addProductManualAjaxP()
 	{
 		parent::addProductManualAjaxP();
 	}
-	
-	public function addExtraPayment() 
+
+	public function addExtraPayment()
 	{
 		// превалидация
-		Check::reset_empties();		
+		Check::reset_empties();
 		$from = Check::txt('from', 7, 1);
 		$to = Check::txt('to', 7, 1);
 		$empties = Check::get_empties();
-		
+
 		try
 		{
 			if ($empties || ($from == '-' && $to == '-'))
 			{
 				throw new Exception('Выберите получателя и отправителя платежа.');
 			}
-			
+
 			if ($from == $to)
 			{
 				throw new Exception('Переводы от партнера партнеру, от клиента клиенту и от администратора администратору не поддерживаются.');
 			}
 
 			// собираем данные по платежу
-			Check::reset_empties();		
+			Check::reset_empties();
 			$extra_payment = new stdClass();
-			
+
 			// получатели и отправители
 			if ($from == '-')
 			{
@@ -3294,7 +3294,7 @@ class Admin extends AdminBaseController {
 			{
 				$extra_payment->extra_payment_from = Check::int('payment_from');
 			}
-			
+
 			if ($to == '-')
 			{
 				$extra_payment->extra_payment_to = 0;
@@ -3307,22 +3307,22 @@ class Admin extends AdminBaseController {
 			{
 				$extra_payment->extra_payment_to = Check::int('payment_to');
 			}
-			
+
 			// ищем партнера и местную валюту
 			if ($from == 'partner' || $to == 'partner')
 			{
 				$is_local_transfer = true;
 				$this->load->model('ManagerModel', 'Managers');
 				$this->load->model('UserModel', 'Users');
-			
+
 				$manager = $this->Managers->getById(($from == 'partner') ? $extra_payment->extra_payment_from : $extra_payment->extra_payment_to);
 				$user = $this->Users->getById(($from == 'partner') ? $extra_payment->extra_payment_from : $extra_payment->extra_payment_to);
-				
+
 				if ( ! $manager || ! $user)
 				{
 					throw new Exception('Партнер не найден. Попробуйте еще раз.');
 				}
-				
+
 				$this->load->model('CurrencyModel', 'Currency');
 				$currency = $this->Currency->getCurrencyByCountry($manager->manager_country);
 
@@ -3350,7 +3350,7 @@ class Admin extends AdminBaseController {
 				$extra_payment->extra_payment_amount_ru		= Check::float('payment_amount_ru');
 			}
 			$extra_payment->extra_payment_comission		= Check::txt('payment_comission', 4096, 0);
-			
+
 			// платеж в местной валюте
 			if (isset($is_local_transfer))
 			{
@@ -3363,12 +3363,12 @@ class Admin extends AdminBaseController {
 				else
 				{
 					unset($is_local_transfer);
-				}				
+				}
 			}
-				
+
 			// input validation
 			$empties = Check::get_empties();
-			
+
 			if ($empties)
 			{
 				if (in_array('payment_from', $empties))
@@ -3388,10 +3388,10 @@ class Admin extends AdminBaseController {
 					throw new Exception('Некоторые поля не заполнены. Попробуйте еще раз.'.implode(', ', $empties));
 				}
 			}
-		
+
 			// переводим деньги
 			$this->db->trans_begin();
-			
+
 			// платеж в долларах
 			$payment = new stdClass();
 			$payment->payment_from			= $extra_payment->extra_payment_from;
@@ -3408,8 +3408,8 @@ class Admin extends AdminBaseController {
 			}
 
 			$this->load->model('PaymentModel', 'Payment');
-			
-			if ( ! $this->Payment->makePayment($payment)) 
+
+			if ( ! $this->Payment->makePayment($payment))
 			{
 				throw new Exception('Ошибка перевода средств между счетами. Попробуйте еще раз.');
 			}
@@ -3428,9 +3428,9 @@ class Admin extends AdminBaseController {
 				$payment_local->payment_comment		= $extra_payment->extra_payment_comment;
 				$payment_local->payment_amount_tax	= $extra_payment->extra_payment_comission_local;
 				$payment_local->payment_currency	= $currency->currency_symbol;
-			
 
-				if ( ! $this->Payment->makePaymentLocal($payment_local)) 
+
+				if ( ! $this->Payment->makePaymentLocal($payment_local))
 				{
 					throw new Exception('Ошибка перевода средств в местной валюте. Попробуйте еще раз.');
 				}
@@ -3440,11 +3440,11 @@ class Admin extends AdminBaseController {
 			$this->load->model('ExtraPaymentModel', 'ExtraPayments');
 			$saved_id = $this->ExtraPayments->addPayment($extra_payment);
 
-			if ( ! $saved_id) 
+			if ( ! $saved_id)
 			{
 				throw new Exception('Перевод не осуществлен. Попробуйте еще раз.');
 			}
-			
+
 			// списываем с админа
 			if ($from == 'admin')
 			{
@@ -3453,24 +3453,24 @@ class Admin extends AdminBaseController {
 			else if ($to == 'admin')
 			{
 				$this->session->set_userdata(array('user_coints' => $this->user->user_coints + $payment->payment_amount_to));
-			}			
-			
+			}
+
 			$this->db->trans_commit();
-			$this->result->e = 1;			
+			$this->result->e = 1;
 			$this->result->m = 'Платеж успешно добавлен.';
 		}
 		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
-			$this->result->e	= -1;			
+			$this->result->e	= -1;
 			$this->result->m	= $e->getMessage();
 		}
-		
-		Stack::push('result', $this->result);		
+
+		Stack::push('result', $this->result);
 		Func::redirect($this->config->item('base_url').$this->cname.'/extraPayments');
 	}
-	
-	public function deleteExtraPayment($id) 
+
+	public function deleteExtraPayment($id)
 	{
 		try
 		{
@@ -3479,18 +3479,18 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception('Платеж не найден. Попробуйте еще раз.');
 			}
-			
+
 			// создание платежа
 			$this->db->trans_begin();
-			
+
 			$this->load->model('ExtraPaymentModel', 'ExtraPayments');
 			$extra_payment = $this->ExtraPayments->getById($id);
 
-			if ( ! $extra_payment) 
+			if ( ! $extra_payment)
 			{
 				throw new Exception('Перевод не найден. Попробуйте еще раз.');
 			}
-			
+
 			// обратный платеж в долларах
 			$payment = new stdClass();
 			$payment->payment_from			= $extra_payment->extra_payment_to;
@@ -3507,8 +3507,8 @@ class Admin extends AdminBaseController {
 			}
 
 			$this->load->model('PaymentModel', 'Payment');
-			
-			if ( ! $this->Payment->makePayment($payment)) 
+
+			if ( ! $this->Payment->makePayment($payment))
 			{
 				throw new Exception('Ошибка перевода средств между счетами. Попробуйте еще раз.');
 			}
@@ -3527,18 +3527,18 @@ class Admin extends AdminBaseController {
 				$payment_local->payment_comment		=$extra_payment->extra_payment_comment;
 				$payment_local->payment_amount_tax	= $extra_payment->extra_payment_comission_local;
 				$payment_local->payment_currency	= $extra_payment->extra_payment_currency;
-			
 
-				if ( ! $this->Payment->makePaymentLocal($payment_local)) 
+
+				if ( ! $this->Payment->makePaymentLocal($payment_local))
 				{
 					throw new Exception('Ошибка перевода средств в местной валюте. Попробуйте еще раз.');
 				}
 			}
-			
+
 			// меняем статус доп. платежа
 			$extra_payment->extra_payment_status = 'deleted';
 			$this->ExtraPayments->addPayment($extra_payment);
-			
+
 			// списываем с админа
 			if ($extra_payment->extra_payment_to == 1)
 			{
@@ -3547,23 +3547,23 @@ class Admin extends AdminBaseController {
 			else if ($extra_payment->extra_payment_from == 1)
 			{
 				$this->session->set_userdata(array('user_coints' => $this->user->user_coints + $extra_payment->extra_payment_amount));
-			}			
-			
+			}
+
 			$this->db->trans_commit();
-			$this->result->e = 1;			
+			$this->result->e = 1;
 			$this->result->m = 'Платеж успешно удален.';
 		}
 		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
-			$this->result->e	= -1;			
+			$this->result->e	= -1;
 			$this->result->m	= $e->getMessage();
 		}
-		
-		Stack::push('result', $this->result);		
+
+		Stack::push('result', $this->result);
 		Func::redirect($this->config->item('base_url').$this->cname.'/extraPayments');
 	}
-	
+
 	public function addPdetailFoto()
 	{
 		try
@@ -3579,16 +3579,16 @@ class Admin extends AdminBaseController {
 			$details = $this->Pdetails->getFilteredDetails(
 				array(
 					'pdetail_id' => $pdetail_id
-				), 
+				),
 				true);
-							
+
 			if (empty($details))
 			{
 				throw new Exception('Товар не найден.');
 			}
-			
+
 			$pdetail = $details[0];
-			
+
 			// загрузка файла
 			$config['upload_path']			= UPLOAD_DIR."packages/{$pdetail->pdetail_package}/$pdetail_id/";
 			$config['allowed_types']		= 'jpg|gif|jpeg|png';
@@ -3598,23 +3598,23 @@ class Admin extends AdminBaseController {
 			$config['encrypt_name'] 		= TRUE;
 			$max_width						= 1024;
 			$max_height						= 768;
-			
+
 			if ( ! is_dir($config['upload_path']) AND
 				! (mkdir($config['upload_path'], 0777, true) OR
 					chmod($config['upload_path'], 0777)))
 			{
 				throw new Exception('Ошибка файловой системы. Обратитесь к администратору.');
 			}
-	
+
 			$this->load->library('upload', $config);
 			$uploaded = false;
-			
+
 			foreach(array('userfile1','userfile2','userfile3','userfile4','userfile5') as $val)
 			{
-				if ($this->upload->do_upload($val))	
+				if ($this->upload->do_upload($val))
 				{
 					$uploaded = true;
-				
+
 					$uploadedImg = $this->upload->data();
 					$imageInfo = getimagesize($uploadedImg['full_path']);
 					if ($imageInfo[0]>$max_width || $imageInfo[1]>$max_height)
@@ -3634,7 +3634,7 @@ class Admin extends AdminBaseController {
 			{
 				throw new Exception((strip_tags(trim($this->upload->display_errors()))));
 			}
-			
+
 			$this->load->model('PackageModel', 'Packages');
 			$package = $this->Packages->getById($pdetail->pdetail_package);
 			$package = $this->Packages->recalculatePackage($package);
@@ -3644,10 +3644,10 @@ class Admin extends AdminBaseController {
 			$this->result->m = $e->getMessage();
 			Stack::push('result', $this->result);
 		}
-		
+
 		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
-	
+
 	public function addPdetailJointFoto()
 	{
 		try
@@ -3659,15 +3659,15 @@ class Admin extends AdminBaseController {
 			}
 
 			$pdetail_joint_id = $_POST['pdetail_joint_id'];
-			
+
 			$this->load->model('PdetailJointModel', 'Joints');
 			$joint = $this->Joints->getById($pdetail_joint_id);
-							
+
 			if (empty($joint))
 			{
 				throw new Exception('Товар не найден.');
 			}
-			
+
 			// загрузка файла
 			$config['upload_path']			= UPLOAD_DIR."packages/{$joint->package_id}/joint_$pdetail_joint_id/";
 			$config['allowed_types']		= 'jpg|gif|jpeg|png|JPG|GIF|JPEG|PNG';
@@ -3677,23 +3677,23 @@ class Admin extends AdminBaseController {
 			$config['encrypt_name'] 		= TRUE;
 			$max_width						= 1024;
 			$max_height						= 768;
-			
+
 			if ( ! is_dir($config['upload_path']) AND
 				! (mkdir($config['upload_path'], 0777, true) OR
 					chmod($config['upload_path'], 0777)))
 			{
 				throw new Exception('Ошибка файловой системы. Обратитесь к администратору.');
 			}
-	
+
 			$this->load->library('upload', $config);
 			$uploaded = false;
-			
+
 			foreach(array('userfile1', 'userfile2', 'userfile3', 'userfile4', 'userfile5') as $val)
 			{
-				if ($this->upload->do_upload($val))	
+				if ($this->upload->do_upload($val))
 				{
 					$uploaded = true;
-				
+
 					$uploadedImg = $this->upload->data();
 					$imageInfo = getimagesize($uploadedImg['full_path']);
 					if ($imageInfo[0]>$max_width || $imageInfo[1]>$max_height)
@@ -3723,10 +3723,10 @@ class Admin extends AdminBaseController {
 			$this->result->m = $e->getMessage();
 			Stack::push('result', $this->result);
 		}
-		
+
 		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
-	
+
 	public function showPdetailFoto($package_id, $pdetail_id, $filename)
 	{
 		header('Content-type: image/jpg');
@@ -3736,39 +3736,39 @@ class Admin extends AdminBaseController {
 			array(
 				'pdetail_id' => intval($pdetail_id),
 				'pdetail_package' => intval($package_id),
-			))) 
+			)))
 		{
 			readfile(UPLOAD_DIR . "packages/$package_id/$pdetail_id/$filename");
 		}
-		
+
 		die();
 	}
-	
+
 	public function showPdetailJointFoto($package_id, $pdetail_joint_id, $filename)
 	{
 		header('Content-type: image/jpg');
 		$this->load->model('PdetailJointModel', 'Joints');
 
-		if ($this->Joints->getById($pdetail_joint_id)) 
+		if ($this->Joints->getById($pdetail_joint_id))
 		{
 			readfile(UPLOAD_DIR . "packages/$package_id/joint_$pdetail_joint_id/$filename");
 		}
 
 		die();
 	}
-	
-	public function showPdetailScreenshot($pdetail_id) 
+
+	public function showPdetailScreenshot($pdetail_id)
 	{
 		header('Content-type: image/jpg');
 		$this->load->model('PdetailModel', 'PdetailModel');
 		if ($Detail = $this->PdetailModel->getInfo(
 			array(
 				'pdetail_id' => intval($pdetail_id)
-			))) 
+			)))
 		{
 			readfile("{$_SERVER['DOCUMENT_ROOT']}/upload/packages/{$Detail->pdetail_package}/{$Detail->pdetail_id}.jpg");
 		}
-		
+
 		die();
 	}
 
@@ -3776,18 +3776,18 @@ class Admin extends AdminBaseController {
 	{
 		parent::deleteProductP($id);
 	}
-	
+
 	public function exportOrder($order_id)
 	{
 		try
 		{
 			$this->load->model('OdetailModel', 'Odetails');
 			$this->load->model('OrderModel', 'Order');
-			
+
 			$odetails = $this->Odetails->getOrderDetails($order_id);
 			$order = $this->Order->getById($order_id);
 			$fotos = $this->Order->getOrderFotos($order->order_client, $odetails);
-			
+
 			if ($odetails)
 			{
 				Excel::ExportOrder($order_id, $odetails, $fotos);
@@ -3805,12 +3805,12 @@ class Admin extends AdminBaseController {
 		{
 			$this->load->model('PdetailModel', 'Pdetails');
 			$this->load->model('PackageModel', 'Package');
-			
+
 			$pdetails = $this->Pdetails->getPackageDetails($package_id);
 			$package = $this->Package->getById($package_id);
 			$fotos = $this->Package->getPackageFotos($package->package_id, $pdetails);
 			$joint_fotos = $this->Package->getPackageJointFotos($package->package_id, $pdetails);
-			
+
 			if ($pdetails)
 			{
 				Excel::ExportPackage($package_id, $pdetails, $fotos, $joint_fotos);
@@ -3828,40 +3828,40 @@ class Admin extends AdminBaseController {
 		{
 			$this->load->model('OdetailModel', 'Odetails');
 			$this->load->model('OrderModel', 'Order');
-			
+
 			$order = $this->Order->getById($order_id);
 			$odetails = $this->Odetails->getOrderDetails($order_id);
 			$fotos = $this->Order->getOrderFotos($order->order_client, $odetails);
-			
+
 			if ($odetails)
 			{
 				Excel::ImportOrder(
-					$order_id, 
-					$order->order_client, 
+					$order_id,
+					$order->order_client,
 					$order->order_manager,
-					$order->order_country, 
-					$odetails, 
+					$order->order_country,
+					$odetails,
 					$fotos);
 			}
 		}
 		catch(Exception $ex)
 		{
 		}
-		
+
 		Func::redirect($_SERVER['HTTP_REFERER']);
 	}
-	
+
 	public function joinPackageFotos()
 	{
 		parent::joinPackageFotos();
 	}
-	
+
 	public function deletePdetailJoint($package_id, $pdetail_joint_id)
 	{
 		parent::deletePdetailJoint($package_id, $pdetail_joint_id);
 	}
 
-	public function updateProductAjax() 
+	public function updateProductAjax()
 	{
 		parent::updateProductAjax();
 	}
@@ -4059,26 +4059,25 @@ class Admin extends AdminBaseController {
 			$this->load->model('TaxModel', 'Taxes');
 
 			// роли и разграничение доступа
-			$payment = $this->Taxes->getById($tax_id);
+			$payment = $this->Taxes->getById((int)$tax_id);
 
-			if (empty($tax))
+			if (empty($payment))
 			{
 				throw new Exception('Комиссия не найдена.');
 			}
 
-			$tax->status = $status;
+            $payment->status = $status;
 
 			// сохранение результатов
-			$this->Taxes->updateTax($tax);
+			$this->Taxes->saveTax($payment);
 
 			// отправляем итого
-			$filter = $this->initFilter('taxes');
-			$taxs = $this->Taxes->getFilteredTaxes(
-				$filter->condition,
-				$filter->from,
-				$filter->to);
-
-			$response['total_usd'] = $this->Taxes->getTotalUSD($taxes);
+			$taxes['filter'] = $this->initFilter('taxes');
+			$taxes['taxes'] = $this->Taxes->getFilteredTaxes(
+                $taxes['filter']->condition,
+                $taxes['filter']->from,
+                $taxes['filter']->to);
+			$response['total_usd'] = $this->Taxes->getTotalUSD($taxes, FALSE);
 			$response['is_error'] = FALSE;
 		}
 		catch (Exception $e)

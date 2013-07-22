@@ -13,3 +13,4 @@
 		window.location.href = '<?= $selfurl ?>updateTaxesPerPage/' + id;
 	}
 </script>
+<? View::show('admin/elements/taxes/scripts'); ?>
