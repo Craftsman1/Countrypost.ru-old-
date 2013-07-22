@@ -465,6 +465,7 @@ class Manager extends BaseController {
 			$manager->is_internal_payments 	= Check::chkbox('payments');
 			$manager->about_me				= Check::str('about', 65535, 0);
 			$manager->skype					= Check::str('skype', 255, 0);
+            $manager->manager_phone 		= Check::str('phone', 255, 0);
 			$manager->website				= Check::str('website', 4096, 0);
 
 			Check::reset_empties();

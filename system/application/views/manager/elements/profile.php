@@ -60,6 +60,11 @@
 				<input style="width:180px;" class="textbox" maxlength="255" type='text' id='skype' name="skype" value="<?= $manager->skype ?>"/>
 			</div>
 			<br style="clear:both;" />
+            <div>
+                <span class="label">Телефон:</span>
+                <input style="width:180px;" class="textbox" maxlength="255" type='text' id='phone' name="phone" value="<?= $manager->manager_phone ?>"/>
+            </div>
+            <br style="clear:both;" />
 			<div>
 				<span class="label">Страна*:</span>
 				<select id="country" name="country" class="textbox" onchange="$.fn.validateProfileCountry($(this))">
