@@ -95,6 +95,7 @@ define('FCPATH', str_replace(SELF, '', __FILE__));
 define('BASEPATH', $system_folder.'/');
 
 define('BASEURL', 'http://'.$_SERVER['HTTP_HOST'].'/');
+define('BASESSLURL', 'https://'.$_SERVER['HTTP_HOST'].'/');
 define('IMG_PATH', '/static/images/');
 define('CSS_PATH', '/static/css/');
 define('JS_PATH','/static/js/');

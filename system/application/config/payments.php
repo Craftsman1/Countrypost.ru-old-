@@ -13,10 +13,10 @@ define('MAX_O2I_RU', 15000);
 //WebMoney
 define('WM_PURSE',			"R335456041886");
 define('WMZ_PURSE',			"Z735510829657");
-define('WM_SUCCESS_URL',	BASEURL . "syspay/showSuccess");
-define('WM_FAIL_URL',		BASEURL . "syspay/showFail");
-define('WM_RESULT_URL',		BASEURL . "syspay/showResult");
-define('WMZ_RESULT_URL',	BASEURL . "syspay/showResultWMZ");
+define('WM_SUCCESS_URL',	BASESSLURL . "syspay/showSuccess");
+define('WM_FAIL_URL',		BASESSLURL . "syspay/showFail");
+define('WM_RESULT_URL',		BASESSLURL . "syspay/showResult");
+define('WMZ_RESULT_URL',	BASESSLURL . "syspay/showResultWMZ");
 define('WM_SECRET_KEY',		"XFgw");
 define('WM_IN_TAX', 1.8);
 define('WM_IN_EXTRA', 0);
