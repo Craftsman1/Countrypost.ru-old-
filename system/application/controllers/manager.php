@@ -465,6 +465,7 @@ class Manager extends BaseController {
 			$manager->is_internal_payments 	= Check::chkbox('payments');
 			$manager->about_me				= Check::str('about', 65535, 0);
 			$manager->skype					= Check::str('skype', 255, 0);
+            $manager->manager_phone 		= Check::str('phone', 255, 0);
 			$manager->website				= Check::str('website', 4096, 0);
 
 			Check::reset_empties();
@@ -515,6 +516,7 @@ class Manager extends BaseController {
 		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
+            echo $e->getMessage();
 		}
 	}
 
@@ -690,7 +692,7 @@ class Manager extends BaseController {
 			$manager->manager_address_local = Check::str('address', 1024, 1);
 			$manager->manager_address_name = Check::str('address_name', 255, 1, $manager->manager_name);
 			$manager->manager_phone = Check::str('phone', 255, 1);
-			$manager->manager_address_description = Check::str('address_description', 65535, 1);
+			$manager->manager_address_description = Check::str('address_description', 65535);
 
 			$empties = Check::get_empties();
 

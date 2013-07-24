@@ -13,7 +13,7 @@
 		</form>
 	</div>
 	<div class='profile_box admin-inside'>
-		<form id="profileForm" action="/client/saveProfile">           
+		<form id="profileForm" action="/client/saveProfile">
 			<br style="clear:both;" />
 			<div>
 				<span class="label">Логин:</span>
@@ -72,16 +72,16 @@
 	var profile_country = '';
 	$(function() {
         $("#client_country").msDropDown({mainCSS:'idd'});
-		
+
 		var validateProfileForm = function() {
 			field = null,
 			errorCount = 0;
-			
+
 			field = $('#login');
 			if(field.val() == '')
 			{
 				$.fn.addProfileFieldError(field, 'Введите ваш логин');
-				errorCount++;				
+				errorCount++;
 			}
 			else
 			{
@@ -114,15 +114,15 @@
 			if(!field.val().match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/))
 			{
 				$.fn.addProfileFieldError(field, 'Введите правильный email.');
-				errorCount++;				
+				errorCount++;
 			}
 			else
 			{
 				$.fn.removeProfileFieldError(field);
 			}
-			
+
 			return (errorCount > 0) ? false : true;
-			
+
         }
 
         $.fn.validateProfileCountry = function(field)
@@ -147,7 +147,7 @@
                 field.addClass('ErrorField').after(errorMsg);
             }
         }
-        
+
         $.fn.removeProfileFieldError = function(field) {
             var nextElement = field.next();
             if (field.hasClass('ErrorField'))
@@ -173,11 +173,11 @@
             expression: "if (VAL.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) return true; else return false;",
             message: "Введите правильный email"
         });
-		
+
 		$('a#select_file').click(function(e) {
 			$('#pr_file').click();
 		});
-		
+
 		$('#pr_file').change(function(e) {
 			$('#profilePhotoForm').submit();
 		});
@@ -209,7 +209,7 @@
 				$("#profileProgress").hide();
 			}
 		});
-		
+
 		$('#profileForm').ajaxForm({
 			target: '/client/saveProfile',
 			type: 'POST',
@@ -220,7 +220,7 @@
 				$("#profileProgress").show();
 				// Валидация перед отправкой
                 var valid = validateProfileForm();
-				
+
                 if (!valid)
                     $("#profileProgress").hide();
 

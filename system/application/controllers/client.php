@@ -18,7 +18,7 @@ class Client extends BaseController {
 		Breadcrumb::setCrumb(array('/' => 'Главная'), 0);
 		Breadcrumb::setCrumb(array('/client/orders' => 'Мои заказы'), 1, TRUE);
 	}
-	
+
 	function index()
 	{
 		Func::redirect($this->config->item('base_url').$this->cname.'/orders');
@@ -28,34 +28,34 @@ class Client extends BaseController {
 		$news = $this->News->getInfo(null,null,array(
 				'news_addtime'	=> 'desc'
 			),3);
-			
+
 		if ( ! empty($news) && ! is_array($news))
 		{
 			$news = array(0 => $news);
 		}
-			
+
 		$openp = $this->Packages->getPackages(null, 'open', $this->user->user_id, null);
 		$sentp = $this->Packages->getPackages(null, 'sent', $this->user->user_id, null);
 		$payedp = $this->Packages->getPackages(null, 'payed', $this->user->user_id, null);
-		
+
 		// находим комиссии
 		$this->load->model('ConfigModel', 'Config');
 		$config = $this->Config->getConfig();
-		
+
 		if (empty($config))
 		{
 			throw new Exception('Комиссии доп. услуг не найдены. Попробуйте еще раз.');
 		}
-		
+
 		// курс юаня
 		$this->load->model('CurrencyModel', 'Currencies');
 		$cny_rate = $this->Currencies->getById('CNY');
-			
+
 		if (empty($cny_rate))
 		{
 			throw new Exception('Курсы валют не найдены. Попробуйте еще раз.');
 		}
-		
+
 		View::showChild($this->viewpath.'/pages/main', array(
 			'news'					=> $news,
 			'just_registered'		=> Stack::shift('just_registered', true),
@@ -68,18 +68,18 @@ class Client extends BaseController {
 			'cny_rate'				=> $cny_rate->cbr_cross_rate,
 		));
 	}
-	
+
 	public function showShop()
-	{	
+	{
 		foreach ($_POST as $key => $val)
 		{
 			$$key = $val;
 		}
-		
+
 		$error		= new stdClass();
 		$error->m	= '';
 		$shop = array();
-		
+
 		try
 		{
 			if (empty($sname) OR empty($surl))
@@ -88,27 +88,27 @@ class Client extends BaseController {
 			}
 
 			$shop['name'] = $sname;
-				
+
 			if ( ! Check::url($surl))
 			{
 				throw new Exception('Пожалуйста, введите адрес магазина!');
 			}
-			
+
 			$shop['url'] = substr($surl, 7);
 		}
 		catch (Exception $e)
 		{
-			$error->m	= $e->getMessage();				
+			$error->m	= $e->getMessage();
 		}
-		
+
 		$view = array(
 			'error'		=> $error,
-			'shop'		=> $shop			
+			'shop'		=> $shop
 		);
-		
+
 		$this->load->model('OdetailModel', 'OdetailModel');
 		$Odetails = $this->OdetailModel->getFilteredDetails(array('odetail_client' => $this->user->user_id, 'odetail_order' => 0));
-		
+
 		if (count($Odetails))
 		{
 			$view['country'] = false;
@@ -118,11 +118,11 @@ class Client extends BaseController {
 			$view['country'] = true;
 			$this->load->model('CountryModel', 'CountryModel');
 			$view['countries'] = $this->CountryModel->getClientAvailableCountries($this->user->user_id);
-		}		
-		
+		}
+
 		View::showChild($this->viewpath.'/pages/show_shop', $view);
 	}
-	
+
 	public function addProductToPrivilegedOrder($order_id)
 	{
 		try
@@ -185,20 +185,20 @@ class Client extends BaseController {
 
 	public function deleteDetail($oid) {
 		$this->load->model('OdetailModel', 'OdetailModel');
-		
+
 		$_o = $this->OdetailModel->getById((int) $oid);
-		if ($_o && 
-			$_o->odetail_order == 0 && 
+		if ($_o &&
+			$_o->odetail_order == 0 &&
 			$_o->odetail_client == $this->user->user_id)
 		{
-			try 
+			try
 			{
 				// удаляем товар
-				if (!$this->OdetailModel->delete((int) $oid)) 
+				if (!$this->OdetailModel->delete((int) $oid))
 				{
 					throw new Exception('Невозможно удалить товар.');
 				}
-				
+
 				$Odetails = $this->OdetailModel->getFilteredDetails(array(
 					'odetail_client' => $this->user->user_id,
 					'odetail_order' => 0
@@ -212,7 +212,7 @@ class Client extends BaseController {
 				{
 					$this->result->m = 'В корзине больше нет товаров.';
 				}
-			} 
+			}
 			catch (Exception $e)
 			{
 				$this->db->trans_rollback();
@@ -223,7 +223,7 @@ class Client extends BaseController {
 		{
 			$this->result->m = 'Невозможно удалить товар.';
 		}
-		
+
 		Stack::push('result', $this->result);
 
 		if ($Odetails)
@@ -235,7 +235,7 @@ class Client extends BaseController {
 			Func::redirect($this->config->item('base_url').$this->cname.'/showOpenOrders');
 		}
 	}
-	
+
 	public function showScreen($odetail_id)
 	{
         header('Content-type: image/jpg');
@@ -259,7 +259,7 @@ class Client extends BaseController {
 			readfile($path);
 		}
 	}
-	
+
 	public function showPaymentFoto($oid, $filename)
 	{
 		$this->load->model('Order2InModel', 'Order2in');
@@ -274,24 +274,24 @@ class Client extends BaseController {
 
 		die();
 	}
-	
+
 	public function showNewsList($limit = 0, $offset = 0, $news_id = null)
 	{
 		$this->load->model('NewsModel', 'News');
-		
+
 		$news = $this->News->getInfo(
 			$news_id,
 			null,
 			array('news_addtime' => 'desc'),
-			(int) $limit, 
+			(int) $limit,
 			(int) $offset,
 			false);
-		
-		View::showChild($this->viewpath.'/pages/news', 
-			array('news' => $news, 
-			'pagination' => ''));		
+
+		View::showChild($this->viewpath.'/pages/news',
+			array('news' => $news,
+			'pagination' => ''));
 	}
-	
+
 	public function addOrder2In($order_id)
 	{
 		try
@@ -401,7 +401,7 @@ class Client extends BaseController {
 			{
 				throw new Exception('Введите сумму платежа.');
 			}
-			
+
 			$order2in->order2in_user = $this->user->user_id;
 			$order2in->order2in_status = 'processing';
 			//$order2in->order2in_tax = $order2in->order2in_amount * constant(strtoupper($service).'_IN_TAX') * 0.01;
@@ -410,13 +410,13 @@ class Client extends BaseController {
 			$this->load->model('Order2InModel', 'Order2in');
 			$order2in = $this->Order2in->addOrder($order2in);
 
-			if ( ! $order2in) 
+			if ( ! $order2in)
 			{
 				throw new Exception('Ошибка создания заявки.');
 			}
-			
+
 			$this->result->m = 'Заявка успешно добавлена.';
-			
+
 			// грузим скриншот
 			if ($service == 'bm' OR
 				$service == 'bta' OR
@@ -463,21 +463,21 @@ class Client extends BaseController {
 					$config['encrypt_name'] 		= false;
 					$this->load->library('upload', $config);
 
-					if ( ! $this->upload->do_upload()) 
+					if ( ! $this->upload->do_upload())
 					{
 						throw new Exception(strip_tags(trim($this->upload->display_errors())));
 					}
 				}
 			}
-			
+
 			// уведомления
 			$this->load->model('UserModel', 'Users');
-			
+
 			Mailer::sendAdminNotification(
-				Mailer::SUBJECT_NEW_ORDER2IN, 
-				Mailer::NEW_ORDER2IN_CLIENT_NOTIFICATION, 
+				Mailer::SUBJECT_NEW_ORDER2IN,
+				Mailer::NEW_ORDER2IN_CLIENT_NOTIFICATION,
 				0,
-				$order2in->order2in_id, 
+				$order2in->order2in_id,
 				$order2in->order2in_user,
 				"http://countrypost.ru/syspay/showOpenOrders2In",
 				null,
@@ -487,22 +487,22 @@ class Client extends BaseController {
 		{
 
 		}
-		
+
 		Stack::push('result', $this->result);
 		Func::redirect($this->config->item('base_url') . "client/order/$order_id");
 	}
-	
+
 	public function getScreenshot($fname)
 	{
 		header('Content-Type: image/jpeg');
 		echo file_get_contents($_SERVER['DOCUMENT_ROOT']."/upload/orders/{$this->user->user_id}/tmp/$fname.jpg");
 	}
-	
+
 	public function getScreenshotHtml($fname)
 	{
 		echo "<img src='/client/getScreenshot/$fname' />";
 	}
-	
+
 	public function orders()
 	{
 		$this->showOpenOrders();
@@ -667,7 +667,7 @@ class Client extends BaseController {
 
 		Func::redirect($this->config->item('base_url') . "client/order/$order_id");
 	}
-	
+
 	public function showAddresses($partner_id = null)
 	{
 		$view	= array(
@@ -679,46 +679,46 @@ class Client extends BaseController {
 
 			$view['partner_id']	= $partner_id;
 		}
-		
+
 		View::showChild($this->viewpath.'/pages/showAddresses', $view);
 	}
-	
+
 	public function showAddImage()
 	{
 		View::showChild($this->viewpath.'/pages/showAddImage');
 	}
-	
+
 	public function taobaoRegister()
 	{
-		try 
+		try
 		{
 			// находим клиента
 			$this->load->model('UserModel', 'Users');
 			$user = $this->Users->getById($this->user->user_id);
-			
+
 			if (empty($user))
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
+
 			// находим комиссии
 			$this->load->model('ConfigModel', 'Config');
 			$config = $this->Config->getConfig();
-			
+
 			if (empty($config) OR
 				empty($config['taobao_register_tax']))
 			{
 				throw new Exception('Невозможно добавить запрос на регистрацию. Попробуйте еще раз.');
 			}
-			
+
 			// валидация
 			Check::reset_empties();
-			
+
 			$taobao_login = Check::str('taobao_login', 20, 1);
 			$taobao_password = Check::str('taobao_password', 20, 1);
 
 			$empties = Check::get_empties();
-			
+
 			if (empty($taobao_login))
 			{
 				throw new Exception('Введите логин для регистрации аккаунта.');
@@ -728,7 +728,7 @@ class Client extends BaseController {
 			{
 				throw new Exception('Введите пароль для регистрации аккаунта.');
 			}
-			
+
 			if ($user->user_coints < $config['taobao_register_tax']->config_value)
 			{
 				throw new Exception("Недостаточно денег на счету. <a target='_blank' href='/client/showAddBalance'>Пополнить.</a>");
@@ -737,9 +737,9 @@ class Client extends BaseController {
 			// шлем мыло
 			Mailer::sendTaobaoRegisterNotification(
 				Mailer::SUBJECT_TAOBAO_REGISTRATION,
-				Mailer::TAOBAO_REGISTRATION_NOTIFICATION, 
+				Mailer::TAOBAO_REGISTRATION_NOTIFICATION,
 				$user->user_id,
-				$user->user_email, 
+				$user->user_email,
 				$taobao_login,
 				$taobao_password);
 		}
@@ -748,47 +748,47 @@ class Client extends BaseController {
 			echo $e->getMessage();
 		}
 	}
-	
+
 	public function alipayRefill()
 	{
-		try 
+		try
 		{
 			// находим клиента
 			$this->load->model('UserModel', 'Users');
 			$user = $this->Users->getById($this->user->user_id);
-			
+
 			if (empty($user))
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
+
 			// находим комиссии
 			$this->load->model('ConfigModel', 'Config');
 			$config = $this->Config->getConfig();
-			
+
 			if (empty($config) OR
 				empty($config['alipay_refill_tax']))
 			{
 				throw new Exception('Невозможно добавить запрос на пополнение счета Alipay. Попробуйте еще раз.');
 			}
-			
+
 			$this->load->model('CurrencyModel', 'Currencies');
 			$currency = $this->Currencies->getById('CNY');
-				
+
 			if ( ! $currency)
 			{
 				throw new Exception('Невозможно конвертировать сумму в доллары. Попробуйте еще раз.');
 			}
-			
+
 			// валидация
 			Check::reset_empties();
-			
+
 			$alipay_login = Check::str('alipay_login', 20, 1);
 			$alipay_password = Check::str('alipay_password', 20, 1);
 			$alipay_amount = Check::int('alipay_amount');
 
 			$empties = Check::get_empties();
-			
+
 			if (empty($alipay_login))
 			{
 				throw new Exception('Введите логин от Alipay.');
@@ -798,29 +798,29 @@ class Client extends BaseController {
 			{
 				throw new Exception('Введите пароль от Alipay.');
 			}
-			
+
 			if (empty($alipay_amount))
 			{
 				throw new Exception('Введите сумму пополнения.');
 			}
-			
+
 			$payment_amount = ceil(parent::convert($currency, (float)$alipay_amount));
-			
+
 			if ($user->user_coints < $payment_amount)
 			{
 				throw new Exception("Недостаточно денег на счету. <a target='_blank' href='/client/showAddBalance'>Пополнить.</a>");
 			}
-			
+
 			$config_tax = $config['alipay_refill_tax']->config_value;
 			$alipay_tax = ceil($alipay_amount * $config_tax * 0.01);
 			$alipay_total = $alipay_amount - $alipay_tax;
-			
+
 			// шлем мыло
 			Mailer::sendAlipayRefillNotification(
 				Mailer::SUBJECT_ALIPAY_REFILL,
-				Mailer::ALIPAY_REFILL_NOTIFICATION, 
+				Mailer::ALIPAY_REFILL_NOTIFICATION,
 				$user->user_id,
-				$user->user_email, 
+				$user->user_email,
 				$alipay_login,
 				$alipay_password,
 				$alipay_amount,
@@ -835,43 +835,43 @@ class Client extends BaseController {
 
 	public function taobaoPayment()
 	{
-		try 
+		try
 		{
 			// находим клиента
 			$this->load->model('UserModel', 'Users');
 			$user = $this->Users->getById($this->user->user_id);
-			
+
 			if (empty($user))
 			{
 				throw new Exception('Доступ запрещен.');
 			}
-			
+
 			// находим комиссии
 			$this->load->model('ConfigModel', 'Config');
 			$config = $this->Config->getConfig();
-			
+
 			if (empty($config) OR
 				empty($config['taobao_payment_tax']))
 			{
 				throw new Exception('Невозможно добавить заявку на оплату заказа Taobao.com. Попробуйте еще раз.');
 			}
-			
+
 			$this->load->model('CurrencyModel', 'Currencies');
 			$currency = $this->Currencies->getById('CNY');
-				
+
 			if ( ! $currency)
 			{
 				throw new Exception('Невозможно конвертировать сумму в доллары. Попробуйте еще раз.');
 			}
-			
+
 			// валидация
 			Check::reset_empties();
-			
+
 			$taobao_payment_link1 = Check::str('taobao_payment_link1', 4096, 1);
 			$taobao_payment_amount1 = Check::int('taobao_payment_amount1');
 
 			$empties = Check::get_empties();
-			
+
 			if (empty($taobao_payment_link1))
 			{
 				throw new Exception('Введите ссылку на заказ Taobao.com.');
@@ -881,56 +881,56 @@ class Client extends BaseController {
 			{
 				throw new Exception('Введите сумму для оплаты заказа.');
 			}
-			
+
 			// собираем данные
 			$taobao_payment_count = Check::int('taobao_payment_count');
 			$taobao_payment_count = ($taobao_payment_count AND $taobao_payment_count <= 5) ?
 				$taobao_payment_count :
 				1;
-				
+
 			$payments_total = $taobao_payment_amount1;
 			$payments = array(
 				0 => array(
 					$taobao_payment_link1,
 					$taobao_payment_amount1
 			));
-			
+
 			for ($i = 2; $i <= $taobao_payment_count; $i++)
 			{
-				$amount = Check::int('taobao_payment_amount' . $i);				
-				
+				$amount = Check::int('taobao_payment_amount' . $i);
+
 				if (empty($amount))
 				{
 					throw new Exception('Введите сумму для оплаты заказа.');
 				}
-			
+
 				$payments_total += $amount;
-				
+
 				$payments[] = array(
 					Check::str('taobao_payment_link' . $i, 4096, 1),
 					$amount
 				);
 			}
-			
+
 			// вычисляем суммы платежа
 			$payments_total_usd = ceil(parent::convert($currency, (float)$payments_total));
 			$payments_tax = ceil(
 				$config['taobao_payment_tax']->config_value *
-				$payments_total_usd * 
+				$payments_total_usd *
 				0.01
 				);
-			
+
 			if ($user->user_coints < ($payments_total_usd + $payments_tax))
 			{
 				throw new Exception("Недостаточно денег на счету. <a target='_blank' href='/client/showAddBalance'>Пополнить.</a>");
 			}
-			
+
 			// шлем мыло
 			Mailer::sendTaobaoPaymentNotification(
 				Mailer::SUBJECT_TAOBAO_PAYMENT,
-				Mailer::TAOBAO_PAYMENT_NOTIFICATION, 
+				Mailer::TAOBAO_PAYMENT_NOTIFICATION,
 				$user->user_id,
-				$user->user_email, 
+				$user->user_email,
 				$payments,
 				$payments_total,
 				$payments_total_usd,
@@ -941,7 +941,7 @@ class Client extends BaseController {
 			echo $e->getMessage();
 		}
 	}
-	
+
 	public function importOrder()
 	{
 		try
@@ -949,13 +949,13 @@ class Client extends BaseController {
 			Check::reset_empties();
 			$country_id	= Check::str('importcountry', 255, 1);
 			$userfile = isset($_FILES['importfile']) && ! $_FILES['importfile']['error'];
-			$empties = Check::get_empties();	
-		
+			$empties = Check::get_empties();
+
 			if (empty($country_id))
 			{
 				throw new Exception('Выберите страну.');
 			}
-				
+
 			if ( ! $userfile)
 			{
 				throw new Exception('Выберите файл.');
@@ -973,7 +973,7 @@ class Client extends BaseController {
 	{
 		parent::addBidComment($bid_id, $comment_id);
 	}
-	
+
 	public function addPaymentComment($payment_id, $comment_id = NULL)
 	{
 		parent::addPaymentComment($payment_id, $comment_id);
@@ -981,19 +981,19 @@ class Client extends BaseController {
 
 	public function chooseBid($bid_id)
 	{
-		try 
+		try
 		{
 			// 1. находим предложение
 			if ( ! is_numeric($bid_id))
-			{				
+			{
 				throw new Exception('Доступ запрещен.');
 			}
-						
+
 			$this->load->model('BidModel', 'Bids');
 			$bid = $this->Bids->getById($bid_id);
 
 			if (empty($bid))
-			{				
+			{
 				throw new Exception('Предложение не найдено.');
 			}
 
@@ -1069,28 +1069,28 @@ class Client extends BaseController {
 
 	public function unchooseBid($order_id)
 	{
-		try 
+		try
 		{
 			// предложение
 			if ( ! is_numeric($order_id))
-			{				
+			{
 				throw new Exception('Доступ запрещен.');
 			}
-						
+
 			// заказ
 			$this->load->model('OrderModel', 'Orders');
 			$order = $this->Orders->getById($order_id);
 
 			if (empty($order))
-			{				
+			{
 				throw new Exception('Заказ не найден.');
 			}
 
 			if (empty($order->order_manager))
-			{				
+			{
 				return;
 			}
-			
+
 			$order->order_manager = 0;
 			$order->order_status = 'pending';
 
@@ -1133,7 +1133,7 @@ class Client extends BaseController {
 	{
 		parent::saveProfilePhoto();
 	}
-		
+
 	public function saveProfile()
 	{
 		try
@@ -1149,7 +1149,7 @@ class Client extends BaseController {
             // получаем необязательные поля
             $client->skype					= Check::str('skype', 255, 0);
             $client->about_me				= Check::str('about_me', 65535, 0);
-		 
+
 			// валидация пользовательского ввода
 			Check::reset_empties();
             $user->user_email = Check::email(Check::str('email', 128, 4));
@@ -1177,8 +1177,8 @@ class Client extends BaseController {
 			}
 
 			$this->db->trans_begin();
-			
-			 
+
+
 			// наконец, все сохраняем
 			$user = $this->User->updateUser($user);
 			$client = $this->Client->updateClient($client);
@@ -1187,16 +1187,16 @@ class Client extends BaseController {
 			{
 				throw new Exception('Клиент не сохранен. Попробуйте еще раз.');
 			}
-			
+
 			// коммитим транзакцию
-			if ($this->db->trans_status() === FALSE) 
+			if ($this->db->trans_status() === FALSE)
 			{
 				throw new Exception('Невозможно сохранить данные партнера. Попробуйте еще раз.');
 			}
-		 
+
 			$this->db->trans_commit();
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
 			$this->db->trans_rollback();
 			echo $e->getMessage();
@@ -1214,7 +1214,9 @@ class Client extends BaseController {
             // находим адрес
             $this->load->model('AddressModel', 'Addresses');
             $address = new stdClass();
-
+            if (Check::str('address_id',255)){
+                $address->address_id = Check::str('address_id',255);
+            }
             $address->address_user = $this->user->user_id;
             $address->address_recipient = Check::str('recipient', 255, 1);
             $address->address_country = Check::int('country');

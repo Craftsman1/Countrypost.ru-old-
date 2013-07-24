@@ -73,8 +73,8 @@
                 <? foreach ($addresses as $address) : ?>
                 <tr id="addressRow<?=$address->address_id?>">
                     <td class="address_id"><?=$address->address_id?></td>
-                    <td><?=$address->address_recipient?></td>
-                    <td>
+                    <td class="address_recipient"><?=$address->address_recipient?></td>
+                    <td class="full_address">
 						<? if ($address->is_generated)
 						{
 							$full_address = implode(', ', array(
@@ -92,8 +92,14 @@
 							));
 						} ?>
 						<?= $full_address ?>
+                        <div style="display: none;">
+                            <span class="address_zip"><?php echo $address->address_zip; ?></span>
+                            <span class="address_address"><?php echo $address->address_address; ?></span>
+                            <span class="address_town"><?php echo $address->address_town; ?></span>
+                            <span class="country_name"><?php echo $address->country_name; ?></span>
+                        </div>
 					</td>
-                    <td><?=$address->address_phone?></td>
+                    <td class="address_phone"><?=$address->address_phone?></td>
                     <td align="center">
                         <a class="edit_icon" style="cursor: pointer;"><img src="/static/images/comment-edit.png" title="Изменить" border="0"></a>
                         <a class="delete_icon"><img src="/static/images/delete.png" style="cursor: pointer;" title="Удалить" border="0"></a>
@@ -139,6 +145,34 @@
                 }
             }
 
+        }
+
+        var editAddress = function () {
+            var row              = $(this).closest('tr');
+            var addressId        = parseInt(row.find('.address_id').text(), 10);
+            var addressRecipient = row.find('.address_recipient').text();
+            var address_zip      = row.find('.address_zip').text();
+            var address_address  = row.find('.address_address').text();
+            var address_town     = row.find('.address_town').text();
+            var addressPhone     = row.find('.address_phone').text();
+            var country_name     = row.find('.country_name').text();
+
+            $('#recipient').val(addressRecipient);
+            $('#country').find('option').each(function (i, el) {
+               if ($(el).text() == country_name){
+                   $(el).attr('selected','selected');
+               }else{
+                   $(el).removeAttr('selected');
+               }
+            });
+            $('#country').change();
+            $('#city').val(address_town);
+            $('#index').val(address_zip);
+            $('#address').val(address_address);
+            $('#phone').val(addressPhone);
+            $('input[type="submit"]').val('Изменить');
+            $('#addressForm').append('<input id="address_id" name="address_id" type="hidden" value="'+addressId+'">');
+            $("#country").msDropDown({mainCSS:'idd'});
         }
 
         var addAddressItemProgress = function(obj)
@@ -295,22 +329,35 @@
                         response_[0].address_id +
                         '</td><td>' +
                         response_[0].address_recipient +
-                        '</td><td>' +
+                        '</td><td class="full_address">' +
                         response_[0].address_zip +', '+response_[0].address_address +', '+response_[0].address_town +', '+response_[0].country_name +
                         '</td><td>' +
                         response_[0].address_phone +
                         '</td><td><a class="edit_icon" style="cursor: pointer;"><img src="/static/images/comment-edit.png" title="Изменить" border="0"></a><a class="delete_icon"><img src="/static/images/delete.png" style="cursor: pointer;" title="Удалить" border="0"></a></td></tr>';
-
-                $('#deliveryAddressTable').find('tr:last').after(news_snippet);
-                $('.deliveryAddressTableContainer, #delivery_addressess_header').show();
+                if($('#addressRow'+response_[0].address_id)){
+                    var row  = $('#addressRow'+response_[0].address_id);
+                    row.find('.full_address').html(response_[0].address_zip +', '+response_[0].address_address +', '+response_[0].address_town +', '+response_[0].country_name+"<div style='display: none;'><span class='address_zip'></span><span class='address_address'></span><span class='address_town'></span><span class='country_name'></span></div>");
+                    //row.find('.address_id').text();
+                    row.find('.address_recipient').text(response_[0].address_recipient);
+                    row.find('.address_zip').text(response_[0].address_zip);
+                    row.find('.address_address').text(response_[0].address_address);
+                    row.find('.address_town').text(response_[0].address_town);
+                    row.find('.address_phone').text(response_[0].address_phone);
+                    row.find('.country_name').text(response_[0].country_name);
+                }else{
+                    $('#deliveryAddressTable').find('tr:last').after(news_snippet);
+                    $('.deliveryAddressTableContainer, #delivery_addressess_header').show();
+                }
                 $('.delete_icon').unbind('click').bind('click', deleteAddress);
+                $('.edit_icon').unbind('click').bind('click', editAddress);
 
                 $('#recipient').val('');
                 $('#city').val('');
                 $('#index').val('');
                 $('#address').val('');
                 $('#phone').val('');
-
+                $('input[type="submit"]').val('Добавить');
+                $('#addressForm').find('#address_id').remove();
                 success('top', 'Адрес успешно сохранен!');
             },
             error: function(response)
@@ -320,6 +367,7 @@
             }
         });
         $('.delete_icon').unbind('click').bind('click', deleteAddress);
+        $('.edit_icon').unbind('click').bind('click', editAddress);
     });
 
 </script>
