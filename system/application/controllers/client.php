@@ -1350,8 +1350,68 @@ class Client extends BaseController {
 				$rating_message->status = 'active';
 
 				$this->load->model('RatingCommentModel', 'Comments');
-				$this->Comments->addComment($rating_message);
+				$comment = $this->Comments->addComment($rating_message);
+
 			}
+
+            $this->load->model('CountryModel', 'Country');
+            $view['Countries'] = $this->Country->getList();
+
+            $countries = array();
+            $countries_en = array();
+
+            foreach ($view['Countries'] as $Country)
+            {
+                $countries[$Country->country_id] = $Country->country_name;
+                $countries_en[$Country->country_id] = $Country->country_name_en;
+            }
+
+            $this->load->model('ManagerRatingsModel', 'Ratings');
+            $this->load->model('RatingCommentModel', 'Comments');
+            $this->load->model('ClientModel', 'Clients');
+
+
+            $statistics = array();
+
+            if ($this->user->user_group == "client")
+            {
+
+                $client = $this->Clients->getById($this->user->user_id);
+                $this->processStatistics($client, $statistics, 'client_user', $client->client_user, 'client');
+                $rating->statistics->client_country = $client->client_country;
+                $rating->statistics->login = $client->statistics->login;
+                $rating->statistics->fullname = $client->statistics->fullname;
+
+            }elseif($this->user->user_group == "manager"){
+
+                $manager = $this->Managers->getById($this->user->user_id);
+                $this->processStatistics($manager, $statistics, 'manager_user', $manager->manager_user, 'manager');
+                $rating->statistics->manager_country = $manager->manager_country;
+                $rating->statistics->login = $manager->statistics->login;
+                $rating->statistics->fullname = $manager->statistics->fullname;
+            }
+
+
+            $this->processStatistics($rating, $statistics, 'client_id', 0, 'client');
+            $rating->comments = $this->Comments->getCommentsByRatingId($rating->rating_id);
+
+            // находим данные комментатора для каждого коммента
+            foreach ($rating->comments as $comment)
+            {
+                if ($comment->user_id == $rating->client_id)
+                {
+                    $this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'client');
+                }
+                else if ($comment->user_id == $rating->manager_id)
+                {
+                    $this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'manager');
+                }else{
+                    $this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'client');
+                }
+            }
+
+            $this->load->view('main/elements/dealers/manager_rating.php',array("rating"=>$rating,"comment"=>$comment,
+            "countries" => $countries,'countries_en' => $countries_en));
 		}
 		catch (Exception $e)
 		{

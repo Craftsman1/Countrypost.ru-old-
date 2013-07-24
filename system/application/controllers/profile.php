@@ -202,14 +202,16 @@ class Profile extends BaseController {
 					// находим данные комментатора для каждого коммента
 					foreach ($rating->comments as $comment)
 					{
-						if ($comment->user_id == $rating->client_id)
+                        if ($comment->user_id == $rating->client_id)
 						{
 							$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'client');
-						}
+                        }
 						else if ($comment->user_id == $rating->manager_id)
 						{
 							$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'manager');
-						}
+						}else{
+                            $this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'client');
+                        }
 					}
 				}
 			}
@@ -239,7 +241,7 @@ class Profile extends BaseController {
 
 			$view['orders_in_work']=(int)$count;
 
-			View::showChild($view_name, $view);
+            View::showChild($view_name, $view);
 		}
 		catch (Exception $e) 
 		{
@@ -274,9 +276,12 @@ class Profile extends BaseController {
 			{
 				$view['client']->currency_symbol = '';
 			}
-			
+
 			$this->load->model('CountryModel', 'Country');
 			$view['Countries'] = $this->Country->getList();
+
+            $countries = array();
+            $countries_en = array();
 			
 			foreach ($view['Countries'] as $Country)
 			{
@@ -291,11 +296,92 @@ class Profile extends BaseController {
 			$view['countries'] = $countries;
             $view['countries_en'] = $countries_en;
             $view['addresses'] = $addresses;
-						
-			View::showChild($view_name, $view);
+
+            View::showChild($view_name, $view);
 		}
 		catch (Exception $e) 
 		{
 		}
 	}
+
+    public function addRatingComment($id_rating)
+    {
+
+        $comment_message = Check::str('comment', 65535);
+
+        $comment = new stdClass();
+        $comment->rating_id = $id_rating;
+        $comment->user_id = $this->user->user_id;
+        $comment->message = $comment_message;
+        $comment->status = 'active';
+
+        $this->load->model('RatingCommentModel', 'Comments');
+        $comment = $this->Comments->addComment($comment);
+
+        $this->load->model('ClientModel', 'Clients');
+        $this->load->model('ManagerModel', 'Managers');
+
+        $statistics = array();
+
+
+        if ($this->user->user_group == "client")
+        {
+
+            $client = $this->Clients->getById($this->user->user_id);
+            $this->processStatistics($client, $statistics, 'client_user', $client->client_user, 'client');
+            $comment->statistics->client_country = $client->client_country;
+            $comment->statistics->login = $client->statistics->login;
+            $comment->statistics->fullname = $client->statistics->fullname;
+
+        }elseif($this->user->user_group == "manager"){
+
+            $manager = $this->Managers->getById($this->user->user_id);
+            $this->processStatistics($manager, $statistics, 'manager_user', $manager->manager_user, 'manager');
+            $comment->statistics->manager_country = $manager->manager_country;
+            $comment->statistics->login = $manager->statistics->login;
+            $comment->statistics->fullname = $manager->statistics->fullname;
+        }
+
+
+        $this->load->model('CountryModel', 'Country');
+        $view['Countries'] = $this->Country->getList();
+
+        $countries = array();
+        $countries_en = array();
+
+        foreach ($view['Countries'] as $Country)
+        {
+            $countries[$Country->country_id] = $Country->country_name;
+            $countries_en[$Country->country_id] = $Country->country_name_en;
+        }
+
+        $view['countries'] = $countries;
+        $view['countries_en'] = $countries_en;
+
+        echo '<tr class="comment">';
+            echo '<td>';
+                View::show('main/elements/ratings/comment', array('comment' => $comment,
+                    'countries_en' =>$countries_en));
+            echo '</td>';
+        echo '</tr>';
+
+    }
+
+    public function delRating($id_rating)
+    {
+        $this->load->model('RatingCommentModel', 'Comments');
+
+        $this->Comments->delRating($id_rating);
+
+        echo "ok";
+    }
+
+    public function delCommentRating($id_message)
+    {
+        $this->load->model('RatingCommentModel', 'Comments');
+
+        $this->Comments->delCommentRating($id_message);
+
+        echo "ok";
+    }
 }

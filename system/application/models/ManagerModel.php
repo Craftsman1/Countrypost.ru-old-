@@ -549,7 +549,7 @@ class ManagerModel extends BaseModel implements IModel{
 		)->result();
 		
 		$country = ($result) ? $result[0] : FALSE;
-		
+
 		if ($country)
 		{
 			$statistics->currency = $country->country_currency;

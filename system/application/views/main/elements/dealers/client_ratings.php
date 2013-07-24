@@ -1,5 +1,27 @@
+<? if (!isset($this->user->user_id)) $this->user->user_id = -1; ?>
+<? if (!isset($this->user->user_group)) $this->user->user_group = -1; ?>
 <div class="client_ratings dealer_tab" style="display:none;">
-	<form action="/client/saveRating" id="ratingForm" method="POST">
+
+    <? if ( $this->user->user_id == -1) : ?>
+    <div class="table">
+        <div class='angle angle-lt'></div>
+        <div class='angle angle-rt'></div>
+        <div class='angle angle-lb'></div>
+        <div class='angle angle-rb'></div>
+        <div style="height: 30px;">
+            <div class="" style="margin-top: 10px;">
+                 <b style="font-size: medium;">Чтобы добавить отзыв посреднику войите в систему под своим логином и паролем.</b>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <? endif; ?>
+
+    <? if( $this->user->user_id != $manager->manager_user AND $this->user->user_id != -1
+        AND $this->user->user_group != "manager") : ?>
+
+    <form action="/client/saveRating" id="ratingForm" method="POST">
 		<div class="table">
 			<div class='angle angle-lt'></div>
 			<div class='angle angle-rt'></div>
@@ -65,12 +87,35 @@
 		</div>
 		<img class="float" id="ratingProgress" style="display:none;margin:0px;margin-top:4px;" src="/static/images/lightbox-ico-loading.gif"/>
 	</form>
-	<br style="clear:both;" />
+    <? endif;?>
+
+
+    <? if( $this->user->user_id != $manager->manager_user AND $this->user->user_id != -1
+        AND $this->user->user_group != "manager") : ?>
+        <br />
 	<? View::show('main/elements/ratings/rating_list', array(
 		'ratings' => $manager_ratings
 	)); ?>
-	<h3 id="ratings_header" <? if (empty($ratings)) : ?>style="display: none;"<? endif; ?>>Все отзывы</h3>
-	<? if (isset($ratings)) : foreach ($ratings as $rating) : ?>
+    <? endif; ?>
+
+
+
+    <? if( $this->user->user_id == $manager->manager_user || $this->user->user_id == -1 ||
+        $this->user->user_group == "manager") : ?>
+    <? if ($manager_ratings)
+    {
+        foreach ($manager_ratings as $rating)
+        {
+            View::show('main/elements/dealers/manager_rating', array(
+                'rating' => $rating));
+        }
+    } ?>
+    <? endif;?>
+
+
+    <h3 id="ratings_header" <? if (empty($ratings)) : ?>style="display: none;"<? endif; ?>>Все отзывы</h3>
+
+    <? if (isset($ratings)) : foreach ($ratings as $rating) : ?>
 	<div class="table">
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>
@@ -92,9 +137,11 @@
 	<br>
 	<? endforeach; endif; ?>
 </div>
+
 <script>
 	$(function() {
-		$('#ratingForm').ajaxForm({
+
+        $('#ratingForm').ajaxForm({
 			target: '/client/saveRating',
 			type: 'POST',
 			dataType: 'html',
@@ -105,11 +152,14 @@
 			},
 			success: function(response)
 			{
-				$("#ratingProgress").hide();
+
+                $("#ratingProgress").hide();
 				success('top', 'Отзыв успешно сохранен!');
 
-				var oEditor = FCKeditorAPI.GetInstance('rating_message');
-				var message = oEditor.GetHTML(true);
+                $("#insert_rating").after(response);
+
+                var oEditor = FCKeditorAPI.GetInstance('rating_message');
+				/*var message = oEditor.GetHTML(true);
 				
 				var news_snippet = '<div class="table"><div class="angle angle-lt"></div><div class="angle angle-rt"></div><div class="angle angle-lb"></div><div class="angle angle-rb"></div><div><span class="label">' +
 				getNowDate() +
@@ -121,11 +171,13 @@
 				
 				$('#news_header').after(news_snippet);
 				
-				$('.rating_box input#title').val('');
+				$('.rating_box input#title').val('');*/
 				oEditor.SetHTML('');
 				$('#ratingForm .ratings_plugin div').removeClass('on').removeClass('half');
 				$('#ratingForm .ratings_plugin input').val('');
 				$('#ratingForm .rating_box input[name=rating_type][value=neutral]').attr('checked', true);
+
+
 			},
 			error: function(response)
 			{
@@ -133,7 +185,17 @@
 				error('top', 'Заполните все поля и сохраните еще раз.');
 			}
 		});
+
+        if( $("#rating_message").is("#rating_message") ){
+            <?= editor('rating_message', 200, 920, 'PackageComment') ?>
+        }
+
+        /*$("#btnAddOtziv").click(function(){
+            error('top', 'Вам необходимо войти систему под своим логином и паролем.');
+        })*/
+
 	});
 
-	<?= editor('rating_message', 200, 920, 'PackageComment') ?>
+
+
 </script>
