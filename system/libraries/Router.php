@@ -166,6 +166,10 @@ class CI_Router {
 				$this->scaffolding_request = TRUE;
 				unset($this->routes['scaffolding_trigger']);
 			}
+			elseif(strpos($segments[1],'showResultQW')!==false)
+			{
+				$this->set_method('showResultQW');
+			}
 			else
 			{
 				// A standard method request
@@ -236,8 +240,8 @@ class CI_Router {
 		}
 
 		//show_404($segments[0]); 
-		// вместо ошибки редиректим в профиль, возможно это урл вида http://countrypost.ru/funky_user_name
-		// это костыль который не получилось заменить роутингом и .htaccess
+		// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ http://countrypost.ru/funky_user_name
+		// пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ .htaccess
 		else
 		{
 			$login = $segments[0];

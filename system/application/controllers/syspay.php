@@ -767,7 +767,7 @@ sSignatureValue
 
 		// 300 это исключение для киви
 		$resultCode = 300;
-
+		$payment_id = isset($_REQUEST['order'])?$_REQUEST['order']:false;
 		// парсим хмл
 		$i = file_get_contents('php://input');
 		
@@ -777,54 +777,82 @@ sSignatureValue
 		preg_match('/<status>(.*)?<\/status>/', $i, $m4);
 
 		// сравнение нашего пароля с полученным,если не равны код "150"
-		$hash = strtoupper(md5($m3[1] . strtoupper(md5(constant('QIWI_PASS')))));
-		$resultCode = ($hash === $m2[1]) ? 0 : 150;
-		
-		if ($resultCode == 0 && $m4[1] == 60)
+		if(count($m2)>0 && count($m3)>0 && count($m4)>0)
 		{
-			try
-			{
-				//login: $m1[1] password: $m2[1] txn: $m3[1] status: $m4[1]
-				$this->load->model('PaymentDetailsModel', 'Payments');
-				$payment = $this->Payments->getPaymentByNumber($m3[1]);
-				
-				if ( ! $payment)
-				{
-					throw new Exception('Детали платежа не найдены.');
-				}
-				
-				$payment_obj = new stdClass();
-				$payment_obj->payment_from				= $payment->payment_details_user;//'[QW] '.$payment->payment_details_number;
-				//$payment_obj->payment_to				= $payment->payment_details_user;
-				$payment_obj->payment_tax				= $payment->payment_details_tax;
-				$payment_obj->payment_amount_rur		= $payment->payment_details_amount_rur;
-				$payment_obj->payment_amount_from		= $payment->payment_details_amount;
-				$payment_obj->payment_amount_tax		= $payment->payment_details_tax;
-				$payment_obj->payment_amount_to			= $payment->payment_details_amount;
-				$payment_obj->payment_purpose			= 'оплата заказа';
-				$payment_obj->payment_type				= 'order';
-				$payment_obj->payment_status			= 'complite';
-				$payment_obj->payment_transfer_info		= 'QW Transfer ID: '.$payment->payment_details_number;
-				$payment_obj->payment_transfer_order_id	= $payment->payment_details_number;
-				$payment_obj->payment_transfer_sign		= $i;
-				$payment_obj->payment_service_id		= $payment->payment_details_payment_system;
-				$payment_obj->status					= 'not_payed';
-				$payment_obj->order_id					= $payment->order_id;
+			$hash = strtoupper(md5($m3[1] . strtoupper(md5(constant('QIWI_PASS')))));
+			$resultCode = ($hash === $m2[1]) ? 0 : 150;
 
-				$this->payOrder($payment_obj->order_id, $payment_obj, $payment->payment_details_amount);
-			}
-			catch (Exception $ex)
+			if ($resultCode == 0 && $m4[1] == 60)
 			{
-				print($ex->getMessage());
-				$resultCode = 300;
-				$addLog	= "Status: FAIL! ".$ex->getMessage()."\n";
+				try
+				{
+					//login: $m1[1] password: $m2[1] txn: $m3[1] status: $m4[1]
+					$this->load->model('PaymentDetailsModel', 'Payments');
+					$payment = $this->Payments->getPaymentByNumber($m3[1]);
+
+					if ( ! $payment)
+					{
+						throw new Exception('Детали платежа не найдены.');
+					}
+
+					$payment_obj = new stdClass();
+					$payment_obj->payment_from				= $payment->payment_details_user;//'[QW] '.$payment->payment_details_number;
+					//$payment_obj->payment_to				= $payment->payment_details_user;
+					$payment_obj->payment_tax				= $payment->payment_details_tax;
+					$payment_obj->payment_amount_rur		= $payment->payment_details_amount_rur;
+					$payment_obj->payment_amount_from		= $payment->payment_details_amount;
+					$payment_obj->payment_amount_tax		= $payment->payment_details_tax;
+					$payment_obj->payment_amount_to			= $payment->payment_details_amount;
+					$payment_obj->payment_purpose			= 'оплата заказа';
+					$payment_obj->payment_comment			= '№ ' . $payment->order_id;
+					$payment_obj->payment_type				= 'order';
+					$payment_obj->payment_status			= 'complite';
+					$payment_obj->payment_transfer_info		= 'QW Transfer ID: '.$payment->payment_details_number;
+					$payment_obj->payment_transfer_order_id	= $payment->payment_details_number;
+					$payment_obj->payment_transfer_sign		= $i;
+					$payment_obj->payment_service_id		= $payment->payment_details_payment_system;
+					$payment_obj->status					= 'not_payed';
+					$payment_obj->order_id					= $payment->order_id;
+
+					$this->payOrder($payment_obj->order_id, $payment_obj, $payment->payment_details_amount);
+				}
+				catch (Exception $ex)
+				{
+					print($ex->getMessage());
+					$resultCode = 300;
+					$addLog	= "Status: FAIL! ".$ex->getMessage()."\n";
+				}
 			}
+			else
+			{
+				// не распарсился файл или неверный статус
+				/*$resultCode = 300;
+				$addLog	= "Status: FAIL! code: $resultCode, status: {$m4[1]}\n";*/
+			}
+		}elseif ($payment_id) {
+				try
+				{
+					$this->load->model('PaymentDetailsModel', 'Payments');
+					$payment = $this->Payments->getPaymentByNumber($payment_id);
+
+					if ( ! $payment)
+					{
+						throw new Exception('Детали платежа не найдены.');
+					}
+					Func::redirect($this->config->item('base_url')."client/order/".$payment->order_id);
+				}
+				catch(Exception $ex)
+				{
+					print($ex->getMessage());
+					$resultCode = 300;
+					$addLog	= "Status: FAIL! ".$ex->getMessage()."\n";
+				}
 		}
 		else
 		{
-			// не распарсился файл или неверный статус
-			/*$resultCode = 300;
-			$addLog	= "Status: FAIL! code: $resultCode, status: {$m4[1]}\n";*/
+			
+			$resultCode = 301;
+			$addLog	= "Status: FAIL! code: $resultCode\n";
 		}
 		
 		PayLog::put('QW', $addLog);
