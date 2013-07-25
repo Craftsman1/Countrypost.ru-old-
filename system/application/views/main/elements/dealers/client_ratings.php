@@ -18,7 +18,7 @@
     <br>
     <? endif; ?>
 
-    <? if( $this->user->user_id != $manager->manager_user AND $this->user->user_id != -1
+    <? if ( $this->user->user_id != $manager->manager_user AND $this->user->user_id != -1
         AND $this->user->user_group != "manager") : ?>
 
     <form action="/client/saveRating" id="ratingForm" method="POST">
