@@ -1391,7 +1391,6 @@ class Client extends BaseController {
                 $rating->statistics->fullname = $manager->statistics->fullname;
             }
 
-
             $this->processStatistics($rating, $statistics, 'client_id', 0, 'client');
             $rating->comments = $this->Comments->getCommentsByRatingId($rating->rating_id);
 
@@ -1408,6 +1407,16 @@ class Client extends BaseController {
                 }else{
                     $this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'client');
                 }
+            }
+            if ($this->user->user_group == "client")
+            {
+                $client_summary = $this->Clients->getById($comment->user_id);
+                $rating->statistics->client_name = $this->Clients->getFullName($client_summary);
+                $comment->statistics->client_name = $rating->statistics->client_name;
+            }elseif($this->user->user_group == "manager"){
+                $manager_summary = $this->Managers->getById($comment->user_id);
+                $rating->statistics->client_name = $this->Managers->getFullName($manager_summary);
+                $comment->statistics->client_name = $rating->statistics->client_name;
             }
 
             $this->load->view('main/elements/dealers/manager_rating.php',array("rating"=>$rating,"comment"=>$comment,

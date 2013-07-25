@@ -339,6 +339,8 @@ class Profile extends BaseController {
             $comment->statistics->client_country = $client->client_country;
             $comment->statistics->login = $client->statistics->login;
             $comment->statistics->fullname = $client->statistics->fullname;
+            $client_summary = $this->Clients->getById($comment->user_id);
+            $comment->statistics->client_name = $this->Clients->getFullName($client_summary);
 
         }elseif($this->user->user_group == "manager"){
 
@@ -347,6 +349,8 @@ class Profile extends BaseController {
             $comment->statistics->manager_country = $manager->manager_country;
             $comment->statistics->login = $manager->statistics->login;
             $comment->statistics->fullname = $manager->statistics->fullname;
+            $manager_summary = $this->Managers->getById($comment->user_id);
+            $comment->statistics->client_name = $this->Managers->getFullName($manager_summary);
         }
 
 
