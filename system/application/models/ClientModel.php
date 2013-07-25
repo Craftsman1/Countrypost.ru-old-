@@ -389,7 +389,7 @@ class ClientModel extends BaseModel implements IModel{
 			WHERE 
 				`{$this->table}`.`client_user` = {$client_id}"
 		)->result();
-		
+
 		$user = ($result) ? $result[0] : FALSE;
 
         // counters
@@ -410,9 +410,10 @@ class ClientModel extends BaseModel implements IModel{
 			$statistics->neutral_reviews = $user->neutral_reviews;
 			$statistics->negative_reviews = $user->negative_reviews;
 		}
-		
-		$statistics->fullname = $this->getFullName($statistics);
-		return $statistics;
+
+        $statistics->fullname = $this->getFullName($statistics);
+
+        return $statistics;
 	}
 	
 	public function getClientsData($filters = null) 

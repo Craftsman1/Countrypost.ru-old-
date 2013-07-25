@@ -2229,10 +2229,10 @@ div.biddetails img
 	float:none;
 }
 
-tr.comment
+/*tr.comment
 {
 	display:none;
-}
+}*/
 
 tr.comment td
 {
@@ -2514,11 +2514,11 @@ span.ratings_plugin div {
 }
 
 span.ratings_plugin div.on,span.ratings_viewer div.on {
-	background-position-x: 0;
+	background-position: 0,0;
 }
 
 span.ratings_plugin div.half,span.ratings_viewer div.half {
-	background-position-x: 50%;
+	background-position: 50%,0;
 }
 
 div.review_count {

@@ -136,9 +136,44 @@ class RatingCommentModel extends BaseModel implements IModel{
 				`rating_comments`.`rating_id` = '$id' AND
 				status <> 'deleted'
 			ORDER BY 
-				`rating_comments`.`comment_id` ASC")->result();
+				`rating_comments`.`created` ASC")->result();
 
 		return (isset($result)) ? $result : FALSE;
 	}
+
+    public function delRating($id_rating)
+    {
+
+        $id = intval($id_rating);
+
+        $this->db->query("
+
+			DELETE FROM rating_comments
+			WHERE rating_id = '$id';
+
+			");
+
+        $this->db->query("
+
+			DELETE FROM manager_ratings
+			WHERE rating_id = '$id'
+
+			");
+
+    }
+
+    public function delCommentRating($id_message)
+    {
+        $id = intval($id_message);
+
+        $this->db->query("
+
+			DELETE rating_comments
+			FROM rating_comments
+			WHERE rating_comments.comment_id = '$id'
+
+			");
+
+    }
 }
 ?>

@@ -3454,11 +3454,11 @@ abstract class BaseController extends Controller
 			}
 			else if ($user_group == 'client')
 			{
-				$personal_data->statistics = $this->Clients->getStatistics($personal_data->$id_field_name);
+                $personal_data->statistics = $this->Clients->getStatistics($personal_data->$id_field_name);
 			}
 		
 			// кэш данных пользователей
-			$statistics[$personal_data->$id_field_name] = $personal_data->statistics;
+            $statistics[$personal_data->$id_field_name] = $personal_data->statistics;
 		}
 	}
 

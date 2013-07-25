@@ -14,7 +14,79 @@ $(function() {
 			});
 		});
 	});
+
+
+    $(".delCommentRating").live('click',function(){
+        var id_message = $(this).parent().attr('id');
+        var re = /comm_/; id_message = id_message.replace(re,'');
+
+        if (confirm("Вы хотите удалить Ваш комментарий?"))
+        {
+            $.ajax({
+                url: 'profile/delCommentRating/'+id_message,
+                type: 'POST',
+                beforeSend: function(data) {
+                },
+                success: function(data) {
+                    $("#comm_"+id_message).parent().parent().remove();
+                },
+                error: function(data) {
+                    error('top', 'Не могу удалить');
+                },
+                complete: function(data) {
+                }
+            });
+        }else{
+            return;
+        }
+
+    });
+
 });
+
+function editRating(rating_id)
+{
+    $.ajax({
+        url: 'profile/editRating/'+rating_id,
+        type: 'POST',
+        beforeSend: function(data) {
+        },
+        success: function(data) {
+            //window.location.replace("#tab2");
+            //window.location.reload();
+        },
+        error: function(data) {
+            error('top', 'Не могу вызвать на редактирование.');
+        },
+        complete: function(data) {
+        }
+    });
+}
+
+function delRating(rating_id)
+{
+    if (confirm("Вы хотите удалить Ваш отзыв?"))
+    {
+
+        $.ajax({
+            url: 'profile/delRating/'+rating_id,
+            type: 'POST',
+            beforeSend: function(data) {
+            },
+            success: function(data) {
+                $("#manager_rating"+rating_id).animate( { opacity: 'hide' },'slow',function(){ $(this).remove(); });
+            },
+            error: function(data) {
+                error('top', 'Не могу удалить');
+            },
+            complete: function(data) {
+            }
+        });
+    }else{
+        return;
+    }
+}
+
 $(document).ready(function () {
     $(window).on('popstate', function (e) {
         console.log(location);
@@ -48,7 +120,8 @@ function processStarClick(index, star)
 
 function processStarHover(index, star)
 {
-	var star_on = $(star).parent().find('div').hasClass('on');
+
+    var star_on = $(star).parent().find('div').hasClass('on');
 
 	if (star_on) return;
 
@@ -926,6 +999,11 @@ function saveComment(id)
 {
 	$('#bidCommentForm' + id).submit();
 	$('#ratingCommentForm' + id).submit();
+}
+
+function saveCommentRating(id)
+{
+    $('#ratingCommentForm' + id).submit();
 }
 
 function expandComments(bid_id)
