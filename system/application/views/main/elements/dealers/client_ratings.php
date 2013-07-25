@@ -10,7 +10,7 @@
         <div class='angle angle-rb'></div>
         <div style="height: 30px;">
             <div class="" style="margin-top: 10px;">
-                 <b style="font-size: medium;">Чтобы добавить отзыв посреднику войите в систему под своим логином и паролем.</b>
+                 <b style="font-size: medium;">Чтобы добавить отзыв посреднику войдите в систему под своим логином и паролем.</b>
             </div>
         </div>
     </div>
@@ -82,7 +82,7 @@
 		<br style="clear:both;" />
 		<div class="submit floatleft">
 			<div>
-				<input type="submit" value="Сохранить">
+				<input type="submit" value="Добавить">
 			</div>
 		</div>
 		<img class="float" id="ratingProgress" style="display:none;margin:0px;margin-top:4px;" src="/static/images/lightbox-ico-loading.gif"/>
