@@ -67,4 +67,12 @@
 			<a href="mailto:<?= $manager->statistics->email ?>"><?= $manager->statistics->email ?></a>
 		</span>
 	</div>
+	<div>
+		<span>
+			Телефон:
+		</span>
+		<span>
+			<?= $manager->manager_phone ?>
+		</span>
+	</div>
 </div>
