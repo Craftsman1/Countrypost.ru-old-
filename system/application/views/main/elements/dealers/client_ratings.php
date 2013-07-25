@@ -148,7 +148,15 @@
 			iframe: true,
 			beforeSubmit: function(formData, jqForm, options)
 			{
-				$("#ratingProgress").show();
+                var oEditor = FCKeditorAPI.GetInstance('rating_message');
+                var getText = oEditor.EditorDocument.body.innerHTML;
+                var StripTag = getText.replace(/(<([^>]+)>)/ig,"");
+                StripTag = StripTag.replace(/\&nbsp\;/ig,'');
+                if( StripTag=="" || StripTag.length < 5) {
+                    error('top', 'Заполните все поля и сохраните еще раз.');
+                    return false;
+                }
+                $("#ratingProgress").show();
 			},
 			success: function(response)
 			{
