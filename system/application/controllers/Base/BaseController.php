@@ -369,7 +369,7 @@ abstract class BaseController extends Controller
 			'rate_kzt' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'KZT', 'client'),
 			'rate_uah' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'UAH', 'client'),
 			'rate_rur' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'RUB', 'client')
-		);
+			);
 
 			foreach ($view['bids'] as $bid)
 			{
@@ -931,7 +931,14 @@ abstract class BaseController extends Controller
 			$this->load->model('BidCommentModel', 'Comments');
 			$this->load->model('ManagerModel', 'Managers');
 			$this->load->model('ClientModel', 'Clients');
+			$this->load->model('CurrencyModel', 'Currencies');
 
+			$view['exchangeRates'] = array (
+			'rate_usd' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'USD', 'client'),
+			'rate_kzt' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'KZT', 'client'),
+			'rate_uah' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'UAH', 'client'),
+			'rate_rur' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'RUB', 'client')
+			);
 			// предложения: никаких ограничений доступа, показываем все
 			$view['bids'] = $this->Bids->getBids($view['order']->order_id);
 			$statistics = array();

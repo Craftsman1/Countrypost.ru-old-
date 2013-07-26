@@ -2911,5 +2911,6 @@ h2.choose_payment_type{cursor:pointer;}
 .managerinfo .total .converted_order_totals img.help1
 {
 	float: right;
-	margin: 0 5px;
+	margin-left: 3px;
+	margin-right: -17px;
 }
