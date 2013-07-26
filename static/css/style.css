@@ -2900,3 +2900,16 @@ input#foto_requested,input#search_requested,input#insurance
 	border: #afafaf 1px solid;
 }
 h2.choose_payment_type{cursor:pointer;}
+
+.managerinfo .total .converted_order_totals
+{
+	margin-top: 5px;
+	text-align: right;
+	font-size: 14px;
+	line-height: 23px;
+}
+.managerinfo .total .converted_order_totals img.help1
+{
+	float: right;
+	margin: 0 5px;
+}

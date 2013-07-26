@@ -193,11 +193,12 @@ class Manager extends BaseController {
 
 			// 2. погнали
 			$this->load->model('BidModel', 'Bids');
-
+			$bid_flag = false;
 			if (empty($bid_id) OR
 				! is_numeric($bid_id))
 			{
 				$bid = new stdClass();
+				$bid_flag=true;
 			}
 			else
 			{
@@ -349,7 +350,14 @@ class Manager extends BaseController {
 
 			$view['user_data'] = $this->Managers->getById($this->user->user_id);
 
-			$this->load->view("/main/elements/orders/bid", $view);
+			if($bid_flag)
+			{
+				Func::redirect($this->config->item('base_url').'main/order/'.$order_id);
+			}
+			else
+			{
+				$this->load->view("/main/elements/orders/bid", $view);
+			}
 		}
 		catch (Exception $e)
 		{

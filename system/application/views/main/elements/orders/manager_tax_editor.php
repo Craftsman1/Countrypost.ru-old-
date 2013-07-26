@@ -30,41 +30,6 @@
 		 onclick="showTypeSelector();"
 		 title="отмена">
 </span>
-<script>
-	function showTypeSelector()
-	{
-		$('.manager_tax_type')
-			.val('products_delivery')
-			.show();
-		$('.manager_tax_editor').hide();
-
-		manager_tax = products_delivery_tax;
-		recalculateBid(edit_bid_id);
-	}
-
-	function showTaxEditor()
-	{
-		if ($('select.manager_tax_type').val() == 'custom')
-		{
-			$('.manager_tax_type').hide();
-			$('.manager_tax_editor').show();
-
-			manager_tax = parseFloat($('input.manager_tax').val());
-		}
-		else if ($('select.manager_tax_type').val() == 'products_delivery')
-		{
-			manager_tax = products_delivery_tax;
-			$('input.manager_tax').val(manager_tax);
-		}
-		else if ($('select.manager_tax_type').val() == 'products')
-		{
-			manager_tax = products_tax;
-			$('input.manager_tax').val(manager_tax);
-		}
-
-		recalculateBid(edit_bid_id);
-	}
-</script>
 <? else : ?>
 <span class="manager_tax_editor">
 	<input type="text float"

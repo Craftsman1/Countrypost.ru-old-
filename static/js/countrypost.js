@@ -41,9 +41,26 @@ $(function() {
         }
 
     });
+	$('#editBidForm0 input.manager_tax').change(function() {
+			manager_tax = parseGenericTax(this);
+			refreshEditTotals();
+		});
+
+		$('#editBidForm0 input.manager_tax_percentage').change(function() {
+			manager_tax_percentage = parseGenericTax(this);
+			manager_tax = Math.ceil(manager_tax_percentage * order_products_cost * 0.01);
+
+			refreshEditTotals();
+		});
+
+		$('#editBidForm0 input.manager_foto_tax').change(function() {
+			
+			manager_foto_tax = parseGenericTax(this);
+			refreshEditTotals();
+		});
 
 });
-
+	
 function editRating(rating_id)
 {
     $.ajax({
@@ -89,7 +106,7 @@ function delRating(rating_id)
 
 $(document).ready(function () {
     $(window).on('popstate', function (e) {
-        console.log(location);
+        
         if (!location.hash){
             eval($("#new").attr('href'));
         }
@@ -759,7 +776,7 @@ function cancelBid()
 
 function refreshTotals()
 {
-	recalculateBid(0);
+	recalculateBid(edit_bid_id);
 }
 
 function refreshEditTotals()
@@ -827,28 +844,35 @@ function recalculateBid(bid_id)
 		.find('.extra_tax_counter')
 		.val(extra_tax_counter)
 		.html(extra_tax_counter);
+		if(!isNaN(exchangeRate)){
+	$bid
+		.find('.converted_order_totals span')
+		.val(parseFloat(order_total_cost*exchangeRate).toFixed(2))
+		.html(parseFloat(order_total_cost*exchangeRate).toFixed(2));
+		}
 }
 
 function addBid()
 {
-	$('#bidForm').submit();
+	$('#editBidForm'+edit_bid_id).submit();
 }
 
 function editFotoTax()
 {
-	$('#bidForm .foto_tax_plaintext').hide('fast');
-	$('#bidForm .foto_tax_editor').show('fast');
+	$('#editBidForm'+edit_bid_id+' .foto_tax_plaintext').hide('fast');
+	$('#editBidForm'+edit_bid_id+' .foto_tax_editor').show('fast');
 }
 
 function editManagerTax()
 {
-	$('#bidForm .manager_tax_plaintext').hide('fast');
-	$('#bidForm .manager_tax_editor').show('fast');
+	$('#editBidForm'+edit_bid_id+' .manager_tax_plaintext').hide('fast');
+	$('#editBidForm'+edit_bid_id+' .manager_tax_editor').show('fast');
 }
 
 function addExtraTax()
 {
-	var $template = $('#bidForm .template').clone();
+	var $template = $('#editBidForm'+edit_bid_id+' .template').clone();
+	
 	$template
 		.removeClass('template')
 		.find('input.extra_tax_value')
@@ -863,8 +887,8 @@ function addExtraTax()
 	$template
 		.find('input.extra_tax_name')
 		.attr('name', 'extra_tax_name' + extra_tax_counter);
+	$('#editBidForm'+edit_bid_id+' div.extra_tax_box:last').after($template);
 
-	$('#bidForm div.extra_tax_box:last').after($template);
 	$template.show('fast');
 
 	extra_tax_counter++;
@@ -882,13 +906,46 @@ function parseGenericTax(input)
 
 	return (isNaN(newTax) ? 0 : parseInt(newTax));
 }
+function showTypeSelector()
+{
+	$('#editBidForm'+edit_bid_id+' .manager_tax_type')
+		.val('products_delivery')
+		.show();
+	$('#editBidForm'+edit_bid_id+' .manager_tax_editor').hide();
+
+	manager_tax = products_delivery_tax;
+	recalculateBid(edit_bid_id);
+}
+
+function showTaxEditor()
+{
+	if ($('#editBidForm'+edit_bid_id+' select.manager_tax_type').val() == 'custom')
+	{
+		$('#editBidForm'+edit_bid_id+' .manager_tax_type').hide();
+		$('#editBidForm'+edit_bid_id+' .manager_tax_editor').show();
+
+		manager_tax = parseFloat($('#editBidForm'+edit_bid_id+' input.manager_tax').val());
+	}
+	else if ($('#editBidForm'+edit_bid_id+' select.manager_tax_type').val() == 'products_delivery')
+	{
+		manager_tax = products_delivery_tax;
+		$('#editBidForm'+edit_bid_id+' input.manager_tax').val(manager_tax);
+	}
+	else if ($('#editBidForm'+edit_bid_id+' select.manager_tax_type').val() == 'products')
+	{
+		manager_tax = products_tax;
+		$('#editBidForm'+edit_bid_id+' input.manager_tax').val(manager_tax);
+	}
+
+	recalculateBid(edit_bid_id);
+}
 
 // доп. комиссии
 function updateExtraTax()
 {
 	extra_tax = 0;
 
-	$('#bidForm input.extra_tax_value').each(function(index, item) {
+	$('#editBidForm'+edit_bid_id+' input.extra_tax_value').each(function(index, item) {
 		extra_tax += parseGenericTax(item);
 	});
 
@@ -901,7 +958,7 @@ function removeExtraTax(image)
 		.parent()
 		.parent()
 		.remove();
-
+	extra_tax_counter--;
 	updateExtraTax();
 	refreshTotals();
 }
@@ -910,7 +967,7 @@ function editBid(bid_id)
 {
 	edit_bid_id = bid_id;
 	initEditBidForm();
-	$('#editBidForm').show('slow');
+	$('#editBidForm'+bid_id).show('slow');
 
 
 	var bid = $('div#bid' + bid_id);
@@ -931,7 +988,7 @@ function editBid(bid_id)
 
 function cancelEditBid(bid_id)
 {
-	$('div#editBidForm').hide('slow');
+	$('div#editBidForm'+bid_id).hide('slow');
 
 	var bid = $('div#bid' + bid_id);
 
@@ -957,14 +1014,14 @@ function initEditBidForm()
 
 function showEditBidForm()
 {
-	$('div#editBidForm').show();
+	$('div#editBidForm'+edit_bid_id).show();
 
 	if ( ! editBidFormInitialized)
 	{
 		initEditBidForm();
 	}
 
-	window.location = '#edit_bid';
+	window.location = '#edit_bid'+edit_bid_id;
 }
 
 
