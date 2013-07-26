@@ -1,4 +1,4 @@
-<div class="profile table client_tab" style="height: 140px;">
+<div class="profile table client_tab" style="height: 160px;">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
@@ -51,6 +51,14 @@
             <span>
                 <a href="mailto:<?= $client->statistics->email ?>"><?= $client->statistics->email ?></a>
             </span>
+		</div>
+		<div>
+			<span>
+				Телефон:
+			</span>
+			<span>
+				<?= $client->client_phone ?>
+			</span>
 		</div>
 		<? endif; ?>
 	</div>
