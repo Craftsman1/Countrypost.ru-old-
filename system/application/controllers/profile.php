@@ -199,17 +199,24 @@ class Profile extends BaseController {
                     $this->processStatistics($rating, $statistics, 'client_id', 0, 'client');
 					$rating->comments = $this->Comments->getCommentsByRatingId($rating->rating_id);
 
+                    $client_summary = $this->Clients->getById($rating->client_id);
+                    $rating->statistics->client_name = $this->Clients->getFullName($client_summary);
+
 					// находим данные комментатора для каждого коммента
 					foreach ($rating->comments as $comment)
 					{
                         if ($comment->user_id == $rating->client_id)
 						{
 							$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'client');
+                            $client_summary = $this->Clients->getById($comment->user_id);
+                            $comment->statistics->client_name = $this->Clients->getFullName($client_summary);
                         }
 						else if ($comment->user_id == $rating->manager_id)
 						{
 							$this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'manager');
-						}else{
+                            $manager_summary = $this->Managers->getById($comment->user_id);
+                            $comment->statistics->client_name = $this->Managers->getFullName($manager_summary);
+                        }else{
                             $this->processStatistics($comment, $statistics, 'user_id', $comment->user_id, 'client');
                         }
 					}
@@ -332,6 +339,8 @@ class Profile extends BaseController {
             $comment->statistics->client_country = $client->client_country;
             $comment->statistics->login = $client->statistics->login;
             $comment->statistics->fullname = $client->statistics->fullname;
+            $client_summary = $this->Clients->getById($comment->user_id);
+            $comment->statistics->client_name = $this->Clients->getFullName($client_summary);
 
         }elseif($this->user->user_group == "manager"){
 
@@ -340,6 +349,8 @@ class Profile extends BaseController {
             $comment->statistics->manager_country = $manager->manager_country;
             $comment->statistics->login = $manager->statistics->login;
             $comment->statistics->fullname = $manager->statistics->fullname;
+            $manager_summary = $this->Managers->getById($comment->user_id);
+            $comment->statistics->client_name = $this->Managers->getFullName($manager_summary);
         }
 
 

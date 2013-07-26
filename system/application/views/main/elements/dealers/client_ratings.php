@@ -10,7 +10,7 @@
         <div class='angle angle-rb'></div>
         <div style="height: 30px;">
             <div class="" style="margin-top: 10px;">
-                 <b style="font-size: medium;">Чтобы добавить отзыв посреднику войите в систему под своим логином и паролем.</b>
+                 <b style="font-size: medium;">Чтобы добавить отзыв посреднику войдите в систему под своим логином и паролем.</b>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
     <br>
     <? endif; ?>
 
-    <? if( $this->user->user_id != $manager->manager_user AND $this->user->user_id != -1
+    <? if ( $this->user->user_id != $manager->manager_user AND $this->user->user_id != -1
         AND $this->user->user_group != "manager") : ?>
 
     <form action="/client/saveRating" id="ratingForm" method="POST">
@@ -82,11 +82,24 @@
 		<br style="clear:both;" />
 		<div class="submit floatleft">
 			<div>
-				<input type="submit" value="Сохранить">
+				<input type="submit" value="Добавить">
 			</div>
 		</div>
 		<img class="float" id="ratingProgress" style="display:none;margin:0px;margin-top:4px;" src="/static/images/lightbox-ico-loading.gif"/>
 	</form>
+    <? elseif( count($manager_ratings) <= 1 ) : ?>
+        <div class="table">
+            <div class='angle angle-lt'></div>
+            <div class='angle angle-rt'></div>
+            <div class='angle angle-lb'></div>
+            <div class='angle angle-rb'></div>
+            <div>
+                <b style="font-size: medium;">Добавлять отзывы посреднику могут только клиенты</b>
+            </div>
+        </div>
+        <br>
+        <br>
+        </div>
     <? endif;?>
 
 
@@ -148,7 +161,15 @@
 			iframe: true,
 			beforeSubmit: function(formData, jqForm, options)
 			{
-				$("#ratingProgress").show();
+                var oEditor = FCKeditorAPI.GetInstance('rating_message');
+                var getText = oEditor.EditorDocument.body.innerHTML;
+                var StripTag = getText.replace(/(<([^>]+)>)/ig,"");
+                StripTag = StripTag.replace(/\&nbsp\;/ig,'');
+                if( StripTag=="" || StripTag.length < 5) {
+                    error('top', 'Заполните все поля и сохраните еще раз.');
+                    return false;
+                }
+                $("#ratingProgress").show();
 			},
 			success: function(response)
 			{
