@@ -19,6 +19,20 @@
 </div>
 <script>
 	$(function() {
+		
 		init_profile();
+		choose_tab();
 	});
+	function choose_tab()
+	{
+		var tabname = document.location.hash;
+		if((''+tabname).length>0 && tabname=='#delivery_address')
+		{
+			$('ul.tabs li').removeClass('active');
+			$('div.client_tab,div.dealer_tab').hide();
+
+			$('div.delivery_address').show();
+			$('ul.tabs li.reviews').addClass('active');
+		}
+	}
 </script>

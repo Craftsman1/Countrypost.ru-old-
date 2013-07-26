@@ -15,7 +15,7 @@
 		<div class='angle angle-rb'></div>
 		<table>
 			<tr>
-				<th nowrap>
+				<th nowrap style="width:200px;">
 					Статус:
 				</th>
 				<th nowrap>
@@ -47,6 +47,8 @@
 								  id="address_text"
 								  style="width: 100%;resize: vertical;"
 								  onchange="updateOrder();"><?= $order->order_address ?></textarea>
+						<br>
+						<a class="floatleft" href="/profile#delivery_address" >редактировать адреса</a>
 						<? else : ?>
 						<select id="address"
 								name="address"
@@ -84,7 +86,7 @@
 							<? endforeach; ?>
 						</select>
 						<br>
-						<a class="floatleft" href="/profile">редактировать адреса</a>
+						<a class="floatleft" href="/profile#delivery_address">редактировать адреса</a>
 						<? endif; ?>
 					<? else : ?>
 					<?= $order->order_address ?>
