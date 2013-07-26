@@ -1,4 +1,4 @@
-<div class="profile table client_tab" style="height: 140px;">
+<div class="profile table client_tab" style="height: 190px;">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
@@ -33,7 +33,6 @@
 			)); ?>
 		</span>
 		</div>
-        <? if(( ! empty($client->statistics->skype)) AND !empty($this->user) AND ($this->user->user_group == 'manager' OR $this->user->user_id == $client->client_user)) : ?>
 		<div>
             <span>
                 Skype:
@@ -42,8 +41,6 @@
                 <?= $client->statistics->skype ?>
             </span>
 		</div>
-		<? endif; ?>
-		<? if (isset($this->user->user_group) AND ($this->user->user_group == 'manager' OR ($this->user->user_group == 'client' AND $this->user->user_id == $client->client_user))) : ?>
 		<div>
             <span>
                 Email:
@@ -52,7 +49,14 @@
                 <a href="mailto:<?= $client->statistics->email ?>"><?= $client->statistics->email ?></a>
             </span>
 		</div>
-		<? endif; ?>
+		<div>
+			<span>
+				Телефон:
+			</span>
+			<span>
+				<?= $client->client_phone ?>
+			</span>
+		</div>
 	</div>
 </div>
 

@@ -1,4 +1,4 @@
-<div class="profile table client_tab" style="height: 530px;">
+<div class="profile table client_tab" style="height: 590px;">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
@@ -44,6 +44,11 @@
 			<div>
 				<span class="label">Skype:</span>
 				<input style="width:180px;" class="textbox" maxlength="255" type='text' id='skype' name="skype" value="<?= $client->skype ?>"/>
+			</div>
+			<br style="clear:both;" />
+			<div>
+			<span class="label">Телефон:</span>
+				<input style="width:180px;" class="textbox" maxlength="255" type='text' id='phone' name="phone" value="<?= $client->client_phone ?>"/>
 			</div>
 			<br style="clear:both;" />
 			<div>
