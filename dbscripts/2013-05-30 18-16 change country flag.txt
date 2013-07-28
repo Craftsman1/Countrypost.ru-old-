@@ -1,0 +1,1 @@
+UPDATE countries SET country_name_en = 'Abkhazia' WHERE country_id = '12'
