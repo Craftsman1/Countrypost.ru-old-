@@ -4529,6 +4529,7 @@ abstract class BaseController extends Controller
     {
         // выводим на верх списка некоторые странны
         $result_country_priory = array();
+		$result_country1 = array();
         $result_country = $this->Country->getList();
         $i = 0;
         foreach($result_country as $row)
@@ -4537,12 +4538,12 @@ abstract class BaseController extends Controller
             {
                 $result_country_priory[$row->country_id] = $row;
             }else{
-                $result_country[$i] = $row;
+                $result_country1[$i] = $row;
                 $i++;
             }
         }
         list($result_country_priory[3],$result_country_priory[7],$result_country_priory[5]) = array($result_country_priory[3],$result_country_priory[5], $result_country_priory[7]);
-        $result_country = array_merge($result_country_priory,$result_country);
+        $result_country = array_merge($result_country_priory,$result_country1);
         return $result_country;
     }
 
