@@ -35,7 +35,7 @@ $payable_amount =
 			case "gcd": tax = <?= GC_USD_IN_TAX ?>; break;
 			case "anr": tax = <?= AN_RUB_IN_TAX ?>; break;
 			case "and": tax = <?= AN_USD_IN_TAX ?>; break;
-			case "vm": tax = <?= VM_RUB_IN_TAX ?>; break;
+			case "pp": tax = <?= PP_IN_TAX ?>; break;
 			case "cus": tax = <?= CUS_USD_IN_TAX ?>; break;
 			case "cuu": tax = <?= CUS_UAH_IN_TAX ?>; break;
         }
@@ -50,6 +50,7 @@ $payable_amount =
 		switch (service) 
 		{
 			case "wmz": extra = <?= WMZ_IN_EXTRA ?>; break;
+			case "pp": extra = <?= PP_IN_EXTRA ?>; break;
         }
 		
 		return extra;
@@ -66,7 +67,7 @@ $payable_amount =
 			case "immediate_rbk" : service = "rk"; break;
 			case "immediate_wmz" : service = "wmz"; break;
 			case "delayed_sb" : service = "bm"; break;
-			case "delayed_vm" : service = "vm"; break;
+			case "delayed_pp" : service = "pp"; break;
 			case "delayed_sv" : service = "sv"; break;
 			case "delayed_alf" : service = "alf"; break;
 			case "delayed_ald" : service = "ald"; break;
@@ -123,7 +124,7 @@ $payable_amount =
 		calculateTotal('gcd');
 		calculateTotal('anr');
 		calculateTotal('and');
-		calculateTotal('vm');
+		calculateTotal('pp');
 		calculateTotal('wmr');
 		calculateTotal('qw');
 		calculateTotal('wmz');
@@ -144,7 +145,6 @@ $payable_amount =
 			service == 'wmr' ||
 			service == 'rbk' ||
 			service == 'alf' ||
-			service == 'vm' ||
 			service == 'wur' ||
 			service == 'con' ||
 			service == 'unr' ||
@@ -167,7 +167,7 @@ $payable_amount =
 		{
 			calculateTotalDelayedUAH(service);
 		}
-		else if (service == 'wmz')
+		else if (service == 'pp' || service == 'wmz')
 		{
 			calculateTotalUSD(service);
 		}
@@ -391,7 +391,7 @@ $payable_amount =
 					$('#delayed_ru').val(),
 					amount_usd);
 				break;
-			case "vm": openGenericPopup(
+			/*case "pp": openGenericPopup(
 					'<?= VM_SERVICE_NAME ?>',
 					'<?= VM_RUB_IN_ACCOUNT ?>',
 					'<?= VM_ACCOUNT_TYPE ?>',
@@ -400,7 +400,7 @@ $payable_amount =
 					$('#delayed_ru').val(),
 					0,
 					amount_usd);
-				break;
+				break;*/
 			case "cus": openGenericPopup(
 					'<?= CUS_SERVICE_NAME ?>',
 					'',
@@ -446,7 +446,6 @@ $payable_amount =
 			case "gcr":
 			case "anr":
 			case "and":
-			case "vm":
 			case "ald":
 			case "wud":
 			case "cod":
@@ -463,6 +462,12 @@ $payable_amount =
 				break;
 			case "wmz":
 				$('.countrypost_payment_box form.usd input.total_local').val($('.user_total').val());
+				$('.countrypost_payment_box form.usd input.payment_selector').val('wmz');
+				$('.countrypost_payment_box form.usd').submit();
+				break;
+			case "pp":
+				$('.countrypost_payment_box form.usd input.total_local').val($('.user_total').val());
+				$('.countrypost_payment_box form.usd input.payment_selector').val('pp');
 				$('.countrypost_payment_box form.usd').submit();
 				break;
 		}
@@ -632,10 +637,10 @@ $payable_amount =
 				'selected' => FALSE
 			)); ?-->
 			<? View::show('/syspay/elements/generic_o2i', array(
-				'service_code' => 'vm',
+				'service_code' => 'pp',
 				'service_code_usd' => '',
-				'service_name' => VM_SERVICE_NAME,
-				'title' => VM_SERVICE_DESCRIPTION,
+				'service_name' => PP_SERVICE_NAME,
+				'title' => PP_SERVICE_DESCRIPTION,
 				'image' => 'visa_mastercard.png',
 				'selected' => FALSE
 			)); ?>
@@ -644,7 +649,7 @@ $payable_amount =
 			<input type="hidden" name="section" value="usd">
 			<input type="hidden" name="total_usd" id="total_usd">
 			<input type="hidden" name="total_local" class="total_local" value="">
-			<input type="hidden" name="payment_selector" value="wmz">
+			<input type="hidden" name="payment_selector" class="payment_selector" value="wmz">
 		</form>
 		<form method="POST" action="/syspay/showGate/<?= $order->order_id ?>" class="immediate">
 			<input type="hidden" name="section" value="immediate">
