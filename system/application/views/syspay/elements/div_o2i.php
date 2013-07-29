@@ -641,7 +641,7 @@ $payable_amount =
 				'service_code_usd' => '',
 				'service_name' => PP_SERVICE_NAME,
 				'title' => PP_SERVICE_DESCRIPTION,
-				'image' => 'visa_mastercard.png',
+				'image' => 'paypal.png',
 				'selected' => FALSE
 			)); ?>
 		</div>
