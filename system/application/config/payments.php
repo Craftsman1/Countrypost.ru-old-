@@ -95,11 +95,11 @@ define('PP_ACCOUNT', 'stuff82@gmail.com');
 define('PP_TEST_ACCOUNT', 'stuff82@gmail.com');
 define('PP_URL', 'https://www.paypal.com/cgi-bin/webscr');
 define('PP_TEST_URL', 'https://www.sandbox.paypal.com/cgi-bin/webscr');
-define('PP_RETURN_URL', BASEURL . 'syspay/showResultPP');
-define('PP_NOTIFY_URL', BASEURL . 'syspay/callbackPP');
-define('PP_CALLBACK_URL', BASEURL . 'syspay/callbackPP');
+define('PP_RETURN_URL', BASESSLURL . 'syspay/showResultPP');
+define('PP_NOTIFY_URL', BASESSLURL . 'syspay/callbackPP');
+define('PP_CALLBACK_URL', BASESSLURL . 'syspay/callbackPP');
 define('PP_IMAGE_URL', BASEURL . 'static/images/logo.png');
-define('PP_CANCEL_URL', BASEURL . 'client');
+define('PP_CANCEL_URL', BASESSLURL . 'client');
 define('PP_SERVICE_NAME', 'PayPal');
 define('PP_SERVICE_DESCRIPTION', 'Оплата через PayPal');
 
