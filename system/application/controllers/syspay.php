@@ -147,42 +147,82 @@ class Syspay extends SyspayBaseController {
         $transfer_order_id  = $_POST['invoice'];
         $user_from          = $_POST['payer_email'];
         $sign               = $_POST['verify_sign'];
+		
+		try
+		{
+			$this->load->model('PaymentDetailsModel', 'Payments');
+			$payment = $this->Payments->getPaymentByNumber($transfer_order_id);
 
-        $payment = new stdClass();
-        $payment->payment_from              = "[PP] payer_email]: $user_from";
-        $payment->payment_to                = $user_id;
-        $payment->payment_tax               = $tax_usd;
-        $payment->payment_amount_rur        = '';
-        $payment->payment_amount_from       = $amount_usd;
-        $payment->payment_amount_tax        = $tax_usd;
-        $payment->payment_amount_to         = $amount_usd;
-        $payment->payment_purpose           = 'зачисление на счет пользователя';
-        $payment->payment_comment           = "PP Transfer ID: $pp_transfer_id";
-        $payment->payment_type              = 'in';
-        $payment->payment_status            = 'complite';
-        $payment->payment_transfer_info     = "PP Transfer ID: $pp_transfer_id";
-        $payment->payment_transfer_order_id = $transfer_order_id;
-        $payment->payment_transfer_sign     = $sign;
-        $payment->payment_service_id        = 'pp';
+			if ( ! $payment)
+			{
+				throw new Exception('Детали платежа не найдены.');
+			}
 
-        $this->load->model('PaymentModel', 'Payment');
-        $this->Payment->_load($payment);
-        $r = $this->Payment->makeCharge();
+			$payment_obj = new stdClass();
+			$payment_obj->payment_from				= $payment->payment_details_user;//"[PP] payer_email]: $user_from";
+				//$payment_obj->payment_to				= '[RK] ' . $ptransfer;// зачисление на счет пользователя
+			$payment_obj->payment_tax				= $tax_usd;
+			$payment_obj->payment_amount_rur		= '';
+			$payment_obj->payment_amount_from		= $amount_usd;
+			$payment_obj->payment_amount_tax		= $tax_usd;
+			$payment_obj->payment_amount_to			= $amount_usd;
+			$payment_obj->payment_purpose			= 'оплата заказа';
+			$payment_obj->payment_comment			= '№ ' . $payment->order_id;
+			$payment_obj->payment_type				= 'order';
+			$payment_obj->payment_status			= 'complite';
+			$payment_obj->payment_transfer_info		= "PP Transfer ID: $pp_transfer_id";
+			$payment_obj->payment_transfer_order_id	= $transfer_order_id;
+			$payment_obj->payment_transfer_sign		= $sign;
+			$payment_obj->payment_service_id		= 'pp';
+			$payment_obj->status					= 'not_payed';
+			$payment_obj->order_id					= $payment->order_id;
 
-        if (is_object($r)) {
-            //echo 'NO ->>'.$r->getMessage();
-            $addLog    = "Status: FAIL! ".$r->getMessage()."\n";
-        } elseif((int)$r) {
-            //echo "YES";
-            $addLog    = "Status: OK! [payment_id=$r]\n";
-        } else {
-            //echo "NO ->> unknown merchant error!\n" ;
-            $addLog    = "Status: FAIL! (unknown merchant error)\n";
-        }
+	/*
+			$payment = new stdClass();
+			$payment->payment_from              = "[PP] payer_email]: $user_from";
+			$payment->payment_to                = $user_id;
+			$payment->payment_tax               = $tax_usd;
+			$payment->payment_amount_rur        = '';
+			$payment->payment_amount_from       = $amount_usd;
+			$payment->payment_amount_tax        = $tax_usd;
+			$payment->payment_amount_to         = $amount_usd;
+			$payment->payment_purpose           = 'зачисление на счет пользователя';
+			$payment->payment_comment           = "PP Transfer ID: $pp_transfer_id";
+			$payment->payment_type              = 'order';
+			$payment->payment_status            = 'complite';
+			$payment->payment_transfer_info     = "PP Transfer ID: $pp_transfer_id";
+			$payment->payment_transfer_order_id = $transfer_order_id;
+			$payment->payment_transfer_sign     = $sign;
+			$payment->payment_service_id        = 'pp';
 
-        PayLog::put('PP', $addLog);
+			*/
+			$this->payOrder($payment->order_id, $payment_obj, $amount_usd);
 
-        return true;
+			/*$this->load->model('PaymentModel', 'Payment');
+			$this->Payment->_load($payment);
+			$r = $this->Payment->makeCharge();
+
+			if (is_object($r)) {
+				//echo 'NO ->>'.$r->getMessage();
+				$addLog    = "Status: FAIL! ".$r->getMessage()."\n";
+			} elseif((int)$r) {
+				//echo "YES";
+				$addLog    = "Status: OK! [payment_id=$r]\n";
+			} else {
+				//echo "NO ->> unknown merchant error!\n" ;
+				$addLog    = "Status: FAIL! (unknown merchant error)\n";
+			}*/
+			$addLog    = "Status: OK! \n";
+			PayLog::put('PP', $addLog);
+			return true;
+		}
+		catch(Exception $ex)
+		{
+			$addLog    = "Status: FAIL! ".$ex->getMessage()."\n";
+			PayLog::put('PP', $addLog);
+			return false;
+		}
+        
     }
 
 	private static function getTax($payment_system, $section)
@@ -245,6 +285,14 @@ class Syspay extends SyspayBaseController {
 			$this->backupPayment($view_form, 'qw');
 			View::show('/syspay/elements/form_immediate_qw', array(
 				'psform' => $view_form));
+		}
+		elseif($payment_system == 'pp')
+		{
+			$this->backupPayment($view_form, 'pp');
+			View::show('/syspay/gate', array(
+				'ps' => "{$section}_$payment_system",
+				'psform' => $view_form
+			));
 		}
 		else
 		{

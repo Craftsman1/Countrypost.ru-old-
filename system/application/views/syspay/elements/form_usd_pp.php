@@ -4,8 +4,8 @@
 
     <input type="hidden" name="cmd" value="_xclick"> 
 
-    <input type="hidden" name="item_number" value="<?=$user->user_id?>">   
-    <input type="hidden" name="item_name" value="Refill balance for client <?=$user->user_id?> on $<?=$amount_usd?>"> 
+    <input type="hidden" name="item_number" value="<?=$user->user_id?>"> 
+    <input type="hidden" name="item_name" value="Pay order: <?= $order_id ?> Amount: <?= $amount_usd?> Client: <?=$user->user_id?>"> 
     <input type="hidden" name="amount" value="<?=$amount_usd?>">  
     <input type="hidden" name="custom" value="<?=$amount*$tax*0.01 + $extra?>">  
     <input type="hidden" name="currency_code" value="USD"> 
