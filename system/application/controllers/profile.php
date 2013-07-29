@@ -378,11 +378,13 @@ class Profile extends BaseController {
 
     }
 
-    public function delRating($id_rating)
+    public function delRating($id_rating,$manager_id)
     {
         $this->load->model('RatingCommentModel', 'Comments');
+        $this->load->model('ManagerRatingsModel', 'Ratings');
 
         $this->Comments->delRating($id_rating);
+        $this->Ratings->updateManagerRating($manager_id);
 
         echo "ok";
     }

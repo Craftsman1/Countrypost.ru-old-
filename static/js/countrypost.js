@@ -80,13 +80,13 @@ function editRating(rating_id)
     });
 }
 
-function delRating(rating_id)
+function delRating(rating_id,manager_id)
 {
     if (confirm("Вы хотите удалить Ваш отзыв?"))
     {
 
         $.ajax({
-            url: 'profile/delRating/'+rating_id,
+            url: 'profile/delRating/'+rating_id+'/'+manager_id,
             type: 'POST',
             beforeSend: function(data) {
             },
