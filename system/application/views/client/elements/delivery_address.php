@@ -38,7 +38,7 @@
                 <br style="clear:both;">
                 <div>
                     <span class="label" style="float:left">Телефон *:</span>
-                    <input style="width:180px;" class="textbox" maxlength="255" id="phone" name="phone" value="" type="text">
+                    <input style="width:180px;" class="textbox" maxlength="255" id="address_phone" name="phone" value="" type="text">
                 </div>
                 <br style="clear:both;">
             </div>
@@ -169,7 +169,7 @@
             $('#city').val(address_town);
             $('#index').val(address_zip);
             $('#address').val(address_address);
-            $('#phone').val(addressPhone);
+            $('#address_phone').val(addressPhone);
             $('input[type="submit"]').val('Изменить');
             $('#addressForm').append('<input id="address_id" name="address_id" type="hidden" value="'+addressId+'">');
             $("#country").msDropDown({mainCSS:'idd'});
@@ -244,7 +244,7 @@
             {
                 $.fn.removeProfileFieldError(field);
             }
-            field = $('#phone');
+            field = $('#address_phone');
             if(field.val() == '' || !field.val().match(/^[0-9()\+ -]*$/))
             {
                 $.fn.addProfileFieldError(field, 'Введите правильный телефон');
@@ -291,7 +291,7 @@
             expression: "if (VAL != '') return true; else return false;",
             message: "Введите адрес"
         });;
-        $('#phone').validate({
+        $('#address_phone').validate({
             expression: "if (!(VAL == '' || !VAL.match(/^[0-9()\+ -]*$/))) return true; else return false;",
             message: "Введите правильный телефон"
         });;
@@ -316,14 +316,14 @@
             success: function(response)
             {
                 $("#blogProgress").hide();
-
                 var response_ = $.parseJSON(response);
-
+				
                 if (response_ === null)
                 {
                     error('top', 'Заполните все поля и сохраните еще раз.');
                     return;
                 }
+				
 
                 var news_snippet = '<tr id="addressRow'+response_[0].address_id+'"><td class="address_id">' +
                         response_[0].address_id +
@@ -334,7 +334,8 @@
                         '</td><td>' +
                         response_[0].address_phone +
                         '</td><td><a class="edit_icon" style="cursor: pointer;"><img src="/static/images/comment-edit.png" title="Изменить" border="0"></a><a class="delete_icon"><img src="/static/images/delete.png" style="cursor: pointer;" title="Удалить" border="0"></a></td></tr>';
-                if($('#addressRow'+response_[0].address_id)){
+
+                if($('#addressRow'+response_[0].address_id).length>0){
                     var row  = $('#addressRow'+response_[0].address_id);
                     row.find('.full_address').html(response_[0].address_zip +', '+response_[0].address_address +', '+response_[0].address_town +', '+response_[0].country_name+"<div style='display: none;'><span class='address_zip'></span><span class='address_address'></span><span class='address_town'></span><span class='country_name'></span></div>");
                     //row.find('.address_id').text();
@@ -355,7 +356,7 @@
                 $('#city').val('');
                 $('#index').val('');
                 $('#address').val('');
-                $('#phone').val('');
+                $('#address_phone').val('');
                 $('input[type="submit"]').val('Добавить');
                 $('#addressForm').find('#address_id').remove();
                 success('top', 'Адрес успешно сохранен!');
