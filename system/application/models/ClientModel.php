@@ -344,11 +344,9 @@ class ClientModel extends BaseModel implements IModel{
 	{
 		$fullname = '';
 
-		/*if ( ! empty($statistics))
+		if ( ! empty($statistics))
 		{
-			$fullname = trim($statistics->client_surname . ' ' . 
-			$statistics->client_name . ' ' . 
-			$statistics->client_otc);
+			$fullname = $statistics->client_name;
 
 			if (empty($fullname))
 			{
@@ -361,8 +359,8 @@ class ClientModel extends BaseModel implements IModel{
                     $fullname = $user->user_login;
                 }
 			}
-		}*/
-        $fullname = $statistics->client_name;
+		}
+
 		return $fullname;
 	}
 	
