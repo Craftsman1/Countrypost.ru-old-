@@ -1166,6 +1166,7 @@ class Client extends BaseController {
 				}
 			}
 
+            $client->client_name            = Check::str('client_name', 128, 0);
 
 			$client->client_country		    = Check::int('client_country');
             $client->notifications_on       = Check::chkbox('notifications_on');

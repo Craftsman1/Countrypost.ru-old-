@@ -222,7 +222,7 @@ class Profile extends BaseController {
 					}
 				}
 			}
-			
+
 			//количество заказов в работе
 			$this->load->model('OrderModel','Orders');
 			$view['filter'] = $this->initFilter('Orders');
@@ -274,7 +274,7 @@ class Profile extends BaseController {
 				
 			$view['client_user'] = $client->client_user;
 			$view['client'] = $client;
-			
+
 			if ($currency = $this->Currencies->getCurrencyByCountry($view['client']->client_country))
 			{
 				$view['client']->currency_symbol = $currency->currency_symbol;

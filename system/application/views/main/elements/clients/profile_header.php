@@ -1,6 +1,6 @@
 <div class='clientinfo admin-inside'>
 	<img src="/main/avatar_medium/<?= $client->client_user ?>" width="90px" height="90px">
-	<h2 style='margin-bottom: 10px;text-transform: none;'><?= $client->statistics->fullname ?> (<?= $client->statistics->login ?>)</h2>
+	<h2 style='margin-bottom: 10px;text-transform: none;'><?= $client->client_name ?> (<?= $client->statistics->login ?>)</h2>
     <br/>
 	<ul class='tabs'>
         <li class='active profile'><div><a class='profile' href='/<?= $client->statistics->login ?>'>Профиль</a></div></li>

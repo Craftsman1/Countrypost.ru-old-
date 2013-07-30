@@ -1,4 +1,4 @@
-<div class="profile table client_tab" style="height: 590px;">
+<div class="profile table client_tab" style="height: 620px;">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
@@ -39,6 +39,11 @@
             <div>
                 <span class="label">Email*:</span>
                 <input style="width:180px;" class="textbox" maxlength="128" type='text' id='email' name="email" value="<?= $client->statistics->email ?>" />
+            </div>
+            <br style="clear:both;" />
+            <div>
+                <span class="label">ФИО*:</span>
+                <input style="width:180px;" class="textbox" maxlength="128" type='text' id='client_name' name="client_name" value="<?= $client->client_name ?>" />
             </div>
 			<br style="clear:both;" />
 			<div>
@@ -125,6 +130,17 @@
 			{
 				$.fn.removeProfileFieldError(field);
 			}
+
+            field = $('#client_name');
+            if(!field.val().match(/^\S+/))
+            {
+                $.fn.addProfileFieldError(field, 'ФИО не должно быть пустым');
+                errorCount++;
+            }
+            else
+            {
+                $.fn.removeProfileFieldError(field);
+            }
 
 			return (errorCount > 0) ? false : true;
 
