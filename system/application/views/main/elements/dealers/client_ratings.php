@@ -149,7 +149,6 @@
 	<br>
 	<br>
 	<? endforeach; endif; ?>
-</div>
 
 <script>
 	$(function() {
