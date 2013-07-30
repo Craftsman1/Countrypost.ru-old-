@@ -162,10 +162,10 @@ class Syspay extends SyspayBaseController {
 			$payment_obj->payment_from				= $payment->payment_details_user;//"[PP] payer_email]: $user_from";
 				//$payment_obj->payment_to				= '[RK] ' . $ptransfer;// зачисление на счет пользователя
 			$payment_obj->payment_tax				= $tax_usd;
-			$payment_obj->payment_amount_rur		= '';
-			$payment_obj->payment_amount_from		= $amount_usd;
-			$payment_obj->payment_amount_tax		= $tax_usd;
-			$payment_obj->payment_amount_to			= $amount_usd;
+			$payment_obj->payment_amount_rur		= $payment->payment_details_amount_rur;
+			$payment_obj->payment_amount_from		= $payment->payment_details_amount;
+			$payment_obj->payment_amount_tax		= $payment->payment_details_tax;
+			$payment_obj->payment_amount_to			= $payment->payment_details_amount;
 			$payment_obj->payment_purpose			= 'оплата заказа';
 			$payment_obj->payment_comment			= '№ ' . $payment->order_id;
 			$payment_obj->payment_type				= 'order';
@@ -196,7 +196,7 @@ class Syspay extends SyspayBaseController {
 			$payment->payment_service_id        = 'pp';
 
 			*/
-			$this->payOrder($payment->order_id, $payment_obj, $amount_usd);
+			$this->payOrder($payment->order_id, $payment_obj, $payment->payment_details_amount);
 
 			/*$this->load->model('PaymentModel', 'Payment');
 			$this->Payment->_load($payment);
