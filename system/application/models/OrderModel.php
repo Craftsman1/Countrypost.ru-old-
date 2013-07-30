@@ -407,7 +407,7 @@ class OrderModel extends BaseModel implements IModel{
 		if (isset($clientId))
 		{
 			$user_group = "client";
-			$clientIdAccess = " AND `orders`.`order_client` = $clientId";
+			$clientIdAccess = " AND `orders`.`order_client` = $clientId AND `orders`.`is_creating`=0";
 			$managerJoin = "LEFT OUTER JOIN `managers` on `managers`.`manager_user` = `orders`.`order_manager`";
 		}
 		else if (isset($managerId))
@@ -810,7 +810,7 @@ class OrderModel extends BaseModel implements IModel{
             LEFT JOIN
             	`countries` ON `countries`.`country_id` = `orders`.`order_country_from`
             WHERE
-            	`orders`.`is_creating` = 1 AND
+            	`orders`.`is_creating` = 1 AND `orders`.`order_status` = 'pending' AND 
             	`orders`.`order_type` = '$order_type' AND
             	({$where})
             ORDER BY `orders`.`order_id` DESC
@@ -847,6 +847,8 @@ class OrderModel extends BaseModel implements IModel{
 	 */
 	public function saveOrder($order)
 	{
+		if(isset($order->order_status) && $order->order_status !='pending' && isset($order->is_creating) && $order->is_creating !='0')
+			$order->is_creating='0';
 		$props = $this->getPropertyList();
 		
 		foreach ($props as $prop)
