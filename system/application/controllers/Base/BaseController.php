@@ -921,7 +921,9 @@ abstract class BaseController extends Controller
 			$this->Orders->prepareOrderView($view);
 
 			// страны
+			// TODO: проверить, используется ли $view['Countries'] и удалить
 			$view['Countries'] = $this->Countries->getClientAvailableCountries($view['order']->order_client);
+			$view['countries'] = $this->Countries->getArray();
 
 			$view['order_statuses'] = $this->Orders->getAvailableOrderStatuses();
 			$view['order_types'] = $this->Orders->getOrderTypes();
@@ -934,11 +936,12 @@ abstract class BaseController extends Controller
 			$this->load->model('CurrencyModel', 'Currencies');
 
 			$view['exchangeRates'] = array (
-			'rate_usd' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'USD', 'client'),
-			'rate_kzt' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'KZT', 'client'),
-			'rate_uah' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'UAH', 'client'),
-			'rate_rur' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'RUB', 'client')
+				'rate_usd' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'USD', 'client'),
+				'rate_kzt' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'KZT', 'client'),
+				'rate_uah' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'UAH', 'client'),
+				'rate_rur' => $this->Currencies->getExchangeRate($view['order']->order_currency, 'RUB', 'client')
 			);
+
 			// предложения: никаких ограничений доступа, показываем все
 			$view['bids'] = $this->Bids->getBids($view['order']->order_id);
 			$statistics = array();

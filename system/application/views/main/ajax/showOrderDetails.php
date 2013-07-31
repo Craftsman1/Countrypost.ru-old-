@@ -1,7 +1,4 @@
-<?
-$is_offer_accepted = (empty($this->user->user_group) OR
-	($this->user->user_group == 'manager' AND
-	$this->session->userdata['manager_country'] == $order->order_country)); ?>
+<? $is_offer_accepted = (empty($this->user->user_group) OR $this->user->user_group == 'manager'); ?>
 <div class='table centered_td centered_th'>
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>

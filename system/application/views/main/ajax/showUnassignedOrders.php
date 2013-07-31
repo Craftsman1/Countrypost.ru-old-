@@ -55,8 +55,7 @@
 				<? // 2. ссылка
 				if (empty($this->user) OR
 					($this->user->user_group == 'manager' AND
-					empty($order->request_sent) AND
-					$this->session->userdata['manager_country'] == $order->order_country)) : ?>
+					empty($order->request_sent))) : ?>
 				<br />
 				<a href="<?=$order_link?><?=$order->order_id?>">Добавить предложение</a>
 				<? endif; ?>
