@@ -1,5 +1,8 @@
 <div class="float-left payButton" style="vertical-align: bottom;height: 23px;padding-top: 9px;margin-right: 5px!important;">
 	<?= $order->order_cost_payed ?> <?= $order->order_currency ?>
+	<? if ($order->order_cost < $order->order_cost_payed) : ?>
+	(Остаток <?= $order->order_cost_payed - $order->order_cost ?> <?= $order->order_currency ?>)
+	<? endif; ?>
 </div>
 <? $payableAmount =
 	($order->order_cost > $order->order_cost_payed) ?

@@ -2633,8 +2633,7 @@ abstract class BaseController extends Controller
 
 			if ($totals = $this->Payment->getTotalLocal($view, FALSE))
 			{
-				$view['total_local'] = $totals['total_local'];
-				$view['total_currency'] = $totals['total_currency'];
+				$view['total_local'] = $totals;
 			}
 		}
 		else if ($this->user->user_group == 'admin')

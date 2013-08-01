@@ -71,7 +71,7 @@
 				</tr>
 				<?endforeach;?>	
 				<tr class='last-row'>
-					<td colspan='4'>
+					<td colspan='2'>
 						<div style="margin-top:11px;margin-right:10px;">
 							<label>Платежей на странице:</label>
 							<select class="per_page" name="per_page" onchange="javascript:updatePerPage(this);">
@@ -84,12 +84,12 @@
 							</select>
 						</div>
 					</td>
-					<td colspan='4' align="right">
+					<td colspan='6' align="right">
 						<div style="margin-top:16px; font-size: 17px; font-family: Arial; font-weight: bold;">
 							Итого к выплате:
 							<b class="total_usd"><?= $total_usd ?></b> USD
 							<? if (isset($total_local)) : ?>
-							(<?= $total_local ?> <?= $total_currency ?>)
+							(<?= $total_local ?>)
 							<? endif; ?>
 						</div>
 					</td>

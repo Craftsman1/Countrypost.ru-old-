@@ -75,7 +75,9 @@
 					<img class="float status_progress" style="display:none;margin-left: 5px;;"
 						 src="/static/images/lightbox-ico-loading.gif"/>
 					<? if ($order->order_cost > $order->order_cost_payed) : ?>
-					<br>(Доплатить <?= $order->order_cost - $order->order_cost_payed ?> <?= $order->currency ?>)
+					<br>Доплатить <?= $order->order_cost - $order->order_cost_payed ?> <?= $order->currency ?>
+					<? elseif ($order->order_cost < $order->order_cost_payed) : ?>
+					<br>Остаток <?= $order->order_cost_payed - $order->order_cost ?> <?= $order->currency ?>
 					<? endif; ?>
 				</td>
 				<td>

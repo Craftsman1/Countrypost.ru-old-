@@ -74,14 +74,11 @@
 					</select>
 					<img class="float status_progress" style="display:none;margin-left: 5px;;"
 						 src="/static/images/lightbox-ico-loading.gif"/>
-					<? if ($order->order_cost < $order->order_cost_payed) : ?>
-					<br />
-					<?= $order->order_cost_payed - $order->order_cost ?> <?= $order->currency ?>
-					<? endif; ?>
-					<? if ($order->order_cost > $order->order_cost_payed) : ?><br /><?= $order->order_cost_payed - $order->order_system_comission_payed ?> <?= $order->currency ?>
+					<? if ($order->order_cost > $order->order_cost_payed) : ?>
 					<br />Доплатить <?= $order->order_manager_cost - $order->order_cost_payed + $order->order_system_comission_payed ?> <?= $order->currency ?>
+					<? elseif ($order->order_cost < $order->order_cost_payed) : ?>
+					<br>Остаток <?= $order->order_cost_payed - $order->order_cost ?> <?= $order->currency ?>
 					<? endif; ?>
-					<br />
 				</td>
 				<td>
 					<a href="<?= $selfurl ?>order/<?= $order->order_id ?>"><?= $order->comment_for_manager ?

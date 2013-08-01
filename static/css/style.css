@@ -2685,7 +2685,7 @@ div.new_bid_box .textbox  {
 
 div.new_bid_box textarea  {
 	resize: vertical;
-	width: 505px;
+	width: 100%;
 	display: block;
 }
 
@@ -2702,7 +2702,6 @@ div.new_bid_box textarea  {
     margin: 0px;
     padding: 0;
 }
-
 
 .ac_results ul li
 {

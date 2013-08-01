@@ -584,27 +584,34 @@ class PaymentModel extends BaseModel implements IModel{
 			return FALSE;
 		}
 
-		$total = 0;
-		$currency = '';
+		$totals = array();
 
 		foreach ($view['Payments'] as $payment)
 		{
 			if ($payment->status == 'not_payed')
 			{
-				$total += $payment->payment_amount_to;
-			}
-
-			if (empty($currency) AND
-				! empty($payment->payment_currency))
-			{
-				$currency = $payment->payment_currency;
+				if (empty($totals[$payment->payment_currency]))
+				{
+					$totals[$payment->payment_currency] = $payment->payment_amount_to;
+				}
+				else
+				{
+					$totals[$payment->payment_currency] += (float)($payment->payment_amount_to);
+				}
 			}
 		}
 
-		$result['total_local'] = $total;
-		$result['total_currency'] = $currency;
+		$totals_strings = array();
 
-		return $result;
+		if ($totals)
+		{
+			foreach ($totals as $currency => $amount)
+			{
+				$totals_strings []= $amount . ' ' . $currency;
+			}
+		}
+
+		return implode(' + ', $totals_strings);
 	}
 
 	public function getFilteredPayments($filter = array(), $from = NULL, $to = NULL, $extra_where = NULL)
