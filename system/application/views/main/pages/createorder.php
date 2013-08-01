@@ -33,14 +33,14 @@
 		$('form.orderForm').ajaxForm({
 			dataType: 'json',
 			iframe: true,
-			beforeSubmit: showProgress,
+			beforeSubmit: validateAndShowProgress_<?= $order_type ?>,
 			error: errorAddProduct,
 			complete: hideProgress,
 			success: successAddProduct
 		});
 
 		$('form#orderForm').ajaxForm({
-			beforeSubmit: showProgress,
+			beforeSubmit: validateAndShowProgress_<?= $order_type ?>,
 			error: errorAddOrder,
 			complete: hideProgress,
 			resetForm: true,

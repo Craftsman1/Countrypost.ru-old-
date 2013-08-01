@@ -17,7 +17,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
             <div class='angle angle-rb'></div>
             <div class='new_order_box'>
                 <div>
-					<span class="label">Наименование товара*:</span>
+					<span class="label">Наименование товара<span class="red-color">*</span>:</span>
 					<input class="textbox"
 						   maxlength="255"
 						   type='text'
@@ -25,7 +25,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 						   name="oname" />
                 </div>
                 <div style="height: 30px;">
-                    <span class="label">Tracking номер посылки*: <img style="top: 3px;position: relative;"
+                    <span class="label">Tracking номер посылки<span class="red-color">*</span>: <img style="top: 3px;position: relative;"
 															   src="/static/images/mini_help.gif"></span>
                     <input class="textbox"
 						   maxlength="80"

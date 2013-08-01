@@ -57,10 +57,10 @@
                     </td>
 					<td style="text-align: left;">
                         <img src="/static/images/flags/big/<?= $countries_en[$client->client_country] ?>.png" />
-						<span style="display: inline-block; margin: 17px 0px 0px 5px;">
+						<span style="display: inline-block; margin: 17px 0px 0px 5px;" class="overflow_hidden">
                         <?= shortenCountryName($countries[$client->client_country], '') ?>
                         <? if ($client->client_town) : ?>
-                            (<?=$client->client_town;?>)
+                            (<span title="<?=$client->client_town;?>"><?=$client->client_town;?></span>)
                         <? endif; ?>
                         </span>
 					</td>

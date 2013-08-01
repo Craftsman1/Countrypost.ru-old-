@@ -9,7 +9,7 @@
 		  method="POST">
 		<div class='new_order_box' style="height: auto!important;">
 			<div>
-				<span class="label">Заказать из*:</span>
+				<span class="label">Заказать из<span class="red-color">*</span>:</span>
 				<select id="country_from"
 						name="country_from"
 						class="textbox country"

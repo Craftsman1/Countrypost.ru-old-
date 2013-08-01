@@ -17,7 +17,7 @@
 		  method="POST">
 		<div class='new_order_box'>
 			<div style="height: 50px">
-				<span class="label">Посредник*:</span>
+				<span class="label">Посредник<span class="red-color">*</span>:</span>
 				<select id="dealer_id"
 						name="dealer_id"
 						class="textbox country"
@@ -34,7 +34,7 @@
 				</select>
 			</div>
 			<div>
-				<span class="label">В какую страну доставить*:</span>
+				<span class="label">В какую страну доставить<span class="red-color">*</span>:</span>
 				<select id="country_to"
 						name="country_to"
 						class="textbox country"

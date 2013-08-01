@@ -64,10 +64,10 @@
                         <td>
                             <div style="text-align: left;">
                             <img src="/static/images/flags/big/<?= $countries_en[$manager->manager_country] ?>.png" />
-                                <span style="display: inline-block; margin: 17px 0px 0px 5px;">
+                                <span style="display: inline-block; margin: 17px 0px 0px 5px;"  class="overflow_hidden">
                                 <?= shortenCountryName($countries[$manager->manager_country], '') ?>
                                 <? if ($manager->city) : ?>
-                                    (<?=$manager->city;?>)
+                                    (<span title="<?=$manager->city;?>"><?=$manager->city;?></span>)
                                 <? endif; ?>
                                 </span>
                             </div>

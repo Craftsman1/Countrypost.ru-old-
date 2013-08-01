@@ -2916,3 +2916,10 @@ h2.choose_payment_type{cursor:pointer;}
 	margin-left: 3px;
 	margin-right: -17px;
 }
+
+span.overflow_hidden
+{
+	width: 130px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

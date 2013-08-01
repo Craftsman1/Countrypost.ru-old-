@@ -9,7 +9,7 @@
 		  method="POST">
 		<div class='new_order_box'>
 			<div>
-				<span class="label">Заказать из*:</span>
+				<span class="label">Заказать из<span class="red-color">*</span>:</span>
 				<select id="country_from"
 						name="country_from"
 						class="textbox country"
@@ -26,7 +26,7 @@
 				</select>
 			</div>
 			<div>
-				<span class="label">В какую страну доставить*:</span>
+				<span class="label">В какую страну доставить<span class="red-color">*</span>:</span>
 				<select id="country_to"
 						name="country_to"
 						class="textbox country"
@@ -43,7 +43,7 @@
 				</select>
 			</div>
 			<div>
-				<span class="label">Город доставки*:</span>
+				<span class="label">Город доставки<span class="red-color">*</span>:</span>
 				<input class="textbox"
 					   id="city_to"
 					   name="city_to"
