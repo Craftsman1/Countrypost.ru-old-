@@ -517,5 +517,39 @@ class Check
 	    }
 	    return $checked_ids;
 	}
+	public function login($varname, $maxlen, $minlen=0, $def=null){
+		
+		$str = isset($_POST[$varname])?$_POST[$varname]:(isset($_GET[$varname])?$_GET[$varname]:$def);
+		
+		if(!preg_match('/^[a-zA-Z_0-9]+$/', $str))
+		{
+			$str=$def;
+		}
+		
+		if ($str === $def){
+			self::$empties[] = $varname;
+		}
+		
+		return $str;
+		
+	}
+	
+	public function password($varname, $maxlen, $minlen=0, $def=null){
+		
+		$str = isset($_POST[$varname])?$_POST[$varname]:(isset($_GET[$varname])?$_GET[$varname]:$def);
+		
+		if(!preg_match('/^[a-zA-Z_0-9-!\.\/\\\$,\?:\&\*;@%\(\)\+=№#\[\]]+$/', $str))
+		{
+			$str=$def;
+		}
+		
+		if ($str === $def){
+			self::$empties[] = $varname;
+		}
+		
+		return $str;
+		
+	}
+	
 	
 }

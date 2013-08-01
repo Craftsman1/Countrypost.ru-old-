@@ -148,13 +148,18 @@
 				{
 					$('div#login')
 						.toggleClass('done', false)
-						.toggleClass('error', true);
+						.toggleClass('error', true)
+						.find('div.text-field div')
+						.css('border-radius','4px')
+						.css('border','1px solid #DD0000');
 				}
 				else if (element == 'login')
 				{
 					$('div#login')
 						.toggleClass('done', true)
-						.toggleClass('error', false);
+						.toggleClass('error', false)
+						.find('div.text-field div')
+						.css('border','none');
 				}
 
 				// страна
@@ -162,13 +167,18 @@
 				{
 					$('div#country')
 						.toggleClass('done', false)
-						.toggleClass('error', true);
+						.toggleClass('error', true)
+						.find('select')
+						.css('border-radius','4px')
+						.css('border','1px solid #DD0000');
 				}
 				else if (element == 'country')
 				{
 					$('div#country')
 						.toggleClass('done', true)
-						.toggleClass('error', false);
+						.toggleClass('error', false)
+						.find('select')
+						.css('border','none');
 				}
 
 				// фио
@@ -176,13 +186,18 @@
 				{
 					$('div#fio_div')
 						.toggleClass('done', false)
-						.toggleClass('error', true);
+						.toggleClass('error', true)
+						.find('div.text-field div')
+						.css('border-radius','4px')
+						.css('border','1px solid #DD0000');
 				}
 				else if (element == 'fio')
 				{
 					$('div#fio_div')
 						.toggleClass('done', true)
-						.toggleClass('error', false);
+						.toggleClass('error', false)
+						.find('div.text-field div')
+						.css('border','none');
 				}
 
 				// email
@@ -190,13 +205,18 @@
 				{
 					$('div#email_div')
 						.toggleClass('done', false)
-						.toggleClass('error',true);
+						.toggleClass('error',true)
+						.find('div.text-field div')
+						.css('border-radius','4px')
+						.css('border','1px solid #DD0000');
 				}
 				else if (element == 'email')
 				{
 					$('div#email_div')
 						.toggleClass('done', true)
-						.toggleClass('error', false);
+						.toggleClass('error', false)
+						.find('div.text-field div')
+						.css('border','none');
 				}
 
 				// условия
@@ -218,13 +238,18 @@
 				{
 					$('div#password_div')
 						.toggleClass('done', false)
-						.toggleClass('error', true);
+						.toggleClass('error', true)
+						.find('div.text-field div')
+						.css('border-radius','4px')
+						.css('border','1px solid #DD0000');
 				}
 				else if (element == 'password')
 				{
 					$('div#password_div')
-							.toggleClass('done', true)
-							.toggleClass('error', false);
+						.toggleClass('done', true)
+						.toggleClass('error', false)
+						.find('div.text-field div')
+						.css('border','none');
 				}
 
 				// сообщение об ошибке

@@ -59,8 +59,8 @@ class Signup extends User {
 
 		Check::reset_empties();
 
-		$user->user_login		= Check::latin('login', 32, 1);
-		$user->user_password	= Check::latin('password', 32, 1);
+		$user->user_login		= Check::login('login', 32, 1);
+		$user->user_password	= Check::password('password', 32, 1);
 		$user->user_email		= Check::email(Check::str('email', 128, 6));
 
 		$terms_accepted 		= Check::chkbox('terms_accepted');
@@ -73,7 +73,7 @@ class Signup extends User {
 		// проверка на пустоту
 		if (empty($user->user_login))
 		{
-			throw new Exception('Введите логин.', Signup::LOGIN_ERROR);
+			throw new Exception('Для поля "Логин" допускается ввод чисел от 0 до 10, а также букв латинского алфавита и символа "_" .', Signup::LOGIN_ERROR);
 		}
 		else if ($this->User->select(array(
 			'user_login'=> $user->user_login)))
@@ -82,7 +82,7 @@ class Signup extends User {
 		}
 		else if (empty($user->user_password))
 		{
-			throw new Exception('Введите пароль.', Signup::PASSWORD_ERROR);
+			throw new Exception('Для поля "Пароль" допускается ввод чисел от 0 до 10, а также букв латинского алфавита и символов "-!./\$,?:&*;@%()+=№#_[].', Signup::PASSWORD_ERROR);
 		}
 		else if (strlen($user->user_password) < 6)
 		{
@@ -131,8 +131,8 @@ class Signup extends User {
 
 		Check::reset_empties();
 
-		$user->user_login		= Check::latin('login', 32, 1);
-		$user->user_password	= Check::latin('password', 32, 1);
+		$user->user_login		= Check::login('login', 32, 1);
+		$user->user_password	= Check::password('password', 32, 1);
 		$user->user_email		= Check::email(Check::str('email', 128, 6));
 
 		$terms_accepted 		= Check::chkbox('terms_accepted');
@@ -148,7 +148,7 @@ class Signup extends User {
 		// проверка на пустоту
 		if (empty($user->user_login))
 		{
-			throw new Exception('Введите логин.', Signup::LOGIN_ERROR);
+			throw new Exception('Для поля "Логин" допускается ввод чисел от 0 до 10, а также букв латинского алфавита и символа "_".', Signup::LOGIN_ERROR);
 		}
 		else if ($this->User->select(array(
 			'user_login'=> $user->user_login)))
@@ -157,7 +157,7 @@ class Signup extends User {
 		}
 		else if (empty($user->user_password))
 		{
-			throw new Exception('Введите пароль.', Signup::PASSWORD_ERROR);
+			throw new Exception('Для поля "Пароль" допускается ввод чисел от 0 до 10, а также букв латинского алфавита и символов "-!./\$,?:&*;@%()+=№#_[].', Signup::PASSWORD_ERROR);
 		}
 		else if (strlen($user->user_password) < 6)
 		{
@@ -231,7 +231,7 @@ class Signup extends User {
 		}
 		catch (Exception $e)
 		{			
-			echo '{"code":' . $e->getCode().',"text":"' . $e->getMessage() . '"}';
+			echo '{"code":' . $e->getCode().',"text":"' . addslashes($e->getMessage()) . '"}';
 			exit(0);
 		}
 

@@ -1378,6 +1378,7 @@ table .last-row span {
 		clear:both;
 		color:#BF0090;
 		font-style:normal;
+		width: 265px;
 		}
 .captcha {
 	width:150px;
@@ -2337,6 +2338,7 @@ span.ratings
 div.personal span,div.mail_forwarding_main span
 {
 	width: 200px;
+	white-space: nowrap;
 }
 
 div.mail_forwarding_main span:nth-child(2n+1)

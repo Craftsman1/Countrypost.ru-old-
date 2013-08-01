@@ -29,7 +29,7 @@
                 <col width='auto' />
                 <tr>
                     <th>№</th>
-                    <th>Клиент</th>
+                    <th style="width:300px;">Клиент</th>
                     <th>Страна</th>
                     <th>Отзывы</th>
                     <th>Всего&nbsp;заказов</th>
@@ -51,7 +51,7 @@
                         <span>
                             <a target="_blank" href="<?= empty($client->website) ? $this->config->item('base_url').$client->statistics->login : $client->website ?>"><img style="width:48px; height:48px;" src="/main/avatar_big/<?= $client->client_user ?>" /></a>
                         </span>
-                        <span style="display: inline-block; position: relative; margin-top: 15px; margin-left: 7px;">
+                        <span style="display: inline-block; position: relative; margin-top: 15px; margin-left: 7px;width: 200px;">
                         <a target="_blank" href="<?= empty($client->website) ? $this->config->item('base_url').$client->statistics->login : $client->website ?>"><?=$client->client_name?></a> (<?=$client->statistics->login?>)
                         </span>
                     </td>

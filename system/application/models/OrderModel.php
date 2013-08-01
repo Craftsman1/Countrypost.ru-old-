@@ -1283,7 +1283,7 @@ class OrderModel extends BaseModel implements IModel{
 		}
 
 		// заполняем данные для динамических расчетов
-		$order->manager_tax_percentage = $manager->order_tax;
+		$order->manager_tax_percentage = !empty($manager->order_tax)?$manager->order_tax:0;
 		$order->manager_foto_tax_percentage = $manager->foto_tax;
 		$order->min_order_tax = $manager->min_order_tax;
 
@@ -1314,7 +1314,7 @@ class OrderModel extends BaseModel implements IModel{
 			$order->order_type == 'service' OR
 			$order->order_type == 'delivery')
 		{
-			$order->manager_tax = $manager->order_mail_forwarding_tax;
+			$order->manager_tax = !empty($manager->order_mail_forwarding_tax)?$manager->order_mail_forwarding_tax:0;
 		}
 		else
 		{

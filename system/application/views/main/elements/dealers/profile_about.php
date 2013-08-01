@@ -5,7 +5,15 @@
 		</span>
 		<span>
 			<img src="/static/images/flags/<?= $countries_en[$manager->manager_country] ?>.png" />
-			<b><?= $countries[$manager->manager_country] ?> (<?= $manager->city ?>)</b>
+			<b><?= $countries[$manager->manager_country] ?></b>
+		</span>
+	</div>
+	<div>
+		<span>
+			Город:
+		</span>
+		<span>
+			<b title="<?= $manager->city ?>"><?= $manager->city ?></b>
 		</span>
 	</div>
 	<div>

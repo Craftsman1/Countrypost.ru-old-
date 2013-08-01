@@ -89,6 +89,15 @@ class Profile extends BaseController {
 		$this->processStatistics($manager, array(), 'manager_user', $manager->manager_user, 'manager');
 			
 		Breadcrumb::setCrumb(array('/' . $login => $manager->statistics->fullname), 2);
+		
+		if(!isset($manager->order_tax) || $manager->order_tax==null)
+		{
+			$manager->order_tax=0;
+		}
+		if(!isset($manager->order_mail_forwarding_tax) || $manager->order_mail_forwarding_tax==null)
+		{
+			$manager->order_mail_forwarding_tax=0;
+		}
 
 		$this->dealerProfileGeneric($manager, $login, 'main/pages/dealer');
 	}
@@ -114,6 +123,14 @@ class Profile extends BaseController {
 			$this->processStatistics($manager, array(), 'manager_user', $manager->manager_user, 'manager');
 		
 			Breadcrumb::setCrumb(array('/profile' => 'Мой профиль'), 1, TRUE);
+			if(!isset($manager->order_tax) || $manager->order_tax==null)
+			{
+				$manager->order_tax=0;
+			}
+			if(!isset($manager->order_mail_forwarding_tax) || $manager->order_mail_forwarding_tax==null)
+			{
+				$manager->order_mail_forwarding_tax=0;
+			}
 			
 			$this->dealerProfileGeneric($manager, $this->session->userdata('manager_login'), 'manager/pages/editProfile');
 		}

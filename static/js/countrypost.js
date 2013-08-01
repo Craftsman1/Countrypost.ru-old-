@@ -15,6 +15,12 @@ $(function() {
 		});
 	});
 
+	$('.pricelist_main .textbox').blur(function(){
+		if(($(this).val()+'').length==0)
+		{
+			$(this).val('0');
+		}			
+	})
 
     $(".delCommentRating").live('click',function(){
         var id_message = $(this).parent().attr('id');
@@ -590,6 +596,7 @@ function init_profile()
 function showProgress()
 {
 	$('img.progress').show();
+	// дописать ф-цию валидации формы добавления заказа
 }
 
 function hideProgress()

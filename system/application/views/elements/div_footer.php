@@ -2,7 +2,7 @@
 				<div class='footer-inner'>
 					<p>
 						&copy; 2013. Countrypost.ru <a class="mailto" href="mailto:info@countrypost.ru">info@countrypost.ru</a>
-						</br>
+						<br>
 					</p>
 					<ul class='menu'>
 						<li><a href='<?= $this->config->item('base_url') ?>dealers'>Посредники</a></li>
@@ -21,7 +21,5 @@
 		//--></script><!--/LiveInternet--></li>
 					</ul>
 				</div>		
-			</td>
-		</tr>
-	</table>
+
 </div>
