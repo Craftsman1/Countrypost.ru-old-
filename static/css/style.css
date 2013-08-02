@@ -2382,6 +2382,15 @@ div.managerinfo ul.tabs div {
 div.managerinfo .tabs, div.clientinfo .tabs {
     margin: 34px 0 0;
 }
+div.dealer_profile_absolute_right
+{
+	width: 200px;
+	text-align: center;
+	margin-right: 50px;
+	position: absolute;
+	right: 50px;
+	top: 45px;
+}
 
 div.dealer_profile_left {
 	width: 200px;
