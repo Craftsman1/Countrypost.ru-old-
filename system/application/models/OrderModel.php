@@ -1405,24 +1405,29 @@ class OrderModel extends BaseModel implements IModel{
 
 		$result = $this->db->query("
 			SELECT SUM(order_cost_payed - order_cost) balance,
+				order_id,
 				manager_country,
 				manager_name,
 				user_login,
-				country_currency,
-				country_name
+				order_countries.country_currency,
+				manager_countries.country_name,
+				manager_countries.country_name_en
 			FROM orders
 			INNER JOIN managers
 				ON order_manager = manager_user
 			INNER JOIN users
 				ON user_id = manager_user
-			INNER JOIN countries
-				ON country_id = manager_country
+			INNER JOIN countries AS manager_countries
+				ON manager_countries.country_id = manager_country
+			INNER JOIN countries AS order_countries
+				ON order_countries.country_id = order_country_from
+
 			WHERE
 				$where $filter_where
 			GROUP BY
-				order_manager, manager_country, user_login, country_currency
+				order_manager, order_id, user_login
 			ORDER BY
-				country_name, manager_name
+				manager_name
 				")->result();
 
 		return (count($result > 0) AND $result) ? $result : FALSE;

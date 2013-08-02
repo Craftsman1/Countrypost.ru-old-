@@ -7,14 +7,17 @@
 		<? if ($manager->country_name != $country) : $country = $manager->country_name; ?>
 		<tr>
 			<th colspan="2">
-				<b><?= $manager->country_name ?></b>
+				<img src="/static/images/flags/<?= $manager->country_name_en ?>.png"
+					 style="margin-right:7px;vertical-align: bottom;margin-top: -3px;margin-bottom: -3px;"
+					 title="<?= $manager->country_name ?>">
+				<a href="<?= $this->config->item('base_url') . $manager->user_login ?>"><?= $manager->manager_name ?></a>
+				(<?= $manager->user_login ?>)
 			</th>
 		</tr>
 		<? endif; ?>
 		<tr>
 			<td style="text-align: justify;border-right: 0;">
-				<a href="<?= $this->config->item('base_url') . $manager->user_login ?>"><?= $manager->manager_name ?></a>
-				(<?= $manager->user_login ?>)
+				<a href="<?= $this->config->item('base_url'). 'client/order/' . $manager->order_id ?>">Заказ №<?= $manager->order_id ?></a>
 			</td>
 			<td style="text-align: right;border-left: 0;">
 				<?= $manager->balance ?>
@@ -24,7 +27,7 @@
 		<? endforeach; ?>
 		<? else : ?>
 		<tr class="last-row">
-			<td colspan="8">Балансы не найдены.</td>
+			<td colspan="8">Остатки в Ваших заказах не найдены.</td>
 		</tr>
 		<? endif; ?>
 	</table>
