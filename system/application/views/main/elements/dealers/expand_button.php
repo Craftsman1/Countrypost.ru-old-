@@ -13,4 +13,5 @@
                    value='Свернуть переписку'
                    onclick="collapseCommentsRating('<?= $rating->rating_id ?>');">
         </div>
+	</div>
 </div>
