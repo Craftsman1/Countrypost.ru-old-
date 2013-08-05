@@ -2940,3 +2940,30 @@ span.overflow_hidden
 .admin-inside .bid_buttons .submit {
 margin: -10px 6px 0 0;
 }
+
+html, body
+{
+	height: 100%;
+	min-height: 100%;
+}
+.main_content
+{
+	min-height: 100%;
+	
+}
+.footer_content
+{
+	margin-top: -273px;
+}
+.footer_content_min
+{
+	margin-top: -63px;
+}
+.footer_placeholder
+{
+	height: 273px;
+}
+.footer_placeholder_min
+{
+	height: 63px;
+}

@@ -3,12 +3,17 @@
 	<!--[if IE 9 ]>    <body class="ie9 inner"> <![endif]-->
 	<!--[if (gt IE 9)|!(IE)]><!--> <body class='inner'> <!--<![endif]-->
 	<div id="lay" style="position:absolute; z-index: 999; background: #787878; width:100%; height:100%; display:none; opacity:0.3;"></div>
-	<div class='layout'>
-		<? View::show('main/elements/div_header'); ?>		
-		<? View::show($viewpath.'elements/div_content'); ?>		
-	</div>		
-	<? View::show('elements/div_bottom'); ?>	
-	<? View::show('elements/div_footer'); ?>	
+	<div class="main_content">
+		<div class='layout'>
+			<? View::show('main/elements/div_header'); ?>		
+			<? View::show($viewpath.'elements/div_content'); ?>		
+		</div>
+		<div class="footer_placeholder"></div>
+	</div>
+	<div class="footer_content">
+		<? View::show('elements/div_bottom'); ?>	
+		<? View::show('elements/div_footer'); ?>	
+	</div>
 	<script type="text/javascript" src="/design/build/modulargrid.js"></script>
 	<script type="text/javascript">
 	reformal_wdg_domain    = "Countrypost";
