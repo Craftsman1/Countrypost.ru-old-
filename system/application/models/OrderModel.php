@@ -1332,19 +1332,11 @@ class OrderModel extends BaseModel implements IModel{
 			$order->foto_tax;
 	}
 
-	public function processExcessAmountTransfer($order)
+	public function processExcessAmountTransfer($order, $excess_order)
 	{
 		$excess_amount = 0;
-		$excess_orders = $this->getExcessOrders($order->order_client, $order->order_manager);
 
-		if (empty($excess_orders))
-		{
-			return 0;
-		}
-
-		foreach ($excess_orders as $excess_order)
-		{
-			$excess_amount += $excess_order->order_cost_payed - $excess_order->order_cost;
+				$excess_amount += $excess_order->order_cost_payed - $excess_order->order_cost;
 			$excess_order->order_cost_payed = $excess_order->order_cost;
 
 			$this->addOrder($excess_order);
@@ -1370,24 +1362,44 @@ class OrderModel extends BaseModel implements IModel{
 		")->result();
 	}
 
-	public function getExcessOrdersAmount($client_id, $manager_id)
+	public function getExcessOrdersAmount($order)
 	{
-		$result = $this->db->query("
-			SELECT SUM(order_cost_payed - order_cost) total
-			FROM `{$this->table}`
-			WHERE
-				order_status = 'completed' AND
-				order_client = $client_id AND
-				order_manager = $manager_id AND
-				order_cost_payed > order_cost
-		")->result();
+		$orders = $this->getExcessOrders($order->order_client, $order->order_manager);
 
-		if (empty($result[0]->total))
+		if (empty($orders))
 		{
 			return 0;
 		}
 
-		return $result[0]->total;
+		$total = 0;
+		$ci = get_instance();
+		$ci->load->model('CurrencyModel', 'Currencies');
+
+		// собираем остатки
+		foreach ($orders as $excess_order)
+		{
+			$excess = $excess_order->order_cost_payed - $excess_order->order_cost;
+
+			// если валюта оплаты совпадает, просто суммируем
+			if ($excess_order->order_country_from == $order->order_country_from)
+			{
+				$total += $excess_order->order_cost_payed - $excess_order->order_cost;
+			}
+			// если валюта отличается, конвертируем все остатки в валюту текущего заказа
+			else
+			{
+				$rate = $ci->Currencies->getExchangeRateByCountries(
+					$excess_order->order_country_from,
+					$order->order_country_from,
+					'manager');
+
+				$total += ($excess_order->order_cost_payed - $excess_order->order_cost) * $rate;
+			}
+		}
+
+		// обрубаем все до копеек
+		$total = floor($total * 100) * 0.01;
+		return $total;
 	}
 
 	public function getFilteredBalance($client_id, $search_value = '')

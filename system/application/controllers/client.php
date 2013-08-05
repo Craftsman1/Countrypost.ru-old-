@@ -555,7 +555,7 @@ class Client extends BaseController {
 			$order_id,
 			'Заказ недоступен.');
 
-		$order->excess_amount = $this->Orders->getExcessOrdersAmount($order->order_client, $order->order_manager);
+		$order->excess_amount = $this->Orders->getExcessOrdersAmount($order);
 
 		// заявки на пополнение
 		$this->load->model('CurrencyModel', 'Currencies');
@@ -619,29 +619,37 @@ class Client extends BaseController {
 				$order_id,
 				'Заказ недоступен.');
 
-			// погнали
-			$order2in = new stdClass();
-			$order2in->order_id = $order_id;
-			$order2in->is_countrypost = 0;
-			$order2in->order2in_to = $order->order_manager;
-			$order2in->order2in_createtime = date('Y-m-d H:i:s');
-			$order2in->order2in_amount = Check::float('amount');
-			$order2in->payment_service_name = Check::txt('service', 255, 1);
-			$order2in->order2in_details = Check::txt('comment', 20, 1);
-			$order2in->order2in_user = $this->user->user_id;
-			$order2in->order2in_status = 'processing';
-			$order2in->usd_amount = 'processing';
-			$order2in->excess_amount = $this->Orders->processExcessAmountTransfer($order);
+			// остатки
+			$excess_orders = $this->getExcessOrders($order->order_client, $order->order_manager);
 
-			// валюта
-			$order2in->order2in_currency = $this->Orders->getOrderCurrency($order->order_id);
-
-			$this->load->model('Order2InModel', 'Order2in');
-			$order2in = $this->Order2in->addOrder($order2in);
-
-			if ( ! $order2in)
+			if ( ! empty($excess_orders))
 			{
-				throw new Exception('Ошибка создания заявки.');
+				foreach ($excess_orders as $excess_order)
+				{
+					$order2in = new stdClass();
+					$order2in->order_id = $order_id;
+					$order2in->is_countrypost = 0;
+					$order2in->order2in_to = $order->order_manager;
+					$order2in->order2in_createtime = date('Y-m-d H:i:s');
+					$order2in->order2in_amount = Check::float('amount');
+					$order2in->payment_service_name = Check::txt('service', 255, 1);
+					$order2in->order2in_details = Check::txt('comment', 20, 1);
+					$order2in->order2in_user = $this->user->user_id;
+					$order2in->order2in_status = 'processing';
+					$order2in->usd_amount = 'processing';
+					$order2in->excess_amount = $this->Orders->processExcessAmountTransfer($order);
+
+					// валюта
+					$order2in->order2in_currency = $this->Orders->getOrderCurrency($order->order_id);
+
+					$this->load->model('Order2InModel', 'Order2in');
+					$order2in = $this->Order2in->addOrder($order2in);
+
+					if ( ! $order2in)
+					{
+						throw new Exception('Ошибка создания заявки.');
+					}
+				}
 			}
 
 			$this->result->m = 'Заявка успешно добавлена.';

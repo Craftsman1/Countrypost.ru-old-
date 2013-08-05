@@ -139,6 +139,31 @@ class CurrencyModel extends BaseModel implements IModel{
 		return ((count($result) > 0 &&  $result) ? $result[0] : false);		
 	}
 	
+	public function getExchangeRateByCountries($country_from, $country_to, $user_group, $default_rate = 1)
+	{
+		$result = $this->db->query("
+			SELECT `exchange_rates`.*
+			FROM `exchange_rates`
+			INNER JOIN countries country_from
+				ON country_from.country_currency = exchange_rates.currency_from
+			INNER JOIN countries country_to
+				ON country_to.country_currency = exchange_rates.currency_to
+			WHERE
+				`country_from`.`country_id` = $country_from AND
+				`country_from`.`country_id` = $country_to
+			LIMIT 1"
+		)->result();
+
+		if (empty($result))
+		{
+			return $this->getCrossRateByCountries($country_from, $country_to, $user_group, $default_rate, $result);
+		}
+		else
+		{
+			return $this->calculateExchangeRate($user_group, $default_rate, $result);
+		}
+	}
+
 	public function getExchangeRate($currency_from, $currency_to, $user_group, $default_rate = 1)
 	{
 		$result = $this->db->query("
@@ -150,24 +175,58 @@ class CurrencyModel extends BaseModel implements IModel{
 			LIMIT 1"
 		)->result();
 
-		if (count($result) == 1 AND  $result)
+		return $this->calculateExchangeRate($user_group, $default_rate, $result);
+	}
+
+	private function calculateExchangeRate($user_group, $default_rate, $raw_rate)
+	{
+		if (count($raw_rate) == 1 AND $raw_rate)
 		{
 			$min_rate_caption = "min_{$user_group}_rate";
 			$extra_tax_caption = "{$user_group}_extra_tax";
 
-			$rate = $result[0]->rate *
-				(100 + $result[0]->$extra_tax_caption) *
+			$rate = $raw_rate[0]->rate *
+				(100 + $raw_rate[0]->$extra_tax_caption) *
 				0.01;
 
-			if ($rate < $result[0]->$min_rate_caption)
+			if ($rate < $raw_rate[0]->$min_rate_caption)
 			{
-				return $result[0]->$min_rate_caption;
+				return $raw_rate[0]->$min_rate_caption;
 			}
-
+//print_r($rate);die();
 			return $rate;
 		}
 
 		return $default_rate;
+	}
+
+	private function getCrossRateByCountries($country_from, $country_to, $user_group, $default_rate)
+	{
+		$rate_from = $this->db->query("
+			SELECT `exchange_rates`.rate
+			FROM `exchange_rates`
+			INNER JOIN countries
+				ON country_currency = exchange_rates.currency_from
+			WHERE
+				exchange_rates.currency_to = 'USD' AND
+				countries.country_id = $country_from
+			LIMIT 1"
+		)->result();
+
+		$rate_to = $this->db->query("
+			SELECT `exchange_rates`.rate
+			FROM `exchange_rates`
+			INNER JOIN countries
+				ON country_currency = exchange_rates.currency_from
+			WHERE
+				exchange_rates.currency_to = 'USD' AND
+				countries.country_id = $country_to
+			LIMIT 1"
+		)->result();
+
+		$crossrate = $rate_from[0]->rate / $rate_to[0]->rate;
+//print($crossrate);die();
+		return $crossrate;
 	}
 
 	public function getRate($currency)
