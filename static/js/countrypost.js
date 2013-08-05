@@ -1457,6 +1457,10 @@ function expandComments(bid_id)
 	$comments
 		.find('tr.comment')
 		.show('slow');
+		
+	$comments
+		.find('.bid_buttons div.submit')
+		.css('margin-top','7px');
 
 	$comments
 		.find('div.expand_comments')
@@ -1488,6 +1492,10 @@ function collapseComments(bid_id)
 	$comments
 		.find('tr.comment')
 		.hide('slow');
+		
+	$comments
+		.find('.bid_buttons div.submit')
+		.css('margin-top','-10px');
 
 	$comments
 		.find('div.expand_comments')

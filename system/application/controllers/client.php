@@ -1664,13 +1664,13 @@ class Client extends BaseController {
     public function clearNewComments($bid_id)
     {
         // безопасность
-        if ( ! is_numeric($this->uri->segment(3)))
+        if ( ! is_numeric($this->uri->segment(3)) OR !isset($this->user->user_id))
         {
             throw new Exception('Доступ запрещен.');
         }
 
         $this->load->model('BidCommentModel', 'Comments');
-        $this->Comments->clearNewComments($bid_id);
+        $this->Comments->clearNewCommentsForUser($bid_id,$this->user->user_id);
 
     }
 

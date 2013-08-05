@@ -388,7 +388,7 @@ abstract class BaseController extends Controller
 				// комментарии
 				$bid->comments = $this->Comments->getCommentsByBidId($bid->bid_id);
                 // кол-во новых комментариев
-                $bid->new_comments = count($this->Comments->getNewCommentsByOrderId($bid->bid_id));
+                $bid->new_comments = count($this->Comments->getNewCommentsByOrderIdForUser($bid->bid_id,$this->user->user_id));
 
 				if (empty($bid->comments))
 				{
