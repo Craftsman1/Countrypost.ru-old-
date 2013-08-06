@@ -55,10 +55,12 @@
                         <a target="_blank" href="<?= empty($client->website) ? $this->config->item('base_url').$client->statistics->login : $client->website ?>"><?=$client->client_name?></a> (<?=$client->statistics->login?>)
                         </span>
                     </td>
-					<td style="text-align: left;">
+					<td style="text-align: left; width: 200px;">
                         <img src="/static/images/flags/big/<?= $countries_en[$client->client_country] ?>.png" />
 						<span style="display: inline-block; margin: 17px 0px 0px 5px;" class="overflow_hidden">
-                        <?= shortenCountryName($countries[$client->client_country], '') ?>
+                        <?= //shortenCountryName($countries[$client->client_country], '')
+						$countries[$client->client_country]
+						?>
                         <? if ($client->client_town) : ?>
                             (<span title="<?=$client->client_town;?>"><?=$client->client_town;?></span>)
                         <? endif; ?>

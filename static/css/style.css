@@ -2928,7 +2928,7 @@ h2.choose_payment_type{cursor:pointer;}
 
 span.overflow_hidden
 {
-	width: 130px;
+	width: 140px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
@@ -2967,3 +2967,5 @@ html, body
 {
 	height: 63px;
 }
+
+

@@ -40,7 +40,7 @@
 		});
 
 		$('form#orderForm').ajaxForm({
-			beforeSubmit: validateAndShowProgress_<?= $order_type ?>,
+			beforeSubmit: showProgress,
 			error: errorAddOrder,
 			complete: hideProgress,
 			resetForm: true,
