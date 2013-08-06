@@ -1091,6 +1091,16 @@ Email: {$this->user->user_email}";
 			$order->order_status = ($order->order_manager ? 'processing' : 'pending');
 			$order->order_date = date('Y-m-d H:i:s');			
 			$order->is_creating = 0;
+			
+			if($order->order_type == 'mail_forwarding')
+			{
+
+				$countrypost_tax = $this->Orders->generateCountrypostTax($order);
+
+				$order->countrypost_tax = $countrypost_tax->countrypost_tax;
+				$order->countrypost_tax_usd = $countrypost_tax->countrypost_tax_usd;
+				$order->usd_conversion_rate = $countrypost_tax->countrypost_tax_usd;
+			}
 
 			// 4. пересчитываем и сохраняем заказ
 			if ( ! $this->Orders->recalculate($order))
@@ -1119,11 +1129,23 @@ Email: {$this->user->user_email}";
 				$bid->manager_tax = $order->manager_tax;
 				$bid->foto_tax = $order->foto_tax;
 				$bid->delivery_cost = $order->order_delivery_cost;
+				
+				$bid->countrypost_tax = $order->countrypost_tax;
+				$bid->countrypost_tax_usd = $order->countrypost_tax_usd;
+				$bid->usd_conversion_rate = $order->usd_conversion_rate;
 
                 if ( ! ($bid = $this->Bids->addBid($bid)))
                 {
                     throw new Exception('Ошибка создания предложения. Обратитесь к администрации сервиса.');
                 }
+				// 4. пересчитываем и сохраняем заказ
+				if ( ! $this->Orders->recalculate($order))
+				{
+					throw new Exception('Невозможно пересчитать стоимость заказа. Попоробуйте еще раз.');
+				}
+
+				$this->Orders->saveOrder($order);
+
             }
 		}
 		catch (Exception $e)

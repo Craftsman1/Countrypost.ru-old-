@@ -1113,7 +1113,8 @@ class OrderModel extends BaseModel implements IModel{
 		$order->order_delivery_cost = $total_pricedelivery;
 		$order->order_cost =
 			$order->order_products_cost +
-			$order->order_delivery_cost;
+			$order->order_delivery_cost +
+			$order->countrypost_tax;
 
 		$total_status = $order->order_status;
 
@@ -1265,7 +1266,7 @@ class OrderModel extends BaseModel implements IModel{
 			$order->order_country_from = strval($order_country_from->country_name);
 			$order->order_country_to = $order_country_to ? strval($order_country_to->country_name) : '';
 		}
-
+		
 		// считаем сколько заказано фото
 		$order->requested_foto_count = 0;
 
@@ -1329,7 +1330,8 @@ class OrderModel extends BaseModel implements IModel{
 			$order->order_products_cost +
 			$order->order_delivery_cost +
 			$order->manager_tax +
-			$order->foto_tax;
+			$order->foto_tax +
+			$order->countrypost_tax;
 	}
 
 	public function processExcessAmountTransfer($order)
