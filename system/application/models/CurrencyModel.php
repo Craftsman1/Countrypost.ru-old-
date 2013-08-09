@@ -193,7 +193,7 @@ class CurrencyModel extends BaseModel implements IModel{
 			{
 				return $raw_rate[0]->$min_rate_caption;
 			}
-//print_r($rate);die();
+
 			return $rate;
 		}
 
@@ -225,7 +225,7 @@ class CurrencyModel extends BaseModel implements IModel{
 		)->result();
 
 		$crossrate = $rate_from[0]->rate / $rate_to[0]->rate;
-//print($crossrate);die();
+
 		return $crossrate;
 	}
 

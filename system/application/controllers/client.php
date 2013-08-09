@@ -555,7 +555,8 @@ class Client extends BaseController {
 			$order_id,
 			'Заказ недоступен.');
 
-		$order->excess_amount = $this->Orders->getExcessOrdersAmount($order);
+		$excess_amount = $this->Orders->getExcessOrdersAmount($order);
+		$order->excess_amount = min($excess_amount, ($order->order_cost - $order->order_cost_payed));
 
 		// заявки на пополнение
 		$this->load->model('CurrencyModel', 'Currencies');
@@ -619,37 +620,55 @@ class Client extends BaseController {
 				$order_id,
 				'Заказ недоступен.');
 
+			// Заявка
+			$this->load->model('Order2InModel', 'Order2in');
+			$order2in = new stdClass();
+			$order2in->order_id = $order_id;
+			$order2in->is_countrypost = 0;
+			$order2in->order2in_to = $order->order_manager;
+			$order2in->order2in_createtime = date('Y-m-d H:i:s');
+			$order2in->order2in_amount = Check::float('amount');
+			$order2in->payment_service_name = Check::txt('service', 255, 1);
+			$order2in->order2in_details = Check::txt('comment', 20, 1);
+			$order2in->order2in_user = $this->user->user_id;
+			$order2in->order2in_status = 'processing';
+			$order2in->usd_amount = 'processing';
+			$order2in->order2in_currency = $this->Orders->getOrderCurrency($order->order_id);
+			$order2in->excess_amount = 0;
+
 			// остатки
-			$excess_orders = $this->getExcessOrders($order->order_client, $order->order_manager);
+			$excess_orders = $this->Orders->getExcessOrders(
+				$order->order_client,
+				$order->order_manager,
+				$order->order_country_from);
 
 			if ( ! empty($excess_orders))
 			{
+				// собираем по каждому заказу остатки, пока не наберется необходимая сумма для оплаты
 				foreach ($excess_orders as $excess_order)
 				{
-					$order2in = new stdClass();
-					$order2in->order_id = $order_id;
-					$order2in->is_countrypost = 0;
-					$order2in->order2in_to = $order->order_manager;
-					$order2in->order2in_createtime = date('Y-m-d H:i:s');
-					$order2in->order2in_amount = Check::float('amount');
-					$order2in->payment_service_name = Check::txt('service', 255, 1);
-					$order2in->order2in_details = Check::txt('comment', 20, 1);
-					$order2in->order2in_user = $this->user->user_id;
-					$order2in->order2in_status = 'processing';
-					$order2in->usd_amount = 'processing';
-					$order2in->excess_amount = $this->Orders->processExcessAmountTransfer($order);
+					$excess_amount =
+						$order->order_cost -
+						$order->order_cost_payed;
 
-					// валюта
-					$order2in->order2in_currency = $this->Orders->getOrderCurrency($order->order_id);
-
-					$this->load->model('Order2InModel', 'Order2in');
-					$order2in = $this->Order2in->addOrder($order2in);
-
-					if ( ! $order2in)
+					// если сумма в заявке уже достаточна для оплаты, остатки не переводим
+					if ($excess_amount <= 0)
 					{
-						throw new Exception('Ошибка создания заявки.');
+						break;
 					}
+
+					$order2in->excess_amount += $this->Orders->processExcessAmountTransfer(
+						$order,
+						$excess_order,
+						$excess_amount);
 				}
+			}
+
+			$order2in = $this->Order2in->addOrder($order2in);
+
+			if ( ! $order2in)
+			{
+				throw new Exception('Ошибка создания заявки.');
 			}
 
 			$this->result->m = 'Заявка успешно добавлена.';
@@ -670,7 +689,6 @@ class Client extends BaseController {
 		}
 		catch (Exception $e)
 		{
-
 		}
 
 		Func::redirect($this->config->item('base_url') . "client/order/$order_id");
@@ -678,9 +696,9 @@ class Client extends BaseController {
 
 	public function showAddresses($partner_id = null)
 	{
-		$view	= array(
-						'client'	=> $this->__client,
-						'partners'	=> $this->__partners,
+		$view = array(
+			'client'	=> $this->__client,
+			'partners'	=> $this->__partners,
 		);
 
 		if (isset($this->__partners[$partner_id])){

@@ -2,7 +2,7 @@
 $payable_amount =
 	($order->order_cost > ($order->order_cost_payed + $order->excess_amount)) ?
 	($order->order_cost - $order->order_cost_payed - $order->excess_amount) :
-	'';
+	'0';
 ?>
 <div class="manager_payment_box">
 	<form action="/client/payOrderDirect/<?= $order->order_id ?>" id="paymentForm" method="POST">

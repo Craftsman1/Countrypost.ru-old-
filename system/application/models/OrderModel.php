@@ -1332,26 +1332,69 @@ class OrderModel extends BaseModel implements IModel{
 			$order->foto_tax;
 	}
 
-	public function processExcessAmountTransfer($order, $excess_order)
+	public function processExcessAmountTransfer($order, $excess_order, $excess_amount)
 	{
-		$excess_amount = 0;
-
-				$excess_amount += $excess_order->order_cost_payed - $excess_order->order_cost;
-			$excess_order->order_cost_payed = $excess_order->order_cost;
-
-			$this->addOrder($excess_order);
+		if ($order->order_country_from == $excess_order->order_country_from)
+		{
+			return $this->excessAmountTransfer($order, $excess_order, $excess_amount);
 		}
-
-		$order->order_cost_payed += $excess_amount;
-
-		$this->addOrder($order);
-
-		return $excess_amount;
+		else
+		{
+			return $this->excessConvertedAmountTransfer($order, $excess_order, $excess_amount);
+		}
 	}
 
-	public function getExcessOrders($client_id, $manager_id)
+	private function excessAmountTransfer($order, $excess_order, $excess_amount)
 	{
-		return $this->db->query("
+		// 1. фактическая сумма перевода
+		$transferrable_amount = min(($excess_order->order_cost_payed - $excess_order->order_cost), $excess_amount);
+
+		// 2. погнали
+		$excess_order->order_cost_payed -= $transferrable_amount;
+		$this->addOrder($excess_order);
+		//print_r($excess_order);die();
+
+		// 3. зачисляем остаток в оплачиваемый заказ
+		$order->order_cost_payed += $transferrable_amount;
+		$this->addOrder($order);
+
+		return $transferrable_amount;
+	}
+
+	private function excessConvertedAmountTransfer($order, $excess_order, $excess_amount)
+	{
+		// 1. доступный остаток в валюте старого заказа
+		$excess_amount_to_convert = $excess_order->order_cost_payed - $excess_order->order_cost;
+
+		// 2. курс конверсии (для посредника, потому что деньги в остатке находятся у него)
+		$ci = get_instance();
+		$ci->load->model('CurrencyModel', 'Currencies');
+
+		$rate = $ci->Currencies->getExchangeRateByCountries(
+			$excess_order->order_country_from,
+			$order->order_country_from,
+			'manager');
+
+		// 3. доступный остаток в текущей валюте
+		$converted_amount = $excess_amount_to_convert * $rate;
+
+		// 4. фактическая сумма перевода в текущей валюте
+		$transferrable_amount = min($converted_amount, $excess_amount);
+
+		// 5. погнали
+		$excess_order->order_cost_payed -= ($transferrable_amount / $rate);
+		$this->addOrder($excess_order);
+
+		// 6. зачисляем остаток в оплачиваемый заказ
+		$order->order_cost_payed += $transferrable_amount;
+		$this->addOrder($order);
+
+		return $transferrable_amount;
+	}
+
+	public function getExcessOrders($client_id, $manager_id, $order_country)
+	{
+		$excess_orders = $this->db->query("
 			SELECT `{$this->table}`.*
 			FROM `{$this->table}`
 			WHERE
@@ -1359,12 +1402,37 @@ class OrderModel extends BaseModel implements IModel{
 				order_client = $client_id AND
 				order_manager = $manager_id AND
 				order_cost_payed > order_cost
+			ORDER BY order_country_from
 		")->result();
+
+		if ( ! empty($excess_orders) AND $order_country)
+		{
+			$ordered_orders = array();
+
+			foreach ($excess_orders as $order)
+			{
+				if ($order->order_country_from == $order_country)
+				{
+					array_unshift($ordered_orders, $order);
+				}
+				else
+				{
+					array_push($ordered_orders, $order);
+				}
+			}
+
+			$excess_orders = $ordered_orders;
+		}
+
+		return $excess_orders;
 	}
 
 	public function getExcessOrdersAmount($order)
 	{
-		$orders = $this->getExcessOrders($order->order_client, $order->order_manager);
+		$orders = $this->getExcessOrders(
+			$order->order_client,
+			$order->order_manager,
+			$order->order_country_from);
 
 		if (empty($orders))
 		{
