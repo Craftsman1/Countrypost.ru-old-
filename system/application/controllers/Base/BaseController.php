@@ -3898,6 +3898,8 @@ abstract class BaseController extends Controller
 			{
 				$order->order_cost_payed += $payment->order2in_amount;
 				$this->processOrderPayment($order, $payment);
+				// перевод остатков
+				$this->Orders->payOrderWithExcessOrders($order, $payment);
 			}
 
 			// пересчитываем заказ

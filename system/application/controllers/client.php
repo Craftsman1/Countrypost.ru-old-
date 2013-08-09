@@ -634,35 +634,9 @@ class Client extends BaseController {
 			$order2in->order2in_status = 'processing';
 			$order2in->usd_amount = 'processing';
 			$order2in->order2in_currency = $this->Orders->getOrderCurrency($order->order_id);
-			$order2in->excess_amount = 0;
 
-			// остатки
-			$excess_orders = $this->Orders->getExcessOrders(
-				$order->order_client,
-				$order->order_manager,
-				$order->order_country_from);
-
-			if ( ! empty($excess_orders))
-			{
-				// собираем по каждому заказу остатки, пока не наберется необходимая сумма для оплаты
-				foreach ($excess_orders as $excess_order)
-				{
-					$excess_amount =
-						$order->order_cost -
-						$order->order_cost_payed;
-
-					// если сумма в заявке уже достаточна для оплаты, остатки не переводим
-					if ($excess_amount <= 0)
-					{
-						break;
-					}
-
-					$order2in->excess_amount += $this->Orders->processExcessAmountTransfer(
-						$order,
-						$excess_order,
-						$excess_amount);
-				}
-			}
+			$excess_amount = $this->Orders->getExcessOrdersAmount($order);
+			$order2in->excess_amount = min($excess_amount, ($order->order_cost - $order->order_cost_payed));
 
 			$order2in = $this->Order2in->addOrder($order2in);
 
@@ -672,20 +646,6 @@ class Client extends BaseController {
 			}
 
 			$this->result->m = 'Заявка успешно добавлена.';
-
-			// уведомления
-			/*
-			$this->load->model('UserModel', 'Users');
-
-			Mailer::sendAdminNotification(
-				Mailer::SUBJECT_NEW_ORDER2IN,
-				Mailer::NEW_ORDER2IN_CLIENT_NOTIFICATION,
-				0,
-				$order2in->order2in_id,
-				$order2in->order2in_user,
-				"http://countrypost.ru/syspay/showOpenOrders2In",
-				null,
-				$this->Users);*/
 		}
 		catch (Exception $e)
 		{

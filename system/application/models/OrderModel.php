@@ -1332,6 +1332,36 @@ class OrderModel extends BaseModel implements IModel{
 			$order->foto_tax;
 	}
 
+	public function payOrderWithExcessOrders($order, $order2in)
+	{
+		$excess_orders = $this->Orders->getExcessOrders(
+			$order->order_client,
+			$order->order_manager,
+			$order->order_country_from);
+
+		if ( ! empty($excess_orders))
+		{
+			// собираем по каждому заказу остатки, пока не наберется необходимая сумма для оплаты
+			foreach ($excess_orders as $excess_order)
+			{
+				$excess_amount =
+				$order->order_cost -
+				$order->order_cost_payed;
+
+				// если сумма в заявке уже достаточна для оплаты, остатки не переводим
+				if ($excess_amount <= 0)
+				{
+					break;
+				}
+
+				$order2in->excess_amount += $this->Orders->processExcessAmountTransfer(
+					$order,
+					$excess_order,
+					$excess_amount);
+			}
+		}
+	}
+
 	public function processExcessAmountTransfer($order, $excess_order, $excess_amount)
 	{
 		if ($order->order_country_from == $excess_order->order_country_from)
