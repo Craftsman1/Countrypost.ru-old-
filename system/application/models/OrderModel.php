@@ -1344,9 +1344,7 @@ class OrderModel extends BaseModel implements IModel{
 			// собираем по каждому заказу остатки, пока не наберется необходимая сумма для оплаты
 			foreach ($excess_orders as $excess_order)
 			{
-				$excess_amount =
-				$order->order_cost -
-				$order->order_cost_payed;
+				$excess_amount = $order->order_cost - $order->order_cost_payed;
 
 				// если сумма в заявке уже достаточна для оплаты, остатки не переводим
 				if ($excess_amount <= 0)
@@ -1392,7 +1390,7 @@ class OrderModel extends BaseModel implements IModel{
 	}
 
 	private function excessConvertedAmountTransfer($order, $excess_order, $excess_amount)
-	{
+	{//print_r($excess_mount);die();
 		// 1. доступный остаток в валюте старого заказа
 		$excess_amount_to_convert = $excess_order->order_cost_payed - $excess_order->order_cost;
 
@@ -1401,18 +1399,27 @@ class OrderModel extends BaseModel implements IModel{
 		$ci->load->model('CurrencyModel', 'Currencies');
 
 		$rate = $ci->Currencies->getExchangeRateByCountries(
-			$excess_order->order_country_from,
 			$order->order_country_from,
+			$excess_order->order_country_from,
 			'manager');
 
 		// 3. доступный остаток в текущей валюте
-		$converted_amount = $excess_amount_to_convert * $rate;
+		$converted_amount = (ceil(($excess_amount_to_convert / $rate) * 100) * 0.01);
 
-		// 4. фактическая сумма перевода в текущей валюте
+		// 4. фактическая сумма перевода в текущей валюте, округленная до центов
 		$transferrable_amount = min($converted_amount, $excess_amount);
 
-		// 5. погнали
-		$excess_order->order_cost_payed -= ($transferrable_amount / $rate);
+		// 5. списываем или весь остаток
+		if ($transferrable_amount == $excess_amount)
+		{
+			$excess_order->order_cost_payed = $excess_order->order_cost;
+		}
+		// или недостающую часть оплаты
+		else
+		{
+			$excess_order->order_cost_payed -= (ceil($transferrable_amount * $rate * 100) * 0.01);
+		}
+
 		$this->addOrder($excess_order);
 
 		// 6. зачисляем остаток в оплачиваемый заказ
