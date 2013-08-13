@@ -1748,5 +1748,33 @@ class Client extends BaseController {
 	{
 		parent::moveProducts($old_order_id, $new_order_id);
 	}
+	public function get_exchange_rate_table()
+	{
+		$cur_name = $this->input->post('cur_name');
+		$result['status']='error';
+		$currencies = array('AUD', 'BRL', 'BTC', 'CAD', 'CHF', 'CNY', 'EUR', 'GBP', 'INR', 'HKD', 'JPY', 'NZD', 'SEK', 'SGD', 'USD');
+		if(!$cur_name OR !in_array($cur_name, $currencies))
+		{
+			echo json_encode($result);
+			die();
+		}
+		
+		$this->load->model('CurrencyModel', 'Currencies');
+		$view = array (
+			'cur_currency'=>$cur_name,
+			'currencies'=>$this->Currencies->getExchangeCurrencies(),
+			'rate_usd' => $this->Currencies->getExchangeRate($cur_name, 'USD', 'client'),
+			'rate_kzt' => $this->Currencies->getExchangeRate($cur_name, 'KZT', 'client'),
+			'rate_uah' => $this->Currencies->getExchangeRate($cur_name, 'UAH', 'client'),
+			'rate_rur' => $this->Currencies->getExchangeRate($cur_name, 'RUB', 'client')
+		);
+		$result['table'] = $this->load->view('/client/elements/orders/exchange_rates_new', $view, true );
+		if($result['table'])
+		{
+			$result['status']='ok';
+		}
+		echo json_encode($result);
+		die();
+	}
 	// EOF: перенаправление обработчиков в базовый контроллер
 }

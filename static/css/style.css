@@ -2967,5 +2967,27 @@ html, body
 {
 	height: 63px;
 }
-
+#exchnge_rates_container .adittional-block .headlines {
+	background: white;
+}
+#exchnge_rates_container .adittional-block .headlines dd,
+#exchnge_rates_container .adittional-block .headlines dt{
+	font-size: 11px;
+	color: rgb(83, 82, 82);
+	margin-bottom: 5px;
+	text-align: center;
+}
+#exchnge_rates_container .adittional-block .headlines select
+{
+	font-size: 15px;
+	margin-bottom: 10px;
+	width: 90px;
+}
+#exchnge_rates_container .adittional-block .headlines
+{
+	min-height: 0;
+}
+#exchnge_rates_container  h2 {
+	font: bold 12px Arial;
+}
 

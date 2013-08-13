@@ -197,6 +197,16 @@ abstract class BaseController extends Controller
 				);
 				
 				$view['payable_statuses'] = $this->Orders->getPayableStatuses($this->user->user_group);
+				
+				$this->load->model('CurrencyModel', 'Currencies');
+				$view += array (
+					'cur_currency'=>DEFAULT_CURRENCY,
+					'currencies'=>$this->Currencies->getExchangeCurrencies(),
+					'rate_usd' => $this->Currencies->getExchangeRate(DEFAULT_CURRENCY, 'USD', 'client'),
+					'rate_kzt' => $this->Currencies->getExchangeRate(DEFAULT_CURRENCY, 'KZT', 'client'),
+					'rate_uah' => $this->Currencies->getExchangeRate(DEFAULT_CURRENCY, 'UAH', 'client'),
+					'rate_rur' => $this->Currencies->getExchangeRate(DEFAULT_CURRENCY, 'RUB', 'client')
+				);
 			}
 
 			$view['order_types'] = $this->Orders->getOrderTypes();
@@ -233,6 +243,7 @@ abstract class BaseController extends Controller
 			{
 				$pageName = "show{$view['view_status']}Orders";
 			}
+			
 		}
 		catch (Exception $e) 
 		{

@@ -199,5 +199,18 @@ class CurrencyModel extends BaseModel implements IModel{
 		
 		return $result;
 	}
+	public function getExchangeCurrencies()
+	{
+		$query = $this->db->where_in('currency_name', array('AUD', 'BRL', 'BTC', 'CAD', 'CHF', 'CNY', 'EUR', 'GBP', 'INR', 'HKD', 'JPY', 'NZD', 'SEK', 'SGD', 'USD'))->get($this->table);
+		if($query->num_rows()>0)
+		{
+			return $query->result_array();
+		}
+		else
+		{
+			return false;
+		}
+		
+	}
 }
 ?>
