@@ -1752,7 +1752,7 @@ class Client extends BaseController {
 	{
 		$cur_name = $this->input->post('cur_name');
 		$result['status']='error';
-		$currencies = array('AUD', 'BRL', 'BTC', 'CAD', 'CHF', 'CNY', 'EUR', 'GBP', 'INR', 'HKD', 'JPY', 'NZD', 'SEK', 'SGD', 'USD');
+		$currencies = array('AUD', 'BRL', 'BTC', 'CAD', 'CHF', 'CNY', 'KRW', 'EUR', 'GBP', 'INR', 'HKD', 'JPY', 'NZD', 'SEK', 'SGD', 'USD');
 		if(!$cur_name OR !in_array($cur_name, $currencies))
 		{
 			echo json_encode($result);
