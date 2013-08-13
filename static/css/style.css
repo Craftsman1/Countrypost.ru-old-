@@ -2972,10 +2972,14 @@ html, body
 }
 #exchnge_rates_container .adittional-block .headlines dd,
 #exchnge_rates_container .adittional-block .headlines dt{
-	font-size: 11px;
+	font-size: 13px;
 	color: rgb(83, 82, 82);
 	margin-bottom: 5px;
+	margin-left: 0;
 	text-align: center;
+}
+#exchnge_rates_container .adittional-block .headlines dl{
+	margin-left: 0;
 }
 #exchnge_rates_container .adittional-block .headlines select
 {
@@ -2989,5 +2993,6 @@ html, body
 }
 #exchnge_rates_container  h2 {
 	font: bold 12px Arial;
+	margin-left: 0;
 }
 

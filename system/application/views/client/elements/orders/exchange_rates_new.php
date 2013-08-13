@@ -1,6 +1,6 @@
 <? if(isset($currencies) AND $currencies) : ?>
-<div class='adittional-block' style="    position: absolute;    right: 0px;    top: 0px;    z-index: 1;    width: 262px;font-size:20px;">
-	<div class='headlines' style="    margin-right: 20px;    width: 252px;">
+<div class='adittional-block' style="    position: absolute;    right: 0px;    top: 0px;    z-index: 1;    width: 239px;font-size:20px;">
+	<div class='headlines' style="    margin-right: 20px;    width: 235px;">
 		<div class='angle angle-lt'></div>
 		<div class='angle angle-rt'></div>
 		<div class='angle angle-lb'></div>
