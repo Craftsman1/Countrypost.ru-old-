@@ -1,7 +1,10 @@
 <div class='step-by-step'>
 	<p style="text-align: justify;">
-		<b>Countrypost</b> – поможет Вам легко и быстро найти посредника для покупки и доставки любого товара из online или offline магазинов Китая, США, Германии, Италии или любой другой страны мира. 
-		<a href="/main/createorder">Добавьте</a> заказ прямо сейчас и Вы получите<b> БЕСПЛАТНО </b>предложения от посредников с итоговой стоимостью за выполнение заказа или услуги.
+		<b>Countrypost</b> – поможет Вам легко и быстро купить и доставить любой товар из любых online или offline магазинов Китая, США, Германии, Италии или любой другой страны мира. <br />
+			
+			<span style="margin-left: 10px;">1. Найдите товар, который хотите купить в любом магазине в любой стране мира;</span><br />
+			<span style="margin-left: 10px;">2. <a href="/main/createorder">Добавьте</a> заказ на сайте на покупку этого товара или оказание какой-либо услуги;</span><br />
+			<span style="margin-left: 10px;">3. Выберите наиболее подходящее Вам предложение от разных исполнителей.</span><br />
 	</p>
 	<form class='admin-inside' action="<?= $selfurl ?>filterUnassignedOrders" id="filterForm" method="POST">
 		<div class='table' style="position:relative;background:#fff;">
