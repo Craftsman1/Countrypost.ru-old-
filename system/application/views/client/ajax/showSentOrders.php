@@ -41,7 +41,7 @@
 					</b>
 					<? endif; ?>
 				</td>
-				<td style="vertical-align: top;">
+				<td>
 					<? View::show('client/elements/orders/price_description', array(
 						'order' => $order
 				)); ?>
