@@ -318,7 +318,9 @@ class Client extends BaseController {
 			$order2in->order2in_amount_local = Check::float('total_usd');
 			$order2in->order2in_payment_service = Check::txt('payment_service', 3, 2);
 			$order2in->order2in_details = Check::txt('account', 20, 1);
-			$order2in->excess_amount = $this->Orders->processExcessAmountTransfer($order);
+
+			$excess_amount = $this->Orders->getExcessOrdersAmount($order);
+			$order2in->excess_amount = min($excess_amount, ($order->order_cost - $order->order_cost_payed));
 
 			// input validation
 			if (isset($order2in->order2in_payment_service))
