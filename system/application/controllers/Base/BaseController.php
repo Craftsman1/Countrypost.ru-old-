@@ -2631,7 +2631,7 @@ abstract class BaseController extends Controller
 
 			$view['total_usd'] = $this->Payment->getTotalUSD($view['Payments']);
 
-			if ($totals = $this->Payment->getTotalLocal($view, FALSE))
+			if ($totals = $this->Payment->getTotalLocal($view))
 			{
 				$view['total_local'] = $totals;
 			}
@@ -2648,8 +2648,7 @@ abstract class BaseController extends Controller
 
 			if ($totals = $this->Payment->getTotalLocal($view))
 			{
-				$view['total_local'] = $totals['total_local'];
-				$view['total_currency'] = $totals['total_currency'];
+				$view['total_local'] = $totals;
 			}
 		}
 

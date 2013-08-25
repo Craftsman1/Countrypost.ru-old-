@@ -162,7 +162,7 @@
 						Итого к выплате:
 						<b class="total_usd"><?= $total_usd ?></b> USD
 						<? if (isset($total_local)) : ?>
-						(<?= $total_local ?> <?= $total_currency ?>)
+						(<?= $total_local ?>)
 						<? endif; ?>
 					</div>
 				</td>

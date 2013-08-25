@@ -569,17 +569,16 @@ class PaymentModel extends BaseModel implements IModel{
 		return $total_usd;
 	}
 
-	public function getTotalLocal($view, $is_admin = TRUE)
+	public function getTotalLocal($view)
 	{
 		if (empty($view['Payments']))
 		{
 			return FALSE;
 		}
 
-		if ($is_admin AND
-			(empty($view['filter']->sfield) OR
+		if (empty($view['filter']->sfield) OR
 			($view['filter']->sfield != 'manager_id' AND
-			$view['filter']->sfield != 'manager_login')))
+			$view['filter']->sfield != 'manager_login'))
 		{
 			return FALSE;
 		}

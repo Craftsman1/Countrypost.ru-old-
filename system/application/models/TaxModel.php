@@ -153,7 +153,7 @@ class TaxModel extends BaseModel implements IModel
 	public function getCountrypostBalance($manager_id)
 	{
 		$result = $this->db->query("
-			SELECT SUM(amount) AS 'balance', currency
+			SELECT SUM(amount_usd) AS 'balance'
 			FROM
 				taxes
 			WHERE
@@ -167,7 +167,7 @@ class TaxModel extends BaseModel implements IModel
 			return FALSE;
 		}
 
-		return round($result[0]->balance, 2) . ' ' . $result[0]->currency;
+		return round($result[0]->balance, 2) . ' USD';
 	}
 
 	public function getAdminBalance()

@@ -27,7 +27,7 @@
 				ВАШ НОМЕР НА САЙТЕ: <?= $this->user->user_id ?>
 			</h3>
 			<br>
-			<? if (isset($_SESSION['countrypost_balance'])/* AND $_SESSION['countrypost_balance']*/) : ?>
+			<? if (isset($_SESSION['countrypost_balance'])) : ?>
 			<p>
 				<a href='<?= $this->config->item('base_url') . $this->user->user_group ?>/taxes'>Комиссия Countrypost: <?=
 					$_SESSION['countrypost_balance'] ? $_SESSION['countrypost_balance'] : 0 ?></a>
