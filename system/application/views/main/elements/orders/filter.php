@@ -4,7 +4,7 @@
 			
 			<span style="margin-left: 10px;">1. Найдите товар, который хотите купить в любом магазине в любой стране мира;</span><br />
 			<span style="margin-left: 10px;">2. <a href="/main/createorder">Добавьте</a> заказ на сайте на покупку этого товара или оказание какой-либо услуги;</span><br />
-			<span style="margin-left: 10px;">3. Выберите наиболее подходящего вам исполнителя для выполнения заказа.</span><br />
+			<span style="margin-left: 10px;">3. Выберите лучшее предложение от посредников, посмотрите отзывы  о нем.</span><br />
 	</p>
 	<form class='admin-inside' action="<?= $selfurl ?>filterUnassignedOrders" id="filterForm" method="POST">
 		<div class='table' style="position:relative;background:#fff;">

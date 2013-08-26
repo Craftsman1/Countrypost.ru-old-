@@ -192,7 +192,7 @@ function noty_generic(layout, message, ntype)
 		dismissQueue: true,
 		layout: layout,
 		theme: 'defaultTheme',
-		timeout: 2000
+		timeout: 3000
 	});
 	//console.log('html: '+n.options.id);
 }

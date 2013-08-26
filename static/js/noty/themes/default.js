@@ -129,7 +129,7 @@
 
 			switch (this.options.type) {
 				case 'alert': case 'notification':
-					this.$bar.css({backgroundColor: '#FFF', borderColor: '#CCC', color: '#444'}); break;
+					this.$bar.css({backgroundColor: '#F99392', borderColor: '#CCC', color: '#444'}); break;
 				case 'warning':
 					this.$bar.css({backgroundColor: '#FFEAA8', borderColor: '#FFC237', color: '#826200'});
 					this.$buttons.css({borderTop: '1px solid #FFC237'}); break;
