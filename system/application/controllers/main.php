@@ -1120,7 +1120,7 @@ Email: {$this->user->user_email}";
             foreach($managers as $manager)
             {
                 $statistics = $this->Manager->getStatistics($manager->manager_user);
-                $email_data["manager_name"] = $statistics->fullname;
+                $email_data["manager_name"] = $statistics->login;
                 $email_data["order_id"] = $order_id;
                 $msg = $this->load->view("/mail/email_5", $email_data, true);
 
