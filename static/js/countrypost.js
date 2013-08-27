@@ -112,12 +112,12 @@ function delRating(rating_id,manager_id)
 
 $(document).ready(function () {
     $(window).on('popstate', function (e) {
-        
+
         if (!location.hash){
-            eval($("#new").attr('href'));
+            //eval($("#new").attr('href'));
         }
         else{
-            eval($(location.hash).attr('href'));
+            //eval($(location.hash).attr('href'));
         }
     });
 });

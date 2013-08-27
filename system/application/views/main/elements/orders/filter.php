@@ -13,12 +13,14 @@
 			<div class='angle angle-lb'></div>
 			<div class='angle angle-rb'></div>	
 			<div class='filter-box'>
-				<div>
+				<!--
+                <div>
 					<span class="label">Номер заказа:</span>
 					<input style="width:180px;" class="textbox" maxlength="6" type='text' id='order_number' name="order_number" value="<?= empty($filter->order_id) ? '' : $filter->order_id ?>"/>
 				</div>
 				<br />
 				<br />
+				-->
 				<div>
 					<span class="label">Заказ из:</span>
 					<select id="country_from" name="country_from" class="select" style="width:190px;">
