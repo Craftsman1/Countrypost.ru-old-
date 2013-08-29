@@ -355,7 +355,7 @@ class User extends BaseController {
 						'Reply-To: info@countrypost.ru' . "\r\n" .
 						'X-Mailer: PHP/' . phpversion();
 
-					if (mail($user->user_email,"Восстановление пароля", "Ваш новый пароль: $new_passwd", $headers) AND
+					if (mail($user->user_email,"Восстановление пароля", "Ваш логин: $user->user_login \n\rВаш новый пароль: $new_passwd", $headers) AND
 						$this->User->save())
 					{
 						$result->m = 'Новый пароль установлен и выслан на указанный Вами адрес электронной почты.';
