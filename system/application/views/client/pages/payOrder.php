@@ -25,11 +25,11 @@
 	
 		$("img.help1").easyTooltip({
 			tooltipId: "tooltip_id",
-			content: '<div class="box"><div>Текст первой подсказки</div></div>'
+			content: '<div class="box"><div>Оплата заказа напрямую посреднику. Деньги вы переводите самостоятельно. <br> Для зачисления денег в заказ добавьте заявку.</div></div>'
 		});
 		$("img.help2").easyTooltip({
 			tooltipId: "tooltip_id",
-			content: '<div class="box"><div>Текст второй подсказки</div></div>'
+			content: '<div class="box"><div>Оплата заказа через сервис countrypost.ru. Деньги посреднику переводим мы.</div></div>'
 		});
 
 	});
