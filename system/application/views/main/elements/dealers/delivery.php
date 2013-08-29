@@ -38,7 +38,18 @@
 			if (deliveries[country_id] != undefined)
 			{
 				$('div.delivery_description').html('<br>' + deliveries[country_id]);
-			}
+			}else{
+                $.ajax({
+                    type: "POST",
+                    url: "profile/getPriceTemplateOfCountry",
+                    data: "country="+country_id,
+                    success: function(msg){
+                        if (msg != ""){
+                            $('div.delivery_description').html('<br>' + msg);
+                        }
+                    }
+                });
+            }
 		}
 	}
 </script>

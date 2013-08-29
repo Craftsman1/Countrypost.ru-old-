@@ -58,7 +58,14 @@
 			}
 			else
 			{
-				oEditor.SetData('');
+                $.ajax({
+                    type: "POST",
+                    url: "profile/getPriceTemplateOfCountry",
+                    data: "country="+country_id,
+                    success: function(msg){
+                        oEditor.SetData(msg);
+                    }
+                });
 			}
 		}
 	}
