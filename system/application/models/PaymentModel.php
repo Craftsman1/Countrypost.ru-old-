@@ -576,13 +576,6 @@ class PaymentModel extends BaseModel implements IModel{
 			return FALSE;
 		}
 
-		if (empty($view['filter']->sfield) OR
-			($view['filter']->sfield != 'manager_id' AND
-			$view['filter']->sfield != 'manager_login'))
-		{
-			return FALSE;
-		}
-
 		$totals = array();
 
 		foreach ($view['Payments'] as $payment)
