@@ -98,5 +98,5 @@
 		});
 	});
 
-	<?= editor('delivery_description', 200, 920, 'PackageComment') ?>
+	<?= editor('delivery_description', 350, 920, 'PackageComment') ?>
 </script>
