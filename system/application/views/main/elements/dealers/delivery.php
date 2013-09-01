@@ -35,14 +35,14 @@
 			
 			$('div.delivery_description').html('');
 			
-			if (deliveries[country_id] != undefined)
+			if (deliveries[country_id] != undefined && deliveries[country_id] != "")
 			{
 				$('div.delivery_description').html('<br>' + deliveries[country_id]);
 			}else{
                 $.ajax({
                     type: "POST",
                     url: "profile/getPriceTemplateOfCountry",
-                    data: "country="+country_id,
+                    data: "country="+country_id+"&manager_country="+<?=$manager->manager_country?>,
                     success: function(msg){
                         if (msg != ""){
                             $('div.delivery_description').html('<br>' + msg);

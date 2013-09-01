@@ -418,10 +418,11 @@ class Profile extends BaseController {
     public function getPriceTemplateOfCountry()
     {
         $country_id = Check::int('country', 65535);
+        $manager_country = Check::int('manager_country', 65535);
 
-        if ( file_exists('system/application/views/manager/elements/templates/delivery/'.$country_id.'.php'))
+        if ( file_exists('system/application/views/manager/elements/templates/delivery/'.$manager_country.'/'.$country_id.'.php'))
         {
-            View::show('manager/elements/templates/delivery/'.$country_id.'.php');
+            View::show('manager/elements/templates/delivery/'.$manager_country.'/'.$country_id.'.php');
         }else{
             echo "";
         }

@@ -52,16 +52,16 @@
 			var country_id = $('#delivery_country option:selected').val();
 			var oEditor = FCKeditorAPI.GetInstance('delivery_description');
 
-			if (deliveries[country_id] != undefined)
+			if (deliveries[country_id] != undefined && deliveries[country_id] != "")
 			{
-				oEditor.SetData(deliveries[country_id]);
+                oEditor.SetData(deliveries[country_id]);
 			}
 			else
 			{
                 $.ajax({
                     type: "POST",
                     url: "profile/getPriceTemplateOfCountry",
-                    data: "country="+country_id,
+                    data: "country="+country_id+"&manager_country="+<?=$manager->manager_country?>,
                     success: function(msg){
                         oEditor.SetData(msg);
                     }
