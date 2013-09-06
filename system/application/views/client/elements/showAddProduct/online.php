@@ -17,7 +17,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 			<div class='angle angle-rb'></div>
 			<div class='new_order_box'>
 				<div>
-					<span class="label">Ссылка на товар*:</span>
+					<span class="label">Ссылка на товар<span class="red-color">*</span>:</span>
 					<input class="textbox"
 						   maxlength="4096"
 						   type='text'
@@ -25,7 +25,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 						   name="olink" />
 				</div>
 				<div>
-					<span class="label">Наименование товара*:</span>
+					<span class="label">Наименование товара<span class="red-color">*</span>:</span>
 					<input class="textbox"
 						   maxlength="255"
 						   type='text'
@@ -33,7 +33,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 						   name="oname" />
 				</div>
 				<div>
-					<span class="label">Стоимость*:</span>
+					<span class="label">Стоимость<span class="red-color">*</span>:</span>
 					<input class="textbox"
 						   maxlength="11"
 						   type='text'

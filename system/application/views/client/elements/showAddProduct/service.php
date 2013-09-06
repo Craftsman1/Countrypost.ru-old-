@@ -17,7 +17,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
             <div class='angle angle-rb'></div>
             <div class='new_order_box'>
                 <div style="height: 60px">
-                    <span class="label">Подробное описание что<br/> нужно сделать*:</span>
+                    <span class="label">Подробное описание что<br/> нужно сделать<span class="red-color">*</span>:</span>
                     <textarea class="textbox"
 							  maxlength="255"
 							  id='ocomment'

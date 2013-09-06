@@ -1,7 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="resolving conflicts" />
+    <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="resolving conflicts">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/Chinapost-template.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/EMS-template.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/Tarrifs.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/buttonts.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/views/mail/email_5.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/views/client/elements/orders/exchange_rates_new.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/templates/table_template.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" afterPath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/BidCommentModel.php" afterPath="$PROJECT_DIR$/system/application/models/BidCommentModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/System/Check.php" afterPath="$PROJECT_DIR$/system/application/models/System/Check.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/CurrencyModel.php" afterPath="$PROJECT_DIR$/system/application/models/CurrencyModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OrderModel.php" afterPath="$PROJECT_DIR$/system/application/models/OrderModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/admin/body.php" afterPath="$PROJECT_DIR$/system/application/views/admin/body.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/body.php" afterPath="$PROJECT_DIR$/system/application/views/client/body.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/body.php" afterPath="$PROJECT_DIR$/system/application/views/main/body.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/body.php" afterPath="$PROJECT_DIR$/system/application/views/manager/body.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/signup/body.php" afterPath="$PROJECT_DIR$/system/application/views/signup/body.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/body.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/body.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/user/body.php" afterPath="$PROJECT_DIR$/system/application/views/user/body.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/client.php" afterPath="$PROJECT_DIR$/system/application/controllers/client.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/countrypost.js" afterPath="$PROJECT_DIR$/static/js/countrypost.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" afterPath="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/noty/themes/default.js" afterPath="$PROJECT_DIR$/static/js/noty/themes/default.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/delivery.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/delivery.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/delivery.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/delivery.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/delivery.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/delivery.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/delivery.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/delivery.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/elements/div_footer.php" afterPath="$PROJECT_DIR$/system/application/views/elements/div_footer.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/errors/error_404.php" afterPath="$PROJECT_DIR$/system/application/errors/error_404.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/filter.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/filter.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/mail_forwarding.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/mail_forwarding.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/mail_forwarding.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/mail_forwarding.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/main.php" afterPath="$PROJECT_DIR$/system/application/controllers/main.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/manager.php" afterPath="$PROJECT_DIR$/system/application/controllers/manager.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/offline.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/offline.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/offline.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/offline.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/online.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/online.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/online.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/online.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/pages/payOrder.php" afterPath="$PROJECT_DIR$/system/application/views/client/pages/payOrder.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/config/payments.php" afterPath="$PROJECT_DIR$/system/application/config/payments.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/orders/price_description.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/orders/price_description.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/pricelist.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/pricelist.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/pricelist.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/pricelist.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/profile.php" afterPath="$PROJECT_DIR$/system/application/controllers/profile.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/profile.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/profile.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/profile.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/profile.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/user/pages/recovery.php" afterPath="$PROJECT_DIR$/system/application/views/user/pages/recovery.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/service.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/service.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/service.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/service.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/pages/showOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/pages/showOrders.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/signup.php" afterPath="$PROJECT_DIR$/system/application/controllers/signup.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/pages/signup.php" afterPath="$PROJECT_DIR$/system/application/views/client/pages/signup.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/pages/signup.php" afterPath="$PROJECT_DIR$/system/application/views/manager/pages/signup.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/user.php" afterPath="$PROJECT_DIR$/system/application/controllers/user.php" />
+    </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/" />
@@ -71,12 +140,10 @@
     <file path="$PROJECT_DIR$/system/application/views/tools/elements/div_menu.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showNewBid.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showSentOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/manager/pages/signup.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/client/ajax/showBalance.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/admin/pages/faq.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/admin/pages/showOrders2In.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/admin/pages/news.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/client/pages/signup.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/client/pages/showAddProduct.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/admin/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/admin/elements/div_menu.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
@@ -89,7 +156,6 @@
     <file path="$PROJECT_DIR$/system/application/views/client/elements/auth/success.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/admin/elements/auth/success.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showCountrypostTaxes.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/user/pages/recovery.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/user/pages/registration.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/user/elements/div_menu.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
     <file path="$PROJECT_DIR$/system/application/views/user/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
@@ -136,7 +202,7 @@
       <file leaf-file-name="profile.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="338" column="50" selection-start="9716" selection-end="9716" vertical-scroll-proportion="0.0">
+            <state line="457" column="0" selection-start="14087" selection-end="14087" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -145,7 +211,7 @@
       <file leaf-file-name="client.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1363" column="13" selection-start="36632" selection-end="36632" vertical-scroll-proportion="0.0">
+            <state line="1391" column="13" selection-start="38042" selection-end="38042" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -181,7 +247,7 @@
       <file leaf-file-name="manager_rating.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="21" selection-start="3153" selection-end="3153" vertical-scroll-proportion="0.3751724">
+            <state line="71" column="21" selection-start="3012" selection-end="3012" vertical-scroll-proportion="0.3751724">
               <folding />
             </state>
           </provider>
@@ -190,7 +256,7 @@
       <file leaf-file-name="expand_button.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="55" selection-start="254" selection-end="261" vertical-scroll-proportion="0.0">
+            <state line="7" column="14" selection-start="254" selection-end="261" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -753,7 +819,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1363" column="13" selection-start="36632" selection-end="36632" vertical-scroll-proportion="0.0">
+        <state line="1391" column="13" selection-start="38042" selection-end="38042" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -767,7 +833,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="338" column="50" selection-start="9716" selection-end="9716" vertical-scroll-proportion="0.0">
+        <state line="457" column="0" selection-start="14087" selection-end="14087" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -800,14 +866,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="55" selection-start="254" selection-end="261" vertical-scroll-proportion="0.0">
+        <state line="7" column="14" selection-start="254" selection-end="261" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="21" selection-start="3153" selection-end="3153" vertical-scroll-proportion="0.3751724">
+        <state line="71" column="21" selection-start="3012" selection-end="3012" vertical-scroll-proportion="0.3751724">
           <folding />
         </state>
       </provider>

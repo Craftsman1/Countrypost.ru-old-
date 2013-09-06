@@ -1,9 +1,9 @@
-<div class="profile table dealer_tab" style="height: 777px;">
+<div class="profile table dealer_tab" style="height: 796px;">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
 	<div class='angle angle-rb'></div>
-	<div class="dealer_profile_left">
+	<div class="dealer_profile_absolute_right">
 		<form action="/manager/saveProfilePhoto" enctype='multipart/form-data'  id="profilePhotoForm" method="POST">
 			<img src="/main/avatar_big/<?= $this->user->user_id ?>" id="img_place" width="200px" height="200px">
 			<br>
@@ -290,5 +290,5 @@
 		});
 	});
 
-	<?= editor('about', 150, 380, 'PackageComment') ?>
+	<?= editor('about', 210, 900, 'PackageComment') ?>
 </script>

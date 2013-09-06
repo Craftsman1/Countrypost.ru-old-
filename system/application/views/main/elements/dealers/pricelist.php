@@ -13,15 +13,15 @@
 			Комиссия за обычный заказ:
 		</span>
 		<span>
-			<b><?= $manager->order_tax ?>%</b> от общей стоимости товаров и местной доставки
+			<b><?= $manager->order_tax ?>%</b> (от общей стоимости товаров и местной доставки)
 		</span>
 	</div>
 	<div>
 		<span>
-			Комиссия за заказ Mail Forwarding:
+			Комиссия за самостоятельный заказ:
 		</span>
 		<span>
-			<b><?= $manager->order_mail_forwarding_tax ?> <?= $manager->statistics->currency ?></b>
+			<b><?= $manager->order_mail_forwarding_tax ?> <?= $manager->statistics->currency ?></b>  (Mail Forwarding)
 		</span>
 	</div>
 	<div>

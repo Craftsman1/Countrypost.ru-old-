@@ -89,6 +89,15 @@ class Profile extends BaseController {
 		$this->processStatistics($manager, array(), 'manager_user', $manager->manager_user, 'manager');
 			
 		Breadcrumb::setCrumb(array('/' . $login => $manager->statistics->fullname), 2);
+		
+		if(!isset($manager->order_tax) || $manager->order_tax==null)
+		{
+			$manager->order_tax=0;
+		}
+		if(!isset($manager->order_mail_forwarding_tax) || $manager->order_mail_forwarding_tax==null)
+		{
+			$manager->order_mail_forwarding_tax=0;
+		}
 
 		$this->dealerProfileGeneric($manager, $login, 'main/pages/dealer');
 	}
@@ -114,6 +123,14 @@ class Profile extends BaseController {
 			$this->processStatistics($manager, array(), 'manager_user', $manager->manager_user, 'manager');
 		
 			Breadcrumb::setCrumb(array('/profile' => 'Мой профиль'), 1, TRUE);
+			if(!isset($manager->order_tax) || $manager->order_tax==null)
+			{
+				$manager->order_tax=0;
+			}
+			if(!isset($manager->order_mail_forwarding_tax) || $manager->order_mail_forwarding_tax==null)
+			{
+				$manager->order_mail_forwarding_tax=0;
+			}
 			
 			$this->dealerProfileGeneric($manager, $this->session->userdata('manager_login'), 'manager/pages/editProfile');
 		}
@@ -397,4 +414,107 @@ class Profile extends BaseController {
 
         echo "ok";
     }
+
+    public function getPriceTemplateOfCountry()
+    {
+        $country_id = Check::int('country', 65535);
+        $manager_country = Check::int('manager_country', 65535);
+
+        if ( file_exists('system/application/views/manager/elements/templates/delivery/'.$manager_country.'/Tarrifs.php'))
+        {
+            $Tarrifs = $this->load->view('manager/elements/templates/delivery/'.$manager_country.'/Tarrifs.php', '', true);
+
+            preg_match_all('/{country} = (\d+)/',$Tarrifs,$country);
+            preg_match_all('/{first_kg} = ([0-9.]+)/',$Tarrifs,$first_kg);
+            preg_match_all('/{second_kg} = ([0-9.]+)/',$Tarrifs,$second_kg);
+            preg_match_all('/{extra_rate} = ([0-9.]+)/',$Tarrifs,$extra_rate);
+
+            // Находим в тарифах страну направления
+            $i=0;
+            foreach ($country[1] as $id)
+            {
+                if ( $id == $country_id ) {
+                    break;
+                }
+                $i++;
+            }
+
+            $country = $country[1][$i];
+            $first_kg = $first_kg[1][$i];
+            $second_kg = $second_kg[1][$i];
+            $extra_rate = $extra_rate[1][$i];
+
+            // Ищем файлы шаблонов
+            $templateFiles = array();
+            if ($handle = opendir('system/application/views/manager/elements/templates/delivery/'.$manager_country)) {
+
+                while (false !== ($file = readdir($handle))) {
+                    if ( preg_match('/\w+-template/',$file) ){
+                        array_push($templateFiles,$file);
+                    }
+                }
+                closedir($handle);
+            }
+
+            // Сканируем найденные файлы
+            foreach($templateFiles as $files)
+            {
+
+                $template = file_get_contents('system/application/views/manager/elements/templates/delivery/'.$manager_country.'/'.$files);
+
+                preg_match('/before_table_text = "(.+)"/',$template,$before_table_text);
+                preg_match('/after_table_text = "(.+)"/',$template,$after_table_text);
+
+                preg_match_all('/([0-9.]+) = (.+)/',$template,$templateTable);
+                $associativArray = array();
+                $pattern = array('/{first_kg}/','/{second_kg}/','/{extra_rate}/');
+                $replace = array($first_kg,$second_kg,$extra_rate);
+                for ($i=0; $i < count($templateTable[2]); $i++)
+                {
+                    $result = preg_replace($pattern,$replace,$templateTable[2][$i]);
+                    if ( !preg_match('/(\{[0-9.]+\})/',$result,$matches) )
+                    {
+                        $resultEval = 0;
+                        eval("\$resultEval = ".$result.";");
+                        $associativArray[$templateTable[1][$i]] = $resultEval;
+                    }else{
+                        preg_match('/([0-9.]+)/',$matches[0],$matches2);
+                        $result2 = preg_replace('/\{'.$matches2[0].'\}/',$associativArray[$matches2[0]],$templateTable[2][$i]);
+                        $result3 = preg_replace($pattern,$replace,$result2);
+                        $resultEval = 0;
+                        eval("\$resultEval = ".$result3.";");
+                        $associativArray[$templateTable[1][$i]] = $resultEval;
+                    }
+                }
+
+                // строим таблицу
+                $i=1;
+                $data = array();
+                foreach($associativArray as $k=>$v)
+                {
+                    //echo $k ." = ". $v ."<br />";
+                    $data[$i] = array($k,$v);
+                    $i++;
+                }
+                $this->CreateTable($data,3,$before_table_text[1],$after_table_text[1]);
+
+            }
+
+
+        }else{
+            echo "";
+        }
+
+    }
+
+    /*
+     * @var data - array массив с данными
+     * @var col - int кол-во столбцов
+     */
+    public function CreateTable($data,$col=1,$before_table_text="",$after_table_text="")
+    {
+        $viewdata = array("data" => $data, "cols" => $col, "before_table_text" => $before_table_text, "after_table_text" => $after_table_text);
+        $this->load->view('manager/elements/templates/table_template',$viewdata);
+    }
+
 }

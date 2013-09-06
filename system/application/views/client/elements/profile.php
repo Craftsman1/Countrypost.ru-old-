@@ -3,7 +3,7 @@
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
 	<div class='angle angle-rb'></div>
-	<div class="dealer_profile_left">
+	<div class="dealer_profile_absolute_right">
 		<form action="/client/saveProfilePhoto" enctype='multipart/form-data'  id="profilePhotoForm" method="POST">
 			<img src="/main/avatar_big/<?= $client->client_user ?>" id="img_place" width="200px" height="200px">
 			<br>
@@ -14,7 +14,6 @@
 	</div>
 	<div class='profile_box admin-inside'>
 		<form id="profileForm" action="/client/saveProfile">
-			<br style="clear:both;" />
 			<div>
 				<span class="label">Логин:</span>
                 <span class="label" style="margin-left: 0;"><b><?= $client->statistics->login ?></b></span>
@@ -268,5 +267,5 @@
 		});
 	});
 
-    <?= editor('about', 150, 380, 'PackageComment') ?>
+    <?= editor('about', 170, 900, 'PackageComment') ?>
 </script>

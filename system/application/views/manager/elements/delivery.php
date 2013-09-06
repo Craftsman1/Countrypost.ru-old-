@@ -52,13 +52,20 @@
 			var country_id = $('#delivery_country option:selected').val();
 			var oEditor = FCKeditorAPI.GetInstance('delivery_description');
 
-			if (deliveries[country_id] != undefined)
+			if (deliveries[country_id] != undefined && deliveries[country_id] != "")
 			{
-				oEditor.SetData(deliveries[country_id]);
+                oEditor.SetData(deliveries[country_id]);
 			}
 			else
 			{
-				oEditor.SetData('');
+                $.ajax({
+                    type: "POST",
+                    url: "profile/getPriceTemplateOfCountry",
+                    data: "country="+country_id+"&manager_country="+<?=$manager->manager_country?>,
+                    success: function(msg){
+                        oEditor.SetData(msg);
+                    }
+                });
 			}
 		}
 	}
@@ -91,5 +98,5 @@
 		});
 	});
 
-	<?= editor('delivery_description', 200, 920, 'PackageComment') ?>
+	<?= editor('delivery_description', 350, 920, 'PackageComment') ?>
 </script>

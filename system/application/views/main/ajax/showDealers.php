@@ -28,7 +28,7 @@
                 <col width='auto' />
                 <tr>
                     <th>Рейтинг</th>
-                    <th>Посредник</th>
+                    <th style="width:300px;">Посредник</th>
                     <th>Страна</th>
                     <th>Отзывы</th>
                     <th>Выполненных&nbsp;заказов</th>
@@ -42,7 +42,7 @@
                             <span>
                                 <a href="<?=$this->config->item('base_url').$manager->statistics->login;?>"><img style="width:48px; height:48px;" src="/main/avatar_big/<?= $manager->manager_user; ?>" /></a>
                             </span>
-                            <span style="display: inline-block; position: relative; margin-left: 7px;">
+                            <span style="display: inline-block; position: relative; margin-left: 7px;width: 200px;">
                                 <a href="<?=$this->config->item('base_url').$manager->statistics->login;?>"><?= $manager->statistics->fullname ?></a>
                                 (<?=$manager->user_login;?>)
                                 <div style="margin-top: 17px;">
@@ -61,13 +61,15 @@
                                 </div>
                             </span>
                         </td>
-                        <td>
+                        <td style=" width: 200px;">
                             <div style="text-align: left;">
                             <img src="/static/images/flags/big/<?= $countries_en[$manager->manager_country] ?>.png" />
-                                <span style="display: inline-block; margin: 17px 0px 0px 5px;">
-                                <?= shortenCountryName($countries[$manager->manager_country], '') ?>
+                                <span style="display: inline-block; margin: 17px 0px 0px 5px;"  class="overflow_hidden">
+                                <?= //shortenCountryName($countries[$manager->manager_country], '')
+									$countries[$manager->manager_country];
+								?>
                                 <? if ($manager->city) : ?>
-                                    (<?=$manager->city;?>)
+                                    (<span title="<?=$manager->city;?>"><?=$manager->city;?></span>)
                                 <? endif; ?>
                                 </span>
                             </div>

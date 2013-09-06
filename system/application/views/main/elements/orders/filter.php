@@ -1,7 +1,10 @@
 <div class='step-by-step'>
 	<p style="text-align: justify;">
-		<b>Countrypost</b> – поможет Вам легко и быстро найти посредника для покупки и доставки любого товара из online или offline магазинов Китая, США, Германии, Италии или любой другой страны мира. 
-		<a href="/main/createorder">Добавьте</a> заказ прямо сейчас и Вы получите<b> БЕСПЛАТНО </b>предложения от посредников с итоговой стоимостью за выполнение заказа или услуги.
+		<b>Countrypost</b> – поможет Вам легко и быстро купить и доставить любой товар из любых online или offline магазинов Китая, США, Германии, Италии или любой другой страны мира. <br />
+			
+			<span style="margin-left: 10px;">1. Найдите товар, который хотите купить в любом магазине в любой стране мира;</span><br />
+			<span style="margin-left: 10px;">2. <a href="/main/createorder">Добавьте</a> заказ на сайте на покупку этого товара или оказание какой-либо услуги;</span><br />
+			<span style="margin-left: 10px;">3. Выберите лучшее предложение от посредников, посмотрите отзывы  о нем.</span><br />
 	</p>
 	<form class='admin-inside' action="<?= $selfurl ?>filterUnassignedOrders" id="filterForm" method="POST">
 		<div class='table' style="position:relative;background:#fff;">
@@ -10,12 +13,14 @@
 			<div class='angle angle-lb'></div>
 			<div class='angle angle-rb'></div>	
 			<div class='filter-box'>
-				<div>
+				<!--
+                <div>
 					<span class="label">Номер заказа:</span>
 					<input style="width:180px;" class="textbox" maxlength="6" type='text' id='order_number' name="order_number" value="<?= empty($filter->order_id) ? '' : $filter->order_id ?>"/>
 				</div>
 				<br />
 				<br />
+				-->
 				<div>
 					<span class="label">Заказ из:</span>
 					<select id="country_from" name="country_from" class="select" style="width:190px;">

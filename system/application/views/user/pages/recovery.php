@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<? if ($result->m) : ?>
-		<p style="margin-left: 317px;">
+		<p style="left:-46px;position:relative;">
 			<?= $result->m ?>
 		</p>
 		<? endif; ?>

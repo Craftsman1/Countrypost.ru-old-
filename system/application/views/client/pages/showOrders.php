@@ -1,4 +1,4 @@
-<div class='content'>
+<div class='content' style="position: relative;">
 	<? Breadcrumb::showCrumbs(); ?>
 	<a name="pagerScroll"></a>
 	<h2 id='page_title'>Мои заказы</h2>
@@ -8,6 +8,9 @@
 				<input type="button" onclick="window.location = '/main/createorder';" value="Добавить заказ">
 			</div>
 		</div>
+	</div>
+	<div id="exchnge_rates_container">
+		<? View::show('/client/elements/orders/exchange_rates_new'); ?>
 	</div>
 	<? View::show($viewpath.'ajax/showOpenOrders', array(
 		'orders' => $orders,

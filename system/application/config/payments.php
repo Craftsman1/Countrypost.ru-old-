@@ -231,3 +231,6 @@ define('CUS_SERVICE_NAME', 'Наличными в Москве');
 define('CUS_SERVICE_DESCRIPTION', 'Оплата наличными в Москве');
 define('CUS_ACCOUNT_TYPE', 'ФИО плательщика:');
 define('CUS_ACCOUNT_EXAMPLE', '');
+
+// Валюта по умолчанию
+define('DEFAULT_CURRENCY', 'CNY');

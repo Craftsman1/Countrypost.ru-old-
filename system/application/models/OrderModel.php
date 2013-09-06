@@ -1113,7 +1113,8 @@ class OrderModel extends BaseModel implements IModel{
 		$order->order_delivery_cost = $total_pricedelivery;
 		$order->order_cost =
 			$order->order_products_cost +
-			$order->order_delivery_cost;
+			$order->order_delivery_cost +
+			$order->countrypost_tax;
 
 		$total_status = $order->order_status;
 
@@ -1265,7 +1266,7 @@ class OrderModel extends BaseModel implements IModel{
 			$order->order_country_from = strval($order_country_from->country_name);
 			$order->order_country_to = $order_country_to ? strval($order_country_to->country_name) : '';
 		}
-
+		
 		// считаем сколько заказано фото
 		$order->requested_foto_count = 0;
 
@@ -1283,7 +1284,7 @@ class OrderModel extends BaseModel implements IModel{
 		}
 
 		// заполняем данные для динамических расчетов
-		$order->manager_tax_percentage = $manager->order_tax;
+		$order->manager_tax_percentage = !empty($manager->order_tax)?$manager->order_tax:0;
 		$order->manager_foto_tax_percentage = $manager->foto_tax;
 		$order->min_order_tax = $manager->min_order_tax;
 
@@ -1314,7 +1315,7 @@ class OrderModel extends BaseModel implements IModel{
 			$order->order_type == 'service' OR
 			$order->order_type == 'delivery')
 		{
-			$order->manager_tax = $manager->order_mail_forwarding_tax;
+			$order->manager_tax = !empty($manager->order_mail_forwarding_tax)?$manager->order_mail_forwarding_tax:0;
 		}
 		else
 		{
@@ -1329,7 +1330,8 @@ class OrderModel extends BaseModel implements IModel{
 			$order->order_products_cost +
 			$order->order_delivery_cost +
 			$order->manager_tax +
-			$order->foto_tax;
+			$order->foto_tax +
+			$order->countrypost_tax;
 	}
 
 	public function payOrderWithExcessOrders($order, $order2in)

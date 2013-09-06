@@ -15,6 +15,12 @@ $(function() {
 		});
 	});
 
+	$('.pricelist_main .textbox').blur(function(){
+		if(($(this).val()+'').length==0)
+		{
+			$(this).val('0');
+		}			
+	})
 
     $(".delCommentRating").live('click',function(){
         var id_message = $(this).parent().attr('id');
@@ -106,12 +112,12 @@ function delRating(rating_id,manager_id)
 
 $(document).ready(function () {
     $(window).on('popstate', function (e) {
-        
+
         if (!location.hash){
-            eval($("#new").attr('href'));
+            //eval($("#new").attr('href'));
         }
         else{
-            eval($(location.hash).attr('href'));
+            //eval($(location.hash).attr('href'));
         }
     });
 });
@@ -186,7 +192,7 @@ function noty_generic(layout, message, ntype)
 		dismissQueue: true,
 		layout: layout,
 		theme: 'defaultTheme',
-		timeout: 2000
+		timeout: 3000
 	});
 	//console.log('html: '+n.options.id);
 }
@@ -590,6 +596,387 @@ function init_profile()
 function showProgress()
 {
 	$('img.progress').show();
+}
+
+function validateAndShowProgress_online()
+{
+	$('img.progress').show();
+	//валидации формы добавления заказа
+	var flag=0;
+	if($('#country_from').length>0 && $('#country_from').val()==0)
+	{
+		flag--;
+		$('#country_from_msdd')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#country_from_msdd')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#country_to').length>0 && $('#country_to').val()==0)
+	{
+		flag--;
+		$('#country_to_msdd')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#country_to_msdd')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#city_to').length>0 && $('#city_to').val()=='')
+	{
+		flag--;
+		$('#city_to')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#city_to')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#olink').length>0 && $('#olink').val()=='')
+	{
+		flag--;
+		$('#olink')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#olink')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#oname').length>0 && $('#oname').val()=='')
+	{
+		flag--;
+		$('#oname')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#oname')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#oprice').length>0 && ($('#oprice').val()=='' || isNaN($('#oprice').val())))
+	{
+		flag--;
+		$('#oprice')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#oprice')
+			.css('border','1px solid #AFAFAF');
+	}
+
+	if(flag<0)
+	{
+		error('top', 'Товар не добавлен. Заполните все обязательные поля и попробуйте еще раз.');
+		hideProgress();
+		return false;
+	}
+	else
+	{
+		hideProgress();
+		return true;
+	}
+}
+
+function validateAndShowProgress_offline()
+{
+	$('img.progress').show();
+	//валидации формы добавления заказа
+	var flag=0;
+	if($('#country_from').length>0 && $('#country_from').val()==0)
+	{
+		flag--;
+		$('#country_from_msdd')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#country_from_msdd')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#country_to').length>0 && $('#country_to').val()==0)
+	{
+		flag--;
+		$('#country_to_msdd')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#country_to_msdd')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#city_to').length>0 && $('#city_to').val()=='')
+	{
+		flag--;
+		$('#city_to')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#city_to')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#oname').length>0 && $('#oname').val()=='')
+	{
+		flag--;
+		$('#oname')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#oname')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#oprice').length>0 && ($('#oprice').val()=='' || isNaN($('#oprice').val())))
+	{
+		flag--;
+		$('#oprice')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#oprice')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#oshop').length>0 && $('#oshop').val()==0)
+	{
+		flag--;
+		$('#oshop')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#oshop')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#ocolor').length>0 && $('#ocolor').val()==0)
+	{
+		flag--;
+		$('#ocolor')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#ocolor')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#osize').length>0 && $('#osize').val()==0)
+	{
+		flag--;
+		$('#osize')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#osize')
+			.css('border','1px solid #AFAFAF');
+	}
+
+	if(flag<0)
+	{
+		error('top', 'Товар не добавлен. Заполните все обязательные поля и попробуйте еще раз.');
+		hideProgress();
+		return false;
+	}
+	else
+	{
+		hideProgress();
+		return true;
+	}
+}
+
+function validateAndShowProgress_service()
+{
+	$('img.progress').show();
+	//валидации формы добавления заказа
+	var flag=0;
+	if($('#country_from').length>0 && $('#country_from').val()==0)
+	{
+		flag--;
+		$('#country_from_msdd')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#country_from_msdd')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#ocomment').length>0 && $('#ocomment').val()==0)
+	{
+		flag--;
+		$('#ocomment')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#ocomment')
+			.css('border','1px solid #AFAFAF');
+	}
+
+	if(flag<0)
+	{
+		error('top', 'Товар не добавлен. Заполните все обязательные поля и попробуйте еще раз.');
+		hideProgress();
+		return false;
+	}
+	else
+	{
+		hideProgress();
+		return true;
+	}
+}
+
+function validateAndShowProgress_delivery()
+{
+	$('img.progress').show();
+	//валидации формы добавления заказа
+	var flag=0;
+	if($('#country_from').length>0 && $('#country_from').val()==0)
+	{
+		flag--;
+		$('#country_from_msdd')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#country_from_msdd')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#country_to').length>0 && $('#country_to').val()==0)
+	{
+		flag--;
+		$('#country_to_msdd')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#country_to_msdd')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#city_to').length>0 && $('#city_to').val()=='')
+	{
+		flag--;
+		$('#city_to')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#city_to')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#oweight').length>0 && $('#oweight').val()=='')
+	{
+		flag--;
+		$('#oweight')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#oweight')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#oname').length>0 && $('#oname').val()=='')
+	{
+		flag--;
+		$('#oname')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#oname')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#oamount').length>0 && ($('#oamount').val()=='' || isNaN($('#oamount').val())))
+	{
+		flag--;
+		$('#oamount')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#oamount')
+			.css('border','1px solid #AFAFAF');
+	}
+	
+	if(flag<0)
+	{
+		error('top', 'Товар не добавлен. Заполните все обязательные поля и попробуйте еще раз.');
+		hideProgress();
+		return false;
+	}
+	else
+	{
+		hideProgress();
+		return true;
+	}
+}
+
+function validateAndShowProgress_mail_forwarding()
+{
+	$('img.progress').show();
+	//валидации формы добавления заказа
+	var flag=0;
+	if($('#dealer_id').length>0 && $('#dealer_id').val()==0)
+	{
+		flag--;
+		$('#dealer_id_msdd')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#dealer_id_msdd')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#country_to').length>0 && $('#country_to').val()==0)
+	{
+		flag--;
+		$('#country_to_msdd')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#country_to_msdd')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#otracking').length>0 && $('#otracking').val()=='')
+	{
+		flag--;
+		$('#otracking')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#otracking')
+			.css('border','1px solid #AFAFAF');
+	}
+	if($('#oname').length>0 && $('#oname').val()=='')
+	{
+		flag--;
+		$('#oname')
+			.css('border','1px solid #DD0000');
+	}
+	else
+	{
+		$('#oname')
+			.css('border','1px solid #AFAFAF');
+	}
+
+	if(flag<0)
+	{
+		error('top', 'Товар не добавлен. Заполните все обязательные поля и попробуйте еще раз.');
+		hideProgress();
+		return false;
+	}
+	else
+	{
+		hideProgress();
+		return true;
+	}
 }
 
 function hideProgress()
@@ -1070,6 +1457,10 @@ function expandComments(bid_id)
 	$comments
 		.find('tr.comment')
 		.show('slow');
+		
+	$comments
+		.find('.bid_buttons div.submit')
+		.css('margin-top','7px');
 
 	$comments
 		.find('div.expand_comments')
@@ -1101,6 +1492,10 @@ function collapseComments(bid_id)
 	$comments
 		.find('tr.comment')
 		.hide('slow');
+		
+	$comments
+		.find('.bid_buttons div.submit')
+		.css('margin-top','-10px');
 
 	$comments
 		.find('div.expand_comments')

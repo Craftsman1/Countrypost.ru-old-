@@ -68,9 +68,10 @@
 					<? else : ?>
 					<a href="javascript:void(0)" onclick="setRel(<?= $odetail->odetail_id ?>);">
 						<img src='/main/showPublicScreenshot/<?= $odetail->odetail_id ?>' width="55px" height="55px">
-						<a rel="lightbox_<?= $odetail->odetail_id ?>" href="/main/showPublicScreenshot/<?=
-							$odetail->odetail_id ?>" style="display:none;">Посмотреть</a>
+						
 					</a>
+					<a rel="lightbox_<?= $odetail->odetail_id ?>" href="/main/showPublicScreenshot/<?=
+							$odetail->odetail_id ?>" style="display:none;">Посмотреть</a>
 					<? endif; ?>
 				</span>
 			</td>

@@ -147,6 +147,18 @@ class BidCommentModel extends BaseModel implements IModel{
 
         return (isset($result)) ? $result : FALSE;
     }
+	public function getNewCommentsByOrderIdForUser($order_id,$user_id)
+    {
+        $id = intval($order_id);
+		$user_id = intval($user_id);
+        $result = $this->db->query("
+            SELECT comment_id
+            FROM bid_comments
+            WHERE new = 0 AND bid_id = $id AND user_id <> $user_id 
+        ")->result();
+
+        return (isset($result)) ? $result : FALSE;
+    }
 
     public function clearNewComments($bid_id)
     {
@@ -158,6 +170,20 @@ class BidCommentModel extends BaseModel implements IModel{
             WHERE bid_id = '$id'")->result();
 
         return (isset($result)) ? $result : FALSE;
+
+    }
+	public function clearNewCommentsForUser($bid_id, $user_id)
+    {
+        $id = intval($bid_id);
+		$user_id = intval($user_id);
+
+        $this->db->query("
+            UPDATE `bid_comments`
+            SET new = 1
+            WHERE bid_id = '$id' AND user_id <> $user_id");
+
+        return TRUE;
+		//return (isset($result)) ? $result : FALSE;
 
     }
 

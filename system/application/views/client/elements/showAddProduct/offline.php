@@ -17,7 +17,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
             <div class='angle angle-rb'></div>
             <div class='new_order_box'>
                 <div>
-                    <span class="label">Наименование товара*:</span>
+                    <span class="label">Наименование товара<span class="red-color">*</span>:</span>
                     <input class="textbox"
 						   maxlength="255"
 						   type='text'
@@ -25,7 +25,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 						   name="oname" />
                 </div>
                 <div>
-                    <span class="label">Название магазина*:</span>
+                    <span class="label">Название магазина<span class="red-color">*</span>:</span>
                     <input class="textbox"
 						   maxlength="255"
 						   type='text'
@@ -33,7 +33,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 						   name="oshop" />
                 </div>
                 <div>
-					<span class="label">Цвет*:</span>
+					<span class="label">Цвет<span class="red-color">*</span>:</span>
 					<input class="textbox"
 						   maxlength="255"
 						   type='text'
@@ -41,7 +41,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 						   name="ocolor" />
 				</div>
 				<div>
-					<span class="label">Размер*:</span>
+					<span class="label">Размер<span class="red-color">*</span>:</span>
 					<input class="textbox"
 						   maxlength="255"
 						   type='text'
@@ -49,7 +49,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 						   name="osize" />
 				</div>
 				<div>
-					<span class="label">Стоимость*:</span>
+					<span class="label">Стоимость<span class="red-color">*</span>:</span>
 					<input class="textbox"
 						   maxlength="11"
 						   type='text'

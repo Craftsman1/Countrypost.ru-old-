@@ -87,7 +87,7 @@
 		</div>
 		<img class="float" id="ratingProgress" style="display:none;margin:0px;margin-top:4px;" src="/static/images/lightbox-ico-loading.gif"/>
 	</form>
-    <? elseif( count($manager_ratings) <= 1 ) : ?>
+    <? elseif(!$manager_ratings OR count($manager_ratings) <= 1) : ?>
         <div class="table">
             <div class='angle angle-lt'></div>
             <div class='angle angle-rt'></div>
@@ -99,7 +99,6 @@
         </div>
         <br>
         <br>
-        </div>
     <? endif;?>
 
 
@@ -149,7 +148,7 @@
 	<br>
 	<br>
 	<? endforeach; endif; ?>
-
+</div>
 <script>
 	$(function() {
 
