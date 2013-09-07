@@ -420,15 +420,30 @@ class Profile extends BaseController {
         $country_id = Check::int('country', 65535);
         $manager_country = Check::int('manager_country', 65535);
 
-        if ( file_exists('system/application/views/manager/elements/templates/delivery/'.$manager_country.'/Tarrifs.php'))
+
+        // Ищем файлы шаблонов
+        $templateFiles = array();
+        if ($handle = opendir('system/application/views/manager/elements/templates/delivery/'.$manager_country)) {
+
+            while (false !== ($file = readdir($handle))) {
+                if ( preg_match('/\w+-template/',$file) ){
+                    array_push($templateFiles,$file);
+                }
+            }
+            closedir($handle);
+        }
+
+        // Сканируем найденные файлы
+        foreach($templateFiles as $files)
         {
-            $Tarrifs = $this->load->view('manager/elements/templates/delivery/'.$manager_country.'/Tarrifs.php', '', true);
 
-            preg_match_all('/{country} = (\d+)/',$Tarrifs,$country);
-            preg_match_all('/{first_kg} = ([0-9.]+)/',$Tarrifs,$first_kg);
-            preg_match_all('/{second_kg} = ([0-9.]+)/',$Tarrifs,$second_kg);
-            preg_match_all('/{extra_rate} = ([0-9.]+)/',$Tarrifs,$extra_rate);
+            $template = file_get_contents('system/application/views/manager/elements/templates/delivery/'.$manager_country.'/'.$files);
 
+            // находим данные тарифа
+            preg_match_all('/{country} = (\d+)/',$template,$country);
+            preg_match_all('/{first_kg} = ([0-9.]+)/',$template,$first_kg);
+            preg_match_all('/{second_kg} = ([0-9.]+)/',$template,$second_kg);
+            preg_match_all('/{extra_rate} = ([0-9.]+)/',$template,$extra_rate);
             // Находим в тарифах страну направления
             $i=0;
             foreach ($country[1] as $id)
@@ -444,67 +459,48 @@ class Profile extends BaseController {
             $second_kg = $second_kg[1][$i];
             $extra_rate = $extra_rate[1][$i];
 
-            // Ищем файлы шаблонов
-            $templateFiles = array();
-            if ($handle = opendir('system/application/views/manager/elements/templates/delivery/'.$manager_country)) {
 
-                while (false !== ($file = readdir($handle))) {
-                    if ( preg_match('/\w+-template/',$file) ){
-                        array_push($templateFiles,$file);
-                    }
-                }
-                closedir($handle);
-            }
+            preg_match('/before_table_text = "(.+)"/',$template,$before_table_text);
+            preg_match('/after_table_text = "(.+)"/',$template,$after_table_text);
+            preg_match('/cols = (\d+)/',$template,$cols);
+            preg_match('/width = (\d+)/',$template,$width);
 
-            // Сканируем найденные файлы
-            foreach($templateFiles as $files)
+            preg_match_all('/([0-9.]+) = (.+)/',$template,$templateTable);
+            $associativArray = array();
+            $pattern = array('/{first_kg}/','/{second_kg}/','/{extra_rate}/');
+            $replace = array($first_kg,$second_kg,$extra_rate);
+            for ($i=0; $i < count($templateTable[2]); $i++)
             {
-
-                $template = file_get_contents('system/application/views/manager/elements/templates/delivery/'.$manager_country.'/'.$files);
-
-                preg_match('/before_table_text = "(.+)"/',$template,$before_table_text);
-                preg_match('/after_table_text = "(.+)"/',$template,$after_table_text);
-                preg_match('/cols = (\d+)/',$template,$cols);
-                preg_match('/width = (\d+)/',$template,$width);
-
-                preg_match_all('/([0-9.]+) = (.+)/',$template,$templateTable);
-                $associativArray = array();
-                $pattern = array('/{first_kg}/','/{second_kg}/','/{extra_rate}/');
-                $replace = array($first_kg,$second_kg,$extra_rate);
-                for ($i=0; $i < count($templateTable[2]); $i++)
+                $result = preg_replace($pattern,$replace,$templateTable[2][$i]);
+                if ( !preg_match('/(\{[0-9.]+\})/',$result,$matches) )
                 {
-                    $result = preg_replace($pattern,$replace,$templateTable[2][$i]);
-                    if ( !preg_match('/(\{[0-9.]+\})/',$result,$matches) )
-                    {
-                        $resultEval = 0;
-                        eval("\$resultEval = ".$result.";");
-                        $associativArray[$templateTable[1][$i]] = $resultEval;
-                    }else{
-                        preg_match('/([0-9.]+)/',$matches[0],$matches2);
-                        $result2 = preg_replace('/\{'.$matches2[0].'\}/',$associativArray[$matches2[0]],$templateTable[2][$i]);
-                        $result3 = preg_replace($pattern,$replace,$result2);
-                        $resultEval = 0;
-                        eval("\$resultEval = ".$result3.";");
-                        $associativArray[$templateTable[1][$i]] = $resultEval;
-                    }
+                    $resultEval = 0;
+                    eval("\$resultEval = ".$result.";");
+                    $associativArray[$templateTable[1][$i]] = $resultEval;
+                }else{
+                    preg_match('/([0-9.]+)/',$matches[0],$matches2);
+                    $result2 = preg_replace('/\{'.$matches2[0].'\}/',$associativArray[$matches2[0]],$templateTable[2][$i]);
+                    $result3 = preg_replace($pattern,$replace,$result2);
+                    $resultEval = 0;
+                    eval("\$resultEval = ".$result3.";");
+                    $associativArray[$templateTable[1][$i]] = $resultEval;
                 }
-
-                // строим таблицу
-                $i=1;
-                $data = array();
-                foreach($associativArray as $k=>$v)
-                {
-                    $data[$i] = array($k,$v);
-                    $i++;
-                }
-                $this->CreateTable($data,$cols[1],$width[1],$before_table_text[1],$after_table_text[1]);
-
             }
 
+            // строим таблицу
+            $i=1;
+            $data = array();
+            foreach($associativArray as $k=>$v)
+            {
+                $data[$i] = array($k,$v);
+                $i++;
+            }
+            if (isset($before_table_text[1])) $before_text = $before_table_text[1]; else $before_text = "";
+            if (isset($after_table_text[1])) $after_text = $after_table_text[1]; else $after_text = "";
+            $this->CreateTable($data,$cols[1],$width[1],$before_text,$after_text);
 
-        }else{
-            echo "";
         }
+
 
     }
 

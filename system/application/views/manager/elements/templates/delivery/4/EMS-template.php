@@ -58,7 +58,17 @@
 29.0
 29.5
 30.0
-before_table_text = "текст перед <s>таблицей</s>"
+before_table_text = ""
 after_table_text = "текст после <b>таблицы</b>"
 cols = 3
 width = 600
+
+{country} = 3
+{first_kg} = 100
+{second_kg} = 50
+{extra_rate} = 0
+
+{country} = 4
+{first_kg} = 150.5
+{second_kg} = 29.8
+{extra_rate} = 0
