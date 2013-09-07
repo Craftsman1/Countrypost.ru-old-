@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="resolving conflicts" />
-    <list id="7457f588-e851-40ed-8860-c415ada8a8a4" name="pending changelist" comment="pending changelist">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="resolving conflicts 2">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/config/hooks.php" afterPath="$PROJECT_DIR$/system/application/config/hooks.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
     </list>
+    <list id="7457f588-e851-40ed-8860-c415ada8a8a4" name="pending changelist" comment="pending changelist" />
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/" />
-    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378549658983" ignored="false" />
+    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378553465917" ignored="false" />
     <file path="/OrderModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369974080197" ignored="false" />
     <file path="/a.dummy" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374673327021" ignored="false" />
     <file path="/main.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378549132034" ignored="false" />
@@ -109,7 +110,7 @@
     <file path="/client_ratings.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374674434180" ignored="false" />
     <file path="/RatingCommentModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374661251059" ignored="false" />
     <file path="/comments.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373975675405" ignored="false" />
-    <file path="$PROJECT_DIR$/.idea/workspace.xml" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378549654816" ignored="false" />
+    <file path="$PROJECT_DIR$/.idea/workspace.xml" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378553459981" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +183,7 @@
       <file leaf-file-name="manager_rating.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="21" selection-start="3012" selection-end="3012" vertical-scroll-proportion="-0.65384614">
+            <state line="71" column="21" selection-start="3012" selection-end="3012" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -191,7 +192,7 @@
       <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="128" column="1" selection-start="3673" selection-end="3673" vertical-scroll-proportion="0.8835821">
+            <state line="97" column="27" selection-start="2851" selection-end="2851" vertical-scroll-proportion="0.08238637">
               <folding />
             </state>
           </provider>
@@ -200,7 +201,7 @@
       <file leaf-file-name="main.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1104" column="49" selection-start="29390" selection-end="29390" vertical-scroll-proportion="-0.65384614">
+            <state line="1104" column="49" selection-start="29390" selection-end="29390" vertical-scroll-proportion="1.3076923">
               <folding />
             </state>
           </provider>
@@ -312,6 +313,74 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="All">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="system">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="system">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="application">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="countrypost.service">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="system">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="application">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="models">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -386,88 +455,20 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="All">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="application">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="application">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="models">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="202" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="230" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="225" />
     <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="225" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="H:/Program Files (x86)/Git/bin/git.exe" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="234" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="891" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="883" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="891" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="227" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="222" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
@@ -641,10 +642,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.47490346" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47490346" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32779098" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.231875" sideWeight="0.34076828" order="0" side_tool="true" content_ui="tabs" />
@@ -658,6 +658,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3440476" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -705,7 +706,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="resolving conflicts" />
+    <option name="LAST_COMMIT_MESSAGE" value="resolving conflicts 2" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -730,6 +731,7 @@
     <MESSAGE value="order price calculation" />
     <MESSAGE value="payment page" />
     <MESSAGE value="resolving conflicts" />
+    <MESSAGE value="resolving conflicts 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -921,21 +923,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="21" selection-start="3012" selection-end="3012" vertical-scroll-proportion="-0.65384614">
+        <state line="71" column="21" selection-start="3012" selection-end="3012" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1104" column="49" selection-start="29390" selection-end="29390" vertical-scroll-proportion="-0.65384614">
+        <state line="1104" column="49" selection-start="29390" selection-end="29390" vertical-scroll-proportion="1.3076923">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="1" selection-start="3673" selection-end="3673" vertical-scroll-proportion="0.8835821">
+        <state line="97" column="27" selection-start="2851" selection-end="2851" vertical-scroll-proportion="0.08238637">
           <folding />
         </state>
       </provider>
