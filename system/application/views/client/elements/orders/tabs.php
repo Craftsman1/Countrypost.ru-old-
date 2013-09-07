@@ -17,3 +17,16 @@
 		</div>
 	</li>
 </ul>
+
+<script>
+
+    $(document).ready(function () {
+
+        if (location.hash != temphash){
+            var href = $(location.hash).attr('href');
+            temphash = location.hash;
+            eval(href);
+        }
+
+    });
+</script>
