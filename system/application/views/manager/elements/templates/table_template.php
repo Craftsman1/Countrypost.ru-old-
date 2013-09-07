@@ -3,7 +3,7 @@
 <? $k = 1; ?>
 
 <?=$before_table_text?>
-<table border="0" cellpadding="0" cellspacing="0" width="500px" style="border-collapse: collapse; width: 500pt">
+<table border="0" cellpadding="0" cellspacing="0" width="<?=$width.'px'?>" style="border-collapse: collapse; width: <?=$width.'pt'?>">
 
     <tr>
         <? for ($col = 1; $col <= $cols; $col++) : ?>

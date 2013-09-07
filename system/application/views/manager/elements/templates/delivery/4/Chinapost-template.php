@@ -20,3 +20,5 @@
 20
 before_table_text = "текст перед <s>таблицей</s>"
 after_table_text = "текст после <b>таблицы</b>"
+cols = 3
+width = 500

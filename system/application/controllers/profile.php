@@ -464,6 +464,8 @@ class Profile extends BaseController {
 
                 preg_match('/before_table_text = "(.+)"/',$template,$before_table_text);
                 preg_match('/after_table_text = "(.+)"/',$template,$after_table_text);
+                preg_match('/cols = (\d+)/',$template,$cols);
+                preg_match('/width = (\d+)/',$template,$width);
 
                 preg_match_all('/([0-9.]+) = (.+)/',$template,$templateTable);
                 $associativArray = array();
@@ -492,11 +494,10 @@ class Profile extends BaseController {
                 $data = array();
                 foreach($associativArray as $k=>$v)
                 {
-                    //echo $k ." = ". $v ."<br />";
                     $data[$i] = array($k,$v);
                     $i++;
                 }
-                $this->CreateTable($data,3,$before_table_text[1],$after_table_text[1]);
+                $this->CreateTable($data,$cols[1],$width[1],$before_table_text[1],$after_table_text[1]);
 
             }
 
@@ -511,9 +512,9 @@ class Profile extends BaseController {
      * @var data - array массив с данными
      * @var col - int кол-во столбцов
      */
-    public function CreateTable($data,$col=1,$before_table_text="",$after_table_text="")
+    public function CreateTable($data,$cols=1,$width=500,$before_table_text="",$after_table_text="")
     {
-        $viewdata = array("data" => $data, "cols" => $col, "before_table_text" => $before_table_text, "after_table_text" => $after_table_text);
+        $viewdata = array("data" => $data, "cols" => $cols, "width" => $width, "before_table_text" => $before_table_text, "after_table_text" => $after_table_text);
         $this->load->view('manager/elements/templates/table_template',$viewdata);
     }
 
