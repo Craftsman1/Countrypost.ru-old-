@@ -1113,24 +1113,27 @@ Email: {$this->user->user_email}";
             // уведомление на почту
             // список посредников по выбранной стране
             $this->load->model('ManagerModel', 'Manager');
-            $managers = $this->Manager->getCountryManagers($order->order_country_from);
 
-            $this->load->library('email');
-            $statistics = array();
-            foreach($managers as $manager)
-            {
-                $statistics = $this->Manager->getStatistics($manager->manager_user);
-                $email_data["manager_name"] = $statistics->login;
-                $email_data["order_id"] = $order_id;
-                $msg = $this->load->view("/mail/email_5", $email_data, true);
+			if ($managers = $this->Manager->getCountryManagers($order->order_country_from))
+			{
+				$this->load->library('email');
+				$statistics = array();
 
-                $this->email->from('info@countrypost.ru', 'Countrypost.ru');
-                $this->email->to($statistics->email);
-                $this->email->subject('Countrypost.ru');
-                $this->email->message($msg);
-                $this->email->send();
+				foreach ($managers as $manager)
+				{
+					$statistics = $this->Manager->getStatistics($manager->manager_user);
 
-            }
+					$email_data["manager_name"] = $statistics->login;
+					$email_data["order_id"] = $order_id;
+					$msg = $this->load->view("/mail/email_5", $email_data, true);
+
+					$this->email->from('info@countrypost.ru', 'Countrypost.ru');
+					$this->email->to($statistics->email);
+					$this->email->subject('Countrypost.ru');
+					$this->email->message($msg);
+					$this->email->send();
+				}
+			}
 
             // 5. если выбран посредник, генерируем его предложение
             if ($order->order_manager)
@@ -1167,7 +1170,6 @@ Email: {$this->user->user_email}";
 				}
 
 				$this->Orders->saveOrder($order);
-
             }
 		}
 		catch (Exception $e)
