@@ -2,179 +2,116 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="resolving conflicts">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/Chinapost-template.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/EMS-template.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/Tarrifs.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/buttonts.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/views/mail/email_5.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/views/client/elements/orders/exchange_rates_new.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/templates/table_template.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" afterPath="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/BidCommentModel.php" afterPath="$PROJECT_DIR$/system/application/models/BidCommentModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/System/Check.php" afterPath="$PROJECT_DIR$/system/application/models/System/Check.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/CurrencyModel.php" afterPath="$PROJECT_DIR$/system/application/models/CurrencyModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/models/OrderModel.php" afterPath="$PROJECT_DIR$/system/application/models/OrderModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/admin/body.php" afterPath="$PROJECT_DIR$/system/application/views/admin/body.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/body.php" afterPath="$PROJECT_DIR$/system/application/views/client/body.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/body.php" afterPath="$PROJECT_DIR$/system/application/views/main/body.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/body.php" afterPath="$PROJECT_DIR$/system/application/views/manager/body.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/signup/body.php" afterPath="$PROJECT_DIR$/system/application/views/signup/body.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/body.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/body.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/user/body.php" afterPath="$PROJECT_DIR$/system/application/views/user/body.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/client.php" afterPath="$PROJECT_DIR$/system/application/controllers/client.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/countrypost.js" afterPath="$PROJECT_DIR$/static/js/countrypost.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" afterPath="$PROJECT_DIR$/system/application/views/main/pages/createorder.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/noty/themes/default.js" afterPath="$PROJECT_DIR$/static/js/noty/themes/default.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/delivery.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/delivery.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/delivery.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/delivery.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/delivery.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/delivery.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/delivery.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/delivery.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/elements/div_footer.php" afterPath="$PROJECT_DIR$/system/application/views/elements/div_footer.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/errors/error_404.php" afterPath="$PROJECT_DIR$/system/application/errors/error_404.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/filter.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/filter.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/mail_forwarding.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/mail_forwarding.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/mail_forwarding.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/mail_forwarding.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/main.php" afterPath="$PROJECT_DIR$/system/application/controllers/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/manager.php" afterPath="$PROJECT_DIR$/system/application/controllers/manager.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/offline.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/offline.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/offline.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/offline.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/online.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/online.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/online.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/online.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/pages/payOrder.php" afterPath="$PROJECT_DIR$/system/application/views/client/pages/payOrder.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/config/payments.php" afterPath="$PROJECT_DIR$/system/application/config/payments.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/orders/price_description.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/orders/price_description.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/pricelist.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/pricelist.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/pricelist.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/pricelist.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/profile.php" afterPath="$PROJECT_DIR$/system/application/controllers/profile.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/profile.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/profile.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/profile.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/profile.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_about.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/user/pages/recovery.php" afterPath="$PROJECT_DIR$/system/application/views/user/pages/recovery.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/service.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddOrder/service.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/service.php" afterPath="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/service.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showClients.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showOpenOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" afterPath="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/pages/showOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/pages/showOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php" afterPath="$PROJECT_DIR$/system/application/views/client/ajax/showSentOrders.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/signup.php" afterPath="$PROJECT_DIR$/system/application/controllers/signup.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/client/pages/signup.php" afterPath="$PROJECT_DIR$/system/application/views/client/pages/signup.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/pages/signup.php" afterPath="$PROJECT_DIR$/system/application/views/manager/pages/signup.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/user.php" afterPath="$PROJECT_DIR$/system/application/controllers/user.php" />
+      <change type="DELETED" beforePath="E:\WebServer\html\countrypost.pr\www\.idea\countrypost.ru.iml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/templates/table_template.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/templates/table_template.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="countrypost.service.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/" />
-    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378478081352" ignored="false" />
-    <file path="/OrderModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369974080197" ignored="false" />
-    <file path="/a.dummy" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374673327021" ignored="false" />
-    <file path="/main.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1371484357976" ignored="false" />
-    <file path="/showOrderDetails.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369307578506" ignored="false" />
-    <file path="/scripts.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369327011934" ignored="false" />
-    <file path="/client.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374667618895" ignored="false" />
-    <file path="/showAddProduct.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366044453126" ignored="false" />
-    <file path="/online.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367828143562" ignored="false" />
-    <file path="/style.css" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373967998988" ignored="false" />
-    <file path="/syspay.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372423214514" ignored="false" />
-    <file path="/BidModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369848562250" ignored="false" />
-    <file path="/manager.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373484250368" ignored="false" />
-    <file path="/2013-04-16 21-27 cash uah.sql" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366291386764" ignored="false" />
-    <file path="/div_o2i.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1368131120408" ignored="false" />
-    <file path="/generic_popup.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366304218090" ignored="false" />
-    <file path="/form_dollar_wmz.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366382265045" ignored="false" />
-    <file path="/form_usd_wmz.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366382423279" ignored="false" />
-    <file path="/PaymentModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1371588568806" ignored="false" />
-    <file path="/managerinfo.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369976705065" ignored="false" />
-    <file path="/BaseController.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374003234943" ignored="false" />
-    <file path="/offline.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367828157840" ignored="false" />
-    <file path="/service.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1368530433121" ignored="false" />
-    <file path="/delivery.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367829110765" ignored="false" />
-    <file path="/mailforwarding.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367162645485" ignored="false" />
-    <file path="/mail_forwarding.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367870378673" ignored="false" />
-    <file path="/countrypost.js" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374660341551" ignored="false" />
-    <file path="/createorder.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369066136808" ignored="false" />
-    <file path="/filter.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367306529278" ignored="false" />
-    <file path="/OdetailModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1368509240527" ignored="false" />
-    <file path="/hiddens.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367870902657" ignored="false" />
-    <file path="$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/html5.rnc" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367508074445" ignored="false" />
-    <file path="/odetail.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367920015689" ignored="false" />
-    <file path="/odetailAjax.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367663206529" ignored="false" />
-    <file path="/screenshot_box.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367826710353" ignored="false" />
-    <file path="/ManagerModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373987792742" ignored="false" />
-    <file path="/showOrderInfoAjax.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1368525971145" ignored="false" />
-    <file path="/editBid.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369945866964" ignored="false" />
-    <file path="/newBid.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369943482328" ignored="false" />
-    <file path="/manager_tax_editor.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369048177003" ignored="false" />
-    <file path="/editBidForm.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369049571312" ignored="false" />
-    <file path="/2013-05-21 19-27 countrypost tax.sql" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369153678902" ignored="false" />
-    <file path="/TaxModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369948265241" ignored="false" />
-    <file path="/success.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369773582363" ignored="false" />
-    <file path="/admin.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369642326305" ignored="false" />
-    <file path="/body.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369587315104" ignored="false" />
-    <file path="/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369587384662" ignored="false" />
-    <file path="/div_top.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369587408933" ignored="false" />
-    <file path="/showCountrypostTaxes.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369773881593" ignored="false" />
-    <file path="/taxes_filter.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369774753760" ignored="false" />
-    <file path="/2013-05-24 08-53 countrypost taxes.sql" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369730573261" ignored="false" />
-    <file path="/comment.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374671253936" ignored="false" />
-    <file path="/newComment.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374669179274" ignored="false" />
-    <file path="/profile.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374671117296" ignored="false" />
-    <file path="/profile_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374079583080" ignored="false" />
-    <file path="/2013-05-30 18-16 avatars.sql" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1370009825329" ignored="false" />
-    <file path="/ratinginfo.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374672078857" ignored="false" />
-    <file path="/manager_rating.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374679836889" ignored="false" />
-    <file path="/user.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1371481948994" ignored="false" />
-    <file path="/small_form.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1371481845520" ignored="false" />
-    <file path="/ClientModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374001080537" ignored="false" />
-    <file path="/config.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372460761955" ignored="false" />
-    <file path="/ssl.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373392237676" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/tools/elements/div_menu.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showNewBid.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showSentOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/client/ajax/showBalance.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/admin/pages/faq.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/admin/pages/showOrders2In.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/admin/pages/news.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/client/pages/showAddProduct.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/admin/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/admin/elements/div_menu.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/client/pages/show_shop.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/manager/elements/auth/success.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/admin/elements/div_top.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/main/elements/payments/comment.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/user/pages/profile.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/user/pages/confirmation.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/client/elements/auth/success.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/admin/elements/auth/success.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showCountrypostTaxes.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/user/pages/registration.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/user/elements/div_menu.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/user/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/client/elements/orders/import_excel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showBidOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/client/elements/payments/manager_filter.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/tools/pages/generate_model.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showPayedOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showOpenOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="$PROJECT_DIR$/system/application/views/tools/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
-    <file path="/gate.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372423634666" ignored="false" />
-    <file path="/form_immediate_qw.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372424346337" ignored="false" />
-    <file path="/blog.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373489249396" ignored="false" />
-    <file path="/profile_blog.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373626235413" ignored="false" />
-    <file path="/BlogModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373487158372" ignored="false" />
-    <file path="/rating_block.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373650622802" ignored="false" />
-    <file path="/client_ratings.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374674434180" ignored="false" />
-    <file path="/RatingCommentModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374661251059" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1377793102313" ignored="false" />
+    <file path="/tabs.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1377622433590" ignored="false" />
+    <file path="/*.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1377620415253" ignored="false" />
+    <file path="/*.regexp" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1377620408680" ignored="false" />
+    <file path="/default.js" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1377545387264" ignored="false" />
+    <file path="/showClients.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1375127795208" ignored="false" />
+    <file path="/dealers.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374782790215" ignored="false" />
+    <file path="/rating_list.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374780526355" ignored="false" />
     <file path="/comments.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373975675405" ignored="false" />
+    <file path="/RatingCommentModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374661251059" ignored="false" />
+    <file path="/client_ratings.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374787439541" ignored="false" />
+    <file path="/rating_block.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373650622802" ignored="false" />
+    <file path="/BlogModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373487158372" ignored="false" />
+    <file path="/profile_blog.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373626235413" ignored="false" />
+    <file path="/blog.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373489249396" ignored="false" />
+    <file path="/form_immediate_qw.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372424346337" ignored="false" />
+    <file path="/gate.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372423634666" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/tools/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showOpenOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showPayedOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/tools/pages/generate_model.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/client/elements/payments/manager_filter.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showBidOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/user/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/user/elements/div_menu.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showCountrypostTaxes.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/admin/elements/auth/success.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/client/elements/auth/success.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262200" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/main/elements/payments/comment.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/admin/elements/div_top.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/elements/auth/success.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/admin/elements/div_menu.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/admin/elements/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262199" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showSentOrders.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/manager/ajax/showNewBid.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="$PROJECT_DIR$/system/application/views/tools/elements/div_menu.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372089262198" ignored="false" />
+    <file path="/ssl.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373392237676" ignored="false" />
+    <file path="/config.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372460761955" ignored="false" />
+    <file path="/ClientModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374001080537" ignored="false" />
+    <file path="/small_form.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1371481845520" ignored="false" />
+    <file path="/user.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1377767701490" ignored="false" />
+    <file path="/manager_rating.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1375089271718" ignored="false" />
+    <file path="/ratinginfo.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374781711895" ignored="false" />
+    <file path="/2013-05-30 18-16 avatars.sql" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1370009825329" ignored="false" />
+    <file path="/profile_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1375159739236" ignored="false" />
+    <file path="/profile.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378390167170" ignored="false" />
+    <file path="/newComment.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374764919626" ignored="false" />
+    <file path="/comment.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1375133469547" ignored="false" />
+    <file path="/2013-05-24 08-53 countrypost taxes.sql" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369730573261" ignored="false" />
+    <file path="/taxes_filter.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369774753760" ignored="false" />
+    <file path="/showCountrypostTaxes.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369773881593" ignored="false" />
+    <file path="/div_top.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369587408933" ignored="false" />
+    <file path="/div_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369587384662" ignored="false" />
+    <file path="/body.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369587315104" ignored="false" />
+    <file path="/admin.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369642326305" ignored="false" />
+    <file path="/success.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369773582363" ignored="false" />
+    <file path="/TaxModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369948265241" ignored="false" />
+    <file path="/2013-05-21 19-27 countrypost tax.sql" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369153678902" ignored="false" />
+    <file path="/editBidForm.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369049571312" ignored="false" />
+    <file path="/manager_tax_editor.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369048177003" ignored="false" />
+    <file path="/newBid.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369943482328" ignored="false" />
+    <file path="/editBid.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369945866964" ignored="false" />
+    <file path="/showOrderInfoAjax.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1368525971145" ignored="false" />
+    <file path="/ManagerModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374782876661" ignored="false" />
+    <file path="/screenshot_box.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367826710353" ignored="false" />
+    <file path="/odetailAjax.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367663206529" ignored="false" />
+    <file path="/odetail.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367920015689" ignored="false" />
+    <file path="$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/html5.rnc" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367508074445" ignored="false" />
+    <file path="/hiddens.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367870902657" ignored="false" />
+    <file path="/OdetailModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1368509240527" ignored="false" />
+    <file path="/filter.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1377617801505" ignored="false" />
+    <file path="/createorder.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369066136808" ignored="false" />
+    <file path="/countrypost.js" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1377630436931" ignored="false" />
+    <file path="/mail_forwarding.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367870378673" ignored="false" />
+    <file path="/mailforwarding.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367162645485" ignored="false" />
+    <file path="/delivery.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378027546448" ignored="false" />
+    <file path="/service.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1368530433121" ignored="false" />
+    <file path="/offline.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367828157840" ignored="false" />
+    <file path="/BaseController.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1377614296307" ignored="false" />
+    <file path="/managerinfo.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1377765804912" ignored="false" />
+    <file path="/PaymentModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1371588568806" ignored="false" />
+    <file path="/form_usd_wmz.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366382423279" ignored="false" />
+    <file path="/form_dollar_wmz.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366382265045" ignored="false" />
+    <file path="/generic_popup.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366304218090" ignored="false" />
+    <file path="/div_o2i.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1368131120408" ignored="false" />
+    <file path="/2013-04-16 21-27 cash uah.sql" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366291386764" ignored="false" />
+    <file path="/manager.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373484250368" ignored="false" />
+    <file path="/BidModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369848562250" ignored="false" />
+    <file path="/syspay.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372423214514" ignored="false" />
+    <file path="/style.css" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373967998988" ignored="false" />
+    <file path="/online.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367828143562" ignored="false" />
+    <file path="/showAddProduct.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1366044453126" ignored="false" />
+    <file path="/client.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1375127312249" ignored="false" />
+    <file path="/scripts.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369327011934" ignored="false" />
+    <file path="/showOrderDetails.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369307578506" ignored="false" />
+    <file path="/main.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1377633015056" ignored="false" />
+    <file path="/a.dummy" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378037036814" ignored="false" />
+    <file path="/OrderModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369974080197" ignored="false" />
+    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378548453573" ignored="false" />
+    <file path="/Tarrifs.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378324510517" ignored="false" />
+    <file path="/EMS-template.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378390020063" ignored="false" />
+    <file path="/Chinapost-template.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378129042160" ignored="false" />
+    <file path="/table_template.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378549045657" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,79 +139,56 @@
       <file leaf-file-name="profile.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="457" column="0" selection-start="14087" selection-end="14087" vertical-scroll-proportion="0.0">
+            <state line="494" column="22" selection-start="15936" selection-end="15936" vertical-scroll-proportion="-11.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
+      <file leaf-file-name="table_template.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/templates/table_template.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1391" column="13" selection-start="38042" selection-end="38042" vertical-scroll-proportion="0.0">
+            <state line="28" column="43" selection-start="1268" selection-end="1268" vertical-scroll-proportion="0.6296296">
+              <folding>
+                <element signature="n#style#0;n#th#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#1;n#table#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EMS-template.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/EMS-template.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="61" column="16" selection-start="403" selection-end="419" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client_ratings.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php">
+      <file leaf-file-name="Chinapost-template.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/Chinapost-template.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="45" selection-start="578" selection-end="578" vertical-scroll-proportion="0.0">
+            <state line="21" column="47" selection-start="226" selection-end="226" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rating_list.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php">
+      <file leaf-file-name="delivery.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/delivery.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="12" selection-start="101" selection-end="101" vertical-scroll-proportion="0.0">
+            <state line="55" column="0" selection-start="2011" selection-end="2011" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="comment.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/comment.php">
+      <file leaf-file-name="delivery.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/delivery.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="manager_rating.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="21" selection-start="3012" selection-end="3012" vertical-scroll-proportion="0.3751724">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="expand_button.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="14" selection-start="254" selection-end="261" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ratinginfo.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/ratinginfo.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="25" selection-start="623" selection-end="624" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="newComment.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="26" selection-start="344" selection-end="344" vertical-scroll-proportion="0.0">
+            <state line="76" column="29" selection-start="2354" selection-end="2406" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -300,22 +214,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/views/main/pages/dealer.php" />
-        <option value="$PROJECT_DIR$/system/application/models/ManagerModel.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
-        <option value="$PROJECT_DIR$/system/application/models/ClientModel.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php" />
-        <option value="$PROJECT_DIR$/static/js/countrypost.js" />
-        <option value="$PROJECT_DIR$/system/application/models/RatingCommentModel.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/elements/orders/tabs.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/main.php" />
+        <option value="$PROJECT_DIR$/system/application/views/client/pages/showOrderDetails.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/elements/delivery_price_templates/5.php" />
+        <option value="$PROJECT_DIR$/system/application/config/email.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/user.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/5/3.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/elements/delivery.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/delivery.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/Tarrifs.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/EMS-template.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/Chinapost-template.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/profile.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/comment.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/ratinginfo.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/elements/templates/table_template.php" />
       </list>
     </option>
   </component>
@@ -328,8 +242,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1616" />
-    <option name="height" value="886" />
+    <option name="width" value="1296" />
+    <option name="height" value="1000" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -357,6 +271,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -365,72 +280,200 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="All">
           <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="application">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="countrypost.service">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="system">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="application">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="models">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="delivery" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -464,23 +507,34 @@
     <property name="restartRequiresConfirmation" value="true" />
     <property name="options.searchVisible" value="true" />
   </component>
+  <component name="PublishConfig">
+    <servers>
+      <server id="6ef82994-50ed-4c84-8c5e-424023729a95">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </server>
+    </servers>
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\WebServer\html\countrypost.pr\www\system\application\views\mail" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\ratings" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\dbscripts" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\admin\elements" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\admin\pages" />
-      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\admin\ajax" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\WebServer\html\countrypost.pr\www\system\application\views\manager\elements\templates\delivery\4" />
+      <recent name="E:\WebServer\html\countrypost.pr\www\system\application\views\manager\elements\templates\delivery\5" />
+      <recent name="E:\WebServer\html\countrypost.pr\www\system\application\views\manager\elements\templates\delivery" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\payments" />
       <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\ajax" />
-      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\main\elements\orders" />
-      <recent name="C:\Program Files\wamp\www\countrypost.service\system\application\views\manager\elements\orders" />
-      <recent name="C:\Program Files\wamp\www\countrypost.service\design" />
     </key>
   </component>
-  <component name="RunManager" selected="PHP Script.index.php">
+  <component name="RunManager">
     <configuration default="false" name="index.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/index.php">
       <RunnerSettings RunnerId="PhpRunner" />
       <ConfigurationWrapper RunnerId="PhpRunner" />
@@ -488,9 +542,6 @@
     </configuration>
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner />
-      <method />
-    </configuration>
-    <configuration default="true" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" browser="CHROME" server_name="Unnamed">
       <method />
     </configuration>
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
@@ -502,11 +553,6 @@
     <list size="1">
       <item index="0" class="java.lang.String" itemvalue="PHP Script.index.php" />
     </list>
-    <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="PHP Script.index.php" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
@@ -620,23 +666,23 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
+    <frame x="-8" y="-8" width="1296" height="1000" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4750594" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.475" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32779098" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.231875" sideWeight="0.34076828" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23" sideWeight="0.7200986" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30307943" sideWeight="0.6567696" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.238125" sideWeight="0.33375958" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24109264" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.475" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961586" sideWeight="0.497426" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27990136" sideWeight="0.4925" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2797619" sideWeight="0.49189627" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3440476" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3432304" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -669,7 +715,7 @@
     <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
-    <option name="SHORT_DIFF_HORISONTALLY" value="true" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
     <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
     <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
     <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
@@ -717,164 +763,99 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="338" column="50" selection-start="9716" selection-end="9716" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="8" column="59" selection-start="361" selection-end="361" vertical-scroll-proportion="0.17503217" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
+    <entry file="file://$PROJECT_DIR$/system/application/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1363" column="13" selection-start="36632" selection-end="36632" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="15" column="13" selection-start="534" selection-end="542" vertical-scroll-proportion="0.3227848" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/dealer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="45" selection-start="578" selection-end="578" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="7" column="47" selection-start="384" selection-end="384" vertical-scroll-proportion="0.15063292" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="12" selection-start="101" selection-end="101" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/comment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="41" selection-start="2351" selection-end="2351" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="55" selection-start="254" selection-end="261" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/ratinginfo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="25" selection-start="623" selection-end="624" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="26" selection-start="344" selection-end="344" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/manager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-24.319628" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/ratings.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/pages/editProfile.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_header.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/delivery.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="32" selection-start="1319" selection-end="1319" vertical-scroll-proportion="0.5862069" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="0" selection-start="1671" selection-end="1671" vertical-scroll-proportion="-13.6" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/models/RatingCommentModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="149" column="0" selection-start="2844" selection-end="2844" vertical-scroll-proportion="2.0286832" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3435" column="23" selection-start="95457" selection-end="95457" vertical-scroll-proportion="0.12864721" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="26" selection-start="344" selection-end="344" vertical-scroll-proportion="-0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/client.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1391" column="13" selection-start="38042" selection-end="38042" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/comment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="457" column="0" selection-start="14087" selection-end="14087" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="12" selection-start="101" selection-end="101" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/ratinginfo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="25" selection-start="623" selection-end="624" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="45" selection-start="578" selection-end="578" vertical-scroll-proportion="0.0">
+        <state line="76" column="29" selection-start="2354" selection-end="2406" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/delivery.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="14" selection-start="254" selection-end="261" vertical-scroll-proportion="0.0">
+        <state line="55" column="0" selection-start="2011" selection-end="2011" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php">
+    <entry file="file://$PROJECT_DIR$/.htaccess">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="21" selection-start="3012" selection-end="3012" vertical-scroll-proportion="0.3751724">
+        <state line="1" column="15" selection-start="44" selection-end="44" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/errors/error_4041.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="7" selection-start="21" selection-end="21" vertical-scroll-proportion="0.043037973" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/config/payments.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="3" selection-start="1055" selection-end="1080" vertical-scroll-proportion="0.021879021" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/core/CodeIgniter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="68.96154" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/core/Common.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="221.65384" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/Tarrifs.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="17" selection-start="116" selection-end="116" vertical-scroll-proportion="-4.576923" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/Chinapost-template.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="47" selection-start="226" selection-end="226" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/templates/delivery/4/EMS-template.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="16" selection-start="403" selection-end="419" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="494" column="22" selection-start="15936" selection-end="15936" vertical-scroll-proportion="-11.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/templates/table_template.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="43" selection-start="1268" selection-end="1268" vertical-scroll-proportion="0.6296296">
+          <folding>
+            <element signature="n#style#0;n#th#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#1;n#table#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
