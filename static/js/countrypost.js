@@ -1,4 +1,7 @@
 $(function() {
+
+    temphash = '';
+
 	$('span.ratings_plugin').each(function()
 	{
 		$(this).find('div').each(function(index, star)
@@ -254,6 +257,7 @@ function goto_page(page_url)
 			$('.pages').remove();
 			$('#pagerForm,#packagesForm,#ordersForm,#partnersForm,#clientsForm,#unassignedOrders,#payments').before(response).remove();
             window.location.hash = '#'+$('.active a', '#ordersForm .tabs').attr('name');
+            temphash = window.location.hash;
 		}});
 }
 
