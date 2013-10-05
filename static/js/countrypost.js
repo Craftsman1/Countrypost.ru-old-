@@ -1491,7 +1491,8 @@ function expandComments(bid_id)
 
 function collapseComments(bid_id)
 {
-	var $comments = $('div#comments' + bid_id);
+
+    var $comments = $('div#comments' + bid_id);
 
 	$comments
 		.find('tr.comment')
