@@ -77,7 +77,8 @@
 		$('.generic_type').html(generic_type).val(generic_type);
 		$('.generic_example').html(generic_example).val(generic_example);
 
-		$('.generic_amount_usd')
+
+        $('.generic_amount_usd')
 			.val(amount_usd)
 			.html(amount_usd);
 
@@ -109,12 +110,17 @@
 				.parent()
 				.hide();
 
+            $('.generic_amount_uah')
+                .parent()
+                .hide();
+
 			$('.generic_amount_usd')
 				.parent()
 				.show();
 		}
 
-		if (currency == 'UAH')
+
+        if (currency == 'UAH')
 		{
 			$('.generic_amount_ru')
 				.parent()

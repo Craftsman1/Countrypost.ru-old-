@@ -7,8 +7,9 @@
 		Пополнение счета переводом с карты на карту через Приватбанк:
 		<br />
 		<br />
-		Вам нужно перевести <b><b class="pb_amount_uah"></b> гривен</b> на карту <?= PB_IN_ACCOUNT ?> (Украина). После перевода сохраните квитанцию.
-	</p>
+		<span id="uah">Вам нужно перевести <b><b class="pb_amount_uah"></b> гривен</b> на карту <?= PB_IN_ACCOUNT ?> (Украина). После перевода сохраните квитанцию.</span>
+        <span id="usd">Вам нужно перевести <b><b class="pb_amount_usd"></b> USB</b> на карту <?= PB_IN_ACCOUNT ?>. После перевода сохраните квитанцию.</span>
+    </p>
 	<br />
 	<form class='admin-inside' action="/client/addOrder2In/<?= $order->order_id ?>" enctype="multipart/form-data" method="POST">
 		<input type="hidden" name="payment_service" value="pb" />
@@ -52,10 +53,16 @@
 
     function openPbPopup(user_id, amount_usd, amount_uah)
 	{
+
         $('#pb_user_id').html(user_id);
-		$('.pb_amount_usd').val(amount_usd);
-		$('.pb_amount_uah').html(amount_uah).val(amount_uah);
-		
+		if (amount_usd == 0){
+            $('.pb_amount_usd').html(amount_uah).val(amount_usd);
+            $('#uah').hide(); $('#usd').show();
+        }else{
+		    $('.pb_amount_uah').html(amount_uah).val(amount_uah);
+            $('#usd').hide(); $('#uah').show();
+        }
+
 		var offsetLeft	= window.innerWidth / 2 - 280;
 		
 		$('#pb_block').css({

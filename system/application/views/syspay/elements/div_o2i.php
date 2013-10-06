@@ -257,14 +257,14 @@ $payable_amount =
 		amount = (isNaN(amount) ? 0 : amount) * rate_usd;
 
 		var total = Math.ceil(amount + percentage * amount * 0.01 + extra);
-		
+
 		$('div.total_' + service).html(total + ' USD');
 		updateTotalCountrypost(service, total + ' USD');
 	}
 
     function openO2iPopup(x)
 	{
-		var payment_option = $('input:radio#' + x).filter(':checked').attr('id');
+        var payment_option = $('input:radio#' + x).filter(':checked').attr('id');
         var service = getService(payment_option);
 		calculateTotals();
 		var amount_usd = $('.payment_system input:text').val();
@@ -285,6 +285,11 @@ $payable_amount =
             case "pb": openPbPopup(
                 user_id,
                 amount_usd,
+                $('#delayed_ru').val());
+                break;
+            case "pbs": openPbPopup(
+                user_id,
+                0,
                 $('#delayed_ru').val());
                 break;
 			case "alf": openGenericPopup(
