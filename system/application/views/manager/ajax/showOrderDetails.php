@@ -131,7 +131,7 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 					   onchange="update_odetail_price('<?= $order->order_id ?>',
 							   '<?= $odetail->odetail_id ?>');">
 				<? else : ?>
-				<?= $odetail->odetail_price ?> <?= $order->order_currency ?>
+				<?= floatval($odetail->odetail_price) ?> <?= $order->order_currency ?>
 				<? endif; ?>
 			</td>
 			<? if ( ! $odetail->odetail_joint_id) : ?>
@@ -221,7 +221,7 @@ $is_joinable = ($is_editable AND in_array($order->order_type, $joinable_types));
 		<tr>
 			<td colspan="3">&nbsp;</td>
 			<td class="price_total product_total">
-				<b class="total_product_cost"><?= $order->order_products_cost ?></b>&nbsp;<?=
+				<b class="total_product_cost"><?= floatval($order->order_products_cost) ?></b>&nbsp;<?=
 				$order->order_currency ?>
 			</td>
 			<td class="delivery_total product_total">

@@ -38,6 +38,8 @@ $payable_amount =
 			case "pp": tax = <?= PP_IN_TAX ?>; break;
 			case "cus": tax = <?= CUS_USD_IN_TAX ?>; break;
 			case "cuu": tax = <?= CUS_UAH_IN_TAX ?>; break;
+			case "pb": tax = <?= PB_IN_TAX_UAH ?>; break;
+            case "pbs": tax = <?= PB_IN_TAX_USD ?>; break;
         }
 		
 		return tax;
@@ -83,6 +85,8 @@ $payable_amount =
 			case "delayed_and" : service = "and"; break;
 			case "delayed_cus" : service = "cus"; break;
 			case "delayed_cuu" : service = "cuu"; break;
+            case "delayed_pb" : service = "pb"; break;
+            case "delayed_pbs" : service = "pbs"; break;
 		}
 		
 		return service;
@@ -133,6 +137,8 @@ $payable_amount =
 		calculateTotal('sb');
 		calculateTotal('cus');
 		calculateTotal('cuu');
+        calculateTotal('pb');
+        calculateTotal('pbs');
 	}
 	
 	function calculateTotal(service)
@@ -159,11 +165,12 @@ $payable_amount =
 				service == 'und' ||
 				service == 'gcd' ||
 				service == 'and' ||
+                service == 'pbs' ||
 				service == 'cus')
 		{
 			calculateTotalDelayedUSD(service);
 		}
-		else if (service == 'cuu')
+		else if (service == 'cuu' || service == 'pb')
 		{
 			calculateTotalDelayedUAH(service);
 		}
@@ -263,7 +270,7 @@ $payable_amount =
 		var amount_usd = $('.payment_system input:text').val();
 		var user_id = '<?= isset($user->user_id) ? $user->user_id : '' ?>';
 
-		switch (service) 
+        switch (service)
 		{
 			case "bm": openSberbankPopup(
 					user_id,
@@ -275,6 +282,11 @@ $payable_amount =
 					amount_usd,
 					$('#delayed_ru').val());
 				break;
+            case "pb": openPbPopup(
+                user_id,
+                amount_usd,
+                $('#delayed_ru').val());
+                break;
 			case "alf": openGenericPopup(
 					'<?= AL_SERVICE_NAME ?>',
 					'<?= AL_RUB_IN_ACCOUNT ?>',
@@ -432,7 +444,7 @@ $payable_amount =
 		var payment_option = $('.payment_system input:radio').filter(':checked').attr('id');
         var service = getService(payment_option);
 
-		switch (service)
+        switch (service)
 		{
 			case "bm":
 				openO2iPopup('delayed_sb');
@@ -452,6 +464,8 @@ $payable_amount =
 			case "gcd":
 			case "cus":
 			case "cuu":
+            case "pb":
+            case "pbs":
 				openO2iPopup('delayed_' + service);
 				break;
 			case "wmr":
@@ -487,7 +501,8 @@ $payable_amount =
 
 	function switchPaymentSystem()
 	{
-		$('.payment_system label').removeClass('payment_selected');
+
+        $('.payment_system label').removeClass('payment_selected');
 		$(this).parent().parent().addClass('payment_selected');
 
 		var total = $(this).next().html();
@@ -555,7 +570,7 @@ $payable_amount =
 			});
 
 		// переключение платежек
-		$('.payment_system input:radio')
+        $('.payment_system input:radio')
 			.change(switchPaymentSystem);
 
 		// подсветка
@@ -636,12 +651,20 @@ $payable_amount =
 				'image' => 'alfabank.png',
 				'selected' => FALSE
 			)); ?-->
-			<? View::show('/syspay/elements/generic_o2i', array(
+			<!--? View::show('/syspay/elements/generic_o2i', array(
 				'service_code' => 'pp',
 				'service_code_usd' => '',
 				'service_name' => PP_SERVICE_NAME,
 				'title' => PP_SERVICE_DESCRIPTION,
 				'image' => 'paypal.png',
+				'selected' => FALSE
+			)); ?-->
+			<? View::show('/syspay/elements/generic_o2i', array(
+				'service_code' => 'pb',
+				'service_code_usd' => 'pbs',
+				'service_name' => PB_SERVICE_NAME,
+				'title' => PB_SERVICE_DESCRIPTION,
+				'image' => 'privatbank.png',
 				'selected' => FALSE
 			)); ?>
 		</div>

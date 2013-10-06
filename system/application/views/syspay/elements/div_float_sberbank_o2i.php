@@ -52,7 +52,7 @@
 <script type="text/javascript">
 	var sberbank_click = 0;
 
-	function openSberbankPopup(user_id, amount_usd, amount_local)
+    function openSberbankPopup(user_id, amount_usd, amount_local)
 	{
 		$('#sberbank_user_id').html(user_id);
 		$('.sberbank_amount_usd').val(amount_usd);

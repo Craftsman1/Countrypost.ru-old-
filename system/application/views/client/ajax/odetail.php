@@ -74,11 +74,11 @@
 	<? else : ?>
 	<td>
 		<? if ($is_editable) : ?>
-		<input type="text"
+            <input type="text"
 			   id="odetail_price<?= $odetail->odetail_id ?>"
 			   name="odetail_price<?= $odetail->odetail_id ?>"
 			   class="int"
-			   value="<?= $odetail->odetail_price ?>"
+			   value="<?=floatval($odetail->odetail_price);?>"
 			   style="width:60px"
 			   maxlength="11"
 			   onchange="update_odetail_price('<?= $order->order_id ?>',

@@ -3614,7 +3614,8 @@ abstract class BaseController extends Controller
 	{
 		try
 		{
-			if ( ! is_numeric($order_id) OR
+
+            if ( ! is_numeric($order_id) OR
 				! is_numeric($odetail_id) OR
 				! is_numeric($price))
 			{
@@ -3646,7 +3647,9 @@ abstract class BaseController extends Controller
 				throw new Exception('Товар не найден.');
 			}
 
-			$odetail->odetail_price = $price;
+            $price = 4321;
+            $price = ReformatBigNumber($price);
+            $odetail->odetail_price = $price;
 
 			// сохранение результатов
 			$this->Odetails->addOdetail($odetail);

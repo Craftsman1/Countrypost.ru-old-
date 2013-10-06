@@ -81,7 +81,7 @@
 			</td>
 			<? else : ?>
 			<td>
-				<?= $odetail->odetail_price ?> <?= $order->order_currency ?>
+				<?= floatval($odetail->odetail_price) ?> <?= $order->order_currency ?>
 			</td>
 			<? if ( ! $odetail->odetail_joint_id) : ?>
 			<td>
@@ -103,7 +103,7 @@
 		<tr>
 			<td colspan="3">&nbsp;</td>
 			<td class="price_total product_total">
-				<?= $order->order_products_cost ?> <?= $order->order_currency ?>
+				<?= floatval($order->order_products_cost) ?> <?= $order->order_currency ?>
 			</td>
 			<td class="delivery_total product_total">
 				<?= $order->order_delivery_cost ?> <?= $order->order_currency ?>

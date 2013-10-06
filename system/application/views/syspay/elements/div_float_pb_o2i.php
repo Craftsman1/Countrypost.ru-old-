@@ -50,9 +50,9 @@
 <script type="text/javascript">
 	var pb_click = 0;
 
-	function openPbPopup(user_id, amount_usd, amount_uah)
+    function openPbPopup(user_id, amount_usd, amount_uah)
 	{
-		$('#pb_user_id').html(user_id);
+        $('#pb_user_id').html(user_id);
 		$('.pb_amount_usd').val(amount_usd);
 		$('.pb_amount_uah').html(amount_uah).val(amount_uah);
 		

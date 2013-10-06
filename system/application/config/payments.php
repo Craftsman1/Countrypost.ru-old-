@@ -104,8 +104,16 @@ define('PP_SERVICE_NAME', 'PayPal');
 define('PP_SERVICE_DESCRIPTION', 'Оплата через PayPal');
 
 // UAH
-define('PB_IN_TAX', 1.5);
-define('PB_IN_ACCOUNT', '4627085825024728');
+//define('PB_IN_TAX', 1.5);
+//define('PB_IN_ACCOUNT', '4627085825024728');
+
+// Private Bank
+define('PB_IN_TAX_USD', 1.5);
+define('PB_IN_TAX_UAH', 1.5);
+define('PB_IN_ACCOUNT', '');
+define('PB_SERVICE_NAME', 'Приват Банк');
+define('PB_SERVICE_DESCRIPTION', 'Оплата через Приват Банк');
+
 
 // BTA
 define('BTA_IN_TAX', 2.4);

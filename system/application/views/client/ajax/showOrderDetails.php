@@ -40,7 +40,7 @@ $odetail_joint_count = 0;
 			<? if (empty($odetails)) : ?>style="display: none"<? endif; ?>>
 			<td colspan="3">&nbsp;</td>
 			<td class="price_total product_total">
-				<b class="total_product_cost"><?= $order->order_products_cost ?></b>&nbsp;<b class="currency"><?=
+				<b class="total_product_cost"><?= floatval($order->order_products_cost) ?></b>&nbsp;<b class="currency"><?=
 				$order->order_currency ?></b>
 			</td>
 			<td class="delivery_total product_total">
