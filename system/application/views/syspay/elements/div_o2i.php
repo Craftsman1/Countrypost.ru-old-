@@ -37,7 +37,7 @@ $payable_amount =
 			case "and": tax = <?= AN_USD_IN_TAX ?>; break;
 			case "pp": tax = <?= PP_IN_TAX ?>; break;
 			case "cus": tax = <?= CUS_USD_IN_TAX ?>; break;
-			case "cuu": tax = <?= CUS_UAH_IN_TAX ?>; break;
+			case "cur": tax = <?= CUS_RUB_IN_TAX ?>; break;
 			case "pb": tax = <?= PB_IN_TAX_UAH ?>; break;
             case "pbs": tax = <?= PB_IN_TAX_USD ?>; break;
         }
@@ -84,7 +84,7 @@ $payable_amount =
 			case "delayed_anr" : service = "anr"; break;
 			case "delayed_and" : service = "and"; break;
 			case "delayed_cus" : service = "cus"; break;
-			case "delayed_cuu" : service = "cuu"; break;
+			case "delayed_cur" : service = "cur"; break;
             case "delayed_pb" : service = "pb"; break;
             case "delayed_pbs" : service = "pbs"; break;
 		}
@@ -136,7 +136,7 @@ $payable_amount =
 		calculateTotal('sv');
 		calculateTotal('sb');
 		calculateTotal('cus');
-		calculateTotal('cuu');
+		calculateTotal('cur');
         calculateTotal('pb');
         calculateTotal('pbs');
 	}
@@ -155,7 +155,8 @@ $payable_amount =
 			service == 'con' ||
 			service == 'unr' ||
 			service == 'gcr' ||
-			service == 'anr')
+            service == 'cur' ||
+            service == 'anr')
 		{
 			calculateTotalRUB(service);
 		} 
@@ -170,7 +171,7 @@ $payable_amount =
 		{
 			calculateTotalDelayedUSD(service);
 		}
-		else if (service == 'cuu' || service == 'pb')
+		else if (service == 'pb')
 		{
 			calculateTotalDelayedUAH(service);
 		}
@@ -428,7 +429,7 @@ $payable_amount =
 					$('#delayed_ru').val(),
 					amount_usd);
 				break;
-			case "cuu": openGenericPopup(
+			case "cur": openGenericPopup(
 					'<?= CUS_SERVICE_NAME ?>',
 					'',
 					'<?= CUS_ACCOUNT_TYPE ?>',
@@ -437,7 +438,7 @@ $payable_amount =
 					$('#delayed_ru').val(),
 					0,
 					amount_usd,
-					'UAH');
+					'RUB');
 				break;
 		}
 		
@@ -468,7 +469,7 @@ $payable_amount =
 			case "cod":
 			case "gcd":
 			case "cus":
-			case "cuu":
+			case "cur":
             case "pb":
             case "pbs":
 				openO2iPopup('delayed_' + service);
@@ -585,7 +586,11 @@ $payable_amount =
 		// инициализация
 		calculateTotals();
 		initPaymentSystem();
+
+
+
 	});
+
 </script>
 <? $i = 1; ?>
 <div class='table countrypost_payment_box'>
@@ -783,7 +788,7 @@ $payable_amount =
 				'selected' => FALSE
 			)); ?>
 			<? View::show('/syspay/elements/generic_o2i', array(
-				'service_code' => 'cuu',
+				'service_code' => 'cur',
 				'service_code_usd' => 'cus',
 				'service_name' => CUS_SERVICE_NAME,
 				'title' => CUS_SERVICE_DESCRIPTION,

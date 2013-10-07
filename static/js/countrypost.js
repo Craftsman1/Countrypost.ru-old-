@@ -1464,7 +1464,7 @@ function expandComments(bid_id)
 		
 	$comments
 		.find('.bid_buttons div.submit')
-		.css('margin-top','-10px');
+		.css('margin-top','15px');
 
 	$comments
 		.find('div.expand_comments')
