@@ -6,6 +6,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_o2i.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_o2i.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php" afterPath="$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/config/payments.php" afterPath="$PROJECT_DIR$/system/application/config/payments.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -118,7 +119,7 @@
     <file path="/bid.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381051994065" ignored="false" />
     <file path="/index.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381049777704" ignored="false" />
     <file path="/payments.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381054779596" ignored="false" />
-    <file path="/div_float_pb_o2i.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381090713487" ignored="false" />
+    <file path="/div_float_pb_o2i.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381147179930" ignored="false" />
     <file path="/generic_o2i.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381087755595" ignored="false" />
     <file path="/div_float_sberbank_o2i.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381073602377" ignored="false" />
     <file path="/client_payment_box.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381073983704" ignored="false" />
@@ -148,10 +149,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="payments.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="payments.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/application/config/payments.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="237" column="8" selection-start="8423" selection-end="8439" vertical-scroll-proportion="-22.038462">
+            <state line="113" column="32" selection-start="3995" selection-end="3995" vertical-scroll-proportion="0.78120977">
               <folding />
             </state>
           </provider>
@@ -175,10 +176,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="div_float_pb_o2i.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="div_float_pb_o2i.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/div_float_pb_o2i.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="0" selection-start="1902" selection-end="1902" vertical-scroll-proportion="0.61037236">
+            <state line="10" column="114" selection-start="634" selection-end="634" vertical-scroll-proportion="-3.3333333">
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
               </folding>
@@ -223,7 +224,6 @@
         <option value="$PROJECT_DIR$/system/application/views/main/ajax/showNewOrderDetails.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" />
         <option value="$PROJECT_DIR$/system/application/views/syspay/elements/div_float_pvb_o2i.php" />
-        <option value="$PROJECT_DIR$/system/application/config/payments.php" />
         <option value="$PROJECT_DIR$/system/application/views/syspay/elements/div_float_sberbank_o2i.php" />
         <option value="$PROJECT_DIR$/system/application/views/syspay/elements/client_payment_box.php" />
         <option value="$PROJECT_DIR$/system/application/views/client/elements/payments/countrypost_payment_box.php" />
@@ -233,6 +233,7 @@
         <option value="$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php" />
         <option value="$PROJECT_DIR$/system/application/views/syspay/elements/generic_o2i.php" />
         <option value="$PROJECT_DIR$/system/application/views/syspay/elements/div_o2i.php" />
+        <option value="$PROJECT_DIR$/system/application/config/payments.php" />
         <option value="$PROJECT_DIR$/system/application/views/syspay/elements/div_float_pb_o2i.php" />
       </list>
     </option>
@@ -673,7 +674,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
+    <frame x="-8" y="-8" width="1296" height="1000" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.475" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -819,13 +820,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/config/payments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="237" column="8" selection-start="8423" selection-end="8439" vertical-scroll-proportion="-22.038462">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/generic_popup.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="84" column="8" selection-start="2652" selection-end="2652" vertical-scroll-proportion="1.7065637">
@@ -894,10 +888,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/syspay/elements/div_float_pb_o2i.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="0" selection-start="1902" selection-end="1902" vertical-scroll-proportion="0.61037236">
+        <state line="10" column="114" selection-start="634" selection-end="634" vertical-scroll-proportion="-3.3333333">
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/config/payments.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="113" column="32" selection-start="3995" selection-end="3995" vertical-scroll-proportion="0.78120977">
+          <folding />
         </state>
       </provider>
     </entry>
