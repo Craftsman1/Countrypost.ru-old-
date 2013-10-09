@@ -11,10 +11,11 @@
         <span id="usd">Вам нужно перевести <b><b class="pb_amount_usd"></b> USB</b> на карту <?= PB_IN_ACCOUNT_USD ?>. После перевода сохраните квитанцию.</span>
     </p>
 	<br />
-	<form class='admin-inside' action="/client/addOrder2In/<?= $order->order_id ?>" enctype="multipart/form-data" method="POST">
+	<form id="pb-form" class='admin-inside' action="/client/addOrder2In/<?= $order->order_id ?>" enctype="multipart/form-data" method="POST">
 		<input type="hidden" name="payment_service" value="pb" />
-		<input type="hidden" name="total_uah" class="pb_amount_uah" value="" />
-		<input type="hidden" name="total_usd" class="pb_amount_usd" value="" />
+		<input type="hidden" name="total_uah"   class="pb_amount_uah" value="" />
+		<input type="hidden" name="total_usd"   class="pb_amount_usd" value="" />
+        <input type="hidden" name="total_local" value="" />
 		<table>
 			<tr>
 				<td>Номер карты:</td>
@@ -51,15 +52,18 @@
 <script type="text/javascript">
 	var pb_click = 0;
 
-    function openPbPopup(user_id, amount_usd, amount_uah)
+    function openPbPopup(user_id, amount_usd, amount_uah, service, local)
 	{
-
+        var input = jQuery('#pb-form').find('input[name="payment_service"]');
+        input.val(service);
+        var total = jQuery('#pb-form').find('input[name="total_local"]');
+        total.val(local);
         $('#pb_user_id').html(user_id);
 		if (amount_usd == 0){
-            $('.pb_amount_usd').html(amount_uah).val(amount_usd);
+            $('.pb_amount_usd').html(amount_uah).val(amount_uah);
             $('#uah').hide(); $('#usd').show();
         }else{
-		    $('.pb_amount_uah').html(amount_uah).val(amount_uah);
+		    $('.pb_amount_uah').html(amount_usd).val(amount_usd);
             $('#usd').hide(); $('#uah').show();
         }
 

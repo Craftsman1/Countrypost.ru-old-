@@ -61,7 +61,6 @@ $payable_amount =
 	function getService(code)
 	{
 		var service = '';
-	
 		switch (code) 
 		{
 			case "immediate_wmr" : service = "wmr"; break;
@@ -269,6 +268,8 @@ $payable_amount =
         var service = getService(payment_option);
 		calculateTotals();
 		var amount_usd = $('.payment_system input:text').val();
+        var amount  = $('#delayed_ru').val();
+        var local   = $('#total_local_val').val();
 		var user_id = '<?= isset($user->user_id) ? $user->user_id : '' ?>';
 
         switch (service)
@@ -285,13 +286,13 @@ $payable_amount =
 				break;
             case "pb": openPbPopup(
                 user_id,
-                amount_usd,
-                $('#delayed_ru').val());
+                amount,
+                0, service, local);
                 break;
             case "pbs": openPbPopup(
                 user_id,
                 0,
-                $('#delayed_ru').val());
+                amount, service, local);
                 break;
 			case "alf": openGenericPopup(
 					'<?= AL_SERVICE_NAME ?>',
@@ -595,7 +596,7 @@ $payable_amount =
 		<div class="delayed">
 			<div class="amount delayed">
 				<span class="label">Сумма к оплате* :</span>
-				<input type="text"
+				<input id="total_local_val" type="text"
 					   class="textbox user_total"
 					   rel="delayed"
 					   name="total_usd"

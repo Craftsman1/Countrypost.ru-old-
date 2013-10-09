@@ -323,6 +323,7 @@ class Client extends BaseController {
 			$order2in->excess_amount = min($excess_amount, ($order->order_cost - $order->order_cost_payed));
 
 			// input validation
+
 			if (isset($order2in->order2in_payment_service))
 			{
 				$service = $order2in->order2in_payment_service;
@@ -390,11 +391,26 @@ class Client extends BaseController {
 						$order2in->order2in_amount_local = Check::float('total_usd');
 						$order2in->order2in_currency = 'USD';
 						break;
+                    case 'cur':
+                        $order2in->order2in_amount = Check::int('total_local');
+                        $order2in->order2in_amount_local = Check::float('total_ru');
+                        $order2in->order2in_currency = 'RUB';
+                        break;
 					case 'cuu' :
 						$order2in->order2in_amount = Check::int('total_local');
 						$order2in->order2in_amount_local = Check::float('total_uah');
 						$order2in->order2in_currency = 'UAH';
 						break;
+                    case 'pb':
+                        $order2in->order2in_amount = Check::int('total_local');
+                        $order2in->order2in_amount_local = Check::float('total_uah');
+                        $order2in->order2in_currency = 'UAH';
+                        break;
+                    case 'pbs':
+                        $order2in->order2in_amount = Check::int('total_local');
+                        $order2in->order2in_amount_local = Check::float('total_usd');
+                        $order2in->order2in_currency = 'USD';
+                        break;
 				}
 			}
 
@@ -489,7 +505,6 @@ class Client extends BaseController {
 		{
             die(var_dump($e->getMessage()));
 		}
-        die('ok');
 		Stack::push('result', $this->result);
 		Func::redirect($this->config->item('base_url') . "client/order/$order_id");
 	}
