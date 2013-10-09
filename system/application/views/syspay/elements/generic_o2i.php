@@ -1,5 +1,5 @@
-<div title="<?= $title ?>" class="payment_type">
-    <label <? if ($selected) : ?>class="payment_selected"<? endif; ?>>
+<div title="<?= $title ?>" class="payment_type payment_system">
+    <div class="payment-container <? if ($selected) : ?>payment_selected<? endif; ?>">
 		<img src="/static/images/<?= $image ?>" />
 		<br style="clear: both;">
 		<span>
@@ -9,7 +9,7 @@
 				   rel="delayed"
 				   id="delayed_<?= $service_code ?>"
 				   name="payment_selector" <? if ($selected) : ?>checked<? endif; ?>>
-			<div class="payment_system_name totals total_<?= $service_code ?>"></div>
+			<label for="delayed_<?= $service_code ?>" class="payment_system_name totals total_<?= $service_code ?>"></label>
 			<br style="clear: both;">
 			<? endif; ?>
 			<? if ($service_code_usd) : ?>
@@ -18,8 +18,8 @@
 				   rel="delayed"
 				   id="delayed_<?= $service_code_usd ?>"
 				   name="payment_selector">
-			<div class="payment_system_name totals total_<?= $service_code_usd ?>"></div>
+			<label for="delayed_<?= $service_code_usd ?>" class="payment_system_name totals total_<?= $service_code_usd ?>"></label>
 		</span>
-		<? endif; ?>
-    </label>
+		    <? endif; ?>
+    </div>
 </div>

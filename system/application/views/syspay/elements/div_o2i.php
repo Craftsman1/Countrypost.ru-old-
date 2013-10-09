@@ -192,7 +192,7 @@ $payable_amount =
 
 		var ru_amount = Math.ceil(amount + percentage * amount * 0.01 + extra);
 
-		$('div.total_' + service).html(ru_amount + ' RUB');
+		$('label.total_' + service).html(ru_amount + ' RUB');
 		updateTotalCountrypost(service, ru_amount + ' RUB');
 	}
 
@@ -229,7 +229,7 @@ $payable_amount =
 
 		var ru_amount = Math.ceil(amount + percentage * amount * 0.01 + extra);
 
-		$('div.total_' + service).html(ru_amount + ' USD');
+		$('label.total_' + service).html(ru_amount + ' USD');
 		updateTotalCountrypost(service, ru_amount + ' USD');
 	}
 
@@ -244,7 +244,7 @@ $payable_amount =
 
 		var converted_amount = Math.ceil(amount + percentage * amount * 0.01 + extra);
 
-		$('div.total_' + service).html(converted_amount + ' UAH');
+		$('label.total_' + service).html(converted_amount + ' UAH');
 		updateTotalCountrypost(service, converted_amount + ' UAH');
 	}
 
@@ -259,7 +259,7 @@ $payable_amount =
 
 		var total = Math.ceil(amount + percentage * amount * 0.01 + extra);
 
-		$('div.total_' + service).html(total + ' USD');
+		$('label.total_' + service).html(total + ' USD');
 		updateTotalCountrypost(service, total + ' USD');
 	}
 
@@ -505,8 +505,10 @@ $payable_amount =
 		return true;
 	}
 
-	function switchPaymentSystem()
+	function switchPaymentSystem(e)
 	{
+        var _this = $(this);
+        var boxes = jQuery('input[name="payment_selector"]');
 
         $('.payment_system label').removeClass('payment_selected');
 		$(this).parent().parent().addClass('payment_selected');
@@ -515,41 +517,14 @@ $payable_amount =
 		$('div.countrypost_payment_box div.total b').html(total);
 
 		$('#total_ru,#total_usd,#immediate_ru,#delayed_ru').val(total.substr(0, total.length - 4));
-
-		// трюк с радио в 3х формах
-		var boxes = '';
-
-		switch ($(this).attr('rel'))
-		{
-			case 'delayed' :
-				boxes = $('form.immediate,form.usd');
-				break;
-			case 'immediate' :
-				boxes = $('div.delayed,form.usd');
-				break;
-			case 'usd' :
-				boxes = $('form.immediate,div.delayed');
-				break;
-		}
-
-		boxes
-			.find('input:radio')
-			.removeAttr('checked');
+		boxes.removeAttr('checked');
+        _this.prop('checked',true);
 	}
 
 	function initPaymentSystem()
 	{
 		var total = $('.payment_system input#delayed_sb').next().html();
 		$('#total_ru,#total_usd,#immediate_ru,#delayed_ru').val(total.substr(0, total.length - 4));
-	}
-
-	function paymentSystemHover()
-	{
-		$(this).addClass('payment_hover');
-	}
-
-	function paymentSystemUnhover() {
-		$(this).removeClass('payment_hover');
 	}
 
 	$(function() {
@@ -579,10 +554,28 @@ $payable_amount =
         $('.payment_system input:radio')
 			.change(switchPaymentSystem);
 
-		// подсветка
-		$('div.payment_system label')
-			.hover(paymentSystemHover, paymentSystemUnhover);
+        jQuery('.payment-container').click(function(e){
+                var _this = jQuery(this);
+                var other = jQuery('.payment-container');
+                var first = _this.find('input:first');
+                var last  = _this.find('input:last');
+                var tag   = jQuery(e.target).context.tagName;
 
+                other.removeClass('payment_selected');
+                _this.addClass('payment_selected');
+
+                if(tag != 'INPUT' && tag != 'LABEL')
+                {
+                    if(undefined == _this.find('input:checked').attr('id') || last.is(':checked'))
+                    {
+                        first.change();
+                    }
+                    else
+                    {
+                        last.change();
+                    }
+                }
+        });
 		// инициализация
 		calculateTotals();
 		initPaymentSystem();
@@ -691,7 +684,7 @@ $payable_amount =
 			<div class="immediate">
 				<div title="<?= QW_SERVICE_DESCRIPTION ?>"
 					 class="payment_type">
-					<label for="immediate_qw">
+                    <div class="payment-container">
 						<img src="/static/images/qiwi.png" />
 						<br style="clear: both;">
 						<span>
@@ -700,15 +693,15 @@ $payable_amount =
 							   value="qw"
 							   name="payment_selector"
 							   rel="immediate" />
-							<div class="payment_system_name totals total_qw">
-							</div>
+							<label class="payment_system_name totals total_qw">
+							</label>
 						</span>
-					</label>
+					</div>
 				</div>
 				<br style="clear: both;">
 				<div title="<?= WM_SERVICE_DESCRIPTION ?>"
 					 class="payment_type">
-					<label for="immediate_wmr">
+					<div class="payment-container">
 						<img src="/static/images/wmr.png" />
 						<br style="clear: both;">
 						<span>
@@ -717,21 +710,21 @@ $payable_amount =
 								   value="wmr"
 								   name="payment_selector"
 								   rel="immediate" />
-							<div class="payment_system_name totals total_wmr">
-							</div>
+							<label  for="immediate_wmr" class="payment_system_name totals total_wmr">
+							</label>
 							<br style="clear: both;">
 							<input type="radio"
 								   id="immediate_wmz"
 								   value="wmz"
 								   name="payment_selector"
 								   rel="immediate"/>
-							<div class="payment_system_name totals total_wmz"></div>
+							<label for="immediate_wmz" class="payment_system_name totals total_wmz"></div>
 						</span>
-					</label>
+					</div>
 				</div>
 				<div title="<?= RK_SERVICE_DESCRIPTION ?>"
 					 class="payment_type">
-					<label for="immediate_rbk">
+                    <div class="payment-container">
 						<img src="/static/images/robokassa.png" />
 						<br style="clear: both;">
 						<span>
@@ -740,9 +733,9 @@ $payable_amount =
 								   value="rbk"
 								   name="payment_selector"
 								   rel="immediate" />
-							<div class="payment_system_name totals total_rbk"></div>
+							<label for="immediate_rbk" class="payment_system_name totals total_rbk"></label>
 						</span>
-					</label>
+					</div>
 				</div>
 			</div>
 		</form>

@@ -1665,7 +1665,8 @@ div.syspay div.payment_system,div.syspay div.usd
 	/*margin-left:37px;*/
 }
 
-div.payment_system label img
+
+div.payment_system .payment-container img
 {
 	margin-left: 7px;
 	margin-bottom: 20px;
@@ -1678,10 +1679,10 @@ div.payment_system>form>div>div
 
 div.payment_system label
 {
-	font-family:Arial;font-size:20px;font-weight:bold;font-style:normal;text-decoration:none;color:#333333;
+	font-family:Arial;font-size:14px;font-weight:bold;font-style:normal;text-decoration:none;color:#333333;
 }
 
-div.payment_system label div
+div.payment_system .payment-container div
 {
 	font-family:Arial;
 	font-size:13px;
@@ -1691,7 +1692,7 @@ div.payment_system label div
 	color:#333333;
 }
 
-div.payment_system label span
+div.payment_system .payment-container span
 {
 	display: inline-block;
 }
@@ -2828,7 +2829,7 @@ div.signup div.box {
 	width:420px;
 }
 
-div.payment_system_name {
+label.payment_system_name {
 	margin-top: 10px;
 }
 
@@ -2838,13 +2839,19 @@ div.payment_system div.totals {
 	float: left;
 }
 
-div.payment_system label {
+
+div.payment-container {
 	background-color: #f7f7f7;
 	height: 91px;
 	width: 130px;
 	float: left;
 	padding: 20px 1px;
 	text-align: center;
+}
+
+div.payment-container:hover{
+    border: #d3d3d3 1px solid;
+    padding: 19px 0;
 }
 
 div.payment_type {
@@ -2869,7 +2876,7 @@ div.countrypost_payment_box label.payment_hover
 	padding: 19px 0;
 }
 
-div.countrypost_payment_box label.payment_selected
+div.countrypost_payment_box div.payment_selected
 {
 	background-color: #d3d3d3!important;
 }
@@ -2878,7 +2885,7 @@ div.countrypost_payment_box label.payment_hover input
 {
 }
 
-div.countrypost_payment_box label input
+div.countrypost_payment_box label input, div.payment-container input[type="radio"]
 {
 	margin: 0 5px 10px 0;
 	float: left;
