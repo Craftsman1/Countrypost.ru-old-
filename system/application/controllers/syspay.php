@@ -280,6 +280,7 @@ class Syspay extends SyspayBaseController {
 			'extra'			=> $extra
         );
 
+
 		if ($payment_system == 'qw')
 		{
 			$this->backupPayment($view_form, 'qw');
@@ -301,6 +302,7 @@ class Syspay extends SyspayBaseController {
 				'psform' => $view_form
 			));
 		}
+        die(var_dump($payment_system));
 	}
 	
 	private function backupPayment($details, $payment_system)

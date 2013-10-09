@@ -487,9 +487,9 @@ class Client extends BaseController {
 		}
 		catch (Exception $e)
 		{
-
+            die(var_dump($e->getMessage()));
 		}
-
+        die('ok');
 		Stack::push('result', $this->result);
 		Func::redirect($this->config->item('base_url') . "client/order/$order_id");
 	}
@@ -651,6 +651,7 @@ class Client extends BaseController {
 		}
 		catch (Exception $e)
 		{
+            die(var_dump($e->getMessage()));
 		}
 
 		Func::redirect($this->config->item('base_url') . "client/order/$order_id");
