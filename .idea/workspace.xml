@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="комментарии о посреднике">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" />
+    <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/countrypost.js" afterPath="$PROJECT_DIR$/static/js/countrypost.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/controllers/profile.php" afterPath="$PROJECT_DIR$/system/application/controllers/profile.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="countrypost.service.iws" />
@@ -102,7 +97,7 @@
     <file path="/main.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381007579725" ignored="false" />
     <file path="/a.dummy" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381408882990" ignored="false" />
     <file path="/OrderModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369974080197" ignored="false" />
-    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381409800975" ignored="false" />
+    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381409818574" ignored="false" />
     <file path="/Tarrifs.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378324510517" ignored="false" />
     <file path="/EMS-template.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378550707402" ignored="false" />
     <file path="/Chinapost-template.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378550738510" ignored="false" />
@@ -199,10 +194,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client_ratings.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="client_ratings.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="78" selection-start="81" selection-end="81" vertical-scroll-proportion="0.017667845">
+            <state line="1" column="78" selection-start="81" selection-end="81" vertical-scroll-proportion="-0.625">
               <folding />
             </state>
           </provider>
@@ -246,10 +241,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="countrypost.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="countrypost.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1491" column="44" selection-start="31121" selection-end="31121" vertical-scroll-proportion="-6.08">
+            <state line="1479" column="41" selection-start="30887" selection-end="30887" vertical-scroll-proportion="0.33333334">
               <folding />
             </state>
           </provider>
@@ -289,8 +284,8 @@
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php" />
         <option value="$PROJECT_DIR$/system/application/controllers/profile.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php" />
-        <option value="$PROJECT_DIR$/static/js/countrypost.js" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" />
+        <option value="$PROJECT_DIR$/static/js/countrypost.js" />
       </list>
     </option>
   </component>
@@ -576,7 +571,11 @@
       <created>1381405937210</created>
       <updated>1381405937210</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="комментарии о посреднике">
+      <created>1381409829223</created>
+      <updated>1381409829223</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -807,13 +806,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1491" column="44" selection-start="31121" selection-end="31121" vertical-scroll-proportion="-6.08">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="76" column="0" selection-start="2836" selection-end="2836" vertical-scroll-proportion="-22.166666">
@@ -823,7 +815,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="78" selection-start="81" selection-end="81" vertical-scroll-proportion="0.017667845">
+        <state line="1" column="78" selection-start="81" selection-end="81" vertical-scroll-proportion="-0.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1479" column="41" selection-start="30887" selection-end="30887" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>

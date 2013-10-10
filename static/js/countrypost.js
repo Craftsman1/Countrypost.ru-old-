@@ -1476,8 +1476,8 @@ function checkButtons()
     {
         btns.hide('slow');
         comm.show();
-        expandComments(btns.attr('data-id'));
     }
+    expandComments(btns.attr('data-id'));
 }
 
 function saveComment(id)
