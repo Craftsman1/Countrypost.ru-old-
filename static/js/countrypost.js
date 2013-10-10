@@ -1,3 +1,21 @@
+//Для конвертации JQuery('form_id') обьекта формы в js обьект
+function to_obj(array)
+{
+    var o = {};
+    var a = array.serializeArray();
+    jQuery.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+}
+
 $(function() {
 
     temphash = '';
@@ -1449,9 +1467,24 @@ function saveComment(id)
 	$('#ratingCommentForm' + id).submit();
 }
 
-function saveCommentRating(id)
+function saveCommentRating(id, _this)
 {
-    $('#ratingCommentForm' + id).submit();
+    _this    = _this || undefined;
+    var form = $('#ratingCommentForm' + id);
+    var tr   = form.closest('tr');
+    var post = to_obj(form);
+
+    jQuery.post(form.attr('action'),post,
+                function(data){
+                    if(data.comment)
+                    {
+                        tr.before(data.comment);
+                        if(undefined != _this)
+                        {
+                            jQuery(_this).closest('form').find('textarea').val('').html('');
+                        }
+                    }
+                },'json');
 }
 
 function expandComments(bid_id)
@@ -1464,7 +1497,6 @@ function expandComments(bid_id)
 		
 	$comments
 		.find('.bid_buttons div.submit')
-		.css('margin-top','15px');
 
 	$comments
 		.find('div.expand_comments')

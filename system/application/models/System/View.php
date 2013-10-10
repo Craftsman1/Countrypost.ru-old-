@@ -24,15 +24,16 @@ class View
 	 * @var string
 	 */
 	public static $child_name = 'content';
-	
+
 	/**
 	 * Показать шаблон
 	 *
 	 * @param string $view Имя шаблона
 	 * @param array $data Массив данных, передаваемых в шаблон
+     * @param (bool) $buffer - если true возвращает html вида строкой
 	 * @param boolean $use_common_data Использовать данные из View:$data ?
 	 */
-	public static function show($view, $data=array(), $use_common_data=true)
+	public static function show($view, $data=array(), $use_common_data=true, $buffer = false)
 	{
 		if (!is_array($data))
 		{
@@ -41,12 +42,13 @@ class View
 		if ($use_common_data)
 		{
 			self::$data = $data + self::$data;
-			get_instance()->load->view($view, self::$data);
+            $data = self::$data;
 		}
-		else 
-		{
-			get_instance()->load->view($view, $data);
-		}
+        if($buffer === true)
+        {
+            return  get_instance()->load->view($view, $data, $buffer);
+        }
+        get_instance()->load->view($view, $data);
 	}
 	
 	/**

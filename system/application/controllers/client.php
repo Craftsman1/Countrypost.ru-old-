@@ -323,7 +323,6 @@ class Client extends BaseController {
 			$order2in->excess_amount = min($excess_amount, ($order->order_cost - $order->order_cost_payed));
 
 			// input validation
-
 			if (isset($order2in->order2in_payment_service))
 			{
 				$service = $order2in->order2in_payment_service;

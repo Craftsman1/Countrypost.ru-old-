@@ -341,6 +341,11 @@ class Profile extends BaseController {
 
         $this->load->model('RatingCommentModel', 'Comments');
         $comment = $this->Comments->addComment($comment);
+        //Обьявляем переменные класса во избежание варнингов
+        $comment->statistics = new stdClass();
+        $comment->statistics->client_name = false;
+        $comment->statistics->fullname = false;
+        $comment->statistics->client_country = false;
 
         $this->load->model('ClientModel', 'Clients');
         $this->load->model('ManagerModel', 'Managers');
@@ -361,6 +366,7 @@ class Profile extends BaseController {
 
         }elseif($this->user->user_group == "manager"){
 
+            $comment->statistics->manager_country = false;
             $manager = $this->Managers->getById($this->user->user_id);
             $this->processStatistics($manager, $statistics, 'manager_user', $manager->manager_user, 'manager');
             $comment->statistics->manager_country = $manager->manager_country;
@@ -386,13 +392,11 @@ class Profile extends BaseController {
         $view['countries'] = $countries;
         $view['countries_en'] = $countries_en;
 
-        echo '<tr class="comment">';
-            echo '<td>';
-                View::show('main/elements/ratings/comment', array('comment' => $comment,
-                    'countries_en' =>$countries_en));
-            echo '</td>';
-        echo '</tr>';
-
+        $response = array(
+            'comment' => '<tr class="comment hide" style="display:table-row;"><td>'.View::show('main/elements/ratings/comment',
+                                                               array('comment' => $comment,'countries_en' =>$countries_en,'delete'=>true),true, true).'</td></tr>'
+        );
+        die(json_encode($response));
     }
 
     public function delRating($id_rating,$manager_id)
