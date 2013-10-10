@@ -76,7 +76,9 @@ button {  width: auto; overflow: visible; }
 * html .clearfix { height: 1%; }
 .clearfix { display: block; }
 
-
+.margin-none{
+    margin: 0 !important;
+}
  /* Primary Styles
     Author: Bulgakov Evgeniy
  */
@@ -2946,6 +2948,7 @@ span.overflow_hidden
 .admin-inside .bid_buttons .submit {
 margin: -10px 6px 0 0;
 }
+
 
 html, body
 {
