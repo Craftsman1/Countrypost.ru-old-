@@ -56,6 +56,7 @@ $(function() {
                 },
                 success: function(data) {
                     $("#comm_"+id_message).parent().parent().remove();
+                    checkButtons();
                 },
                 error: function(data) {
                     error('top', 'Не могу удалить');
@@ -142,6 +143,7 @@ $(document).ready(function () {
         }
     });
 });
+
 function processStarClick(index, star)
 {
 	var star_on = $(star).hasClass('on');
@@ -1461,6 +1463,23 @@ function cancelComment(id)
 	$('#comments' + id).find('.save_comment,.cancel_comment,.add-comment').hide('slow');
 }
 
+function checkButtons()
+{
+    var comm  = jQuery('.comment');
+    var count = comm.length - 2;
+    var btns  = jQuery('#bid_buttons');
+    if(count > 2)
+    {
+        btns.show('slow');
+    }
+    else
+    {
+        btns.hide('slow');
+        comm.show();
+        expandComments(btns.attr('data-id'));
+    }
+}
+
 function saveComment(id)
 {
 	$('#bidCommentForm' + id).submit();
@@ -1473,9 +1492,10 @@ function saveCommentRating(id, _this)
     var form = $('#ratingCommentForm' + id);
     var tr   = form.closest('tr');
     var post = to_obj(form);
-
+    post['count'] = jQuery('.comment').length - 2;
     jQuery.post(form.attr('action'),post,
                 function(data){
+                    success('top', 'Комментарий добавлен!');
                     if(data.comment)
                     {
                         tr.before(data.comment);
@@ -1484,6 +1504,7 @@ function saveCommentRating(id, _this)
                             jQuery(_this).closest('form').find('textarea').val('').html('');
                         }
                     }
+                    checkButtons();
                 },'json');
 }
 

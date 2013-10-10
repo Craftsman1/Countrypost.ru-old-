@@ -332,6 +332,7 @@ class Profile extends BaseController {
     {
 
         $comment_message = Check::str('comment', 65535);
+        $count           = Check::int('count', 65535);
 
         $comment = new stdClass();
         $comment->rating_id = $id_rating;
@@ -392,9 +393,10 @@ class Profile extends BaseController {
         $view['countries'] = $countries;
         $view['countries_en'] = $countries_en;
 
+        $class = ($count >= 2) ? 'hide':'';
         $response = array(
-            'comment' => '<tr class="comment hide" style="display:table-row;"><td>'.View::show('main/elements/ratings/comment',
-                                                               array('comment' => $comment,'countries_en' =>$countries_en,'delete'=>true),true, true).'</td></tr>'
+            'comment' => '<tr class="comment '.$class.'" style="display:table-row;"><td>'.View::show('main/elements/ratings/comment',
+                            array('comment' => $comment,'countries_en' =>$countries_en,'delete'=>true),true, true).'</td></tr>'
         );
         die(json_encode($response));
     }

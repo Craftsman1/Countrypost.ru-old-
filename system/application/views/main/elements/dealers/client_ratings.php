@@ -1,5 +1,9 @@
-<? if (!isset($this->user->user_id)) $this->user->user_id = -1; ?>
-<? if (!isset($this->user->user_group)) $this->user->user_group = -1; ?>
+<?
+   if(!isset($this->user) || empty($this->user)) $this->user = new stdClass();
+   if (!isset($this->user->user_id)) $this->user->user_id = -1;
+   if (!isset($this->user->user_group)) $this->user->user_group = -1;
+
+?>
 <div class="client_ratings dealer_tab" style="display:none;">
 
     <? if ( $this->user->user_id == -1) : ?>
