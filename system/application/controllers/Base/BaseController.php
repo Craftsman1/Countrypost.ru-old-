@@ -3647,8 +3647,8 @@ abstract class BaseController extends Controller
 				throw new Exception('Товар не найден.');
 			}
 
-            $price = 4321;
-            $price = ReformatBigNumber($price);
+            //$price = 4321;
+            //$price = ReformatBigNumber($price);
             $odetail->odetail_price = $price;
 
 			// сохранение результатов

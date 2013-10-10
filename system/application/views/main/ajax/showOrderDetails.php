@@ -7,8 +7,6 @@
 	<table class="products">
 		<colgroup>
 			<col style="width: 60px;">
-			<col>
-			<col>
 			<col style="width: 85px;">
 			<col style="width: 85px;">
 			<col style="width: 85px;">
