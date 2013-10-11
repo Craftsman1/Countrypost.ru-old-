@@ -46,7 +46,8 @@ $(function() {
     $(".delCommentRating").live('click',function(){
         var id_message = $(this).parent().attr('id');
         var re = /comm_/; id_message = id_message.replace(re,'');
-
+        var _this = jQuery(this);
+        var table = _this.closest('table');
         if (confirm("Вы хотите удалить Ваш комментарий?"))
         {
             $.ajax({
@@ -56,7 +57,7 @@ $(function() {
                 },
                 success: function(data) {
                     $("#comm_"+id_message).parent().parent().remove();
-                    checkButtons();
+                    checkButtons(table);
                 },
                 error: function(data) {
                     error('top', 'Не могу удалить');
@@ -1470,11 +1471,11 @@ function cancelComment(id)
 	$('#comments' + id).find('.save_comment,.cancel_comment,.add-comment').hide('slow');
 }
 
-function checkButtons()
+function checkButtons(table)
 {
-    var comm  = jQuery('.comment');
+    var comm  = table.find('.comment');
     var count = comm.length - 2;
-    var btns  = jQuery('#bid_buttons');
+    var btns  = table.find('.bid_buttons');
     if(count > 2)
     {
         btns.show('slow');
@@ -1499,7 +1500,7 @@ function saveCommentRating(id, _this)
     var form = $('#ratingCommentForm' + id);
     var tr   = form.closest('tr');
     var post = to_obj(form);
-    post['count'] = jQuery('.comment').length - 2;
+    post['count'] = jQuery(_this).closest('table').find('.comment').length - 2;
     post['comment'] = post.comment.replace(/\n/g,'<br/>');
     jQuery.post(form.attr('action'),post,
                 function(data){
@@ -1512,7 +1513,7 @@ function saveCommentRating(id, _this)
                             jQuery(_this).closest('form').find('textarea').val('').html('');
                         }
                     }
-                    checkButtons();
+                    checkButtons(jQuery(_this).closest('table'));
                 },'json');
 }
 
