@@ -105,9 +105,9 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 						   value="1" />
 					<label for="search_requested" style="font: 13px sans-serif;">да</label>
                 </div>
-                <div>
+                <div style="height: 60px;">
 					<span class="label">Комментарий к товару:</span>
-					<textarea style="resize:vertical!important;"
+					<textarea style="resize:vertical!important; display: block;"
 							  class="textbox"
 							  maxlength="255"
 							  id='ocomment'
