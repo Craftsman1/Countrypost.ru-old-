@@ -12,7 +12,7 @@
 	<meta name="keywords" content="посредник таобао, посредник в китае, посредник в германии, посредники в сша, посредник taobao, посредник в финляндии, посредник польша, посредник ebay, посредник в турции, посредник в англии, посредник в испании, посредник в италии, посредник в америке, посредник таобао в китае, посредник в японии" />
 	<script type="text/javascript">var switchTo5x=true;</script>
 	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-	<script type="text/javascript">stLight.options({publisher: "a0ede171-e3c9-4976-bae9-a802c13e505f", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+	<script type="text/javascript">if(typeof (stLight) != 'undefined')stLight.options({publisher: "a0ede171-e3c9-4976-bae9-a802c13e505f", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 	<meta name='yandex-verification' content='794c4994f3186105' />
 	<meta name="author" content="">
 	<meta name="w1-verification" content="135670173257" />
@@ -22,7 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="<?= CSS_PATH ?>jquery.lightbox-0.5.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="<?= CSS_PATH ?>jquery.validate.css" media="screen" />
 	<script type="text/javascript" src="<?= JS_PATH ?>jquery-1.8.2.js"></script>
-	<script type="text/javascript" src="<?= JS_PATH ?>jquery.ui.datepicker-ru.js1"></script>
+	<script type="text/javascript" src="<?= JS_PATH ?>jquery.ui.datepicker-ru.js"></script>
 	<script type="text/javascript" src="<?= JS_PATH ?>jquery.lightbox-0.5.js"></script>
 	<script type="text/javascript" src="<?= JS_PATH ?>easyTooltip.js"></script>
 	<script type="text/javascript" src="<?= JS_PATH ?>jquery.dd.js"></script>
