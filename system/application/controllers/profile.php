@@ -333,7 +333,6 @@ class Profile extends BaseController {
 
         $comment_message = Check::str('comment', 65535);
         $count           = Check::int('count', 65535);
-
         $comment = new stdClass();
         $comment->rating_id = $id_rating;
         $comment->user_id = $this->user->user_id;
