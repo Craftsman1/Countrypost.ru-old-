@@ -290,5 +290,5 @@
 		});
 	});
 
-	<?= editor('about', 210, 900, 'PackageComment') ?>
+	<?= editor('about', 210, 900, 'PackageComment') ?>;
 </script>

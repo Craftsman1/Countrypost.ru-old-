@@ -77,7 +77,6 @@ $(function() {
 		$('#editBidForm0 input.manager_tax_percentage').change(function() {
 			manager_tax_percentage = parseGenericTax(this);
 			manager_tax = Math.ceil(manager_tax_percentage * order_products_cost * 0.01);
-
 			refreshEditTotals();
 		});
 
@@ -86,7 +85,15 @@ $(function() {
 			manager_foto_tax = parseGenericTax(this);
 			refreshEditTotals();
 		});
+    jQuery('.comment-area').keypress(function(e){
+        var _this = jQuery(e.target);
+        switch(e.which)
+        {
+            case 13:
 
+                break;
+        }
+    });
 });
 	
 function editRating(rating_id)
@@ -1493,6 +1500,7 @@ function saveCommentRating(id, _this)
     var tr   = form.closest('tr');
     var post = to_obj(form);
     post['count'] = jQuery('.comment').length - 2;
+    post['comment'] = post.comment.replace(/\n/g,'<br/>');
     jQuery.post(form.attr('action'),post,
                 function(data){
                     success('top', 'Комментарий добавлен!');

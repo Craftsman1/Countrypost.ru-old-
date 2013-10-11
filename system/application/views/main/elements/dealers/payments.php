@@ -4,6 +4,6 @@
 	<div class='angle angle-lb'></div>
 	<div class='angle angle-rb'></div>
 	<p>
-		<?= empty($manager->payments_description) ? 'Нет описания.' : html_entity_decode($manager->payments_description) ?>
+		<?= empty($manager->payments_description) ? 'Нет описания.' : html_entity_decode($manager->payments_description); ?>
 	</p>
 </div>

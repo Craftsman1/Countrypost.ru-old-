@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="кнопка в фф" />
-    <list id="c6c56782-4822-4350-8f17-b31a726ac8cd" name="New changelist" comment="">
+    <list default="true" id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="кнопка в фф">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/countrypost.js" afterPath="$PROJECT_DIR$/static/js/countrypost.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/payments.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/payments.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/manager/elements/profile.php" afterPath="$PROJECT_DIR$/system/application/views/manager/elements/profile.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_blog.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_blog.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_description.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_description.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php" afterPath="$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php" />
+    </list>
+    <list id="dbd42f18-037c-47a0-8033-a7e8850f9676" name="New changelist" comment="New changelist">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="countrypost.service.iws" />
@@ -17,10 +27,10 @@
     <file path="/rating_list.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374780526355" ignored="false" />
     <file path="/comments.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373975675405" ignored="false" />
     <file path="/RatingCommentModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1374661251059" ignored="false" />
-    <file path="/client_ratings.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381409710171" ignored="false" />
+    <file path="/client_ratings.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381485400030" ignored="false" />
     <file path="/rating_block.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373650622802" ignored="false" />
     <file path="/BlogModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373487158372" ignored="false" />
-    <file path="/profile_blog.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373626235413" ignored="false" />
+    <file path="/profile_blog.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381480822409" ignored="false" />
     <file path="/blog.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1373489249396" ignored="false" />
     <file path="/form_immediate_qw.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372424346337" ignored="false" />
     <file path="/gate.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1372423634666" ignored="false" />
@@ -44,8 +54,8 @@
     <file path="/ratinginfo.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1380537363859" ignored="false" />
     <file path="/2013-05-30 18-16 avatars.sql" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1370009825329" ignored="false" />
     <file path="/profile_header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1375159739236" ignored="false" />
-    <file path="/profile.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381408496947" ignored="false" />
-    <file path="/newComment.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381405411156" ignored="false" />
+    <file path="/profile.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381488911147" ignored="false" />
+    <file path="/newComment.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381488121847" ignored="false" />
     <file path="/comment.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381403120486" ignored="false" />
     <file path="/2013-05-24 08-53 countrypost taxes.sql" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369730573261" ignored="false" />
     <file path="/taxes_filter.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369774753760" ignored="false" />
@@ -71,7 +81,7 @@
     <file path="/OdetailModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1368509240527" ignored="false" />
     <file path="/filter.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1377617801505" ignored="false" />
     <file path="/createorder.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369066136808" ignored="false" />
-    <file path="/countrypost.js" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381408702149" ignored="false" />
+    <file path="/countrypost.js" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381489138893" ignored="false" />
     <file path="/mail_forwarding.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367870378673" ignored="false" />
     <file path="/mailforwarding.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1367162645485" ignored="false" />
     <file path="/delivery.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378027546448" ignored="false" />
@@ -95,9 +105,9 @@
     <file path="/scripts.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369327011934" ignored="false" />
     <file path="/showOrderDetails.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381052248154" ignored="false" />
     <file path="/main.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381007579725" ignored="false" />
-    <file path="/a.dummy" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381475905951" ignored="false" />
+    <file path="/a.dummy" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381488949695" ignored="false" />
     <file path="/OrderModel.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1369974080197" ignored="false" />
-    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381476130552" ignored="false" />
+    <file path="/Dummy.txt" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381489482226" ignored="false" />
     <file path="/Tarrifs.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378324510517" ignored="false" />
     <file path="/EMS-template.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378550707402" ignored="false" />
     <file path="/Chinapost-template.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378550738510" ignored="false" />
@@ -108,7 +118,7 @@
     <file path="$PROJECT_DIR$/system/application/views/manager/elements/payments/showPayments.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1378566339463" ignored="false" />
     <file path="/expand_button.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381407836401" ignored="false" />
     <file path="/bids.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1380991894371" ignored="false" />
-    <file path="/bid.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381415309359" ignored="false" />
+    <file path="/bid.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381476339683" ignored="false" />
     <file path="/index.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381049777704" ignored="false" />
     <file path="/payments.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381054779596" ignored="false" />
     <file path="/div_float_pb_o2i.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381333990163" ignored="false" />
@@ -118,6 +128,10 @@
     <file path="/Новый текстовый документ.htm" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381082137591" ignored="false" />
     <file path="/div_float_upload_bill.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381084477408" ignored="false" />
     <file path="/View.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381401203925" ignored="false" />
+    <file path="/header.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381481247917" ignored="false" />
+    <file path="/profile_description.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381482032886" ignored="false" />
+    <file path="/pricelist.php" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381482217584" ignored="false" />
+    <file path="$PROJECT_DIR$/.idea/workspace.xml" changelist="baf04201-6c3b-4e63-9443-12300aab0b46" time="1381489481607" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,94 +156,91 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BaseController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
+      <file leaf-file-name="newComment.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1070" column="5" selection-start="31814" selection-end="31814" vertical-scroll-proportion="-10.625">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="958" column="26" selection-start="25351" selection-end="25357" vertical-scroll-proportion="3.5714285">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="createorder.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/createorder.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="offline.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/offline.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="107" column="41" selection-start="3625" selection-end="3625" vertical-scroll-proportion="0.5150812">
+            <state line="45" column="6" selection-start="1846" selection-end="1846" vertical-scroll-proportion="-28.125">
               <folding>
-                <element signature="n#style#0;n#div#5;n#div#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#textarea#0;n#div#5;n#div#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#span#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#1;n#span#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#br#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#textarea#0;n#span#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="showOrderDetails.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php">
+      <file leaf-file-name="profile.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/profile.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="70" selection-start="1790" selection-end="1790" vertical-scroll-proportion="0.0">
+            <state line="84" column="12" selection-start="3968" selection-end="3968" vertical-scroll-proportion="-52.5">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bids.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php">
+      <file leaf-file-name="profile.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="127" column="13" selection-start="2499" selection-end="2499" vertical-scroll-proportion="0.0">
+            <state line="64" column="8" selection-start="1491" selection-end="1491" vertical-scroll-proportion="-40.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bid.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php">
+      <file leaf-file-name="profile_description.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_description.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="126" column="28" selection-start="6696" selection-end="6696" vertical-scroll-proportion="0.0">
+            <state line="0" column="4" selection-start="4" selection-end="4" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/style.css">
+      <file leaf-file-name="profile.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/profile.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="12" selection-start="3470" selection-end="3481" vertical-scroll-proportion="0.0">
+            <state line="292" column="55" selection-start="10303" selection-end="10303" vertical-scroll-proportion="-31.916666">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="comments.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/payments/comments.php">
+      <file leaf-file-name="button.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/button.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="89" selection-start="3079" selection-end="3079" vertical-scroll-proportion="0.0">
+            <state line="0" column="52757" selection-start="52757" selection-end="52757" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="filter.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/filter.php">
+      <file leaf-file-name="header.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/views/main/header.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="20" selection-start="1522" selection-end="1522" vertical-scroll-proportion="0.0">
+            <state line="13" column="70" selection-start="1401" selection-end="1401" vertical-scroll-proportion="-3.9795918">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="countrypost.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1502" column="58" selection-start="31474" selection-end="31474" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="345" column="50" selection-start="9992" selection-end="9992" vertical-scroll-proportion="-10.897959">
               <folding />
             </state>
           </provider>
@@ -255,22 +266,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/system/application/controllers/client.php" />
-        <option value="$PROJECT_DIR$/system/application/models/System/View.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/comment.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/manager_rating.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/expand_button.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/profile.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/newBid.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/newComment.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/payments.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_description.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/pricelist.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_blog.php" />
         <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/body.php" />
+        <option value="$PROJECT_DIR$/static/js/button.js" />
+        <option value="$PROJECT_DIR$/system/application/views/client/elements/profile.php" />
+        <option value="$PROJECT_DIR$/system/application/views/manager/elements/profile.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/header.php" />
+        <option value="$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php" />
         <option value="$PROJECT_DIR$/static/js/countrypost.js" />
-        <option value="$PROJECT_DIR$/system/application/controllers/Base/BaseController.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/dealers/filter.php" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php" />
-        <option value="$PROJECT_DIR$/static/css/style.css" />
-        <option value="$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php" />
-        <option value="$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/offline.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/profile.php" />
       </list>
     </option>
   </component>
@@ -385,6 +396,54 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost.service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="countrypost" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -473,7 +532,8 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="baf04201-6c3b-4e63-9443-12300aab0b46" name="Default" comment="" />
-      <changelist id="c6c56782-4822-4350-8f17-b31a726ac8cd" name="New changelist" comment="" />
+      <changelist id="" name="New changelist" comment="" />
+      <changelist id="dbd42f18-037c-47a0-8033-a7e8850f9676" name="New changelist" comment="" />
       <created>1352205265382</created>
       <updated>1352205265382</updated>
     </task>
@@ -573,7 +633,23 @@
       <created>1381476124928</created>
       <updated>1381476124928</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="New changelist">
+      <created>1381476139295</created>
+      <updated>1381476139295</updated>
+    </task>
+    <task id="LOCAL-00026" summary="кнопка в фф">
+      <created>1381486209581</created>
+      <updated>1381486209581</updated>
+    </task>
+    <task id="LOCAL-00027" summary="кнопка в фф">
+      <created>1381489441000</created>
+      <updated>1381489441000</updated>
+    </task>
+    <task id="LOCAL-00028" summary="кнопка в фф">
+      <created>1381489460399</created>
+      <updated>1381489460399</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -601,12 +677,12 @@
     <editor active="false" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.475" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4748663" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32779098" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34044823" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34010696" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.231875" sideWeight="0.34076828" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17634052" sideWeight="0.65955174" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17634052" sideWeight="0.52513367" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.238125" sideWeight="0.33375958" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.475" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -692,6 +768,7 @@
     <MESSAGE value="сообщения - багфикс" />
     <MESSAGE value="сообщения" />
     <MESSAGE value="комментарии о посреднике" />
+    <MESSAGE value="New changelist" />
     <MESSAGE value="кнопка в фф" />
   </component>
   <component name="XDebuggerManager">
@@ -700,112 +777,134 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/payments.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="0" selection-start="2836" selection-end="2836" vertical-scroll-proportion="-22.166666" />
+        <state line="6" column="121" selection-start="326" selection-end="326" vertical-scroll-proportion="0.16544117">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/rating_list.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="0" selection-start="708" selection-end="708" vertical-scroll-proportion="-0.7816742">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/client_ratings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="78" selection-start="81" selection-end="81" vertical-scroll-proportion="-0.625" />
+        <state line="190" column="13" selection-start="6250" selection-end="6250" vertical-scroll-proportion="0.62782806">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/delivery_address.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="366" column="30" selection-start="15983" selection-end="15983" vertical-scroll-proportion="0.7761194">
+          <folding>
+            <marker date="1381313742544" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1381313742544" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1381313742544" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1381313742544" expanded="false" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_blog.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="6" selection-start="1126" selection-end="1126" vertical-scroll-proportion="0.55995476">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#div#2;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/newComment.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="18" selection-start="1544" selection-end="1544" vertical-scroll-proportion="0.5769231">
+          <folding>
+            <element signature="n#style#0;n#textarea#0;n#span#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/pricelist.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="126" selection-start="1731" selection-end="1731" vertical-scroll-proportion="0.8472851">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/button.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="52757" selection-start="52757" selection-end="52757" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="12" selection-start="3968" selection-end="3968" vertical-scroll-proportion="-52.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/clients/profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="8" selection-start="1491" selection-end="1491" vertical-scroll-proportion="-40.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/countrypost.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1479" column="41" selection-start="30887" selection-end="30887" vertical-scroll-proportion="-11.48" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/showOrderDetails.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="1502" column="58" selection-start="31474" selection-end="31474" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showDealers.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/manager/elements/profile.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="50" selection-start="2562" selection-end="2562" vertical-scroll-proportion="0.0">
+        <state line="292" column="55" selection-start="10303" selection-end="10303" vertical-scroll-proportion="-31.916666">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/managerinfo.php">
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/profile.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="162" column="8" selection-start="6053" selection-end="6053" vertical-scroll-proportion="0.0">
+        <state line="345" column="50" selection-start="9992" selection-end="9992" vertical-scroll-proportion="-10.897959">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/filter.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/header.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="20" selection-start="1522" selection-end="1522" vertical-scroll-proportion="0.0">
+        <state line="13" column="70" selection-start="1401" selection-end="1401" vertical-scroll-proportion="-3.9795918">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/ajax/showOrderDetails.php">
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/ratings/newComment.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="70" selection-start="1790" selection-end="1790" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/payments/comments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="89" selection-start="3079" selection-end="3079" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bids.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="13" selection-start="2499" selection-end="2499" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="12" selection-start="3470" selection-end="3481" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/orders/bid.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="126" column="28" selection-start="6696" selection-end="6696" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/Base/BaseController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1070" column="5" selection-start="31814" selection-end="31814" vertical-scroll-proportion="-10.625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="958" column="26" selection-start="25351" selection-end="25357" vertical-scroll-proportion="3.5714285">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/main/pages/createorder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/views/client/elements/showAddProduct/offline.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="107" column="41" selection-start="3625" selection-end="3625" vertical-scroll-proportion="0.5150812">
+        <state line="45" column="6" selection-start="1846" selection-end="1846" vertical-scroll-proportion="-28.125">
           <folding>
-            <element signature="n#style#0;n#div#5;n#div#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#textarea#0;n#div#5;n#div#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#span#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#1;n#span#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#br#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#textarea#0;n#span#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/views/main/elements/dealers/profile_description.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="4" selection-start="4" selection-end="4" vertical-scroll-proportion="-0.0">
+          <folding />
         </state>
       </provider>
     </entry>

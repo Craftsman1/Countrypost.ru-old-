@@ -182,19 +182,6 @@
                 $("#insert_rating").after(response);
 
                 var oEditor = FCKeditorAPI.GetInstance('rating_message');
-				/*var message = oEditor.GetHTML(true);
-				
-				var news_snippet = '<div class="table"><div class="angle angle-lt"></div><div class="angle angle-rt"></div><div class="angle angle-lb"></div><div class="angle angle-rb"></div><div><span class="label">' +
-				getNowDate() +
-				'</span> <span class="label"><b>' +
-				$('.rating_box input#title').val() +
-				'</b></span></div><div>' +
-				message +
-				'</div></div><br><br>';
-				
-				$('#news_header').after(news_snippet);
-				
-				$('.rating_box input#title').val('');*/
 				oEditor.SetHTML('');
 				$('#ratingForm .ratings_plugin div').removeClass('on').removeClass('half');
 				$('#ratingForm .ratings_plugin input').val('');
@@ -210,7 +197,7 @@
 		});
 
         if( $("#rating_message").is("#rating_message") ){
-            <?= editor('rating_message', 200, 920, 'PackageComment') ?>
+            <?= editor('rating_message', 200, 920, 'PackageComment') ?>;
         }
 
         /*$("#btnAddOtziv").click(function(){
@@ -218,7 +205,4 @@
         })*/
 
 	});
-
-
-
 </script>
