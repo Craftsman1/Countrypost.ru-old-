@@ -302,7 +302,6 @@ class Syspay extends SyspayBaseController {
 				'psform' => $view_form
 			));
 		}
-        die(var_dump($payment_system));
 	}
 	
 	private function backupPayment($details, $payment_system)
