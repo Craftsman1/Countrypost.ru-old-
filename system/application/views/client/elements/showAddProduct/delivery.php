@@ -110,7 +110,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
             </div>
         </div>
 		<br>
-		<div style="height: 50px;" class="admin-inside">
+		<div style="height: 35px; margin-top: 15px;" class="admin-inside">
 			<div class="submit">
 				<div>
 					<input type="submit" value="Добавить товар">

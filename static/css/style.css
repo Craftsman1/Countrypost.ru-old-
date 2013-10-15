@@ -143,7 +143,7 @@ div.filter-box .select {
 	}
 
 div.filter-box span.label {
-	width: 100px;
+	width: 112px;
 	margin-left: 10px;
 	font: 13px sans-serif;
 	margin-top:3px;
@@ -2086,6 +2086,7 @@ div.new_order_box {
 
 div.new_order_box > div {
 	height: 45px;
+	clear: both;
 }
 
 div.new_order_box .textbox {

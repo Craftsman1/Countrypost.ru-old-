@@ -15,7 +15,7 @@
 		</colgroup>
 		<tr>
 			<th nowrap style="width:1px;">№	</th>
-			<th>Товар</th>
+			<th style="width:20%;">Товар</th>
 			<th>Скриншот</th>
 			<? if ($order->order_type == 'mail_forwarding') : ?>
 			<th>Tracking №</th>
