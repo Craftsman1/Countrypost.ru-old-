@@ -5,17 +5,17 @@
 	<div class='angle angle-lb'></div>
 	<div class='angle angle-rb'></div>
 	<table class="products">
-		<colgroup>
-			<col style="width: 60px;">
-			<col style="width: 85px;">
-			<col style="width: 85px;">
-			<col style="width: 85px;">
-			<col style="width: 169px;">
-			<col style="width: 44px">
-		</colgroup>
+        <colgroup>
+            <col style="width: 60px;">
+            <col style="width: 250px;">
+            <col style="width: 60px;">
+            <col style="width: 60px;">
+            <col style="width: 60px;">
+            <col style="width: 44px">
+        </colgroup>
 		<tr>
 			<th nowrap style="width:1px;">№	</th>
-			<th style="width:20%;">Товар</th>
+			<th>Товар</th>
 			<th>Скриншот</th>
 			<? if ($order->order_type == 'mail_forwarding') : ?>
 			<th>Tracking №</th>
