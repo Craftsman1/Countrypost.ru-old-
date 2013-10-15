@@ -121,18 +121,18 @@
 		</tr>
 		<? endif; ?>
 	</table>
+    <? if ($is_offer_accepted) : ?>
+        <div style="height: 30px;" id="newBidButton">
+            <div class="admin-inside float-left">
+                <div class='submit'>
+                    <div>
+                        <input type='button' class="bid_button" value='Добавить предложение' onclick="showNewBidForm('<?= $order->order_id ?>');" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    <? endif; ?>
 </div>
-<? if ($is_offer_accepted) : ?>
-<div style="height: 50px;" id="newBidButton">
-	<div class="admin-inside float-left">
-		<div class='submit'>
-			<div>
-				<input type='button' class="bid_button" value='Добавить предложение' onclick="showNewBidForm('<?= $order->order_id ?>');" />
-			</div>
-		</div>
-	</div>
-</div>
-<? endif; ?>
 <a name="new_bid"></a>
 <script>
 	function updateTotals()
