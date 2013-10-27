@@ -28,6 +28,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 					<span class="label">Примерный вес (кг)<span class="red-color">*</span>:
 					</span>
 					<input class="textbox"
+						   onkeyup="this.value=this.value.replace(/[^\d\.]+/g,'')"
 						   maxlength="255"
 						   type='text'
 						   id='oweight'

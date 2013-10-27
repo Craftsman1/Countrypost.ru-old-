@@ -49,7 +49,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 						   name="osize" />
 				</div>
 				<div>
-					<span class="label">Стоимость (через запятую)<span class="red-color">*</span>:</span>
+					<span class="label">Стоимость (через запятую):<span class="red-color">*</span>:</span>
 					<input class="textbox"
 						   onkeyup="this.value=this.value.replace(/[^\d\.]+/g,'')"
 						   maxlength="11"
@@ -73,9 +73,13 @@ $target = $selfurl . $handler . '/' . $order->order_id;
         <div class='add_detail_box' style="margin-top: 20px;position:relative;">
             <div class='new_order_box'>
 				<div>
-					<span class="label">Примерный вес (кг):
-					</span>
-					<input style="width:180px;" class="textbox" maxlength="255" type='text' id='oweight' name="oweight" />
+					<span class="label">Примерный вес (кг):</span>
+					<input style="width:180px;" class="textbox" 
+					onkeyup="this.value=this.value.replace(/[^\d\.]+/g,'')"
+					maxlength="255" 
+					type='text' 
+					id='oweight' 
+					name="oweight" />
 					<div style="clear:both;" ></div>
 				</div>
 				<div>

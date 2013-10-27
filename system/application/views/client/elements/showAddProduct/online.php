@@ -33,7 +33,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 						   name="oname" />
 				</div>
 				<div>
-					<span class="label">Стоимость (через запятую)<span class="red-color">*</span>:</span>
+					<span class="label">Стоимость (через запятую):<span class="red-color">*</span>:</span>
 					<input class="textbox"				
 						   onkeyup="this.value=this.value.replace(/[^\d\.]+/g,'')"
 						   maxlength="11"
@@ -85,6 +85,7 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 					<span class="label">Примерный вес (кг):
 					</span>
 					<input class="textbox"
+						   onkeyup="this.value=this.value.replace(/[^\d\.]+/g,'')"
 						   maxlength="255"
 						   type='text'
 						   id='oweight'
