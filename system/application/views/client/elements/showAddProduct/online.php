@@ -33,8 +33,9 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 						   name="oname" />
 				</div>
 				<div>
-					<span class="label">Стоимость<span class="red-color">*</span>:</span>
-					<input class="textbox"
+					<span class="label">Стоимость (через запятую)<span class="red-color">*</span>:</span>
+					<input class="textbox"				
+						   onkeyup="this.value=this.value.replace(/[^\d\.]+/g,'')"
 						   maxlength="11"
 						   type='text'
 						   id='oprice'

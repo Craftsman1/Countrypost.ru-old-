@@ -24,8 +24,9 @@ $target = $selfurl . $handler . '/' . $order->order_id;
 							  name="ocomment" style="resize: vertical!important;"></textarea>
                 </div>
                 <div>
-                    <span class="label">Стоимость:</span>
+                    <span class="label">Стоимость (через запятую):</span>
 					<input class="textbox"
+						   onkeyup="this.value=this.value.replace(/[^\d\.]+/g,'')"
 						   maxlength="11"
 						   type='text'
 						   id='oprice'
