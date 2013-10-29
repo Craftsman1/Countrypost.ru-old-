@@ -469,6 +469,7 @@ class Profile extends BaseController {
 
                 preg_match('/before_table_text = "(.+)"/',$template,$before_table_text);
                 preg_match('/after_table_text = "(.+)"/',$template,$after_table_text);
+				preg_match('/currency_table_text = "(.+)"/',$template,$currency_table_text);
                 preg_match('/cols = (\d+)/',$template,$cols);
                 preg_match('/width = (\d+)/',$template,$width);
 
@@ -509,7 +510,9 @@ class Profile extends BaseController {
                         }
                         if (isset($before_table_text[1])) $before_text = $before_table_text[1]; else $before_text = "";
                         if (isset($after_table_text[1])) $after_text = $after_table_text[1]; else $after_text = "";
-                        $this->CreateTable($data,$cols[1],$width[1],$before_text,$after_text);
+						if (isset($currency_table_text[1])) $currency_text = $currency_table_text[1]; else $currency_text = "";
+                        $this->CreateTable($data,$cols[1],$width[1],$before_text,$after_text,$currency_text);
+
                 }
             }
 
@@ -522,9 +525,9 @@ class Profile extends BaseController {
      * @var data - array массив с данными
      * @var col - int кол-во столбцов
      */
-    public function CreateTable($data,$cols=1,$width=500,$before_table_text="",$after_table_text="")
+    public function CreateTable($data,$cols=1,$width=500,$before_table_text="",$after_table_text="",$currency_table_text="")
     {
-        $viewdata = array("data" => $data, "cols" => $cols, "width" => $width, "before_table_text" => $before_table_text, "after_table_text" => $after_table_text);
+        $viewdata = array("data" => $data, "cols" => $cols, "width" => $width, "before_table_text" => $before_table_text, "after_table_text" => $after_table_text, "currency_table_text" => $currency_table_text); 
         $this->load->view('manager/elements/templates/table_template',$viewdata);
     }
 

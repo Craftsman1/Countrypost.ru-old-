@@ -8,7 +8,7 @@
     <tr>
         <? for ($col = 1; $col <= $cols; $col++) : ?>
         <th style="text-align: center;">КГ</th>
-        <th style="text-align: center;">CNY</th>
+        <th style="text-align: center;"><?=$currency_table_text?></th>
         <? endfor; ?>
     </tr>
 
