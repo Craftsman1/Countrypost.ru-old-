@@ -489,14 +489,14 @@ class Profile extends BaseController {
                         {
                             $resultEval = 0;
                             eval("\$resultEval = ".$result.";");
-                            $associativArray[$templateTable[1][$i]] = $resultEval;
+                            $associativArray[$templateTable[1][$i]] = number_format($resultEval,3);
                         }else{
                             preg_match('/([0-9.]+)/',$matches[0],$matches2);
                             $result2 = preg_replace('/\{'.$matches2[0].'\}/',$associativArray[$matches2[0]],$templateTable[2][$i]);
                             $result3 = preg_replace($pattern,$replace,$result2);
                             $resultEval = 0;
                             eval("\$resultEval = ".$result3.";");
-                            $associativArray[$templateTable[1][$i]] = $resultEval;
+                            $associativArray[$templateTable[1][$i]] = number_format($resultEval,3);
                         }
 
                     }
