@@ -63,6 +63,7 @@ after_table_text = ""
 currency_table_text = "CNY"
 cols = 3
 width = 600
+zeronumber = 0
 
 {country} = 6
 {first_kg} = 108

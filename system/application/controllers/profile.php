@@ -472,12 +472,20 @@ class Profile extends BaseController {
 				preg_match('/currency_table_text = "(.+)"/',$template,$currency_table_text);
                 preg_match('/cols = (\d+)/',$template,$cols);
                 preg_match('/width = (\d+)/',$template,$width);
+				preg_match('/zeronumber = (\d+)/',$template,$zeronumber);
+				
+				//получение количества нулей после запятой
+				if(!empty($zeronumber[1])){
+					$num = (int)$zeronumber[1];
+				} else {
+					$num = 0;
+				}
 
                 preg_match_all('/([0-9.]+) = (.+)/',$template,$templateTable);
                 $associativArray = array();
                 $pattern = array('/{first_kg}/','/{second_kg}/','/{extra_rate}/');
                 $replace = array($first_kg,$second_kg,$extra_rate);
-
+				
                 if ($country != 0)
                 {
                     for ($i=0; $i < count($templateTable[2]); $i++)
@@ -489,14 +497,14 @@ class Profile extends BaseController {
                         {
                             $resultEval = 0;
                             eval("\$resultEval = ".$result.";");
-                            $associativArray[$templateTable[1][$i]] = number_format($resultEval,3);
+                            $associativArray[$templateTable[1][$i]] = number_format($resultEval,$num, '.', '');
                         }else{
                             preg_match('/([0-9.]+)/',$matches[0],$matches2);
                             $result2 = preg_replace('/\{'.$matches2[0].'\}/',$associativArray[$matches2[0]],$templateTable[2][$i]);
                             $result3 = preg_replace($pattern,$replace,$result2);
                             $resultEval = 0;
                             eval("\$resultEval = ".$result3.";");
-                            $associativArray[$templateTable[1][$i]] = number_format($resultEval,3);
+                            $associativArray[$templateTable[1][$i]] = number_format($resultEval,$num, '.', '');
                         }
 
                     }

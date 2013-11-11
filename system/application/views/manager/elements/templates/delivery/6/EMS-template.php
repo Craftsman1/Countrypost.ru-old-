@@ -63,6 +63,8 @@ after_table_text = ""
 currency_table_text = "KRW"
 cols = 3
 width = 600
+zeronumber = 3
+
 
 {country} = 98
 {first_kg} = 0
