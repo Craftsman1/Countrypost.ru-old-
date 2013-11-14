@@ -13,7 +13,7 @@ class Check
 	 * @param string $str
 	 * @return string
 	 */
-	public static function stripStr($str)
+	public static function stripStr($str, $striptags=false)
 	{
 		if ($str === false)
 		{
@@ -24,9 +24,11 @@ class Check
 		{
 			$chars0_31 .= chr($i);
 		}		
-		
+		if($striptags){
+			$str = strip_tags($str,'<br>');
+		}
 		$str = htmlspecialchars(stripslashes($str));
-		$str = str_replace("\r\n", " <br>", $str);
+		$str = str_replace(array("\r\n", "\n"), " <br>", $str);
 		$str = str_replace("\\", "", $str);
 		$str = str_replace("'", "&#39;", $str);
 		$str = str_replace('"', "&quot;", $str);
@@ -136,7 +138,7 @@ class Check
 	 * @param string $def Значение по умолчанию
 	 * @return string
 	 */
-	public static function str($varname, $maxlen, $minlen=0, $def=null, $charset_from = "WINDOWS-1251", $charset_to = "WINDOWS-1251")
+	public static function str($varname, $maxlen, $minlen=0, $def=null, $charset_from = "WINDOWS-1251", $charset_to = "WINDOWS-1251", $striptags=false)
 	{
 		$str = isset($_POST[$varname])?$_POST[$varname]:(isset($_GET[$varname])?$_GET[$varname]:$def);
 		if ($charset_from != $charset_to && $str !== false)
@@ -146,7 +148,7 @@ class Check
 		
 		if (/*$str !== false && */strlen($str) >= $minlen && strlen($str) <= $maxlen)
 		{
-			return Check::stripStr($str);
+			return Check::stripStr($str,$striptags);
 		}
 		elseif (!is_null($def))
 		{

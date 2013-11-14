@@ -49,7 +49,15 @@
 				</div>
 				<br style="clear:both;" />
 				<div>
-					<textarea maxlength="65535" id='rating_message' name="rating_message"></textarea>
+					<textarea maxlength="65535" 
+							  id='rating_message' 
+							  name="rating_message" 
+							  style="width: 864px;
+								height: 100px;
+								margin-top: 6px;
+								margin-bottom: 5px;
+								resize: vertical;
+								border: 1px solid rgb(215, 215, 215);"></textarea>
 				</div>
 			</div>
 			<div class="rating_group table">
@@ -163,8 +171,9 @@
 			iframe: true,
 			beforeSubmit: function(formData, jqForm, options)
 			{
-                var oEditor = FCKeditorAPI.GetInstance('rating_message');
-                var getText = oEditor.EditorDocument.body.innerHTML;
+                //var oEditor = jQuery('#rating_message').val();
+                var getText = jQuery('#rating_message').val();
+				console.log(getText);
                 var StripTag = getText.replace(/(<([^>]+)>)/ig,"");
                 StripTag = StripTag.replace(/\&nbsp\;/ig,'');
                 if( StripTag=="" || StripTag.length < 5) {
@@ -181,8 +190,9 @@
 
                 $("#insert_rating").after(response);
 
-                var oEditor = FCKeditorAPI.GetInstance('rating_message');
-				oEditor.SetHTML('');
+                /*var oEditor = FCKeditorAPI.GetInstance('rating_message');
+				oEditor.SetHTML('');*/
+				jQuery('#rating_message').val('')
 				$('#ratingForm .ratings_plugin div').removeClass('on').removeClass('half');
 				$('#ratingForm .ratings_plugin input').val('');
 				$('#ratingForm .rating_box input[name=rating_type][value=neutral]').attr('checked', true);
@@ -196,9 +206,9 @@
 			}
 		});
 
-        if( $("#rating_message").is("#rating_message") ){
+        /*if( $("#rating_message").is("#rating_message") ){
             <?= editor('rating_message', 200, 920, 'PackageComment') ?>;
-        }
+        }*/
 
         /*$("#btnAddOtziv").click(function(){
             error('top', 'Вам необходимо войти систему под своим логином и паролем.');
