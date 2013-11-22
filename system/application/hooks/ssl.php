@@ -9,7 +9,7 @@ function check_ssl()
 {
     $CI =& get_instance();
     $class = $CI->router->fetch_class();
-    $ssl = array('client','profile','manager','admin','syspay', 'main', 'dealers', 'clients');
+    $ssl = array('client','profile','manager','admin','syspay', 'main', 'dealers', 'clients', 'signup');
     $partial =  array('');
     $segment2 = $CI->uri->segment(2);
     if(in_array($class,$ssl) )
@@ -29,6 +29,7 @@ function check_ssl()
 			|| (strpos($segment2,'update_odetail_pricedelivery') !== false)
 			|| (strpos($segment2,'update_odetail_weight') !== false)
 			|| (strpos($segment2,'update_odetail_tracking') !== false)
+			|| (strpos($segment2,'remindpassword') !== false)
 			)
     {
         force_ssl();
