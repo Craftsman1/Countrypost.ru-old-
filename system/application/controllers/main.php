@@ -1180,6 +1180,7 @@ Email: {$this->user->user_email}";
 	
 	public function order($order_id)
 	{
+		$order_id = (int)$order_id;
 		$order = $this->getPrivilegedOrder($order_id, FALSE);
 
 		// залогиненных отправляем в личный кабинет
