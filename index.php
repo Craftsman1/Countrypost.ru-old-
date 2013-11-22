@@ -99,6 +99,9 @@ define('BASESSLURL', 'https://'.$_SERVER['HTTP_HOST'].'/');
 define('IMG_PATH', '/static/images/');
 define('CSS_PATH', '/static/css/');
 define('JS_PATH','/static/js/');
+define('IMG_SSLPATH', '/static/images/');
+define('CSS_SSLPATH', '/static/css/');
+define('JS_SSLPATH','/static/js/');
 define('UPLOAD_DIR', (getcwd()).'/upload/');
 
 if (is_dir($application_folder))
