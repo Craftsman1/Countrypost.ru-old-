@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Отправить деньги в китай и из китая</title>
     <link rel='stylesheet' type='text/css' media="screen" href='<?= CSS_PATH ?>money.css' />
+    <script src="<?php echo JS_PATH;?>jquery-1.8.2.js"></script>
 </head>
 <body>
 <div class="main_content">
@@ -47,19 +48,23 @@
                 <form class="" action="" method="POST">
                     <div class="text-field">
                         <div>
-                            <input type="text" value="Перевод из России в Китай (срочный) - 2%" name="">
+                            <select>
+                                <?php if(isset($money)) foreach($money as $m):?>
+                                <option data-percent="<?php echo $m->percent;?>" value="<?php echo $m->id;?>"><?php echo $m->name;?></option>
+                                <?php endforeach;?>
+                            </select>
                         </div>
                     </div>
                     <div class="text-field">
                         <div>
-                            <input class="amount" type="text" value="Сумма" name="">
+                            <input class="amount" type="text" placeholder="Сумма" name="price">
                             <div class="flt total">Итого к оплате: <span>23000 руб</span></div>
                         </div>
                         <div class="clear"></div>
                     </div>
                     <div class="text-field">
                         <div>
-                            <input type="text" value="Ваши контакты (email, skype, телефон)" name="">
+                            <input type="text" placeholder="Ваши контакты (email, skype, телефон)" name="contacts">
                         </div>
                     </div>
                     <div class="submit">
@@ -70,21 +75,8 @@
                     </div>
                     <form>
             </div>
-            <div class="box-back-right frt">
-                <h2>курсы валют</h2>
-                <div id="currency_rates"><form action="" method="POST">
-                        <select >
-                            <option>CNY</option>
-                            <option>RUB</option>
-                            <option>USD</option>
-                            <option>UAH</option>
-                            <option>KZT</option>
-                        </select>
-                    </form></div>
-                <div>1 CNY = 5.571744 RUB</div>
-                <div>1 CNY = 0.168008 USD</div>
-                <div>1 CNY = 1.797517 UAH</div>
-                <div>1 CNY = 25.55712 KZT</div>
+            <div class="box-back-right frt" id="currency-insert">
+                <?php echo $currency;?>
             </div>
 
             <div class="clear"></div>
