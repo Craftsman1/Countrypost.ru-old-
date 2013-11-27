@@ -30,6 +30,7 @@ function check_ssl()
 			|| (strpos($segment2,'update_odetail_weight') !== false)
 			|| (strpos($segment2,'update_odetail_tracking') !== false)
 			|| (strpos($segment2,'remindpassword') !== false)
+			|| (strpos($segment2,'passwordRecovery') !== false)
 			)
     {
         force_ssl();
