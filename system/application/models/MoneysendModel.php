@@ -13,7 +13,7 @@ require_once(MODELS_PATH.'Base/BaseModel.php');
 class MoneysendModel extends BaseModel implements IModel{
 
     protected 	$properties			= null;			// array of properties
-    protected	$table				= 'money_transfer';		// table name
+    protected	$table				= 'money_transfers';		// table name
     protected	$PK					= 'id';		// primary key name
 
     /**
