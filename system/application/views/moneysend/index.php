@@ -164,6 +164,9 @@
                     if(data.status == 'success')
                     {
                         success('top',data.message);
+                        price.val('');
+                        total_input.text('');
+                        jQuery('#contacts').val('');
                     }else
                     {
                         error('top',data.message);
