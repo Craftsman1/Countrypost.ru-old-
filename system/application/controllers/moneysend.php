@@ -47,11 +47,40 @@ class Moneysend extends BaseController {
                 $view = $this->_get_exchange_rate_table($post['cur_name']);
                 if(!$view) $response['message'] = 'Неверные данные';
                 else $response = array('status'=>'success','view'=>$view);
-
                 die(json_encode($response));
-                break;
+
+            case 'moneysend':
+                $post['id']       = $this->input->post('id');
+                $post['price']    = $this->input->post('price');
+                $post['contacts'] = $this->input->post('contacts');
+                foreach($post as $k => $v)
+                {
+                    if(empty($v))
+                    {
+                        $response['message'] = 'Все поля обязательны для заполнения';
+                        die(json_encode($response));
+                    }
+                }
+                $this->_notify($post);
+                die(json_encode(array('status'=>'success','message'=>'Вы успешно отправили заявку на перевод денег.')));
+
             default:
                 show_404();die();
         }
+    }
+
+    public function _notify($data)
+    {
+        $this->load->model('MoneysendModel','m');
+        $this->load->library('email');
+        $result = current($this->m->select(array('id'=>$data['id'])));
+
+        $msg = 'Заявка на перевод денег.<br/> Сумма - '.$data['price'].' '.$result->currency.'<br/> Контактные данные - "'.$data['contacts'].'"';
+
+        $this->email->from('info@countrypost.ru', 'Countrypost.ru');
+        $this->email->to('vayrex@gmail.com');
+        $this->email->subject('Countrypost.ru');
+        $this->email->message($msg);
+        return $this->email->send();
     }
 }
