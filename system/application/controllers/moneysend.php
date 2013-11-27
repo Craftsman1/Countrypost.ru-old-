@@ -78,7 +78,7 @@ class Moneysend extends BaseController {
         $msg = 'Заявка на перевод денег.<br/> Сумма - '.$data['price'].' '.$result->currency.'<br/> Контактные данные - "'.$data['contacts'].'"';
 
         $this->email->from('info@countrypost.ru', 'Countrypost.ru');
-        $this->email->to('vayrex@gmail.com');
+        $this->email->to(' at3@yandex.ru');
         $this->email->subject('Countrypost.ru');
         $this->email->message($msg);
         return $this->email->send();
