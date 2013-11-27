@@ -134,14 +134,14 @@ body{
 	display: block;
     max-height: 25px;
 }
-.text-field div input {
+.text-field div input, .text-field div select {
 	width: 360px;
     background: url("../images/money/textfield.png") repeat-x scroll 0 -50px rgba(0, 0, 0, 0);
     border: medium none;
     color: #000000;
     display: block;
     margin: 0 4px;
-    padding: 6px 4px 5px;
+    padding: 5px 4px 2px 5px;
 }
 .text-field div input.amount{
 		width: 100px;
