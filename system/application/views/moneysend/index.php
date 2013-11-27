@@ -48,29 +48,28 @@
                 <form class="" action="" method="POST">
                     <div class="text-field">
                         <div>
-                            <select>
+                            <select id="change-type">
                                 <?php if(isset($money)) foreach($money as $m):?>
-                                <option data-percent="<?php echo $m->percent;?>" value="<?php echo $m->id;?>"><?php echo $m->name;?></option>
+                                <option data-currency="<?php echo $m->currency;?>" data-percent="<?php echo $m->percent;?>" value="<?php echo $m->id;?>"><?php echo $m->name;?></option>
                                 <?php endforeach;?>
                             </select>
                         </div>
                     </div>
                     <div class="text-field">
                         <div>
-                            <input class="amount" type="text" placeholder="Сумма" name="price">
-                            <div class="flt total">Итого к оплате: <span>23000 руб</span></div>
+                            <input class="amount" type="text" placeholder="Сумма" name="price" id="price"/>
+                            <div class="flt total">Итого к оплате:<span id="total">0</span></div>
                         </div>
                         <div class="clear"></div>
                     </div>
                     <div class="text-field">
                         <div>
-                            <input type="text" placeholder="Ваши контакты (email, skype, телефон)" name="contacts">
+                            <input type="text" placeholder="Ваши контакты (email, skype, телефон)" name="contacts" id="contacts">
                         </div>
                     </div>
                     <div class="submit">
                         <div>
-                            <button>Отправить заявку</button>
-
+                            <button id="submit-transfer">Отправить заявку</button>
                         </div>
                     </div>
                     <form>
@@ -140,5 +139,51 @@
 
     </div>
 </div>
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        var price       = jQuery('#price');
+        var total_input = jQuery('#total');
+        var total       = total_input.text();
+        var select      = jQuery('#change-type');
+
+        jQuery('#submit-transfer').click(function(e){
+            e.preventDefault();
+            var val     = parseInt(price.val());
+            var option  = select.find(':selected');
+            var percent = parseFloat(option.attr('data-percent'));
+            val = val+(val/100*percent);
+            jQuery.post('<?php echo base_url().'moneysend/ajax';?>',
+                {action:'moneysend',id:option.val(),price:val,contacts:jQuery('#contacts').val()},
+                function(data){
+                console.log(data);
+            },'json');
+            return false;
+        });
+
+        price.keyup(function(){
+            var val     = parseInt(jQuery(this).val());
+            var option  = select.find(':selected');
+            var percent = parseFloat(option.attr('data-percent'));
+            if(isNaN(val))
+            {
+                val = 0;
+            }
+            price.val(val);
+            total_input.text(val+(val/100*percent)+' '+option.attr('data-currency'));
+        });
+
+        select.change(function(){
+            var val     = parseInt(price.val());
+            var option  = select.find(':selected');
+            var percent = parseFloat(option.attr('data-percent'));
+            if(isNaN(val))
+            {
+                val = 1;
+            }
+            price.val(val);
+            total_input.text(val+(val/100*percent)+' '+option.attr('data-currency'));
+        });
+    });
+</script>
 </body>
 </html>
