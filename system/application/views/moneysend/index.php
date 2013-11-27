@@ -5,6 +5,12 @@
     <title>Отправить деньги в китай и из китая</title>
     <link rel='stylesheet' type='text/css' media="screen" href='<?= CSS_PATH ?>money.css' />
     <script src="<?php echo JS_PATH;?>jquery-1.8.2.js"></script>
+    <script src="<?php echo JS_PATH;?>countrypost.js"></script>
+    <script type="text/javascript" src="<?php echo JS_PATH;?>noty/jquery.noty.js"></script>
+    <script type="text/javascript" src="<?php echo JS_PATH;?>noty/promise.js"></script>
+    <script type="text/javascript" src="<?php echo JS_PATH;?>noty/layouts/top.js"></script>
+    <script type="text/javascript" src="<?php echo JS_PATH;?>noty/themes/default.js"></script>
+
 </head>
 <body>
 <div class="main_content">
@@ -155,7 +161,13 @@
             jQuery.post('<?php echo base_url().'moneysend/ajax';?>',
                 {action:'moneysend',id:option.val(),price:val,contacts:jQuery('#contacts').val()},
                 function(data){
-                console.log(data);
+                    if(data.status == 'success')
+                    {
+                        success('top',data.message);
+                    }else
+                    {
+                        error('top',data.message);
+                    }
             },'json');
             return false;
         });
