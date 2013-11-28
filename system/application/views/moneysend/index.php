@@ -17,8 +17,8 @@
     <div class="layout">
         <div class="header">
             <h1 class="logo flt"><a class="header-link" href="https://countrypost.ru/">CountryPost - Лучший сервис покупок за рубежом</a></h1>
-            <a class="skype header-link flt" href="skype:country_post?call"><span>skype: country_post</span></a>
-            <a class="mail header-link frt" href="mailto:info@countrypost.ru"><span>info@countrypost.ru</span></a>
+            <span class="skype header-link flt"><span>skype: country_post</span></span>
+            <span class="mail header-link frt"><span>info@countrypost.ru</span></span>
         </div>
         <div class="main_block">
 
