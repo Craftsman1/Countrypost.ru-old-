@@ -85,6 +85,23 @@ body{
 	font-size:30px;
 	text-align: center;
 }
+.transfer{
+    display: block;
+    width: 445px;
+    height: 110px;
+    background: url(../images/money/button-with-wallet.png) no-repeat;
+}
+.transfer span{
+    display: block;
+    position: relative;
+    top: 46px;
+    left: 110px;
+    font-family: Arial,Verdana, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 21px;
+    color: #ffffff;
+}
 .clarification {
 	color: #bf0090;
 	font-size:18px;
@@ -135,13 +152,16 @@ body{
     max-height: 25px;
 }
 .text-field div input, .text-field div select {
-	width: 360px;
+	width: 355px;
     background: url("../images/money/textfield.png") repeat-x scroll 0 -50px rgba(0, 0, 0, 0);
     border: medium none;
     color: #000000;
     display: block;
     margin: 0 4px;
     padding: 5px 4px 2px 5px;
+}
+.text-field div select{
+    width:365px;
 }
 .text-field div input.amount{
 		width: 100px;
@@ -157,9 +177,13 @@ body{
 	background: url("../images/money/button.png") no-repeat scroll 100% 0 rgba(0, 0, 0, 0);
     color: #FFFFFF;
     display: block;
-    margin: 0 28px;
+    margin: 0 27px;
     height: 29px;
 	width: 365px;
+    border: none;
+}
+.submit div button:focus{
+    outline: none;
 }
 .box-back-right div{
 	font-family: Arial;
