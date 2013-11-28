@@ -26,8 +26,8 @@
             <div class="time_transfer">за один час</div>
             <div class="transfer_img"><img src="<?=IMG_PATH?>money/transfer_money.png" width="480" height="160" alt="transfer_money"></div>
             <div class="soc-icons"><img src="<?=IMG_PATH?>money/soc-icon.png" width="405" height="44" alt="soc_icons"></div>
-            <div class="flt"><img src="<?=IMG_PATH?>money/transfer_to_China.png" width="445" height="110" alt="transfer_to_China"></div>
-            <div class="frt"><img src="<?=IMG_PATH?>money/transfer_from_China.png" width="445" height="110" alt="transfer_from_China"></div>
+            <div class="flt transfer"><span>Перевод денег в Китай</span></div>
+            <div class="frt transfer"><span>Перевод денег из Китая</span></div>
             <table class="ratestable" width="100%">
                 <tbody>
                 <tr>
