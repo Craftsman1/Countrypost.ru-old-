@@ -56,7 +56,7 @@
                         <div>
                             <select id="change-type">
                                 <?php if(isset($money)) foreach($money as $m):?>
-                                <option data-currency="<?php echo $m->currency;?>" data-percent="<?php echo $m->percent;?>" value="<?php echo $m->id;?>"><?php echo $m->name;?></option>
+                                <option data-currency="<?php echo $m->currency;?>" data-percent="<?php echo $m->percent;?>" value="<?php echo $m->id;?>"><?php echo $m->name;?> – <?php echo $m->percent;?>%</option>
                                 <?php endforeach;?>
                             </select>
                         </div>
