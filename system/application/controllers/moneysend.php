@@ -75,9 +75,9 @@ class Moneysend extends BaseController {
         $this->load->library('email');
         $result = current($this->m->select(array('id'=>$data['id'])));
 
-        $msg = 'Заявка на перевод денег.<br/>
+        $msg = 'Заявка на перевод денег - "'.$result->name.'"<br/>
         Сумма - '.$data['price'].' '.$result->currency.'<br/>
-        Итого к оплате - '.((float)$data['price']+((float)$data['price']/100*(float)$result->percent)).'<br/>
+        Итого к оплате - '.((float)$data['price']+((float)$data['price']/100*(float)$result->percent)).' '.$result->currency.'<br/>
         Контактные данные - "'.$data['contacts'].'"';
 
         $this->email->from('info@countrypost.ru', 'Countrypost.ru');
