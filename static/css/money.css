@@ -270,6 +270,10 @@ body{
 	width:133px;
 	height:43px;
 	border:none;
+    color:#ffffff;
+}
+.shop-link:visited, .shop-link:hover, .shop-link:active, .shop-link:focus{
+    color:#ffffff;
 }
 .shop-link-last{
 	width:122px;
