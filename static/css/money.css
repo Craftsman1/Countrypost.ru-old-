@@ -274,6 +274,7 @@ body{
 }
 .shop-link:visited, .shop-link:hover, .shop-link:active, .shop-link:focus{
     color:#ffffff;
+    text-decoration: none;
 }
 .shop-link-last{
 	width:122px;
