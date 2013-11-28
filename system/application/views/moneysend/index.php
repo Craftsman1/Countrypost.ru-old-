@@ -157,7 +157,7 @@
             var val     = parseInt(price.val());
             var option  = select.find(':selected');
             var percent = parseFloat(option.attr('data-percent'));
-            val = val+(val/100*percent);
+
             jQuery.post('<?php echo base_url().'moneysend/ajax';?>',
                 {action:'moneysend',id:option.val(),price:val,contacts:jQuery('#contacts').val()},
                 function(data){
