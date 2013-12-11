@@ -819,7 +819,7 @@ sSignatureValue
 		$payment_id = isset($_REQUEST['order'])?$_REQUEST['order']:false;
 		// парсим хмл
 		$i = file_get_contents('php://input');
-		
+        PayLog::put('QW',$i);
 		preg_match('/<login>(.*)?<\/login>/', $i, $m1);
 		preg_match('/<password>(.*)?<\/password>/', $i, $m2);
 		preg_match('/<txn>(.*)?<\/txn>/', $i, $m3);
