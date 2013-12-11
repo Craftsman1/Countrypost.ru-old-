@@ -22,8 +22,8 @@ class Syspay extends SyspayBaseController {
 
 	function __construct()
 	{
-		parent::__construct();	
-	}
+		parent::__construct();
+    }
 	
 	function index()
 	{
@@ -819,9 +819,7 @@ sSignatureValue
 		$payment_id = isset($_REQUEST['order'])?$_REQUEST['order']:false;
 		// парсим хмл
 		$i = file_get_contents('php://input');
-        PayLog::put('QW',$i);
-        PayLog::put('QW',$_POST);
-        PayLog::put('QW',$_GET);
+
 		preg_match('/<login>(.*)?<\/login>/', $i, $m1);
 		preg_match('/<password>(.*)?<\/password>/', $i, $m2);
 		preg_match('/<txn>(.*)?<\/txn>/', $i, $m3);
@@ -833,7 +831,7 @@ sSignatureValue
 			$hash = strtoupper(md5($m3[1] . strtoupper(md5(constant('QIWI_PASS')))));
 			$resultCode = ($hash === $m2[1]) ? 0 : 150;
 
-			if ($resultCode == 0 && $m4[1] == 60)
+			if ((int)$resultCode == 0 && (int)$m4[1] == 60)
 			{
 				try
 				{
@@ -866,10 +864,10 @@ sSignatureValue
 					$payment_obj->order_id					= $payment->order_id;
 
 					$this->payOrder($payment_obj->order_id, $payment_obj, $payment->payment_details_amount);
+                    $addLog	= "Status: OK. Payment done."."\n";
 				}
 				catch (Exception $ex)
 				{
-					print($ex->getMessage());
 					$resultCode = 300;
 					$addLog	= "Status: FAIL! ".$ex->getMessage()."\n";
 				}
