@@ -820,6 +820,8 @@ sSignatureValue
 		// парсим хмл
 		$i = file_get_contents('php://input');
         PayLog::put('QW',$i);
+        PayLog::put('QW',$_POST);
+        PayLog::put('QW',$_GET);
 		preg_match('/<login>(.*)?<\/login>/', $i, $m1);
 		preg_match('/<password>(.*)?<\/password>/', $i, $m2);
 		preg_match('/<txn>(.*)?<\/txn>/', $i, $m3);
