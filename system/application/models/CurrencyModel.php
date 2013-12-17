@@ -258,9 +258,13 @@ class CurrencyModel extends BaseModel implements IModel{
 		
 		return $result;
 	}
-	public function getExchangeCurrencies()
+
+	public function getExchangeCurrencies($currencies = array())
 	{
-		$query = $this->db->where_in('currency_name', array('AUD', 'BRL', 'BTC', 'CAD', 'CHF', 'CNY', 'KRW', 'EUR', 'GBP', 'INR', 'HKD', 'JPY', 'NZD', 'SEK', 'SGD', 'USD'))->get($this->table);
+		$this->db->where_in('currency_name', $currencies);
+
+        $query = $this->db->get($this->table);
+
 		if($query->num_rows()>0)
 		{
 			return $query->result_array();
@@ -269,7 +273,6 @@ class CurrencyModel extends BaseModel implements IModel{
 		{
 			return false;
 		}
-		
 	}
 }
 ?>
