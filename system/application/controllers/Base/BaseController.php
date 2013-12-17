@@ -201,7 +201,7 @@ abstract class BaseController extends Controller
 				$this->load->model('CurrencyModel', 'Currencies');
 				$view += array (
 					'cur_currency'=>DEFAULT_CURRENCY,
-					'currencies'=>$this->Currencies->getExchangeCurrencies(),
+					'currencies'=>$this->Currencies->getExchangeCurrencies(array('UAH','AUD', 'BRL', 'BTC', 'CAD', 'CHF', 'CNY', 'KRW', 'EUR', 'GBP', 'INR', 'HKD', 'JPY', 'NZD', 'SEK', 'SGD', 'USD')),
 					'rate_usd' => $this->Currencies->getExchangeRate(DEFAULT_CURRENCY, 'USD', 'client'),
 					'rate_kzt' => $this->Currencies->getExchangeRate(DEFAULT_CURRENCY, 'KZT', 'client'),
 					'rate_uah' => $this->Currencies->getExchangeRate(DEFAULT_CURRENCY, 'UAH', 'client'),
