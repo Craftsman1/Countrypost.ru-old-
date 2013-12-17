@@ -1751,21 +1751,21 @@ class Client extends BaseController {
 	{
 		parent::moveProducts($old_order_id, $new_order_id);
 	}
+
 	public function get_exchange_rate_table()
 	{
 		$cur_name = $this->input->post('cur_name');
 		$result['status']='error';
-		$currencies = array('AUD', 'BRL', 'BTC', 'CAD', 'CHF', 'CNY', 'KRW', 'EUR', 'GBP', 'INR', 'HKD', 'JPY', 'NZD', 'SEK', 'SGD', 'USD');
+		$currencies = array('UAH','AUD', 'BRL', 'BTC', 'CAD', 'CHF', 'CNY', 'KRW', 'EUR', 'GBP', 'INR', 'HKD', 'JPY', 'NZD', 'SEK', 'SGD', 'USD');
 		if(!$cur_name OR !in_array($cur_name, $currencies))
 		{
 			echo json_encode($result);
 			die();
 		}
-		
 		$this->load->model('CurrencyModel', 'Currencies');
 		$view = array (
 			'cur_currency'=>$cur_name,
-			'currencies'=>$this->Currencies->getExchangeCurrencies(),
+			'currencies'=>$this->Currencies->getExchangeCurrencies($currencies),
 			'rate_usd' => $this->Currencies->getExchangeRate($cur_name, 'USD', 'client'),
 			'rate_kzt' => $this->Currencies->getExchangeRate($cur_name, 'KZT', 'client'),
 			'rate_uah' => $this->Currencies->getExchangeRate($cur_name, 'UAH', 'client'),

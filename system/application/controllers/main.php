@@ -1114,7 +1114,7 @@ Email: {$this->user->user_email}";
             // список посредников по выбранной стране
             $this->load->model('ManagerModel', 'Manager');
 
-			if ($managers = $this->Manager->getCountryManagers($order->order_country_from))
+			if (($managers = $this->Manager->getCountryManagers($order->order_country_from)) && $order->order_type != 'mail_forwarding')
 			{
 				$this->load->library('email');
 				$statistics = array();

@@ -12,12 +12,12 @@ class Moneysend extends BaseController {
     function index()
     {
         $this->load->model('MoneysendModel','m');
-        View::show('moneysend/index',array('money'=>$this->m->select(),'currency'=>$this->_get_exchange_rate_table('AUD')));
+        View::show('moneysend/index',array('money'=>$this->m->select(),'currency'=>$this->_get_exchange_rate_table('RUB')));
     }
 
     public function _get_exchange_rate_table($cur_name = false)
     {
-        $currencies = array('AUD', 'BRL', 'BTC', 'CAD', 'CHF', 'CNY', 'KRW', 'EUR', 'GBP', 'INR', 'HKD', 'JPY', 'NZD', 'SEK', 'SGD', 'USD');
+        $currencies = array('UAH','RUB','CNY','USD');
         if(!$cur_name OR !in_array($cur_name, $currencies))
         {
             return false;
@@ -25,7 +25,7 @@ class Moneysend extends BaseController {
         $this->load->model('CurrencyModel', 'Currencies');
         $view = array (
             'cur_currency'=>$cur_name,
-            'currencies'=>$this->Currencies->getExchangeCurrencies(),
+            'currencies'=>$this->Currencies->getExchangeCurrencies($currencies, true),
             'rate_usd' => $this->Currencies->getExchangeRate($cur_name, 'USD', 'client'),
             'rate_kzt' => $this->Currencies->getExchangeRate($cur_name, 'KZT', 'client'),
             'rate_uah' => $this->Currencies->getExchangeRate($cur_name, 'UAH', 'client'),
