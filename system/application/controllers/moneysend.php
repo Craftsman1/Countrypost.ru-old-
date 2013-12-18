@@ -26,10 +26,10 @@ class Moneysend extends BaseController {
         $view = array (
             'cur_currency'=>$cur_name,
             'currencies'=>$this->Currencies->getExchangeCurrencies($currencies, true),
-            'rate_usd' => $this->Currencies->getExchangeRate($cur_name, 'USD', 'client'),
-            'rate_kzt' => $this->Currencies->getExchangeRate($cur_name, 'KZT', 'client'),
-            'rate_uah' => $this->Currencies->getExchangeRate($cur_name, 'UAH', 'client'),
-            'rate_rur' => $this->Currencies->getExchangeRate($cur_name, 'RUB', 'client')
+            'rate_usd' => $this->Currencies->getExchangeRate($cur_name, 'USD', 'landing'),
+            'rate_kzt' => $this->Currencies->getExchangeRate($cur_name, 'KZT', 'landing'),
+            'rate_uah' => $this->Currencies->getExchangeRate($cur_name, 'UAH', 'landing'),
+            'rate_rur' => $this->Currencies->getExchangeRate($cur_name, 'RUB', 'landing')
         );
         return $this->load->view('/moneysend/exchange_rates', $view, true);
     }
