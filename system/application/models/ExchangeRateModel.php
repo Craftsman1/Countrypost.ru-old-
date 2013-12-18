@@ -32,7 +32,6 @@ class ExchangeRateModel extends BaseModel implements IModel{
     	$this->properties->currency_from		= '';
     	$this->properties->currency_to			= '';
     	$this->properties->service_name			= '';
-    	
         parent::__construct();
     }
     
