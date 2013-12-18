@@ -13,7 +13,7 @@
     <div><?php echo '1 ' . $cur_currency . ' = ' . number_format($rate_rur, 6) ?> RUB</div>
     <div><?php echo '1 ' . $cur_currency . ' = ' . number_format($rate_usd, 6) ?> USD</div>
     <div><?php echo '1 ' . $cur_currency . ' = ' . number_format($rate_uah, 6) ?> UAH</div>
-    <div><?php echo '1 ' . $cur_currency . ' = ' . number_format($rate_kzt, 6) ?> KZT</div>
+    <div><?php echo '1 ' . $cur_currency . ' = ' . number_format($rate_kzt, 6) ?> CNY</div>
     <script type="text/javascript">
         $(function () {
             $('#currency_select').change(function () {
