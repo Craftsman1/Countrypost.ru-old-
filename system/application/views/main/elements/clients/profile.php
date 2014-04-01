@@ -1,4 +1,4 @@
-<div class="profile table client_tab" style="height: 160px;">
+<div class="profile table client_tab" style="height: 70px;">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
@@ -21,7 +21,7 @@
 				<?= isset($client->created) ? date('d.m.Y H:i', strtotime($client->created)) : date('d.m.Y H:i')?>
 			</span>
 		</div>
-		<div>
+		<!--?<div>
 		<span>
 			Отзывы:
 		</span>
@@ -33,7 +33,6 @@
 			)); ?>
 		</span>
 		</div>
-        <? if(( ! empty($client->statistics->skype)) AND !empty($this->user) AND ($this->user->user_group == 'manager' OR $this->user->user_id == $client->client_user)) : ?>
 		<div>
             <span>
                 Skype:
@@ -42,8 +41,6 @@
                 <?= $client->statistics->skype ?>
             </span>
 		</div>
-		<? endif; ?>
-		<? if (isset($this->user->user_group) AND ($this->user->user_group == 'manager' OR ($this->user->user_group == 'client' AND $this->user->user_id == $client->client_user))) : ?>
 		<div>
             <span>
                 Email:
@@ -59,8 +56,7 @@
 			<span>
 				<?= $client->client_phone ?>
 			</span>
-		</div>
-		<? endif; ?>
+		</div>?-->
 	</div>
 </div>
 

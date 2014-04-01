@@ -2,5 +2,8 @@ User-agent: *
 Disallow: /redirect
 Disallow: /cgi-bin
 Disallow: /profile
+Disallow: /old/
+Disallow: /clients
+
 
 Host: countrypost.ru
