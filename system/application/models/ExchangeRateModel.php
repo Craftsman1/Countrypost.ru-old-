@@ -98,6 +98,15 @@ class ExchangeRateModel extends BaseModel implements IModel{
 		return TRUE;
 	}
 
+	public function updateCrossRate($crossRate,$currencyFrom,$currencyTo) {
+	 $this->db->where('currency_from', $currencyFrom );
+		$this->db->where('currency_to', $currencyTo );
+		$this->db->set('rate', $crossRate);
+		$this->db->limit(1);
+		$this->db->update('exchange_rates');
+		$result = $this->db->affected_rows();
+		return ($result == 0) ? FALSE : TRUE;
+	}
 	public function getByCurrencies($currency_from, $currency_to)
 	{
 		$result = $this->db->query("
