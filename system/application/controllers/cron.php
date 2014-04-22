@@ -93,6 +93,11 @@ class Cron extends BaseController {
 		}
 	}
 
+	public function updateCrossRateCNYToUAH()
+	{
+		$this->crossExchangeRateUpdate('USD', 'UAH', 'CNY');
+	}
+
 	public function crossExchangeRateUpdate($currencyFrom, $crossRateTo, $crossRateCurrencyFrom) {
 		$this->load->library('curl');
 		$data = $this->curl->get('https://api.privatbank.ua/p24api/pubinfo?exchange', array('coursid'=>5));
