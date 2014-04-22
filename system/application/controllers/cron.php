@@ -110,7 +110,7 @@ class Cron extends BaseController {
 				$crossRateFromValue = ((float)$crossRateFromValue->rate) ? (float)$crossRateFromValue->rate:1;
 				$crossRateToValue = ((float)$crossRateToValue->rate) ? (float)$crossRateToValue->rate:1;
 				$crossRate =  ((1015/$crossRateFromValue)*$crossRateToValue)/1015;
-				echo 'Кросс курс: '$crossRate;
+				echo 'Кросс курс: ' . $crossRate;
 				$updateResult = $this->ExchangeRateModel->updateCrossRate($crossRate, $crossRateCurrencyFrom, $crossRateTo);
 				if ($updateResult == 'not updated' ) {
 					echo 'Кросс-курс CNY к UAH не был обновлен. Возможно поле отстуствует в базе данных';
