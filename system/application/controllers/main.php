@@ -165,7 +165,7 @@ class Main extends BaseController {
 				$crossRate =  ((1015/$crossRateFromValue)*$crossRateToValue)/1015;
 				$updateResult = $this->ExchangeRateModel->updateCrossRate($crossRate, $crossRateCurrencyFrom, $crossRateTo);
 				if ($updateResult == 'not updated' ) {
-					echo 'Ошибка обновления. Кросс-курс CNY к UAH не был обновлен';
+					echo 'Ошибка обновления кросс-курса CNY к UAH. Курс не был обновлен';
 				} else {
 					$crossRateNew = $this->ExchangeRateModel->getByCurrencies($crossRateCurrencyFrom, $crossRateTo);
 					echo 'Кросс-курс CNY к UAH обновлен. </br> Предыдущий курс: ' . $crossRateToPrevious->rate . '</br> Текущий курс: ' . $crossRateNew->rate . '</br>';
