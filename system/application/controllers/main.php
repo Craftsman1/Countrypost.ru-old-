@@ -126,7 +126,6 @@ class Main extends BaseController {
 			// страны для фильтра
 			$this->load->model('CountryModel', 'Country');
 			$view['countries'] = $this->Country->getList();
-			
 			if (empty($view['countries']))
 			{
 				throw new Exception('Страны не найдены. Попробуйте еще раз.');
@@ -141,14 +140,42 @@ class Main extends BaseController {
 			
 			Stack::push('result', $this->result);
 		}
-		
+
 		$view['selfurl'] = $this->config->item('base_url').$this->cname.'/';
 		$view['viewpath'] = $this->viewpath;
 		$this->load->view($this->viewpath."ajax/showUnassignedOrders", $view);
 	}
-	
+	public function updateCrossRateCNYToUAH()
+	{
+		$this->crossExchangeRateUpdate('USD', 'UAH', 'CNY');
+	}
+	public function crossExchangeRateUpdate($currencyFrom, $crossRateTo, $crossRateCurrencyFrom) {
+		$this->load->library('curl');
+		$data = $this->curl->get('https://api.privatbank.ua/p24api/pubinfo?exchange', array('coursid'=>5));
+		$dataObject = simplexml_load_string($data);
+		foreach($dataObject->row as $value ){
+			$attributes = $value->children()->exchangerate;
+			if ( $attributes['ccy'] == $currencyFrom && $attributes['base_ccy'] == $crossRateTo ) {
+				$this->load->model('ExchangeRateModel');
+				$crossRateFromValue = $this->ExchangeRateModel->getByCurrencies($currencyFrom, $crossRateCurrencyFrom);
+				$crossRateToValue = $this->ExchangeRateModel->getByCurrencies($currencyFrom, $crossRateTo);
+				$crossRateToPrevious = $this->ExchangeRateModel->getByCurrencies($crossRateCurrencyFrom, $crossRateTo);
+				$crossRateFromValue = ((float)$crossRateFromValue->rate) ? (float)$crossRateFromValue->rate:1;
+				$crossRateToValue = ((float)$crossRateToValue->rate) ? (float)$crossRateToValue->rate:1;
+				$crossRate =  ((1015/$crossRateFromValue)*$crossRateToValue)/1015;
+				$updateResult = $this->ExchangeRateModel->updateCrossRate($crossRate, $crossRateCurrencyFrom, $crossRateTo);
+				if ($updateResult == 'not updated' ) {
+					echo 'Ошибка обновления. Кросс-курс CNY к UAH не был обновлен';
+				} else {
+					$crossRateNew = $this->ExchangeRateModel->getByCurrencies($crossRateCurrencyFrom, $crossRateTo);
+					echo 'Кросс-курс CNY к UAH обновлен. </br> Предыдущий курс: ' . $crossRateToPrevious->rate . '</br> Текущий курс: ' . $crossRateNew->rate . '</br>';
+				}
+			}
+		}
+	}
 	function refreshExchangeRates()
 	{
+		$this->updateCrossRateCNYToUAH();
 		$this->load->library('OpenExchangeRates');
 
 		if ($this->openexchangerates->getRates())
