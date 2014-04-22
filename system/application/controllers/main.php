@@ -158,11 +158,19 @@ class Main extends BaseController {
 			if ( $attributes['ccy'] == $currencyFrom && $attributes['base_ccy'] == $crossRateTo ) {
 				$this->load->model('ExchangeRateModel');
 				$crossRateFromValue = $this->ExchangeRateModel->getByCurrencies($currencyFrom, $crossRateCurrencyFrom);
-				$crossRateToValue = $this->ExchangeRateModel->getByCurrencies($currencyFrom, $crossRateTo);
+				$client_extra_tax =   (float)$crossRateFromValue->client_extra_tax;
+				$crossRateToValue = $attributes['sale'];
 				$crossRateToPrevious = $this->ExchangeRateModel->getByCurrencies($crossRateCurrencyFrom, $crossRateTo);
 				$crossRateFromValue = ((float)$crossRateFromValue->rate) ? (float)$crossRateFromValue->rate:1;
-				$crossRateToValue = ((float)$crossRateToValue->rate) ? (float)$crossRateToValue->rate:1;
-				$crossRate =  ((1015/$crossRateFromValue)*$crossRateToValue)/1015;
+				$crossRateToValue = ((float)$crossRateToValue) ? (float)$crossRateToValue:1;
+				$absExtraTax = abs($client_extra_tax);
+				$clientExtraTaxValue = (float)( (float)($crossRateFromValue/100) * $absExtraTax);
+				if ($client_extra_tax < 0)	{
+					$crossRateFromValueWithTax = $crossRateFromValue - $clientExtraTaxValue;
+				} else {
+					$crossRateFromValueWithTax = $crossRateFromValue + $clientExtraTaxValue;
+				}
+				$crossRate =  ((1015/ $crossRateFromValueWithTax )*$crossRateToValue)/1015;
 				$updateResult = $this->ExchangeRateModel->updateCrossRate($crossRate, $crossRateCurrencyFrom, $crossRateTo);
 				if ($updateResult == 'not updated' ) {
 					echo 'Ошибка обновления кросс-курса CNY к UAH. Курс не был обновлен';
@@ -173,9 +181,9 @@ class Main extends BaseController {
 			}
 		}
 	}
+
 	function refreshExchangeRates()
 	{
-		$this->updateCrossRateCNYToUAH();
 		$this->load->library('OpenExchangeRates');
 
 		if ($this->openexchangerates->getRates())
@@ -186,7 +194,7 @@ class Main extends BaseController {
 		{
 			print("Ошибка обновления курсов валют через OpenExchangeRates. Попробуйте еще раз через несколько минут.");
 		}
-
+		$this->updateCrossRateCNYToUAH();
 		/*
 		$this->load->library('cbr');
 		$this->load->model('CurrencyModel', 'Currencies');
