@@ -21,3 +21,5 @@ config/application.config.old
 config/autoload/local.php
 /config/autoload/local.php
 public/uploads/
+
+
