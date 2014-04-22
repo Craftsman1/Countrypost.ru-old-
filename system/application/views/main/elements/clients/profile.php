@@ -1,4 +1,4 @@
-<div class="profile table client_tab" style="height: 70px;">
+<div class="profile table client_tab" style="height: 160px;">
 	<div class='angle angle-lt'></div>
 	<div class='angle angle-rt'></div>
 	<div class='angle angle-lb'></div>
@@ -21,7 +21,7 @@
 				<?= isset($client->created) ? date('d.m.Y H:i', strtotime($client->created)) : date('d.m.Y H:i')?>
 			</span>
 		</div>
-		<!--?<div>
+		<div>
 		<span>
 			Отзывы:
 		</span>
@@ -41,14 +41,14 @@
                 <?= $client->statistics->skype ?>
             </span>
 		</div>
-		<div>
+		<!--?<div>
             <span>
                 Email:
             </span>
             <span>
                 <a href="mailto:<?= $client->statistics->email ?>"><?= $client->statistics->email ?></a>
             </span>
-		</div>
+		</div>?-->
 		<div>
 			<span>
 				Телефон:
@@ -56,7 +56,7 @@
 			<span>
 				<?= $client->client_phone ?>
 			</span>
-		</div>?-->
+		</div>
 	</div>
 </div>
 

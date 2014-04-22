@@ -4,6 +4,4 @@ Disallow: /cgi-bin
 Disallow: /profile
 Disallow: /old/
 
-
-
 Host: countrypost.ru

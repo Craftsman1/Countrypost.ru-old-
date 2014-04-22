@@ -8,6 +8,7 @@
     ?>
 	<ul class='menu'>
 		<li><a href='<?= $this->config->item('base_url') ?>dealers'>Посредники (<?=$managers_count?>)</a></li>
+		<li><a href='<?= $this->config->item('base_url') ?>clients'>Клиенты (<?=$clients_count?>)</a></li>
 		<li><a href='<?= $this->config->item('base_url') ?>main/showFAQ'>FAQ</a></li>
 		</ul>
 </div>
