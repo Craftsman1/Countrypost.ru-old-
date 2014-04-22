@@ -97,7 +97,6 @@ class Cron extends BaseController {
 	{
 		$this->crossExchangeRateUpdate('USD', 'UAH', 'CNY');
 	}
-
 	public function crossExchangeRateUpdate($currencyFrom, $crossRateTo, $crossRateCurrencyFrom) {
 		$this->load->library('curl');
 		$data = $this->curl->get('https://api.privatbank.ua/p24api/pubinfo?exchange', array('coursid'=>5));
@@ -112,6 +111,12 @@ class Cron extends BaseController {
 				$crossRateToValue = ((float)$crossRateToValue->rate) ? (float)$crossRateToValue->rate:1;
 				$crossRate =  ((1015/$crossRateFromValue)*$crossRateToValue)/1015;
 				$updateResult = $this->ExchangeRateModel->updateCrossRate($crossRate, $crossRateCurrencyFrom, $crossRateTo);
+				if ($updateResult == 'not updated' ) {
+					echo 'Кросс-курс CNY к UAH не был обновлен. Возможно поле отстуствует в базе данных';
+				} else {
+					$crossRateNew = $this->ExchangeRateModel->getByCurrencies($crossRateCurrencyFrom, $crossRateTo);
+					echo 'Кросс-курс CNY к UAH обновлен. Текущий курс ' . $crossRateNew->rate;
+				}
 			}
 		}
 	}
