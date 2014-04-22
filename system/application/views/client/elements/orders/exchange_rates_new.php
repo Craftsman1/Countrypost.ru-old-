@@ -1,6 +1,4 @@
-<?
-
-if(isset($currencies) AND $currencies) : ?>
+<? if(isset($currencies) AND $currencies) : ?>
 <div class='adittional-block' style="    position: absolute;    right: 0px;    top: 0px;    z-index: 1;    width: 239px;font-size:20px;">
 	<div class='headlines' style="    margin-right: 20px;    width: 235px;">
 		<div class='angle angle-lt'></div>
@@ -10,7 +8,7 @@ if(isset($currencies) AND $currencies) : ?>
 		<center><h2 >Курсы валют Countrypost</h2></center>
 		<center>
 			<select id="currency_select">
-				<?  foreach($currencies as $cur): ?>
+				<? foreach($currencies as $cur): ?>
 				<option value="<?= $cur['currency_name']; ?>" <?= ($cur_currency == $cur['currency_name'] ? 'selected="selected"' : ''); ?>>1 <?= $cur['currency_name']; ?> =</option>
 				<? endforeach; ?>
 			</select>
