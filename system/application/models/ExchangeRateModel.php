@@ -120,5 +120,14 @@ class ExchangeRateModel extends BaseModel implements IModel{
 			$bulk_rate
 		);
 	}
+
+	public function updateCrossRate($crossRate,$currencyFrom,$currencyTo)
+	{
+		$this->db->where('currency_from', $currencyFrom );
+		$this->db->where('currency_to', $currencyTo );
+		$this->db->set('rate', $crossRate);
+		$this->db->limit(1);
+		return $this->db->update('exchange_rates');
+	}
 }
 ?>

@@ -92,4 +92,22 @@ class Cron extends BaseController {
 			print_r($ex);
 		}
 	}
+
+	public function crossExchangeRateUpdate($currencyFrom, $crossRateTo, $crossRateCurrencyFrom) {
+		$this->load->library('curl');
+		$data = $this->curl->get('https://api.privatbank.ua/p24api/pubinfo?exchange', array('coursid'=>5));
+		$dataObject = simplexml_load_string($data);
+		foreach($dataObject->row as $value ){
+			$attributes = $value->children()->exchangerate;
+			if ( $attributes['ccy'] == $currencyFrom && $attributes['base_ccy'] == $crossRateTo ) {
+				$this->load->model('ExchangeRateModel');
+				$crossRateFromValue = $this->ExchangeRateModel->getByCurrencies($currencyFrom, $crossRateCurrencyFrom);
+				$crossRateToValue = $this->ExchangeRateModel->getByCurrencies($currencyFrom, $crossRateTo);
+				$crossRateFromValue = ((float)$crossRateFromValue->rate) ? (float)$crossRateFromValue->rate:1;
+				$crossRateToValue = ((float)$crossRateToValue->rate) ? (float)$crossRateToValue->rate:1;
+				$crossRate =  ((1015/$crossRateFromValue)*$crossRateToValue)/1015;
+				$updateResult = $this->ExchangeRateModel->updateCrossRate($crossRate, $crossRateCurrencyFrom, $crossRateTo);
+			}
+		}
+	}
 }
