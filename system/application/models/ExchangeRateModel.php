@@ -128,12 +128,7 @@ class ExchangeRateModel extends BaseModel implements IModel{
 		$this->db->set('rate', $crossRate);
 		$this->db->limit(1);
 		$updateResult = $this->db->update('exchange_rates');
-		if ($updateResult) {
-			return  'updated';
-		} else {
-			return 'not_updated';
-		}
-
+		return ($updateResult) ?   'updated' : 'not_updated';
 	}
 }
 ?>
